@@ -1,0 +1,29 @@
+{
+    "name": "gedcomx/gedcomx-php",
+    "homepage": "https://github.com/FamilySearch/gedcomx-php",
+    "description": "PHP libraries for GEDCOM X.",
+    "keywords": ["gedcomx","familysearch","sdk", "genealogy"],
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "FamilySearch",
+            "homepage": "https://familysearch.org"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/FamilySearch/gedcomx-php/issues"
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "guzzle/guzzle": ">=3.7.0,<3.9.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Gedcomx": "src/"
+        }
+    }
+}
