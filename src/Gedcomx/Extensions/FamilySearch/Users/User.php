@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,433 +7,429 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Users {
+namespace Gedcomx\Extensions\FamilySearch\Users;
+
+/**
+ * Family Tree User Service User
+ */
+class User extends \Gedcomx\Links\HypermediaEnabledData 
+{
+    
 
     /**
-     * Family Tree User Service User
+     * (no documentation provided)
      */
-    class User extends \Gedcomx\Links\HypermediaEnabledData  {
-    
-    
-      /**
-       * (no documentation provided)
-       */
-      private $alternateEmail;
-      /**
-       * (no documentation provided)
-       */
-      private $birthDate;
-      /**
-       * (no documentation provided)
-       */
-      private $contactName;
-      /**
-       * (no documentation provided)
-       */
-      private $country;
-      /**
-       * (no documentation provided)
-       */
-      private $displayName;
-      /**
-       * (no documentation provided)
-       */
-      private $email;
-      /**
-       * (no documentation provided)
-       */
-      private $familyName;
-      /**
-       * (no documentation provided)
-       */
-      private $fullName;
-      /**
-       * (no documentation provided)
-       */
-      private $gender;
-      /**
-       * (no documentation provided)
-       */
-      private $givenName;
-      /**
-       * (no documentation provided)
-       */
-      private $helperAccessPin;
-      /**
-       * (no documentation provided)
-       */
-      private $ldsMemberAccount;
-      /**
-       * (no documentation provided)
-       */
-      private $mailingAddress;
-      /**
-       * (no documentation provided)
-       */
-      private $personId;
-      /**
-       * (no documentation provided)
-       */
-      private $phoneNumber;
-      /**
-       * (no documentation provided)
-       */
-      private $preferredLanguage;
-      /**
-       * (no documentation provided)
-       */
-      private $treeUserId;
+    private $alternateEmail;
+    /**
+     * (no documentation provided)
+     */
+    private $birthDate;
+    /**
+     * (no documentation provided)
+     */
+    private $contactName;
+    /**
+     * (no documentation provided)
+     */
+    private $country;
+    /**
+     * (no documentation provided)
+     */
+    private $displayName;
+    /**
+     * (no documentation provided)
+     */
+    private $email;
+    /**
+     * (no documentation provided)
+     */
+    private $familyName;
+    /**
+     * (no documentation provided)
+     */
+    private $fullName;
+    /**
+     * (no documentation provided)
+     */
+    private $gender;
+    /**
+     * (no documentation provided)
+     */
+    private $givenName;
+    /**
+     * (no documentation provided)
+     */
+    private $helperAccessPin;
+    /**
+     * (no documentation provided)
+     */
+    private $ldsMemberAccount;
+    /**
+     * (no documentation provided)
+     */
+    private $mailingAddress;
+    /**
+     * (no documentation provided)
+     */
+    private $personId;
+    /**
+     * (no documentation provided)
+     */
+    private $phoneNumber;
+    /**
+     * (no documentation provided)
+     */
+    private $preferredLanguage;
+    /**
+     * (no documentation provided)
+     */
+    private $treeUserId;
 
-      /**
-       * Constructs a User from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a User from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function getAlternateEmail() {
-        return $this->alternateEmail;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setAlternateEmail($alternateEmail) {
-        $this->alternateEmail = $alternateEmail;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getBirthDate() {
-        return $this->birthDate;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setBirthDate($birthDate) {
-        $this->birthDate = $birthDate;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getContactName() {
-        return $this->contactName;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setContactName($contactName) {
-        $this->contactName = $contactName;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getCountry() {
-        return $this->country;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setCountry($country) {
-        $this->country = $country;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getDisplayName() {
-        return $this->displayName;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setDisplayName($displayName) {
-        $this->displayName = $displayName;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getEmail() {
-        return $this->email;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setEmail($email) {
-        $this->email = $email;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getFamilyName() {
-        return $this->familyName;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setFamilyName($familyName) {
-        $this->familyName = $familyName;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getFullName() {
-        return $this->fullName;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setFullName($fullName) {
-        $this->fullName = $fullName;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getGender() {
-        return $this->gender;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setGender($gender) {
-        $this->gender = $gender;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getGivenName() {
-        return $this->givenName;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setGivenName($givenName) {
-        $this->givenName = $givenName;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getHelperAccessPin() {
-        return $this->helperAccessPin;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setHelperAccessPin($helperAccessPin) {
-        $this->helperAccessPin = $helperAccessPin;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getLdsMemberAccount() {
-        return $this->ldsMemberAccount;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setLdsMemberAccount($ldsMemberAccount) {
-        $this->ldsMemberAccount = $ldsMemberAccount;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getMailingAddress() {
-        return $this->mailingAddress;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setMailingAddress($mailingAddress) {
-        $this->mailingAddress = $mailingAddress;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getPersonId() {
-        return $this->personId;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setPersonId($personId) {
-        $this->personId = $personId;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getPhoneNumber() {
-        return $this->phoneNumber;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setPhoneNumber($phoneNumber) {
-        $this->phoneNumber = $phoneNumber;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getPreferredLanguage() {
-        return $this->preferredLanguage;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setPreferredLanguage($preferredLanguage) {
-        $this->preferredLanguage = $preferredLanguage;
-      }
-      /**
-       * (no documentation provided)
-       */
-      public function getTreeUserId() {
-        return $this->treeUserId;
-      }
-      
-      /**
-       * (no documentation provided)
-       */
-      public function setTreeUserId($treeUserId) {
-        $this->treeUserId = $treeUserId;
-      }
-      /**
-       * Returns the associative array for this User
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->alternateEmail ) {
-          $a["alternateEmail"] = $this->alternateEmail;
-        }
-        if( $this->birthDate ) {
-          $a["birthDate"] = $this->birthDate;
-        }
-        if( $this->contactName ) {
-          $a["contactName"] = $this->contactName;
-        }
-        if( $this->country ) {
-          $a["country"] = $this->country;
-        }
-        if( $this->displayName ) {
-          $a["displayName"] = $this->displayName;
-        }
-        if( $this->email ) {
-          $a["email"] = $this->email;
-        }
-        if( $this->familyName ) {
-          $a["familyName"] = $this->familyName;
-        }
-        if( $this->fullName ) {
-          $a["fullName"] = $this->fullName;
-        }
-        if( $this->gender ) {
-          $a["gender"] = $this->gender;
-        }
-        if( $this->givenName ) {
-          $a["givenName"] = $this->givenName;
-        }
-        if( $this->helperAccessPin ) {
-          $a["helperAccessPin"] = $this->helperAccessPin;
-        }
-        if( $this->ldsMemberAccount ) {
-          $a["ldsMemberAccount"] = $this->ldsMemberAccount;
-        }
-        if( $this->mailingAddress ) {
-          $a["mailingAddress"] = $this->mailingAddress;
-        }
-        if( $this->personId ) {
-          $a["personId"] = $this->personId;
-        }
-        if( $this->phoneNumber ) {
-          $a["phoneNumber"] = $this->phoneNumber;
-        }
-        if( $this->preferredLanguage ) {
-          $a["preferredLanguage"] = $this->preferredLanguage;
-        }
-        if( $this->treeUserId ) {
-          $a["treeUserId"] = $this->treeUserId;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this User from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['alternateEmail']) ) {
-          $this->alternateEmail = $o["alternateEmail"];
-        }
-        if( isset($o['birthDate']) ) {
-          $this->birthDate = $o["birthDate"];
-        }
-        if( isset($o['contactName']) ) {
-          $this->contactName = $o["contactName"];
-        }
-        if( isset($o['country']) ) {
-          $this->country = $o["country"];
-        }
-        if( isset($o['displayName']) ) {
-          $this->displayName = $o["displayName"];
-        }
-        if( isset($o['email']) ) {
-          $this->email = $o["email"];
-        }
-        if( isset($o['familyName']) ) {
-          $this->familyName = $o["familyName"];
-        }
-        if( isset($o['fullName']) ) {
-          $this->fullName = $o["fullName"];
-        }
-        if( isset($o['gender']) ) {
-          $this->gender = $o["gender"];
-        }
-        if( isset($o['givenName']) ) {
-          $this->givenName = $o["givenName"];
-        }
-        if( isset($o['helperAccessPin']) ) {
-          $this->helperAccessPin = $o["helperAccessPin"];
-        }
-        if( isset($o['ldsMemberAccount']) ) {
-          $this->ldsMemberAccount = $o["ldsMemberAccount"];
-        }
-        if( isset($o['mailingAddress']) ) {
-          $this->mailingAddress = $o["mailingAddress"];
-        }
-        if( isset($o['personId']) ) {
-          $this->personId = $o["personId"];
-        }
-        if( isset($o['phoneNumber']) ) {
-          $this->phoneNumber = $o["phoneNumber"];
-        }
-        if( isset($o['preferredLanguage']) ) {
-          $this->preferredLanguage = $o["preferredLanguage"];
-        }
-        if( isset($o['treeUserId']) ) {
-          $this->treeUserId = $o["treeUserId"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * (no documentation provided)
+     */
+    public function getAlternateEmail() {
+      return $this->alternateEmail;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setAlternateEmail($alternateEmail) {
+      $this->alternateEmail = $alternateEmail;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getBirthDate() {
+      return $this->birthDate;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setBirthDate($birthDate) {
+      $this->birthDate = $birthDate;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getContactName() {
+      return $this->contactName;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setContactName($contactName) {
+      $this->contactName = $contactName;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getCountry() {
+      return $this->country;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setCountry($country) {
+      $this->country = $country;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getDisplayName() {
+      return $this->displayName;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setDisplayName($displayName) {
+      $this->displayName = $displayName;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getEmail() {
+      return $this->email;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setEmail($email) {
+      $this->email = $email;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getFamilyName() {
+      return $this->familyName;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setFamilyName($familyName) {
+      $this->familyName = $familyName;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getFullName() {
+      return $this->fullName;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setFullName($fullName) {
+      $this->fullName = $fullName;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getGender() {
+      return $this->gender;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setGender($gender) {
+      $this->gender = $gender;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getGivenName() {
+      return $this->givenName;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setGivenName($givenName) {
+      $this->givenName = $givenName;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getHelperAccessPin() {
+      return $this->helperAccessPin;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setHelperAccessPin($helperAccessPin) {
+      $this->helperAccessPin = $helperAccessPin;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getLdsMemberAccount() {
+      return $this->ldsMemberAccount;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setLdsMemberAccount($ldsMemberAccount) {
+      $this->ldsMemberAccount = $ldsMemberAccount;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getMailingAddress() {
+      return $this->mailingAddress;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setMailingAddress($mailingAddress) {
+      $this->mailingAddress = $mailingAddress;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getPersonId() {
+      return $this->personId;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setPersonId($personId) {
+      $this->personId = $personId;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getPhoneNumber() {
+      return $this->phoneNumber;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setPhoneNumber($phoneNumber) {
+      $this->phoneNumber = $phoneNumber;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getPreferredLanguage() {
+      return $this->preferredLanguage;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setPreferredLanguage($preferredLanguage) {
+      $this->preferredLanguage = $preferredLanguage;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getTreeUserId() {
+      return $this->treeUserId;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setTreeUserId($treeUserId) {
+      $this->treeUserId = $treeUserId;
+    }
+    /**
+     * Returns the associative array for this User
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->alternateEmail ) {
+            $a["alternateEmail"] = $this->alternateEmail;
+      }
+      if( $this->birthDate ) {
+            $a["birthDate"] = $this->birthDate;
+      }
+      if( $this->contactName ) {
+            $a["contactName"] = $this->contactName;
+      }
+      if( $this->country ) {
+            $a["country"] = $this->country;
+      }
+      if( $this->displayName ) {
+            $a["displayName"] = $this->displayName;
+      }
+      if( $this->email ) {
+            $a["email"] = $this->email;
+      }
+      if( $this->familyName ) {
+            $a["familyName"] = $this->familyName;
+      }
+      if( $this->fullName ) {
+            $a["fullName"] = $this->fullName;
+      }
+      if( $this->gender ) {
+            $a["gender"] = $this->gender;
+      }
+      if( $this->givenName ) {
+            $a["givenName"] = $this->givenName;
+      }
+      if( $this->helperAccessPin ) {
+            $a["helperAccessPin"] = $this->helperAccessPin;
+      }
+      if( $this->ldsMemberAccount ) {
+            $a["ldsMemberAccount"] = $this->ldsMemberAccount;
+      }
+      if( $this->mailingAddress ) {
+            $a["mailingAddress"] = $this->mailingAddress;
+      }
+      if( $this->personId ) {
+            $a["personId"] = $this->personId;
+      }
+      if( $this->phoneNumber ) {
+            $a["phoneNumber"] = $this->phoneNumber;
+      }
+      if( $this->preferredLanguage ) {
+            $a["preferredLanguage"] = $this->preferredLanguage;
+      }
+      if( $this->treeUserId ) {
+            $a["treeUserId"] = $this->treeUserId;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this User from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['alternateEmail']) ) {
+            $this->alternateEmail = $o["alternateEmail"];
+      }
+      if( isset($o['birthDate']) ) {
+            $this->birthDate = $o["birthDate"];
+      }
+      if( isset($o['contactName']) ) {
+            $this->contactName = $o["contactName"];
+      }
+      if( isset($o['country']) ) {
+            $this->country = $o["country"];
+      }
+      if( isset($o['displayName']) ) {
+            $this->displayName = $o["displayName"];
+      }
+      if( isset($o['email']) ) {
+            $this->email = $o["email"];
+      }
+      if( isset($o['familyName']) ) {
+            $this->familyName = $o["familyName"];
+      }
+      if( isset($o['fullName']) ) {
+            $this->fullName = $o["fullName"];
+      }
+      if( isset($o['gender']) ) {
+            $this->gender = $o["gender"];
+      }
+      if( isset($o['givenName']) ) {
+            $this->givenName = $o["givenName"];
+      }
+      if( isset($o['helperAccessPin']) ) {
+            $this->helperAccessPin = $o["helperAccessPin"];
+      }
+      if( isset($o['ldsMemberAccount']) ) {
+            $this->ldsMemberAccount = $o["ldsMemberAccount"];
+      }
+      if( isset($o['mailingAddress']) ) {
+            $this->mailingAddress = $o["mailingAddress"];
+      }
+      if( isset($o['personId']) ) {
+            $this->personId = $o["personId"];
+      }
+      if( isset($o['phoneNumber']) ) {
+            $this->phoneNumber = $o["phoneNumber"];
+      }
+      if( isset($o['preferredLanguage']) ) {
+            $this->preferredLanguage = $o["preferredLanguage"];
+      }
+      if( isset($o['treeUserId']) ) {
+            $this->treeUserId = $o["treeUserId"];
+      }
+    }
+}

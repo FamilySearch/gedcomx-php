@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,113 +7,109 @@
  *
  */
 
-  namespace Gedcomx\Conclusion {
+namespace Gedcomx\Conclusion;
 
-    /**
-     * A set of display properties for places for the convenience of quick display, such as for
+/**
+ * A set of display properties for places for the convenience of quick display, such as for
      * a Web-based application. All display properties are provided in the default locale for the current
      * application context and are NOT considered canonical for the purposes of data exchange.
+ */
+class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData 
+{
+    
+
+    /**
+     * The displayable full name of the place.
      */
-    class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData  {
-    
-    
-      /**
-       * The displayable full name of the place.
-       */
-      private $fullName;
-      /**
-       * The displayable name of the place.
-       */
-      private $name;
-      /**
-       * The displayable type of the place.
-       */
-      private $type;
+    private $fullName;
+    /**
+     * The displayable name of the place.
+     */
+    private $name;
+    /**
+     * The displayable type of the place.
+     */
+    private $type;
 
-      /**
-       * Constructs a PlaceDisplayProperties from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a PlaceDisplayProperties from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The displayable full name of the place.
-       */
-      public function getFullName() {
-        return $this->fullName;
-      }
-      
-      /**
-       * The displayable full name of the place.
-       */
-      public function setFullName($fullName) {
-        $this->fullName = $fullName;
-      }
-      /**
-       * The displayable name of the place.
-       */
-      public function getName() {
-        return $this->name;
-      }
-      
-      /**
-       * The displayable name of the place.
-       */
-      public function setName($name) {
-        $this->name = $name;
-      }
-      /**
-       * The displayable type of the place.
-       */
-      public function getType() {
-        return $this->type;
-      }
-      
-      /**
-       * The displayable type of the place.
-       */
-      public function setType($type) {
-        $this->type = $type;
-      }
-      /**
-       * Returns the associative array for this PlaceDisplayProperties
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->fullName ) {
-          $a["fullName"] = $this->fullName;
-        }
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this PlaceDisplayProperties from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['fullName']) ) {
-          $this->fullName = $o["fullName"];
-        }
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The displayable full name of the place.
+     */
+    public function getFullName() {
+      return $this->fullName;
+    }
+
+    /**
+     * The displayable full name of the place.
+     */
+    public function setFullName($fullName) {
+      $this->fullName = $fullName;
+    }
+    /**
+     * The displayable name of the place.
+     */
+    public function getName() {
+      return $this->name;
+    }
+
+    /**
+     * The displayable name of the place.
+     */
+    public function setName($name) {
+      $this->name = $name;
+    }
+    /**
+     * The displayable type of the place.
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * The displayable type of the place.
+     */
+    public function setType($type) {
+      $this->type = $type;
+    }
+    /**
+     * Returns the associative array for this PlaceDisplayProperties
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->fullName ) {
+            $a["fullName"] = $this->fullName;
+      }
+      if( $this->name ) {
+            $a["name"] = $this->name;
+      }
+      if( $this->type ) {
+            $a["type"] = $this->type;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this PlaceDisplayProperties from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['fullName']) ) {
+            $this->fullName = $o["fullName"];
+      }
+      if( isset($o['name']) ) {
+            $this->name = $o["name"];
+      }
+      if( isset($o['type']) ) {
+            $this->type = $o["type"];
+      }
+    }
+}

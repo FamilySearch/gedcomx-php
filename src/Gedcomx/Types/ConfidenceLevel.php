@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,23 +7,27 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of levels of confidence.
-    class ConfidenceLevel {
-    
+/**
+ * Enumeration of levels of confidence.
+ */
+class ConfidenceLevel
+{
 
-      //  High of confidence.
-      const High = "{http://gedcomx.org/}High";
+    /**
+     *  High of confidence.
+     */
+    const High = "http://gedcomx.org/High";
 
-      //  Medium of confidence.
-      const Medium = "{http://gedcomx.org/}Medium";
+    /**
+     *  Medium of confidence.
+     */
+    const Medium = "http://gedcomx.org/Medium";
 
-      //  Low of confidence.
-      const Low = "{http://gedcomx.org/}Low";
-    
-    }
+    /**
+     *  Low of confidence.
+     */
+    const Low = "http://gedcomx.org/Low";
 
-  }  
-    
-?>
+}

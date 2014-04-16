@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,139 +7,135 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch {
+namespace Gedcomx\Extensions\FamilySearch;
+
+/**
+ * A common representation of an error on the FamilySearch platform.
+ */
+class Error 
+{
+    
 
     /**
-     * A common representation of an error on the FamilySearch platform.
+     * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
      */
-    class Error  {
-    
-    
-      /**
-       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
-       */
-      private $code;
-      /**
-       * A text label associated with the error code.
-       */
-      private $label;
-      /**
-       * A message associated with the error.
-       */
-      private $message;
-      /**
-       * The back-end stack trace associated with the error, useful for debugging.
-       */
-      private $stacktrace;
+    private $code;
+    /**
+     * A text label associated with the error code.
+     */
+    private $label;
+    /**
+     * A message associated with the error.
+     */
+    private $message;
+    /**
+     * The back-end stack trace associated with the error, useful for debugging.
+     */
+    private $stacktrace;
 
-      /**
-       * Constructs a Error from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Error from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
-       */
-      public function getCode() {
-        return $this->code;
-      }
-      
-      /**
-       * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
-       */
-      public function setCode($code) {
-        $this->code = $code;
-      }
-      /**
-       * A text label associated with the error code.
-       */
-      public function getLabel() {
-        return $this->label;
-      }
-      
-      /**
-       * A text label associated with the error code.
-       */
-      public function setLabel($label) {
-        $this->label = $label;
-      }
-      /**
-       * A message associated with the error.
-       */
-      public function getMessage() {
-        return $this->message;
-      }
-      
-      /**
-       * A message associated with the error.
-       */
-      public function setMessage($message) {
-        $this->message = $message;
-      }
-      /**
-       * The back-end stack trace associated with the error, useful for debugging.
-       */
-      public function getStacktrace() {
-        return $this->stacktrace;
-      }
-      
-      /**
-       * The back-end stack trace associated with the error, useful for debugging.
-       */
-      public function setStacktrace($stacktrace) {
-        $this->stacktrace = $stacktrace;
-      }
-      /**
-       * Returns the associative array for this Error
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->code ) {
-          $a["code"] = $this->code;
-        }
-        if( $this->label ) {
-          $a["label"] = $this->label;
-        }
-        if( $this->message ) {
-          $a["message"] = $this->message;
-        }
-        if( $this->stacktrace ) {
-          $a["stacktrace"] = $this->stacktrace;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this Error
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this Error from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['code']) ) {
-          $this->code = $o["code"];
-        }
-        if( isset($o['label']) ) {
-          $this->label = $o["label"];
-        }
-        if( isset($o['message']) ) {
-          $this->message = $o["message"];
-        }
-        if( isset($o['stacktrace']) ) {
-          $this->stacktrace = $o["stacktrace"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+     */
+    public function getCode() {
+      return $this->code;
+    }
+
+    /**
+     * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+     */
+    public function setCode($code) {
+      $this->code = $code;
+    }
+    /**
+     * A text label associated with the error code.
+     */
+    public function getLabel() {
+      return $this->label;
+    }
+
+    /**
+     * A text label associated with the error code.
+     */
+    public function setLabel($label) {
+      $this->label = $label;
+    }
+    /**
+     * A message associated with the error.
+     */
+    public function getMessage() {
+      return $this->message;
+    }
+
+    /**
+     * A message associated with the error.
+     */
+    public function setMessage($message) {
+      $this->message = $message;
+    }
+    /**
+     * The back-end stack trace associated with the error, useful for debugging.
+     */
+    public function getStacktrace() {
+      return $this->stacktrace;
+    }
+
+    /**
+     * The back-end stack trace associated with the error, useful for debugging.
+     */
+    public function setStacktrace($stacktrace) {
+      $this->stacktrace = $stacktrace;
+    }
+    /**
+     * Returns the associative array for this Error
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->code ) {
+            $a["code"] = $this->code;
+      }
+      if( $this->label ) {
+            $a["label"] = $this->label;
+      }
+      if( $this->message ) {
+            $a["message"] = $this->message;
+      }
+      if( $this->stacktrace ) {
+            $a["stacktrace"] = $this->stacktrace;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this Error
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this Error from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['code']) ) {
+            $this->code = $o["code"];
+      }
+      if( isset($o['label']) ) {
+            $this->label = $o["label"];
+      }
+      if( isset($o['message']) ) {
+            $this->message = $o["message"];
+      }
+      if( isset($o['stacktrace']) ) {
+            $this->stacktrace = $o["stacktrace"];
+      }
+    }
+}

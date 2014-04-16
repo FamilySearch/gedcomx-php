@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,20 +7,22 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of standard relationship types.
-    class RelationshipType {
-    
+/**
+ * Enumeration of standard relationship types.
+ */
+class RelationshipType
+{
 
-      // (no documentation provided)
-      const Couple = "{http://gedcomx.org/}Couple";
+    /**
+     * (no documentation provided)
+     */
+    const Couple = "http://gedcomx.org/Couple";
 
-      // (no documentation provided)
-      const ParentChild = "{http://gedcomx.org/}ParentChild";
-    
-    }
+    /**
+     * (no documentation provided)
+     */
+    const ParentChild = "http://gedcomx.org/ParentChild";
 
-  }  
-    
-?>
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,261 +7,423 @@
  *
  */
 
-  namespace Gedcomx\Types {
-
-    // Enumeration of standard fact types.
-    class FactType {
-    
-
-      //  A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
-      const Adoption = "{http://gedcomx.org/}Adoption";
-
-      //  A fact of a person's christening as an adult.
-      const AdultChristening = "{http://gedcomx.org/}AdultChristening";
-
-      //  A fact of a person's amnesty.
-      const Amnesty = "{http://gedcomx.org/}Amnesty";
-
-      //  A fact of a person's apprenticeship.
-      const Apprenticeship = "{http://gedcomx.org/}Apprenticeship";
-
-      //  A fact of a person's arrest.
-      const Arrest = "{http://gedcomx.org/}Arrest";
-
-      //  A fact of a person's baptism.
-      const Baptism = "{http://gedcomx.org/}Baptism";
-
-      //  A fact of a person's bar mitzvah.
-      const BarMitzvah = "{http://gedcomx.org/}BarMitzvah";
-
-      //  A fact of a person's bat mitzvah.
-      const BatMitzvah = "{http://gedcomx.org/}BatMitzvah";
-
-      //  A fact of a person's birth.
-      const Birth = "{http://gedcomx.org/}Birth";
-
-      //  A fact of an official blessing received by a person, such as at the hands of a clergy member or at another religious rite.
-      const Blessing = "{http://gedcomx.org/}Blessing";
-
-      //  A fact of the burial of person's body after death.
-      const Burial = "{http://gedcomx.org/}Burial";
-
-      //  A fact of a person's caste.
-      const Caste = "{http://gedcomx.org/}Caste";
-
-      //  A fact of a person's participation in a census.
-      const Census = "{http://gedcomx.org/}Census";
-
-      //  A fact of a person's christening *at birth*. Note: use `AdultChristening` for the christening as an adult.
-      const Christening = "{http://gedcomx.org/}Christening";
-
-      //  A fact of a person's circumcision.
-      const Circumcision = "{http://gedcomx.org/}Circumcision";
-
-      //  A fact of a person's clan.
-      const Clan = "{http://gedcomx.org/}Clan";
-
-      //  A fact of a person's confirmation (or other rite of initiation) in a church or religion.
-      const Confirmation = "{http://gedcomx.org/}Confirmation";
-
-      //  A fact of the cremation of person's body after death.
-      const Cremation = "{http://gedcomx.org/}Cremation";
-
-      //  A fact of the death of a person.
-      const Death = "{http://gedcomx.org/}Death";
-
-      //  A fact of an education of a person.
-      const Education = "{http://gedcomx.org/}Education";
-
-      //  A fact of a person's enrollment in an educational program or institution.
-      const EducationEnrollment = "{http://gedcomx.org/}EducationEnrollment";
-
-      //  A fact of the emigration of a person.
-      const Emigration = "{http://gedcomx.org/}Emigration";
-
-      //  A fact of a person's ethnicity or race.
-      const Ethnicity = "{http://gedcomx.org/}Ethnicity";
-
-      //  A fact of a person's excommunication from a church.
-      const Excommunication = "{http://gedcomx.org/}Excommunication";
-
-      //  A fact of a person's first communion in a church.
-      const FirstCommunion = "{http://gedcomx.org/}FirstCommunion";
-
-      //  A fact of a person's funeral.
-      const Funeral = "{http://gedcomx.org/}Funeral";
-
-      //  A fact of a person's gender change.
-      const GenderChange = "{http://gedcomx.org/}GenderChange";
-
-      //  A fact of a person's graduation from a scholastic institution.
-      const Graduation = "{http://gedcomx.org/}Graduation";
-
-      //  A fact of a person's immigration.
-      const Immigration = "{http://gedcomx.org/}Immigration";
-
-      //  A fact of a person's imprisonment.
-      const Imprisonment = "{http://gedcomx.org/}Imprisonment";
-
-      //  A fact of a land transaction enacted by a person.
-      const LandTransaction = "{http://gedcomx.org/}LandTransaction";
-
-      //  A fact of a language spoken by a person.
-      const Language = "{http://gedcomx.org/}Language";
-
-      //  A fact of a record of a person's living for a specific period. This is designed to include &quot;flourish&quot;, defined to mean the time period
-      //  in an adult's life where he was most productive, perhaps as a writer or member of the state assembly. It does not reflect the person's birth and death dates.
-      const Living = "{http://gedcomx.org/}Living";
-
-      //  A fact of a person's marital status.
-      const MaritalStatus = "{http://gedcomx.org/}MaritalStatus";
-
-      //  A fact of a person's medical record, such as for an illness or hospital stay.
-      const Medical = "{http://gedcomx.org/}Medical";
-
-      //  A fact of a person's military award.
-      const MilitaryAward = "{http://gedcomx.org/}MilitaryAward";
-
-      //  A fact of a person's military discharge.
-      const MilitaryDischarge = "{http://gedcomx.org/}MilitaryDischarge";
-
-      //  A fact of a person's registration for a military draft.
-      const MilitaryDraftRegistration = "{http://gedcomx.org/}MilitaryDraftRegistration";
-
-      //  A fact of a person's military induction.
-      const MilitaryInduction = "{http://gedcomx.org/}MilitaryInduction";
-
-      //  A fact of a person's militray service.
-      const MilitaryService = "{http://gedcomx.org/}MilitaryService";
-
-      //  A fact of a person's church mission.
-      const Mission = "{http://gedcomx.org/}Mission";
-
-      //  A fact of a person's move (i.e. change of residence) from a location.
-      const MoveFrom = "{http://gedcomx.org/}MoveFrom";
-
-      //  A fact of a person's move (i.e. change of residence) to a new location.
-      const MoveTo = "{http://gedcomx.org/}MoveTo";
-
-      //  A fact that a person was born as part of a multiple birth (e.g. twin, triplet, etc.)
-      const MultipleBirth = "{http://gedcomx.org/}MultipleBirth";
-
-      //  A fact of a person's national id (e.g. social security number).
-      const NationalId = "{http://gedcomx.org/}NationalId";
-
-      //  A fact of a person's nationality.
-      const Nationality = "{http://gedcomx.org/}Nationality";
-
-      //  A fact of a person's naturalization (i.e. acquisition of citizenship and nationality).
-      const Naturalization = "{http://gedcomx.org/}Naturalization";
-
-      //  A fact of a person's number of marriages.
-      const NumberOfMarriages = "{http://gedcomx.org/}NumberOfMarriages";
-
-      //  A fact of a person's occupation or employment.
-      const Occupation = "{http://gedcomx.org/}Occupation";
-
-      //  A fact of a person's ordination to a stewardship in a church.
-      const Ordination = "{http://gedcomx.org/}Ordination";
-
-      //  A fact of a person's legal pardon.
-      const Pardon = "{http://gedcomx.org/}Pardon";
-
-      //  A fact of a person's physical description.
-      const PhysicalDescription = "{http://gedcomx.org/}PhysicalDescription";
-
-      //  A fact of a receipt of probate of a person's property.
-      const Probate = "{http://gedcomx.org/}Probate";
-
-      //  A fact of a person's property or possessions.
-      const Property = "{http://gedcomx.org/}Property";
-
-      //  A fact of a person's religion.
-      const Religion = "{http://gedcomx.org/}Religion";
-
-      //  A fact of a person's residence.
-      const Residence = "{http://gedcomx.org/}Residence";
-
-      //  A fact of a person's retirement.
-      const Retirement = "{http://gedcomx.org/}Retirement";
-
-      //  A fact of a person's stillbirth.
-      const Stillbirth = "{http://gedcomx.org/}Stillbirth";
-
-      //  A fact of a person's tax assessment.
-      const TaxAssessment = "{http://gedcomx.org/}TaxAssessment";
-
-      //  A fact of a person's will.
-      const Will = "{http://gedcomx.org/}Will";
-
-      //  A fact of a person's visit to a place different from the person's residence.
-      const Visit = "{http://gedcomx.org/}Visit";
-
-      //  A fact of a person's _yahrzeit_ date.  A person's yahzeit is the anniversary of their death as measured by the Hebrew calendar.
-      const Yahrzeit = "{http://gedcomx.org/}Yahrzeit";
-
-      //  The fact of an annulment of a marriage.
-      const Annulment = "{http://gedcomx.org/}Annulment";
-
-      //  The fact of a marriage by common law.
-      const CommonLawMarriage = "{http://gedcomx.org/}CommonLawMarriage";
-
-      //  The fact of a civil union.
-      const CivilUnion = "{http://gedcomx.org/}CivilUnion";
-
-      //  The fact of a divorce of a couple.
-      const Divorce = "{http://gedcomx.org/}Divorce";
-
-      //  The fact of a filing for divorce.
-      const DivorceFiling = "{http://gedcomx.org/}DivorceFiling";
-
-      //  The fact of a domestic partnership.
-      const DomesticPartnership = "{http://gedcomx.org/}DomesticPartnership";
-
-      //  The fact of an engagement to be married.
-      const Engagement = "{http://gedcomx.org/}Engagement";
-
-      //  The fact of a marriage.
-      const Marriage = "{http://gedcomx.org/}Marriage";
-
-      //  The fact of a marriage banns.
-      const MarriageBanns = "{http://gedcomx.org/}MarriageBanns";
-
-      //  The fact of a marriage contract.
-      const MarriageContract = "{http://gedcomx.org/}MarriageContract";
-
-      //  The fact of a marriage license.
-      const MarriageLicense = "{http://gedcomx.org/}MarriageLicense";
-
-      //  The fact of a marriage notice.
-      const MarriageNotice = "{http://gedcomx.org/}MarriageNotice";
-
-      //  A fact of the number of children of a person or relationship.
-      const NumberOfChildren = "{http://gedcomx.org/}NumberOfChildren";
-
-      //  A fact of a couple's separation.
-      const Separation = "{http://gedcomx.org/}Separation";
-
-      //  A fact about an adoptive relationship between a parent an a child.
-      const AdoptiveParent = "{http://gedcomx.org/}AdoptiveParent";
-
-      //  A fact the biological relationship between a parent and a child.
-      const BiologicalParent = "{http://gedcomx.org/}BiologicalParent";
-
-      //  A fact about a foster relationship between a foster parent and a child.
-      const FosterParent = "{http://gedcomx.org/}FosterParent";
-
-      //  A fact about a legal guardianship between a parent and a child.
-      const GuardianParent = "{http://gedcomx.org/}GuardianParent";
-
-      //  A fact about the step relationship between a parent and a child.
-      const StepParent = "{http://gedcomx.org/}StepParent";
-
-      //  A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
-      const SociologicalParent = "{http://gedcomx.org/}SociologicalParent";
-    
-    }
-
-  }  
-    
-?>
+namespace Gedcomx\Types;
+
+/**
+ * Enumeration of standard fact types.
+ */
+class FactType
+{
+
+    /**
+     *  A fact of a person's adoption. In the context of a parent-child relationship, it describes a fact of the adoption of a child by a parent.
+     */
+    const Adoption = "http://gedcomx.org/Adoption";
+
+    /**
+     *  A fact of a person's christening as an adult.
+     */
+    const AdultChristening = "http://gedcomx.org/AdultChristening";
+
+    /**
+     *  A fact of a person's amnesty.
+     */
+    const Amnesty = "http://gedcomx.org/Amnesty";
+
+    /**
+     *  A fact of a person's apprenticeship.
+     */
+    const Apprenticeship = "http://gedcomx.org/Apprenticeship";
+
+    /**
+     *  A fact of a person's arrest.
+     */
+    const Arrest = "http://gedcomx.org/Arrest";
+
+    /**
+     *  A fact of a person's baptism.
+     */
+    const Baptism = "http://gedcomx.org/Baptism";
+
+    /**
+     *  A fact of a person's bar mitzvah.
+     */
+    const BarMitzvah = "http://gedcomx.org/BarMitzvah";
+
+    /**
+     *  A fact of a person's bat mitzvah.
+     */
+    const BatMitzvah = "http://gedcomx.org/BatMitzvah";
+
+    /**
+     *  A fact of a person's birth.
+     */
+    const Birth = "http://gedcomx.org/Birth";
+
+    /**
+     *  A fact of an official blessing received by a person, such as at the hands of a clergy member or at another religious rite.
+     */
+    const Blessing = "http://gedcomx.org/Blessing";
+
+    /**
+     *  A fact of the burial of person's body after death.
+     */
+    const Burial = "http://gedcomx.org/Burial";
+
+    /**
+     *  A fact of a person's caste.
+     */
+    const Caste = "http://gedcomx.org/Caste";
+
+    /**
+     *  A fact of a person's participation in a census.
+     */
+    const Census = "http://gedcomx.org/Census";
+
+    /**
+     *  A fact of a person's christening *at birth*. Note: use `AdultChristening` for the christening as an adult.
+     */
+    const Christening = "http://gedcomx.org/Christening";
+
+    /**
+     *  A fact of a person's circumcision.
+     */
+    const Circumcision = "http://gedcomx.org/Circumcision";
+
+    /**
+     *  A fact of a person's clan.
+     */
+    const Clan = "http://gedcomx.org/Clan";
+
+    /**
+     *  A fact of a person's confirmation (or other rite of initiation) in a church or religion.
+     */
+    const Confirmation = "http://gedcomx.org/Confirmation";
+
+    /**
+     *  A fact of the cremation of person's body after death.
+     */
+    const Cremation = "http://gedcomx.org/Cremation";
+
+    /**
+     *  A fact of the death of a person.
+     */
+    const Death = "http://gedcomx.org/Death";
+
+    /**
+     *  A fact of an education of a person.
+     */
+    const Education = "http://gedcomx.org/Education";
+
+    /**
+     *  A fact of a person's enrollment in an educational program or institution.
+     */
+    const EducationEnrollment = "http://gedcomx.org/EducationEnrollment";
+
+    /**
+     *  A fact of the emigration of a person.
+     */
+    const Emigration = "http://gedcomx.org/Emigration";
+
+    /**
+     *  A fact of a person's ethnicity or race.
+     */
+    const Ethnicity = "http://gedcomx.org/Ethnicity";
+
+    /**
+     *  A fact of a person's excommunication from a church.
+     */
+    const Excommunication = "http://gedcomx.org/Excommunication";
+
+    /**
+     *  A fact of a person's first communion in a church.
+     */
+    const FirstCommunion = "http://gedcomx.org/FirstCommunion";
+
+    /**
+     *  A fact of a person's funeral.
+     */
+    const Funeral = "http://gedcomx.org/Funeral";
+
+    /**
+     *  A fact of a person's gender change.
+     */
+    const GenderChange = "http://gedcomx.org/GenderChange";
+
+    /**
+     *  A fact of a person's graduation from a scholastic institution.
+     */
+    const Graduation = "http://gedcomx.org/Graduation";
+
+    /**
+     *  A fact of a person's immigration.
+     */
+    const Immigration = "http://gedcomx.org/Immigration";
+
+    /**
+     *  A fact of a person's imprisonment.
+     */
+    const Imprisonment = "http://gedcomx.org/Imprisonment";
+
+    /**
+     *  A fact of a land transaction enacted by a person.
+     */
+    const LandTransaction = "http://gedcomx.org/LandTransaction";
+
+    /**
+     *  A fact of a language spoken by a person.
+     */
+    const Language = "http://gedcomx.org/Language";
+
+    /**
+     *  A fact of a record of a person's living for a specific period. This is designed to include &quot;flourish&quot;, defined to mean the time period
+    *  in an adult's life where he was most productive, perhaps as a writer or member of the state assembly. It does not reflect the person's birth and death dates.
+     */
+    const Living = "http://gedcomx.org/Living";
+
+    /**
+     *  A fact of a person's marital status.
+     */
+    const MaritalStatus = "http://gedcomx.org/MaritalStatus";
+
+    /**
+     *  A fact of a person's medical record, such as for an illness or hospital stay.
+     */
+    const Medical = "http://gedcomx.org/Medical";
+
+    /**
+     *  A fact of a person's military award.
+     */
+    const MilitaryAward = "http://gedcomx.org/MilitaryAward";
+
+    /**
+     *  A fact of a person's military discharge.
+     */
+    const MilitaryDischarge = "http://gedcomx.org/MilitaryDischarge";
+
+    /**
+     *  A fact of a person's registration for a military draft.
+     */
+    const MilitaryDraftRegistration = "http://gedcomx.org/MilitaryDraftRegistration";
+
+    /**
+     *  A fact of a person's military induction.
+     */
+    const MilitaryInduction = "http://gedcomx.org/MilitaryInduction";
+
+    /**
+     *  A fact of a person's militray service.
+     */
+    const MilitaryService = "http://gedcomx.org/MilitaryService";
+
+    /**
+     *  A fact of a person's church mission.
+     */
+    const Mission = "http://gedcomx.org/Mission";
+
+    /**
+     *  A fact of a person's move (i.e. change of residence) from a location.
+     */
+    const MoveFrom = "http://gedcomx.org/MoveFrom";
+
+    /**
+     *  A fact of a person's move (i.e. change of residence) to a new location.
+     */
+    const MoveTo = "http://gedcomx.org/MoveTo";
+
+    /**
+     *  A fact that a person was born as part of a multiple birth (e.g. twin, triplet, etc.)
+     */
+    const MultipleBirth = "http://gedcomx.org/MultipleBirth";
+
+    /**
+     *  A fact of a person's national id (e.g. social security number).
+     */
+    const NationalId = "http://gedcomx.org/NationalId";
+
+    /**
+     *  A fact of a person's nationality.
+     */
+    const Nationality = "http://gedcomx.org/Nationality";
+
+    /**
+     *  A fact of a person's naturalization (i.e. acquisition of citizenship and nationality).
+     */
+    const Naturalization = "http://gedcomx.org/Naturalization";
+
+    /**
+     *  A fact of a person's number of marriages.
+     */
+    const NumberOfMarriages = "http://gedcomx.org/NumberOfMarriages";
+
+    /**
+     *  A fact of a person's occupation or employment.
+     */
+    const Occupation = "http://gedcomx.org/Occupation";
+
+    /**
+     *  A fact of a person's ordination to a stewardship in a church.
+     */
+    const Ordination = "http://gedcomx.org/Ordination";
+
+    /**
+     *  A fact of a person's legal pardon.
+     */
+    const Pardon = "http://gedcomx.org/Pardon";
+
+    /**
+     *  A fact of a person's physical description.
+     */
+    const PhysicalDescription = "http://gedcomx.org/PhysicalDescription";
+
+    /**
+     *  A fact of a receipt of probate of a person's property.
+     */
+    const Probate = "http://gedcomx.org/Probate";
+
+    /**
+     *  A fact of a person's property or possessions.
+     */
+    const Property = "http://gedcomx.org/Property";
+
+    /**
+     *  A fact of a person's religion.
+     */
+    const Religion = "http://gedcomx.org/Religion";
+
+    /**
+     *  A fact of a person's residence.
+     */
+    const Residence = "http://gedcomx.org/Residence";
+
+    /**
+     *  A fact of a person's retirement.
+     */
+    const Retirement = "http://gedcomx.org/Retirement";
+
+    /**
+     *  A fact of a person's stillbirth.
+     */
+    const Stillbirth = "http://gedcomx.org/Stillbirth";
+
+    /**
+     *  A fact of a person's tax assessment.
+     */
+    const TaxAssessment = "http://gedcomx.org/TaxAssessment";
+
+    /**
+     *  A fact of a person's will.
+     */
+    const Will = "http://gedcomx.org/Will";
+
+    /**
+     *  A fact of a person's visit to a place different from the person's residence.
+     */
+    const Visit = "http://gedcomx.org/Visit";
+
+    /**
+     *  A fact of a person's _yahrzeit_ date.  A person's yahzeit is the anniversary of their death as measured by the Hebrew calendar.
+     */
+    const Yahrzeit = "http://gedcomx.org/Yahrzeit";
+
+    /**
+     *  The fact of an annulment of a marriage.
+     */
+    const Annulment = "http://gedcomx.org/Annulment";
+
+    /**
+     *  The fact of a marriage by common law.
+     */
+    const CommonLawMarriage = "http://gedcomx.org/CommonLawMarriage";
+
+    /**
+     *  The fact of a civil union.
+     */
+    const CivilUnion = "http://gedcomx.org/CivilUnion";
+
+    /**
+     *  The fact of a divorce of a couple.
+     */
+    const Divorce = "http://gedcomx.org/Divorce";
+
+    /**
+     *  The fact of a filing for divorce.
+     */
+    const DivorceFiling = "http://gedcomx.org/DivorceFiling";
+
+    /**
+     *  The fact of a domestic partnership.
+     */
+    const DomesticPartnership = "http://gedcomx.org/DomesticPartnership";
+
+    /**
+     *  The fact of an engagement to be married.
+     */
+    const Engagement = "http://gedcomx.org/Engagement";
+
+    /**
+     *  The fact of a marriage.
+     */
+    const Marriage = "http://gedcomx.org/Marriage";
+
+    /**
+     *  The fact of a marriage banns.
+     */
+    const MarriageBanns = "http://gedcomx.org/MarriageBanns";
+
+    /**
+     *  The fact of a marriage contract.
+     */
+    const MarriageContract = "http://gedcomx.org/MarriageContract";
+
+    /**
+     *  The fact of a marriage license.
+     */
+    const MarriageLicense = "http://gedcomx.org/MarriageLicense";
+
+    /**
+     *  The fact of a marriage notice.
+     */
+    const MarriageNotice = "http://gedcomx.org/MarriageNotice";
+
+    /**
+     *  A fact of the number of children of a person or relationship.
+     */
+    const NumberOfChildren = "http://gedcomx.org/NumberOfChildren";
+
+    /**
+     *  A fact of a couple's separation.
+     */
+    const Separation = "http://gedcomx.org/Separation";
+
+    /**
+     *  A fact about an adoptive relationship between a parent an a child.
+     */
+    const AdoptiveParent = "http://gedcomx.org/AdoptiveParent";
+
+    /**
+     *  A fact the biological relationship between a parent and a child.
+     */
+    const BiologicalParent = "http://gedcomx.org/BiologicalParent";
+
+    /**
+     *  A fact about a foster relationship between a foster parent and a child.
+     */
+    const FosterParent = "http://gedcomx.org/FosterParent";
+
+    /**
+     *  A fact about a legal guardianship between a parent and a child.
+     */
+    const GuardianParent = "http://gedcomx.org/GuardianParent";
+
+    /**
+     *  A fact about the step relationship between a parent and a child.
+     */
+    const StepParent = "http://gedcomx.org/StepParent";
+
+    /**
+     *  A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
+     */
+    const SociologicalParent = "http://gedcomx.org/SociologicalParent";
+
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,153 +7,243 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
 
-    // Enumeration of the possible change object types.
-    class ChangeObjectType {
-    
+/**
+ * Enumeration of the possible change object types.
+ */
+class ChangeObjectType
+{
 
-      //  A person was changed.
-      const Person = "{http://gedcomx.org/}Person";
+    /**
+     *  A person was changed.
+     */
+    const Person = "http://gedcomx.org/Person";
 
-      //  A couple relationship was changed.
-      const Couple = "{http://gedcomx.org/}Couple";
+    /**
+     *  A couple relationship was changed.
+     */
+    const Couple = "http://gedcomx.org/Couple";
 
-      //  A couple-child relationship was changed.
-      //  @deprecated use {@link #ChildAndParentsRelationship}
-      const CoupleChildRelationship = "{http://familysearch.org/v1/}CoupleChildRelationship";
+    /**
+     *  A couple-child relationship was changed.
+    *  @deprecated use {@link #ChildAndParentsRelationship}
+     */
+    const CoupleChildRelationship = "http://familysearch.org/v1/CoupleChildRelationship";
 
-      // (no documentation provided)
-      const ChildAndParentsRelationship = "{http://familysearch.org/v1/}ChildAndParentsRelationship";
+    /**
+     * (no documentation provided)
+     */
+    const ChildAndParentsRelationship = "http://familysearch.org/v1/ChildAndParentsRelationship";
 
-      //  The man in a couple relationship was changed.
-      const Man = "{http://familysearch.org/v1/}Man";
+    /**
+     *  The man in a couple relationship was changed.
+     */
+    const Man = "http://familysearch.org/v1/Man";
 
-      //  The man in a couple relationship was changed.
-      const Woman = "{http://familysearch.org/v1/}Woman";
+    /**
+     *  The man in a couple relationship was changed.
+     */
+    const Woman = "http://familysearch.org/v1/Woman";
 
-      //  The father in a couple-child relationship was changed.
-      const Father = "{http://familysearch.org/v1/}Father";
+    /**
+     *  The father in a couple-child relationship was changed.
+     */
+    const Father = "http://familysearch.org/v1/Father";
 
-      //  The mother in a couple-child relationship was changed.
-      const Mother = "{http://familysearch.org/v1/}Mother";
+    /**
+     *  The mother in a couple-child relationship was changed.
+     */
+    const Mother = "http://familysearch.org/v1/Mother";
 
-      //  The child in a couple-child relationship was changed.
-      const Child = "{http://familysearch.org/v1/}Child";
+    /**
+     *  The child in a couple-child relationship was changed.
+     */
+    const Child = "http://familysearch.org/v1/Child";
 
-      //  A source reference was changed.
-      const SourceReference = "{http://gedcomx.org/}SourceReference";
+    /**
+     *  A source reference was changed.
+     */
+    const SourceReference = "http://gedcomx.org/SourceReference";
 
-      //  A discussion reference was changed.
-      const DiscussionReference = "{http://familysearch.org/v1/}DiscussionReference";
+    /**
+     *  A discussion reference was changed.
+     */
+    const DiscussionReference = "http://familysearch.org/v1/DiscussionReference";
 
-      //  An evidence reference was changed.
-      const EvidenceReference = "{http://familysearch.org/v1/}EvidenceReference";
+    /**
+     *  An evidence reference was changed.
+     */
+    const EvidenceReference = "http://familysearch.org/v1/EvidenceReference";
 
-      //  An affiliation fact was changed.
-      const Affiliation = "{http://familysearch.org/v1/}Affiliation";
+    /**
+     *  An affiliation fact was changed.
+     */
+    const Affiliation = "http://familysearch.org/v1/Affiliation";
 
-      //  A bar mitzvah was changed.
-      const BarMitzvah = "{http://gedcomx.org/}BarMitzvah";
+    /**
+     *  A bar mitzvah was changed.
+     */
+    const BarMitzvah = "http://gedcomx.org/BarMitzvah";
 
-      //  A bar mitzvah was changed.
-      const BatMitzvah = "{http://gedcomx.org/}BatMitzvah";
+    /**
+     *  A bar mitzvah was changed.
+     */
+    const BatMitzvah = "http://gedcomx.org/BatMitzvah";
 
-      //  A birth fact was changed.
-      const Birth = "{http://gedcomx.org/}Birth";
+    /**
+     *  A birth fact was changed.
+     */
+    const Birth = "http://gedcomx.org/Birth";
 
-      //  A burial fact was changed.
-      const Burial = "{http://gedcomx.org/}Burial";
+    /**
+     *  A burial fact was changed.
+     */
+    const Burial = "http://gedcomx.org/Burial";
 
-      //  A christening fact was changed.
-      const Christening = "{http://gedcomx.org/}Christening";
+    /**
+     *  A christening fact was changed.
+     */
+    const Christening = "http://gedcomx.org/Christening";
 
-      //  A cremation fact was changed.
-      const Cremation = "{http://gedcomx.org/}Cremation";
+    /**
+     *  A cremation fact was changed.
+     */
+    const Cremation = "http://gedcomx.org/Cremation";
 
-      //  A death fact was changed.
-      const Death = "{http://gedcomx.org/}Death";
+    /**
+     *  A death fact was changed.
+     */
+    const Death = "http://gedcomx.org/Death";
 
-      //  A military service fact was changed.
-      const MilitaryService = "{http://gedcomx.org/}MilitaryService";
+    /**
+     *  A military service fact was changed.
+     */
+    const MilitaryService = "http://gedcomx.org/MilitaryService";
 
-      //  A naturalization fact was changed.
-      const Naturalization = "{http://gedcomx.org/}Naturalization";
+    /**
+     *  A naturalization fact was changed.
+     */
+    const Naturalization = "http://gedcomx.org/Naturalization";
 
-      //  An occupation fact was changed.
-      const Occupation = "{http://gedcomx.org/}Occupation";
+    /**
+     *  An occupation fact was changed.
+     */
+    const Occupation = "http://gedcomx.org/Occupation";
 
-      //  A religion fact was changed.
-      const Religion = "{http://gedcomx.org/}Religion";
+    /**
+     *  A religion fact was changed.
+     */
+    const Religion = "http://gedcomx.org/Religion";
 
-      //  A residence fact was changed.
-      const Residence = "{http://gedcomx.org/}Residence";
+    /**
+     *  A residence fact was changed.
+     */
+    const Residence = "http://gedcomx.org/Residence";
 
-      //  A stillbirth fact was changed.
-      const Stillbirth = "{http://gedcomx.org/}Stillbirth";
+    /**
+     *  A stillbirth fact was changed.
+     */
+    const Stillbirth = "http://gedcomx.org/Stillbirth";
 
-      //  A fact was changed.
-      const Fact = "{http://gedcomx.org/}Fact";
+    /**
+     *  A fact was changed.
+     */
+    const Fact = "http://gedcomx.org/Fact";
 
-      //  A caste fact was changed.
-      const Caste = "{http://gedcomx.org/}Caste";
+    /**
+     *  A caste fact was changed.
+     */
+    const Caste = "http://gedcomx.org/Caste";
 
-      //  A clan fact was changed.
-      const Clan = "{http://gedcomx.org/}Clan";
+    /**
+     *  A clan fact was changed.
+     */
+    const Clan = "http://gedcomx.org/Clan";
 
-      //  A national id fact was changed.
-      const NationalId = "{http://gedcomx.org/}NationalId";
+    /**
+     *  A national id fact was changed.
+     */
+    const NationalId = "http://gedcomx.org/NationalId";
 
-      //  A nationality fact was changed.
-      const Nationality = "{http://gedcomx.org/}Nationality";
+    /**
+     *  A nationality fact was changed.
+     */
+    const Nationality = "http://gedcomx.org/Nationality";
 
-      //  A physical description fact was changed.
-      const PhysicalDescription = "{http://gedcomx.org/}PhysicalDescription";
+    /**
+     *  A physical description fact was changed.
+     */
+    const PhysicalDescription = "http://gedcomx.org/PhysicalDescription";
 
-      //  An ethnicity fact was changed.
-      const Ethnicity = "{http://gedcomx.org/}Ethnicity";
+    /**
+     *  An ethnicity fact was changed.
+     */
+    const Ethnicity = "http://gedcomx.org/Ethnicity";
 
-      //  A gender was changed.
-      const Gender = "{http://gedcomx.org/}Gender";
+    /**
+     *  A gender was changed.
+     */
+    const Gender = "http://gedcomx.org/Gender";
 
-      //  A note was changed.
-      const Note = "{http://gedcomx.org/}Note";
+    /**
+     *  A note was changed.
+     */
+    const Note = "http://gedcomx.org/Note";
 
-      //  Name was changed.
-      const Name = "{http://gedcomx.org/}Name";
+    /**
+     *  Name was changed.
+     */
+    const Name = "http://gedcomx.org/Name";
 
-      //  A birth name was changed.
-      const BirthName = "{http://gedcomx.org/}BirthName";
+    /**
+     *  A birth name was changed.
+     */
+    const BirthName = "http://gedcomx.org/BirthName";
 
-      //  An AKA name was changed.
-      const AlsoKnownAs = "{http://gedcomx.org/}AlsoKnownAs";
+    /**
+     *  An AKA name was changed.
+     */
+    const AlsoKnownAs = "http://gedcomx.org/AlsoKnownAs";
 
-      //  An married name was changed.
-      const MarriedName = "{http://gedcomx.org/}MarriedName";
+    /**
+     *  An married name was changed.
+     */
+    const MarriedName = "http://gedcomx.org/MarriedName";
 
-      //  An nickname was changed.
-      const Nickname = "{http://gedcomx.org/}Nickname";
+    /**
+     *  An nickname was changed.
+     */
+    const Nickname = "http://gedcomx.org/Nickname";
 
-      //  A died before eight fact was changed.
-      const DiedBeforeEight = "{http://familysearch.org/v1/}DiedBeforeEight";
+    /**
+     *  A died before eight fact was changed.
+     */
+    const DiedBeforeEight = "http://familysearch.org/v1/DiedBeforeEight";
 
-      //  A tribe name fact was changed.
-      const TribeName = "{http://familysearch.org/v1/}TribeName";
+    /**
+     *  A tribe name fact was changed.
+     */
+    const TribeName = "http://familysearch.org/v1/TribeName";
 
-      //  A birth order fact was changed.
-      const BirthOrder = "{http://familysearch.org/v1/}BirthOrder";
+    /**
+     *  A birth order fact was changed.
+     */
+    const BirthOrder = "http://familysearch.org/v1/BirthOrder";
 
-      //  A life sketch was changed.
-      const LifeSketch = "{http://familysearch.org/v1/}LifeSketch";
+    /**
+     *  A life sketch was changed.
+     */
+    const LifeSketch = "http://familysearch.org/v1/LifeSketch";
 
-      //  A title of nobility fact was changed.
-      const TitleOfNobility = "{http://familysearch.org/v1/}TitleOfNobility";
+    /**
+     *  A title of nobility fact was changed.
+     */
+    const TitleOfNobility = "http://familysearch.org/v1/TitleOfNobility";
 
-      //  A not-a-match declaration
-      const NotAMatch = "{http://familysearch.org/v1/}NotAMatch";
-    
-    }
+    /**
+     *  A not-a-match declaration
+     */
+    const NotAMatch = "http://familysearch.org/v1/NotAMatch";
 
-  }  
-    
-?>
+}

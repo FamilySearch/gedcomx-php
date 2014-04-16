@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,111 +7,107 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
+
+/**
+ * 
+ */
+class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData 
+{
+    
+    /**
+     * The id of the discussion being referenced.
+     */
+    private $resourceId;
+    /**
+     * The URI to the resource.
+     */
+    private $resource;
 
     /**
-     * 
+     * The attribution metadata for this discussion reference.
      */
-    class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData  {
-    
-      /**
-       * The id of the discussion being referenced.
-       */
-      private $resourceId;
-      /**
-       * The URI to the resource.
-       */
-      private $resource;
-    
-      /**
-       * The attribution metadata for this discussion reference.
-       */
-      private $attribution;
+    private $attribution;
 
-      /**
-       * Constructs a DiscussionReference from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a DiscussionReference from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The id of the discussion being referenced.
-       */
-      public function getResourceId() {
-        return $this->resourceId;
-      }
-      
-      /**
-       * The id of the discussion being referenced.
-       */
-      public function setResourceId($resourceId) {
-        $this->resourceId = $resourceId;
-      }
-      /**
-       * The URI to the resource.
-       */
-      public function getResource() {
-        return $this->resource;
-      }
-      
-      /**
-       * The URI to the resource.
-       */
-      public function setResource($resource) {
-        $this->resource = $resource;
-      }
-      /**
-       * The attribution metadata for this discussion reference.
-       */
-      public function getAttribution() {
-        return $this->attribution;
-      }
-      
-      /**
-       * The attribution metadata for this discussion reference.
-       */
-      public function setAttribution($attribution) {
-        $this->attribution = $attribution;
-      }
-      /**
-       * Returns the associative array for this DiscussionReference
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->resourceId ) {
-          $a["resourceId"] = $this->resourceId;
-        }
-        if( $this->resource ) {
-          $a["resource"] = $this->resource;
-        }
-        if( $this->attribution ) {
-          $a["attribution"] = $this->attribution->toArray();
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this DiscussionReference from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['resourceId']) ) {
-          $this->resourceId = $o["resourceId"];
-        }
-        if( isset($o['resource']) ) {
-          $this->resource = $o["resource"];
-        }
-        if( isset($o['attribution']) ) {
-          $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The id of the discussion being referenced.
+     */
+    public function getResourceId() {
+      return $this->resourceId;
+    }
+
+    /**
+     * The id of the discussion being referenced.
+     */
+    public function setResourceId($resourceId) {
+      $this->resourceId = $resourceId;
+    }
+    /**
+     * The URI to the resource.
+     */
+    public function getResource() {
+      return $this->resource;
+    }
+
+    /**
+     * The URI to the resource.
+     */
+    public function setResource($resource) {
+      $this->resource = $resource;
+    }
+    /**
+     * The attribution metadata for this discussion reference.
+     */
+    public function getAttribution() {
+      return $this->attribution;
+    }
+
+    /**
+     * The attribution metadata for this discussion reference.
+     */
+    public function setAttribution($attribution) {
+      $this->attribution = $attribution;
+    }
+    /**
+     * Returns the associative array for this DiscussionReference
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->resourceId ) {
+            $a["resourceId"] = $this->resourceId;
+      }
+      if( $this->resource ) {
+            $a["resource"] = $this->resource;
+      }
+      if( $this->attribution ) {
+            $a["attribution"] = $this->attribution->toArray();
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this DiscussionReference from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['resourceId']) ) {
+            $this->resourceId = $o["resourceId"];
+      }
+      if( isset($o['resource']) ) {
+            $this->resource = $o["resource"];
+      }
+      if( isset($o['attribution']) ) {
+            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+      }
+    }
+}

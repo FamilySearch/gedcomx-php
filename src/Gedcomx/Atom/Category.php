@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,111 +7,107 @@
  *
  */
 
-  namespace Gedcomx\Atom {
+namespace Gedcomx\Atom;
+
+/**
+ * conveys information about a category associated with an entry or feed.
+ */
+class Category extends \Gedcomx\Atom\CommonAttributes 
+{
+    
+    /**
+     * identifies a categorization scheme
+     */
+    private $scheme;
+    /**
+     * identifies the category to which the entry or feed belongs
+     */
+    private $term;
+    /**
+     * a human-readable label for display in end-user applications
+     */
+    private $label;
+
 
     /**
-     * conveys information about a category associated with an entry or feed.
+     * Constructs a Category from a (parsed) JSON hash
      */
-    class Category extends \Gedcomx\Atom\CommonAttributes  {
-    
-      /**
-       * identifies a categorization scheme
-       */
-      private $scheme;
-      /**
-       * identifies the category to which the entry or feed belongs
-       */
-      private $term;
-      /**
-       * a human-readable label for display in end-user applications
-       */
-      private $label;
-    
-
-      /**
-       * Constructs a Category from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * identifies a categorization scheme
-       */
-      public function getScheme() {
-        return $this->scheme;
-      }
-      
-      /**
-       * identifies a categorization scheme
-       */
-      public function setScheme($scheme) {
-        $this->scheme = $scheme;
-      }
-      /**
-       * identifies the category to which the entry or feed belongs
-       */
-      public function getTerm() {
-        return $this->term;
-      }
-      
-      /**
-       * identifies the category to which the entry or feed belongs
-       */
-      public function setTerm($term) {
-        $this->term = $term;
-      }
-      /**
-       * a human-readable label for display in end-user applications
-       */
-      public function getLabel() {
-        return $this->label;
-      }
-      
-      /**
-       * a human-readable label for display in end-user applications
-       */
-      public function setLabel($label) {
-        $this->label = $label;
-      }
-      /**
-       * Returns the associative array for this Category
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->scheme ) {
-          $a["scheme"] = $this->scheme;
-        }
-        if( $this->term ) {
-          $a["term"] = $this->term;
-        }
-        if( $this->label ) {
-          $a["label"] = $this->label;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this Category from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['scheme']) ) {
-          $this->scheme = $o["scheme"];
-        }
-        if( isset($o['term']) ) {
-          $this->term = $o["term"];
-        }
-        if( isset($o['label']) ) {
-          $this->label = $o["label"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * identifies a categorization scheme
+     */
+    public function getScheme() {
+      return $this->scheme;
+    }
+
+    /**
+     * identifies a categorization scheme
+     */
+    public function setScheme($scheme) {
+      $this->scheme = $scheme;
+    }
+    /**
+     * identifies the category to which the entry or feed belongs
+     */
+    public function getTerm() {
+      return $this->term;
+    }
+
+    /**
+     * identifies the category to which the entry or feed belongs
+     */
+    public function setTerm($term) {
+      $this->term = $term;
+    }
+    /**
+     * a human-readable label for display in end-user applications
+     */
+    public function getLabel() {
+      return $this->label;
+    }
+
+    /**
+     * a human-readable label for display in end-user applications
+     */
+    public function setLabel($label) {
+      $this->label = $label;
+    }
+    /**
+     * Returns the associative array for this Category
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->scheme ) {
+            $a["scheme"] = $this->scheme;
+      }
+      if( $this->term ) {
+            $a["term"] = $this->term;
+      }
+      if( $this->label ) {
+            $a["label"] = $this->label;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this Category from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['scheme']) ) {
+            $this->scheme = $o["scheme"];
+      }
+      if( isset($o['term']) ) {
+            $this->term = $o["term"];
+      }
+      if( isset($o['label']) ) {
+            $this->label = $o["label"];
+      }
+    }
+}

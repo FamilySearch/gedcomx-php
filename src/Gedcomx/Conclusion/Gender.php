@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,95 +7,91 @@
  *
  */
 
-  namespace Gedcomx\Conclusion {
+namespace Gedcomx\Conclusion;
+
+/**
+ * A gender conclusion.
+ */
+class Gender extends \Gedcomx\Conclusion\Conclusion 
+{
+    
+    /**
+     * The type of the gender.
+     */
+    private $type;
 
     /**
-     * A gender conclusion.
+     * The references to the record fields being used as evidence.
      */
-    class Gender extends \Gedcomx\Conclusion\Conclusion  {
-    
-      /**
-       * The type of the gender.
-       */
-      private $type;
-    
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      private $fields;
+    private $fields;
 
-      /**
-       * Constructs a Gender from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Gender from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The type of the gender.
-       */
-      public function getType() {
-        return $this->type;
-      }
-      
-      /**
-       * The type of the gender.
-       */
-      public function setType($type) {
-        $this->type = $type;
-      }
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function getFields() {
-        return $this->fields;
-      }
-      
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function setFields($fields) {
-        $this->fields = $fields;
-      }
-      /**
-       * Returns the associative array for this Gender
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->fields ) {
-          $ab = array();
-          foreach( $this->fields as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['fields'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this Gender from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        $this->fields = array();
-        if( isset($o['fields']) ) {
-          foreach( $o['fields'] as $i => $x ) {
-            $this->fields[$i] = new \Gedcomx\Records\Field($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The type of the gender.
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * The type of the gender.
+     */
+    public function setType($type) {
+      $this->type = $type;
+    }
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function getFields() {
+      return $this->fields;
+    }
+
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function setFields($fields) {
+      $this->fields = $fields;
+    }
+    /**
+     * Returns the associative array for this Gender
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->type ) {
+            $a["type"] = $this->type;
+      }
+      if( $this->fields ) {
+        $ab = array();
+        foreach( $this->fields as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['fields'] = $ab;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this Gender from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['type']) ) {
+            $this->type = $o["type"];
+      }
+      $this->fields = array();
+      if( isset($o['fields']) ) {
+        foreach( $o['fields'] as $i => $x ) {
+              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        }
+      }
+    }
+}

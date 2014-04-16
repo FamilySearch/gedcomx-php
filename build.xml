@@ -62,13 +62,13 @@
     </target>
 
     <target name="phpcs">
-        <delete dir="${dir.output}/phpcs" includeemptydirs="true" verbose="true" failonerror="true" />
+        <delete dir="${dir.output}/phpcs" includeemptydirs="true" verbose="true" failonerror="false" />
         <mkdir dir="${dir.output}/phpcs" />
         <!-- <phpcodesniffer></phpcodesniffer> -->
     </target>
 
     <target name="phpmd">
-        <delete dir="${dir.output}/phpmd" includeemptydirs="true" verbose="true" failonerror="true" />
+        <delete dir="${dir.output}/phpmd" includeemptydirs="true" verbose="true" failonerror="false" />
         <mkdir dir="${dir.output}/phpmd" />
         <phpmd>
             <fileset refid="src_files" />
@@ -78,7 +78,7 @@
     </target>
 
     <target name="phpcpd">
-        <delete dir="${dir.output}/phpcpd" includeemptydirs="true" verbose="true" failonerror="true" />
+        <delete dir="${dir.output}/phpcpd" includeemptydirs="true" verbose="true" failonerror="false" />
         <mkdir dir="${dir.output}/phpcpd" />
         <phpcpd>
             <fileset refid="src_files" />

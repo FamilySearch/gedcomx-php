@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,38 +7,52 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of standard name types.
-    class NameType {
-    
+/**
+ * Enumeration of standard name types.
+ */
+class NameType
+{
 
-      //  Name given at birth.
-      const BirthName = "{http://gedcomx.org/}BirthName";
+    /**
+     *  Name given at birth.
+     */
+    const BirthName = "http://gedcomx.org/BirthName";
 
-      //  Name used at the time of death.
-      const DeathName = "{http://gedcomx.org/}DeathName";
+    /**
+     *  Name used at the time of death.
+     */
+    const DeathName = "http://gedcomx.org/DeathName";
 
-      //  Name accepted at marriage.
-      const MarriedName = "{http://gedcomx.org/}MarriedName";
+    /**
+     *  Name accepted at marriage.
+     */
+    const MarriedName = "http://gedcomx.org/MarriedName";
 
-      //  &quot;Also known as&quot; name.
-      const AlsoKnownAs = "{http://gedcomx.org/}AlsoKnownAs";
+    /**
+     *  &quot;Also known as&quot; name.
+     */
+    const AlsoKnownAs = "http://gedcomx.org/AlsoKnownAs";
 
-      //  Nickname.
-      const Nickname = "{http://gedcomx.org/}Nickname";
+    /**
+     *  Nickname.
+     */
+    const Nickname = "http://gedcomx.org/Nickname";
 
-      //  Name given at adoption.
-      const AdoptiveName = "{http://gedcomx.org/}AdoptiveName";
+    /**
+     *  Name given at adoption.
+     */
+    const AdoptiveName = "http://gedcomx.org/AdoptiveName";
 
-      //  A formal name, usually given to distinguish it from a name more commonly used.
-      const FormalName = "{http://gedcomx.org/}FormalName";
+    /**
+     *  A formal name, usually given to distinguish it from a name more commonly used.
+     */
+    const FormalName = "http://gedcomx.org/FormalName";
 
-      //  A name given at a religious rite or ceremony.
-      const ReligiousName = "{http://gedcomx.org/}ReligiousName";
-    
-    }
+    /**
+     *  A name given at a religious rite or ceremony.
+     */
+    const ReligiousName = "http://gedcomx.org/ReligiousName";
 
-  }  
-    
-?>
+}

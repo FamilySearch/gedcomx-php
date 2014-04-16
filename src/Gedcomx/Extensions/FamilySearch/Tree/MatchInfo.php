@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,93 +7,89 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
+
+/**
+ * Information about a match.
+ */
+class MatchInfo 
+{
+    
+    /**
+     * The way this match has been resolved.
+     */
+    private $status;
+    /**
+     * The collection in which this match was found.
+     */
+    private $collection;
+
 
     /**
-     * Information about a match.
+     * Constructs a MatchInfo from a (parsed) JSON hash
      */
-    class MatchInfo  {
-    
-      /**
-       * The way this match has been resolved.
-       */
-      private $status;
-      /**
-       * The collection in which this match was found.
-       */
-      private $collection;
-    
-
-      /**
-       * Constructs a MatchInfo from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The way this match has been resolved.
-       */
-      public function getStatus() {
-        return $this->status;
-      }
-      
-      /**
-       * The way this match has been resolved.
-       */
-      public function setStatus($status) {
-        $this->status = $status;
-      }
-      /**
-       * The collection in which this match was found.
-       */
-      public function getCollection() {
-        return $this->collection;
-      }
-      
-      /**
-       * The collection in which this match was found.
-       */
-      public function setCollection($collection) {
-        $this->collection = $collection;
-      }
-      /**
-       * Returns the associative array for this MatchInfo
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->status ) {
-          $a["status"] = $this->status;
-        }
-        if( $this->collection ) {
-          $a["collection"] = $this->collection;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this MatchInfo
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this MatchInfo from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['status']) ) {
-          $this->status = $o["status"];
-        }
-        if( isset($o['collection']) ) {
-          $this->collection = $o["collection"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The way this match has been resolved.
+     */
+    public function getStatus() {
+      return $this->status;
+    }
+
+    /**
+     * The way this match has been resolved.
+     */
+    public function setStatus($status) {
+      $this->status = $status;
+    }
+    /**
+     * The collection in which this match was found.
+     */
+    public function getCollection() {
+      return $this->collection;
+    }
+
+    /**
+     * The collection in which this match was found.
+     */
+    public function setCollection($collection) {
+      $this->collection = $collection;
+    }
+    /**
+     * Returns the associative array for this MatchInfo
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->status ) {
+            $a["status"] = $this->status;
+      }
+      if( $this->collection ) {
+            $a["collection"] = $this->collection;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this MatchInfo
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this MatchInfo from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['status']) ) {
+            $this->status = $o["status"];
+      }
+      if( isset($o['collection']) ) {
+            $this->collection = $o["collection"];
+      }
+    }
+}

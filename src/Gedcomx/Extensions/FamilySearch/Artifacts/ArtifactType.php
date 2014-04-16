@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,32 +7,42 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Artifacts {
+namespace Gedcomx\Extensions\FamilySearch\Artifacts;
 
-    // Enumeration of known artifact types.
-    class ArtifactType {
-    
+/**
+ * Enumeration of known artifact types.
+ */
+class ArtifactType
+{
 
-      //  The artifact is an audio.
-      const Audio = "{http://familysearch.org/v1/}Audio";
+    /**
+     *  The artifact is an audio.
+     */
+    const Audio = "http://familysearch.org/v1/Audio";
 
-      //  The artifact is an image of a document.
-      const Document = "{http://familysearch.org/v1/}Document";
+    /**
+     *  The artifact is an image of a document.
+     */
+    const Document = "http://familysearch.org/v1/Document";
 
-      //  The artifact is an image.
-      const Image = "{http://familysearch.org/v1/}Image";
+    /**
+     *  The artifact is an image.
+     */
+    const Image = "http://familysearch.org/v1/Image";
 
-      //  The artifact is a portrait.
-      const Portrait = "{http://familysearch.org/v1/}Portrait";
+    /**
+     *  The artifact is a portrait.
+     */
+    const Portrait = "http://familysearch.org/v1/Portrait";
 
-      //  The artifact is a story.
-      const Story = "{http://familysearch.org/v1/}Story";
+    /**
+     *  The artifact is a story.
+     */
+    const Story = "http://familysearch.org/v1/Story";
 
-      //  The artifact is a video.
-      const Video = "{http://familysearch.org/v1/}Video";
-    
-    }
+    /**
+     *  The artifact is a video.
+     */
+    const Video = "http://familysearch.org/v1/Video";
 
-  }  
-    
-?>
+}

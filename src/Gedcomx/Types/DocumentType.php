@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,26 +7,32 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of document types.
-    class DocumentType {
-    
+/**
+ * Enumeration of document types.
+ */
+class DocumentType
+{
 
-      //  The document is an abstract of a record or document.
-      const Abstract = "{http://gedcomx.org/}Abstract";
+    /**
+     *  The document is an abstract of a record or document.
+     */
+    const AbstractDocument = "http://gedcomx.org/Abstract";
 
-      //  The document is a translation of a record or document.
-      const Translation = "{http://gedcomx.org/}Translation";
+    /**
+     *  The document is a translation of a record or document.
+     */
+    const Translation = "http://gedcomx.org/Translation";
 
-      //  The document is a transcription (full or partial) of a record or document.
-      const Transcription = "{http://gedcomx.org/}Transcription";
+    /**
+     *  The document is a transcription (full or partial) of a record or document.
+     */
+    const Transcription = "http://gedcomx.org/Transcription";
 
-      //  The document is an analysis done by a researcher, often used as a genealogical proof statement.
-      const Analysis = "{http://gedcomx.org/}Analysis";
-    
-    }
+    /**
+     *  The document is an analysis done by a researcher, often used as a genealogical proof statement.
+     */
+    const Analysis = "http://gedcomx.org/Analysis";
 
-  }  
-    
-?>
+}

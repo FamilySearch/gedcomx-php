@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,141 +7,137 @@
  *
  */
 
-  namespace Gedcomx\Conclusion {
+namespace Gedcomx\Conclusion;
+
+/**
+ * A name conclusion.
+ */
+class Name extends \Gedcomx\Conclusion\Conclusion 
+{
+    
+    /**
+     * The type of the name.
+     */
+    private $type;
 
     /**
-     * A name conclusion.
+     * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
      */
-    class Name extends \Gedcomx\Conclusion\Conclusion  {
-    
-      /**
-       * The type of the name.
-       */
-      private $type;
-    
-      /**
-       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
-       */
-      private $preferred;
-      /**
-       * The date the name was first applied or adopted.
-       */
-      private $date;
-      /**
-       * Alternate forms of the name, such as the romanized form of a non-latin name.
-       */
-      private $nameForms;
+    private $preferred;
+    /**
+     * The date the name was first applied or adopted.
+     */
+    private $date;
+    /**
+     * Alternate forms of the name, such as the romanized form of a non-latin name.
+     */
+    private $nameForms;
 
-      /**
-       * Constructs a Name from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Name from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The type of the name.
-       */
-      public function getType() {
-        return $this->type;
-      }
-      
-      /**
-       * The type of the name.
-       */
-      public function setType($type) {
-        $this->type = $type;
-      }
-      /**
-       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
-       */
-      public function getPreferred() {
-        return $this->preferred;
-      }
-      
-      /**
-       * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
-       */
-      public function setPreferred($preferred) {
-        $this->preferred = $preferred;
-      }
-      /**
-       * The date the name was first applied or adopted.
-       */
-      public function getDate() {
-        return $this->date;
-      }
-      
-      /**
-       * The date the name was first applied or adopted.
-       */
-      public function setDate($date) {
-        $this->date = $date;
-      }
-      /**
-       * Alternate forms of the name, such as the romanized form of a non-latin name.
-       */
-      public function getNameForms() {
-        return $this->nameForms;
-      }
-      
-      /**
-       * Alternate forms of the name, such as the romanized form of a non-latin name.
-       */
-      public function setNameForms($nameForms) {
-        $this->nameForms = $nameForms;
-      }
-      /**
-       * Returns the associative array for this Name
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->preferred ) {
-          $a["preferred"] = $this->preferred;
-        }
-        if( $this->date ) {
-          $a["date"] = $this->date->toArray();
-        }
-        if( $this->nameForms ) {
-          $ab = array();
-          foreach( $this->nameForms as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['nameForms'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this Name from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        if( isset($o['preferred']) ) {
-          $this->preferred = $o["preferred"];
-        }
-        if( isset($o['date']) ) {
-          $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
-        }
-        $this->nameForms = array();
-        if( isset($o['nameForms']) ) {
-          foreach( $o['nameForms'] as $i => $x ) {
-            $this->nameForms[$i] = new \Gedcomx\Conclusion\NameForm($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The type of the name.
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * The type of the name.
+     */
+    public function setType($type) {
+      $this->type = $type;
+    }
+    /**
+     * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+     */
+    public function getPreferred() {
+      return $this->preferred;
+    }
+
+    /**
+     * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+     */
+    public function setPreferred($preferred) {
+      $this->preferred = $preferred;
+    }
+    /**
+     * The date the name was first applied or adopted.
+     */
+    public function getDate() {
+      return $this->date;
+    }
+
+    /**
+     * The date the name was first applied or adopted.
+     */
+    public function setDate($date) {
+      $this->date = $date;
+    }
+    /**
+     * Alternate forms of the name, such as the romanized form of a non-latin name.
+     */
+    public function getNameForms() {
+      return $this->nameForms;
+    }
+
+    /**
+     * Alternate forms of the name, such as the romanized form of a non-latin name.
+     */
+    public function setNameForms($nameForms) {
+      $this->nameForms = $nameForms;
+    }
+    /**
+     * Returns the associative array for this Name
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->type ) {
+            $a["type"] = $this->type;
+      }
+      if( $this->preferred ) {
+            $a["preferred"] = $this->preferred;
+      }
+      if( $this->date ) {
+            $a["date"] = $this->date->toArray();
+      }
+      if( $this->nameForms ) {
+        $ab = array();
+        foreach( $this->nameForms as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['nameForms'] = $ab;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this Name from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['type']) ) {
+            $this->type = $o["type"];
+      }
+      if( isset($o['preferred']) ) {
+            $this->preferred = $o["preferred"];
+      }
+      if( isset($o['date']) ) {
+            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+      }
+      $this->nameForms = array();
+      if( isset($o['nameForms']) ) {
+        foreach( $o['nameForms'] as $i => $x ) {
+              $this->nameForms[$i] = new \Gedcomx\Conclusion\NameForm($x);
+        }
+      }
+    }
+}

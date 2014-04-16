@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,148 +7,144 @@
  *
  */
 
-  namespace Gedcomx\Conclusion {
+namespace Gedcomx\Conclusion;
+
+/**
+ * A part of a name.
+ */
+class NamePart extends \Gedcomx\Common\ExtensibleData 
+{
+    
+    /**
+     * The value of the name part.
+     */
+    private $value;
+    /**
+     * The type of the name part.
+     */
+    private $type;
 
     /**
-     * A part of a name.
+     * The references to the record fields being used as evidence.
      */
-    class NamePart extends \Gedcomx\Common\ExtensibleData  {
-    
-      /**
-       * The value of the name part.
-       */
-      private $value;
-      /**
-       * The type of the name part.
-       */
-      private $type;
-    
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      private $fields;
-      /**
-       * The qualifiers associated with this name part.
-       */
-      private $qualifiers;
+    private $fields;
+    /**
+     * The qualifiers associated with this name part.
+     */
+    private $qualifiers;
 
-      /**
-       * Constructs a NamePart from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a NamePart from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The value of the name part.
-       */
-      public function getValue() {
-        return $this->value;
-      }
-      
-      /**
-       * The value of the name part.
-       */
-      public function setValue($value) {
-        $this->value = $value;
-      }
-      /**
-       * The type of the name part.
-       */
-      public function getType() {
-        return $this->type;
-      }
-      
-      /**
-       * The type of the name part.
-       */
-      public function setType($type) {
-        $this->type = $type;
-      }
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function getFields() {
-        return $this->fields;
-      }
-      
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function setFields($fields) {
-        $this->fields = $fields;
-      }
-      /**
-       * The qualifiers associated with this name part.
-       */
-      public function getQualifiers() {
-        return $this->qualifiers;
-      }
-      
-      /**
-       * The qualifiers associated with this name part.
-       */
-      public function setQualifiers($qualifiers) {
-        $this->qualifiers = $qualifiers;
-      }
-      /**
-       * Returns the associative array for this NamePart
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->fields ) {
-          $ab = array();
-          foreach( $this->fields as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['fields'] = $ab;
-        }
-        if( $this->qualifiers ) {
-          $ab = array();
-          foreach( $this->qualifiers as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['qualifiers'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this NamePart from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        $this->fields = array();
-        if( isset($o['fields']) ) {
-          foreach( $o['fields'] as $i => $x ) {
-            $this->fields[$i] = new \Gedcomx\Records\Field($x);
-          }
-        }
-        $this->qualifiers = array();
-        if( isset($o['qualifiers']) ) {
-          foreach( $o['qualifiers'] as $i => $x ) {
-            $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The value of the name part.
+     */
+    public function getValue() {
+      return $this->value;
+    }
+
+    /**
+     * The value of the name part.
+     */
+    public function setValue($value) {
+      $this->value = $value;
+    }
+    /**
+     * The type of the name part.
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * The type of the name part.
+     */
+    public function setType($type) {
+      $this->type = $type;
+    }
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function getFields() {
+      return $this->fields;
+    }
+
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function setFields($fields) {
+      $this->fields = $fields;
+    }
+    /**
+     * The qualifiers associated with this name part.
+     */
+    public function getQualifiers() {
+      return $this->qualifiers;
+    }
+
+    /**
+     * The qualifiers associated with this name part.
+     */
+    public function setQualifiers($qualifiers) {
+      $this->qualifiers = $qualifiers;
+    }
+    /**
+     * Returns the associative array for this NamePart
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->value ) {
+            $a["value"] = $this->value;
+      }
+      if( $this->type ) {
+            $a["type"] = $this->type;
+      }
+      if( $this->fields ) {
+        $ab = array();
+        foreach( $this->fields as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['fields'] = $ab;
+      }
+      if( $this->qualifiers ) {
+        $ab = array();
+        foreach( $this->qualifiers as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['qualifiers'] = $ab;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this NamePart from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['value']) ) {
+            $this->value = $o["value"];
+      }
+      if( isset($o['type']) ) {
+            $this->type = $o["type"];
+      }
+      $this->fields = array();
+      if( isset($o['fields']) ) {
+        foreach( $o['fields'] as $i => $x ) {
+              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        }
+      }
+      $this->qualifiers = array();
+      if( isset($o['qualifiers']) ) {
+        foreach( $o['qualifiers'] as $i => $x ) {
+              $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+        }
+      }
+    }
+}

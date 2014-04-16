@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,93 +7,89 @@
  *
  */
 
-  namespace Gedcomx\Atom {
+namespace Gedcomx\Atom;
+
+/**
+ * 
+ */
+class Content 
+{
+    
+    /**
+     * The type of the content.
+     */
+    private $type;
 
     /**
-     * 
+     * The genealogical data associated with this entry.
      */
-    class Content  {
-    
-      /**
-       * The type of the content.
-       */
-      private $type;
-    
-      /**
-       * The genealogical data associated with this entry.
-       */
-      private $gedcomx;
+    private $gedcomx;
 
-      /**
-       * Constructs a Content from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Content from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The type of the content.
-       */
-      public function getType() {
-        return $this->type;
-      }
-      
-      /**
-       * The type of the content.
-       */
-      public function setType($type) {
-        $this->type = $type;
-      }
-      /**
-       * The genealogical data associated with this entry.
-       */
-      public function getGedcomx() {
-        return $this->gedcomx;
-      }
-      
-      /**
-       * The genealogical data associated with this entry.
-       */
-      public function setGedcomx($gedcomx) {
-        $this->gedcomx = $gedcomx;
-      }
-      /**
-       * Returns the associative array for this Content
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->type ) {
-          $a["type"] = $this->type;
-        }
-        if( $this->gedcomx ) {
-          $a["gedcomx"] = $this->gedcomx->toArray();
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this Content
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this Content from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['type']) ) {
-          $this->type = $o["type"];
-        }
-        if( isset($o['gedcomx']) ) {
-          $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The type of the content.
+     */
+    public function getType() {
+      return $this->type;
+    }
+
+    /**
+     * The type of the content.
+     */
+    public function setType($type) {
+      $this->type = $type;
+    }
+    /**
+     * The genealogical data associated with this entry.
+     */
+    public function getGedcomx() {
+      return $this->gedcomx;
+    }
+
+    /**
+     * The genealogical data associated with this entry.
+     */
+    public function setGedcomx($gedcomx) {
+      $this->gedcomx = $gedcomx;
+    }
+    /**
+     * Returns the associative array for this Content
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->type ) {
+            $a["type"] = $this->type;
+      }
+      if( $this->gedcomx ) {
+            $a["gedcomx"] = $this->gedcomx->toArray();
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this Content
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this Content from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['type']) ) {
+            $this->type = $o["type"];
+      }
+      if( isset($o['gedcomx']) ) {
+            $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
+      }
+    }
+}

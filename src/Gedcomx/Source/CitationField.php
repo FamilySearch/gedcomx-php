@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,93 +7,89 @@
  *
  */
 
-  namespace Gedcomx\Source {
+namespace Gedcomx\Source;
+
+/**
+ * Represents a citation field -- its name and value.
+ */
+class CitationField 
+{
+    
+    /**
+     * The citation field's name.
+     */
+    private $name;
 
     /**
-     * Represents a citation field -- its name and value.
+     * The citation field's value.
      */
-    class CitationField  {
-    
-      /**
-       * The citation field's name.
-       */
-      private $name;
-    
-      /**
-       * The citation field's value.
-       */
-      private $value;
+    private $value;
 
-      /**
-       * Constructs a CitationField from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a CitationField from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The citation field's name.
-       */
-      public function getName() {
-        return $this->name;
-      }
-      
-      /**
-       * The citation field's name.
-       */
-      public function setName($name) {
-        $this->name = $name;
-      }
-      /**
-       * The citation field's value.
-       */
-      public function getValue() {
-        return $this->value;
-      }
-      
-      /**
-       * The citation field's value.
-       */
-      public function setValue($value) {
-        $this->value = $value;
-      }
-      /**
-       * Returns the associative array for this CitationField
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->value ) {
-          $a["value"] = $this->value;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this CitationField
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this CitationField from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['value']) ) {
-          $this->value = $o["value"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The citation field's name.
+     */
+    public function getName() {
+      return $this->name;
+    }
+
+    /**
+     * The citation field's name.
+     */
+    public function setName($name) {
+      $this->name = $name;
+    }
+    /**
+     * The citation field's value.
+     */
+    public function getValue() {
+      return $this->value;
+    }
+
+    /**
+     * The citation field's value.
+     */
+    public function setValue($value) {
+      $this->value = $value;
+    }
+    /**
+     * Returns the associative array for this CitationField
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->name ) {
+            $a["name"] = $this->name;
+      }
+      if( $this->value ) {
+            $a["value"] = $this->value;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this CitationField
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this CitationField from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['name']) ) {
+            $this->name = $o["name"];
+      }
+      if( isset($o['value']) ) {
+            $this->value = $o["value"];
+      }
+    }
+}

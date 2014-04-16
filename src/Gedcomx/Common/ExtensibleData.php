@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,70 +7,66 @@
  *
  */
 
-  namespace Gedcomx\Common {
+namespace Gedcomx\Common;
+
+/**
+ * A set of data that supports extension elements.
+ */
+class ExtensibleData 
+{
+    
+    /**
+     * A local, context-specific id for the data.
+     */
+    private $id;
+
 
     /**
-     * A set of data that supports extension elements.
+     * Constructs a ExtensibleData from a (parsed) JSON hash
      */
-    class ExtensibleData  {
-    
-      /**
-       * A local, context-specific id for the data.
-       */
-      private $id;
-    
-
-      /**
-       * Constructs a ExtensibleData from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * A local, context-specific id for the data.
-       */
-      public function getId() {
-        return $this->id;
-      }
-      
-      /**
-       * A local, context-specific id for the data.
-       */
-      public function setId($id) {
-        $this->id = $id;
-      }
-      /**
-       * Returns the associative array for this ExtensibleData
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->id ) {
-          $a["id"] = $this->id;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this ExtensibleData
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this ExtensibleData from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['id']) ) {
-          $this->id = $o["id"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * A local, context-specific id for the data.
+     */
+    public function getId() {
+      return $this->id;
+    }
+
+    /**
+     * A local, context-specific id for the data.
+     */
+    public function setId($id) {
+      $this->id = $id;
+    }
+    /**
+     * Returns the associative array for this ExtensibleData
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->id ) {
+            $a["id"] = $this->id;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this ExtensibleData
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this ExtensibleData from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['id']) ) {
+            $this->id = $o["id"];
+      }
+    }
+}

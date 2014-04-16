@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,24 +7,28 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of known gender types.
-    class GenderType {
-    
+/**
+ * Enumeration of known gender types.
+ */
+class GenderType
+{
 
-      //  Male.
-      const Male = "{http://gedcomx.org/}Male";
+    /**
+     *  Male.
+     */
+    const Male = "http://gedcomx.org/Male";
 
-      //  Female.
-      const Female = "{http://gedcomx.org/}Female";
+    /**
+     *  Female.
+     */
+    const Female = "http://gedcomx.org/Female";
 
-      //  Unknown. Note that this should be used strictly as &quot;unknown&quot; and not to
-      //  indicate a type that is not set or not understood.
-      const Unknown = "{http://gedcomx.org/}Unknown";
-    
-    }
+    /**
+     *  Unknown. Note that this should be used strictly as &quot;unknown&quot; and not to
+    *  indicate a type that is not set or not understood.
+     */
+    const Unknown = "http://gedcomx.org/Unknown";
 
-  }  
-    
-?>
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,23 +7,27 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
 
-    // Enumeration of the possible change object modifiers.
-    class ChangeObjectModifier {
-    
+/**
+ * Enumeration of the possible change object modifiers.
+ */
+class ChangeObjectModifier
+{
 
-      //  The person.
-      const Person = "{http://gedcomx.org/}Person";
+    /**
+     *  The person.
+     */
+    const Person = "http://gedcomx.org/Person";
 
-      //  The couple.
-      const Couple = "{http://gedcomx.org/}Couple";
+    /**
+     *  The couple.
+     */
+    const Couple = "http://gedcomx.org/Couple";
 
-      //  The child-and-parents relationship.
-      const ChildAndParentsRelationship = "{http://familysearch.org/v1/}ChildAndParentsRelationship";
-    
-    }
+    /**
+     *  The child-and-parents relationship.
+     */
+    const ChildAndParentsRelationship = "http://familysearch.org/v1/ChildAndParentsRelationship";
 
-  }  
-    
-?>
+}

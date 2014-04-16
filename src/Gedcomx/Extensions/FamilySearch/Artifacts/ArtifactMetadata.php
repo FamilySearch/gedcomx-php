@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,139 +7,135 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Artifacts {
+namespace Gedcomx\Extensions\FamilySearch\Artifacts;
+
+/**
+ * FamilySearch-specific metadata about an artifact.
+ */
+class ArtifactMetadata 
+{
+    
+    /**
+     * The type of the gender.
+     */
+    private $artifactType;
 
     /**
-     * FamilySearch-specific metadata about an artifact.
+     * The original filename of the memories item.
      */
-    class ArtifactMetadata  {
-    
-      /**
-       * The type of the gender.
-       */
-      private $artifactType;
-    
-      /**
-       * The original filename of the memories item.
-       */
-      private $filename;
-      /**
-       * The height of the artifact (presumably an image).
-       */
-      private $height;
-      /**
-       * The width of the artifact (presumably an image).
-       */
-      private $width;
+    private $filename;
+    /**
+     * The height of the artifact (presumably an image).
+     */
+    private $height;
+    /**
+     * The width of the artifact (presumably an image).
+     */
+    private $width;
 
-      /**
-       * Constructs a ArtifactMetadata from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a ArtifactMetadata from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The type of the gender.
-       */
-      public function getArtifactType() {
-        return $this->artifactType;
-      }
-      
-      /**
-       * The type of the gender.
-       */
-      public function setArtifactType($artifactType) {
-        $this->artifactType = $artifactType;
-      }
-      /**
-       * The original filename of the memories item.
-       */
-      public function getFilename() {
-        return $this->filename;
-      }
-      
-      /**
-       * The original filename of the memories item.
-       */
-      public function setFilename($filename) {
-        $this->filename = $filename;
-      }
-      /**
-       * The height of the artifact (presumably an image).
-       */
-      public function getHeight() {
-        return $this->height;
-      }
-      
-      /**
-       * The height of the artifact (presumably an image).
-       */
-      public function setHeight($height) {
-        $this->height = $height;
-      }
-      /**
-       * The width of the artifact (presumably an image).
-       */
-      public function getWidth() {
-        return $this->width;
-      }
-      
-      /**
-       * The width of the artifact (presumably an image).
-       */
-      public function setWidth($width) {
-        $this->width = $width;
-      }
-      /**
-       * Returns the associative array for this ArtifactMetadata
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->artifactType ) {
-          $a["artifactType"] = $this->artifactType;
-        }
-        if( $this->filename ) {
-          $a["filename"] = $this->filename;
-        }
-        if( $this->height ) {
-          $a["height"] = $this->height;
-        }
-        if( $this->width ) {
-          $a["width"] = $this->width;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this ArtifactMetadata
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this ArtifactMetadata from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['artifactType']) ) {
-          $this->artifactType = $o["artifactType"];
-        }
-        if( isset($o['filename']) ) {
-          $this->filename = $o["filename"];
-        }
-        if( isset($o['height']) ) {
-          $this->height = $o["height"];
-        }
-        if( isset($o['width']) ) {
-          $this->width = $o["width"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The type of the gender.
+     */
+    public function getArtifactType() {
+      return $this->artifactType;
+    }
+
+    /**
+     * The type of the gender.
+     */
+    public function setArtifactType($artifactType) {
+      $this->artifactType = $artifactType;
+    }
+    /**
+     * The original filename of the memories item.
+     */
+    public function getFilename() {
+      return $this->filename;
+    }
+
+    /**
+     * The original filename of the memories item.
+     */
+    public function setFilename($filename) {
+      $this->filename = $filename;
+    }
+    /**
+     * The height of the artifact (presumably an image).
+     */
+    public function getHeight() {
+      return $this->height;
+    }
+
+    /**
+     * The height of the artifact (presumably an image).
+     */
+    public function setHeight($height) {
+      $this->height = $height;
+    }
+    /**
+     * The width of the artifact (presumably an image).
+     */
+    public function getWidth() {
+      return $this->width;
+    }
+
+    /**
+     * The width of the artifact (presumably an image).
+     */
+    public function setWidth($width) {
+      $this->width = $width;
+    }
+    /**
+     * Returns the associative array for this ArtifactMetadata
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->artifactType ) {
+            $a["artifactType"] = $this->artifactType;
+      }
+      if( $this->filename ) {
+            $a["filename"] = $this->filename;
+      }
+      if( $this->height ) {
+            $a["height"] = $this->height;
+      }
+      if( $this->width ) {
+            $a["width"] = $this->width;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this ArtifactMetadata
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this ArtifactMetadata from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['artifactType']) ) {
+            $this->artifactType = $o["artifactType"];
+      }
+      if( isset($o['filename']) ) {
+            $this->filename = $o["filename"];
+      }
+      if( isset($o['height']) ) {
+            $this->height = $o["height"];
+      }
+      if( isset($o['width']) ) {
+            $this->width = $o["width"];
+      }
+    }
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,125 +7,121 @@
  *
  */
 
-  namespace Gedcomx\Records {
+namespace Gedcomx\Records;
+
+/**
+ * A description of a field in a record.
+ */
+class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData 
+{
+    
 
     /**
-     * A description of a field in a record.
+     * The original label for the field, as stated on the original record.
      */
-    class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData  {
-    
-    
-      /**
-       * The original label for the field, as stated on the original record.
-       */
-      private $originalLabel;
-      /**
-       * The description of the field.
-       */
-      private $description;
-      /**
-       * Descriptors of the values that are applicable to the field.
-       */
-      private $values;
+    private $originalLabel;
+    /**
+     * The description of the field.
+     */
+    private $description;
+    /**
+     * Descriptors of the values that are applicable to the field.
+     */
+    private $values;
 
-      /**
-       * Constructs a FieldDescriptor from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a FieldDescriptor from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The original label for the field, as stated on the original record.
-       */
-      public function getOriginalLabel() {
-        return $this->originalLabel;
-      }
-      
-      /**
-       * The original label for the field, as stated on the original record.
-       */
-      public function setOriginalLabel($originalLabel) {
-        $this->originalLabel = $originalLabel;
-      }
-      /**
-       * The description of the field.
-       */
-      public function getDescription() {
-        return $this->description;
-      }
-      
-      /**
-       * The description of the field.
-       */
-      public function setDescription($description) {
-        $this->description = $description;
-      }
-      /**
-       * Descriptors of the values that are applicable to the field.
-       */
-      public function getValues() {
-        return $this->values;
-      }
-      
-      /**
-       * Descriptors of the values that are applicable to the field.
-       */
-      public function setValues($values) {
-        $this->values = $values;
-      }
-      /**
-       * Returns the associative array for this FieldDescriptor
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->originalLabel ) {
-          $a["originalLabel"] = $this->originalLabel;
-        }
-        if( $this->description ) {
-          $ab = array();
-          foreach( $this->description as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['description'] = $ab;
-        }
-        if( $this->values ) {
-          $ab = array();
-          foreach( $this->values as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['values'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this FieldDescriptor from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['originalLabel']) ) {
-          $this->originalLabel = $o["originalLabel"];
-        }
-        $this->description = array();
-        if( isset($o['description']) ) {
-          foreach( $o['description'] as $i => $x ) {
-            $this->description[$i] = new \Gedcomx\Common\TextValue($x);
-          }
-        }
-        $this->values = array();
-        if( isset($o['values']) ) {
-          foreach( $o['values'] as $i => $x ) {
-            $this->values[$i] = new \Gedcomx\Records\FieldValueDescriptor($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The original label for the field, as stated on the original record.
+     */
+    public function getOriginalLabel() {
+      return $this->originalLabel;
+    }
+
+    /**
+     * The original label for the field, as stated on the original record.
+     */
+    public function setOriginalLabel($originalLabel) {
+      $this->originalLabel = $originalLabel;
+    }
+    /**
+     * The description of the field.
+     */
+    public function getDescription() {
+      return $this->description;
+    }
+
+    /**
+     * The description of the field.
+     */
+    public function setDescription($description) {
+      $this->description = $description;
+    }
+    /**
+     * Descriptors of the values that are applicable to the field.
+     */
+    public function getValues() {
+      return $this->values;
+    }
+
+    /**
+     * Descriptors of the values that are applicable to the field.
+     */
+    public function setValues($values) {
+      $this->values = $values;
+    }
+    /**
+     * Returns the associative array for this FieldDescriptor
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->originalLabel ) {
+            $a["originalLabel"] = $this->originalLabel;
+      }
+      if( $this->description ) {
+        $ab = array();
+        foreach( $this->description as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['description'] = $ab;
+      }
+      if( $this->values ) {
+        $ab = array();
+        foreach( $this->values as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['values'] = $ab;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this FieldDescriptor from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['originalLabel']) ) {
+            $this->originalLabel = $o["originalLabel"];
+      }
+      $this->description = array();
+      if( isset($o['description']) ) {
+        foreach( $o['description'] as $i => $x ) {
+              $this->description[$i] = new \Gedcomx\Common\TextValue($x);
+        }
+      }
+      $this->values = array();
+      if( isset($o['values']) ) {
+        foreach( $o['values'] as $i => $x ) {
+              $this->values[$i] = new \Gedcomx\Records\FieldValueDescriptor($x);
+        }
+      }
+    }
+}

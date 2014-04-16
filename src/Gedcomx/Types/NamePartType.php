@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,26 +7,32 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of standard name part types.
-    class NamePartType {
-    
+/**
+ * Enumeration of standard name part types.
+ */
+class NamePartType
+{
 
-      // (no documentation provided)
-      const Prefix = "{http://gedcomx.org/}Prefix";
+    /**
+     * (no documentation provided)
+     */
+    const Prefix = "http://gedcomx.org/Prefix";
 
-      // (no documentation provided)
-      const Suffix = "{http://gedcomx.org/}Suffix";
+    /**
+     * (no documentation provided)
+     */
+    const Suffix = "http://gedcomx.org/Suffix";
 
-      // (no documentation provided)
-      const Given = "{http://gedcomx.org/}Given";
+    /**
+     * (no documentation provided)
+     */
+    const Given = "http://gedcomx.org/Given";
 
-      // (no documentation provided)
-      const Surname = "{http://gedcomx.org/}Surname";
-    
-    }
+    /**
+     * (no documentation provided)
+     */
+    const Surname = "http://gedcomx.org/Surname";
 
-  }  
-    
-?>
+}

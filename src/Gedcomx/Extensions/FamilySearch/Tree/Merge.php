@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,107 +7,103 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
+
+/**
+ * 
+ */
+class Merge 
+{
+    
 
     /**
-     * 
+     * List of resources to remove from the survivor person.
      */
-    class Merge  {
-    
-    
-      /**
-       * List of resources to remove from the survivor person.
-       */
-      private $resourcesToDelete;
-      /**
-       * List of resources to copy from the duplicate person to survivor person.
-       */
-      private $resourcesToCopy;
+    private $resourcesToDelete;
+    /**
+     * List of resources to copy from the duplicate person to survivor person.
+     */
+    private $resourcesToCopy;
 
-      /**
-       * Constructs a Merge from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Merge from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * List of resources to remove from the survivor person.
-       */
-      public function getResourcesToDelete() {
-        return $this->resourcesToDelete;
-      }
-      
-      /**
-       * List of resources to remove from the survivor person.
-       */
-      public function setResourcesToDelete($resourcesToDelete) {
-        $this->resourcesToDelete = $resourcesToDelete;
-      }
-      /**
-       * List of resources to copy from the duplicate person to survivor person.
-       */
-      public function getResourcesToCopy() {
-        return $this->resourcesToCopy;
-      }
-      
-      /**
-       * List of resources to copy from the duplicate person to survivor person.
-       */
-      public function setResourcesToCopy($resourcesToCopy) {
-        $this->resourcesToCopy = $resourcesToCopy;
-      }
-      /**
-       * Returns the associative array for this Merge
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->resourcesToDelete ) {
-          $ab = array();
-          foreach( $this->resourcesToDelete as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['resourcesToDelete'] = $ab;
-        }
-        if( $this->resourcesToCopy ) {
-          $ab = array();
-          foreach( $this->resourcesToCopy as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['resourcesToCopy'] = $ab;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this Merge
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this Merge from an associative array
-       */
-      public function initFromArray($o) {
-        $this->resourcesToDelete = array();
-        if( isset($o['resourcesToDelete']) ) {
-          foreach( $o['resourcesToDelete'] as $i => $x ) {
-            $this->resourcesToDelete[$i] = new \Gedcomx\Common\ResourceReference($x);
-          }
-        }
-        $this->resourcesToCopy = array();
-        if( isset($o['resourcesToCopy']) ) {
-          foreach( $o['resourcesToCopy'] as $i => $x ) {
-            $this->resourcesToCopy[$i] = new \Gedcomx\Common\ResourceReference($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * List of resources to remove from the survivor person.
+     */
+    public function getResourcesToDelete() {
+      return $this->resourcesToDelete;
+    }
+
+    /**
+     * List of resources to remove from the survivor person.
+     */
+    public function setResourcesToDelete($resourcesToDelete) {
+      $this->resourcesToDelete = $resourcesToDelete;
+    }
+    /**
+     * List of resources to copy from the duplicate person to survivor person.
+     */
+    public function getResourcesToCopy() {
+      return $this->resourcesToCopy;
+    }
+
+    /**
+     * List of resources to copy from the duplicate person to survivor person.
+     */
+    public function setResourcesToCopy($resourcesToCopy) {
+      $this->resourcesToCopy = $resourcesToCopy;
+    }
+    /**
+     * Returns the associative array for this Merge
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->resourcesToDelete ) {
+        $ab = array();
+        foreach( $this->resourcesToDelete as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['resourcesToDelete'] = $ab;
+      }
+      if( $this->resourcesToCopy ) {
+        $ab = array();
+        foreach( $this->resourcesToCopy as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['resourcesToCopy'] = $ab;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this Merge
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this Merge from an associative array
+     */
+    public function initFromArray($o) {
+      $this->resourcesToDelete = array();
+      if( isset($o['resourcesToDelete']) ) {
+        foreach( $o['resourcesToDelete'] as $i => $x ) {
+              $this->resourcesToDelete[$i] = new \Gedcomx\Common\ResourceReference($x);
+        }
+      }
+      $this->resourcesToCopy = array();
+      if( isset($o['resourcesToCopy']) ) {
+        foreach( $o['resourcesToCopy'] as $i => $x ) {
+              $this->resourcesToCopy[$i] = new \Gedcomx\Common\ResourceReference($x);
+        }
+      }
+    }
+}

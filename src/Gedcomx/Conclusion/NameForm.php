@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,148 +7,144 @@
  *
  */
 
-  namespace Gedcomx\Conclusion {
+namespace Gedcomx\Conclusion;
+
+/**
+ * A form of a name.
+ */
+class NameForm extends \Gedcomx\Common\ExtensibleData 
+{
+    
+    /**
+     * The language of the conclusion.
+     */
+    private $lang;
 
     /**
-     * A form of a name.
+     * The full text of the name form.
      */
-    class NameForm extends \Gedcomx\Common\ExtensibleData  {
-    
-      /**
-       * The language of the conclusion.
-       */
-      private $lang;
-    
-      /**
-       * The full text of the name form.
-       */
-      private $fullText;
-      /**
-       * The different parts of the name form.
-       */
-      private $parts;
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      private $fields;
+    private $fullText;
+    /**
+     * The different parts of the name form.
+     */
+    private $parts;
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    private $fields;
 
-      /**
-       * Constructs a NameForm from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a NameForm from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The language of the conclusion.
-       */
-      public function getLang() {
-        return $this->lang;
-      }
-      
-      /**
-       * The language of the conclusion.
-       */
-      public function setLang($lang) {
-        $this->lang = $lang;
-      }
-      /**
-       * The full text of the name form.
-       */
-      public function getFullText() {
-        return $this->fullText;
-      }
-      
-      /**
-       * The full text of the name form.
-       */
-      public function setFullText($fullText) {
-        $this->fullText = $fullText;
-      }
-      /**
-       * The different parts of the name form.
-       */
-      public function getParts() {
-        return $this->parts;
-      }
-      
-      /**
-       * The different parts of the name form.
-       */
-      public function setParts($parts) {
-        $this->parts = $parts;
-      }
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function getFields() {
-        return $this->fields;
-      }
-      
-      /**
-       * The references to the record fields being used as evidence.
-       */
-      public function setFields($fields) {
-        $this->fields = $fields;
-      }
-      /**
-       * Returns the associative array for this NameForm
-       */
-      public function toArray() {
-        $a = parent::toArray();
-        if( $this->lang ) {
-          $a["lang"] = $this->lang;
-        }
-        if( $this->fullText ) {
-          $a["fullText"] = $this->fullText;
-        }
-        if( $this->parts ) {
-          $ab = array();
-          foreach( $this->parts as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['parts'] = $ab;
-        }
-        if( $this->fields ) {
-          $ab = array();
-          foreach( $this->fields as $i => $x ) {
-            $ab[$i] = $x->toArray();
-          }
-          $a['fields'] = $ab;
-        }
-        return $a;
-      }
-      
-
-      /**
-       * Initializes this NameForm from an associative array
-       */
-      public function initFromArray($o) {
-        parent::initFromArray($o);
-        if( isset($o['lang']) ) {
-          $this->lang = $o["lang"];
-        }
-        if( isset($o['fullText']) ) {
-          $this->fullText = $o["fullText"];
-        }
-        $this->parts = array();
-        if( isset($o['parts']) ) {
-          foreach( $o['parts'] as $i => $x ) {
-            $this->parts[$i] = new \Gedcomx\Conclusion\NamePart($x);
-          }
-        }
-        $this->fields = array();
-        if( isset($o['fields']) ) {
-          foreach( $o['fields'] as $i => $x ) {
-            $this->fields[$i] = new \Gedcomx\Records\Field($x);
-          }
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The language of the conclusion.
+     */
+    public function getLang() {
+      return $this->lang;
+    }
+
+    /**
+     * The language of the conclusion.
+     */
+    public function setLang($lang) {
+      $this->lang = $lang;
+    }
+    /**
+     * The full text of the name form.
+     */
+    public function getFullText() {
+      return $this->fullText;
+    }
+
+    /**
+     * The full text of the name form.
+     */
+    public function setFullText($fullText) {
+      $this->fullText = $fullText;
+    }
+    /**
+     * The different parts of the name form.
+     */
+    public function getParts() {
+      return $this->parts;
+    }
+
+    /**
+     * The different parts of the name form.
+     */
+    public function setParts($parts) {
+      $this->parts = $parts;
+    }
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function getFields() {
+      return $this->fields;
+    }
+
+    /**
+     * The references to the record fields being used as evidence.
+     */
+    public function setFields($fields) {
+      $this->fields = $fields;
+    }
+    /**
+     * Returns the associative array for this NameForm
+     */
+    public function toArray() {
+      $a = parent::toArray();
+      if( $this->lang ) {
+            $a["lang"] = $this->lang;
+      }
+      if( $this->fullText ) {
+            $a["fullText"] = $this->fullText;
+      }
+      if( $this->parts ) {
+        $ab = array();
+        foreach( $this->parts as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['parts'] = $ab;
+      }
+      if( $this->fields ) {
+        $ab = array();
+        foreach( $this->fields as $i => $x ) {
+              $ab[$i] = $x->toArray();
+        }
+        $a['fields'] = $ab;
+      }
+      return $a;
+    }
+
+
+    /**
+     * Initializes this NameForm from an associative array
+     */
+    public function initFromArray($o) {
+      parent::initFromArray($o);
+      if( isset($o['lang']) ) {
+            $this->lang = $o["lang"];
+      }
+      if( isset($o['fullText']) ) {
+            $this->fullText = $o["fullText"];
+      }
+      $this->parts = array();
+      if( isset($o['parts']) ) {
+        foreach( $o['parts'] as $i => $x ) {
+              $this->parts[$i] = new \Gedcomx\Conclusion\NamePart($x);
+        }
+      }
+      $this->fields = array();
+      if( isset($o['fields']) ) {
+        foreach( $o['fields'] as $i => $x ) {
+              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        }
+      }
+    }
+}

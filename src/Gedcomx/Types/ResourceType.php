@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,29 +7,37 @@
  *
  */
 
-  namespace Gedcomx\Types {
+namespace Gedcomx\Types;
 
-    // Enumeration of high-level genealogical resource types.
-    class ResourceType {
-    
+/**
+ * Enumeration of high-level genealogical resource types.
+ */
+class ResourceType
+{
 
-      //  A historical record.
-      const Record = "{http://gedcomx.org/}Record";
+    /**
+     *  A historical record.
+     */
+    const Record = "http://gedcomx.org/Record";
 
-      //  A collection.
-      const Collection = "{http://gedcomx.org/}Collection";
+    /**
+     *  A collection.
+     */
+    const Collection = "http://gedcomx.org/Collection";
 
-      //  A digital artifact, such as a digital image or video.
-      const DigitalArtifact = "{http://gedcomx.org/}DigitalArtifact";
+    /**
+     *  A digital artifact, such as a digital image or video.
+     */
+    const DigitalArtifact = "http://gedcomx.org/DigitalArtifact";
 
-      //  A physical artifact.
-      const PhysicalArtifact = "{http://gedcomx.org/}PhysicalArtifact";
+    /**
+     *  A physical artifact.
+     */
+    const PhysicalArtifact = "http://gedcomx.org/PhysicalArtifact";
 
-      //  A person.
-      const Person = "{http://gedcomx.org/}Person";
-    
-    }
+    /**
+     *  A person.
+     */
+    const Person = "http://gedcomx.org/Person";
 
-  }  
-    
-?>
+}

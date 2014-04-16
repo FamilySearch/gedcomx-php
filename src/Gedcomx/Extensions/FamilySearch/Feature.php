@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,139 +7,135 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch {
+namespace Gedcomx\Extensions\FamilySearch;
+
+/**
+ * A description of a FamilySearch feature.
+ */
+class Feature 
+{
+    
 
     /**
-     * A description of a FamilySearch feature.
+     * The name of the feature.
      */
-    class Feature  {
-    
-    
-      /**
-       * The name of the feature.
-       */
-      private $name;
-      /**
-       * A description of the feature.
-       */
-      private $description;
-      /**
-       * Whether the feature is enabled for the current request.
-       */
-      private $enabled;
-      /**
-       * The date that this feature is scheduled to activate permanently.
-       */
-      private $activationDate;
+    private $name;
+    /**
+     * A description of the feature.
+     */
+    private $description;
+    /**
+     * Whether the feature is enabled for the current request.
+     */
+    private $enabled;
+    /**
+     * The date that this feature is scheduled to activate permanently.
+     */
+    private $activationDate;
 
-      /**
-       * Constructs a Feature from a (parsed) JSON hash
-       */
-      public function __construct($o = null) {
-        if( $o ) {
-          $this->initFromArray($o);
-        }
+    /**
+     * Constructs a Feature from a (parsed) JSON hash
+     */
+    public function __construct($o = null) {
+      if( $o ) {
+        $this->initFromArray($o);
       }
-      
-      /**
-       * The name of the feature.
-       */
-      public function getName() {
-        return $this->name;
-      }
-      
-      /**
-       * The name of the feature.
-       */
-      public function setName($name) {
-        $this->name = $name;
-      }
-      /**
-       * A description of the feature.
-       */
-      public function getDescription() {
-        return $this->description;
-      }
-      
-      /**
-       * A description of the feature.
-       */
-      public function setDescription($description) {
-        $this->description = $description;
-      }
-      /**
-       * Whether the feature is enabled for the current request.
-       */
-      public function getEnabled() {
-        return $this->enabled;
-      }
-      
-      /**
-       * Whether the feature is enabled for the current request.
-       */
-      public function setEnabled($enabled) {
-        $this->enabled = $enabled;
-      }
-      /**
-       * The date that this feature is scheduled to activate permanently.
-       */
-      public function getActivationDate() {
-        return $this->activationDate;
-      }
-      
-      /**
-       * The date that this feature is scheduled to activate permanently.
-       */
-      public function setActivationDate($activationDate) {
-        $this->activationDate = $activationDate;
-      }
-      /**
-       * Returns the associative array for this Feature
-       */
-      public function toArray() {
-        $a = array();
-        if( $this->name ) {
-          $a["name"] = $this->name;
-        }
-        if( $this->description ) {
-          $a["description"] = $this->description;
-        }
-        if( $this->enabled ) {
-          $a["enabled"] = $this->enabled;
-        }
-        if( $this->activationDate ) {
-          $a["activationDate"] = $this->activationDate;
-        }
-        return $a;
-      }
-      
-      /**
-       * Returns the JSON string for this Feature
-       */
-      public function toJson() {
-        return json_encode($this->toArray());
-      }
-
-      /**
-       * Initializes this Feature from an associative array
-       */
-      public function initFromArray($o) {
-        if( isset($o['name']) ) {
-          $this->name = $o["name"];
-        }
-        if( isset($o['description']) ) {
-          $this->description = $o["description"];
-        }
-        if( isset($o['enabled']) ) {
-          $this->enabled = $o["enabled"];
-        }
-        if( isset($o['activationDate']) ) {
-          $this->activationDate = $o["activationDate"];
-        }
-      }
-    
     }
-    
-  }
 
-?>
+    /**
+     * The name of the feature.
+     */
+    public function getName() {
+      return $this->name;
+    }
+
+    /**
+     * The name of the feature.
+     */
+    public function setName($name) {
+      $this->name = $name;
+    }
+    /**
+     * A description of the feature.
+     */
+    public function getDescription() {
+      return $this->description;
+    }
+
+    /**
+     * A description of the feature.
+     */
+    public function setDescription($description) {
+      $this->description = $description;
+    }
+    /**
+     * Whether the feature is enabled for the current request.
+     */
+    public function getEnabled() {
+      return $this->enabled;
+    }
+
+    /**
+     * Whether the feature is enabled for the current request.
+     */
+    public function setEnabled($enabled) {
+      $this->enabled = $enabled;
+    }
+    /**
+     * The date that this feature is scheduled to activate permanently.
+     */
+    public function getActivationDate() {
+      return $this->activationDate;
+    }
+
+    /**
+     * The date that this feature is scheduled to activate permanently.
+     */
+    public function setActivationDate($activationDate) {
+      $this->activationDate = $activationDate;
+    }
+    /**
+     * Returns the associative array for this Feature
+     */
+    public function toArray() {
+      $a = array();
+      if( $this->name ) {
+            $a["name"] = $this->name;
+      }
+      if( $this->description ) {
+            $a["description"] = $this->description;
+      }
+      if( $this->enabled ) {
+            $a["enabled"] = $this->enabled;
+      }
+      if( $this->activationDate ) {
+            $a["activationDate"] = $this->activationDate;
+      }
+      return $a;
+    }
+
+    /**
+     * Returns the JSON string for this Feature
+     */
+    public function toJson() {
+      return json_encode($this->toArray());
+    }
+
+    /**
+     * Initializes this Feature from an associative array
+     */
+    public function initFromArray($o) {
+      if( isset($o['name']) ) {
+            $this->name = $o["name"];
+      }
+      if( isset($o['description']) ) {
+            $this->description = $o["description"];
+      }
+      if( isset($o['enabled']) ) {
+            $this->enabled = $o["enabled"];
+      }
+      if( isset($o['activationDate']) ) {
+            $this->activationDate = $o["activationDate"];
+      }
+    }
+}

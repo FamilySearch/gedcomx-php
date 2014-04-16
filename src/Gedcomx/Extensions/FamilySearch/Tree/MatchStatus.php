@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,23 +7,27 @@
  *
  */
 
-  namespace Gedcomx\Extensions\FamilySearch\Tree {
+namespace Gedcomx\Extensions\FamilySearch\Tree;
 
-    // The way a match was resolved.
-    class MatchStatus {
-    
+/**
+ * The way a match was resolved.
+ */
+class MatchStatus
+{
 
-      // (no documentation provided)
-      const Pending = "{http://familysearch.org/v1/}Pending";
+    /**
+     * (no documentation provided)
+     */
+    const Pending = "http://familysearch.org/v1/Pending";
 
-      // (no documentation provided)
-      const Accepted = "{http://familysearch.org/v1/}Accepted";
+    /**
+     * (no documentation provided)
+     */
+    const Accepted = "http://familysearch.org/v1/Accepted";
 
-      // (no documentation provided)
-      const Rejected = "{http://familysearch.org/v1/}Rejected";
-    
-    }
+    /**
+     * (no documentation provided)
+     */
+    const Rejected = "http://familysearch.org/v1/Rejected";
 
-  }  
-    
-?>
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * 
@@ -8,29 +7,37 @@
  *
  */
 
-  namespace Gedcomx\Search {
+namespace Gedcomx\Search;
 
-    // The levels of confidence of a search result.
-    class ResultConfidence {
-    
+/**
+ * The levels of confidence of a search result.
+ */
+class ResultConfidence
+{
 
-      //  Result confidence level 1 (lowest).
-      const One = "1";
+    /**
+     *  Result confidence level 1 (lowest).
+     */
+    const One = "1";
 
-      //  Result confidence level 2.
-      const Two = "2";
+    /**
+     *  Result confidence level 2.
+     */
+    const Two = "2";
 
-      //  Result confidence level 3.
-      const Three = "3";
+    /**
+     *  Result confidence level 3.
+     */
+    const Three = "3";
 
-      //  Result confidence level 4.
-      const Four = "4";
+    /**
+     *  Result confidence level 4.
+     */
+    const Four = "4";
 
-      //  Result confidence level 5 (highest).
-      const Five = "5";
-    
-    }
+    /**
+     *  Result confidence level 5 (highest).
+     */
+    const Five = "5";
 
-  }  
-    
-?>
+}
