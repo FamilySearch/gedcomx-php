@@ -14,9 +14,9 @@ namespace Gedcomx\Conclusion;
      * and possibly its type, time period, and/or a geospatial description -- a description
      * of a place as a snapshot in time.
  */
-class PlaceDescription extends \Gedcomx\Conclusion\Subject 
+class PlaceDescription extends \Gedcomx\Conclusion\Subject
 {
-    
+
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
      */
@@ -26,26 +26,32 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      */
     private $names;
+
     /**
      * A description of the time period to which this place description is relevant.
      */
     private $temporalDescription;
+
     /**
      * Degrees north or south of the Equator.
      */
     private $latitude;
+
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
      */
     private $longitude;
+
     /**
      * A reference to a geospatial description of this place.
      */
     private $spatialDescription;
+
     /**
      * A reference to a description of the jurisdiction this place.
      */
     private $jurisdiction;
+
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
@@ -54,184 +60,203 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a PlaceDescription from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      */
-    public function getNames() {
-      return $this->names;
+    public function getNames()
+    {
+        return $this->names;
     }
 
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      */
-    public function setNames($names) {
-      $this->names = $names;
+    public function setNames($names)
+    {
+        $this->names = $names;
     }
     /**
      * A description of the time period to which this place description is relevant.
      */
-    public function getTemporalDescription() {
-      return $this->temporalDescription;
+    public function getTemporalDescription()
+    {
+        return $this->temporalDescription;
     }
 
     /**
      * A description of the time period to which this place description is relevant.
      */
-    public function setTemporalDescription($temporalDescription) {
-      $this->temporalDescription = $temporalDescription;
+    public function setTemporalDescription($temporalDescription)
+    {
+        $this->temporalDescription = $temporalDescription;
     }
     /**
      * Degrees north or south of the Equator.
      */
-    public function getLatitude() {
-      return $this->latitude;
+    public function getLatitude()
+    {
+        return $this->latitude;
     }
 
     /**
      * Degrees north or south of the Equator.
      */
-    public function setLatitude($latitude) {
-      $this->latitude = $latitude;
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
     }
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
      */
-    public function getLongitude() {
-      return $this->longitude;
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
      */
-    public function setLongitude($longitude) {
-      $this->longitude = $longitude;
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
     }
     /**
      * A reference to a geospatial description of this place.
      */
-    public function getSpatialDescription() {
-      return $this->spatialDescription;
+    public function getSpatialDescription()
+    {
+        return $this->spatialDescription;
     }
 
     /**
      * A reference to a geospatial description of this place.
      */
-    public function setSpatialDescription($spatialDescription) {
-      $this->spatialDescription = $spatialDescription;
+    public function setSpatialDescription($spatialDescription)
+    {
+        $this->spatialDescription = $spatialDescription;
     }
     /**
      * A reference to a description of the jurisdiction this place.
      */
-    public function getJurisdiction() {
-      return $this->jurisdiction;
+    public function getJurisdiction()
+    {
+        return $this->jurisdiction;
     }
 
     /**
      * A reference to a description of the jurisdiction this place.
      */
-    public function setJurisdiction($jurisdiction) {
-      $this->jurisdiction = $jurisdiction;
+    public function setJurisdiction($jurisdiction)
+    {
+        $this->jurisdiction = $jurisdiction;
     }
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function getDisplayExtension() {
-      return $this->displayExtension;
+    public function getDisplayExtension()
+    {
+        return $this->displayExtension;
     }
 
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function setDisplayExtension($displayExtension) {
-      $this->displayExtension = $displayExtension;
+    public function setDisplayExtension($displayExtension)
+    {
+        $this->displayExtension = $displayExtension;
     }
     /**
      * Returns the associative array for this PlaceDescription
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->names ) {
-        $ab = array();
-        foreach( $this->names as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['names'] = $ab;
-      }
-      if( $this->temporalDescription ) {
+        if ($this->names) {
+            $ab = array();
+            foreach ($this->names as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['names'] = $ab;
+        }
+        if ($this->temporalDescription) {
             $a["temporalDescription"] = $this->temporalDescription->toArray();
-      }
-      if( $this->latitude ) {
+        }
+        if ($this->latitude) {
             $a["latitude"] = $this->latitude;
-      }
-      if( $this->longitude ) {
+        }
+        if ($this->longitude) {
             $a["longitude"] = $this->longitude;
-      }
-      if( $this->spatialDescription ) {
+        }
+        if ($this->spatialDescription) {
             $a["spatialDescription"] = $this->spatialDescription->toArray();
-      }
-      if( $this->jurisdiction ) {
+        }
+        if ($this->jurisdiction) {
             $a["jurisdiction"] = $this->jurisdiction->toArray();
-      }
-      if( $this->displayExtension ) {
+        }
+        if ($this->displayExtension) {
             $a["display"] = $this->displayExtension->toArray();
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this PlaceDescription from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      $this->names = array();
-      if( isset($o['names']) ) {
-        foreach( $o['names'] as $i => $x ) {
-              $this->names[$i] = new \Gedcomx\Common\TextValue($x);
         }
-      }
-      if( isset($o['temporalDescription']) ) {
-            $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
-      }
-      if( isset($o['latitude']) ) {
-            $this->latitude = $o["latitude"];
-      }
-      if( isset($o['longitude']) ) {
-            $this->longitude = $o["longitude"];
-      }
-      if( isset($o['spatialDescription']) ) {
-            $this->spatialDescription = new \Gedcomx\Common\ResourceReference($o["spatialDescription"]);
-      }
-      if( isset($o['jurisdiction']) ) {
-            $this->jurisdiction = new \Gedcomx\Common\ResourceReference($o["jurisdiction"]);
-      }
-      if( isset($o['display']) ) {
-            $this->displayExtension = new \Gedcomx\Conclusion\PlaceDisplayProperties($o["display"]);
-      }
+        $this->names = array();
+        if (isset($o['names'])) {
+            foreach ($o['names'] as $i => $x) {
+                    $this->names[$i] = new \Gedcomx\Common\TextValue($x);
+            }
+        }
+        if (isset($o['temporalDescription'])) {
+                $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
+        }
+        if (isset($o['latitude'])) {
+                $this->latitude = $o["latitude"];
+        }
+        if (isset($o['longitude'])) {
+                $this->longitude = $o["longitude"];
+        }
+        if (isset($o['spatialDescription'])) {
+                $this->spatialDescription = new \Gedcomx\Common\ResourceReference($o["spatialDescription"]);
+        }
+        if (isset($o['jurisdiction'])) {
+                $this->jurisdiction = new \Gedcomx\Common\ResourceReference($o["jurisdiction"]);
+        }
+        if (isset($o['display'])) {
+                $this->displayExtension = new \Gedcomx\Conclusion\PlaceDisplayProperties($o["display"]);
+        }
     }
 }

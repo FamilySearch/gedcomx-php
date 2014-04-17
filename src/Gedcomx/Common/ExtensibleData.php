@@ -12,61 +12,66 @@ namespace Gedcomx\Common;
 /**
  * A set of data that supports extension elements.
  */
-class ExtensibleData 
+class ExtensibleData
 {
-    
+
     /**
      * A local, context-specific id for the data.
      */
     private $id;
 
-
     /**
      * Constructs a ExtensibleData from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * A local, context-specific id for the data.
      */
-    public function getId() {
-      return $this->id;
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
      * A local, context-specific id for the data.
      */
-    public function setId($id) {
-      $this->id = $id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
     /**
      * Returns the associative array for this ExtensibleData
      */
-    public function toArray() {
-      $a = array();
-      if( $this->id ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->id) {
             $a["id"] = $this->id;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this ExtensibleData
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this ExtensibleData from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['id']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['id'])) {
             $this->id = $o["id"];
-      }
+        }
     }
 }

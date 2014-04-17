@@ -12,225 +12,251 @@ namespace Gedcomx\Links;
 /**
  * A hypermedia link, used to drive the state of a hypermedia-enabled genealogical data application.
  */
-class Link 
+class Link
 {
-    
+
     /**
      * The language of the resource being linked to.
      */
     private $hreflang;
+
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
      * URIs, such as for the purpose of linking to a query.
      */
     private $template;
+
     /**
      * Human-readable information about the link.
      */
     private $title;
+
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
     private $allow;
+
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
     private $accept;
+
     /**
      * The link relationship.
      */
     private $rel;
+
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
     private $type;
+
     /**
      * The target IRI of the link.
      */
     private $href;
 
-
     /**
      * Constructs a Link from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The language of the resource being linked to.
      */
-    public function getHreflang() {
-      return $this->hreflang;
+    public function getHreflang()
+    {
+        return $this->hreflang;
     }
 
     /**
      * The language of the resource being linked to.
      */
-    public function setHreflang($hreflang) {
-      $this->hreflang = $hreflang;
+    public function setHreflang($hreflang)
+    {
+        $this->hreflang = $hreflang;
     }
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
        * URIs, such as for the purpose of linking to a query.
      */
-    public function getTemplate() {
-      return $this->template;
+    public function getTemplate()
+    {
+        return $this->template;
     }
 
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
        * URIs, such as for the purpose of linking to a query.
      */
-    public function setTemplate($template) {
-      $this->template = $template;
+    public function setTemplate($template)
+    {
+        $this->template = $template;
     }
     /**
      * Human-readable information about the link.
      */
-    public function getTitle() {
-      return $this->title;
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
      * Human-readable information about the link.
      */
-    public function setTitle($title) {
-      $this->title = $title;
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
-    public function getAllow() {
-      return $this->allow;
-    }
-
-    /**
-     * Metadata about the available media type(s) of the resource being linked to.
-     */
-    public function setAllow($allow) {
-      $this->allow = $allow;
-    }
-    /**
-     * Metadata about the available media type(s) of the resource being linked to.
-     */
-    public function getAccept() {
-      return $this->accept;
+    public function getAllow()
+    {
+        return $this->allow;
     }
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
-    public function setAccept($accept) {
-      $this->accept = $accept;
+    public function setAllow($allow)
+    {
+        $this->allow = $allow;
+    }
+    /**
+     * Metadata about the available media type(s) of the resource being linked to.
+     */
+    public function getAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Metadata about the available media type(s) of the resource being linked to.
+     */
+    public function setAccept($accept)
+    {
+        $this->accept = $accept;
     }
     /**
      * The link relationship.
      */
-    public function getRel() {
-      return $this->rel;
+    public function getRel()
+    {
+        return $this->rel;
     }
 
     /**
      * The link relationship.
      */
-    public function setRel($rel) {
-      $this->rel = $rel;
+    public function setRel($rel)
+    {
+        $this->rel = $rel;
     }
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * The target IRI of the link.
      */
-    public function getHref() {
-      return $this->href;
+    public function getHref()
+    {
+        return $this->href;
     }
 
     /**
      * The target IRI of the link.
      */
-    public function setHref($href) {
-      $this->href = $href;
+    public function setHref($href)
+    {
+        $this->href = $href;
     }
     /**
      * Returns the associative array for this Link
      */
-    public function toArray() {
-      $a = array();
-      if( $this->hreflang ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->hreflang) {
             $a["hreflang"] = $this->hreflang;
-      }
-      if( $this->template ) {
+        }
+        if ($this->template) {
             $a["template"] = $this->template;
-      }
-      if( $this->title ) {
+        }
+        if ($this->title) {
             $a["title"] = $this->title;
-      }
-      if( $this->allow ) {
+        }
+        if ($this->allow) {
             $a["allow"] = $this->allow;
-      }
-      if( $this->accept ) {
+        }
+        if ($this->accept) {
             $a["accept"] = $this->accept;
-      }
-      if( $this->rel ) {
+        }
+        if ($this->rel) {
             $a["rel"] = $this->rel;
-      }
-      if( $this->type ) {
+        }
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->href ) {
+        }
+        if ($this->href) {
             $a["href"] = $this->href;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this Link
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this Link from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['hreflang']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['hreflang'])) {
             $this->hreflang = $o["hreflang"];
-      }
-      if( isset($o['template']) ) {
+        }
+        if (isset($o['template'])) {
             $this->template = $o["template"];
-      }
-      if( isset($o['title']) ) {
+        }
+        if (isset($o['title'])) {
             $this->title = $o["title"];
-      }
-      if( isset($o['allow']) ) {
+        }
+        if (isset($o['allow'])) {
             $this->allow = $o["allow"];
-      }
-      if( isset($o['accept']) ) {
+        }
+        if (isset($o['accept'])) {
             $this->accept = $o["accept"];
-      }
-      if( isset($o['rel']) ) {
+        }
+        if (isset($o['rel'])) {
             $this->rel = $o["rel"];
-      }
-      if( isset($o['type']) ) {
+        }
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      if( isset($o['href']) ) {
+        }
+        if (isset($o['href'])) {
             $this->href = $o["href"];
-      }
+        }
     }
 }

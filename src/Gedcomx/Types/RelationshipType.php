@@ -18,11 +18,10 @@ class RelationshipType
     /**
      * (no documentation provided)
      */
-    const Couple = "http://gedcomx.org/Couple";
+    const COUPLE = "http://gedcomx.org/Couple";
 
     /**
      * (no documentation provided)
      */
-    const ParentChild = "http://gedcomx.org/ParentChild";
-
+    const PARENTCHILD = "http://gedcomx.org/ParentChild";
 }

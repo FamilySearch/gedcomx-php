@@ -14,30 +14,34 @@ namespace Gedcomx\Extensions\FamilySearch;
      * data formats are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
      * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
  */
-class FamilySearchPlatform extends \Gedcomx\Gedcomx 
+class FamilySearchPlatform extends \Gedcomx\Gedcomx
 {
-    
 
     /**
      * The child-and-parents relationships for this data set.
      */
     private $childAndParentsRelationships;
+
     /**
      * The discussions included in this data set.
      */
     private $discussions;
+
     /**
      * The users included in this genealogical data set.
      */
     private $users;
+
     /**
      * The merges for this data set.
      */
     private $merges;
+
     /**
      * The merge analysis results for this data set.
      */
     private $mergeAnalyses;
+
     /**
      * The set of features defined in the platform API.
      */
@@ -46,181 +50,196 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     /**
      * Constructs a FamilySearchPlatform from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The child-and-parents relationships for this data set.
      */
-    public function getChildAndParentsRelationships() {
-      return $this->childAndParentsRelationships;
+    public function getChildAndParentsRelationships()
+    {
+        return $this->childAndParentsRelationships;
     }
 
     /**
      * The child-and-parents relationships for this data set.
      */
-    public function setChildAndParentsRelationships($childAndParentsRelationships) {
-      $this->childAndParentsRelationships = $childAndParentsRelationships;
+    public function setChildAndParentsRelationships($childAndParentsRelationships)
+    {
+        $this->childAndParentsRelationships = $childAndParentsRelationships;
     }
     /**
      * The discussions included in this data set.
      */
-    public function getDiscussions() {
-      return $this->discussions;
+    public function getDiscussions()
+    {
+        return $this->discussions;
     }
 
     /**
      * The discussions included in this data set.
      */
-    public function setDiscussions($discussions) {
-      $this->discussions = $discussions;
+    public function setDiscussions($discussions)
+    {
+        $this->discussions = $discussions;
     }
     /**
      * The users included in this genealogical data set.
      */
-    public function getUsers() {
-      return $this->users;
+    public function getUsers()
+    {
+        return $this->users;
     }
 
     /**
      * The users included in this genealogical data set.
      */
-    public function setUsers($users) {
-      $this->users = $users;
+    public function setUsers($users)
+    {
+        $this->users = $users;
     }
     /**
      * The merges for this data set.
      */
-    public function getMerges() {
-      return $this->merges;
+    public function getMerges()
+    {
+        return $this->merges;
     }
 
     /**
      * The merges for this data set.
      */
-    public function setMerges($merges) {
-      $this->merges = $merges;
+    public function setMerges($merges)
+    {
+        $this->merges = $merges;
     }
     /**
      * The merge analysis results for this data set.
      */
-    public function getMergeAnalyses() {
-      return $this->mergeAnalyses;
+    public function getMergeAnalyses()
+    {
+        return $this->mergeAnalyses;
     }
 
     /**
      * The merge analysis results for this data set.
      */
-    public function setMergeAnalyses($mergeAnalyses) {
-      $this->mergeAnalyses = $mergeAnalyses;
+    public function setMergeAnalyses($mergeAnalyses)
+    {
+        $this->mergeAnalyses = $mergeAnalyses;
     }
     /**
      * The set of features defined in the platform API.
      */
-    public function getFeatures() {
-      return $this->features;
+    public function getFeatures()
+    {
+        return $this->features;
     }
 
     /**
      * The set of features defined in the platform API.
      */
-    public function setFeatures($features) {
-      $this->features = $features;
+    public function setFeatures($features)
+    {
+        $this->features = $features;
     }
     /**
      * Returns the associative array for this FamilySearchPlatform
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->childAndParentsRelationships ) {
-        $ab = array();
-        foreach( $this->childAndParentsRelationships as $i => $x ) {
-              $ab[$i] = $x->toArray();
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->childAndParentsRelationships) {
+            $ab = array();
+            foreach ($this->childAndParentsRelationships as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['childAndParentsRelationships'] = $ab;
         }
-        $a['childAndParentsRelationships'] = $ab;
-      }
-      if( $this->discussions ) {
-        $ab = array();
-        foreach( $this->discussions as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->discussions) {
+            $ab = array();
+            foreach ($this->discussions as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['discussions'] = $ab;
         }
-        $a['discussions'] = $ab;
-      }
-      if( $this->users ) {
-        $ab = array();
-        foreach( $this->users as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->users) {
+            $ab = array();
+            foreach ($this->users as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['users'] = $ab;
         }
-        $a['users'] = $ab;
-      }
-      if( $this->merges ) {
-        $ab = array();
-        foreach( $this->merges as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->merges) {
+            $ab = array();
+            foreach ($this->merges as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['merges'] = $ab;
         }
-        $a['merges'] = $ab;
-      }
-      if( $this->mergeAnalyses ) {
-        $ab = array();
-        foreach( $this->mergeAnalyses as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->mergeAnalyses) {
+            $ab = array();
+            foreach ($this->mergeAnalyses as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['mergeAnalyses'] = $ab;
         }
-        $a['mergeAnalyses'] = $ab;
-      }
-      if( $this->features ) {
-        $ab = array();
-        foreach( $this->features as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->features) {
+            $ab = array();
+            foreach ($this->features as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['features'] = $ab;
         }
-        $a['features'] = $ab;
-      }
-      return $a;
+        return $a;
     }
 
 
     /**
      * Initializes this FamilySearchPlatform from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      $this->childAndParentsRelationships = array();
-      if( isset($o['childAndParentsRelationships']) ) {
-        foreach( $o['childAndParentsRelationships'] as $i => $x ) {
-              $this->childAndParentsRelationships[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($x);
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        $this->childAndParentsRelationships = array();
+        if (isset($o['childAndParentsRelationships'])) {
+            foreach ($o['childAndParentsRelationships'] as $i => $x) {
+                    $this->childAndParentsRelationships[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($x);
+            }
         }
-      }
-      $this->discussions = array();
-      if( isset($o['discussions']) ) {
-        foreach( $o['discussions'] as $i => $x ) {
-              $this->discussions[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($x);
+        $this->discussions = array();
+        if (isset($o['discussions'])) {
+            foreach ($o['discussions'] as $i => $x) {
+                    $this->discussions[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($x);
+            }
         }
-      }
-      $this->users = array();
-      if( isset($o['users']) ) {
-        foreach( $o['users'] as $i => $x ) {
-              $this->users[$i] = new \Gedcomx\Extensions\FamilySearch\Users\User($x);
+        $this->users = array();
+        if (isset($o['users'])) {
+            foreach ($o['users'] as $i => $x) {
+                    $this->users[$i] = new \Gedcomx\Extensions\FamilySearch\Users\User($x);
+            }
         }
-      }
-      $this->merges = array();
-      if( isset($o['merges']) ) {
-        foreach( $o['merges'] as $i => $x ) {
-              $this->merges[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($x);
+        $this->merges = array();
+        if (isset($o['merges'])) {
+            foreach ($o['merges'] as $i => $x) {
+                    $this->merges[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($x);
+            }
         }
-      }
-      $this->mergeAnalyses = array();
-      if( isset($o['mergeAnalyses']) ) {
-        foreach( $o['mergeAnalyses'] as $i => $x ) {
-              $this->mergeAnalyses[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($x);
+        $this->mergeAnalyses = array();
+        if (isset($o['mergeAnalyses'])) {
+            foreach ($o['mergeAnalyses'] as $i => $x) {
+                    $this->mergeAnalyses[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($x);
+            }
         }
-      }
-      $this->features = array();
-      if( isset($o['features']) ) {
-        foreach( $o['features'] as $i => $x ) {
-              $this->features[$i] = new \Gedcomx\Extensions\FamilySearch\Feature($x);
+        $this->features = array();
+        if (isset($o['features'])) {
+            foreach ($o['features'] as $i => $x) {
+                    $this->features[$i] = new \Gedcomx\Extensions\FamilySearch\Feature($x);
+            }
         }
-      }
     }
 }

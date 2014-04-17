@@ -12,9 +12,9 @@ namespace Gedcomx\Atom;
 /**
  * 
  */
-class Content 
+class Content
 {
-    
+
     /**
      * The type of the content.
      */
@@ -28,68 +28,76 @@ class Content
     /**
      * Constructs a Content from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The type of the content.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The type of the content.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * The genealogical data associated with this entry.
      */
-    public function getGedcomx() {
-      return $this->gedcomx;
+    public function getGedcomx()
+    {
+        return $this->gedcomx;
     }
 
     /**
      * The genealogical data associated with this entry.
      */
-    public function setGedcomx($gedcomx) {
-      $this->gedcomx = $gedcomx;
+    public function setGedcomx($gedcomx)
+    {
+        $this->gedcomx = $gedcomx;
     }
     /**
      * Returns the associative array for this Content
      */
-    public function toArray() {
-      $a = array();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->gedcomx ) {
+        }
+        if ($this->gedcomx) {
             $a["gedcomx"] = $this->gedcomx->toArray();
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this Content
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this Content from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      if( isset($o['gedcomx']) ) {
-            $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
-      }
+        }
+        if (isset($o['gedcomx'])) {
+                $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
+        }
     }
 }

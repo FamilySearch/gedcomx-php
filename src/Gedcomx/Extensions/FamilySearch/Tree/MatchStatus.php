@@ -18,16 +18,15 @@ class MatchStatus
     /**
      * (no documentation provided)
      */
-    const Pending = "http://familysearch.org/v1/Pending";
+    const PENDING = "http://familysearch.org/v1/Pending";
 
     /**
      * (no documentation provided)
      */
-    const Accepted = "http://familysearch.org/v1/Accepted";
+    const ACCEPTED = "http://familysearch.org/v1/Accepted";
 
     /**
      * (no documentation provided)
      */
-    const Rejected = "http://familysearch.org/v1/Rejected";
-
+    const REJECTED = "http://familysearch.org/v1/Rejected";
 }

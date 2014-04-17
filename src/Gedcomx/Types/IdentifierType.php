@@ -18,7 +18,7 @@ class IdentifierType
     /**
      *  The primary identifier for the resource.
      */
-    const Primary = "http://gedcomx.org/Primary";
+    const PRIMARY = "http://gedcomx.org/Primary";
 
     /**
      *  An identifier for the evidence that supports the resource. For example, when a conclusion
@@ -28,20 +28,19 @@ class IdentifierType
     *  (working) person conclusion identifies the evidence used to support the conclusion by including
     *  each evidence identifier in the list of identifiers for the person.
      */
-    const Evidence = "http://gedcomx.org/Evidence";
+    const EVIDENCE = "http://gedcomx.org/Evidence";
 
     /**
      *  An identifier that has been relegated, deprecated, or otherwise downgraded. This
     *  identifier is commonly used as the result of a merge when what was once a primary
     *  identifier for a person is no longer primary.
      */
-    const Deprecated = "http://gedcomx.org/Deprecated";
+    const DEPRECATED = "http://gedcomx.org/Deprecated";
 
     /**
      *  An identifier that is considered to be a long-term persistent identifier. Applications
     *  that provide persistent identifiers are claiming that links to the resource using the identifier
     *  won't break.
      */
-    const Persistent = "http://gedcomx.org/Persistent";
-
+    const PERSISTENT = "http://gedcomx.org/Persistent";
 }

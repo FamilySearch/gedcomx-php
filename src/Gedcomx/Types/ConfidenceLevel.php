@@ -18,16 +18,15 @@ class ConfidenceLevel
     /**
      *  High of confidence.
      */
-    const High = "http://gedcomx.org/High";
+    const HIGH = "http://gedcomx.org/High";
 
     /**
      *  Medium of confidence.
      */
-    const Medium = "http://gedcomx.org/Medium";
+    const MEDIUM = "http://gedcomx.org/Medium";
 
     /**
      *  Low of confidence.
      */
-    const Low = "http://gedcomx.org/Low";
-
+    const LOW = "http://gedcomx.org/Low";
 }

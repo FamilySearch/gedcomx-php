@@ -12,9 +12,9 @@ namespace Gedcomx\Conclusion;
 /**
  * A relationship between two or more persons.
  */
-class Relationship extends \Gedcomx\Conclusion\Subject 
+class Relationship extends \Gedcomx\Conclusion\Subject
 {
-    
+
     /**
      * The type of this relationship.
      */
@@ -26,16 +26,19 @@ class Relationship extends \Gedcomx\Conclusion\Subject
      * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
     private $person1;
+
     /**
      * A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
      * the other person in this relationship and implies neither order nor role. When the relationship type
      * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
     private $person2;
+
     /**
      * The fact conclusions for the relationship.
      */
     private $facts;
+
     /**
      * The references to the record fields being used as evidence.
      */
@@ -44,32 +47,36 @@ class Relationship extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a Relationship from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The type of this relationship.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The type of this relationship.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
-    public function getPerson1() {
-      return $this->person1;
+    public function getPerson1()
+    {
+        return $this->person1;
     }
 
     /**
@@ -77,16 +84,18 @@ class Relationship extends \Gedcomx\Conclusion\Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
-    public function setPerson1($person1) {
-      $this->person1 = $person1;
+    public function setPerson1($person1)
+    {
+        $this->person1 = $person1;
     }
     /**
      * A reference to a person in the relationship. The name &quot;person2&quot; is used only to distinguish it from
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
-    public function getPerson2() {
-      return $this->person2;
+    public function getPerson2()
+    {
+        return $this->person2;
     }
 
     /**
@@ -94,92 +103,99 @@ class Relationship extends \Gedcomx\Conclusion\Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      */
-    public function setPerson2($person2) {
-      $this->person2 = $person2;
+    public function setPerson2($person2)
+    {
+        $this->person2 = $person2;
     }
     /**
      * The fact conclusions for the relationship.
      */
-    public function getFacts() {
-      return $this->facts;
+    public function getFacts()
+    {
+        return $this->facts;
     }
 
     /**
      * The fact conclusions for the relationship.
      */
-    public function setFacts($facts) {
-      $this->facts = $facts;
+    public function setFacts($facts)
+    {
+        $this->facts = $facts;
     }
     /**
      * The references to the record fields being used as evidence.
      */
-    public function getFields() {
-      return $this->fields;
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
      * The references to the record fields being used as evidence.
      */
-    public function setFields($fields) {
-      $this->fields = $fields;
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
     /**
      * Returns the associative array for this Relationship
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->person1 ) {
+        }
+        if ($this->person1) {
             $a["person1"] = $this->person1->toArray();
-      }
-      if( $this->person2 ) {
+        }
+        if ($this->person2) {
             $a["person2"] = $this->person2->toArray();
-      }
-      if( $this->facts ) {
-        $ab = array();
-        foreach( $this->facts as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['facts'] = $ab;
-      }
-      if( $this->fields ) {
-        $ab = array();
-        foreach( $this->fields as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->facts) {
+            $ab = array();
+            foreach ($this->facts as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['facts'] = $ab;
         }
-        $a['fields'] = $ab;
-      }
-      return $a;
+        if ($this->fields) {
+            $ab = array();
+            foreach ($this->fields as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fields'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Relationship from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      if( isset($o['person1']) ) {
-            $this->person1 = new \Gedcomx\Common\ResourceReference($o["person1"]);
-      }
-      if( isset($o['person2']) ) {
-            $this->person2 = new \Gedcomx\Common\ResourceReference($o["person2"]);
-      }
-      $this->facts = array();
-      if( isset($o['facts']) ) {
-        foreach( $o['facts'] as $i => $x ) {
-              $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
         }
-      }
-      $this->fields = array();
-      if( isset($o['fields']) ) {
-        foreach( $o['fields'] as $i => $x ) {
-              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        if (isset($o['person1'])) {
+                $this->person1 = new \Gedcomx\Common\ResourceReference($o["person1"]);
         }
-      }
+        if (isset($o['person2'])) {
+                $this->person2 = new \Gedcomx\Common\ResourceReference($o["person2"]);
+        }
+        $this->facts = array();
+        if (isset($o['facts'])) {
+            foreach ($o['facts'] as $i => $x) {
+                    $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
+            }
+        }
+        $this->fields = array();
+        if (isset($o['fields'])) {
+            foreach ($o['fields'] as $i => $x) {
+                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
     }
 }

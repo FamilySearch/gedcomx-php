@@ -18,26 +18,25 @@ class ResourceType
     /**
      *  A historical record.
      */
-    const Record = "http://gedcomx.org/Record";
+    const RECORD = "http://gedcomx.org/Record";
 
     /**
      *  A collection.
      */
-    const Collection = "http://gedcomx.org/Collection";
+    const COLLECTION = "http://gedcomx.org/Collection";
 
     /**
      *  A digital artifact, such as a digital image or video.
      */
-    const DigitalArtifact = "http://gedcomx.org/DigitalArtifact";
+    const DIGITALARTIFACT = "http://gedcomx.org/DigitalArtifact";
 
     /**
      *  A physical artifact.
      */
-    const PhysicalArtifact = "http://gedcomx.org/PhysicalArtifact";
+    const PHYSICALARTIFACT = "http://gedcomx.org/PhysicalArtifact";
 
     /**
      *  A person.
      */
-    const Person = "http://gedcomx.org/Person";
-
+    const PERSON = "http://gedcomx.org/Person";
 }

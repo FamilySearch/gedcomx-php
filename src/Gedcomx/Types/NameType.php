@@ -18,41 +18,40 @@ class NameType
     /**
      *  Name given at birth.
      */
-    const BirthName = "http://gedcomx.org/BirthName";
+    const BIRTHNAME = "http://gedcomx.org/BirthName";
 
     /**
      *  Name used at the time of death.
      */
-    const DeathName = "http://gedcomx.org/DeathName";
+    const DEATHNAME = "http://gedcomx.org/DeathName";
 
     /**
      *  Name accepted at marriage.
      */
-    const MarriedName = "http://gedcomx.org/MarriedName";
+    const MARRIEDNAME = "http://gedcomx.org/MarriedName";
 
     /**
      *  &quot;Also known as&quot; name.
      */
-    const AlsoKnownAs = "http://gedcomx.org/AlsoKnownAs";
+    const ALSOKNOWNAS = "http://gedcomx.org/AlsoKnownAs";
 
     /**
      *  Nickname.
      */
-    const Nickname = "http://gedcomx.org/Nickname";
+    const NICKNAME = "http://gedcomx.org/Nickname";
 
     /**
      *  Name given at adoption.
      */
-    const AdoptiveName = "http://gedcomx.org/AdoptiveName";
+    const ADOPTIVENAME = "http://gedcomx.org/AdoptiveName";
 
     /**
      *  A formal name, usually given to distinguish it from a name more commonly used.
      */
-    const FormalName = "http://gedcomx.org/FormalName";
+    const FORMALNAME = "http://gedcomx.org/FormalName";
 
     /**
      *  A name given at a religious rite or ceremony.
      */
-    const ReligiousName = "http://gedcomx.org/ReligiousName";
-
+    const RELIGIOUSNAME = "http://gedcomx.org/ReligiousName";
 }

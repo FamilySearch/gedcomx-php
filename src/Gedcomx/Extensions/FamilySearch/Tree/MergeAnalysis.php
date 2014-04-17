@@ -12,26 +12,29 @@ namespace Gedcomx\Extensions\FamilySearch\Tree;
 /**
  * 
  */
-class MergeAnalysis 
+class MergeAnalysis
 {
-    
 
     /**
      * (no documentation provided)
      */
     private $survivorResources;
+
     /**
      * (no documentation provided)
      */
     private $duplicateResources;
+
     /**
      * (no documentation provided)
      */
     private $conflictingResources;
+
     /**
      * (no documentation provided)
      */
     private $survivor;
+
     /**
      * (no documentation provided)
      */
@@ -40,146 +43,160 @@ class MergeAnalysis
     /**
      * Constructs a MergeAnalysis from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * (no documentation provided)
      */
-    public function getSurvivorResources() {
-      return $this->survivorResources;
+    public function getSurvivorResources()
+    {
+        return $this->survivorResources;
     }
 
     /**
      * (no documentation provided)
      */
-    public function setSurvivorResources($survivorResources) {
-      $this->survivorResources = $survivorResources;
+    public function setSurvivorResources($survivorResources)
+    {
+        $this->survivorResources = $survivorResources;
     }
     /**
      * (no documentation provided)
      */
-    public function getDuplicateResources() {
-      return $this->duplicateResources;
-    }
-
-    /**
-     * (no documentation provided)
-     */
-    public function setDuplicateResources($duplicateResources) {
-      $this->duplicateResources = $duplicateResources;
-    }
-    /**
-     * (no documentation provided)
-     */
-    public function getConflictingResources() {
-      return $this->conflictingResources;
+    public function getDuplicateResources()
+    {
+        return $this->duplicateResources;
     }
 
     /**
      * (no documentation provided)
      */
-    public function setConflictingResources($conflictingResources) {
-      $this->conflictingResources = $conflictingResources;
+    public function setDuplicateResources($duplicateResources)
+    {
+        $this->duplicateResources = $duplicateResources;
     }
     /**
      * (no documentation provided)
      */
-    public function getSurvivor() {
-      return $this->survivor;
-    }
-
-    /**
-     * (no documentation provided)
-     */
-    public function setSurvivor($survivor) {
-      $this->survivor = $survivor;
-    }
-    /**
-     * (no documentation provided)
-     */
-    public function getDuplicate() {
-      return $this->duplicate;
+    public function getConflictingResources()
+    {
+        return $this->conflictingResources;
     }
 
     /**
      * (no documentation provided)
      */
-    public function setDuplicate($duplicate) {
-      $this->duplicate = $duplicate;
+    public function setConflictingResources($conflictingResources)
+    {
+        $this->conflictingResources = $conflictingResources;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getSurvivor()
+    {
+        return $this->survivor;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setSurvivor($survivor)
+    {
+        $this->survivor = $survivor;
+    }
+    /**
+     * (no documentation provided)
+     */
+    public function getDuplicate()
+    {
+        return $this->duplicate;
+    }
+
+    /**
+     * (no documentation provided)
+     */
+    public function setDuplicate($duplicate)
+    {
+        $this->duplicate = $duplicate;
     }
     /**
      * Returns the associative array for this MergeAnalysis
      */
-    public function toArray() {
-      $a = array();
-      if( $this->survivorResources ) {
-        $ab = array();
-        foreach( $this->survivorResources as $i => $x ) {
-              $ab[$i] = $x->toArray();
+    public function toArray()
+    {
+        $a = array();
+        if ($this->survivorResources) {
+            $ab = array();
+            foreach ($this->survivorResources as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['survivorResources'] = $ab;
         }
-        $a['survivorResources'] = $ab;
-      }
-      if( $this->duplicateResources ) {
-        $ab = array();
-        foreach( $this->duplicateResources as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->duplicateResources) {
+            $ab = array();
+            foreach ($this->duplicateResources as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['duplicateResources'] = $ab;
         }
-        $a['duplicateResources'] = $ab;
-      }
-      if( $this->conflictingResources ) {
-        $ab = array();
-        foreach( $this->conflictingResources as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->conflictingResources) {
+            $ab = array();
+            foreach ($this->conflictingResources as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['conflictingResources'] = $ab;
         }
-        $a['conflictingResources'] = $ab;
-      }
-      if( $this->survivor ) {
+        if ($this->survivor) {
             $a["survivor"] = $this->survivor->toArray();
-      }
-      if( $this->duplicate ) {
+        }
+        if ($this->duplicate) {
             $a["duplicate"] = $this->duplicate->toArray();
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this MergeAnalysis
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this MergeAnalysis from an associative array
      */
-    public function initFromArray($o) {
-      $this->survivorResources = array();
-      if( isset($o['survivorResources']) ) {
-        foreach( $o['survivorResources'] as $i => $x ) {
-              $this->survivorResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+    public function initFromArray($o)
+    {
+        $this->survivorResources = array();
+        if (isset($o['survivorResources'])) {
+            foreach ($o['survivorResources'] as $i => $x) {
+                    $this->survivorResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+            }
         }
-      }
-      $this->duplicateResources = array();
-      if( isset($o['duplicateResources']) ) {
-        foreach( $o['duplicateResources'] as $i => $x ) {
-              $this->duplicateResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+        $this->duplicateResources = array();
+        if (isset($o['duplicateResources'])) {
+            foreach ($o['duplicateResources'] as $i => $x) {
+                    $this->duplicateResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+            }
         }
-      }
-      $this->conflictingResources = array();
-      if( isset($o['conflictingResources']) ) {
-        foreach( $o['conflictingResources'] as $i => $x ) {
-              $this->conflictingResources[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($x);
+        $this->conflictingResources = array();
+        if (isset($o['conflictingResources'])) {
+            foreach ($o['conflictingResources'] as $i => $x) {
+                    $this->conflictingResources[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($x);
+            }
         }
-      }
-      if( isset($o['survivor']) ) {
-            $this->survivor = new \Gedcomx\Common\ResourceReference($o["survivor"]);
-      }
-      if( isset($o['duplicate']) ) {
-            $this->duplicate = new \Gedcomx\Common\ResourceReference($o["duplicate"]);
-      }
+        if (isset($o['survivor'])) {
+                $this->survivor = new \Gedcomx\Common\ResourceReference($o["survivor"]);
+        }
+        if (isset($o['duplicate'])) {
+                $this->duplicate = new \Gedcomx\Common\ResourceReference($o["duplicate"]);
+        }
     }
 }

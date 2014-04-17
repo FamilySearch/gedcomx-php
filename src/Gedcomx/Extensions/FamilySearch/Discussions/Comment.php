@@ -12,18 +12,19 @@ namespace Gedcomx\Extensions\FamilySearch\Discussions;
 /**
  * 
  */
-class Comment extends \Gedcomx\Links\HypermediaEnabledData 
+class Comment extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
 
     /**
      * The text or &quot;message body&quot; of the comment
      */
     private $text;
+
     /**
      * date of creation
      */
     private $created;
+
     /**
      * contributor of comment
      */
@@ -32,82 +33,91 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Comment from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The text or &quot;message body&quot; of the comment
      */
-    public function getText() {
-      return $this->text;
+    public function getText()
+    {
+        return $this->text;
     }
 
     /**
      * The text or &quot;message body&quot; of the comment
      */
-    public function setText($text) {
-      $this->text = $text;
+    public function setText($text)
+    {
+        $this->text = $text;
     }
     /**
      * date of creation
      */
-    public function getCreated() {
-      return $this->created;
+    public function getCreated()
+    {
+        return $this->created;
     }
 
     /**
      * date of creation
      */
-    public function setCreated($created) {
-      $this->created = $created;
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
     /**
      * contributor of comment
      */
-    public function getContributor() {
-      return $this->contributor;
+    public function getContributor()
+    {
+        return $this->contributor;
     }
 
     /**
      * contributor of comment
      */
-    public function setContributor($contributor) {
-      $this->contributor = $contributor;
+    public function setContributor($contributor)
+    {
+        $this->contributor = $contributor;
     }
     /**
      * Returns the associative array for this Comment
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->text ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->text) {
             $a["text"] = $this->text;
-      }
-      if( $this->created ) {
+        }
+        if ($this->created) {
             $a["created"] = $this->created;
-      }
-      if( $this->contributor ) {
+        }
+        if ($this->contributor) {
             $a["contributor"] = $this->contributor->toArray();
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Comment from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['text']) ) {
-            $this->text = $o["text"];
-      }
-      if( isset($o['created']) ) {
-            $this->created = $o["created"];
-      }
-      if( isset($o['contributor']) ) {
-            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
-      }
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['text'])) {
+                $this->text = $o["text"];
+        }
+        if (isset($o['created'])) {
+                $this->created = $o["created"];
+        }
+        if (isset($o['contributor'])) {
+                $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+        }
     }
 }

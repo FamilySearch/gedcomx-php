@@ -12,9 +12,9 @@ namespace Gedcomx\Common;
 /**
  * An element representing a text value that may be in a specific language.
  */
-class TextValue 
+class TextValue
 {
-    
+
     /**
      * The language of the text value.
      */
@@ -28,68 +28,76 @@ class TextValue
     /**
      * Constructs a TextValue from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The language of the text value.
      */
-    public function getLang() {
-      return $this->lang;
+    public function getLang()
+    {
+        return $this->lang;
     }
 
     /**
      * The language of the text value.
      */
-    public function setLang($lang) {
-      $this->lang = $lang;
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
     }
     /**
      * The text value.
      */
-    public function getValue() {
-      return $this->value;
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
      * The text value.
      */
-    public function setValue($value) {
-      $this->value = $value;
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
     /**
      * Returns the associative array for this TextValue
      */
-    public function toArray() {
-      $a = array();
-      if( $this->lang ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->lang) {
             $a["lang"] = $this->lang;
-      }
-      if( $this->value ) {
+        }
+        if ($this->value) {
             $a["value"] = $this->value;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this TextValue
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this TextValue from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['lang']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['lang'])) {
             $this->lang = $o["lang"];
-      }
-      if( isset($o['value']) ) {
+        }
+        if (isset($o['value'])) {
             $this->value = $o["value"];
-      }
+        }
     }
 }

@@ -12,9 +12,9 @@ namespace Gedcomx\Conclusion;
 /**
  * An identifier for a resource.
  */
-class Identifier 
+class Identifier
 {
-    
+
     /**
      * The type of the id.
      */
@@ -28,68 +28,76 @@ class Identifier
     /**
      * Constructs a Identifier from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The type of the id.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The type of the id.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * The id value.
      */
-    public function getValue() {
-      return $this->value;
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
      * The id value.
      */
-    public function setValue($value) {
-      $this->value = $value;
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
     /**
      * Returns the associative array for this Identifier
      */
-    public function toArray() {
-      $a = array();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->value ) {
+        }
+        if ($this->value) {
             $a["value"] = $this->value;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this Identifier
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this Identifier from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      if( isset($o['value']) ) {
+        }
+        if (isset($o['value'])) {
             $this->value = $o["value"];
-      }
+        }
     }
 }

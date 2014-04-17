@@ -18,21 +18,20 @@ class DocumentType
     /**
      *  The document is an abstract of a record or document.
      */
-    const AbstractDocument = "http://gedcomx.org/Abstract";
+    const ABSTRCT = "http://gedcomx.org/Abstract";
 
     /**
      *  The document is a translation of a record or document.
      */
-    const Translation = "http://gedcomx.org/Translation";
+    const TRANSLATION = "http://gedcomx.org/Translation";
 
     /**
      *  The document is a transcription (full or partial) of a record or document.
      */
-    const Transcription = "http://gedcomx.org/Transcription";
+    const TRANSCRIPTION = "http://gedcomx.org/Transcription";
 
     /**
      *  The document is an analysis done by a researcher, often used as a genealogical proof statement.
      */
-    const Analysis = "http://gedcomx.org/Analysis";
-
+    const ANALYSIS = "http://gedcomx.org/Analysis";
 }

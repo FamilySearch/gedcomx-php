@@ -12,18 +12,19 @@ namespace Gedcomx\Source;
 /**
  * A description of the coverage of a resource.
  */
-class Coverage extends \Gedcomx\Links\HypermediaEnabledData 
+class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
 
     /**
      * The type of record being covered.
      */
     private $recordType;
+
     /**
      * Spatial coverage.
      */
     private $spatial;
+
     /**
      * Temporal coverage.
      */
@@ -32,82 +33,91 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Coverage from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The type of record being covered.
      */
-    public function getRecordType() {
-      return $this->recordType;
+    public function getRecordType()
+    {
+        return $this->recordType;
     }
 
     /**
      * The type of record being covered.
      */
-    public function setRecordType($recordType) {
-      $this->recordType = $recordType;
+    public function setRecordType($recordType)
+    {
+        $this->recordType = $recordType;
     }
     /**
      * Spatial coverage.
      */
-    public function getSpatial() {
-      return $this->spatial;
+    public function getSpatial()
+    {
+        return $this->spatial;
     }
 
     /**
      * Spatial coverage.
      */
-    public function setSpatial($spatial) {
-      $this->spatial = $spatial;
+    public function setSpatial($spatial)
+    {
+        $this->spatial = $spatial;
     }
     /**
      * Temporal coverage.
      */
-    public function getTemporal() {
-      return $this->temporal;
+    public function getTemporal()
+    {
+        return $this->temporal;
     }
 
     /**
      * Temporal coverage.
      */
-    public function setTemporal($temporal) {
-      $this->temporal = $temporal;
+    public function setTemporal($temporal)
+    {
+        $this->temporal = $temporal;
     }
     /**
      * Returns the associative array for this Coverage
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->recordType ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->recordType) {
             $a["recordType"] = $this->recordType;
-      }
-      if( $this->spatial ) {
+        }
+        if ($this->spatial) {
             $a["spatial"] = $this->spatial->toArray();
-      }
-      if( $this->temporal ) {
+        }
+        if ($this->temporal) {
             $a["temporal"] = $this->temporal->toArray();
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Coverage from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['recordType']) ) {
-            $this->recordType = $o["recordType"];
-      }
-      if( isset($o['spatial']) ) {
-            $this->spatial = new \Gedcomx\Conclusion\PlaceReference($o["spatial"]);
-      }
-      if( isset($o['temporal']) ) {
-            $this->temporal = new \Gedcomx\Conclusion\DateInfo($o["temporal"]);
-      }
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['recordType'])) {
+                $this->recordType = $o["recordType"];
+        }
+        if (isset($o['spatial'])) {
+                $this->spatial = new \Gedcomx\Conclusion\PlaceReference($o["spatial"]);
+        }
+        if (isset($o['temporal'])) {
+                $this->temporal = new \Gedcomx\Conclusion\DateInfo($o["temporal"]);
+        }
     }
 }

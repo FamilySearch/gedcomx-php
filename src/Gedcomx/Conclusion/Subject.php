@@ -15,9 +15,9 @@ namespace Gedcomx\Conclusion;
      * <em>conclusions</em>, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting <em>conclusions</em> to form an
      * apparently-unique identity by which we can distinguish our <em>subject</em> from all other possible <em>subjects</em>.
  */
-class Subject extends \Gedcomx\Conclusion\Conclusion 
+class Subject extends \Gedcomx\Conclusion\Conclusion
 {
-    
+
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
      */
@@ -27,10 +27,12 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
      * References to the evidence being referenced.
      */
     private $evidence;
+
     /**
      * References to multimedia resources associated with this subject.
      */
     private $media;
+
     /**
      * The list of identifiers for the subject.
      */
@@ -39,122 +41,133 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a Subject from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
      */
-    public function getExtracted() {
-      return $this->extracted;
+    public function getExtracted()
+    {
+        return $this->extracted;
     }
 
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
      */
-    public function setExtracted($extracted) {
-      $this->extracted = $extracted;
+    public function setExtracted($extracted)
+    {
+        $this->extracted = $extracted;
     }
     /**
      * References to the evidence being referenced.
      */
-    public function getEvidence() {
-      return $this->evidence;
+    public function getEvidence()
+    {
+        return $this->evidence;
     }
 
     /**
      * References to the evidence being referenced.
      */
-    public function setEvidence($evidence) {
-      $this->evidence = $evidence;
+    public function setEvidence($evidence)
+    {
+        $this->evidence = $evidence;
     }
     /**
      * References to multimedia resources associated with this subject.
      */
-    public function getMedia() {
-      return $this->media;
+    public function getMedia()
+    {
+        return $this->media;
     }
 
     /**
      * References to multimedia resources associated with this subject.
      */
-    public function setMedia($media) {
-      $this->media = $media;
+    public function setMedia($media)
+    {
+        $this->media = $media;
     }
     /**
      * The list of identifiers for the subject.
      */
-    public function getIdentifiers() {
-      return $this->identifiers;
+    public function getIdentifiers()
+    {
+        return $this->identifiers;
     }
 
     /**
      * The list of identifiers for the subject.
      */
-    public function setIdentifiers($identifiers) {
-      $this->identifiers = $identifiers;
+    public function setIdentifiers($identifiers)
+    {
+        $this->identifiers = $identifiers;
     }
     /**
      * Returns the associative array for this Subject
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->extracted ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->extracted) {
             $a["extracted"] = $this->extracted;
-      }
-      if( $this->evidence ) {
-        $ab = array();
-        foreach( $this->evidence as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['evidence'] = $ab;
-      }
-      if( $this->media ) {
-        $ab = array();
-        foreach( $this->media as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->evidence) {
+            $ab = array();
+            foreach ($this->evidence as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['evidence'] = $ab;
         }
-        $a['media'] = $ab;
-      }
-      if( $this->identifiers ) {
-        $ab = array();
-        foreach( $this->identifiers as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->media) {
+            $ab = array();
+            foreach ($this->media as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['media'] = $ab;
         }
-        $a['identifiers'] = $ab;
-      }
-      return $a;
+        if ($this->identifiers) {
+            $ab = array();
+            foreach ($this->identifiers as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['identifiers'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Subject from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['extracted']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['extracted'])) {
             $this->extracted = $o["extracted"];
-      }
-      $this->evidence = array();
-      if( isset($o['evidence']) ) {
-        foreach( $o['evidence'] as $i => $x ) {
-              $this->evidence[$i] = new \Gedcomx\Common\EvidenceReference($x);
         }
-      }
-      $this->media = array();
-      if( isset($o['media']) ) {
-        foreach( $o['media'] as $i => $x ) {
-              $this->media[$i] = new \Gedcomx\Source\SourceReference($x);
+        $this->evidence = array();
+        if (isset($o['evidence'])) {
+            foreach ($o['evidence'] as $i => $x) {
+                    $this->evidence[$i] = new \Gedcomx\Common\EvidenceReference($x);
+            }
         }
-      }
-      $this->identifiers = array();
-      if( isset($o['identifiers']) ) {
-        foreach( $o['identifiers'] as $i => $x ) {
-              $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+        $this->media = array();
+        if (isset($o['media'])) {
+            foreach ($o['media'] as $i => $x) {
+                    $this->media[$i] = new \Gedcomx\Source\SourceReference($x);
+            }
         }
-      }
+        $this->identifiers = array();
+        if (isset($o['identifiers'])) {
+            foreach ($o['identifiers'] as $i => $x) {
+                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+            }
+        }
     }
 }

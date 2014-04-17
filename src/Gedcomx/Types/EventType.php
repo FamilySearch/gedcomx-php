@@ -18,171 +18,170 @@ class EventType
     /**
      *  An adoption event.
      */
-    const Adoption = "http://gedcomx.org/Adoption";
+    const ADOPTION = "http://gedcomx.org/Adoption";
 
     /**
      *  An adult christening event.
      */
-    const AdultChristening = "http://gedcomx.org/AdultChristening";
+    const ADULTCHRISTENING = "http://gedcomx.org/AdultChristening";
 
     /**
      *  An annulment event of a marriage.
      */
-    const Annulment = "http://gedcomx.org/Annulment";
+    const ANNULMENT = "http://gedcomx.org/Annulment";
 
     /**
      *  A baptism event.
      */
-    const Baptism = "http://gedcomx.org/Baptism";
+    const BAPTISM = "http://gedcomx.org/Baptism";
 
     /**
      *  A bar mitzvah event.
      */
-    const BarMitzvah = "http://gedcomx.org/BarMitzvah";
+    const BARMITZVAH = "http://gedcomx.org/BarMitzvah";
 
     /**
      *  A bat mitzvah event.
      */
-    const BatMitzvah = "http://gedcomx.org/BatMitzvah";
+    const BATMITZVAH = "http://gedcomx.org/BatMitzvah";
 
     /**
      *  A birth event.
      */
-    const Birth = "http://gedcomx.org/Birth";
+    const BIRTH = "http://gedcomx.org/Birth";
 
     /**
      *  A an official blessing event, such as at the hands of a clergy member or at another religious rite.
      */
-    const Blessing = "http://gedcomx.org/Blessing";
+    const BLESSING = "http://gedcomx.org/Blessing";
 
     /**
      *  A burial event.
      */
-    const Burial = "http://gedcomx.org/Burial";
+    const BURIAL = "http://gedcomx.org/Burial";
 
     /**
      *  A census event.
      */
-    const Census = "http://gedcomx.org/Census";
+    const CENSUS = "http://gedcomx.org/Census";
 
     /**
      *  A christening event *at birth*. Note: use `AdultChristening` for a christening event as an adult.
      */
-    const Christening = "http://gedcomx.org/Christening";
+    const CHRISTENING = "http://gedcomx.org/Christening";
 
     /**
      *  A circumcision event.
      */
-    const Circumcision = "http://gedcomx.org/Circumcision";
+    const CIRCUMCISION = "http://gedcomx.org/Circumcision";
 
     /**
      *  A confirmation event (or other rite of initiation) in a church or religion.
      */
-    const Confirmation = "http://gedcomx.org/Confirmation";
+    const CONFIRMATION = "http://gedcomx.org/Confirmation";
 
     /**
      *  A cremation event after death.
      */
-    const Cremation = "http://gedcomx.org/Cremation";
+    const CREMATION = "http://gedcomx.org/Cremation";
 
     /**
      *  A death event.
      */
-    const Death = "http://gedcomx.org/Death";
+    const DEATH = "http://gedcomx.org/Death";
 
     /**
      *  A divorce event.
      */
-    const Divorce = "http://gedcomx.org/Divorce";
+    const DIVORCE = "http://gedcomx.org/Divorce";
 
     /**
      *  A divorce filing event.
      */
-    const DivorceFiling = "http://gedcomx.org/DivorceFiling";
+    const DIVORCEFILING = "http://gedcomx.org/DivorceFiling";
 
     /**
      *  A education or an educational achievement event (e.g. diploma, graduation, scholarship, etc.).
      */
-    const Education = "http://gedcomx.org/Education";
+    const EDUCATION = "http://gedcomx.org/Education";
 
     /**
      *  An engagement to be married event.
      */
-    const Engagement = "http://gedcomx.org/Engagement";
+    const ENGAGEMENT = "http://gedcomx.org/Engagement";
 
     /**
      *  An emigration event.
      */
-    const Emigration = "http://gedcomx.org/Emigration";
+    const EMIGRATION = "http://gedcomx.org/Emigration";
 
     /**
      *  An excommunication event from a church.
      */
-    const Excommunication = "http://gedcomx.org/Excommunication";
+    const EXCOMMUNICATION = "http://gedcomx.org/Excommunication";
 
     /**
      *  A first communion event.
      */
-    const FirstCommunion = "http://gedcomx.org/FirstCommunion";
+    const FIRSTCOMMUNION = "http://gedcomx.org/FirstCommunion";
 
     /**
      *  A funeral event.
      */
-    const Funeral = "http://gedcomx.org/Funeral";
+    const FUNERAL = "http://gedcomx.org/Funeral";
 
     /**
      *  An immigration event.
      */
-    const Immigration = "http://gedcomx.org/Immigration";
+    const IMMIGRATION = "http://gedcomx.org/Immigration";
 
     /**
      *  A land transaction event.
      */
-    const LandTransaction = "http://gedcomx.org/LandTransaction";
+    const LANDTRANSACTION = "http://gedcomx.org/LandTransaction";
 
     /**
      *  A marriage event.
      */
-    const Marriage = "http://gedcomx.org/Marriage";
+    const MARRIAGE = "http://gedcomx.org/Marriage";
 
     /**
      *  A military award event.
      */
-    const MilitaryAward = "http://gedcomx.org/MilitaryAward";
+    const MILITARYAWARD = "http://gedcomx.org/MilitaryAward";
 
     /**
      *  A military discharge event.
      */
-    const MilitaryDischarge = "http://gedcomx.org/MilitaryDischarge";
+    const MILITARYDISCHARGE = "http://gedcomx.org/MilitaryDischarge";
 
     /**
      *  A mission event.
      */
-    const Mission = "http://gedcomx.org/Mission";
+    const MISSION = "http://gedcomx.org/Mission";
 
     /**
      *  An event of a move (i.e. change of residence) from a location.
      */
-    const MoveFrom = "http://gedcomx.org/MoveFrom";
+    const MOVEFROM = "http://gedcomx.org/MoveFrom";
 
     /**
      *  An event of a move (i.e. change of residence) to a location.
      */
-    const MoveTo = "http://gedcomx.org/MoveTo";
+    const MOVETO = "http://gedcomx.org/MoveTo";
 
     /**
      *  A naturalization event (i.e. acquisition of citizenship and nationality).
      */
-    const Naturalization = "http://gedcomx.org/Naturalization";
+    const NATURALIZATION = "http://gedcomx.org/Naturalization";
 
     /**
      *  An ordination event.
      */
-    const Ordination = "http://gedcomx.org/Ordination";
+    const ORDINATION = "http://gedcomx.org/Ordination";
 
     /**
      *  A retirement event.
      */
-    const Retirement = "http://gedcomx.org/Retirement";
-
+    const RETIREMENT = "http://gedcomx.org/Retirement";
 }

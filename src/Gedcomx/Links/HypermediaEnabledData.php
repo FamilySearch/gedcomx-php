@@ -12,9 +12,8 @@ namespace Gedcomx\Links;
 /**
  * An data type that supports hypermedia controls (i.e. links).
  */
-class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData 
+class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
 {
-    
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
@@ -24,51 +23,56 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a HypermediaEnabledData from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function getLinks() {
-      return $this->links;
+    public function getLinks()
+    {
+        return $this->links;
     }
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function setLinks($links) {
-      $this->links = $links;
+    public function setLinks($links)
+    {
+        $this->links = $links;
     }
     /**
      * Returns the associative array for this HypermediaEnabledData
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->links ) {
-        $ab = array();
-        foreach( $this->links as $i => $x ) {
-              $ab[$i] = $x->toArray();
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->links) {
+            $ab = array();
+            foreach ($this->links as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['links'] = $ab;
         }
-        $a['links'] = $ab;
-      }
-      return $a;
+        return $a;
     }
 
 
     /**
      * Initializes this HypermediaEnabledData from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      $this->links = array();
-      if( isset($o['links']) ) {
-        foreach( $o['links'] as $i => $x ) {
-              $this->links[$i] = new \Gedcomx\Links\Link($x);
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        $this->links = array();
+        if (isset($o['links'])) {
+            foreach ($o['links'] as $i => $x) {
+                    $this->links[$i] = new \Gedcomx\Links\Link($x);
+            }
         }
-      }
     }
 }

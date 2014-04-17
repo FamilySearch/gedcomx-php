@@ -12,26 +12,29 @@ namespace Gedcomx\Extensions\FamilySearch\Tree;
 /**
  * The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
  */
-class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject 
+class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 {
-    
 
     /**
      * The father of the child.
      */
     private $father;
+
     /**
      * The mother of the child.
      */
     private $mother;
+
     /**
      * child in the relationship.
      */
     private $child;
+
     /**
      * The fact conclusions for the father.
      */
     private $fatherFacts;
+
     /**
      * The fact conclusions for the mother.
      */
@@ -40,134 +43,147 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a ChildAndParentsRelationship from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The father of the child.
      */
-    public function getFather() {
-      return $this->father;
+    public function getFather()
+    {
+        return $this->father;
     }
 
     /**
      * The father of the child.
      */
-    public function setFather($father) {
-      $this->father = $father;
+    public function setFather($father)
+    {
+        $this->father = $father;
     }
     /**
      * The mother of the child.
      */
-    public function getMother() {
-      return $this->mother;
+    public function getMother()
+    {
+        return $this->mother;
     }
 
     /**
      * The mother of the child.
      */
-    public function setMother($mother) {
-      $this->mother = $mother;
+    public function setMother($mother)
+    {
+        $this->mother = $mother;
     }
     /**
      * child in the relationship.
      */
-    public function getChild() {
-      return $this->child;
+    public function getChild()
+    {
+        return $this->child;
     }
 
     /**
      * child in the relationship.
      */
-    public function setChild($child) {
-      $this->child = $child;
+    public function setChild($child)
+    {
+        $this->child = $child;
     }
     /**
      * The fact conclusions for the father.
      */
-    public function getFatherFacts() {
-      return $this->fatherFacts;
+    public function getFatherFacts()
+    {
+        return $this->fatherFacts;
     }
 
     /**
      * The fact conclusions for the father.
      */
-    public function setFatherFacts($fatherFacts) {
-      $this->fatherFacts = $fatherFacts;
+    public function setFatherFacts($fatherFacts)
+    {
+        $this->fatherFacts = $fatherFacts;
     }
     /**
      * The fact conclusions for the mother.
      */
-    public function getMotherFacts() {
-      return $this->motherFacts;
+    public function getMotherFacts()
+    {
+        return $this->motherFacts;
     }
 
     /**
      * The fact conclusions for the mother.
      */
-    public function setMotherFacts($motherFacts) {
-      $this->motherFacts = $motherFacts;
+    public function setMotherFacts($motherFacts)
+    {
+        $this->motherFacts = $motherFacts;
     }
     /**
      * Returns the associative array for this ChildAndParentsRelationship
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->father ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->father) {
             $a["father"] = $this->father->toArray();
-      }
-      if( $this->mother ) {
+        }
+        if ($this->mother) {
             $a["mother"] = $this->mother->toArray();
-      }
-      if( $this->child ) {
+        }
+        if ($this->child) {
             $a["child"] = $this->child->toArray();
-      }
-      if( $this->fatherFacts ) {
-        $ab = array();
-        foreach( $this->fatherFacts as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['fatherFacts'] = $ab;
-      }
-      if( $this->motherFacts ) {
-        $ab = array();
-        foreach( $this->motherFacts as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->fatherFacts) {
+            $ab = array();
+            foreach ($this->fatherFacts as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fatherFacts'] = $ab;
         }
-        $a['motherFacts'] = $ab;
-      }
-      return $a;
+        if ($this->motherFacts) {
+            $ab = array();
+            foreach ($this->motherFacts as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['motherFacts'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this ChildAndParentsRelationship from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['father']) ) {
-            $this->father = new \Gedcomx\Common\ResourceReference($o["father"]);
-      }
-      if( isset($o['mother']) ) {
-            $this->mother = new \Gedcomx\Common\ResourceReference($o["mother"]);
-      }
-      if( isset($o['child']) ) {
-            $this->child = new \Gedcomx\Common\ResourceReference($o["child"]);
-      }
-      $this->fatherFacts = array();
-      if( isset($o['fatherFacts']) ) {
-        foreach( $o['fatherFacts'] as $i => $x ) {
-              $this->fatherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['father'])) {
+                $this->father = new \Gedcomx\Common\ResourceReference($o["father"]);
         }
-      }
-      $this->motherFacts = array();
-      if( isset($o['motherFacts']) ) {
-        foreach( $o['motherFacts'] as $i => $x ) {
-              $this->motherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+        if (isset($o['mother'])) {
+                $this->mother = new \Gedcomx\Common\ResourceReference($o["mother"]);
         }
-      }
+        if (isset($o['child'])) {
+                $this->child = new \Gedcomx\Common\ResourceReference($o["child"]);
+        }
+        $this->fatherFacts = array();
+        if (isset($o['fatherFacts'])) {
+            foreach ($o['fatherFacts'] as $i => $x) {
+                    $this->fatherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+            }
+        }
+        $this->motherFacts = array();
+        if (isset($o['motherFacts'])) {
+            foreach ($o['motherFacts'] as $i => $x) {
+                    $this->motherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+            }
+        }
     }
 }

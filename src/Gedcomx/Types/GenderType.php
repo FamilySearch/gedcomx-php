@@ -18,17 +18,16 @@ class GenderType
     /**
      *  Male.
      */
-    const Male = "http://gedcomx.org/Male";
+    const MALE = "http://gedcomx.org/Male";
 
     /**
      *  Female.
      */
-    const Female = "http://gedcomx.org/Female";
+    const FEMALE = "http://gedcomx.org/Female";
 
     /**
      *  Unknown. Note that this should be used strictly as &quot;unknown&quot; and not to
     *  indicate a type that is not set or not understood.
      */
-    const Unknown = "http://gedcomx.org/Unknown";
-
+    const UNKNOWN = "http://gedcomx.org/Unknown";
 }

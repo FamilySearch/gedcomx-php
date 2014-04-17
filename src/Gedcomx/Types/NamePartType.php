@@ -18,21 +18,20 @@ class NamePartType
     /**
      * (no documentation provided)
      */
-    const Prefix = "http://gedcomx.org/Prefix";
+    const PREFIX = "http://gedcomx.org/Prefix";
 
     /**
      * (no documentation provided)
      */
-    const Suffix = "http://gedcomx.org/Suffix";
+    const SUFFIX = "http://gedcomx.org/Suffix";
 
     /**
      * (no documentation provided)
      */
-    const Given = "http://gedcomx.org/Given";
+    const GIVEN = "http://gedcomx.org/Given";
 
     /**
      * (no documentation provided)
      */
-    const Surname = "http://gedcomx.org/Surname";
-
+    const SURNAME = "http://gedcomx.org/Surname";
 }

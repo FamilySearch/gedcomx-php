@@ -21,17 +21,19 @@ namespace Gedcomx;
      * 
      * <p>This documentation is provided as a non-normative reference guide.</p>
  */
-class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData 
+class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
+
     /**
      * The language of the genealogical data.
      */
     private $lang;
+
     /**
      * A reference to a description of this data set.
      */
     private $descriptionRef;
+
     /**
      * A reference to the profile that describes this data set.
      */
@@ -41,42 +43,52 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
      * The attribution of this genealogical data.
      */
     private $attribution;
+
     /**
      * The persons included in this genealogical data set.
      */
     private $persons;
+
     /**
      * The relationships included in this genealogical data set.
      */
     private $relationships;
+
     /**
      * The descriptions of sources included in this genealogical data set.
      */
     private $sourceDescriptions;
+
     /**
      * The agents included in this genealogical data set.
      */
     private $agents;
+
     /**
      * The events included in this genealogical data set.
      */
     private $events;
+
     /**
      * The places included in this genealogical data set.
      */
     private $places;
+
     /**
      * The documents included in this genealogical data set.
      */
     private $documents;
+
     /**
      * The collections included in this genealogical data set.
      */
     private $collections;
+
     /**
      * The extracted fields included in this genealogical data set.
      */
     private $fields;
+
     /**
      * The record descriptors included in this genealogical data set.
      */
@@ -85,361 +97,392 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Gedcomx from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The language of the genealogical data.
      */
-    public function getLang() {
-      return $this->lang;
+    public function getLang()
+    {
+        return $this->lang;
     }
 
     /**
      * The language of the genealogical data.
      */
-    public function setLang($lang) {
-      $this->lang = $lang;
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
     }
     /**
      * A reference to a description of this data set.
      */
-    public function getDescriptionRef() {
-      return $this->descriptionRef;
+    public function getDescriptionRef()
+    {
+        return $this->descriptionRef;
     }
 
     /**
      * A reference to a description of this data set.
      */
-    public function setDescriptionRef($descriptionRef) {
-      $this->descriptionRef = $descriptionRef;
+    public function setDescriptionRef($descriptionRef)
+    {
+        $this->descriptionRef = $descriptionRef;
     }
     /**
      * A reference to the profile that describes this data set.
      */
-    public function getProfile() {
-      return $this->profile;
+    public function getProfile()
+    {
+        return $this->profile;
     }
 
     /**
      * A reference to the profile that describes this data set.
      */
-    public function setProfile($profile) {
-      $this->profile = $profile;
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
     }
     /**
      * The attribution of this genealogical data.
      */
-    public function getAttribution() {
-      return $this->attribution;
+    public function getAttribution()
+    {
+        return $this->attribution;
     }
 
     /**
      * The attribution of this genealogical data.
      */
-    public function setAttribution($attribution) {
-      $this->attribution = $attribution;
+    public function setAttribution($attribution)
+    {
+        $this->attribution = $attribution;
     }
     /**
      * The persons included in this genealogical data set.
      */
-    public function getPersons() {
-      return $this->persons;
+    public function getPersons()
+    {
+        return $this->persons;
     }
 
     /**
      * The persons included in this genealogical data set.
      */
-    public function setPersons($persons) {
-      $this->persons = $persons;
+    public function setPersons($persons)
+    {
+        $this->persons = $persons;
     }
     /**
      * The relationships included in this genealogical data set.
      */
-    public function getRelationships() {
-      return $this->relationships;
+    public function getRelationships()
+    {
+        return $this->relationships;
     }
 
     /**
      * The relationships included in this genealogical data set.
      */
-    public function setRelationships($relationships) {
-      $this->relationships = $relationships;
+    public function setRelationships($relationships)
+    {
+        $this->relationships = $relationships;
     }
     /**
      * The descriptions of sources included in this genealogical data set.
      */
-    public function getSourceDescriptions() {
-      return $this->sourceDescriptions;
+    public function getSourceDescriptions()
+    {
+        return $this->sourceDescriptions;
     }
 
     /**
      * The descriptions of sources included in this genealogical data set.
      */
-    public function setSourceDescriptions($sourceDescriptions) {
-      $this->sourceDescriptions = $sourceDescriptions;
+    public function setSourceDescriptions($sourceDescriptions)
+    {
+        $this->sourceDescriptions = $sourceDescriptions;
     }
     /**
      * The agents included in this genealogical data set.
      */
-    public function getAgents() {
-      return $this->agents;
+    public function getAgents()
+    {
+        return $this->agents;
     }
 
     /**
      * The agents included in this genealogical data set.
      */
-    public function setAgents($agents) {
-      $this->agents = $agents;
+    public function setAgents($agents)
+    {
+        $this->agents = $agents;
     }
     /**
      * The events included in this genealogical data set.
      */
-    public function getEvents() {
-      return $this->events;
+    public function getEvents()
+    {
+        return $this->events;
     }
 
     /**
      * The events included in this genealogical data set.
      */
-    public function setEvents($events) {
-      $this->events = $events;
+    public function setEvents($events)
+    {
+        $this->events = $events;
     }
     /**
      * The places included in this genealogical data set.
      */
-    public function getPlaces() {
-      return $this->places;
+    public function getPlaces()
+    {
+        return $this->places;
     }
 
     /**
      * The places included in this genealogical data set.
      */
-    public function setPlaces($places) {
-      $this->places = $places;
+    public function setPlaces($places)
+    {
+        $this->places = $places;
     }
     /**
      * The documents included in this genealogical data set.
      */
-    public function getDocuments() {
-      return $this->documents;
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 
     /**
      * The documents included in this genealogical data set.
      */
-    public function setDocuments($documents) {
-      $this->documents = $documents;
+    public function setDocuments($documents)
+    {
+        $this->documents = $documents;
     }
     /**
      * The collections included in this genealogical data set.
      */
-    public function getCollections() {
-      return $this->collections;
+    public function getCollections()
+    {
+        return $this->collections;
     }
 
     /**
      * The collections included in this genealogical data set.
      */
-    public function setCollections($collections) {
-      $this->collections = $collections;
+    public function setCollections($collections)
+    {
+        $this->collections = $collections;
     }
     /**
      * The extracted fields included in this genealogical data set.
      */
-    public function getFields() {
-      return $this->fields;
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
      * The extracted fields included in this genealogical data set.
      */
-    public function setFields($fields) {
-      $this->fields = $fields;
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
     /**
      * The record descriptors included in this genealogical data set.
      */
-    public function getRecordDescriptors() {
-      return $this->recordDescriptors;
+    public function getRecordDescriptors()
+    {
+        return $this->recordDescriptors;
     }
 
     /**
      * The record descriptors included in this genealogical data set.
      */
-    public function setRecordDescriptors($recordDescriptors) {
-      $this->recordDescriptors = $recordDescriptors;
+    public function setRecordDescriptors($recordDescriptors)
+    {
+        $this->recordDescriptors = $recordDescriptors;
     }
     /**
      * Returns the associative array for this Gedcomx
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->lang ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->lang) {
             $a["lang"] = $this->lang;
-      }
-      if( $this->descriptionRef ) {
+        }
+        if ($this->descriptionRef) {
             $a["description"] = $this->descriptionRef;
-      }
-      if( $this->profile ) {
+        }
+        if ($this->profile) {
             $a["profile"] = $this->profile;
-      }
-      if( $this->attribution ) {
+        }
+        if ($this->attribution) {
             $a["attribution"] = $this->attribution->toArray();
-      }
-      if( $this->persons ) {
-        $ab = array();
-        foreach( $this->persons as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['persons'] = $ab;
-      }
-      if( $this->relationships ) {
-        $ab = array();
-        foreach( $this->relationships as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->persons) {
+            $ab = array();
+            foreach ($this->persons as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['persons'] = $ab;
         }
-        $a['relationships'] = $ab;
-      }
-      if( $this->sourceDescriptions ) {
-        $ab = array();
-        foreach( $this->sourceDescriptions as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->relationships) {
+            $ab = array();
+            foreach ($this->relationships as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['relationships'] = $ab;
         }
-        $a['sourceDescriptions'] = $ab;
-      }
-      if( $this->agents ) {
-        $ab = array();
-        foreach( $this->agents as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->sourceDescriptions) {
+            $ab = array();
+            foreach ($this->sourceDescriptions as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['sourceDescriptions'] = $ab;
         }
-        $a['agents'] = $ab;
-      }
-      if( $this->events ) {
-        $ab = array();
-        foreach( $this->events as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->agents) {
+            $ab = array();
+            foreach ($this->agents as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['agents'] = $ab;
         }
-        $a['events'] = $ab;
-      }
-      if( $this->places ) {
-        $ab = array();
-        foreach( $this->places as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->events) {
+            $ab = array();
+            foreach ($this->events as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['events'] = $ab;
         }
-        $a['places'] = $ab;
-      }
-      if( $this->documents ) {
-        $ab = array();
-        foreach( $this->documents as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->places) {
+            $ab = array();
+            foreach ($this->places as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['places'] = $ab;
         }
-        $a['documents'] = $ab;
-      }
-      if( $this->collections ) {
-        $ab = array();
-        foreach( $this->collections as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->documents) {
+            $ab = array();
+            foreach ($this->documents as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['documents'] = $ab;
         }
-        $a['collections'] = $ab;
-      }
-      if( $this->fields ) {
-        $ab = array();
-        foreach( $this->fields as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->collections) {
+            $ab = array();
+            foreach ($this->collections as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['collections'] = $ab;
         }
-        $a['fields'] = $ab;
-      }
-      if( $this->recordDescriptors ) {
-        $ab = array();
-        foreach( $this->recordDescriptors as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->fields) {
+            $ab = array();
+            foreach ($this->fields as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fields'] = $ab;
         }
-        $a['recordDescriptors'] = $ab;
-      }
-      return $a;
+        if ($this->recordDescriptors) {
+            $ab = array();
+            foreach ($this->recordDescriptors as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['recordDescriptors'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Gedcomx from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['lang']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['lang'])) {
             $this->lang = $o["lang"];
-      }
-      if( isset($o['description']) ) {
+        }
+        if (isset($o['description'])) {
             $this->descriptionRef = $o["description"];
-      }
-      if( isset($o['profile']) ) {
+        }
+        if (isset($o['profile'])) {
             $this->profile = $o["profile"];
-      }
-      if( isset($o['attribution']) ) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
-      }
-      $this->persons = array();
-      if( isset($o['persons']) ) {
-        foreach( $o['persons'] as $i => $x ) {
-              $this->persons[$i] = new \Gedcomx\Conclusion\Person($x);
         }
-      }
-      $this->relationships = array();
-      if( isset($o['relationships']) ) {
-        foreach( $o['relationships'] as $i => $x ) {
-              $this->relationships[$i] = new \Gedcomx\Conclusion\Relationship($x);
+        if (isset($o['attribution'])) {
+                $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
         }
-      }
-      $this->sourceDescriptions = array();
-      if( isset($o['sourceDescriptions']) ) {
-        foreach( $o['sourceDescriptions'] as $i => $x ) {
-              $this->sourceDescriptions[$i] = new \Gedcomx\Source\SourceDescription($x);
+        $this->persons = array();
+        if (isset($o['persons'])) {
+            foreach ($o['persons'] as $i => $x) {
+                    $this->persons[$i] = new \Gedcomx\Conclusion\Person($x);
+            }
         }
-      }
-      $this->agents = array();
-      if( isset($o['agents']) ) {
-        foreach( $o['agents'] as $i => $x ) {
-              $this->agents[$i] = new \Gedcomx\Agent\Agent($x);
+        $this->relationships = array();
+        if (isset($o['relationships'])) {
+            foreach ($o['relationships'] as $i => $x) {
+                    $this->relationships[$i] = new \Gedcomx\Conclusion\Relationship($x);
+            }
         }
-      }
-      $this->events = array();
-      if( isset($o['events']) ) {
-        foreach( $o['events'] as $i => $x ) {
-              $this->events[$i] = new \Gedcomx\Conclusion\Event($x);
+        $this->sourceDescriptions = array();
+        if (isset($o['sourceDescriptions'])) {
+            foreach ($o['sourceDescriptions'] as $i => $x) {
+                    $this->sourceDescriptions[$i] = new \Gedcomx\Source\SourceDescription($x);
+            }
         }
-      }
-      $this->places = array();
-      if( isset($o['places']) ) {
-        foreach( $o['places'] as $i => $x ) {
-              $this->places[$i] = new \Gedcomx\Conclusion\PlaceDescription($x);
+        $this->agents = array();
+        if (isset($o['agents'])) {
+            foreach ($o['agents'] as $i => $x) {
+                    $this->agents[$i] = new \Gedcomx\Agent\Agent($x);
+            }
         }
-      }
-      $this->documents = array();
-      if( isset($o['documents']) ) {
-        foreach( $o['documents'] as $i => $x ) {
-              $this->documents[$i] = new \Gedcomx\Conclusion\Document($x);
+        $this->events = array();
+        if (isset($o['events'])) {
+            foreach ($o['events'] as $i => $x) {
+                    $this->events[$i] = new \Gedcomx\Conclusion\Event($x);
+            }
         }
-      }
-      $this->collections = array();
-      if( isset($o['collections']) ) {
-        foreach( $o['collections'] as $i => $x ) {
-              $this->collections[$i] = new \Gedcomx\Records\Collection($x);
+        $this->places = array();
+        if (isset($o['places'])) {
+            foreach ($o['places'] as $i => $x) {
+                    $this->places[$i] = new \Gedcomx\Conclusion\PlaceDescription($x);
+            }
         }
-      }
-      $this->fields = array();
-      if( isset($o['fields']) ) {
-        foreach( $o['fields'] as $i => $x ) {
-              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        $this->documents = array();
+        if (isset($o['documents'])) {
+            foreach ($o['documents'] as $i => $x) {
+                    $this->documents[$i] = new \Gedcomx\Conclusion\Document($x);
+            }
         }
-      }
-      $this->recordDescriptors = array();
-      if( isset($o['recordDescriptors']) ) {
-        foreach( $o['recordDescriptors'] as $i => $x ) {
-              $this->recordDescriptors[$i] = new \Gedcomx\Records\RecordDescriptor($x);
+        $this->collections = array();
+        if (isset($o['collections'])) {
+            foreach ($o['collections'] as $i => $x) {
+                    $this->collections[$i] = new \Gedcomx\Records\Collection($x);
+            }
         }
-      }
+        $this->fields = array();
+        if (isset($o['fields'])) {
+            foreach ($o['fields'] as $i => $x) {
+                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
+        $this->recordDescriptors = array();
+        if (isset($o['recordDescriptors'])) {
+            foreach ($o['recordDescriptors'] as $i => $x) {
+                    $this->recordDescriptors[$i] = new \Gedcomx\Records\RecordDescriptor($x);
+            }
+        }
     }
 }

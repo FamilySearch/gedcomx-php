@@ -12,9 +12,8 @@ namespace Gedcomx\Common;
 /**
  * A data qualifier. Qualifiers are used to "qualify" certain data elements to provide additional context, information, or details.
  */
-class Qualifier 
+class Qualifier
 {
-    
 
     /**
      * The value of the qualifier.
@@ -24,49 +23,55 @@ class Qualifier
     /**
      * Constructs a Qualifier from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The value of the qualifier.
      */
-    public function getValue() {
-      return $this->value;
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
      * The value of the qualifier.
      */
-    public function setValue($value) {
-      $this->value = $value;
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
     /**
      * Returns the associative array for this Qualifier
      */
-    public function toArray() {
-      $a = array();
-      if( $this->value ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->value) {
             $a["value"] = $this->value;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this Qualifier
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this Qualifier from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['value']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['value'])) {
             $this->value = $o["value"];
-      }
+        }
     }
 }

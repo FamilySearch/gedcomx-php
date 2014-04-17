@@ -18,26 +18,25 @@ class ResultConfidence
     /**
      *  Result confidence level 1 (lowest).
      */
-    const One = "1";
+    const ONE = "1";
 
     /**
      *  Result confidence level 2.
      */
-    const Two = "2";
+    const TWO = "2";
 
     /**
      *  Result confidence level 3.
      */
-    const Three = "3";
+    const THREE = "3";
 
     /**
      *  Result confidence level 4.
      */
-    const Four = "4";
+    const FOUR = "4";
 
     /**
      *  Result confidence level 5 (highest).
      */
-    const Five = "5";
-
+    const FIVE = "5";
 }

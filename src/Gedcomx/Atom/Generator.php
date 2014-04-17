@@ -12,21 +12,24 @@ namespace Gedcomx\Atom;
 /**
  * identifies the agent used to generate a feed, for debugging and other purposes.
  */
-class Generator 
+class Generator
 {
-    
+
     /**
      * The base.
      */
     private $base;
+
     /**
      * link to a representation that is relevant to the generating agent.
      */
     private $uri;
+
     /**
      * The language.
      */
     private $lang;
+
     /**
      * the version of the generating agent
      */
@@ -40,125 +43,139 @@ class Generator
     /**
      * Constructs a Generator from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The base.
      */
-    public function getBase() {
-      return $this->base;
+    public function getBase()
+    {
+        return $this->base;
     }
 
     /**
      * The base.
      */
-    public function setBase($base) {
-      $this->base = $base;
+    public function setBase($base)
+    {
+        $this->base = $base;
     }
     /**
      * link to a representation that is relevant to the generating agent.
      */
-    public function getUri() {
-      return $this->uri;
+    public function getUri()
+    {
+        return $this->uri;
     }
 
     /**
      * link to a representation that is relevant to the generating agent.
      */
-    public function setUri($uri) {
-      $this->uri = $uri;
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
     }
     /**
      * The language.
      */
-    public function getLang() {
-      return $this->lang;
+    public function getLang()
+    {
+        return $this->lang;
     }
 
     /**
      * The language.
      */
-    public function setLang($lang) {
-      $this->lang = $lang;
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
     }
     /**
      * the version of the generating agent
      */
-    public function getVersion() {
-      return $this->version;
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     /**
      * the version of the generating agent
      */
-    public function setVersion($version) {
-      $this->version = $version;
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
     /**
      * human-readable name for the generating agent
      */
-    public function getValue() {
-      return $this->value;
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
      * human-readable name for the generating agent
      */
-    public function setValue($value) {
-      $this->value = $value;
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
     /**
      * Returns the associative array for this Generator
      */
-    public function toArray() {
-      $a = array();
-      if( $this->base ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->base) {
             $a["base"] = $this->base;
-      }
-      if( $this->uri ) {
+        }
+        if ($this->uri) {
             $a["uri"] = $this->uri;
-      }
-      if( $this->lang ) {
+        }
+        if ($this->lang) {
             $a["lang"] = $this->lang;
-      }
-      if( $this->version ) {
+        }
+        if ($this->version) {
             $a["version"] = $this->version;
-      }
-      if( $this->value ) {
+        }
+        if ($this->value) {
             $a["value"] = $this->value;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this Generator
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this Generator from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['base']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['base'])) {
             $this->base = $o["base"];
-      }
-      if( isset($o['uri']) ) {
+        }
+        if (isset($o['uri'])) {
             $this->uri = $o["uri"];
-      }
-      if( isset($o['lang']) ) {
+        }
+        if (isset($o['lang'])) {
             $this->lang = $o["lang"];
-      }
-      if( isset($o['version']) ) {
+        }
+        if (isset($o['version'])) {
             $this->version = $o["version"];
-      }
-      if( isset($o['value']) ) {
+        }
+        if (isset($o['value'])) {
             $this->value = $o["value"];
-      }
+        }
     }
 }

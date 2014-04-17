@@ -12,9 +12,9 @@ namespace Gedcomx\Conclusion;
 /**
  * A gender conclusion.
  */
-class Gender extends \Gedcomx\Conclusion\Conclusion 
+class Gender extends \Gedcomx\Conclusion\Conclusion
 {
-    
+
     /**
      * The type of the gender.
      */
@@ -28,70 +28,77 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a Gender from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The type of the gender.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The type of the gender.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * The references to the record fields being used as evidence.
      */
-    public function getFields() {
-      return $this->fields;
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
      * The references to the record fields being used as evidence.
      */
-    public function setFields($fields) {
-      $this->fields = $fields;
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
     /**
      * Returns the associative array for this Gender
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->fields ) {
-        $ab = array();
-        foreach( $this->fields as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['fields'] = $ab;
-      }
-      return $a;
+        if ($this->fields) {
+            $ab = array();
+            foreach ($this->fields as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fields'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Gender from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      $this->fields = array();
-      if( isset($o['fields']) ) {
-        foreach( $o['fields'] as $i => $x ) {
-              $this->fields[$i] = new \Gedcomx\Records\Field($x);
         }
-      }
+        $this->fields = array();
+        if (isset($o['fields'])) {
+            foreach ($o['fields'] as $i => $x) {
+                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
     }
 }

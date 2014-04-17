@@ -12,18 +12,19 @@ namespace Gedcomx\Records;
 /**
  * A description of the content of a collection by resource type.
  */
-class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData 
+class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
      */
     private $completeness;
+
     /**
      * The count of the items applicable to this content aspect.
      */
     private $count;
+
     /**
      * The type of resource being covered in this collection.
      */
@@ -32,82 +33,91 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a CollectionContent from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
      */
-    public function getCompleteness() {
-      return $this->completeness;
+    public function getCompleteness()
+    {
+        return $this->completeness;
     }
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
      */
-    public function setCompleteness($completeness) {
-      $this->completeness = $completeness;
+    public function setCompleteness($completeness)
+    {
+        $this->completeness = $completeness;
     }
     /**
      * The count of the items applicable to this content aspect.
      */
-    public function getCount() {
-      return $this->count;
+    public function getCount()
+    {
+        return $this->count;
     }
 
     /**
      * The count of the items applicable to this content aspect.
      */
-    public function setCount($count) {
-      $this->count = $count;
+    public function setCount($count)
+    {
+        $this->count = $count;
     }
     /**
      * The type of resource being covered in this collection.
      */
-    public function getResourceType() {
-      return $this->resourceType;
+    public function getResourceType()
+    {
+        return $this->resourceType;
     }
 
     /**
      * The type of resource being covered in this collection.
      */
-    public function setResourceType($resourceType) {
-      $this->resourceType = $resourceType;
+    public function setResourceType($resourceType)
+    {
+        $this->resourceType = $resourceType;
     }
     /**
      * Returns the associative array for this CollectionContent
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->completeness ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->completeness) {
             $a["completeness"] = $this->completeness;
-      }
-      if( $this->count ) {
+        }
+        if ($this->count) {
             $a["count"] = $this->count;
-      }
-      if( $this->resourceType ) {
+        }
+        if ($this->resourceType) {
             $a["resourceType"] = $this->resourceType;
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this CollectionContent from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['completeness']) ) {
-            $this->completeness = $o["completeness"];
-      }
-      if( isset($o['count']) ) {
-            $this->count = $o["count"];
-      }
-      if( isset($o['resourceType']) ) {
-            $this->resourceType = $o["resourceType"];
-      }
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['completeness'])) {
+                $this->completeness = $o["completeness"];
+        }
+        if (isset($o['count'])) {
+                $this->count = $o["count"];
+        }
+        if (isset($o['resourceType'])) {
+                $this->resourceType = $o["resourceType"];
+        }
     }
 }

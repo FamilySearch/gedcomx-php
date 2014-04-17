@@ -12,84 +12,92 @@ namespace Gedcomx\Common;
 /**
  * A generic reference to a resource.
  */
-class ResourceReference 
+class ResourceReference
 {
-    
+
     /**
      * The resource id of the resource being referenced.
      */
     private $resourceId;
+
     /**
      * The URI to the resource.
      */
     private $resource;
 
-
     /**
      * Constructs a ResourceReference from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The resource id of the resource being referenced.
      */
-    public function getResourceId() {
-      return $this->resourceId;
+    public function getResourceId()
+    {
+        return $this->resourceId;
     }
 
     /**
      * The resource id of the resource being referenced.
      */
-    public function setResourceId($resourceId) {
-      $this->resourceId = $resourceId;
+    public function setResourceId($resourceId)
+    {
+        $this->resourceId = $resourceId;
     }
     /**
      * The URI to the resource.
      */
-    public function getResource() {
-      return $this->resource;
+    public function getResource()
+    {
+        return $this->resource;
     }
 
     /**
      * The URI to the resource.
      */
-    public function setResource($resource) {
-      $this->resource = $resource;
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
     }
     /**
      * Returns the associative array for this ResourceReference
      */
-    public function toArray() {
-      $a = array();
-      if( $this->resourceId ) {
+    public function toArray()
+    {
+        $a = array();
+        if ($this->resourceId) {
             $a["resourceId"] = $this->resourceId;
-      }
-      if( $this->resource ) {
+        }
+        if ($this->resource) {
             $a["resource"] = $this->resource;
-      }
-      return $a;
+        }
+        return $a;
     }
 
     /**
      * Returns the JSON string for this ResourceReference
      */
-    public function toJson() {
-      return json_encode($this->toArray());
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 
     /**
      * Initializes this ResourceReference from an associative array
      */
-    public function initFromArray($o) {
-      if( isset($o['resourceId']) ) {
+    public function initFromArray($o)
+    {
+        if (isset($o['resourceId'])) {
             $this->resourceId = $o["resourceId"];
-      }
-      if( isset($o['resource']) ) {
+        }
+        if (isset($o['resource'])) {
             $this->resource = $o["resource"];
-      }
+        }
     }
 }

@@ -12,9 +12,9 @@ namespace Gedcomx\Conclusion;
 /**
  * A role that a specific person plays in an event.
  */
-class EventRole extends \Gedcomx\Conclusion\Conclusion 
+class EventRole extends \Gedcomx\Conclusion\Conclusion
 {
-    
+
     /**
      * The role type.
      */
@@ -24,6 +24,7 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
      * Reference to the person playing the role in the event.
      */
     private $person;
+
     /**
      * Details about the role of the person in the event.
      */
@@ -32,82 +33,91 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a EventRole from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The role type.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The role type.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * Reference to the person playing the role in the event.
      */
-    public function getPerson() {
-      return $this->person;
+    public function getPerson()
+    {
+        return $this->person;
     }
 
     /**
      * Reference to the person playing the role in the event.
      */
-    public function setPerson($person) {
-      $this->person = $person;
+    public function setPerson($person)
+    {
+        $this->person = $person;
     }
     /**
      * Details about the role of the person in the event.
      */
-    public function getDetails() {
-      return $this->details;
+    public function getDetails()
+    {
+        return $this->details;
     }
 
     /**
      * Details about the role of the person in the event.
      */
-    public function setDetails($details) {
-      $this->details = $details;
+    public function setDetails($details)
+    {
+        $this->details = $details;
     }
     /**
      * Returns the associative array for this EventRole
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->type ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->type) {
             $a["type"] = $this->type;
-      }
-      if( $this->person ) {
+        }
+        if ($this->person) {
             $a["person"] = $this->person->toArray();
-      }
-      if( $this->details ) {
+        }
+        if ($this->details) {
             $a["details"] = $this->details;
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this EventRole from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['type']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['type'])) {
             $this->type = $o["type"];
-      }
-      if( isset($o['person']) ) {
-            $this->person = new \Gedcomx\Common\ResourceReference($o["person"]);
-      }
-      if( isset($o['details']) ) {
-            $this->details = $o["details"];
-      }
+        }
+        if (isset($o['person'])) {
+                $this->person = new \Gedcomx\Common\ResourceReference($o["person"]);
+        }
+        if (isset($o['details'])) {
+                $this->details = $o["details"];
+        }
     }
 }

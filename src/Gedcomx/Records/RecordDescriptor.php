@@ -12,9 +12,9 @@ namespace Gedcomx\Records;
 /**
  * A descriptor for a common set of records.
  */
-class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData 
+class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
+
     /**
      * The language of this record description.
      */
@@ -28,70 +28,77 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a RecordDescriptor from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * The language of this record description.
      */
-    public function getLang() {
-      return $this->lang;
+    public function getLang()
+    {
+        return $this->lang;
     }
 
     /**
      * The language of this record description.
      */
-    public function setLang($lang) {
-      $this->lang = $lang;
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
     }
     /**
      * Descriptors of the fields that are applicable to this record.
      */
-    public function getFields() {
-      return $this->fields;
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
      * Descriptors of the fields that are applicable to this record.
      */
-    public function setFields($fields) {
-      $this->fields = $fields;
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
     /**
      * Returns the associative array for this RecordDescriptor
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->lang ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->lang) {
             $a["lang"] = $this->lang;
-      }
-      if( $this->fields ) {
-        $ab = array();
-        foreach( $this->fields as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['fields'] = $ab;
-      }
-      return $a;
+        if ($this->fields) {
+            $ab = array();
+            foreach ($this->fields as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fields'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this RecordDescriptor from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['lang']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['lang'])) {
             $this->lang = $o["lang"];
-      }
-      $this->fields = array();
-      if( isset($o['fields']) ) {
-        foreach( $o['fields'] as $i => $x ) {
-              $this->fields[$i] = new \Gedcomx\Records\FieldDescriptor($x);
         }
-      }
+        $this->fields = array();
+        if (isset($o['fields'])) {
+            foreach ($o['fields'] as $i => $x) {
+                    $this->fields[$i] = new \Gedcomx\Records\FieldDescriptor($x);
+            }
+        }
     }
 }

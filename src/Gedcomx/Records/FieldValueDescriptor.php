@@ -12,17 +12,19 @@ namespace Gedcomx\Records;
 /**
  * A way a field is to be displayed to a user.
  */
-class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData 
+class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
+
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
      */
     private $optional;
+
     /**
      * The type of the field value.
      */
     private $type;
+
     /**
      * The id of the label applicable to the field value
      */
@@ -36,108 +38,119 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a FieldValueDescriptor from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
      */
-    public function getOptional() {
-      return $this->optional;
+    public function getOptional()
+    {
+        return $this->optional;
     }
 
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
      */
-    public function setOptional($optional) {
-      $this->optional = $optional;
+    public function setOptional($optional)
+    {
+        $this->optional = $optional;
     }
     /**
      * The type of the field value.
      */
-    public function getType() {
-      return $this->type;
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
      * The type of the field value.
      */
-    public function setType($type) {
-      $this->type = $type;
+    public function setType($type)
+    {
+        $this->type = $type;
     }
     /**
      * The id of the label applicable to the field value
      */
-    public function getLabelId() {
-      return $this->labelId;
+    public function getLabelId()
+    {
+        return $this->labelId;
     }
 
     /**
      * The id of the label applicable to the field value
      */
-    public function setLabelId($labelId) {
-      $this->labelId = $labelId;
+    public function setLabelId($labelId)
+    {
+        $this->labelId = $labelId;
     }
     /**
      * The labels to be used for display purposes.
      */
-    public function getDisplayLabels() {
-      return $this->displayLabels;
+    public function getDisplayLabels()
+    {
+        return $this->displayLabels;
     }
 
     /**
      * The labels to be used for display purposes.
      */
-    public function setDisplayLabels($displayLabels) {
-      $this->displayLabels = $displayLabels;
+    public function setDisplayLabels($displayLabels)
+    {
+        $this->displayLabels = $displayLabels;
     }
     /**
      * Returns the associative array for this FieldValueDescriptor
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->optional ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->optional) {
             $a["optional"] = $this->optional;
-      }
-      if( $this->type ) {
-            $a["type"] = $this->type;
-      }
-      if( $this->labelId ) {
-            $a["labelId"] = $this->labelId;
-      }
-      if( $this->displayLabels ) {
-        $ab = array();
-        foreach( $this->displayLabels as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['labels'] = $ab;
-      }
-      return $a;
+        if ($this->type) {
+            $a["type"] = $this->type;
+        }
+        if ($this->labelId) {
+            $a["labelId"] = $this->labelId;
+        }
+        if ($this->displayLabels) {
+            $ab = array();
+            foreach ($this->displayLabels as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['labels'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this FieldValueDescriptor from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['optional']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['optional'])) {
             $this->optional = $o["optional"];
-      }
-      if( isset($o['type']) ) {
-            $this->type = $o["type"];
-      }
-      if( isset($o['labelId']) ) {
-            $this->labelId = $o["labelId"];
-      }
-      $this->displayLabels = array();
-      if( isset($o['labels']) ) {
-        foreach( $o['labels'] as $i => $x ) {
-              $this->displayLabels[$i] = new \Gedcomx\Common\TextValue($x);
         }
-      }
+        if (isset($o['type'])) {
+            $this->type = $o["type"];
+        }
+        if (isset($o['labelId'])) {
+            $this->labelId = $o["labelId"];
+        }
+        $this->displayLabels = array();
+        if (isset($o['labels'])) {
+            foreach ($o['labels'] as $i => $x) {
+                    $this->displayLabels[$i] = new \Gedcomx\Common\TextValue($x);
+            }
+        }
     }
 }

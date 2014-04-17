@@ -18,366 +18,365 @@ class FieldType
     /**
      * (no documentation provided)
      */
-    const Age = "http://gedcomx.org/Age";
+    const AGE = "http://gedcomx.org/Age";
 
     /**
      * (no documentation provided)
      */
-    const Date = "http://gedcomx.org/Date";
+    const DATE = "http://gedcomx.org/Date";
 
     /**
      * (no documentation provided)
      */
-    const Place = "http://gedcomx.org/Place";
+    const PLACE = "http://gedcomx.org/Place";
 
     /**
      * (no documentation provided)
      */
-    const Gender = "http://gedcomx.org/Gender";
+    const GENDER = "http://gedcomx.org/Gender";
 
     /**
      * (no documentation provided)
      */
-    const Name = "http://gedcomx.org/Name";
+    const NAME = "http://gedcomx.org/Name";
 
     /**
      * (no documentation provided)
      */
-    const Role = "http://gedcomx.org/Role";
+    const ROLE = "http://gedcomx.org/Role";
 
     /**
      * (no documentation provided)
      */
-    const Years = "http://gedcomx.org/Years";
+    const YEARS = "http://gedcomx.org/Years";
 
     /**
      * (no documentation provided)
      */
-    const Months = "http://gedcomx.org/Months";
+    const MONTHS = "http://gedcomx.org/Months";
 
     /**
      * (no documentation provided)
      */
-    const Days = "http://gedcomx.org/Days";
+    const DAYS = "http://gedcomx.org/Days";
 
     /**
      * (no documentation provided)
      */
-    const Hours = "http://gedcomx.org/Hours";
+    const HOURS = "http://gedcomx.org/Hours";
 
     /**
      * (no documentation provided)
      */
-    const Minutes = "http://gedcomx.org/Minutes";
+    const MINUTES = "http://gedcomx.org/Minutes";
 
     /**
      * (no documentation provided)
      */
-    const Year = "http://gedcomx.org/Year";
+    const YEAR = "http://gedcomx.org/Year";
 
     /**
      * (no documentation provided)
      */
-    const Month = "http://gedcomx.org/Month";
+    const MONTH = "http://gedcomx.org/Month";
 
     /**
      * (no documentation provided)
      */
-    const Day = "http://gedcomx.org/Day";
+    const DAY = "http://gedcomx.org/Day";
 
     /**
      * (no documentation provided)
      */
-    const Hour = "http://gedcomx.org/Hour";
+    const HOUR = "http://gedcomx.org/Hour";
 
     /**
      * (no documentation provided)
      */
-    const Minute = "http://gedcomx.org/Minute";
+    const MINUTE = "http://gedcomx.org/Minute";
 
     /**
      * (no documentation provided)
      */
-    const Address = "http://gedcomx.org/Address";
+    const ADDRESS = "http://gedcomx.org/Address";
 
     /**
      * (no documentation provided)
      */
-    const Cemetery = "http://gedcomx.org/Cemetery";
+    const CEMETERY = "http://gedcomx.org/Cemetery";
 
     /**
      * (no documentation provided)
      */
-    const City = "http://gedcomx.org/City";
+    const CITY = "http://gedcomx.org/City";
 
     /**
      * (no documentation provided)
      */
-    const Church = "http://gedcomx.org/Church";
+    const CHURCH = "http://gedcomx.org/Church";
 
     /**
      * (no documentation provided)
      */
-    const County = "http://gedcomx.org/County";
+    const COUNTY = "http://gedcomx.org/County";
 
     /**
      * (no documentation provided)
      */
-    const Country = "http://gedcomx.org/Country";
+    const COUNTRY = "http://gedcomx.org/Country";
 
     /**
      * (no documentation provided)
      */
-    const District = "http://gedcomx.org/District";
+    const DISTRICT = "http://gedcomx.org/District";
 
     /**
      * (no documentation provided)
      */
-    const Hospital = "http://gedcomx.org/Hospital";
+    const HOSPITAL = "http://gedcomx.org/Hospital";
 
     /**
      * (no documentation provided)
      */
-    const Island = "http://gedcomx.org/Island";
+    const ISLAND = "http://gedcomx.org/Island";
 
     /**
      * (no documentation provided)
      */
-    const MilitaryBase = "http://gedcomx.org/MilitaryBase";
+    const MILITARYBASE = "http://gedcomx.org/MilitaryBase";
 
     /**
      * (no documentation provided)
      */
-    const Mortuary = "http://gedcomx.org/Mortuary";
+    const MORTUARY = "http://gedcomx.org/Mortuary";
 
     /**
      * (no documentation provided)
      */
-    const Parish = "http://gedcomx.org/Parish";
+    const PARISH = "http://gedcomx.org/Parish";
 
     /**
      * (no documentation provided)
      */
-    const PlotNumber = "http://gedcomx.org/PlotNumber";
+    const PLOTNUMBER = "http://gedcomx.org/PlotNumber";
 
     /**
      * (no documentation provided)
      */
-    const PostOffice = "http://gedcomx.org/PostOffice";
+    const POSTOFFICE = "http://gedcomx.org/PostOffice";
 
     /**
      * (no documentation provided)
      */
-    const PostalCode = "http://gedcomx.org/PostalCode";
+    const POSTALCODE = "http://gedcomx.org/PostalCode";
 
     /**
      * (no documentation provided)
      */
-    const Prison = "http://gedcomx.org/Prison";
+    const PRISON = "http://gedcomx.org/Prison";
 
     /**
      * (no documentation provided)
      */
-    const Province = "http://gedcomx.org/Province";
+    const PROVINCE = "http://gedcomx.org/Province";
 
     /**
      * (no documentation provided)
      */
-    const Section = "http://gedcomx.org/Section";
+    const SECTION = "http://gedcomx.org/Section";
 
     /**
      * (no documentation provided)
      */
-    const Ship = "http://gedcomx.org/Ship";
+    const SHIP = "http://gedcomx.org/Ship";
 
     /**
      * (no documentation provided)
      */
-    const State = "http://gedcomx.org/State";
+    const STATE = "http://gedcomx.org/State";
 
     /**
      * (no documentation provided)
      */
-    const Territory = "http://gedcomx.org/Territory";
+    const TERRITORY = "http://gedcomx.org/Territory";
 
     /**
      * (no documentation provided)
      */
-    const Town = "http://gedcomx.org/Town";
+    const TOWN = "http://gedcomx.org/Town";
 
     /**
      * (no documentation provided)
      */
-    const Township = "http://gedcomx.org/Township";
+    const TOWNSHIP = "http://gedcomx.org/Township";
 
     /**
      * (no documentation provided)
      */
-    const Ward = "http://gedcomx.org/Ward";
+    const WARD = "http://gedcomx.org/Ward";
 
     /**
      * (no documentation provided)
      */
-    const Prefix = "http://gedcomx.org/Prefix";
+    const PREFIX = "http://gedcomx.org/Prefix";
 
     /**
      * (no documentation provided)
      */
-    const Suffix = "http://gedcomx.org/Suffix";
+    const SUFFIX = "http://gedcomx.org/Suffix";
 
     /**
      * (no documentation provided)
      */
-    const Given = "http://gedcomx.org/Given";
+    const GIVEN = "http://gedcomx.org/Given";
 
     /**
      * (no documentation provided)
      */
-    const Surname = "http://gedcomx.org/Surname";
+    const SURNAME = "http://gedcomx.org/Surname";
 
     /**
      * (no documentation provided)
      */
-    const Abusua = "http://gedcomx.org/Abusua";
+    const ABUSUA = "http://gedcomx.org/Abusua";
 
     /**
      * (no documentation provided)
      */
-    const BatchNumber = "http://gedcomx.org/BatchNumber";
+    const BATCHNUMBER = "http://gedcomx.org/BatchNumber";
 
     /**
      * (no documentation provided)
      */
-    const Caste = "http://gedcomx.org/Caste";
+    const CASTE = "http://gedcomx.org/Caste";
 
     /**
      * (no documentation provided)
      */
-    const Clan = "http://gedcomx.org/Clan";
+    const CLAN = "http://gedcomx.org/Clan";
 
     /**
      * (no documentation provided)
      */
-    const CommonLawMarriage = "http://gedcomx.org/CommonLawMarriage";
+    const COMMONLAWMARRIAGE = "http://gedcomx.org/CommonLawMarriage";
 
     /**
      * (no documentation provided)
      */
-    const Education = "http://gedcomx.org/Education";
+    const EDUCATION = "http://gedcomx.org/Education";
 
     /**
      * (no documentation provided)
      */
-    const Ethnicity = "http://gedcomx.org/Ethnicity";
+    const ETHNICITY = "http://gedcomx.org/Ethnicity";
 
     /**
      * (no documentation provided)
      */
-    const FatherBirthPlace = "http://gedcomx.org/FatherBirthPlace";
+    const FATHERBIRTHPLACE = "http://gedcomx.org/FatherBirthPlace";
 
     /**
      * (no documentation provided)
      */
-    const NeverHadChildren = "http://gedcomx.org/NeverHadChildren";
+    const NEVERHADCHILDREN = "http://gedcomx.org/NeverHadChildren";
 
     /**
      * (no documentation provided)
      */
-    const NeverMarried = "http://gedcomx.org/NeverMarried";
+    const NEVERMARRIED = "http://gedcomx.org/NeverMarried";
 
     /**
      * (no documentation provided)
      */
-    const NumberOfChildren = "http://gedcomx.org/NumberOfChildren";
+    const NUMBEROFCHILDREN = "http://gedcomx.org/NumberOfChildren";
 
     /**
      * (no documentation provided)
      */
-    const NumberOfMarriages = "http://gedcomx.org/NumberOfMarriages";
+    const NUMBEROFMARRIAGES = "http://gedcomx.org/NumberOfMarriages";
 
     /**
      * (no documentation provided)
      */
-    const Household = "http://gedcomx.org/Household";
+    const HOUSEHOLD = "http://gedcomx.org/Household";
 
     /**
      * (no documentation provided)
      */
-    const IsHeadOfHousehold = "http://gedcomx.org/IsHeadOfHousehold";
+    const ISHEADOFHOUSEHOLD = "http://gedcomx.org/IsHeadOfHousehold";
 
     /**
      * (no documentation provided)
      */
-    const MaritalStatus = "http://gedcomx.org/MaritalStatus";
+    const MARITALSTATUS = "http://gedcomx.org/MaritalStatus";
 
     /**
      * (no documentation provided)
      */
-    const MotherBirthPlace = "http://gedcomx.org/MotherBirthPlace";
+    const MOTHERBIRTHPLACE = "http://gedcomx.org/MotherBirthPlace";
 
     /**
      * (no documentation provided)
      */
-    const MultipleBirth = "http://gedcomx.org/MultipleBirth";
+    const MULTIPLEBIRTH = "http://gedcomx.org/MultipleBirth";
 
     /**
      * (no documentation provided)
      */
-    const NameSake = "http://gedcomx.org/NameSake";
+    const NAMESAKE = "http://gedcomx.org/NameSake";
 
     /**
      * (no documentation provided)
      */
-    const NationalId = "http://gedcomx.org/NationalId";
+    const NATIONALID = "http://gedcomx.org/NationalId";
 
     /**
      * (no documentation provided)
      */
-    const Nationality = "http://gedcomx.org/Nationality";
+    const NATIONALITY = "http://gedcomx.org/Nationality";
 
     /**
      * (no documentation provided)
      */
-    const Occupation = "http://gedcomx.org/Occupation";
+    const OCCUPATION = "http://gedcomx.org/Occupation";
 
     /**
      * (no documentation provided)
      */
-    const PhysicalDescription = "http://gedcomx.org/PhysicalDescription";
+    const PHYSICALDESCRIPTION = "http://gedcomx.org/PhysicalDescription";
 
     /**
      * (no documentation provided)
      */
-    const Property = "http://gedcomx.org/Property";
+    const PROPERTY = "http://gedcomx.org/Property";
 
     /**
      * (no documentation provided)
      */
-    const Race = "http://gedcomx.org/Race";
+    const RACE = "http://gedcomx.org/Race";
 
     /**
      * (no documentation provided)
      */
-    const Religion = "http://gedcomx.org/Religion";
+    const RELIGION = "http://gedcomx.org/Religion";
 
     /**
      * (no documentation provided)
      */
-    const RelationshipToHead = "http://gedcomx.org/RelationshipToHead";
+    const RELATIONSHIPTOHEAD = "http://gedcomx.org/RelationshipToHead";
 
     /**
      * (no documentation provided)
      */
-    const Stillbirth = "http://gedcomx.org/Stillbirth";
+    const STILLBIRTH = "http://gedcomx.org/Stillbirth";
 
     /**
      * (no documentation provided)
      */
-    const TitleOfNobility = "http://gedcomx.org/TitleOfNobility";
+    const TITLEOFNOBILITY = "http://gedcomx.org/TitleOfNobility";
 
     /**
      * (no documentation provided)
      */
-    const Tribe = "http://gedcomx.org/Tribe";
-
+    const TRIBE = "http://gedcomx.org/Tribe";
 }

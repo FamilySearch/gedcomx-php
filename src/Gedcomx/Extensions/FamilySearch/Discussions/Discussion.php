@@ -12,34 +12,39 @@ namespace Gedcomx\Extensions\FamilySearch\Discussions;
 /**
  * A discussion.
  */
-class Discussion extends \Gedcomx\Links\HypermediaEnabledData 
+class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 {
-    
 
     /**
      * the one-line summary text
      */
     private $title;
+
     /**
      * The text or &quot;message body&quot; of the discussion
      */
     private $details;
+
     /**
      * date of creation
      */
     private $created;
+
     /**
      * contributor of discussion
      */
     private $contributor;
+
     /**
      * Date of last modification
      */
     private $modified;
+
     /**
      * Number of comments
      */
     private $numberOfComments;
+
     /**
      * The comments on this discussion.
      */
@@ -48,165 +53,182 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Discussion from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * the one-line summary text
      */
-    public function getTitle() {
-      return $this->title;
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
      * the one-line summary text
      */
-    public function setTitle($title) {
-      $this->title = $title;
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
     /**
      * The text or &quot;message body&quot; of the discussion
      */
-    public function getDetails() {
-      return $this->details;
+    public function getDetails()
+    {
+        return $this->details;
     }
 
     /**
      * The text or &quot;message body&quot; of the discussion
      */
-    public function setDetails($details) {
-      $this->details = $details;
+    public function setDetails($details)
+    {
+        $this->details = $details;
     }
     /**
      * date of creation
      */
-    public function getCreated() {
-      return $this->created;
+    public function getCreated()
+    {
+        return $this->created;
     }
 
     /**
      * date of creation
      */
-    public function setCreated($created) {
-      $this->created = $created;
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
     /**
      * contributor of discussion
      */
-    public function getContributor() {
-      return $this->contributor;
+    public function getContributor()
+    {
+        return $this->contributor;
     }
 
     /**
      * contributor of discussion
      */
-    public function setContributor($contributor) {
-      $this->contributor = $contributor;
+    public function setContributor($contributor)
+    {
+        $this->contributor = $contributor;
     }
     /**
      * Date of last modification
      */
-    public function getModified() {
-      return $this->modified;
+    public function getModified()
+    {
+        return $this->modified;
     }
 
     /**
      * Date of last modification
      */
-    public function setModified($modified) {
-      $this->modified = $modified;
+    public function setModified($modified)
+    {
+        $this->modified = $modified;
     }
     /**
      * Number of comments
      */
-    public function getNumberOfComments() {
-      return $this->numberOfComments;
+    public function getNumberOfComments()
+    {
+        return $this->numberOfComments;
     }
 
     /**
      * Number of comments
      */
-    public function setNumberOfComments($numberOfComments) {
-      $this->numberOfComments = $numberOfComments;
+    public function setNumberOfComments($numberOfComments)
+    {
+        $this->numberOfComments = $numberOfComments;
     }
     /**
      * The comments on this discussion.
      */
-    public function getComments() {
-      return $this->comments;
+    public function getComments()
+    {
+        return $this->comments;
     }
 
     /**
      * The comments on this discussion.
      */
-    public function setComments($comments) {
-      $this->comments = $comments;
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
     /**
      * Returns the associative array for this Discussion
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->title ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->title) {
             $a["title"] = $this->title;
-      }
-      if( $this->details ) {
-            $a["details"] = $this->details;
-      }
-      if( $this->created ) {
-            $a["created"] = $this->created;
-      }
-      if( $this->contributor ) {
-            $a["contributor"] = $this->contributor->toArray();
-      }
-      if( $this->modified ) {
-            $a["modified"] = $this->modified;
-      }
-      if( $this->numberOfComments ) {
-            $a["numberOfComments"] = $this->numberOfComments;
-      }
-      if( $this->comments ) {
-        $ab = array();
-        foreach( $this->comments as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['comments'] = $ab;
-      }
-      return $a;
+        if ($this->details) {
+            $a["details"] = $this->details;
+        }
+        if ($this->created) {
+            $a["created"] = $this->created;
+        }
+        if ($this->contributor) {
+            $a["contributor"] = $this->contributor->toArray();
+        }
+        if ($this->modified) {
+            $a["modified"] = $this->modified;
+        }
+        if ($this->numberOfComments) {
+            $a["numberOfComments"] = $this->numberOfComments;
+        }
+        if ($this->comments) {
+            $ab = array();
+            foreach ($this->comments as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['comments'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Discussion from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['title']) ) {
-            $this->title = $o["title"];
-      }
-      if( isset($o['details']) ) {
-            $this->details = $o["details"];
-      }
-      if( isset($o['created']) ) {
-            $this->created = $o["created"];
-      }
-      if( isset($o['contributor']) ) {
-            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
-      }
-      if( isset($o['modified']) ) {
-            $this->modified = $o["modified"];
-      }
-      if( isset($o['numberOfComments']) ) {
-            $this->numberOfComments = $o["numberOfComments"];
-      }
-      $this->comments = array();
-      if( isset($o['comments']) ) {
-        foreach( $o['comments'] as $i => $x ) {
-              $this->comments[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($x);
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['title'])) {
+                $this->title = $o["title"];
         }
-      }
+        if (isset($o['details'])) {
+                $this->details = $o["details"];
+        }
+        if (isset($o['created'])) {
+                $this->created = $o["created"];
+        }
+        if (isset($o['contributor'])) {
+                $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+        }
+        if (isset($o['modified'])) {
+                $this->modified = $o["modified"];
+        }
+        if (isset($o['numberOfComments'])) {
+                $this->numberOfComments = $o["numberOfComments"];
+        }
+        $this->comments = array();
+        if (isset($o['comments'])) {
+            foreach ($o['comments'] as $i => $x) {
+                    $this->comments[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($x);
+            }
+        }
     }
 }

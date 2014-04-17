@@ -18,16 +18,15 @@ class ChangeObjectModifier
     /**
      *  The person.
      */
-    const Person = "http://gedcomx.org/Person";
+    const PERSON = "http://gedcomx.org/Person";
 
     /**
      *  The couple.
      */
-    const Couple = "http://gedcomx.org/Couple";
+    const COUPLE = "http://gedcomx.org/Couple";
 
     /**
      *  The child-and-parents relationship.
      */
-    const ChildAndParentsRelationship = "http://familysearch.org/v1/ChildAndParentsRelationship";
-
+    const CHILDANDPARENTSRELATIONSHIP = "http://familysearch.org/v1/ChildAndParentsRelationship";
 }

@@ -12,18 +12,19 @@ namespace Gedcomx\Atom;
 /**
  * A Person construct is an element that describes a person, corporation, or similar entity
  */
-class Person extends \Gedcomx\Atom\ExtensibleElement 
+class Person extends \Gedcomx\Atom\ExtensibleElement
 {
-    
 
     /**
      * a human-readable name for the person.
      */
     private $name;
+
     /**
      * an IRI associated with the person.
      */
     private $uri;
+
     /**
      * an e-mail address associated with the person.
      */
@@ -32,82 +33,91 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     /**
      * Constructs a Person from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * a human-readable name for the person.
      */
-    public function getName() {
-      return $this->name;
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
      * a human-readable name for the person.
      */
-    public function setName($name) {
-      $this->name = $name;
+    public function setName($name)
+    {
+        $this->name = $name;
     }
     /**
      * an IRI associated with the person.
      */
-    public function getUri() {
-      return $this->uri;
+    public function getUri()
+    {
+        return $this->uri;
     }
 
     /**
      * an IRI associated with the person.
      */
-    public function setUri($uri) {
-      $this->uri = $uri;
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
     }
     /**
      * an e-mail address associated with the person.
      */
-    public function getEmail() {
-      return $this->email;
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
      * an e-mail address associated with the person.
      */
-    public function setEmail($email) {
-      $this->email = $email;
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
     /**
      * Returns the associative array for this Person
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->name ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->name) {
             $a["name"] = $this->name;
-      }
-      if( $this->uri ) {
+        }
+        if ($this->uri) {
             $a["uri"] = $this->uri;
-      }
-      if( $this->email ) {
+        }
+        if ($this->email) {
             $a["email"] = $this->email;
-      }
-      return $a;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this Person from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['name']) ) {
-            $this->name = $o["name"];
-      }
-      if( isset($o['uri']) ) {
-            $this->uri = $o["uri"];
-      }
-      if( isset($o['email']) ) {
-            $this->email = $o["email"];
-      }
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['name'])) {
+                $this->name = $o["name"];
+        }
+        if (isset($o['uri'])) {
+                $this->uri = $o["uri"];
+        }
+        if (isset($o['email'])) {
+                $this->email = $o["email"];
+        }
     }
 }

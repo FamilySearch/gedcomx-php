@@ -18,21 +18,20 @@ class EventRoleType
     /**
      * (no documentation provided)
      */
-    const Principal = "http://gedcomx.org/Principal";
+    const PRINCIPAL = "http://gedcomx.org/Principal";
 
     /**
      * (no documentation provided)
      */
-    const Participant = "http://gedcomx.org/Participant";
+    const PARTICIPANT = "http://gedcomx.org/Participant";
 
     /**
      * (no documentation provided)
      */
-    const Official = "http://gedcomx.org/Official";
+    const OFFICIAL = "http://gedcomx.org/Official";
 
     /**
      * (no documentation provided)
      */
-    const Witness = "http://gedcomx.org/Witness";
-
+    const WITNESS = "http://gedcomx.org/Witness";
 }

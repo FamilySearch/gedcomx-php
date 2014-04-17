@@ -18,36 +18,35 @@ class ChangeOperation
     /**
      * (no documentation provided)
      */
-    const Create = "http://familysearch.org/v1/Create";
+    const CREATE = "http://familysearch.org/v1/Create";
 
     /**
      * (no documentation provided)
      */
-    const Read = "http://familysearch.org/v1/Read";
+    const READ = "http://familysearch.org/v1/Read";
 
     /**
      * (no documentation provided)
      */
-    const Update = "http://familysearch.org/v1/Update";
+    const UPDATE = "http://familysearch.org/v1/Update";
 
     /**
      * (no documentation provided)
      */
-    const Delete = "http://familysearch.org/v1/Delete";
+    const DELETE = "http://familysearch.org/v1/Delete";
 
     /**
      * (no documentation provided)
      */
-    const Merge = "http://familysearch.org/v1/Merge";
+    const MERGE = "http://familysearch.org/v1/Merge";
 
     /**
      * (no documentation provided)
      */
-    const Unmerge = "http://familysearch.org/v1/Unmerge";
+    const UNMERGE = "http://familysearch.org/v1/Unmerge";
 
     /**
      * (no documentation provided)
      */
-    const Restore = "http://familysearch.org/v1/Restore";
-
+    const RESTORE = "http://familysearch.org/v1/Restore";
 }

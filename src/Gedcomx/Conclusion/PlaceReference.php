@@ -12,9 +12,9 @@ namespace Gedcomx\Conclusion;
 /**
  * A reference to genealogical place.
  */
-class PlaceReference extends \Gedcomx\Common\ExtensibleData 
+class PlaceReference extends \Gedcomx\Common\ExtensibleData
 {
-    
+
     /**
      * A reference to a description of the place being referenced.
      */
@@ -24,11 +24,13 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
      * The original value as supplied by the user.
      */
     private $original;
+
     /**
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
      * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
     private $normalizedExtensions;
+
     /**
      * The references to the record fields being used as evidence.
      */
@@ -37,117 +39,128 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a PlaceReference from a (parsed) JSON hash
      */
-    public function __construct($o = null) {
-      if( $o ) {
-        $this->initFromArray($o);
-      }
+    public function __construct($o = null)
+    {
+        if ($o) {
+            $this->initFromArray($o);
+        }
     }
 
     /**
      * A reference to a description of the place being referenced.
      */
-    public function getDescriptionRef() {
-      return $this->descriptionRef;
+    public function getDescriptionRef()
+    {
+        return $this->descriptionRef;
     }
 
     /**
      * A reference to a description of the place being referenced.
      */
-    public function setDescriptionRef($descriptionRef) {
-      $this->descriptionRef = $descriptionRef;
+    public function setDescriptionRef($descriptionRef)
+    {
+        $this->descriptionRef = $descriptionRef;
     }
     /**
      * The original value as supplied by the user.
      */
-    public function getOriginal() {
-      return $this->original;
+    public function getOriginal()
+    {
+        return $this->original;
     }
 
     /**
      * The original value as supplied by the user.
      */
-    public function setOriginal($original) {
-      $this->original = $original;
+    public function setOriginal($original)
+    {
+        $this->original = $original;
     }
     /**
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function getNormalizedExtensions() {
-      return $this->normalizedExtensions;
+    public function getNormalizedExtensions()
+    {
+        return $this->normalizedExtensions;
     }
 
     /**
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      */
-    public function setNormalizedExtensions($normalizedExtensions) {
-      $this->normalizedExtensions = $normalizedExtensions;
+    public function setNormalizedExtensions($normalizedExtensions)
+    {
+        $this->normalizedExtensions = $normalizedExtensions;
     }
     /**
      * The references to the record fields being used as evidence.
      */
-    public function getFields() {
-      return $this->fields;
+    public function getFields()
+    {
+        return $this->fields;
     }
 
     /**
      * The references to the record fields being used as evidence.
      */
-    public function setFields($fields) {
-      $this->fields = $fields;
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
     }
     /**
      * Returns the associative array for this PlaceReference
      */
-    public function toArray() {
-      $a = parent::toArray();
-      if( $this->descriptionRef ) {
+    public function toArray()
+    {
+        $a = parent::toArray();
+        if ($this->descriptionRef) {
             $a["description"] = $this->descriptionRef;
-      }
-      if( $this->original ) {
+        }
+        if ($this->original) {
             $a["original"] = $this->original;
-      }
-      if( $this->normalizedExtensions ) {
-        $ab = array();
-        foreach( $this->normalizedExtensions as $i => $x ) {
-              $ab[$i] = $x->toArray();
         }
-        $a['normalized'] = $ab;
-      }
-      if( $this->fields ) {
-        $ab = array();
-        foreach( $this->fields as $i => $x ) {
-              $ab[$i] = $x->toArray();
+        if ($this->normalizedExtensions) {
+            $ab = array();
+            foreach ($this->normalizedExtensions as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['normalized'] = $ab;
         }
-        $a['fields'] = $ab;
-      }
-      return $a;
+        if ($this->fields) {
+            $ab = array();
+            foreach ($this->fields as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['fields'] = $ab;
+        }
+        return $a;
     }
 
 
     /**
      * Initializes this PlaceReference from an associative array
      */
-    public function initFromArray($o) {
-      parent::initFromArray($o);
-      if( isset($o['description']) ) {
+    public function initFromArray($o)
+    {
+        parent::initFromArray($o);
+        if (isset($o['description'])) {
             $this->descriptionRef = $o["description"];
-      }
-      if( isset($o['original']) ) {
-            $this->original = $o["original"];
-      }
-      $this->normalizedExtensions = array();
-      if( isset($o['normalized']) ) {
-        foreach( $o['normalized'] as $i => $x ) {
-              $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
         }
-      }
-      $this->fields = array();
-      if( isset($o['fields']) ) {
-        foreach( $o['fields'] as $i => $x ) {
-              $this->fields[$i] = new \Gedcomx\Records\Field($x);
+        if (isset($o['original'])) {
+                $this->original = $o["original"];
         }
-      }
+        $this->normalizedExtensions = array();
+        if (isset($o['normalized'])) {
+            foreach ($o['normalized'] as $i => $x) {
+                    $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
+            }
+        }
+        $this->fields = array();
+        if (isset($o['fields'])) {
+            foreach ($o['fields'] as $i => $x) {
+                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
     }
 }
