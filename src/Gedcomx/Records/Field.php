@@ -17,16 +17,22 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of the gender.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The set of values for the field.
+     *
+     * @var \Gedcomx\Records\FieldValue[]
      */
     private $values;
 
     /**
      * Constructs a Field from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of the gender.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -45,6 +53,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of the gender.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -52,6 +62,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The set of values for the field.
+     *
+     * @return \Gedcomx\Records\FieldValue[]
      */
     public function getValues()
     {
@@ -60,6 +72,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The set of values for the field.
+     *
+     * @param \Gedcomx\Records\FieldValue[] $values
      */
     public function setValues($values)
     {
@@ -67,6 +81,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Field
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -87,6 +103,8 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Field from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

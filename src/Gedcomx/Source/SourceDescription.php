@@ -17,116 +17,162 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The URI (if applicable) of the actual source.
+     *
+     * @var string
      */
     private $about;
 
     /**
      * Hint about the media (MIME) type of the resource being described.
+     *
+     * @var string
      */
     private $mediaType;
 
     /**
      * The type of the resource being described.
+     *
+     * @var string
      */
     private $resourceType;
 
     /**
      * The bibliographic citations for this source.
+     *
+     * @var \Gedcomx\Source\SourceCitation[]
      */
     private $citations;
 
     /**
      * A reference to the entity that mediates access to the described source.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $mediator;
 
     /**
      * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+     *
+     * @var \Gedcomx\Source\SourceReference[]
      */
     private $sources;
 
     /**
      * A reference to the analysis document explaining the analysis that went into this description of the source.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $analysis;
 
     /**
      * A reference to the source that contains this source.
+     *
+     * @var \Gedcomx\Source\SourceReference
      */
     private $componentOf;
 
     /**
      * A list of titles for this source.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $titles;
 
     /**
      * A label for the title of this description.
+     *
+     * @var \Gedcomx\Common\TextValue
      */
     private $titleLabel;
 
     /**
      * Notes about a source.
+     *
+     * @var \Gedcomx\Common\Note[]
      */
     private $notes;
 
     /**
      * The attribution metadata for this source description.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * A sort key to be used in determining the position of this source relative to other sources in the same collection.
+     *
+     * @var string
      */
     private $sortKey;
 
     /**
      * Human-readable descriptions of the source.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $description;
 
     /**
      * The list of identifiers for the source.
+     *
+     * @var \Gedcomx\Conclusion\Identifier[]
      */
     private $identifiers;
 
     /**
      * The date the source was created.
+     *
+     * @var integer
      */
     private $created;
 
     /**
      * The date the source was last modified.
+     *
+     * @var integer
      */
     private $modified;
 
     /**
      * Declarations of the coverage of the source.
+     *
+     * @var \Gedcomx\Source\Coverage[]
      */
     private $coverage;
 
     /**
      * The rights for this source.
+     *
+     * @var string[]
      */
     private $rights;
 
     /**
      * The fields that are applicable to the resource being described.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Reference to an agent describing the repository in which the source is found.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $repository;
 
     /**
      * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $descriptorRef;
 
     /**
      * Constructs a SourceDescription from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -137,6 +183,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The URI (if applicable) of the actual source.
+     *
+     * @return string
      */
     public function getAbout()
     {
@@ -145,6 +193,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The URI (if applicable) of the actual source.
+     *
+     * @param string $about
      */
     public function setAbout($about)
     {
@@ -152,6 +202,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Hint about the media (MIME) type of the resource being described.
+     *
+     * @return string
      */
     public function getMediaType()
     {
@@ -160,6 +212,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Hint about the media (MIME) type of the resource being described.
+     *
+     * @param string $mediaType
      */
     public function setMediaType($mediaType)
     {
@@ -167,6 +221,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The type of the resource being described.
+     *
+     * @return string
      */
     public function getResourceType()
     {
@@ -175,6 +231,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of the resource being described.
+     *
+     * @param string $resourceType
      */
     public function setResourceType($resourceType)
     {
@@ -182,6 +240,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The bibliographic citations for this source.
+     *
+     * @return \Gedcomx\Source\SourceCitation[]
      */
     public function getCitations()
     {
@@ -190,6 +250,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The bibliographic citations for this source.
+     *
+     * @param \Gedcomx\Source\SourceCitation[] $citations
      */
     public function setCitations($citations)
     {
@@ -197,6 +259,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to the entity that mediates access to the described source.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getMediator()
     {
@@ -205,6 +269,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to the entity that mediates access to the described source.
+     *
+     * @param \Gedcomx\Common\ResourceReference $mediator
      */
     public function setMediator($mediator)
     {
@@ -212,6 +278,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+     *
+     * @return \Gedcomx\Source\SourceReference[]
      */
     public function getSources()
     {
@@ -220,6 +288,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * References to any sources to which this source is related (usually applicable to sources that are derived from or contained in another source).
+     *
+     * @param \Gedcomx\Source\SourceReference[] $sources
      */
     public function setSources($sources)
     {
@@ -227,6 +297,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to the analysis document explaining the analysis that went into this description of the source.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getAnalysis()
     {
@@ -235,6 +307,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to the analysis document explaining the analysis that went into this description of the source.
+     *
+     * @param \Gedcomx\Common\ResourceReference $analysis
      */
     public function setAnalysis($analysis)
     {
@@ -242,6 +316,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to the source that contains this source.
+     *
+     * @return \Gedcomx\Source\SourceReference
      */
     public function getComponentOf()
     {
@@ -250,6 +326,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to the source that contains this source.
+     *
+     * @param \Gedcomx\Source\SourceReference $componentOf
      */
     public function setComponentOf($componentOf)
     {
@@ -257,6 +335,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A list of titles for this source.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getTitles()
     {
@@ -265,6 +345,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A list of titles for this source.
+     *
+     * @param \Gedcomx\Common\TextValue[] $titles
      */
     public function setTitles($titles)
     {
@@ -272,6 +354,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A label for the title of this description.
+     *
+     * @return \Gedcomx\Common\TextValue
      */
     public function getTitleLabel()
     {
@@ -280,6 +364,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A label for the title of this description.
+     *
+     * @param \Gedcomx\Common\TextValue $titleLabel
      */
     public function setTitleLabel($titleLabel)
     {
@@ -287,6 +373,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Notes about a source.
+     *
+     * @return \Gedcomx\Common\Note[]
      */
     public function getNotes()
     {
@@ -295,6 +383,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Notes about a source.
+     *
+     * @param \Gedcomx\Common\Note[] $notes
      */
     public function setNotes($notes)
     {
@@ -302,6 +392,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The attribution metadata for this source description.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -310,6 +402,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The attribution metadata for this source description.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -317,6 +411,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A sort key to be used in determining the position of this source relative to other sources in the same collection.
+     *
+     * @return string
      */
     public function getSortKey()
     {
@@ -325,6 +421,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A sort key to be used in determining the position of this source relative to other sources in the same collection.
+     *
+     * @param string $sortKey
      */
     public function setSortKey($sortKey)
     {
@@ -332,6 +430,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Human-readable descriptions of the source.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getDescription()
     {
@@ -340,6 +440,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Human-readable descriptions of the source.
+     *
+     * @param \Gedcomx\Common\TextValue[] $description
      */
     public function setDescription($description)
     {
@@ -347,6 +449,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The list of identifiers for the source.
+     *
+     * @return \Gedcomx\Conclusion\Identifier[]
      */
     public function getIdentifiers()
     {
@@ -355,6 +459,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The list of identifiers for the source.
+     *
+     * @param \Gedcomx\Conclusion\Identifier[] $identifiers
      */
     public function setIdentifiers($identifiers)
     {
@@ -362,6 +468,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The date the source was created.
+     *
+     * @return integer
      */
     public function getCreated()
     {
@@ -370,6 +478,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The date the source was created.
+     *
+     * @param integer $created
      */
     public function setCreated($created)
     {
@@ -377,6 +487,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The date the source was last modified.
+     *
+     * @return integer
      */
     public function getModified()
     {
@@ -385,6 +497,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The date the source was last modified.
+     *
+     * @param integer $modified
      */
     public function setModified($modified)
     {
@@ -392,6 +506,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Declarations of the coverage of the source.
+     *
+     * @return \Gedcomx\Source\Coverage[]
      */
     public function getCoverage()
     {
@@ -400,6 +516,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Declarations of the coverage of the source.
+     *
+     * @param \Gedcomx\Source\Coverage[] $coverage
      */
     public function setCoverage($coverage)
     {
@@ -407,6 +525,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The rights for this source.
+     *
+     * @return string[]
      */
     public function getRights()
     {
@@ -415,6 +535,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The rights for this source.
+     *
+     * @param string[] $rights
      */
     public function setRights($rights)
     {
@@ -422,6 +544,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The fields that are applicable to the resource being described.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -430,6 +554,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The fields that are applicable to the resource being described.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -437,6 +563,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Reference to an agent describing the repository in which the source is found.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getRepository()
     {
@@ -445,6 +573,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Reference to an agent describing the repository in which the source is found.
+     *
+     * @param \Gedcomx\Common\ResourceReference $repository
      */
     public function setRepository($repository)
     {
@@ -452,6 +582,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getDescriptorRef()
     {
@@ -460,6 +592,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Reference to a descriptor of fields and type of data that can be expected to be extracted from the source.
+     *
+     * @param \Gedcomx\Common\ResourceReference $descriptorRef
      */
     public function setDescriptorRef($descriptorRef)
     {
@@ -467,6 +601,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this SourceDescription
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -536,10 +672,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -582,6 +715,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this SourceDescription from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {
@@ -646,16 +781,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                if (is_array($x)) {
-                    $this->identifiers[$i] = array();
-                    foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                        $this->identifiers[$i][$j]->setValue($y);
-                    }
-                }
-                else {
                     $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                }
             }
         }
         if (isset($o['created'])) {

@@ -19,21 +19,29 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Reference to the contributor of the attributed data.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $contributor;
 
     /**
      * The modified timestamp for the attributed data.
+     *
+     * @var integer
      */
     private $modified;
 
     /**
      * The &quot;change message&quot; for the attributed data provided by the contributor.
+     *
+     * @var string
      */
     private $changeMessage;
 
     /**
      * Constructs a Attribution from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -44,6 +52,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Reference to the contributor of the attributed data.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getContributor()
     {
@@ -52,6 +62,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Reference to the contributor of the attributed data.
+     *
+     * @param \Gedcomx\Common\ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -59,6 +71,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The modified timestamp for the attributed data.
+     *
+     * @return integer
      */
     public function getModified()
     {
@@ -67,6 +81,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The modified timestamp for the attributed data.
+     *
+     * @param integer $modified
      */
     public function setModified($modified)
     {
@@ -74,6 +90,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The &quot;change message&quot; for the attributed data provided by the contributor.
+     *
+     * @return string
      */
     public function getChangeMessage()
     {
@@ -82,6 +100,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The &quot;change message&quot; for the attributed data provided by the contributor.
+     *
+     * @param string $changeMessage
      */
     public function setChangeMessage($changeMessage)
     {
@@ -89,6 +109,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this Attribution
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -108,6 +130,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this Attribution from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

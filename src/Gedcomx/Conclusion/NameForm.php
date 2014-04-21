@@ -17,26 +17,36 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The language of the conclusion.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * The full text of the name form.
+     *
+     * @var string
      */
     private $fullText;
 
     /**
      * The different parts of the name form.
+     *
+     * @var \Gedcomx\Conclusion\NamePart[]
      */
     private $parts;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Constructs a NameForm from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The language of the conclusion.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -55,6 +67,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The language of the conclusion.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -62,6 +76,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The full text of the name form.
+     *
+     * @return string
      */
     public function getFullText()
     {
@@ -70,6 +86,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The full text of the name form.
+     *
+     * @param string $fullText
      */
     public function setFullText($fullText)
     {
@@ -77,6 +95,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The different parts of the name form.
+     *
+     * @return \Gedcomx\Conclusion\NamePart[]
      */
     public function getParts()
     {
@@ -85,6 +105,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The different parts of the name form.
+     *
+     * @param \Gedcomx\Conclusion\NamePart[] $parts
      */
     public function setParts($parts)
     {
@@ -92,6 +114,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -100,6 +124,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -107,6 +133,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this NameForm
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -137,6 +165,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this NameForm from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

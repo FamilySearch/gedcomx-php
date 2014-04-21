@@ -26,76 +26,106 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * A reference to a description of this data set.
+     *
+     * @var string
      */
     private $descriptionRef;
 
     /**
      * A reference to the profile that describes this data set.
+     *
+     * @var string
      */
     private $profile;
 
     /**
      * The attribution of this genealogical data.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * The persons included in this genealogical data set.
+     *
+     * @var \Gedcomx\Conclusion\Person[]
      */
     private $persons;
 
     /**
      * The relationships included in this genealogical data set.
+     *
+     * @var \Gedcomx\Conclusion\Relationship[]
      */
     private $relationships;
 
     /**
      * The descriptions of sources included in this genealogical data set.
+     *
+     * @var \Gedcomx\Source\SourceDescription[]
      */
     private $sourceDescriptions;
 
     /**
      * The agents included in this genealogical data set.
+     *
+     * @var \Gedcomx\Agent\Agent[]
      */
     private $agents;
 
     /**
      * The events included in this genealogical data set.
+     *
+     * @var \Gedcomx\Conclusion\Event[]
      */
     private $events;
 
     /**
      * The places included in this genealogical data set.
+     *
+     * @var \Gedcomx\Conclusion\PlaceDescription[]
      */
     private $places;
 
     /**
      * The documents included in this genealogical data set.
+     *
+     * @var \Gedcomx\Conclusion\Document[]
      */
     private $documents;
 
     /**
      * The collections included in this genealogical data set.
+     *
+     * @var \Gedcomx\Records\Collection[]
      */
     private $collections;
 
     /**
      * The extracted fields included in this genealogical data set.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * The record descriptors included in this genealogical data set.
+     *
+     * @var \Gedcomx\Records\RecordDescriptor[]
      */
     private $recordDescriptors;
 
     /**
      * Constructs a Gedcomx from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -106,6 +136,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -114,6 +146,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -121,6 +155,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to a description of this data set.
+     *
+     * @return string
      */
     public function getDescriptionRef()
     {
@@ -129,6 +165,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to a description of this data set.
+     *
+     * @param string $descriptionRef
      */
     public function setDescriptionRef($descriptionRef)
     {
@@ -136,6 +174,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to the profile that describes this data set.
+     *
+     * @return string
      */
     public function getProfile()
     {
@@ -144,6 +184,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to the profile that describes this data set.
+     *
+     * @param string $profile
      */
     public function setProfile($profile)
     {
@@ -151,6 +193,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The attribution of this genealogical data.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -159,6 +203,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The attribution of this genealogical data.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -166,6 +212,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The persons included in this genealogical data set.
+     *
+     * @return \Gedcomx\Conclusion\Person[]
      */
     public function getPersons()
     {
@@ -174,6 +222,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The persons included in this genealogical data set.
+     *
+     * @param \Gedcomx\Conclusion\Person[] $persons
      */
     public function setPersons($persons)
     {
@@ -181,6 +231,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The relationships included in this genealogical data set.
+     *
+     * @return \Gedcomx\Conclusion\Relationship[]
      */
     public function getRelationships()
     {
@@ -189,6 +241,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The relationships included in this genealogical data set.
+     *
+     * @param \Gedcomx\Conclusion\Relationship[] $relationships
      */
     public function setRelationships($relationships)
     {
@@ -196,6 +250,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The descriptions of sources included in this genealogical data set.
+     *
+     * @return \Gedcomx\Source\SourceDescription[]
      */
     public function getSourceDescriptions()
     {
@@ -204,6 +260,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The descriptions of sources included in this genealogical data set.
+     *
+     * @param \Gedcomx\Source\SourceDescription[] $sourceDescriptions
      */
     public function setSourceDescriptions($sourceDescriptions)
     {
@@ -211,6 +269,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The agents included in this genealogical data set.
+     *
+     * @return \Gedcomx\Agent\Agent[]
      */
     public function getAgents()
     {
@@ -219,6 +279,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The agents included in this genealogical data set.
+     *
+     * @param \Gedcomx\Agent\Agent[] $agents
      */
     public function setAgents($agents)
     {
@@ -226,6 +288,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The events included in this genealogical data set.
+     *
+     * @return \Gedcomx\Conclusion\Event[]
      */
     public function getEvents()
     {
@@ -234,6 +298,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The events included in this genealogical data set.
+     *
+     * @param \Gedcomx\Conclusion\Event[] $events
      */
     public function setEvents($events)
     {
@@ -241,6 +307,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The places included in this genealogical data set.
+     *
+     * @return \Gedcomx\Conclusion\PlaceDescription[]
      */
     public function getPlaces()
     {
@@ -249,6 +317,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The places included in this genealogical data set.
+     *
+     * @param \Gedcomx\Conclusion\PlaceDescription[] $places
      */
     public function setPlaces($places)
     {
@@ -256,6 +326,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The documents included in this genealogical data set.
+     *
+     * @return \Gedcomx\Conclusion\Document[]
      */
     public function getDocuments()
     {
@@ -264,6 +336,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The documents included in this genealogical data set.
+     *
+     * @param \Gedcomx\Conclusion\Document[] $documents
      */
     public function setDocuments($documents)
     {
@@ -271,6 +345,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The collections included in this genealogical data set.
+     *
+     * @return \Gedcomx\Records\Collection[]
      */
     public function getCollections()
     {
@@ -279,6 +355,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The collections included in this genealogical data set.
+     *
+     * @param \Gedcomx\Records\Collection[] $collections
      */
     public function setCollections($collections)
     {
@@ -286,6 +364,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The extracted fields included in this genealogical data set.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -294,6 +374,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The extracted fields included in this genealogical data set.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -301,6 +383,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The record descriptors included in this genealogical data set.
+     *
+     * @return \Gedcomx\Records\RecordDescriptor[]
      */
     public function getRecordDescriptors()
     {
@@ -309,6 +393,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The record descriptors included in this genealogical data set.
+     *
+     * @param \Gedcomx\Records\RecordDescriptor[] $recordDescriptors
      */
     public function setRecordDescriptors($recordDescriptors)
     {
@@ -316,6 +402,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Gedcomx
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -408,6 +496,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Gedcomx from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

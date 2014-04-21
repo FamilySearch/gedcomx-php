@@ -19,81 +19,113 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the feed.
+     *
+     * @var \Gedcomx\Atom\Person[]
      */
     private $authors;
 
     /**
      * information about a category associated with the feed
+     *
+     * @var \Gedcomx\Atom\Person[]
      */
     private $contributors;
 
     /**
      * identifies the agent used to generate the feed
+     *
+     * @var \Gedcomx\Atom\Generator
      */
     private $generator;
 
     /**
      * identifies an image that provides iconic visual identification for the feed.
+     *
+     * @var string
      */
     private $icon;
 
     /**
      * a permanent, universally unique identifier for the feed.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+     *
+     * @var integer
      */
     private $results;
 
     /**
      * The index of the first entry in this page of data, if this feed is supplying a page of data.
+     *
+     * @var integer
      */
     private $index;
 
     /**
      * a reference from a feed to a Web resource.
+     *
+     * @var \Gedcomx\Links\Link[]
      */
     private $links;
 
     /**
      * identifies an image that provides visual identification for the feed.
+     *
+     * @var string
      */
     private $logo;
 
     /**
      * information about rights held in and over the feed.
+     *
+     * @var string
      */
     private $rights;
 
     /**
      * a human-readable description or subtitle for the feed.
+     *
+     * @var string
      */
     private $subtitle;
 
     /**
      * a human-readable title for the feed
+     *
+     * @var string
      */
     private $title;
 
     /**
      * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+     *
+     * @var integer
      */
     private $updated;
 
     /**
      * The entries in the feed.
+     *
+     * @var \Gedcomx\Atom\Entry[]
      */
     private $entries;
 
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $facets;
 
     /**
      * Constructs a Feed from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -104,6 +136,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the feed.
+     *
+     * @return \Gedcomx\Atom\Person[]
      */
     public function getAuthors()
     {
@@ -112,6 +146,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the feed.
+     *
+     * @param \Gedcomx\Atom\Person[] $authors
      */
     public function setAuthors($authors)
     {
@@ -119,6 +155,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * information about a category associated with the feed
+     *
+     * @return \Gedcomx\Atom\Person[]
      */
     public function getContributors()
     {
@@ -127,6 +165,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * information about a category associated with the feed
+     *
+     * @param \Gedcomx\Atom\Person[] $contributors
      */
     public function setContributors($contributors)
     {
@@ -134,6 +174,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * identifies the agent used to generate the feed
+     *
+     * @return \Gedcomx\Atom\Generator
      */
     public function getGenerator()
     {
@@ -142,6 +184,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * identifies the agent used to generate the feed
+     *
+     * @param \Gedcomx\Atom\Generator $generator
      */
     public function setGenerator($generator)
     {
@@ -149,6 +193,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * identifies an image that provides iconic visual identification for the feed.
+     *
+     * @return string
      */
     public function getIcon()
     {
@@ -157,6 +203,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * identifies an image that provides iconic visual identification for the feed.
+     *
+     * @param string $icon
      */
     public function setIcon($icon)
     {
@@ -164,6 +212,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a permanent, universally unique identifier for the feed.
+     *
+     * @return string
      */
     public function getId()
     {
@@ -172,6 +222,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a permanent, universally unique identifier for the feed.
+     *
+     * @param string $id
      */
     public function setId($id)
     {
@@ -179,6 +231,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+     *
+     * @return integer
      */
     public function getResults()
     {
@@ -187,6 +241,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The total number of results available, if this feed is supplying a subset of results, such as for a query.
+     *
+     * @param integer $results
      */
     public function setResults($results)
     {
@@ -194,6 +250,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The index of the first entry in this page of data, if this feed is supplying a page of data.
+     *
+     * @return integer
      */
     public function getIndex()
     {
@@ -202,6 +260,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The index of the first entry in this page of data, if this feed is supplying a page of data.
+     *
+     * @param integer $index
      */
     public function setIndex($index)
     {
@@ -209,6 +269,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a reference from a feed to a Web resource.
+     *
+     * @return \Gedcomx\Links\Link[]
      */
     public function getLinks()
     {
@@ -217,6 +279,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a reference from a feed to a Web resource.
+     *
+     * @param \Gedcomx\Links\Link[] $links
      */
     public function setLinks($links)
     {
@@ -224,6 +288,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * identifies an image that provides visual identification for the feed.
+     *
+     * @return string
      */
     public function getLogo()
     {
@@ -232,6 +298,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * identifies an image that provides visual identification for the feed.
+     *
+     * @param string $logo
      */
     public function setLogo($logo)
     {
@@ -239,6 +307,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * information about rights held in and over the feed.
+     *
+     * @return string
      */
     public function getRights()
     {
@@ -247,6 +317,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * information about rights held in and over the feed.
+     *
+     * @param string $rights
      */
     public function setRights($rights)
     {
@@ -254,6 +326,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a human-readable description or subtitle for the feed.
+     *
+     * @return string
      */
     public function getSubtitle()
     {
@@ -262,6 +336,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable description or subtitle for the feed.
+     *
+     * @param string $subtitle
      */
     public function setSubtitle($subtitle)
     {
@@ -269,6 +345,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a human-readable title for the feed
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -277,6 +355,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable title for the feed
+     *
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -284,6 +364,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+     *
+     * @return integer
      */
     public function getUpdated()
     {
@@ -292,6 +374,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * the most recent instant in time when the feed was modified in a way the publisher considers significant.
+     *
+     * @param integer $updated
      */
     public function setUpdated($updated)
     {
@@ -299,6 +383,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The entries in the feed.
+     *
+     * @return \Gedcomx\Atom\Entry[]
      */
     public function getEntries()
     {
@@ -307,6 +393,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The entries in the feed.
+     *
+     * @param \Gedcomx\Atom\Entry[] $entries
      */
     public function setEntries($entries)
     {
@@ -314,6 +402,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFacets()
     {
@@ -322,6 +412,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
+     *
+     * @param \Gedcomx\Records\Field[] $facets
      */
     public function setFacets($facets)
     {
@@ -329,6 +421,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * Returns the associative array for this Feed
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -404,6 +498,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * Initializes this Feed from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

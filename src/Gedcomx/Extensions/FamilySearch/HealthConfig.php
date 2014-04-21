@@ -17,26 +17,36 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $buildDate;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $buildVersion;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $databaseVersion;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $platformVersion;
 
     /**
      * Constructs a HealthConfig from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getBuildDate()
     {
@@ -55,6 +67,8 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @param string $buildDate
      */
     public function setBuildDate($buildDate)
     {
@@ -62,6 +76,8 @@ class HealthConfig
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getBuildVersion()
     {
@@ -70,6 +86,8 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @param string $buildVersion
      */
     public function setBuildVersion($buildVersion)
     {
@@ -77,6 +95,8 @@ class HealthConfig
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getDatabaseVersion()
     {
@@ -85,6 +105,8 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @param string $databaseVersion
      */
     public function setDatabaseVersion($databaseVersion)
     {
@@ -92,6 +114,8 @@ class HealthConfig
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getPlatformVersion()
     {
@@ -100,6 +124,8 @@ class HealthConfig
 
     /**
      * (no documentation provided)
+     *
+     * @param string $platformVersion
      */
     public function setPlatformVersion($platformVersion)
     {
@@ -107,6 +133,8 @@ class HealthConfig
     }
     /**
      * Returns the associative array for this HealthConfig
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -128,6 +156,8 @@ class HealthConfig
 
     /**
      * Returns the JSON string for this HealthConfig
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -136,6 +166,8 @@ class HealthConfig
 
     /**
      * Initializes this HealthConfig from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

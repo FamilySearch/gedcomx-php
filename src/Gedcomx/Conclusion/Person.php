@@ -17,46 +17,64 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Whether this person is the &quot;principal&quot; person extracted from the record.
+     *
+     * @var boolean
      */
     private $principal;
 
     /**
      * Whether this person has been designated for limited distribution or display.
+     *
+     * @var boolean
      */
     private $private;
 
     /**
      * Living status of the person as treated by the system.
+     *
+     * @var boolean
      */
     private $living;
 
     /**
      * The gender conclusion for the person.
+     *
+     * @var \Gedcomx\Conclusion\Gender
      */
     private $gender;
 
     /**
      * The name conclusions for the person.
+     *
+     * @var \Gedcomx\Conclusion\Name[]
      */
     private $names;
 
     /**
      * The fact conclusions for the person.
+     *
+     * @var \Gedcomx\Conclusion\Fact[]
      */
     private $facts;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @var \Gedcomx\Conclusion\DisplayProperties
      */
     private $displayExtension;
 
     /**
      * Constructs a Person from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -67,6 +85,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Whether this person is the &quot;principal&quot; person extracted from the record.
+     *
+     * @return boolean
      */
     public function getPrincipal()
     {
@@ -75,6 +95,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Whether this person is the &quot;principal&quot; person extracted from the record.
+     *
+     * @param boolean $principal
      */
     public function setPrincipal($principal)
     {
@@ -82,6 +104,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Whether this person has been designated for limited distribution or display.
+     *
+     * @return boolean
      */
     public function getPrivate()
     {
@@ -90,6 +114,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Whether this person has been designated for limited distribution or display.
+     *
+     * @param boolean $private
      */
     public function setPrivate($private)
     {
@@ -97,6 +123,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Living status of the person as treated by the system.
+     *
+     * @return boolean
      */
     public function getLiving()
     {
@@ -105,6 +133,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Living status of the person as treated by the system.
+     *
+     * @param boolean $living
      */
     public function setLiving($living)
     {
@@ -112,6 +142,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The gender conclusion for the person.
+     *
+     * @return \Gedcomx\Conclusion\Gender
      */
     public function getGender()
     {
@@ -120,6 +152,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * The gender conclusion for the person.
+     *
+     * @param \Gedcomx\Conclusion\Gender $gender
      */
     public function setGender($gender)
     {
@@ -127,6 +161,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The name conclusions for the person.
+     *
+     * @return \Gedcomx\Conclusion\Name[]
      */
     public function getNames()
     {
@@ -135,6 +171,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * The name conclusions for the person.
+     *
+     * @param \Gedcomx\Conclusion\Name[] $names
      */
     public function setNames($names)
     {
@@ -142,6 +180,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The fact conclusions for the person.
+     *
+     * @return \Gedcomx\Conclusion\Fact[]
      */
     public function getFacts()
     {
@@ -150,6 +190,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * The fact conclusions for the person.
+     *
+     * @param \Gedcomx\Conclusion\Fact[] $facts
      */
     public function setFacts($facts)
     {
@@ -157,6 +199,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -165,6 +209,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -172,6 +218,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @return \Gedcomx\Conclusion\DisplayProperties
      */
     public function getDisplayExtension()
     {
@@ -180,6 +228,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @param \Gedcomx\Conclusion\DisplayProperties $displayExtension
      */
     public function setDisplayExtension($displayExtension)
     {
@@ -187,6 +237,8 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Returns the associative array for this Person
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -233,6 +285,8 @@ class Person extends \Gedcomx\Conclusion\Subject
 
     /**
      * Initializes this Person from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

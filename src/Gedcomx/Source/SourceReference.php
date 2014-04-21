@@ -17,21 +17,29 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to a description of the source being referenced.
+     *
+     * @var string
      */
     private $descriptionRef;
 
     /**
      * The attribution metadata for this source reference.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * The qualifiers associated with this source reference.
+     *
+     * @var \Gedcomx\Common\Qualifier[]
      */
     private $qualifiers;
 
     /**
      * Constructs a SourceReference from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to a description of the source being referenced.
+     *
+     * @return string
      */
     public function getDescriptionRef()
     {
@@ -50,6 +60,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to a description of the source being referenced.
+     *
+     * @param string $descriptionRef
      */
     public function setDescriptionRef($descriptionRef)
     {
@@ -57,6 +69,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The attribution metadata for this source reference.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -65,6 +79,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The attribution metadata for this source reference.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -72,6 +88,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The qualifiers associated with this source reference.
+     *
+     * @return \Gedcomx\Common\Qualifier[]
      */
     public function getQualifiers()
     {
@@ -80,6 +98,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The qualifiers associated with this source reference.
+     *
+     * @param \Gedcomx\Common\Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -87,6 +107,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this SourceReference
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -110,6 +132,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this SourceReference from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

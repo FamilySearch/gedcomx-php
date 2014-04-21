@@ -17,26 +17,36 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the name.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+     *
+     * @var boolean
      */
     private $preferred;
 
     /**
      * The date the name was first applied or adopted.
+     *
+     * @var \Gedcomx\Conclusion\DateInfo
      */
     private $date;
 
     /**
      * Alternate forms of the name, such as the romanized form of a non-latin name.
+     *
+     * @var \Gedcomx\Conclusion\NameForm[]
      */
     private $nameForms;
 
     /**
      * Constructs a Name from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the name.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -55,6 +67,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the name.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -62,6 +76,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+     *
+     * @return boolean
      */
     public function getPreferred()
     {
@@ -70,6 +86,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether the conclusion is preferred above other conclusions of the same type. Useful, for example, for display purposes.
+     *
+     * @param boolean $preferred
      */
     public function setPreferred($preferred)
     {
@@ -77,6 +95,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The date the name was first applied or adopted.
+     *
+     * @return \Gedcomx\Conclusion\DateInfo
      */
     public function getDate()
     {
@@ -85,6 +105,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The date the name was first applied or adopted.
+     *
+     * @param \Gedcomx\Conclusion\DateInfo $date
      */
     public function setDate($date)
     {
@@ -92,6 +114,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Alternate forms of the name, such as the romanized form of a non-latin name.
+     *
+     * @return \Gedcomx\Conclusion\NameForm[]
      */
     public function getNameForms()
     {
@@ -100,6 +124,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Alternate forms of the name, such as the romanized form of a non-latin name.
+     *
+     * @param \Gedcomx\Conclusion\NameForm[] $nameForms
      */
     public function setNameForms($nameForms)
     {
@@ -107,6 +133,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this Name
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -133,6 +161,8 @@ class Name extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this Name from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

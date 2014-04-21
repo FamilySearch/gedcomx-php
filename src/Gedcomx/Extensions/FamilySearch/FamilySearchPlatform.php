@@ -19,36 +19,50 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The child-and-parents relationships for this data set.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[]
      */
     private $childAndParentsRelationships;
 
     /**
      * The discussions included in this data set.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[]
      */
     private $discussions;
 
     /**
      * The users included in this genealogical data set.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Users\User[]
      */
     private $users;
 
     /**
      * The merges for this data set.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Tree\Merge[]
      */
     private $merges;
 
     /**
      * The merge analysis results for this data set.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[]
      */
     private $mergeAnalyses;
 
     /**
      * The set of features defined in the platform API.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Feature[]
      */
     private $features;
 
     /**
      * Constructs a FamilySearchPlatform from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -59,6 +73,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The child-and-parents relationships for this data set.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[]
      */
     public function getChildAndParentsRelationships()
     {
@@ -67,6 +83,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The child-and-parents relationships for this data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[] $childAndParentsRelationships
      */
     public function setChildAndParentsRelationships($childAndParentsRelationships)
     {
@@ -74,6 +92,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * The discussions included in this data set.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[]
      */
     public function getDiscussions()
     {
@@ -82,6 +102,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The discussions included in this data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[] $discussions
      */
     public function setDiscussions($discussions)
     {
@@ -89,6 +111,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * The users included in this genealogical data set.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Users\User[]
      */
     public function getUsers()
     {
@@ -97,6 +121,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The users included in this genealogical data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Users\User[] $users
      */
     public function setUsers($users)
     {
@@ -104,6 +130,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * The merges for this data set.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Tree\Merge[]
      */
     public function getMerges()
     {
@@ -112,6 +140,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The merges for this data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Tree\Merge[] $merges
      */
     public function setMerges($merges)
     {
@@ -119,6 +149,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * The merge analysis results for this data set.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[]
      */
     public function getMergeAnalyses()
     {
@@ -127,6 +159,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The merge analysis results for this data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[] $mergeAnalyses
      */
     public function setMergeAnalyses($mergeAnalyses)
     {
@@ -134,6 +168,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * The set of features defined in the platform API.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Feature[]
      */
     public function getFeatures()
     {
@@ -142,6 +178,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * The set of features defined in the platform API.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Feature[] $features
      */
     public function setFeatures($features)
     {
@@ -149,6 +187,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     }
     /**
      * Returns the associative array for this FamilySearchPlatform
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -201,6 +241,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
 
     /**
      * Initializes this FamilySearchPlatform from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

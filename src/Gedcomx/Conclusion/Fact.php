@@ -17,41 +17,57 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this fact is the primary fact of the record from which the subject was extracted.
+     *
+     * @var boolean
      */
     private $primary;
 
     /**
      * The type of the fact.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The date of applicability of this fact.
+     *
+     * @var \Gedcomx\Conclusion\DateInfo
      */
     private $date;
 
     /**
      * The place of applicability of this fact.
+     *
+     * @var \Gedcomx\Conclusion\PlaceReference
      */
     private $place;
 
     /**
      * The value as supplied by the user.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * The qualifiers associated with this fact.
+     *
+     * @var \Gedcomx\Common\Qualifier[]
      */
     private $qualifiers;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Constructs a Fact from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -62,6 +78,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this fact is the primary fact of the record from which the subject was extracted.
+     *
+     * @return boolean
      */
     public function getPrimary()
     {
@@ -70,6 +88,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this fact is the primary fact of the record from which the subject was extracted.
+     *
+     * @param boolean $primary
      */
     public function setPrimary($primary)
     {
@@ -77,6 +97,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The type of the fact.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -85,6 +107,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the fact.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -92,6 +116,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The date of applicability of this fact.
+     *
+     * @return \Gedcomx\Conclusion\DateInfo
      */
     public function getDate()
     {
@@ -100,6 +126,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The date of applicability of this fact.
+     *
+     * @param \Gedcomx\Conclusion\DateInfo $date
      */
     public function setDate($date)
     {
@@ -107,6 +135,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The place of applicability of this fact.
+     *
+     * @return \Gedcomx\Conclusion\PlaceReference
      */
     public function getPlace()
     {
@@ -115,6 +145,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The place of applicability of this fact.
+     *
+     * @param \Gedcomx\Conclusion\PlaceReference $place
      */
     public function setPlace($place)
     {
@@ -122,6 +154,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The value as supplied by the user.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -130,6 +164,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The value as supplied by the user.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -137,6 +173,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The qualifiers associated with this fact.
+     *
+     * @return \Gedcomx\Common\Qualifier[]
      */
     public function getQualifiers()
     {
@@ -145,6 +183,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The qualifiers associated with this fact.
+     *
+     * @param \Gedcomx\Common\Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -152,6 +192,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -160,6 +202,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -167,6 +211,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this Fact
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -206,6 +252,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this Fact from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,11 +17,15 @@ class Qualifier
 
     /**
      * The value of the qualifier.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a Qualifier from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -32,6 +36,8 @@ class Qualifier
 
     /**
      * The value of the qualifier.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -40,6 +46,8 @@ class Qualifier
 
     /**
      * The value of the qualifier.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -47,6 +55,8 @@ class Qualifier
     }
     /**
      * Returns the associative array for this Qualifier
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -59,6 +69,8 @@ class Qualifier
 
     /**
      * Returns the JSON string for this Qualifier
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -67,6 +79,8 @@ class Qualifier
 
     /**
      * Initializes this Qualifier from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

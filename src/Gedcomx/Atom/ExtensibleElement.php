@@ -17,6 +17,8 @@ class ExtensibleElement extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * Constructs a ExtensibleElement from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -27,6 +29,8 @@ class ExtensibleElement extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * Returns the associative array for this ExtensibleElement
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -37,6 +41,8 @@ class ExtensibleElement extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * Initializes this ExtensibleElement from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

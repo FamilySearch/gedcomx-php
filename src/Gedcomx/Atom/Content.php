@@ -17,16 +17,22 @@ class Content
 
     /**
      * The type of the content.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The genealogical data associated with this entry.
+     *
+     * @var \Gedcomx\Gedcomx
      */
     private $gedcomx;
 
     /**
      * Constructs a Content from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class Content
 
     /**
      * The type of the content.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -45,6 +53,8 @@ class Content
 
     /**
      * The type of the content.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -52,6 +62,8 @@ class Content
     }
     /**
      * The genealogical data associated with this entry.
+     *
+     * @return \Gedcomx\Gedcomx
      */
     public function getGedcomx()
     {
@@ -60,6 +72,8 @@ class Content
 
     /**
      * The genealogical data associated with this entry.
+     *
+     * @param \Gedcomx\Gedcomx $gedcomx
      */
     public function setGedcomx($gedcomx)
     {
@@ -67,6 +81,8 @@ class Content
     }
     /**
      * Returns the associative array for this Content
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class Content
 
     /**
      * Returns the JSON string for this Content
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class Content
 
     /**
      * Initializes this Content from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

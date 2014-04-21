@@ -26,13 +26,7 @@ class ChangeObjectType
     const COUPLE = "http://gedcomx.org/Couple";
 
     /**
-     *  A couple-child relationship was changed.
-    *  @deprecated use {@link #ChildAndParentsRelationship}
-     */
-    const COUPLECHILDRELATIONSHIP = "http://familysearch.org/v1/CoupleChildRelationship";
-
-    /**
-     * (no documentation provided)
+     *  A child-and-parents relationship was changed.
      */
     const CHILDANDPARENTSRELATIONSHIP = "http://familysearch.org/v1/ChildAndParentsRelationship";
 

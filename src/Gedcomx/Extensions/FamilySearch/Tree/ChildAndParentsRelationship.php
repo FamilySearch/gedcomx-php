@@ -17,31 +17,43 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The father of the child.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $father;
 
     /**
      * The mother of the child.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $mother;
 
     /**
      * child in the relationship.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $child;
 
     /**
      * The fact conclusions for the father.
+     *
+     * @var \Gedcomx\Conclusion\Fact[]
      */
     private $fatherFacts;
 
     /**
      * The fact conclusions for the mother.
+     *
+     * @var \Gedcomx\Conclusion\Fact[]
      */
     private $motherFacts;
 
     /**
      * Constructs a ChildAndParentsRelationship from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -52,6 +64,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The father of the child.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getFather()
     {
@@ -60,6 +74,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The father of the child.
+     *
+     * @param \Gedcomx\Common\ResourceReference $father
      */
     public function setFather($father)
     {
@@ -67,6 +83,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The mother of the child.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getMother()
     {
@@ -75,6 +93,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The mother of the child.
+     *
+     * @param \Gedcomx\Common\ResourceReference $mother
      */
     public function setMother($mother)
     {
@@ -82,6 +102,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     }
     /**
      * child in the relationship.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getChild()
     {
@@ -90,6 +112,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * child in the relationship.
+     *
+     * @param \Gedcomx\Common\ResourceReference $child
      */
     public function setChild($child)
     {
@@ -97,6 +121,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The fact conclusions for the father.
+     *
+     * @return \Gedcomx\Conclusion\Fact[]
      */
     public function getFatherFacts()
     {
@@ -105,6 +131,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The fact conclusions for the father.
+     *
+     * @param \Gedcomx\Conclusion\Fact[] $fatherFacts
      */
     public function setFatherFacts($fatherFacts)
     {
@@ -112,6 +140,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The fact conclusions for the mother.
+     *
+     * @return \Gedcomx\Conclusion\Fact[]
      */
     public function getMotherFacts()
     {
@@ -120,6 +150,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * The fact conclusions for the mother.
+     *
+     * @param \Gedcomx\Conclusion\Fact[] $motherFacts
      */
     public function setMotherFacts($motherFacts)
     {
@@ -127,6 +159,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Returns the associative array for this ChildAndParentsRelationship
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -160,6 +194,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
 
     /**
      * Initializes this ChildAndParentsRelationship from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

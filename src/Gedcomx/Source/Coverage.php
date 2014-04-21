@@ -17,21 +17,29 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of record being covered.
+     *
+     * @var string
      */
     private $recordType;
 
     /**
      * Spatial coverage.
+     *
+     * @var \Gedcomx\Conclusion\PlaceReference
      */
     private $spatial;
 
     /**
      * Temporal coverage.
+     *
+     * @var \Gedcomx\Conclusion\DateInfo
      */
     private $temporal;
 
     /**
      * Constructs a Coverage from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of record being covered.
+     *
+     * @return string
      */
     public function getRecordType()
     {
@@ -50,6 +60,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of record being covered.
+     *
+     * @param string $recordType
      */
     public function setRecordType($recordType)
     {
@@ -57,6 +69,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Spatial coverage.
+     *
+     * @return \Gedcomx\Conclusion\PlaceReference
      */
     public function getSpatial()
     {
@@ -65,6 +79,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Spatial coverage.
+     *
+     * @param \Gedcomx\Conclusion\PlaceReference $spatial
      */
     public function setSpatial($spatial)
     {
@@ -72,6 +88,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Temporal coverage.
+     *
+     * @return \Gedcomx\Conclusion\DateInfo
      */
     public function getTemporal()
     {
@@ -80,6 +98,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Temporal coverage.
+     *
+     * @param \Gedcomx\Conclusion\DateInfo $temporal
      */
     public function setTemporal($temporal)
     {
@@ -87,6 +107,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Coverage
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Coverage from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

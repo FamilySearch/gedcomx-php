@@ -17,66 +17,92 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the entry.
+     *
+     * @var \Gedcomx\Atom\Person[]
      */
     private $authors;
 
     /**
      * information about a category associated with an entry.
+     *
+     * @var \Gedcomx\Atom\Category[]
      */
     private $categories;
 
     /**
      * The confidence of the result, if this entry represents a search result.
+     *
+     * @var string
      */
     private $confidence;
 
     /**
      * The content of the entry.
+     *
+     * @var \Gedcomx\Atom\Content
      */
     private $content;
 
     /**
      * information about a category associated with the entry
+     *
+     * @var \Gedcomx\Atom\Person[]
      */
     private $contributors;
 
     /**
      * a permanent, universally unique identifier for the entry.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * a reference from a entry to a Web resource.
+     *
+     * @var \Gedcomx\Links\Link[]
      */
     private $links;
 
     /**
      * instant in time associated with an event early in the life cycle of the entry.
+     *
+     * @var integer
      */
     private $published;
 
     /**
      * information about rights held in and over the entry.
+     *
+     * @var string
      */
     private $rights;
 
     /**
      * The relevance score.
+     *
+     * @var double
      */
     private $score;
 
     /**
      * a human-readable title for the entry
+     *
+     * @var string
      */
     private $title;
 
     /**
      * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+     *
+     * @var integer
      */
     private $updated;
 
     /**
      * Constructs a Entry from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -87,6 +113,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the entry.
+     *
+     * @return \Gedcomx\Atom\Person[]
      */
     public function getAuthors()
     {
@@ -95,6 +123,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The author of the entry.
+     *
+     * @param \Gedcomx\Atom\Person[] $authors
      */
     public function setAuthors($authors)
     {
@@ -102,6 +132,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * information about a category associated with an entry.
+     *
+     * @return \Gedcomx\Atom\Category[]
      */
     public function getCategories()
     {
@@ -110,6 +142,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * information about a category associated with an entry.
+     *
+     * @param \Gedcomx\Atom\Category[] $categories
      */
     public function setCategories($categories)
     {
@@ -117,6 +151,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The confidence of the result, if this entry represents a search result.
+     *
+     * @return string
      */
     public function getConfidence()
     {
@@ -125,6 +161,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The confidence of the result, if this entry represents a search result.
+     *
+     * @param string $confidence
      */
     public function setConfidence($confidence)
     {
@@ -132,6 +170,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The content of the entry.
+     *
+     * @return \Gedcomx\Atom\Content
      */
     public function getContent()
     {
@@ -140,6 +180,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The content of the entry.
+     *
+     * @param \Gedcomx\Atom\Content $content
      */
     public function setContent($content)
     {
@@ -147,6 +189,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * information about a category associated with the entry
+     *
+     * @return \Gedcomx\Atom\Person[]
      */
     public function getContributors()
     {
@@ -155,6 +199,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * information about a category associated with the entry
+     *
+     * @param \Gedcomx\Atom\Person[] $contributors
      */
     public function setContributors($contributors)
     {
@@ -162,6 +208,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a permanent, universally unique identifier for the entry.
+     *
+     * @return string
      */
     public function getId()
     {
@@ -170,6 +218,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a permanent, universally unique identifier for the entry.
+     *
+     * @param string $id
      */
     public function setId($id)
     {
@@ -177,6 +227,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a reference from a entry to a Web resource.
+     *
+     * @return \Gedcomx\Links\Link[]
      */
     public function getLinks()
     {
@@ -185,6 +237,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a reference from a entry to a Web resource.
+     *
+     * @param \Gedcomx\Links\Link[] $links
      */
     public function setLinks($links)
     {
@@ -192,6 +246,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * instant in time associated with an event early in the life cycle of the entry.
+     *
+     * @return integer
      */
     public function getPublished()
     {
@@ -200,6 +256,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * instant in time associated with an event early in the life cycle of the entry.
+     *
+     * @param integer $published
      */
     public function setPublished($published)
     {
@@ -207,6 +265,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * information about rights held in and over the entry.
+     *
+     * @return string
      */
     public function getRights()
     {
@@ -215,6 +275,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * information about rights held in and over the entry.
+     *
+     * @param string $rights
      */
     public function setRights($rights)
     {
@@ -222,6 +284,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * The relevance score.
+     *
+     * @return double
      */
     public function getScore()
     {
@@ -230,6 +294,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * The relevance score.
+     *
+     * @param double $score
      */
     public function setScore($score)
     {
@@ -237,6 +303,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * a human-readable title for the entry
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -245,6 +313,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable title for the entry
+     *
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -252,6 +322,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+     *
+     * @return integer
      */
     public function getUpdated()
     {
@@ -260,6 +332,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * the most recent instant in time when the entry was modified in a way the publisher considers significant.
+     *
+     * @param integer $updated
      */
     public function setUpdated($updated)
     {
@@ -267,6 +341,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * Returns the associative array for this Entry
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -329,6 +405,8 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * Initializes this Entry from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

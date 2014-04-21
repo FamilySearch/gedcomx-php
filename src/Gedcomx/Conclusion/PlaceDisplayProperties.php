@@ -19,21 +19,29 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable full name of the place.
+     *
+     * @var string
      */
     private $fullName;
 
     /**
      * The displayable name of the place.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The displayable type of the place.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * Constructs a PlaceDisplayProperties from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -44,6 +52,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable full name of the place.
+     *
+     * @return string
      */
     public function getFullName()
     {
@@ -52,6 +62,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable full name of the place.
+     *
+     * @param string $fullName
      */
     public function setFullName($fullName)
     {
@@ -59,6 +71,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable name of the place.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -67,6 +81,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable name of the place.
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -74,6 +90,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable type of the place.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -82,6 +100,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable type of the place.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -89,6 +109,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this PlaceDisplayProperties
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -108,6 +130,8 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this PlaceDisplayProperties from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

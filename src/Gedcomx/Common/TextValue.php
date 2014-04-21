@@ -17,16 +17,22 @@ class TextValue
 
     /**
      * The language of the text value.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * The text value.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a TextValue from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class TextValue
 
     /**
      * The language of the text value.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -45,6 +53,8 @@ class TextValue
 
     /**
      * The language of the text value.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -52,6 +62,8 @@ class TextValue
     }
     /**
      * The text value.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -60,6 +72,8 @@ class TextValue
 
     /**
      * The text value.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -67,6 +81,8 @@ class TextValue
     }
     /**
      * Returns the associative array for this TextValue
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class TextValue
 
     /**
      * Returns the JSON string for this TextValue
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class TextValue
 
     /**
      * Initializes this TextValue from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

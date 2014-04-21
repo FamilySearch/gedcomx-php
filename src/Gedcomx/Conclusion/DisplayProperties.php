@@ -19,61 +19,85 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+     *
+     * @var string
      */
     private $ascendancyNumber;
 
     /**
      * The displayable label for the birth date of the person.
+     *
+     * @var string
      */
     private $birthDate;
 
     /**
      * The displayable label for the birth place of the person.
+     *
+     * @var string
      */
     private $birthPlace;
 
     /**
      * The displayable label for the death date of the person.
+     *
+     * @var string
      */
     private $deathDate;
 
     /**
      * The displayable label for the death place of the person.
+     *
+     * @var string
      */
     private $deathPlace;
 
     /**
      * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+     *
+     * @var string
      */
     private $descendancyNumber;
 
     /**
      * The displayable label for the gender of the person.
+     *
+     * @var string
      */
     private $gender;
 
     /**
      * The displayable label for the lifespan of the person.
+     *
+     * @var string
      */
     private $lifespan;
 
     /**
      * The displayable label for the marriage date of the person.
+     *
+     * @var string
      */
     private $marriageDate;
 
     /**
      * The displayable label for the marriage place of the person.
+     *
+     * @var string
      */
     private $marriagePlace;
 
     /**
      * The displayable name of the person.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * Constructs a DisplayProperties from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -84,6 +108,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+     *
+     * @return string
      */
     public function getAscendancyNumber()
     {
@@ -92,6 +118,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The context-specific ascendancy number for the person in relation to the other persons in the request. The ancestry number is defined using the Ahnentafel numbering system.
+     *
+     * @param string $ascendancyNumber
      */
     public function setAscendancyNumber($ascendancyNumber)
     {
@@ -99,6 +127,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the birth date of the person.
+     *
+     * @return string
      */
     public function getBirthDate()
     {
@@ -107,6 +137,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the birth date of the person.
+     *
+     * @param string $birthDate
      */
     public function setBirthDate($birthDate)
     {
@@ -114,6 +146,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the birth place of the person.
+     *
+     * @return string
      */
     public function getBirthPlace()
     {
@@ -122,6 +156,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the birth place of the person.
+     *
+     * @param string $birthPlace
      */
     public function setBirthPlace($birthPlace)
     {
@@ -129,6 +165,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the death date of the person.
+     *
+     * @return string
      */
     public function getDeathDate()
     {
@@ -137,6 +175,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the death date of the person.
+     *
+     * @param string $deathDate
      */
     public function setDeathDate($deathDate)
     {
@@ -144,6 +184,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the death place of the person.
+     *
+     * @return string
      */
     public function getDeathPlace()
     {
@@ -152,6 +194,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the death place of the person.
+     *
+     * @param string $deathPlace
      */
     public function setDeathPlace($deathPlace)
     {
@@ -159,6 +203,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+     *
+     * @return string
      */
     public function getDescendancyNumber()
     {
@@ -167,6 +213,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The context-specific descendancy number for the person in relation to the other persons in the request. The descendancy number is defined using the d'Aboville numbering system.
+     *
+     * @param string $descendancyNumber
      */
     public function setDescendancyNumber($descendancyNumber)
     {
@@ -174,6 +222,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the gender of the person.
+     *
+     * @return string
      */
     public function getGender()
     {
@@ -182,6 +232,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the gender of the person.
+     *
+     * @param string $gender
      */
     public function setGender($gender)
     {
@@ -189,6 +241,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the lifespan of the person.
+     *
+     * @return string
      */
     public function getLifespan()
     {
@@ -197,6 +251,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the lifespan of the person.
+     *
+     * @param string $lifespan
      */
     public function setLifespan($lifespan)
     {
@@ -204,6 +260,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the marriage date of the person.
+     *
+     * @return string
      */
     public function getMarriageDate()
     {
@@ -212,6 +270,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the marriage date of the person.
+     *
+     * @param string $marriageDate
      */
     public function setMarriageDate($marriageDate)
     {
@@ -219,6 +279,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable label for the marriage place of the person.
+     *
+     * @return string
      */
     public function getMarriagePlace()
     {
@@ -227,6 +289,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable label for the marriage place of the person.
+     *
+     * @param string $marriagePlace
      */
     public function setMarriagePlace($marriagePlace)
     {
@@ -234,6 +298,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The displayable name of the person.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -242,6 +308,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The displayable name of the person.
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -249,6 +317,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this DisplayProperties
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -292,6 +362,8 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this DisplayProperties from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

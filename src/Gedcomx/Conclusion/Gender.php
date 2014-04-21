@@ -17,16 +17,22 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the gender.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Constructs a Gender from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the gender.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -45,6 +53,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the gender.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -52,6 +62,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -60,6 +72,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -67,6 +81,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this Gender
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -87,6 +103,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this Gender from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,26 +17,36 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The text type of the document.
+     *
+     * @var string
      */
     private $textType;
 
     /**
      * Whether this document has been identified as &quot;extracted&quot;.
+     *
+     * @var boolean
      */
     private $extracted;
 
     /**
      * The type of the document.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The document text.
+     *
+     * @var string
      */
     private $text;
 
     /**
      * Constructs a Document from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The text type of the document.
+     *
+     * @return string
      */
     public function getTextType()
     {
@@ -55,6 +67,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The text type of the document.
+     *
+     * @param string $textType
      */
     public function setTextType($textType)
     {
@@ -62,6 +76,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Whether this document has been identified as &quot;extracted&quot;.
+     *
+     * @return boolean
      */
     public function getExtracted()
     {
@@ -70,6 +86,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this document has been identified as &quot;extracted&quot;.
+     *
+     * @param boolean $extracted
      */
     public function setExtracted($extracted)
     {
@@ -77,6 +95,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The type of the document.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -85,6 +105,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the document.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -92,6 +114,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The document text.
+     *
+     * @return string
      */
     public function getText()
     {
@@ -100,6 +124,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The document text.
+     *
+     * @param string $text
      */
     public function setText($text)
     {
@@ -107,6 +133,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this Document
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -129,6 +157,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this Document from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

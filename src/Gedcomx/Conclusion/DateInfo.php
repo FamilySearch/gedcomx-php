@@ -17,27 +17,37 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The original text as supplied by the user.
+     *
+     * @var string
      */
     private $original;
 
     /**
      * The formal value.
+     *
+     * @var string
      */
     private $formal;
 
     /**
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
      * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $normalizedExtensions;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * Constructs a DateInfo from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -48,6 +58,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The original text as supplied by the user.
+     *
+     * @return string
      */
     public function getOriginal()
     {
@@ -56,6 +68,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The original text as supplied by the user.
+     *
+     * @param string $original
      */
     public function setOriginal($original)
     {
@@ -63,6 +77,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The formal value.
+     *
+     * @return string
      */
     public function getFormal()
     {
@@ -71,6 +87,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The formal value.
+     *
+     * @param string $formal
      */
     public function setFormal($formal)
     {
@@ -79,6 +97,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     /**
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getNormalizedExtensions()
     {
@@ -88,6 +108,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     /**
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @param \Gedcomx\Common\TextValue[] $normalizedExtensions
      */
     public function setNormalizedExtensions($normalizedExtensions)
     {
@@ -95,6 +117,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -103,6 +127,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -110,6 +136,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this DateInfo
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -140,6 +168,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this DateInfo from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

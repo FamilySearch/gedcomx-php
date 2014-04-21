@@ -17,21 +17,29 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The role type.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * Reference to the person playing the role in the event.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $person;
 
     /**
      * Details about the role of the person in the event.
+     *
+     * @var string
      */
     private $details;
 
     /**
      * Constructs a EventRole from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The role type.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -50,6 +60,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The role type.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -57,6 +69,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Reference to the person playing the role in the event.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getPerson()
     {
@@ -65,6 +79,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Reference to the person playing the role in the event.
+     *
+     * @param \Gedcomx\Common\ResourceReference $person
      */
     public function setPerson($person)
     {
@@ -72,6 +88,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Details about the role of the person in the event.
+     *
+     * @return string
      */
     public function getDetails()
     {
@@ -80,6 +98,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Details about the role of the person in the event.
+     *
+     * @param string $details
      */
     public function setDetails($details)
     {
@@ -87,6 +107,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this EventRole
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this EventRole from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

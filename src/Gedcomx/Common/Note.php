@@ -17,26 +17,36 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * The subject of the note.
+     *
+     * @var string
      */
     private $subject;
 
     /**
      * The text of the note.
+     *
+     * @var string
      */
     private $text;
 
     /**
      * Attribution metadata for a note.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * Constructs a Note from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -55,6 +67,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -62,6 +76,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The subject of the note.
+     *
+     * @return string
      */
     public function getSubject()
     {
@@ -70,6 +86,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The subject of the note.
+     *
+     * @param string $subject
      */
     public function setSubject($subject)
     {
@@ -77,6 +95,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The text of the note.
+     *
+     * @return string
      */
     public function getText()
     {
@@ -85,6 +105,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The text of the note.
+     *
+     * @param string $text
      */
     public function setText($text)
     {
@@ -92,6 +114,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Attribution metadata for a note.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -100,6 +124,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Attribution metadata for a note.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -107,6 +133,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Note
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -129,6 +157,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Note from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

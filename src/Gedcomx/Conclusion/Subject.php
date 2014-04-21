@@ -20,26 +20,36 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
+     *
+     * @var boolean
      */
     private $extracted;
 
     /**
      * References to the evidence being referenced.
+     *
+     * @var \Gedcomx\Common\EvidenceReference[]
      */
     private $evidence;
 
     /**
      * References to multimedia resources associated with this subject.
+     *
+     * @var \Gedcomx\Source\SourceReference[]
      */
     private $media;
 
     /**
      * The list of identifiers for the subject.
+     *
+     * @var \Gedcomx\Conclusion\Identifier[]
      */
     private $identifiers;
 
     /**
      * Constructs a Subject from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -50,6 +60,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
+     *
+     * @return boolean
      */
     public function getExtracted()
     {
@@ -58,6 +70,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Whether this subject has been identified as &quot;extracted&quot;.
+     *
+     * @param boolean $extracted
      */
     public function setExtracted($extracted)
     {
@@ -65,6 +79,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * References to the evidence being referenced.
+     *
+     * @return \Gedcomx\Common\EvidenceReference[]
      */
     public function getEvidence()
     {
@@ -73,6 +89,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * References to the evidence being referenced.
+     *
+     * @param \Gedcomx\Common\EvidenceReference[] $evidence
      */
     public function setEvidence($evidence)
     {
@@ -80,6 +98,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * References to multimedia resources associated with this subject.
+     *
+     * @return \Gedcomx\Source\SourceReference[]
      */
     public function getMedia()
     {
@@ -88,6 +108,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * References to multimedia resources associated with this subject.
+     *
+     * @param \Gedcomx\Source\SourceReference[] $media
      */
     public function setMedia($media)
     {
@@ -95,6 +117,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The list of identifiers for the subject.
+     *
+     * @return \Gedcomx\Conclusion\Identifier[]
      */
     public function getIdentifiers()
     {
@@ -103,6 +127,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The list of identifiers for the subject.
+     *
+     * @param \Gedcomx\Conclusion\Identifier[] $identifiers
      */
     public function setIdentifiers($identifiers)
     {
@@ -110,6 +136,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this Subject
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -134,10 +162,7 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -147,6 +172,8 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this Subject from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {
@@ -169,16 +196,7 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                    if (is_array($x)) {
-                        $this->identifiers[$i] = array();
-                        foreach ($x as $j => $y) {
-                            $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                            $this->identifiers[$i][$j]->setValue($y);
-                        }
-                    }
-                    else {
-                        $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                    }
+                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
             }
         }
     }

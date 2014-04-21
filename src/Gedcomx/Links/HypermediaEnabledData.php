@@ -17,11 +17,15 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @var \Gedcomx\Links\Link[]
      */
     private $links;
 
     /**
      * Constructs a HypermediaEnabledData from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -32,6 +36,8 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @return \Gedcomx\Links\Link[]
      */
     public function getLinks()
     {
@@ -40,6 +46,8 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @param \Gedcomx\Links\Link[] $links
      */
     public function setLinks($links)
     {
@@ -47,6 +55,8 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this HypermediaEnabledData
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -64,6 +74,8 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this HypermediaEnabledData from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

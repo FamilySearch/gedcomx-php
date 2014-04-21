@@ -17,26 +17,36 @@ class Error
 
     /**
      * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+     *
+     * @var integer
      */
     private $code;
 
     /**
      * A text label associated with the error code.
+     *
+     * @var string
      */
     private $label;
 
     /**
      * A message associated with the error.
+     *
+     * @var string
      */
     private $message;
 
     /**
      * The back-end stack trace associated with the error, useful for debugging.
+     *
+     * @var string
      */
     private $stacktrace;
 
     /**
      * Constructs a Error from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Error
 
     /**
      * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+     *
+     * @return integer
      */
     public function getCode()
     {
@@ -55,6 +67,8 @@ class Error
 
     /**
      * The error code. Intepreted per &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&quot;&gt;RFC 2616, Section 10 (HTTP Status Code Definitions)&lt;/a&gt;.
+     *
+     * @param integer $code
      */
     public function setCode($code)
     {
@@ -62,6 +76,8 @@ class Error
     }
     /**
      * A text label associated with the error code.
+     *
+     * @return string
      */
     public function getLabel()
     {
@@ -70,6 +86,8 @@ class Error
 
     /**
      * A text label associated with the error code.
+     *
+     * @param string $label
      */
     public function setLabel($label)
     {
@@ -77,6 +95,8 @@ class Error
     }
     /**
      * A message associated with the error.
+     *
+     * @return string
      */
     public function getMessage()
     {
@@ -85,6 +105,8 @@ class Error
 
     /**
      * A message associated with the error.
+     *
+     * @param string $message
      */
     public function setMessage($message)
     {
@@ -92,6 +114,8 @@ class Error
     }
     /**
      * The back-end stack trace associated with the error, useful for debugging.
+     *
+     * @return string
      */
     public function getStacktrace()
     {
@@ -100,6 +124,8 @@ class Error
 
     /**
      * The back-end stack trace associated with the error, useful for debugging.
+     *
+     * @param string $stacktrace
      */
     public function setStacktrace($stacktrace)
     {
@@ -107,6 +133,8 @@ class Error
     }
     /**
      * Returns the associative array for this Error
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -128,6 +156,8 @@ class Error
 
     /**
      * Returns the JSON string for this Error
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -136,6 +166,8 @@ class Error
 
     /**
      * Initializes this Error from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

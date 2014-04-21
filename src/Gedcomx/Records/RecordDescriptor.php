@@ -17,16 +17,22 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this record description.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * Descriptors of the fields that are applicable to this record.
+     *
+     * @var \Gedcomx\Records\FieldDescriptor[]
      */
     private $fields;
 
     /**
      * Constructs a RecordDescriptor from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this record description.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -45,6 +53,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this record description.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -52,6 +62,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Descriptors of the fields that are applicable to this record.
+     *
+     * @return \Gedcomx\Records\FieldDescriptor[]
      */
     public function getFields()
     {
@@ -60,6 +72,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Descriptors of the fields that are applicable to this record.
+     *
+     * @param \Gedcomx\Records\FieldDescriptor[] $fields
      */
     public function setFields($fields)
     {
@@ -67,6 +81,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this RecordDescriptor
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -87,6 +103,8 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this RecordDescriptor from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

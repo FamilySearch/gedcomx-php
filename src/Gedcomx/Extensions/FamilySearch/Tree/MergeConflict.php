@@ -17,16 +17,22 @@ class MergeConflict
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $survivorResource;
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $duplicateResource;
 
     /**
      * Constructs a MergeConflict from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class MergeConflict
 
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getSurvivorResource()
     {
@@ -45,6 +53,8 @@ class MergeConflict
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference $survivorResource
      */
     public function setSurvivorResource($survivorResource)
     {
@@ -52,6 +62,8 @@ class MergeConflict
     }
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getDuplicateResource()
     {
@@ -60,6 +72,8 @@ class MergeConflict
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference $duplicateResource
      */
     public function setDuplicateResource($duplicateResource)
     {
@@ -67,6 +81,8 @@ class MergeConflict
     }
     /**
      * Returns the associative array for this MergeConflict
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class MergeConflict
 
     /**
      * Returns the JSON string for this MergeConflict
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class MergeConflict
 
     /**
      * Initializes this MergeConflict from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

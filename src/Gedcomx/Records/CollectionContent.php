@@ -17,21 +17,29 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
+     *
+     * @var double
      */
     private $completeness;
 
     /**
      * The count of the items applicable to this content aspect.
+     *
+     * @var integer
      */
     private $count;
 
     /**
      * The type of resource being covered in this collection.
+     *
+     * @var string
      */
     private $resourceType;
 
     /**
      * Constructs a CollectionContent from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
+     *
+     * @return double
      */
     public function getCompleteness()
     {
@@ -50,6 +60,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
+     *
+     * @param double $completeness
      */
     public function setCompleteness($completeness)
     {
@@ -57,6 +69,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The count of the items applicable to this content aspect.
+     *
+     * @return integer
      */
     public function getCount()
     {
@@ -65,6 +79,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The count of the items applicable to this content aspect.
+     *
+     * @param integer $count
      */
     public function setCount($count)
     {
@@ -72,6 +88,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The type of resource being covered in this collection.
+     *
+     * @return string
      */
     public function getResourceType()
     {
@@ -80,6 +98,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of resource being covered in this collection.
+     *
+     * @param string $resourceType
      */
     public function setResourceType($resourceType)
     {
@@ -87,6 +107,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this CollectionContent
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this CollectionContent from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

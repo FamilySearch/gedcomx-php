@@ -17,16 +17,22 @@ class Merge
 
     /**
      * List of resources to remove from the survivor person.
+     *
+     * @var \Gedcomx\Common\ResourceReference[]
      */
     private $resourcesToDelete;
 
     /**
      * List of resources to copy from the duplicate person to survivor person.
+     *
+     * @var \Gedcomx\Common\ResourceReference[]
      */
     private $resourcesToCopy;
 
     /**
      * Constructs a Merge from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class Merge
 
     /**
      * List of resources to remove from the survivor person.
+     *
+     * @return \Gedcomx\Common\ResourceReference[]
      */
     public function getResourcesToDelete()
     {
@@ -45,6 +53,8 @@ class Merge
 
     /**
      * List of resources to remove from the survivor person.
+     *
+     * @param \Gedcomx\Common\ResourceReference[] $resourcesToDelete
      */
     public function setResourcesToDelete($resourcesToDelete)
     {
@@ -52,6 +62,8 @@ class Merge
     }
     /**
      * List of resources to copy from the duplicate person to survivor person.
+     *
+     * @return \Gedcomx\Common\ResourceReference[]
      */
     public function getResourcesToCopy()
     {
@@ -60,6 +72,8 @@ class Merge
 
     /**
      * List of resources to copy from the duplicate person to survivor person.
+     *
+     * @param \Gedcomx\Common\ResourceReference[] $resourcesToCopy
      */
     public function setResourcesToCopy($resourcesToCopy)
     {
@@ -67,6 +81,8 @@ class Merge
     }
     /**
      * Returns the associative array for this Merge
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -90,6 +106,8 @@ class Merge
 
     /**
      * Returns the JSON string for this Merge
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -98,6 +116,8 @@ class Merge
 
     /**
      * Initializes this Merge from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

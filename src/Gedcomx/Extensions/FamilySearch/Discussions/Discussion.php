@@ -17,41 +17,57 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * the one-line summary text
+     *
+     * @var string
      */
     private $title;
 
     /**
      * The text or &quot;message body&quot; of the discussion
+     *
+     * @var string
      */
     private $details;
 
     /**
      * date of creation
+     *
+     * @var integer
      */
     private $created;
 
     /**
      * contributor of discussion
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $contributor;
 
     /**
      * Date of last modification
+     *
+     * @var integer
      */
     private $modified;
 
     /**
      * Number of comments
+     *
+     * @var integer
      */
     private $numberOfComments;
 
     /**
      * The comments on this discussion.
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Discussions\Comment[]
      */
     private $comments;
 
     /**
      * Constructs a Discussion from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -62,6 +78,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * the one-line summary text
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -70,6 +88,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * the one-line summary text
+     *
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -77,6 +97,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The text or &quot;message body&quot; of the discussion
+     *
+     * @return string
      */
     public function getDetails()
     {
@@ -85,6 +107,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The text or &quot;message body&quot; of the discussion
+     *
+     * @param string $details
      */
     public function setDetails($details)
     {
@@ -92,6 +116,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * date of creation
+     *
+     * @return integer
      */
     public function getCreated()
     {
@@ -100,6 +126,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * date of creation
+     *
+     * @param integer $created
      */
     public function setCreated($created)
     {
@@ -107,6 +135,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * contributor of discussion
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getContributor()
     {
@@ -115,6 +145,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * contributor of discussion
+     *
+     * @param \Gedcomx\Common\ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -122,6 +154,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Date of last modification
+     *
+     * @return integer
      */
     public function getModified()
     {
@@ -130,6 +164,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Date of last modification
+     *
+     * @param integer $modified
      */
     public function setModified($modified)
     {
@@ -137,6 +173,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Number of comments
+     *
+     * @return integer
      */
     public function getNumberOfComments()
     {
@@ -145,6 +183,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Number of comments
+     *
+     * @param integer $numberOfComments
      */
     public function setNumberOfComments($numberOfComments)
     {
@@ -152,6 +192,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The comments on this discussion.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Discussions\Comment[]
      */
     public function getComments()
     {
@@ -160,6 +202,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The comments on this discussion.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Discussions\Comment[] $comments
      */
     public function setComments($comments)
     {
@@ -167,6 +211,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Discussion
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -202,6 +248,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Discussion from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

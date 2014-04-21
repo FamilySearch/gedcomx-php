@@ -17,21 +17,29 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The id of the discussion being referenced.
+     *
+     * @var string
      */
     private $resourceId;
 
     /**
      * The URI to the resource.
+     *
+     * @var string
      */
     private $resource;
 
     /**
      * The attribution metadata for this discussion reference.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * Constructs a DiscussionReference from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The id of the discussion being referenced.
+     *
+     * @return string
      */
     public function getResourceId()
     {
@@ -50,6 +60,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The id of the discussion being referenced.
+     *
+     * @param string $resourceId
      */
     public function setResourceId($resourceId)
     {
@@ -57,6 +69,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The URI to the resource.
+     *
+     * @return string
      */
     public function getResource()
     {
@@ -65,6 +79,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The URI to the resource.
+     *
+     * @param string $resource
      */
     public function setResource($resource)
     {
@@ -72,6 +88,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The attribution metadata for this discussion reference.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -80,6 +98,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The attribution metadata for this discussion reference.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -87,6 +107,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this DiscussionReference
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this DiscussionReference from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

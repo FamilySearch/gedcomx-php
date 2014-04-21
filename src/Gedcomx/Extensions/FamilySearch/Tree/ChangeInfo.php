@@ -17,46 +17,64 @@ class ChangeInfo
 
     /**
      * An optional modifier for the object to which the operation applies.
+     *
+     * @var string
      */
     private $objectModifier;
 
     /**
      * The operation of the change.
+     *
+     * @var string
      */
     private $operation;
 
     /**
      * The reason for the change.
+     *
+     * @var string
      */
     private $reason;
 
     /**
      * The type of the object to which the operation applies.
+     *
+     * @var string
      */
     private $objectType;
 
     /**
      * The subject representing the original value(s) that existed before the change.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $original;
 
     /**
      * The parent change that triggered, caused, or included this change.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $parent;
 
     /**
      * The subject representing the removed value(s) that existed before the change.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $removed;
 
     /**
      * The subject representing the result of the change.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $resulting;
 
     /**
      * Constructs a ChangeInfo from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -67,6 +85,8 @@ class ChangeInfo
 
     /**
      * An optional modifier for the object to which the operation applies.
+     *
+     * @return string
      */
     public function getObjectModifier()
     {
@@ -75,6 +95,8 @@ class ChangeInfo
 
     /**
      * An optional modifier for the object to which the operation applies.
+     *
+     * @param string $objectModifier
      */
     public function setObjectModifier($objectModifier)
     {
@@ -82,6 +104,8 @@ class ChangeInfo
     }
     /**
      * The operation of the change.
+     *
+     * @return string
      */
     public function getOperation()
     {
@@ -90,6 +114,8 @@ class ChangeInfo
 
     /**
      * The operation of the change.
+     *
+     * @param string $operation
      */
     public function setOperation($operation)
     {
@@ -97,6 +123,8 @@ class ChangeInfo
     }
     /**
      * The reason for the change.
+     *
+     * @return string
      */
     public function getReason()
     {
@@ -105,6 +133,8 @@ class ChangeInfo
 
     /**
      * The reason for the change.
+     *
+     * @param string $reason
      */
     public function setReason($reason)
     {
@@ -112,6 +142,8 @@ class ChangeInfo
     }
     /**
      * The type of the object to which the operation applies.
+     *
+     * @return string
      */
     public function getObjectType()
     {
@@ -120,6 +152,8 @@ class ChangeInfo
 
     /**
      * The type of the object to which the operation applies.
+     *
+     * @param string $objectType
      */
     public function setObjectType($objectType)
     {
@@ -127,6 +161,8 @@ class ChangeInfo
     }
     /**
      * The subject representing the original value(s) that existed before the change.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getOriginal()
     {
@@ -135,6 +171,8 @@ class ChangeInfo
 
     /**
      * The subject representing the original value(s) that existed before the change.
+     *
+     * @param \Gedcomx\Common\ResourceReference $original
      */
     public function setOriginal($original)
     {
@@ -142,6 +180,8 @@ class ChangeInfo
     }
     /**
      * The parent change that triggered, caused, or included this change.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getParent()
     {
@@ -150,6 +190,8 @@ class ChangeInfo
 
     /**
      * The parent change that triggered, caused, or included this change.
+     *
+     * @param \Gedcomx\Common\ResourceReference $parent
      */
     public function setParent($parent)
     {
@@ -157,6 +199,8 @@ class ChangeInfo
     }
     /**
      * The subject representing the removed value(s) that existed before the change.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getRemoved()
     {
@@ -165,6 +209,8 @@ class ChangeInfo
 
     /**
      * The subject representing the removed value(s) that existed before the change.
+     *
+     * @param \Gedcomx\Common\ResourceReference $removed
      */
     public function setRemoved($removed)
     {
@@ -172,6 +218,8 @@ class ChangeInfo
     }
     /**
      * The subject representing the result of the change.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getResulting()
     {
@@ -180,6 +228,8 @@ class ChangeInfo
 
     /**
      * The subject representing the result of the change.
+     *
+     * @param \Gedcomx\Common\ResourceReference $resulting
      */
     public function setResulting($resulting)
     {
@@ -187,6 +237,8 @@ class ChangeInfo
     }
     /**
      * Returns the associative array for this ChangeInfo
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -220,6 +272,8 @@ class ChangeInfo
 
     /**
      * Returns the JSON string for this ChangeInfo
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -228,6 +282,8 @@ class ChangeInfo
 
     /**
      * Initializes this ChangeInfo from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,21 +17,29 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * Metadata about this record set; shared among all records in the set.
+     *
+     * @var \Gedcomx\Gedcomx
      */
     private $metadata;
 
     /**
      * The records included in this genealogical data set.
+     *
+     * @var \Gedcomx\Gedcomx[]
      */
     private $records;
 
     /**
      * Constructs a RecordSet from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -50,6 +60,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the genealogical data.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -57,6 +69,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Metadata about this record set; shared among all records in the set.
+     *
+     * @return \Gedcomx\Gedcomx
      */
     public function getMetadata()
     {
@@ -65,6 +79,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Metadata about this record set; shared among all records in the set.
+     *
+     * @param \Gedcomx\Gedcomx $metadata
      */
     public function setMetadata($metadata)
     {
@@ -72,6 +88,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The records included in this genealogical data set.
+     *
+     * @return \Gedcomx\Gedcomx[]
      */
     public function getRecords()
     {
@@ -80,6 +98,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The records included in this genealogical data set.
+     *
+     * @param \Gedcomx\Gedcomx[] $records
      */
     public function setRecords($records)
     {
@@ -87,6 +107,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this RecordSet
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -110,6 +132,8 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this RecordSet from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

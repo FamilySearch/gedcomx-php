@@ -17,31 +17,43 @@ class Generator
 
     /**
      * The base.
+     *
+     * @var string
      */
     private $base;
 
     /**
      * link to a representation that is relevant to the generating agent.
+     *
+     * @var string
      */
     private $uri;
 
     /**
      * The language.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * the version of the generating agent
+     *
+     * @var string
      */
     private $version;
 
     /**
      * human-readable name for the generating agent
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a Generator from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -52,6 +64,8 @@ class Generator
 
     /**
      * The base.
+     *
+     * @return string
      */
     public function getBase()
     {
@@ -60,6 +74,8 @@ class Generator
 
     /**
      * The base.
+     *
+     * @param string $base
      */
     public function setBase($base)
     {
@@ -67,6 +83,8 @@ class Generator
     }
     /**
      * link to a representation that is relevant to the generating agent.
+     *
+     * @return string
      */
     public function getUri()
     {
@@ -75,6 +93,8 @@ class Generator
 
     /**
      * link to a representation that is relevant to the generating agent.
+     *
+     * @param string $uri
      */
     public function setUri($uri)
     {
@@ -82,6 +102,8 @@ class Generator
     }
     /**
      * The language.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -90,6 +112,8 @@ class Generator
 
     /**
      * The language.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -97,6 +121,8 @@ class Generator
     }
     /**
      * the version of the generating agent
+     *
+     * @return string
      */
     public function getVersion()
     {
@@ -105,6 +131,8 @@ class Generator
 
     /**
      * the version of the generating agent
+     *
+     * @param string $version
      */
     public function setVersion($version)
     {
@@ -112,6 +140,8 @@ class Generator
     }
     /**
      * human-readable name for the generating agent
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -120,6 +150,8 @@ class Generator
 
     /**
      * human-readable name for the generating agent
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -127,6 +159,8 @@ class Generator
     }
     /**
      * Returns the associative array for this Generator
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -151,6 +185,8 @@ class Generator
 
     /**
      * Returns the JSON string for this Generator
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -159,6 +195,8 @@ class Generator
 
     /**
      * Initializes this Generator from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,16 +17,22 @@ class ResourceReference
 
     /**
      * The resource id of the resource being referenced.
+     *
+     * @var string
      */
     private $resourceId;
 
     /**
      * The URI to the resource.
+     *
+     * @var string
      */
     private $resource;
 
     /**
      * Constructs a ResourceReference from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class ResourceReference
 
     /**
      * The resource id of the resource being referenced.
+     *
+     * @return string
      */
     public function getResourceId()
     {
@@ -45,6 +53,8 @@ class ResourceReference
 
     /**
      * The resource id of the resource being referenced.
+     *
+     * @param string $resourceId
      */
     public function setResourceId($resourceId)
     {
@@ -52,6 +62,8 @@ class ResourceReference
     }
     /**
      * The URI to the resource.
+     *
+     * @return string
      */
     public function getResource()
     {
@@ -60,6 +72,8 @@ class ResourceReference
 
     /**
      * The URI to the resource.
+     *
+     * @param string $resource
      */
     public function setResource($resource)
     {
@@ -67,6 +81,8 @@ class ResourceReference
     }
     /**
      * Returns the associative array for this ResourceReference
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class ResourceReference
 
     /**
      * Returns the JSON string for this ResourceReference
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class ResourceReference
 
     /**
      * Initializes this ResourceReference from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

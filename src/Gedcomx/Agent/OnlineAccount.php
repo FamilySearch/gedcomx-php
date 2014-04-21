@@ -17,16 +17,22 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The name associated the holder of this account with the account.
+     *
+     * @var string
      */
     private $accountName;
 
     /**
      * The homepage of the service that provides this account.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $serviceHomepage;
 
     /**
      * Constructs a OnlineAccount from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The name associated the holder of this account with the account.
+     *
+     * @return string
      */
     public function getAccountName()
     {
@@ -45,6 +53,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The name associated the holder of this account with the account.
+     *
+     * @param string $accountName
      */
     public function setAccountName($accountName)
     {
@@ -52,6 +62,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The homepage of the service that provides this account.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getServiceHomepage()
     {
@@ -60,6 +72,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The homepage of the service that provides this account.
+     *
+     * @param \Gedcomx\Common\ResourceReference $serviceHomepage
      */
     public function setServiceHomepage($serviceHomepage)
     {
@@ -67,6 +81,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this OnlineAccount
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -83,6 +99,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this OnlineAccount from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,16 +17,22 @@ class MatchInfo
 
     /**
      * The way this match has been resolved.
+     *
+     * @var string
      */
     private $status;
 
     /**
      * The collection in which this match was found.
+     *
+     * @var string
      */
     private $collection;
 
     /**
      * Constructs a MatchInfo from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class MatchInfo
 
     /**
      * The way this match has been resolved.
+     *
+     * @return string
      */
     public function getStatus()
     {
@@ -45,6 +53,8 @@ class MatchInfo
 
     /**
      * The way this match has been resolved.
+     *
+     * @param string $status
      */
     public function setStatus($status)
     {
@@ -52,6 +62,8 @@ class MatchInfo
     }
     /**
      * The collection in which this match was found.
+     *
+     * @return string
      */
     public function getCollection()
     {
@@ -60,6 +72,8 @@ class MatchInfo
 
     /**
      * The collection in which this match was found.
+     *
+     * @param string $collection
      */
     public function setCollection($collection)
     {
@@ -67,6 +81,8 @@ class MatchInfo
     }
     /**
      * Returns the associative array for this MatchInfo
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class MatchInfo
 
     /**
      * Returns the JSON string for this MatchInfo
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class MatchInfo
 
     /**
      * Initializes this MatchInfo from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

@@ -17,11 +17,15 @@ class ExtensibleData
 
     /**
      * A local, context-specific id for the data.
+     *
+     * @var string
      */
     private $id;
 
     /**
      * Constructs a ExtensibleData from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -32,6 +36,8 @@ class ExtensibleData
 
     /**
      * A local, context-specific id for the data.
+     *
+     * @return string
      */
     public function getId()
     {
@@ -40,6 +46,8 @@ class ExtensibleData
 
     /**
      * A local, context-specific id for the data.
+     *
+     * @param string $id
      */
     public function setId($id)
     {
@@ -47,6 +55,8 @@ class ExtensibleData
     }
     /**
      * Returns the associative array for this ExtensibleData
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -59,6 +69,8 @@ class ExtensibleData
 
     /**
      * Returns the JSON string for this ExtensibleData
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -67,6 +79,8 @@ class ExtensibleData
 
     /**
      * Initializes this ExtensibleData from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

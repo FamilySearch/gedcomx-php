@@ -17,16 +17,22 @@ class Identifier
 
     /**
      * The type of the id.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The id value.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a Identifier from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class Identifier
 
     /**
      * The type of the id.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -45,6 +53,8 @@ class Identifier
 
     /**
      * The type of the id.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -52,6 +62,8 @@ class Identifier
     }
     /**
      * The id value.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -60,6 +72,8 @@ class Identifier
 
     /**
      * The id value.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -67,6 +81,8 @@ class Identifier
     }
     /**
      * Returns the associative array for this Identifier
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class Identifier
 
     /**
      * Returns the JSON string for this Identifier
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class Identifier
 
     /**
      * Initializes this Identifier from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

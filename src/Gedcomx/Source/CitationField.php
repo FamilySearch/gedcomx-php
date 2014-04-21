@@ -17,16 +17,22 @@ class CitationField
 
     /**
      * The citation field's name.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * The citation field's value.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a CitationField from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class CitationField
 
     /**
      * The citation field's name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -45,6 +53,8 @@ class CitationField
 
     /**
      * The citation field's name.
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -52,6 +62,8 @@ class CitationField
     }
     /**
      * The citation field's value.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -60,6 +72,8 @@ class CitationField
 
     /**
      * The citation field's value.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -67,6 +81,8 @@ class CitationField
     }
     /**
      * Returns the associative array for this CitationField
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class CitationField
 
     /**
      * Returns the JSON string for this CitationField
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class CitationField
 
     /**
      * Initializes this CitationField from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

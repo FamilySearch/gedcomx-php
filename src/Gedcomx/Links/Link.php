@@ -17,47 +17,65 @@ class Link
 
     /**
      * The language of the resource being linked to.
+     *
+     * @var string
      */
     private $hreflang;
 
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
      * URIs, such as for the purpose of linking to a query.
+     *
+     * @var string
      */
     private $template;
 
     /**
      * Human-readable information about the link.
+     *
+     * @var string
      */
     private $title;
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @var string
      */
     private $allow;
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @var string
      */
     private $accept;
 
     /**
      * The link relationship.
+     *
+     * @var string
      */
     private $rel;
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The target IRI of the link.
+     *
+     * @var string
      */
     private $href;
 
     /**
      * Constructs a Link from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -68,6 +86,8 @@ class Link
 
     /**
      * The language of the resource being linked to.
+     *
+     * @return string
      */
     public function getHreflang()
     {
@@ -76,6 +96,8 @@ class Link
 
     /**
      * The language of the resource being linked to.
+     *
+     * @param string $hreflang
      */
     public function setHreflang($hreflang)
     {
@@ -84,6 +106,8 @@ class Link
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
        * URIs, such as for the purpose of linking to a query.
+     *
+     * @return string
      */
     public function getTemplate()
     {
@@ -93,6 +117,8 @@ class Link
     /**
      * A URI template per &lt;a href=&quot;http://tools.ietf.org/html/rfc6570&quot;&gt;RFC 6570&lt;/a&gt;, used to link to a range of
        * URIs, such as for the purpose of linking to a query.
+     *
+     * @param string $template
      */
     public function setTemplate($template)
     {
@@ -100,6 +126,8 @@ class Link
     }
     /**
      * Human-readable information about the link.
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -108,6 +136,8 @@ class Link
 
     /**
      * Human-readable information about the link.
+     *
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -115,6 +145,8 @@ class Link
     }
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @return string
      */
     public function getAllow()
     {
@@ -123,6 +155,8 @@ class Link
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @param string $allow
      */
     public function setAllow($allow)
     {
@@ -130,6 +164,8 @@ class Link
     }
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @return string
      */
     public function getAccept()
     {
@@ -138,6 +174,8 @@ class Link
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @param string $accept
      */
     public function setAccept($accept)
     {
@@ -145,6 +183,8 @@ class Link
     }
     /**
      * The link relationship.
+     *
+     * @return string
      */
     public function getRel()
     {
@@ -153,6 +193,8 @@ class Link
 
     /**
      * The link relationship.
+     *
+     * @param string $rel
      */
     public function setRel($rel)
     {
@@ -160,6 +202,8 @@ class Link
     }
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -168,6 +212,8 @@ class Link
 
     /**
      * Metadata about the available media type(s) of the resource being linked to.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -175,6 +221,8 @@ class Link
     }
     /**
      * The target IRI of the link.
+     *
+     * @return string
      */
     public function getHref()
     {
@@ -183,6 +231,8 @@ class Link
 
     /**
      * The target IRI of the link.
+     *
+     * @param string $href
      */
     public function setHref($href)
     {
@@ -190,6 +240,8 @@ class Link
     }
     /**
      * Returns the associative array for this Link
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -223,6 +275,8 @@ class Link
 
     /**
      * Returns the JSON string for this Link
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -231,6 +285,8 @@ class Link
 
     /**
      * Initializes this Link from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

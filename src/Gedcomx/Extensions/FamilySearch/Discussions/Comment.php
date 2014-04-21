@@ -17,21 +17,29 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The text or &quot;message body&quot; of the comment
+     *
+     * @var string
      */
     private $text;
 
     /**
      * date of creation
+     *
+     * @var integer
      */
     private $created;
 
     /**
      * contributor of comment
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $contributor;
 
     /**
      * Constructs a Comment from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The text or &quot;message body&quot; of the comment
+     *
+     * @return string
      */
     public function getText()
     {
@@ -50,6 +60,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The text or &quot;message body&quot; of the comment
+     *
+     * @param string $text
      */
     public function setText($text)
     {
@@ -57,6 +69,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * date of creation
+     *
+     * @return integer
      */
     public function getCreated()
     {
@@ -65,6 +79,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * date of creation
+     *
+     * @param integer $created
      */
     public function setCreated($created)
     {
@@ -72,6 +88,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * contributor of comment
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getContributor()
     {
@@ -80,6 +98,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * contributor of comment
+     *
+     * @param \Gedcomx\Common\ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -87,6 +107,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Comment
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Comment from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

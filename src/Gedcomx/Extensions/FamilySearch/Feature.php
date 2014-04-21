@@ -17,26 +17,36 @@ class Feature
 
     /**
      * The name of the feature.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * A description of the feature.
+     *
+     * @var string
      */
     private $description;
 
     /**
      * Whether the feature is enabled for the current request.
+     *
+     * @var boolean
      */
     private $enabled;
 
     /**
      * The date that this feature is scheduled to activate permanently.
+     *
+     * @var integer
      */
     private $activationDate;
 
     /**
      * Constructs a Feature from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Feature
 
     /**
      * The name of the feature.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -55,6 +67,8 @@ class Feature
 
     /**
      * The name of the feature.
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -62,6 +76,8 @@ class Feature
     }
     /**
      * A description of the feature.
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -70,6 +86,8 @@ class Feature
 
     /**
      * A description of the feature.
+     *
+     * @param string $description
      */
     public function setDescription($description)
     {
@@ -77,6 +95,8 @@ class Feature
     }
     /**
      * Whether the feature is enabled for the current request.
+     *
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -85,6 +105,8 @@ class Feature
 
     /**
      * Whether the feature is enabled for the current request.
+     *
+     * @param boolean $enabled
      */
     public function setEnabled($enabled)
     {
@@ -92,6 +114,8 @@ class Feature
     }
     /**
      * The date that this feature is scheduled to activate permanently.
+     *
+     * @return integer
      */
     public function getActivationDate()
     {
@@ -100,6 +124,8 @@ class Feature
 
     /**
      * The date that this feature is scheduled to activate permanently.
+     *
+     * @param integer $activationDate
      */
     public function setActivationDate($activationDate)
     {
@@ -107,6 +133,8 @@ class Feature
     }
     /**
      * Returns the associative array for this Feature
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -128,6 +156,8 @@ class Feature
 
     /**
      * Returns the JSON string for this Feature
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -136,6 +166,8 @@ class Feature
 
     /**
      * Initializes this Feature from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

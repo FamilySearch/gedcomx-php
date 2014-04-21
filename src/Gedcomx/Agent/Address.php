@@ -17,46 +17,64 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The city.
+     *
+     * @var string
      */
     private $city;
 
     /**
      * The country.
+     *
+     * @var string
      */
     private $country;
 
     /**
      * The postal code.
+     *
+     * @var string
      */
     private $postalCode;
 
     /**
      * The state or province.
+     *
+     * @var string
      */
     private $stateOrProvince;
 
     /**
      * The street.
+     *
+     * @var string
      */
     private $street;
 
     /**
      * Additional street information.
+     *
+     * @var string
      */
     private $street2;
 
     /**
      * Additional street information.
+     *
+     * @var string
      */
     private $street3;
 
     /**
      * The value of the property.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a Address from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -67,6 +85,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The city.
+     *
+     * @return string
      */
     public function getCity()
     {
@@ -75,6 +95,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The city.
+     *
+     * @param string $city
      */
     public function setCity($city)
     {
@@ -82,6 +104,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The country.
+     *
+     * @return string
      */
     public function getCountry()
     {
@@ -90,6 +114,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The country.
+     *
+     * @param string $country
      */
     public function setCountry($country)
     {
@@ -97,6 +123,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The postal code.
+     *
+     * @return string
      */
     public function getPostalCode()
     {
@@ -105,6 +133,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The postal code.
+     *
+     * @param string $postalCode
      */
     public function setPostalCode($postalCode)
     {
@@ -112,6 +142,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The state or province.
+     *
+     * @return string
      */
     public function getStateOrProvince()
     {
@@ -120,6 +152,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The state or province.
+     *
+     * @param string $stateOrProvince
      */
     public function setStateOrProvince($stateOrProvince)
     {
@@ -127,6 +161,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The street.
+     *
+     * @return string
      */
     public function getStreet()
     {
@@ -135,6 +171,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The street.
+     *
+     * @param string $street
      */
     public function setStreet($street)
     {
@@ -142,6 +180,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Additional street information.
+     *
+     * @return string
      */
     public function getStreet2()
     {
@@ -150,6 +190,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Additional street information.
+     *
+     * @param string $street2
      */
     public function setStreet2($street2)
     {
@@ -157,6 +199,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Additional street information.
+     *
+     * @return string
      */
     public function getStreet3()
     {
@@ -165,6 +209,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Additional street information.
+     *
+     * @param string $street3
      */
     public function setStreet3($street3)
     {
@@ -172,6 +218,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The value of the property.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -180,6 +228,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The value of the property.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -187,6 +237,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this Address
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -221,6 +273,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this Address from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

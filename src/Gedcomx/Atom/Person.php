@@ -17,21 +17,29 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable name for the person.
+     *
+     * @var string
      */
     private $name;
 
     /**
      * an IRI associated with the person.
+     *
+     * @var string
      */
     private $uri;
 
     /**
      * an e-mail address associated with the person.
+     *
+     * @var string
      */
     private $email;
 
     /**
      * Constructs a Person from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable name for the person.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -50,6 +60,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * a human-readable name for the person.
+     *
+     * @param string $name
      */
     public function setName($name)
     {
@@ -57,6 +69,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * an IRI associated with the person.
+     *
+     * @return string
      */
     public function getUri()
     {
@@ -65,6 +79,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * an IRI associated with the person.
+     *
+     * @param string $uri
      */
     public function setUri($uri)
     {
@@ -72,6 +88,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * an e-mail address associated with the person.
+     *
+     * @return string
      */
     public function getEmail()
     {
@@ -80,6 +98,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * an e-mail address associated with the person.
+     *
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -87,6 +107,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     }
     /**
      * Returns the associative array for this Person
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
 
     /**
      * Initializes this Person from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

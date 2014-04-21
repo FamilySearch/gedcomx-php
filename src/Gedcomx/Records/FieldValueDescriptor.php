@@ -17,26 +17,36 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
+     *
+     * @var boolean
      */
     private $optional;
 
     /**
      * The type of the field value.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The id of the label applicable to the field value
+     *
+     * @var string
      */
     private $labelId;
 
     /**
      * The labels to be used for display purposes.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $displayLabels;
 
     /**
      * Constructs a FieldValueDescriptor from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
+     *
+     * @return boolean
      */
     public function getOptional()
     {
@@ -55,6 +67,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Whether the treatment of the field value is optional. Used to determine whether it should be displayed even if the value is empty.
+     *
+     * @param boolean $optional
      */
     public function setOptional($optional)
     {
@@ -62,6 +76,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The type of the field value.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -70,6 +86,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The type of the field value.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -77,6 +95,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The id of the label applicable to the field value
+     *
+     * @return string
      */
     public function getLabelId()
     {
@@ -85,6 +105,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The id of the label applicable to the field value
+     *
+     * @param string $labelId
      */
     public function setLabelId($labelId)
     {
@@ -92,6 +114,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The labels to be used for display purposes.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getDisplayLabels()
     {
@@ -100,6 +124,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The labels to be used for display purposes.
+     *
+     * @param \Gedcomx\Common\TextValue[] $displayLabels
      */
     public function setDisplayLabels($displayLabels)
     {
@@ -107,6 +133,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this FieldValueDescriptor
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -133,6 +161,8 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this FieldValueDescriptor from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

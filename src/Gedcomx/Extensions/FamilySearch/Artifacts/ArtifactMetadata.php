@@ -17,26 +17,36 @@ class ArtifactMetadata
 
     /**
      * The type of the gender.
+     *
+     * @var string
      */
     private $artifactType;
 
     /**
      * The original filename of the memories item.
+     *
+     * @var string
      */
     private $filename;
 
     /**
      * The height of the artifact (presumably an image).
+     *
+     * @var integer
      */
     private $height;
 
     /**
      * The width of the artifact (presumably an image).
+     *
+     * @var integer
      */
     private $width;
 
     /**
      * Constructs a ArtifactMetadata from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class ArtifactMetadata
 
     /**
      * The type of the gender.
+     *
+     * @return string
      */
     public function getArtifactType()
     {
@@ -55,6 +67,8 @@ class ArtifactMetadata
 
     /**
      * The type of the gender.
+     *
+     * @param string $artifactType
      */
     public function setArtifactType($artifactType)
     {
@@ -62,6 +76,8 @@ class ArtifactMetadata
     }
     /**
      * The original filename of the memories item.
+     *
+     * @return string
      */
     public function getFilename()
     {
@@ -70,6 +86,8 @@ class ArtifactMetadata
 
     /**
      * The original filename of the memories item.
+     *
+     * @param string $filename
      */
     public function setFilename($filename)
     {
@@ -77,6 +95,8 @@ class ArtifactMetadata
     }
     /**
      * The height of the artifact (presumably an image).
+     *
+     * @return integer
      */
     public function getHeight()
     {
@@ -85,6 +105,8 @@ class ArtifactMetadata
 
     /**
      * The height of the artifact (presumably an image).
+     *
+     * @param integer $height
      */
     public function setHeight($height)
     {
@@ -92,6 +114,8 @@ class ArtifactMetadata
     }
     /**
      * The width of the artifact (presumably an image).
+     *
+     * @return integer
      */
     public function getWidth()
     {
@@ -100,6 +124,8 @@ class ArtifactMetadata
 
     /**
      * The width of the artifact (presumably an image).
+     *
+     * @param integer $width
      */
     public function setWidth($width)
     {
@@ -107,6 +133,8 @@ class ArtifactMetadata
     }
     /**
      * Returns the associative array for this ArtifactMetadata
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -128,6 +156,8 @@ class ArtifactMetadata
 
     /**
      * Returns the JSON string for this ArtifactMetadata
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -136,6 +166,8 @@ class ArtifactMetadata
 
     /**
      * Initializes this ArtifactMetadata from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

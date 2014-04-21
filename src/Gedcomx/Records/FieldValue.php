@@ -17,31 +17,43 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * URI that resolves to the value of the field.
+     *
+     * @var string
      */
     private $resource;
 
     /**
      * The datatype of the text value of the field.
+     *
+     * @var string
      */
     private $datatype;
 
     /**
      * The type of the field value.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The id of the label applicable to this field value.
+     *
+     * @var string
      */
     private $labelId;
 
     /**
      * The text value.
+     *
+     * @var string
      */
     private $text;
 
     /**
      * Constructs a FieldValue from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -52,6 +64,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * URI that resolves to the value of the field.
+     *
+     * @return string
      */
     public function getResource()
     {
@@ -60,6 +74,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * URI that resolves to the value of the field.
+     *
+     * @param string $resource
      */
     public function setResource($resource)
     {
@@ -67,6 +83,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The datatype of the text value of the field.
+     *
+     * @return string
      */
     public function getDatatype()
     {
@@ -75,6 +93,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The datatype of the text value of the field.
+     *
+     * @param string $datatype
      */
     public function setDatatype($datatype)
     {
@@ -82,6 +102,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The type of the field value.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -90,6 +112,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The type of the field value.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -97,6 +121,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The id of the label applicable to this field value.
+     *
+     * @return string
      */
     public function getLabelId()
     {
@@ -105,6 +131,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The id of the label applicable to this field value.
+     *
+     * @param string $labelId
      */
     public function setLabelId($labelId)
     {
@@ -112,6 +140,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * The text value.
+     *
+     * @return string
      */
     public function getText()
     {
@@ -120,6 +150,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * The text value.
+     *
+     * @param string $text
      */
     public function setText($text)
     {
@@ -127,6 +159,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
     }
     /**
      * Returns the associative array for this FieldValue
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -152,6 +186,8 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
 
     /**
      * Initializes this FieldValue from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

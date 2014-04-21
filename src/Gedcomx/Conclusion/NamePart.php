@@ -17,26 +17,36 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The value of the name part.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * The type of the name part.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @var \Gedcomx\Records\Field[]
      */
     private $fields;
 
     /**
      * The qualifiers associated with this name part.
+     *
+     * @var \Gedcomx\Common\Qualifier[]
      */
     private $qualifiers;
 
     /**
      * Constructs a NamePart from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The value of the name part.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -55,6 +67,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The value of the name part.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -62,6 +76,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The type of the name part.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -70,6 +86,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The type of the name part.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -77,6 +95,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -85,6 +105,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The references to the record fields being used as evidence.
+     *
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields($fields)
     {
@@ -92,6 +114,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * The qualifiers associated with this name part.
+     *
+     * @return \Gedcomx\Common\Qualifier[]
      */
     public function getQualifiers()
     {
@@ -100,6 +124,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * The qualifiers associated with this name part.
+     *
+     * @param \Gedcomx\Common\Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -107,6 +133,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     }
     /**
      * Returns the associative array for this NamePart
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -137,6 +165,8 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
 
     /**
      * Initializes this NamePart from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

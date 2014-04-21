@@ -17,26 +17,36 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The type of the event.
+     *
+     * @var string
      */
     private $type;
 
     /**
      * The date of this event.
+     *
+     * @var \Gedcomx\Conclusion\DateInfo
      */
     private $date;
 
     /**
      * The place of this event.
+     *
+     * @var \Gedcomx\Conclusion\PlaceReference
      */
     private $place;
 
     /**
      * The roles played in this event.
+     *
+     * @var \Gedcomx\Conclusion\EventRole[]
      */
     private $roles;
 
     /**
      * Constructs a Event from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The type of the event.
+     *
+     * @return string
      */
     public function getType()
     {
@@ -55,6 +67,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The type of the event.
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -62,6 +76,8 @@ class Event extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The date of this event.
+     *
+     * @return \Gedcomx\Conclusion\DateInfo
      */
     public function getDate()
     {
@@ -70,6 +86,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The date of this event.
+     *
+     * @param \Gedcomx\Conclusion\DateInfo $date
      */
     public function setDate($date)
     {
@@ -77,6 +95,8 @@ class Event extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The place of this event.
+     *
+     * @return \Gedcomx\Conclusion\PlaceReference
      */
     public function getPlace()
     {
@@ -85,6 +105,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The place of this event.
+     *
+     * @param \Gedcomx\Conclusion\PlaceReference $place
      */
     public function setPlace($place)
     {
@@ -92,6 +114,8 @@ class Event extends \Gedcomx\Conclusion\Subject
     }
     /**
      * The roles played in this event.
+     *
+     * @return \Gedcomx\Conclusion\EventRole[]
      */
     public function getRoles()
     {
@@ -100,6 +124,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * The roles played in this event.
+     *
+     * @param \Gedcomx\Conclusion\EventRole[] $roles
      */
     public function setRoles($roles)
     {
@@ -107,6 +133,8 @@ class Event extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Returns the associative array for this Event
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -133,6 +161,8 @@ class Event extends \Gedcomx\Conclusion\Subject
 
     /**
      * Initializes this Event from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

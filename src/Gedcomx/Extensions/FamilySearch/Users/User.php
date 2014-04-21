@@ -17,91 +17,127 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $alternateEmail;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $birthDate;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $contactName;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $country;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $displayName;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $email;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $familyName;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $fullName;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $gender;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $givenName;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $helperAccessPin;
 
     /**
      * (no documentation provided)
+     *
+     * @var boolean
      */
     private $ldsMemberAccount;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $mailingAddress;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $personId;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $phoneNumber;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $preferredLanguage;
 
     /**
      * (no documentation provided)
+     *
+     * @var string
      */
     private $treeUserId;
 
     /**
      * Constructs a User from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -112,6 +148,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getAlternateEmail()
     {
@@ -120,6 +158,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $alternateEmail
      */
     public function setAlternateEmail($alternateEmail)
     {
@@ -127,6 +167,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getBirthDate()
     {
@@ -135,6 +177,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $birthDate
      */
     public function setBirthDate($birthDate)
     {
@@ -142,6 +186,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getContactName()
     {
@@ -150,6 +196,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $contactName
      */
     public function setContactName($contactName)
     {
@@ -157,6 +205,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getCountry()
     {
@@ -165,6 +215,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $country
      */
     public function setCountry($country)
     {
@@ -172,6 +224,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getDisplayName()
     {
@@ -180,6 +234,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $displayName
      */
     public function setDisplayName($displayName)
     {
@@ -187,6 +243,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getEmail()
     {
@@ -195,6 +253,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -202,6 +262,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getFamilyName()
     {
@@ -210,6 +272,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $familyName
      */
     public function setFamilyName($familyName)
     {
@@ -217,6 +281,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getFullName()
     {
@@ -225,6 +291,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $fullName
      */
     public function setFullName($fullName)
     {
@@ -232,6 +300,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getGender()
     {
@@ -240,6 +310,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $gender
      */
     public function setGender($gender)
     {
@@ -247,6 +319,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getGivenName()
     {
@@ -255,6 +329,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $givenName
      */
     public function setGivenName($givenName)
     {
@@ -262,6 +338,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getHelperAccessPin()
     {
@@ -270,6 +348,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $helperAccessPin
      */
     public function setHelperAccessPin($helperAccessPin)
     {
@@ -277,6 +357,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return boolean
      */
     public function getLdsMemberAccount()
     {
@@ -285,6 +367,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param boolean $ldsMemberAccount
      */
     public function setLdsMemberAccount($ldsMemberAccount)
     {
@@ -292,6 +376,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getMailingAddress()
     {
@@ -300,6 +386,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $mailingAddress
      */
     public function setMailingAddress($mailingAddress)
     {
@@ -307,6 +395,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getPersonId()
     {
@@ -315,6 +405,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $personId
      */
     public function setPersonId($personId)
     {
@@ -322,6 +414,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getPhoneNumber()
     {
@@ -330,6 +424,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $phoneNumber
      */
     public function setPhoneNumber($phoneNumber)
     {
@@ -337,6 +433,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getPreferredLanguage()
     {
@@ -345,6 +443,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $preferredLanguage
      */
     public function setPreferredLanguage($preferredLanguage)
     {
@@ -352,6 +452,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * (no documentation provided)
+     *
+     * @return string
      */
     public function getTreeUserId()
     {
@@ -360,6 +462,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * (no documentation provided)
+     *
+     * @param string $treeUserId
      */
     public function setTreeUserId($treeUserId)
     {
@@ -367,6 +471,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this User
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -428,6 +534,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this User from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

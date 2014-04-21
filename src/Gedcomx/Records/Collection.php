@@ -17,31 +17,43 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this description of the collection
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * A title for the collection.
+     *
+     * @var string
      */
     private $title;
 
     /**
      * The size of the collection, in terms of the number of items in this collection.
+     *
+     * @var integer
      */
     private $size;
 
     /**
      * Descriptions of the content of this collection.
+     *
+     * @var \Gedcomx\Records\CollectionContent[]
      */
     private $content;
 
     /**
      * Attribution metadata for this collection.
+     *
+     * @var \Gedcomx\Common\Attribution
      */
     private $attribution;
 
     /**
      * Constructs a Collection from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -52,6 +64,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this description of the collection
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -60,6 +74,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of this description of the collection
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -67,6 +83,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A title for the collection.
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -75,6 +93,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A title for the collection.
+     *
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -82,6 +102,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The size of the collection, in terms of the number of items in this collection.
+     *
+     * @return integer
      */
     public function getSize()
     {
@@ -90,6 +112,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The size of the collection, in terms of the number of items in this collection.
+     *
+     * @param integer $size
      */
     public function setSize($size)
     {
@@ -97,6 +121,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Descriptions of the content of this collection.
+     *
+     * @return \Gedcomx\Records\CollectionContent[]
      */
     public function getContent()
     {
@@ -105,6 +131,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Descriptions of the content of this collection.
+     *
+     * @param \Gedcomx\Records\CollectionContent[] $content
      */
     public function setContent($content)
     {
@@ -112,6 +140,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Attribution metadata for this collection.
+     *
+     * @return \Gedcomx\Common\Attribution
      */
     public function getAttribution()
     {
@@ -120,6 +150,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Attribution metadata for this collection.
+     *
+     * @param \Gedcomx\Common\Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -127,6 +159,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this Collection
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -156,6 +190,8 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this Collection from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

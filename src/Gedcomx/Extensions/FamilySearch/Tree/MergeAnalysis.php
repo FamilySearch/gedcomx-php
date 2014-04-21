@@ -17,31 +17,43 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference[]
      */
     private $survivorResources;
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference[]
      */
     private $duplicateResources;
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[]
      */
     private $conflictingResources;
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $survivor;
 
     /**
      * (no documentation provided)
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $duplicate;
 
     /**
      * Constructs a MergeAnalysis from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -52,6 +64,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference[]
      */
     public function getSurvivorResources()
     {
@@ -60,6 +74,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference[] $survivorResources
      */
     public function setSurvivorResources($survivorResources)
     {
@@ -67,6 +83,8 @@ class MergeAnalysis
     }
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference[]
      */
     public function getDuplicateResources()
     {
@@ -75,6 +93,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference[] $duplicateResources
      */
     public function setDuplicateResources($duplicateResources)
     {
@@ -82,6 +102,8 @@ class MergeAnalysis
     }
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[]
      */
     public function getConflictingResources()
     {
@@ -90,6 +112,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[] $conflictingResources
      */
     public function setConflictingResources($conflictingResources)
     {
@@ -97,6 +121,8 @@ class MergeAnalysis
     }
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getSurvivor()
     {
@@ -105,6 +131,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference $survivor
      */
     public function setSurvivor($survivor)
     {
@@ -112,6 +140,8 @@ class MergeAnalysis
     }
     /**
      * (no documentation provided)
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getDuplicate()
     {
@@ -120,6 +150,8 @@ class MergeAnalysis
 
     /**
      * (no documentation provided)
+     *
+     * @param \Gedcomx\Common\ResourceReference $duplicate
      */
     public function setDuplicate($duplicate)
     {
@@ -127,6 +159,8 @@ class MergeAnalysis
     }
     /**
      * Returns the associative array for this MergeAnalysis
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -163,6 +197,8 @@ class MergeAnalysis
 
     /**
      * Returns the JSON string for this MergeAnalysis
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -171,6 +207,8 @@ class MergeAnalysis
 
     /**
      * Initializes this MergeAnalysis from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

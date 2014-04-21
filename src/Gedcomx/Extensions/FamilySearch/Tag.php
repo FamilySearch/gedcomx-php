@@ -17,11 +17,15 @@ class Tag
 
     /**
      * A reference to the value of the tag.
+     *
+     * @var string
      */
     private $resource;
 
     /**
      * Constructs a Tag from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -32,6 +36,8 @@ class Tag
 
     /**
      * A reference to the value of the tag.
+     *
+     * @return string
      */
     public function getResource()
     {
@@ -40,6 +46,8 @@ class Tag
 
     /**
      * A reference to the value of the tag.
+     *
+     * @param string $resource
      */
     public function setResource($resource)
     {
@@ -47,6 +55,8 @@ class Tag
     }
     /**
      * Returns the associative array for this Tag
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -59,6 +69,8 @@ class Tag
 
     /**
      * Returns the JSON string for this Tag
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -67,6 +79,8 @@ class Tag
 
     /**
      * Initializes this Tag from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

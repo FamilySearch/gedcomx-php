@@ -17,26 +17,36 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * A reference to the citation template for this citation.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $citationTemplate;
 
     /**
      * The list of citation fields.
+     *
+     * @var \Gedcomx\Source\CitationField[]
      */
     private $fields;
 
     /**
      * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+     *
+     * @var string
      */
     private $value;
 
     /**
      * Constructs a SourceCitation from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -47,6 +57,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -55,6 +67,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The language of the note.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -62,6 +76,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A reference to the citation template for this citation.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getCitationTemplate()
     {
@@ -70,6 +86,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A reference to the citation template for this citation.
+     *
+     * @param \Gedcomx\Common\ResourceReference $citationTemplate
      */
     public function setCitationTemplate($citationTemplate)
     {
@@ -77,6 +95,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The list of citation fields.
+     *
+     * @return \Gedcomx\Source\CitationField[]
      */
     public function getFields()
     {
@@ -85,6 +105,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The list of citation fields.
+     *
+     * @param \Gedcomx\Source\CitationField[] $fields
      */
     public function setFields($fields)
     {
@@ -92,6 +114,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+     *
+     * @return string
      */
     public function getValue()
     {
@@ -100,6 +124,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * A rendering (as a string) of a source citation.  This rendering should be the most complete rendering available.
+     *
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -107,6 +133,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this SourceCitation
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -133,6 +161,8 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this SourceCitation from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

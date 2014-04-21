@@ -17,21 +17,29 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * identifies a categorization scheme
+     *
+     * @var string
      */
     private $scheme;
 
     /**
      * identifies the category to which the entry or feed belongs
+     *
+     * @var string
      */
     private $term;
 
     /**
      * a human-readable label for display in end-user applications
+     *
+     * @var string
      */
     private $label;
 
     /**
      * Constructs a Category from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * identifies a categorization scheme
+     *
+     * @return string
      */
     public function getScheme()
     {
@@ -50,6 +60,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * identifies a categorization scheme
+     *
+     * @param string $scheme
      */
     public function setScheme($scheme)
     {
@@ -57,6 +69,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
     }
     /**
      * identifies the category to which the entry or feed belongs
+     *
+     * @return string
      */
     public function getTerm()
     {
@@ -65,6 +79,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * identifies the category to which the entry or feed belongs
+     *
+     * @param string $term
      */
     public function setTerm($term)
     {
@@ -72,6 +88,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
     }
     /**
      * a human-readable label for display in end-user applications
+     *
+     * @return string
      */
     public function getLabel()
     {
@@ -80,6 +98,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * a human-readable label for display in end-user applications
+     *
+     * @param string $label
      */
     public function setLabel($label)
     {
@@ -87,6 +107,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
     }
     /**
      * Returns the associative array for this Category
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -106,6 +128,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
 
     /**
      * Initializes this Category from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

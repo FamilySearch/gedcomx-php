@@ -17,21 +17,29 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The original label for the field, as stated on the original record.
+     *
+     * @var string
      */
     private $originalLabel;
 
     /**
      * The description of the field.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $description;
 
     /**
      * Descriptors of the values that are applicable to the field.
+     *
+     * @var \Gedcomx\Records\FieldValueDescriptor[]
      */
     private $values;
 
     /**
      * Constructs a FieldDescriptor from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -42,6 +50,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The original label for the field, as stated on the original record.
+     *
+     * @return string
      */
     public function getOriginalLabel()
     {
@@ -50,6 +60,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The original label for the field, as stated on the original record.
+     *
+     * @param string $originalLabel
      */
     public function setOriginalLabel($originalLabel)
     {
@@ -57,6 +69,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * The description of the field.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getDescription()
     {
@@ -65,6 +79,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * The description of the field.
+     *
+     * @param \Gedcomx\Common\TextValue[] $description
      */
     public function setDescription($description)
     {
@@ -72,6 +88,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Descriptors of the values that are applicable to the field.
+     *
+     * @return \Gedcomx\Records\FieldValueDescriptor[]
      */
     public function getValues()
     {
@@ -80,6 +98,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Descriptors of the values that are applicable to the field.
+     *
+     * @param \Gedcomx\Records\FieldValueDescriptor[] $values
      */
     public function setValues($values)
     {
@@ -87,6 +107,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     }
     /**
      * Returns the associative array for this FieldDescriptor
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -114,6 +136,8 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 
     /**
      * Initializes this FieldDescriptor from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

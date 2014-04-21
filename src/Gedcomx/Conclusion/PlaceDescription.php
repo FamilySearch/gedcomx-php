@@ -19,46 +19,64 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+     *
+     * @var string
      */
     private $type;
 
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+     *
+     * @var \Gedcomx\Common\TextValue[]
      */
     private $names;
 
     /**
      * A description of the time period to which this place description is relevant.
+     *
+     * @var \Gedcomx\Conclusion\DateInfo
      */
     private $temporalDescription;
 
     /**
      * Degrees north or south of the Equator.
+     *
+     * @var double
      */
     private $latitude;
 
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
+     *
+     * @var double
      */
     private $longitude;
 
     /**
      * A reference to a geospatial description of this place.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $spatialDescription;
 
     /**
      * A reference to a description of the jurisdiction this place.
+     *
+     * @var \Gedcomx\Common\ResourceReference
      */
     private $jurisdiction;
 
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @var \Gedcomx\Conclusion\PlaceDisplayProperties
      */
     private $displayExtension;
 
     /**
      * Constructs a PlaceDescription from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -69,6 +87,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+     *
+     * @return string
      */
     public function getType()
     {
@@ -77,6 +97,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * An implementation-specific uniform resource identifier (URI) used to identify the type of a place (e.g., address, city, county, province, state, country, etc.).
+     *
+     * @param string $type
      */
     public function setType($type)
     {
@@ -84,6 +106,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+     *
+     * @return \Gedcomx\Common\TextValue[]
      */
     public function getNames()
     {
@@ -92,6 +116,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
+     *
+     * @param \Gedcomx\Common\TextValue[] $names
      */
     public function setNames($names)
     {
@@ -99,6 +125,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * A description of the time period to which this place description is relevant.
+     *
+     * @return \Gedcomx\Conclusion\DateInfo
      */
     public function getTemporalDescription()
     {
@@ -107,6 +135,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * A description of the time period to which this place description is relevant.
+     *
+     * @param \Gedcomx\Conclusion\DateInfo $temporalDescription
      */
     public function setTemporalDescription($temporalDescription)
     {
@@ -114,6 +144,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Degrees north or south of the Equator.
+     *
+     * @return double
      */
     public function getLatitude()
     {
@@ -122,6 +154,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * Degrees north or south of the Equator.
+     *
+     * @param double $latitude
      */
     public function setLatitude($latitude)
     {
@@ -129,6 +163,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
+     *
+     * @return double
      */
     public function getLongitude()
     {
@@ -137,6 +173,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * Angular distance in degrees, relative to the Prime Meridian.
+     *
+     * @param double $longitude
      */
     public function setLongitude($longitude)
     {
@@ -144,6 +182,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * A reference to a geospatial description of this place.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getSpatialDescription()
     {
@@ -152,6 +192,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * A reference to a geospatial description of this place.
+     *
+     * @param \Gedcomx\Common\ResourceReference $spatialDescription
      */
     public function setSpatialDescription($spatialDescription)
     {
@@ -159,6 +201,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * A reference to a description of the jurisdiction this place.
+     *
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getJurisdiction()
     {
@@ -167,6 +211,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * A reference to a description of the jurisdiction this place.
+     *
+     * @param \Gedcomx\Common\ResourceReference $jurisdiction
      */
     public function setJurisdiction($jurisdiction)
     {
@@ -174,6 +220,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @return \Gedcomx\Conclusion\PlaceDisplayProperties
      */
     public function getDisplayExtension()
     {
@@ -182,6 +230,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @param \Gedcomx\Conclusion\PlaceDisplayProperties $displayExtension
      */
     public function setDisplayExtension($displayExtension)
     {
@@ -189,6 +239,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * Returns the associative array for this PlaceDescription
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -227,6 +279,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * Initializes this PlaceDescription from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {

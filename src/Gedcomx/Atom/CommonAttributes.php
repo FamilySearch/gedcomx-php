@@ -17,16 +17,22 @@ class CommonAttributes
 
     /**
      * The base.
+     *
+     * @var string
      */
     private $base;
 
     /**
      * The language.
+     *
+     * @var string
      */
     private $lang;
 
     /**
      * Constructs a CommonAttributes from a (parsed) JSON hash
+     *
+     * @param array $o
      */
     public function __construct($o = null)
     {
@@ -37,6 +43,8 @@ class CommonAttributes
 
     /**
      * The base.
+     *
+     * @return string
      */
     public function getBase()
     {
@@ -45,6 +53,8 @@ class CommonAttributes
 
     /**
      * The base.
+     *
+     * @param string $base
      */
     public function setBase($base)
     {
@@ -52,6 +62,8 @@ class CommonAttributes
     }
     /**
      * The language.
+     *
+     * @return string
      */
     public function getLang()
     {
@@ -60,6 +72,8 @@ class CommonAttributes
 
     /**
      * The language.
+     *
+     * @param string $lang
      */
     public function setLang($lang)
     {
@@ -67,6 +81,8 @@ class CommonAttributes
     }
     /**
      * Returns the associative array for this CommonAttributes
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -82,6 +98,8 @@ class CommonAttributes
 
     /**
      * Returns the JSON string for this CommonAttributes
+     *
+     * @return string
      */
     public function toJson()
     {
@@ -90,6 +108,8 @@ class CommonAttributes
 
     /**
      * Initializes this CommonAttributes from an associative array
+     *
+     * @param array $o
      */
     public function initFromArray($o)
     {
