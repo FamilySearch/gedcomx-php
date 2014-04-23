@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Message\Request;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Post\PostBody;
+use RuntimeException;
 
 
 abstract class GedcomxApplicationState
@@ -375,7 +376,7 @@ abstract class GedcomxApplicationState
      */
     protected function readPage($rel)
     {
-        //todo:
+        throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**

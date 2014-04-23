@@ -45,6 +45,19 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
     }
 
     /**
+     * @param string $rel The link rel.
+     * @return Link|null
+     */
+    public function getLink($rel)
+    {
+        if (isset($this->links[$rel])) {
+            return $this->links[$rel];
+        }
+
+        return null;
+    }
+
+    /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
      * @param \Gedcomx\Links\Link[] $links
