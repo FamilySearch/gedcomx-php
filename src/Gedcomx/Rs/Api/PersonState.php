@@ -11,6 +11,7 @@ use Gedcomx\Conclusion\Name;
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Conclusion\Person;
+use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use RuntimeException;
 
@@ -501,4 +502,12 @@ class PersonState extends GedcomxApplicationState
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
+    /**
+     * @param mixed $data The file
+     * @param SourceDescription $description
+     */
+    public function addArtifact($data, $description = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
 }
