@@ -18,5 +18,20 @@ class GedcomxApiTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertNotNull($currentPerson->getPerson());
     }
+    
+    public function testLoginAndGetCurrentUserAncestry()
+    {
+        
+        $stateFactory = new StateFactory();
+        $ancestryResultsState = $stateFactory
+            ->newCollectionState("https://sandbox.familysearch.org/platform/collections/tree")
+            ->authenticateViaOAuth2Password("sdktester", "1234sdkpass", "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK")
+            ->readPersonForCurrentUser()
+            ->readAncestry();
+
+        print_r($ancestryResultsState);
+        $this->assertNotNull($ancestryResultsState);
+        
+    }
 
 }

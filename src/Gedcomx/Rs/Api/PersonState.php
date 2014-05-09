@@ -80,7 +80,15 @@ class PersonState extends GedcomxApplicationState
      */
     public function readAncestry()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::ANCESTRY);
+        if (!$link||!$link->getHref()) {
+            return null;
+        }
+        
+        $request = $this->createAuthenticatedGedcomxRequest("GET");
+        $request->setUrl($link->getHref());
+        return $this->stateFactory->buildAncestryResultsState($this->client, $request, $this->client->send($request), $this->accessToken);
+        
     }
 
     /**
