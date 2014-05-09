@@ -4,6 +4,18 @@ GEDCOM X PHP is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), in
 
 [Read about how to get involved.](http://www.gedcomx.org/Community.html)
 
+#Installation
+
+GEDCOM X PHP uses [composer](https://getcomposer.org) to manage dependencies. To install, add the following to your compser.json file and then run the `composer install` command.
+
+```json
+{
+    "require": {
+        "gedcomx/gedcomx-php": "dev-master"
+    }
+}
+```
+
 # Serialize GEDCOM X
  
 ```php
