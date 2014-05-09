@@ -29,7 +29,6 @@ class GedcomxApiTest extends \PHPUnit_Framework_TestCase {
             ->readPersonForCurrentUser()
             ->readAncestry();
 
-        print_r($ancestryResultsState);
         $this->assertNotNull($ancestryResultsState);
         
     }
