@@ -50,5 +50,10 @@ class StateFactory
     {
         return new PersonState($client, $request, $response, $accessToken, $this);
     }
+    
+    public function buildAncestryResultsState($client, $request, $response, $accessToken)
+    {
+        return new AncestryResultsState($client, $request, $response, $accessToken, $this);
+    }
 
 }
