@@ -23,11 +23,12 @@ class SerializationTest extends \PHPUnit_Framework_TestCase {
     public function testSerializeDeserializeXmlRecords()
     {
         $xml = new XMLReader();
-        $this->assertTrue($xml->open(__DIR__ . '/sample-gx.xml'));
+        $this->assertTrue($xml->open(__DIR__ . '/1910806.sample.gedcomx.xml'));
         //print $content;
         $recordSet = new RecordSet($xml);
-        $this->assertEquals(33, sizeof($recordSet->getRecords()));
+        $this->assertEquals(31, sizeof($recordSet->getRecords()));
         $this->assertEquals("#s1", $recordSet->getRecords()[0]->getDescriptionRef());
+        //todo: do some more assertions...
     }
 
 }
