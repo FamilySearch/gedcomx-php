@@ -282,10 +282,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -342,16 +339,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                if (is_array($x)) {
-                    $this->identifiers[$i] = array();
-                    foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                        $this->identifiers[$i][$j]->setValue($y);
-                    }
-                }
-                else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                }
+                $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
             }
         }
         $this->names = array();

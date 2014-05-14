@@ -150,7 +150,7 @@ class ExtensibleData
 
                     //create any child elements...
                     while ($xml->read() && $xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
-                        if ($xml->nodeType == XMLReader::ELEMENT) {
+                        if ($xml->nodeType == \XMLReader::ELEMENT) {
                             $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
                             $dom->appendChild($e);
                             if ($xml->hasAttributes) {
@@ -162,10 +162,10 @@ class ExtensibleData
                             }
                             $dom = $e;
                         }
-                        else if ($xml->nodeType == XMLReader::TEXT) {
+                        else if ($xml->nodeType == \XMLReader::TEXT) {
                             $dom->textContent = $xml->value;
                         }
-                        else if ($xml->nodeType == XMLReader::END_ELEMENT) {
+                        else if ($xml->nodeType == \XMLReader::END_ELEMENT) {
                             $dom = $dom->parentNode;
                         }
                     }
