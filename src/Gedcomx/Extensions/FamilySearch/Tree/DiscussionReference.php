@@ -39,12 +39,23 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a DiscussionReference from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -141,7 +152,86 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
             $this->resource = $o["resource"];
         }
         if (isset($o['attribution'])) {
-                $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of DiscussionReference from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\Attribution($xml);
+            $this->attribution = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of DiscussionReference from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'resourceId') && (empty($xml->namespaceURI))) {
+            $this->resourceId = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'resource') && (empty($xml->namespaceURI))) {
+            $this->resource = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this DiscussionReference to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'discussion-reference', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this DiscussionReference to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->resourceId) {
+            $writer->writeAttribute('resourceId', $this->resourceId);
+        }
+        if ($this->resource) {
+            $writer->writeAttribute('resource', $this->resource);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->attribution) {
+            $writer->startElementNs('fs', 'attribution', null);
+            $this->attribution->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

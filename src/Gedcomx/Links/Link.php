@@ -75,12 +75,23 @@ class Link
     /**
      * Constructs a Link from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -313,6 +324,147 @@ class Link
         }
         if (isset($o['href'])) {
             $this->href = $o["href"];
+        }
+    }
+
+    /**
+     * Initializes this Link from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
+                    }
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of Link from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        return false;
+    }
+
+    /**
+     * Sets a known attribute of Link from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (($xml->localName == 'hreflang') && (empty($xml->namespaceURI))) {
+            $this->hreflang = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'template') && (empty($xml->namespaceURI))) {
+            $this->template = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'title') && (empty($xml->namespaceURI))) {
+            $this->title = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'allow') && (empty($xml->namespaceURI))) {
+            $this->allow = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'accept') && (empty($xml->namespaceURI))) {
+            $this->accept = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'rel') && (empty($xml->namespaceURI))) {
+            $this->rel = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+        if (($xml->localName == 'href') && (empty($xml->namespaceURI))) {
+            $this->href = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Link to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'link', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Link to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->hreflang) {
+            $writer->writeAttribute('hreflang', $this->hreflang);
+        }
+        if ($this->template) {
+            $writer->writeAttribute('template', $this->template);
+        }
+        if ($this->title) {
+            $writer->writeAttribute('title', $this->title);
+        }
+        if ($this->allow) {
+            $writer->writeAttribute('allow', $this->allow);
+        }
+        if ($this->accept) {
+            $writer->writeAttribute('accept', $this->accept);
+        }
+        if ($this->rel) {
+            $writer->writeAttribute('rel', $this->rel);
+        }
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        if ($this->href) {
+            $writer->writeAttribute('href', $this->href);
         }
     }
 }

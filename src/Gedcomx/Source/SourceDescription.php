@@ -172,12 +172,23 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a SourceDescription from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -672,10 +683,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -736,95 +744,408 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->citations = array();
         if (isset($o['citations'])) {
             foreach ($o['citations'] as $i => $x) {
-                    $this->citations[$i] = new \Gedcomx\Source\SourceCitation($x);
+                $this->citations[$i] = new \Gedcomx\Source\SourceCitation($x);
             }
         }
         if (isset($o['mediator'])) {
-                $this->mediator = new \Gedcomx\Common\ResourceReference($o["mediator"]);
+            $this->mediator = new \Gedcomx\Common\ResourceReference($o["mediator"]);
         }
         $this->sources = array();
         if (isset($o['sources'])) {
             foreach ($o['sources'] as $i => $x) {
-                    $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
             }
         }
         if (isset($o['analysis'])) {
-                $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
+            $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
         }
         if (isset($o['componentOf'])) {
-                $this->componentOf = new \Gedcomx\Source\SourceReference($o["componentOf"]);
+            $this->componentOf = new \Gedcomx\Source\SourceReference($o["componentOf"]);
         }
         $this->titles = array();
         if (isset($o['titles'])) {
             foreach ($o['titles'] as $i => $x) {
-                    $this->titles[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->titles[$i] = new \Gedcomx\Common\TextValue($x);
             }
         }
         if (isset($o['titleLabel'])) {
-                $this->titleLabel = new \Gedcomx\Common\TextValue($o["titleLabel"]);
+            $this->titleLabel = new \Gedcomx\Common\TextValue($o["titleLabel"]);
         }
         $this->notes = array();
         if (isset($o['notes'])) {
             foreach ($o['notes'] as $i => $x) {
-                    $this->notes[$i] = new \Gedcomx\Common\Note($x);
+                $this->notes[$i] = new \Gedcomx\Common\Note($x);
             }
         }
         if (isset($o['attribution'])) {
-                $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
         }
         if (isset($o['sortKey'])) {
-                $this->sortKey = $o["sortKey"];
+            $this->sortKey = $o["sortKey"];
         }
         $this->description = array();
         if (isset($o['description'])) {
             foreach ($o['description'] as $i => $x) {
-                    $this->description[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->description[$i] = new \Gedcomx\Common\TextValue($x);
             }
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                if (is_array($x)) {
-                    $this->identifiers[$i] = array();
-                    foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                        $this->identifiers[$i][$j]->setValue($y);
-                    }
-                }
-                else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                }
+                $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
             }
         }
         if (isset($o['created'])) {
-                $this->created = $o["created"];
+            $this->created = $o["created"];
         }
         if (isset($o['modified'])) {
-                $this->modified = $o["modified"];
+            $this->modified = $o["modified"];
         }
         $this->coverage = array();
         if (isset($o['coverage'])) {
             foreach ($o['coverage'] as $i => $x) {
-                    $this->coverage[$i] = new \Gedcomx\Source\Coverage($x);
+                $this->coverage[$i] = new \Gedcomx\Source\Coverage($x);
             }
         }
         $this->rights = array();
         if (isset($o['rights'])) {
             foreach ($o['rights'] as $i => $x) {
-                    $this->rights[$i] = $x;
+                $this->rights[$i] = $x;
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
             }
         }
         if (isset($o['repository'])) {
-                $this->repository = new \Gedcomx\Common\ResourceReference($o["repository"]);
+            $this->repository = new \Gedcomx\Common\ResourceReference($o["repository"]);
         }
         if (isset($o['descriptor'])) {
-                $this->descriptorRef = new \Gedcomx\Common\ResourceReference($o["descriptor"]);
+            $this->descriptorRef = new \Gedcomx\Common\ResourceReference($o["descriptor"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of SourceDescription from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'citation') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\SourceCitation($xml);
+            if (!isset($this->citations)) {
+                $this->citations = array();
+            }
+            array_push($this->citations, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'mediator') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->mediator = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'source') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\SourceReference($xml);
+            if (!isset($this->sources)) {
+                $this->sources = array();
+            }
+            array_push($this->sources, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'analysis') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->analysis = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'componentOf') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\SourceReference($xml);
+            $this->componentOf = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->titles)) {
+                $this->titles = array();
+            }
+            array_push($this->titles, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'titleLabel') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            $this->titleLabel = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'note') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Note($xml);
+            if (!isset($this->notes)) {
+                $this->notes = array();
+            }
+            array_push($this->notes, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Attribution($xml);
+            $this->attribution = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'sortKey') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->sortKey = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'description') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->description)) {
+                $this->description = array();
+            }
+            array_push($this->description, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            if (!isset($this->identifiers)) {
+                $this->identifiers = array();
+            }
+            array_push($this->identifiers, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'created') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->created = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'modified') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->modified = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'coverage') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\Coverage($xml);
+            if (!isset($this->coverage)) {
+                $this->coverage = array();
+            }
+            array_push($this->coverage, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'rights') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            if (!isset($this->rights)) {
+                $this->rights = array();
+            }
+            array_push($this->rights, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'repository') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->repository = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'descriptor') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->descriptorRef = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of SourceDescription from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'about') && (empty($xml->namespaceURI))) {
+            $this->about = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'mediaType') && (empty($xml->namespaceURI))) {
+            $this->mediaType = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'resourceType') && (empty($xml->namespaceURI))) {
+            $this->resourceType = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this SourceDescription to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'sourceDescription', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this SourceDescription to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->about) {
+            $writer->writeAttribute('about', $this->about);
+        }
+        if ($this->mediaType) {
+            $writer->writeAttribute('mediaType', $this->mediaType);
+        }
+        if ($this->resourceType) {
+            $writer->writeAttribute('resourceType', $this->resourceType);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->citations) {
+            foreach ($this->citations as $i => $x) {
+                $writer->startElementNs('gx', 'citation', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->mediator) {
+            $writer->startElementNs('gx', 'mediator', null);
+            $this->mediator->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->sources) {
+            foreach ($this->sources as $i => $x) {
+                $writer->startElementNs('gx', 'source', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->analysis) {
+            $writer->startElementNs('gx', 'analysis', null);
+            $this->analysis->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->componentOf) {
+            $writer->startElementNs('gx', 'componentOf', null);
+            $this->componentOf->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->titles) {
+            foreach ($this->titles as $i => $x) {
+                $writer->startElementNs('gx', 'title', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->titleLabel) {
+            $writer->startElementNs('gx', 'titleLabel', null);
+            $this->titleLabel->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->notes) {
+            foreach ($this->notes as $i => $x) {
+                $writer->startElementNs('gx', 'note', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->attribution) {
+            $writer->startElementNs('gx', 'attribution', null);
+            $this->attribution->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->sortKey) {
+            $writer->startElementNs('gx', 'sortKey', null);
+            $writer->text($this->sortKey);
+            $writer->endElement();
+        }
+        if ($this->description) {
+            foreach ($this->description as $i => $x) {
+                $writer->startElementNs('gx', 'description', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->identifiers) {
+            foreach ($this->identifiers as $i => $x) {
+                $writer->startElementNs('gx', 'identifier', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->created) {
+            $writer->startElementNs('gx', 'created', null);
+            $writer->text($this->created);
+            $writer->endElement();
+        }
+        if ($this->modified) {
+            $writer->startElementNs('gx', 'modified', null);
+            $writer->text($this->modified);
+            $writer->endElement();
+        }
+        if ($this->coverage) {
+            foreach ($this->coverage as $i => $x) {
+                $writer->startElementNs('gx', 'coverage', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->rights) {
+            foreach ($this->rights as $i => $x) {
+                $writer->startElementNs('gx', 'rights', null);
+                $writer->text($x);
+                $writer->endElement();
+            }
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->repository) {
+            $writer->startElementNs('gx', 'repository', null);
+            $this->repository->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->descriptorRef) {
+            $writer->startElementNs('gx', 'descriptor', null);
+            $this->descriptorRef->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

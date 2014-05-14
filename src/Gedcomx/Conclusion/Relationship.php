@@ -57,12 +57,23 @@ class Relationship extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a Relationship from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -216,21 +227,132 @@ class Relationship extends \Gedcomx\Conclusion\Subject
             $this->type = $o["type"];
         }
         if (isset($o['person1'])) {
-                $this->person1 = new \Gedcomx\Common\ResourceReference($o["person1"]);
+            $this->person1 = new \Gedcomx\Common\ResourceReference($o["person1"]);
         }
         if (isset($o['person2'])) {
-                $this->person2 = new \Gedcomx\Common\ResourceReference($o["person2"]);
+            $this->person2 = new \Gedcomx\Common\ResourceReference($o["person2"]);
         }
         $this->facts = array();
         if (isset($o['facts'])) {
             foreach ($o['facts'] as $i => $x) {
-                    $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Relationship from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'person1') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->person1 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'person2') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->person2 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'fact') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Fact($xml);
+            if (!isset($this->facts)) {
+                $this->facts = array();
+            }
+            array_push($this->facts, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Relationship from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Relationship to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'relationship', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Relationship to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->person1) {
+            $writer->startElementNs('gx', 'person1', null);
+            $this->person1->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->person2) {
+            $writer->startElementNs('gx', 'person2', null);
+            $this->person2->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->facts) {
+            foreach ($this->facts as $i => $x) {
+                $writer->startElementNs('gx', 'fact', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

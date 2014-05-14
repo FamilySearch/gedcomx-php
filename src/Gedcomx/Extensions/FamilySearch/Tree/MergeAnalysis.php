@@ -53,12 +53,23 @@ class MergeAnalysis
     /**
      * Constructs a MergeAnalysis from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -215,26 +226,178 @@ class MergeAnalysis
         $this->survivorResources = array();
         if (isset($o['survivorResources'])) {
             foreach ($o['survivorResources'] as $i => $x) {
-                    $this->survivorResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->survivorResources[$i] = new \Gedcomx\Common\ResourceReference($x);
             }
         }
         $this->duplicateResources = array();
         if (isset($o['duplicateResources'])) {
             foreach ($o['duplicateResources'] as $i => $x) {
-                    $this->duplicateResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->duplicateResources[$i] = new \Gedcomx\Common\ResourceReference($x);
             }
         }
         $this->conflictingResources = array();
         if (isset($o['conflictingResources'])) {
             foreach ($o['conflictingResources'] as $i => $x) {
-                    $this->conflictingResources[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($x);
+                $this->conflictingResources[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($x);
             }
         }
         if (isset($o['survivor'])) {
-                $this->survivor = new \Gedcomx\Common\ResourceReference($o["survivor"]);
+            $this->survivor = new \Gedcomx\Common\ResourceReference($o["survivor"]);
         }
         if (isset($o['duplicate'])) {
-                $this->duplicate = new \Gedcomx\Common\ResourceReference($o["duplicate"]);
+            $this->duplicate = new \Gedcomx\Common\ResourceReference($o["duplicate"]);
+        }
+    }
+
+    /**
+     * Initializes this MergeAnalysis from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
+                    }
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of MergeAnalysis from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = false;
+        if (($xml->localName == 'survivorResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            if (!isset($this->survivorResources)) {
+                $this->survivorResources = array();
+            }
+            array_push($this->survivorResources, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'duplicateResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            if (!isset($this->duplicateResources)) {
+                $this->duplicateResources = array();
+            }
+            array_push($this->duplicateResources, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'conflictingResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($xml);
+            if (!isset($this->conflictingResources)) {
+                $this->conflictingResources = array();
+            }
+            array_push($this->conflictingResources, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'survivor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->survivor = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'duplicate') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->duplicate = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of MergeAnalysis from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+
+        return false;
+    }
+
+    /**
+     * Writes this MergeAnalysis to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'mergeAnalysis', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this MergeAnalysis to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->survivorResources) {
+            foreach ($this->survivorResources as $i => $x) {
+                $writer->startElementNs('fs', 'survivorResource', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->duplicateResources) {
+            foreach ($this->duplicateResources as $i => $x) {
+                $writer->startElementNs('fs', 'duplicateResource', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->conflictingResources) {
+            foreach ($this->conflictingResources as $i => $x) {
+                $writer->startElementNs('fs', 'conflictingResource', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->survivor) {
+            $writer->startElementNs('fs', 'survivor', null);
+            $this->survivor->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->duplicate) {
+            $writer->startElementNs('fs', 'duplicate', null);
+            $this->duplicate->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

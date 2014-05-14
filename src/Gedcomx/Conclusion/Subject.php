@@ -49,12 +49,23 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a Subject from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -162,10 +173,7 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -187,28 +195,109 @@ class Subject extends \Gedcomx\Conclusion\Conclusion
         $this->evidence = array();
         if (isset($o['evidence'])) {
             foreach ($o['evidence'] as $i => $x) {
-                    $this->evidence[$i] = new \Gedcomx\Common\EvidenceReference($x);
+                $this->evidence[$i] = new \Gedcomx\Common\EvidenceReference($x);
             }
         }
         $this->media = array();
         if (isset($o['media'])) {
             foreach ($o['media'] as $i => $x) {
-                    $this->media[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->media[$i] = new \Gedcomx\Source\SourceReference($x);
             }
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                    if (is_array($x)) {
-                        $this->identifiers[$i] = array();
-                        foreach ($x as $j => $y) {
-                            $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                            $this->identifiers[$i][$j]->setValue($y);
-                        }
-                    }
-                    else {
-                        $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                    }
+                $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Subject from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'evidence') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\EvidenceReference($xml);
+            if (!isset($this->evidence)) {
+                $this->evidence = array();
+            }
+            array_push($this->evidence, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'media') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\SourceReference($xml);
+            if (!isset($this->media)) {
+                $this->media = array();
+            }
+            array_push($this->media, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            if (!isset($this->identifiers)) {
+                $this->identifiers = array();
+            }
+            array_push($this->identifiers, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Subject from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'extracted') && (empty($xml->namespaceURI))) {
+            $this->extracted = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Subject to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->extracted) {
+            $writer->writeAttribute('extracted', $this->extracted);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->evidence) {
+            foreach ($this->evidence as $i => $x) {
+                $writer->startElementNs('gx', 'evidence', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->media) {
+            foreach ($this->media as $i => $x) {
+                $writer->startElementNs('gx', 'media', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->identifiers) {
+            foreach ($this->identifiers as $i => $x) {
+                $writer->startElementNs('gx', 'identifier', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

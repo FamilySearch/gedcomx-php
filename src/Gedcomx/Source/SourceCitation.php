@@ -46,12 +46,23 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a SourceCitation from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -171,16 +182,99 @@ class SourceCitation extends \Gedcomx\Links\HypermediaEnabledData
             $this->lang = $o["lang"];
         }
         if (isset($o['citationTemplate'])) {
-                $this->citationTemplate = new \Gedcomx\Common\ResourceReference($o["citationTemplate"]);
+            $this->citationTemplate = new \Gedcomx\Common\ResourceReference($o["citationTemplate"]);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Source\CitationField($x);
+                $this->fields[$i] = new \Gedcomx\Source\CitationField($x);
             }
         }
         if (isset($o['value'])) {
-                $this->value = $o["value"];
+            $this->value = $o["value"];
+        }
+    }
+
+    /**
+     * Sets a known child element of SourceCitation from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'citationTemplate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->citationTemplate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\CitationField($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'value') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->value = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of SourceCitation from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'lang') && ($xml->namespaceURI == 'http://www.w3.org/XML/1998/namespace')) {
+            $this->lang = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this SourceCitation to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->lang) {
+            $writer->writeAttribute('xml:lang', $this->lang);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->citationTemplate) {
+            $writer->startElementNs('gx', 'citationTemplate', null);
+            $this->citationTemplate->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->value) {
+            $writer->startElementNs('gx', 'value', null);
+            $writer->text($this->value);
+            $writer->endElement();
         }
     }
 }

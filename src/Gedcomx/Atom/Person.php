@@ -39,12 +39,23 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     /**
      * Constructs a Person from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -135,13 +146,90 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
     {
         parent::initFromArray($o);
         if (isset($o['name'])) {
-                $this->name = $o["name"];
+            $this->name = $o["name"];
         }
         if (isset($o['uri'])) {
-                $this->uri = $o["uri"];
+            $this->uri = $o["uri"];
         }
         if (isset($o['email'])) {
-                $this->email = $o["email"];
+            $this->email = $o["email"];
+        }
+    }
+
+    /**
+     * Sets a known child element of Person from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'uri') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->uri = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'email') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->email = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Person from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Person to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->name) {
+            $writer->startElementNs('atom', 'name', null);
+            $writer->text($this->name);
+            $writer->endElement();
+        }
+        if ($this->uri) {
+            $writer->startElementNs('atom', 'uri', null);
+            $writer->text($this->uri);
+            $writer->endElement();
+        }
+        if ($this->email) {
+            $writer->startElementNs('atom', 'email', null);
+            $writer->text($this->email);
+            $writer->endElement();
         }
     }
 }

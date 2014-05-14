@@ -25,12 +25,23 @@ class Qualifier
     /**
      * Constructs a Qualifier from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -86,6 +97,67 @@ class Qualifier
     {
         if (isset($o['value'])) {
             $this->value = $o["value"];
+        }
+    }
+
+    /**
+     * Initializes this Qualifier from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $this->value = '';
+            while ($xml->read() && $xml->hasValue) {
+                $this->value = $this->value . $xml->value;
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of Qualifier from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        return false;
+    }
+
+    /**
+     * Sets a known attribute of Qualifier from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Qualifier to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->value) {
+            $writer->text($this->value);
         }
     }
 }

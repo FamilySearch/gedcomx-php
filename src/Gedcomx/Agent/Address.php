@@ -65,6 +65,27 @@ class Address extends \Gedcomx\Common\ExtensibleData
     private $street3;
 
     /**
+     * Additional street information.
+     *
+     * @var string
+     */
+    private $street4;
+
+    /**
+     * Additional street information.
+     *
+     * @var string
+     */
+    private $street5;
+
+    /**
+     * Additional street information.
+     *
+     * @var string
+     */
+    private $street6;
+
+    /**
      * The value of the property.
      *
      * @var string
@@ -74,12 +95,23 @@ class Address extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a Address from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -217,6 +249,63 @@ class Address extends \Gedcomx\Common\ExtensibleData
         $this->street3 = $street3;
     }
     /**
+     * Additional street information.
+     *
+     * @return string
+     */
+    public function getStreet4()
+    {
+        return $this->street4;
+    }
+
+    /**
+     * Additional street information.
+     *
+     * @param string $street4
+     */
+    public function setStreet4($street4)
+    {
+        $this->street4 = $street4;
+    }
+    /**
+     * Additional street information.
+     *
+     * @return string
+     */
+    public function getStreet5()
+    {
+        return $this->street5;
+    }
+
+    /**
+     * Additional street information.
+     *
+     * @param string $street5
+     */
+    public function setStreet5($street5)
+    {
+        $this->street5 = $street5;
+    }
+    /**
+     * Additional street information.
+     *
+     * @return string
+     */
+    public function getStreet6()
+    {
+        return $this->street6;
+    }
+
+    /**
+     * Additional street information.
+     *
+     * @param string $street6
+     */
+    public function setStreet6($street6)
+    {
+        $this->street6 = $street6;
+    }
+    /**
      * The value of the property.
      *
      * @return string
@@ -264,6 +353,15 @@ class Address extends \Gedcomx\Common\ExtensibleData
         if ($this->street3) {
             $a["street3"] = $this->street3;
         }
+        if ($this->street4) {
+            $a["street4"] = $this->street4;
+        }
+        if ($this->street5) {
+            $a["street5"] = $this->street5;
+        }
+        if ($this->street6) {
+            $a["street6"] = $this->street6;
+        }
         if ($this->value) {
             $a["value"] = $this->value;
         }
@@ -280,28 +378,218 @@ class Address extends \Gedcomx\Common\ExtensibleData
     {
         parent::initFromArray($o);
         if (isset($o['city'])) {
-                $this->city = $o["city"];
+            $this->city = $o["city"];
         }
         if (isset($o['country'])) {
-                $this->country = $o["country"];
+            $this->country = $o["country"];
         }
         if (isset($o['postalCode'])) {
-                $this->postalCode = $o["postalCode"];
+            $this->postalCode = $o["postalCode"];
         }
         if (isset($o['stateOrProvince'])) {
-                $this->stateOrProvince = $o["stateOrProvince"];
+            $this->stateOrProvince = $o["stateOrProvince"];
         }
         if (isset($o['street'])) {
-                $this->street = $o["street"];
+            $this->street = $o["street"];
         }
         if (isset($o['street2'])) {
-                $this->street2 = $o["street2"];
+            $this->street2 = $o["street2"];
         }
         if (isset($o['street3'])) {
-                $this->street3 = $o["street3"];
+            $this->street3 = $o["street3"];
+        }
+        if (isset($o['street4'])) {
+            $this->street4 = $o["street4"];
+        }
+        if (isset($o['street5'])) {
+            $this->street5 = $o["street5"];
+        }
+        if (isset($o['street6'])) {
+            $this->street6 = $o["street6"];
         }
         if (isset($o['value'])) {
-                $this->value = $o["value"];
+            $this->value = $o["value"];
+        }
+    }
+
+    /**
+     * Sets a known child element of Address from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'city') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->city = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'country') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->country = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'postalCode') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->postalCode = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'stateOrProvince') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->stateOrProvince = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street2') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street2 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street3') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street3 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street4') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street4 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street5') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street5 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'street6') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->street6 = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'value') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->value = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Address from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Address to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->city) {
+            $writer->startElementNs('gx', 'city', null);
+            $writer->text($this->city);
+            $writer->endElement();
+        }
+        if ($this->country) {
+            $writer->startElementNs('gx', 'country', null);
+            $writer->text($this->country);
+            $writer->endElement();
+        }
+        if ($this->postalCode) {
+            $writer->startElementNs('gx', 'postalCode', null);
+            $writer->text($this->postalCode);
+            $writer->endElement();
+        }
+        if ($this->stateOrProvince) {
+            $writer->startElementNs('gx', 'stateOrProvince', null);
+            $writer->text($this->stateOrProvince);
+            $writer->endElement();
+        }
+        if ($this->street) {
+            $writer->startElementNs('gx', 'street', null);
+            $writer->text($this->street);
+            $writer->endElement();
+        }
+        if ($this->street2) {
+            $writer->startElementNs('gx', 'street2', null);
+            $writer->text($this->street2);
+            $writer->endElement();
+        }
+        if ($this->street3) {
+            $writer->startElementNs('gx', 'street3', null);
+            $writer->text($this->street3);
+            $writer->endElement();
+        }
+        if ($this->street4) {
+            $writer->startElementNs('gx', 'street4', null);
+            $writer->text($this->street4);
+            $writer->endElement();
+        }
+        if ($this->street5) {
+            $writer->startElementNs('gx', 'street5', null);
+            $writer->text($this->street5);
+            $writer->endElement();
+        }
+        if ($this->street6) {
+            $writer->startElementNs('gx', 'street6', null);
+            $writer->text($this->street6);
+            $writer->endElement();
+        }
+        if ($this->value) {
+            $writer->startElementNs('gx', 'value', null);
+            $writer->text($this->value);
+            $writer->endElement();
         }
     }
 }

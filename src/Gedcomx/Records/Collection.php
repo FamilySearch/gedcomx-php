@@ -53,12 +53,23 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Collection from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -200,19 +211,132 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
             $this->lang = $o["lang"];
         }
         if (isset($o['title'])) {
-                $this->title = $o["title"];
+            $this->title = $o["title"];
         }
         if (isset($o['size'])) {
-                $this->size = $o["size"];
+            $this->size = $o["size"];
         }
         $this->content = array();
         if (isset($o['content'])) {
             foreach ($o['content'] as $i => $x) {
-                    $this->content[$i] = new \Gedcomx\Records\CollectionContent($x);
+                $this->content[$i] = new \Gedcomx\Records\CollectionContent($x);
             }
         }
         if (isset($o['attribution'])) {
-                $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of Collection from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->title = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'size') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->size = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'content') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\CollectionContent($xml);
+            if (!isset($this->content)) {
+                $this->content = array();
+            }
+            array_push($this->content, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Attribution($xml);
+            $this->attribution = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Collection from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'lang') && ($xml->namespaceURI == 'http://www.w3.org/XML/1998/namespace')) {
+            $this->lang = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Collection to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'collection', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'xml', null, 'http://www.w3.org/XML/1998/namespace');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Collection to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->lang) {
+            $writer->writeAttribute('xml:lang', $this->lang);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->title) {
+            $writer->startElementNs('gx', 'title', null);
+            $writer->text($this->title);
+            $writer->endElement();
+        }
+        if ($this->size) {
+            $writer->startElementNs('gx', 'size', null);
+            $writer->text($this->size);
+            $writer->endElement();
+        }
+        if ($this->content) {
+            foreach ($this->content as $i => $x) {
+                $writer->startElementNs('gx', 'content', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->attribution) {
+            $writer->startElementNs('gx', 'attribution', null);
+            $this->attribution->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

@@ -62,12 +62,23 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
     /**
      * Constructs a FamilySearchPlatform from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -250,37 +261,182 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
         $this->childAndParentsRelationships = array();
         if (isset($o['childAndParentsRelationships'])) {
             foreach ($o['childAndParentsRelationships'] as $i => $x) {
-                    $this->childAndParentsRelationships[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($x);
+                $this->childAndParentsRelationships[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($x);
             }
         }
         $this->discussions = array();
         if (isset($o['discussions'])) {
             foreach ($o['discussions'] as $i => $x) {
-                    $this->discussions[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($x);
+                $this->discussions[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($x);
             }
         }
         $this->users = array();
         if (isset($o['users'])) {
             foreach ($o['users'] as $i => $x) {
-                    $this->users[$i] = new \Gedcomx\Extensions\FamilySearch\Users\User($x);
+                $this->users[$i] = new \Gedcomx\Extensions\FamilySearch\Users\User($x);
             }
         }
         $this->merges = array();
         if (isset($o['merges'])) {
             foreach ($o['merges'] as $i => $x) {
-                    $this->merges[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($x);
+                $this->merges[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($x);
             }
         }
         $this->mergeAnalyses = array();
         if (isset($o['mergeAnalyses'])) {
             foreach ($o['mergeAnalyses'] as $i => $x) {
-                    $this->mergeAnalyses[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($x);
+                $this->mergeAnalyses[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($x);
             }
         }
         $this->features = array();
         if (isset($o['features'])) {
             foreach ($o['features'] as $i => $x) {
-                    $this->features[$i] = new \Gedcomx\Extensions\FamilySearch\Feature($x);
+                $this->features[$i] = new \Gedcomx\Extensions\FamilySearch\Feature($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of FamilySearchPlatform from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'childAndParentsRelationship') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($xml);
+            if (!isset($this->childAndParentsRelationships)) {
+                $this->childAndParentsRelationships = array();
+            }
+            array_push($this->childAndParentsRelationships, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'discussion') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($xml);
+            if (!isset($this->discussions)) {
+                $this->discussions = array();
+            }
+            array_push($this->discussions, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'user') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Users\User($xml);
+            if (!isset($this->users)) {
+                $this->users = array();
+            }
+            array_push($this->users, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'merge') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($xml);
+            if (!isset($this->merges)) {
+                $this->merges = array();
+            }
+            array_push($this->merges, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'mergeAnalysis') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($xml);
+            if (!isset($this->mergeAnalyses)) {
+                $this->mergeAnalyses = array();
+            }
+            array_push($this->mergeAnalyses, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'feature') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Feature($xml);
+            if (!isset($this->features)) {
+                $this->features = array();
+            }
+            array_push($this->features, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of FamilySearchPlatform from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this FamilySearchPlatform to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'familysearch', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this FamilySearchPlatform to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->childAndParentsRelationships) {
+            foreach ($this->childAndParentsRelationships as $i => $x) {
+                $writer->startElementNs('fs', 'childAndParentsRelationship', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->discussions) {
+            foreach ($this->discussions as $i => $x) {
+                $writer->startElementNs('fs', 'discussion', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->users) {
+            foreach ($this->users as $i => $x) {
+                $writer->startElementNs('fs', 'user', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->merges) {
+            foreach ($this->merges as $i => $x) {
+                $writer->startElementNs('fs', 'merge', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->mergeAnalyses) {
+            foreach ($this->mergeAnalyses as $i => $x) {
+                $writer->startElementNs('fs', 'mergeAnalysis', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->features) {
+            foreach ($this->features as $i => $x) {
+                $writer->startElementNs('fs', 'feature', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

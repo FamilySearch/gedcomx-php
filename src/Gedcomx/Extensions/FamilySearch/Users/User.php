@@ -137,12 +137,23 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a User from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -541,55 +552,331 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
     {
         parent::initFromArray($o);
         if (isset($o['alternateEmail'])) {
-                $this->alternateEmail = $o["alternateEmail"];
+            $this->alternateEmail = $o["alternateEmail"];
         }
         if (isset($o['birthDate'])) {
-                $this->birthDate = $o["birthDate"];
+            $this->birthDate = $o["birthDate"];
         }
         if (isset($o['contactName'])) {
-                $this->contactName = $o["contactName"];
+            $this->contactName = $o["contactName"];
         }
         if (isset($o['country'])) {
-                $this->country = $o["country"];
+            $this->country = $o["country"];
         }
         if (isset($o['displayName'])) {
-                $this->displayName = $o["displayName"];
+            $this->displayName = $o["displayName"];
         }
         if (isset($o['email'])) {
-                $this->email = $o["email"];
+            $this->email = $o["email"];
         }
         if (isset($o['familyName'])) {
-                $this->familyName = $o["familyName"];
+            $this->familyName = $o["familyName"];
         }
         if (isset($o['fullName'])) {
-                $this->fullName = $o["fullName"];
+            $this->fullName = $o["fullName"];
         }
         if (isset($o['gender'])) {
-                $this->gender = $o["gender"];
+            $this->gender = $o["gender"];
         }
         if (isset($o['givenName'])) {
-                $this->givenName = $o["givenName"];
+            $this->givenName = $o["givenName"];
         }
         if (isset($o['helperAccessPin'])) {
-                $this->helperAccessPin = $o["helperAccessPin"];
+            $this->helperAccessPin = $o["helperAccessPin"];
         }
         if (isset($o['ldsMemberAccount'])) {
-                $this->ldsMemberAccount = $o["ldsMemberAccount"];
+            $this->ldsMemberAccount = $o["ldsMemberAccount"];
         }
         if (isset($o['mailingAddress'])) {
-                $this->mailingAddress = $o["mailingAddress"];
+            $this->mailingAddress = $o["mailingAddress"];
         }
         if (isset($o['personId'])) {
-                $this->personId = $o["personId"];
+            $this->personId = $o["personId"];
         }
         if (isset($o['phoneNumber'])) {
-                $this->phoneNumber = $o["phoneNumber"];
+            $this->phoneNumber = $o["phoneNumber"];
         }
         if (isset($o['preferredLanguage'])) {
-                $this->preferredLanguage = $o["preferredLanguage"];
+            $this->preferredLanguage = $o["preferredLanguage"];
         }
         if (isset($o['treeUserId'])) {
-                $this->treeUserId = $o["treeUserId"];
+            $this->treeUserId = $o["treeUserId"];
+        }
+    }
+
+    /**
+     * Sets a known child element of User from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'alternateEmail') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->alternateEmail = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'birthDate') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->birthDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'contactName') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->contactName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'country') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->country = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'displayName') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->displayName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'email') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->email = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'familyName') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->familyName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'fullName') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->fullName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->gender = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'givenName') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->givenName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'helperAccessPin') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->helperAccessPin = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'ldsMemberAccount') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->ldsMemberAccount = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'mailingAddress') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->mailingAddress = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'personId') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->personId = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'phoneNumber') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->phoneNumber = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'preferredLanguage') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->preferredLanguage = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'treeUserId') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->treeUserId = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of User from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this User to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'user', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this User to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->alternateEmail) {
+            $writer->startElementNs('fs', 'alternateEmail', null);
+            $writer->text($this->alternateEmail);
+            $writer->endElement();
+        }
+        if ($this->birthDate) {
+            $writer->startElementNs('fs', 'birthDate', null);
+            $writer->text($this->birthDate);
+            $writer->endElement();
+        }
+        if ($this->contactName) {
+            $writer->startElementNs('fs', 'contactName', null);
+            $writer->text($this->contactName);
+            $writer->endElement();
+        }
+        if ($this->country) {
+            $writer->startElementNs('fs', 'country', null);
+            $writer->text($this->country);
+            $writer->endElement();
+        }
+        if ($this->displayName) {
+            $writer->startElementNs('fs', 'displayName', null);
+            $writer->text($this->displayName);
+            $writer->endElement();
+        }
+        if ($this->email) {
+            $writer->startElementNs('fs', 'email', null);
+            $writer->text($this->email);
+            $writer->endElement();
+        }
+        if ($this->familyName) {
+            $writer->startElementNs('fs', 'familyName', null);
+            $writer->text($this->familyName);
+            $writer->endElement();
+        }
+        if ($this->fullName) {
+            $writer->startElementNs('fs', 'fullName', null);
+            $writer->text($this->fullName);
+            $writer->endElement();
+        }
+        if ($this->gender) {
+            $writer->startElementNs('fs', 'gender', null);
+            $writer->text($this->gender);
+            $writer->endElement();
+        }
+        if ($this->givenName) {
+            $writer->startElementNs('fs', 'givenName', null);
+            $writer->text($this->givenName);
+            $writer->endElement();
+        }
+        if ($this->helperAccessPin) {
+            $writer->startElementNs('fs', 'helperAccessPin', null);
+            $writer->text($this->helperAccessPin);
+            $writer->endElement();
+        }
+        if ($this->ldsMemberAccount) {
+            $writer->startElementNs('fs', 'ldsMemberAccount', null);
+            $writer->text($this->ldsMemberAccount);
+            $writer->endElement();
+        }
+        if ($this->mailingAddress) {
+            $writer->startElementNs('fs', 'mailingAddress', null);
+            $writer->text($this->mailingAddress);
+            $writer->endElement();
+        }
+        if ($this->personId) {
+            $writer->startElementNs('fs', 'personId', null);
+            $writer->text($this->personId);
+            $writer->endElement();
+        }
+        if ($this->phoneNumber) {
+            $writer->startElementNs('fs', 'phoneNumber', null);
+            $writer->text($this->phoneNumber);
+            $writer->endElement();
+        }
+        if ($this->preferredLanguage) {
+            $writer->startElementNs('fs', 'preferredLanguage', null);
+            $writer->text($this->preferredLanguage);
+            $writer->endElement();
+        }
+        if ($this->treeUserId) {
+            $writer->startElementNs('fs', 'treeUserId', null);
+            $writer->text($this->treeUserId);
+            $writer->endElement();
         }
     }
 }

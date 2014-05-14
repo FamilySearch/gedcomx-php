@@ -47,12 +47,23 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a DateInfo from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -175,21 +186,115 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     {
         parent::initFromArray($o);
         if (isset($o['original'])) {
-                $this->original = $o["original"];
+            $this->original = $o["original"];
         }
         if (isset($o['formal'])) {
-                $this->formal = $o["formal"];
+            $this->formal = $o["formal"];
         }
         $this->normalizedExtensions = array();
         if (isset($o['normalized'])) {
             foreach ($o['normalized'] as $i => $x) {
-                    $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of DateInfo from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'original') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->original = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'formal') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->formal = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'normalized') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->normalizedExtensions)) {
+                $this->normalizedExtensions = array();
+            }
+            array_push($this->normalizedExtensions, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of DateInfo from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this DateInfo to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->original) {
+            $writer->startElementNs('gx', 'original', null);
+            $writer->text($this->original);
+            $writer->endElement();
+        }
+        if ($this->formal) {
+            $writer->startElementNs('gx', 'formal', null);
+            $writer->text($this->formal);
+            $writer->endElement();
+        }
+        if ($this->normalizedExtensions) {
+            foreach ($this->normalizedExtensions as $i => $x) {
+                $writer->startElementNs('gx', 'normalized', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

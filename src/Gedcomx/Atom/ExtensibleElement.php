@@ -16,14 +16,30 @@ class ExtensibleElement extends \Gedcomx\Atom\CommonAttributes
 {
 
     /**
+     * Custom extension elements.
+     */
+    private $extensionElements = array();
+
+    /**
      * Constructs a ExtensibleElement from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -47,5 +63,39 @@ class ExtensibleElement extends \Gedcomx\Atom\CommonAttributes
     public function initFromArray($o)
     {
         parent::initFromArray($o);
+    }
+
+    /**
+     * Sets a known child element of ExtensibleElement from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        return false;
+    }
+
+    /**
+     * Sets a known attribute of ExtensibleElement from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this ExtensibleElement to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
     }
 }

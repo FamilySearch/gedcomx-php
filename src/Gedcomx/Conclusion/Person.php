@@ -74,12 +74,23 @@ class Person extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a Person from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -298,31 +309,177 @@ class Person extends \Gedcomx\Conclusion\Subject
             $this->private = $o["private"];
         }
         if (isset($o['living'])) {
-                $this->living = $o["living"];
+            $this->living = $o["living"];
         }
         if (isset($o['gender'])) {
-                $this->gender = new \Gedcomx\Conclusion\Gender($o["gender"]);
+            $this->gender = new \Gedcomx\Conclusion\Gender($o["gender"]);
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                    $this->names[$i] = new \Gedcomx\Conclusion\Name($x);
+                $this->names[$i] = new \Gedcomx\Conclusion\Name($x);
             }
         }
         $this->facts = array();
         if (isset($o['facts'])) {
             foreach ($o['facts'] as $i => $x) {
-                    $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
             }
         }
         if (isset($o['display'])) {
-                $this->displayExtension = new \Gedcomx\Conclusion\DisplayProperties($o["display"]);
+            $this->displayExtension = new \Gedcomx\Conclusion\DisplayProperties($o["display"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of Person from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'living') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->living = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Gender($xml);
+            $this->gender = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Name($xml);
+            if (!isset($this->names)) {
+                $this->names = array();
+            }
+            array_push($this->names, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'fact') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Fact($xml);
+            if (!isset($this->facts)) {
+                $this->facts = array();
+            }
+            array_push($this->facts, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'display') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DisplayProperties($xml);
+            $this->displayExtension = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Person from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'principal') && (empty($xml->namespaceURI))) {
+            $this->principal = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'private') && (empty($xml->namespaceURI))) {
+            $this->private = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Person to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'person', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Person to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->principal) {
+            $writer->writeAttribute('principal', $this->principal);
+        }
+        if ($this->private) {
+            $writer->writeAttribute('private', $this->private);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->living) {
+            $writer->startElementNs('gx', 'living', null);
+            $writer->text($this->living);
+            $writer->endElement();
+        }
+        if ($this->gender) {
+            $writer->startElementNs('gx', 'gender', null);
+            $this->gender->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->names) {
+            foreach ($this->names as $i => $x) {
+                $writer->startElementNs('gx', 'name', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->facts) {
+            foreach ($this->facts as $i => $x) {
+                $writer->startElementNs('gx', 'fact', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->displayExtension) {
+            $writer->startElementNs('gx', 'display', null);
+            $this->displayExtension->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

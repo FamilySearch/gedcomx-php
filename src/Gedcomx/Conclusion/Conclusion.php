@@ -60,12 +60,23 @@ class Conclusion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Conclusion from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -236,21 +247,123 @@ class Conclusion extends \Gedcomx\Links\HypermediaEnabledData
             $this->lang = $o["lang"];
         }
         if (isset($o['attribution'])) {
-                $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
         }
         $this->sources = array();
         if (isset($o['sources'])) {
             foreach ($o['sources'] as $i => $x) {
-                    $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
             }
         }
         if (isset($o['analysis'])) {
-                $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
+            $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
         }
         $this->notes = array();
         if (isset($o['notes'])) {
             foreach ($o['notes'] as $i => $x) {
-                    $this->notes[$i] = new \Gedcomx\Common\Note($x);
+                $this->notes[$i] = new \Gedcomx\Common\Note($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Conclusion from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Attribution($xml);
+            $this->attribution = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'source') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Source\SourceReference($xml);
+            if (!isset($this->sources)) {
+                $this->sources = array();
+            }
+            array_push($this->sources, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'analysis') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->analysis = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'note') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Note($xml);
+            if (!isset($this->notes)) {
+                $this->notes = array();
+            }
+            array_push($this->notes, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Conclusion from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'confidence') && (empty($xml->namespaceURI))) {
+            $this->confidence = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'lang') && ($xml->namespaceURI == 'http://www.w3.org/XML/1998/namespace')) {
+            $this->lang = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Conclusion to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->confidence) {
+            $writer->writeAttribute('confidence', $this->confidence);
+        }
+        if ($this->lang) {
+            $writer->writeAttribute('xml:lang', $this->lang);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->attribution) {
+            $writer->startElementNs('gx', 'attribution', null);
+            $this->attribution->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->sources) {
+            foreach ($this->sources as $i => $x) {
+                $writer->startElementNs('gx', 'source', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->analysis) {
+            $writer->startElementNs('gx', 'analysis', null);
+            $this->analysis->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->notes) {
+            foreach ($this->notes as $i => $x) {
+                $writer->startElementNs('gx', 'note', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

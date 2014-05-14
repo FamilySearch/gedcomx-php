@@ -46,12 +46,23 @@ class HealthConfig
     /**
      * Constructs a HealthConfig from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -172,16 +183,154 @@ class HealthConfig
     public function initFromArray($o)
     {
         if (isset($o['buildDate'])) {
-                $this->buildDate = $o["buildDate"];
+            $this->buildDate = $o["buildDate"];
         }
         if (isset($o['buildVersion'])) {
-                $this->buildVersion = $o["buildVersion"];
+            $this->buildVersion = $o["buildVersion"];
         }
         if (isset($o['databaseVersion'])) {
-                $this->databaseVersion = $o["databaseVersion"];
+            $this->databaseVersion = $o["databaseVersion"];
         }
         if (isset($o['platformVersion'])) {
-                $this->platformVersion = $o["platformVersion"];
+            $this->platformVersion = $o["platformVersion"];
+        }
+    }
+
+    /**
+     * Initializes this HealthConfig from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
+                    }
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of HealthConfig from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = false;
+        if (($xml->localName == 'buildDate') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->buildDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'buildVersion') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->buildVersion = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'databaseVersion') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->databaseVersion = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'platformVersion') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->platformVersion = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of HealthConfig from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+
+        return false;
+    }
+
+    /**
+     * Writes this HealthConfig to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'healthConfig', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this HealthConfig to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->buildDate) {
+            $writer->startElementNs('fs', 'buildDate', null);
+            $writer->text($this->buildDate);
+            $writer->endElement();
+        }
+        if ($this->buildVersion) {
+            $writer->startElementNs('fs', 'buildVersion', null);
+            $writer->text($this->buildVersion);
+            $writer->endElement();
+        }
+        if ($this->databaseVersion) {
+            $writer->startElementNs('fs', 'databaseVersion', null);
+            $writer->text($this->databaseVersion);
+            $writer->endElement();
+        }
+        if ($this->platformVersion) {
+            $writer->startElementNs('fs', 'platformVersion', null);
+            $writer->text($this->platformVersion);
+            $writer->endElement();
         }
     }
 }

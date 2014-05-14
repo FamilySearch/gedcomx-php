@@ -23,14 +23,30 @@ class ExtensibleData
     private $id;
 
     /**
+     * Custom extension elements for a conclusion.
+     */
+    private $extensionElements = array();
+
+    /**
      * Constructs a ExtensibleData from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -86,6 +102,115 @@ class ExtensibleData
     {
         if (isset($o['id'])) {
             $this->id = $o["id"];
+        }
+    }
+
+    /**
+     * Initializes this ExtensibleData from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    $dom = new \DOMDocument();
+                    $nodeFactory = $dom;
+                    $dom->formatOutput = true;
+
+                    $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
+                    $dom->appendChild($e);
+                    if ($xml->hasAttributes) {
+                        $moreAttributes = $xml->moveToFirstAttribute();
+                        while ($moreAttributes) {
+                            $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                            $moreAttributes = $xml->moveToNextAttribute();
+                        }
+                    }
+                    $dom = $e;
+
+                    //create any child elements...
+                    while ($xml->read() && $xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        if ($xml->nodeType == XMLReader::ELEMENT) {
+                            $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
+                            $dom->appendChild($e);
+                            if ($xml->hasAttributes) {
+                                $moreAttributes = $xml->moveToFirstAttribute();
+                                while ($moreAttributes) {
+                                    $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                                    $moreAttributes = $xml->moveToNextAttribute();
+                                }
+                            }
+                            $dom = $e;
+                        }
+                        else if ($xml->nodeType == XMLReader::TEXT) {
+                            $dom->textContent = $xml->value;
+                        }
+                        else if ($xml->nodeType == XMLReader::END_ELEMENT) {
+                            $dom = $dom->parentNode;
+                        }
+                    }
+                    array_push($this->extensionElements, $nodeFactory);
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of ExtensibleData from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        return false;
+    }
+
+    /**
+     * Sets a known attribute of ExtensibleData from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (($xml->localName == 'id') && (empty($xml->namespaceURI))) {
+            $this->id = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this ExtensibleData to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->id) {
+            $writer->writeAttribute('id', $this->id);
         }
     }
 }

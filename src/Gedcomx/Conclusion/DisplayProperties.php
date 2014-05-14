@@ -97,12 +97,23 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a DisplayProperties from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -369,37 +380,218 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
     {
         parent::initFromArray($o);
         if (isset($o['ascendancyNumber'])) {
-                $this->ascendancyNumber = $o["ascendancyNumber"];
+            $this->ascendancyNumber = $o["ascendancyNumber"];
         }
         if (isset($o['birthDate'])) {
-                $this->birthDate = $o["birthDate"];
+            $this->birthDate = $o["birthDate"];
         }
         if (isset($o['birthPlace'])) {
-                $this->birthPlace = $o["birthPlace"];
+            $this->birthPlace = $o["birthPlace"];
         }
         if (isset($o['deathDate'])) {
-                $this->deathDate = $o["deathDate"];
+            $this->deathDate = $o["deathDate"];
         }
         if (isset($o['deathPlace'])) {
-                $this->deathPlace = $o["deathPlace"];
+            $this->deathPlace = $o["deathPlace"];
         }
         if (isset($o['descendancyNumber'])) {
-                $this->descendancyNumber = $o["descendancyNumber"];
+            $this->descendancyNumber = $o["descendancyNumber"];
         }
         if (isset($o['gender'])) {
-                $this->gender = $o["gender"];
+            $this->gender = $o["gender"];
         }
         if (isset($o['lifespan'])) {
-                $this->lifespan = $o["lifespan"];
+            $this->lifespan = $o["lifespan"];
         }
         if (isset($o['marriageDate'])) {
-                $this->marriageDate = $o["marriageDate"];
+            $this->marriageDate = $o["marriageDate"];
         }
         if (isset($o['marriagePlace'])) {
-                $this->marriagePlace = $o["marriagePlace"];
+            $this->marriagePlace = $o["marriagePlace"];
         }
         if (isset($o['name'])) {
-                $this->name = $o["name"];
+            $this->name = $o["name"];
+        }
+    }
+
+    /**
+     * Sets a known child element of DisplayProperties from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'ascendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->ascendancyNumber = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'birthDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->birthDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'birthPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->birthPlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'deathDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->deathDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'deathPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->deathPlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'descendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->descendancyNumber = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->gender = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'lifespan') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->lifespan = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'marriageDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->marriageDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'marriagePlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->marriagePlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of DisplayProperties from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this DisplayProperties to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->ascendancyNumber) {
+            $writer->startElementNs('gx', 'ascendancyNumber', null);
+            $writer->text($this->ascendancyNumber);
+            $writer->endElement();
+        }
+        if ($this->birthDate) {
+            $writer->startElementNs('gx', 'birthDate', null);
+            $writer->text($this->birthDate);
+            $writer->endElement();
+        }
+        if ($this->birthPlace) {
+            $writer->startElementNs('gx', 'birthPlace', null);
+            $writer->text($this->birthPlace);
+            $writer->endElement();
+        }
+        if ($this->deathDate) {
+            $writer->startElementNs('gx', 'deathDate', null);
+            $writer->text($this->deathDate);
+            $writer->endElement();
+        }
+        if ($this->deathPlace) {
+            $writer->startElementNs('gx', 'deathPlace', null);
+            $writer->text($this->deathPlace);
+            $writer->endElement();
+        }
+        if ($this->descendancyNumber) {
+            $writer->startElementNs('gx', 'descendancyNumber', null);
+            $writer->text($this->descendancyNumber);
+            $writer->endElement();
+        }
+        if ($this->gender) {
+            $writer->startElementNs('gx', 'gender', null);
+            $writer->text($this->gender);
+            $writer->endElement();
+        }
+        if ($this->lifespan) {
+            $writer->startElementNs('gx', 'lifespan', null);
+            $writer->text($this->lifespan);
+            $writer->endElement();
+        }
+        if ($this->marriageDate) {
+            $writer->startElementNs('gx', 'marriageDate', null);
+            $writer->text($this->marriageDate);
+            $writer->endElement();
+        }
+        if ($this->marriagePlace) {
+            $writer->startElementNs('gx', 'marriagePlace', null);
+            $writer->text($this->marriagePlace);
+            $writer->endElement();
+        }
+        if ($this->name) {
+            $writer->startElementNs('gx', 'name', null);
+            $writer->text($this->name);
+            $writer->endElement();
         }
     }
 }

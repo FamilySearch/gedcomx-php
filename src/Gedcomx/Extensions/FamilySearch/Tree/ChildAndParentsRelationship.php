@@ -53,12 +53,23 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a ChildAndParentsRelationship from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -201,24 +212,139 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     {
         parent::initFromArray($o);
         if (isset($o['father'])) {
-                $this->father = new \Gedcomx\Common\ResourceReference($o["father"]);
+            $this->father = new \Gedcomx\Common\ResourceReference($o["father"]);
         }
         if (isset($o['mother'])) {
-                $this->mother = new \Gedcomx\Common\ResourceReference($o["mother"]);
+            $this->mother = new \Gedcomx\Common\ResourceReference($o["mother"]);
         }
         if (isset($o['child'])) {
-                $this->child = new \Gedcomx\Common\ResourceReference($o["child"]);
+            $this->child = new \Gedcomx\Common\ResourceReference($o["child"]);
         }
         $this->fatherFacts = array();
         if (isset($o['fatherFacts'])) {
             foreach ($o['fatherFacts'] as $i => $x) {
-                    $this->fatherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->fatherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
             }
         }
         $this->motherFacts = array();
         if (isset($o['motherFacts'])) {
             foreach ($o['motherFacts'] as $i => $x) {
-                    $this->motherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->motherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of ChildAndParentsRelationship from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'father') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->father = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'mother') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->mother = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'child') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->child = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'fatherFact') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Fact($xml);
+            if (!isset($this->fatherFacts)) {
+                $this->fatherFacts = array();
+            }
+            array_push($this->fatherFacts, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'motherFact') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Fact($xml);
+            if (!isset($this->motherFacts)) {
+                $this->motherFacts = array();
+            }
+            array_push($this->motherFacts, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of ChildAndParentsRelationship from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this ChildAndParentsRelationship to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'childAndParentsRelationship', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this ChildAndParentsRelationship to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->father) {
+            $writer->startElementNs('fs', 'father', null);
+            $this->father->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->mother) {
+            $writer->startElementNs('fs', 'mother', null);
+            $this->mother->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->child) {
+            $writer->startElementNs('fs', 'child', null);
+            $this->child->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->fatherFacts) {
+            foreach ($this->fatherFacts as $i => $x) {
+                $writer->startElementNs('fs', 'fatherFact', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->motherFacts) {
+            foreach ($this->motherFacts as $i => $x) {
+                $writer->startElementNs('fs', 'motherFact', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

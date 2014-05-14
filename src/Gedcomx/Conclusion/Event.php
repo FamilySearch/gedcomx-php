@@ -46,12 +46,23 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a Event from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -171,15 +182,111 @@ class Event extends \Gedcomx\Conclusion\Subject
             $this->type = $o["type"];
         }
         if (isset($o['date'])) {
-                $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
         }
         if (isset($o['place'])) {
-                $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
+            $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
         }
         $this->roles = array();
         if (isset($o['roles'])) {
             foreach ($o['roles'] as $i => $x) {
-                    $this->roles[$i] = new \Gedcomx\Conclusion\EventRole($x);
+                $this->roles[$i] = new \Gedcomx\Conclusion\EventRole($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Event from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $this->date = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'place') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\PlaceReference($xml);
+            $this->place = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'role') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\EventRole($xml);
+            if (!isset($this->roles)) {
+                $this->roles = array();
+            }
+            array_push($this->roles, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Event from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Event to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'event', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Event to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->date) {
+            $writer->startElementNs('gx', 'date', null);
+            $this->date->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->place) {
+            $writer->startElementNs('gx', 'place', null);
+            $this->place->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->roles) {
+            foreach ($this->roles as $i => $x) {
+                $writer->startElementNs('gx', 'role', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

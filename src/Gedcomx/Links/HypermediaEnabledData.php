@@ -25,12 +25,23 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a HypermediaEnabledData from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -42,19 +53,6 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
     public function getLinks()
     {
         return $this->links;
-    }
-
-    /**
-     * @param string $rel The link rel.
-     * @return Link|null
-     */
-    public function getLink($rel)
-    {
-        if (isset($this->links[$rel])) {
-            return $this->links[$rel];
-        }
-
-        return null;
     }
 
     /**
@@ -96,7 +94,60 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
         $this->links = array();
         if (isset($o['links'])) {
             foreach ($o['links'] as $i => $x) {
-                    $this->links[$i] = new \Gedcomx\Links\Link($x);
+                $this->links[$i] = new \Gedcomx\Links\Link($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of HypermediaEnabledData from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'link') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Links\Link($xml);
+            if (!isset($this->links)) {
+                $this->links = array();
+            }
+            array_push($this->links, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of HypermediaEnabledData from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this HypermediaEnabledData to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->links) {
+            foreach ($this->links as $i => $x) {
+                $writer->startElementNs('gx', 'link', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

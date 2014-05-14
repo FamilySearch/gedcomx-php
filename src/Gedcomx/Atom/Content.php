@@ -32,12 +32,23 @@ class Content
     /**
      * Constructs a Content from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -117,7 +128,94 @@ class Content
             $this->type = $o["type"];
         }
         if (isset($o['gedcomx'])) {
-                $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
+            $this->gedcomx = new \Gedcomx\Gedcomx($o["gedcomx"]);
+        }
+    }
+
+    /**
+     * Initializes this Content from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
+                    }
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of Content from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = false;
+        if (($xml->localName == 'gedcomx') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Gedcomx($xml);
+            $this->gedcomx = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Content from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Content to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        if ($this->gedcomx) {
+            $writer->startElementNs('gx', 'gedcomx', null);
+            $this->gedcomx->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

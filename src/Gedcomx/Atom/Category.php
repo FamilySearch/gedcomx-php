@@ -39,12 +39,23 @@ class Category extends \Gedcomx\Atom\CommonAttributes
     /**
      * Constructs a Category from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -143,5 +154,60 @@ class Category extends \Gedcomx\Atom\CommonAttributes
         if (isset($o['label'])) {
             $this->label = $o["label"];
         }
+    }
+
+    /**
+     * Sets a known child element of Category from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        return false;
+    }
+
+    /**
+     * Sets a known attribute of Category from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'scheme') && (empty($xml->namespaceURI))) {
+            $this->scheme = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'term') && (empty($xml->namespaceURI))) {
+            $this->term = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'label') && (empty($xml->namespaceURI))) {
+            $this->label = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Category to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->scheme) {
+            $writer->writeAttribute('scheme', $this->scheme);
+        }
+        if ($this->term) {
+            $writer->writeAttribute('term', $this->term);
+        }
+        if ($this->label) {
+            $writer->writeAttribute('label', $this->label);
+        }
+        parent::writeXmlContents($writer);
     }
 }

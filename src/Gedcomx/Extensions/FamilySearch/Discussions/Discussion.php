@@ -67,12 +67,23 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Discussion from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -255,27 +266,172 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     {
         parent::initFromArray($o);
         if (isset($o['title'])) {
-                $this->title = $o["title"];
+            $this->title = $o["title"];
         }
         if (isset($o['details'])) {
-                $this->details = $o["details"];
+            $this->details = $o["details"];
         }
         if (isset($o['created'])) {
-                $this->created = $o["created"];
+            $this->created = $o["created"];
         }
         if (isset($o['contributor'])) {
-                $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
         }
         if (isset($o['modified'])) {
-                $this->modified = $o["modified"];
+            $this->modified = $o["modified"];
         }
         if (isset($o['numberOfComments'])) {
-                $this->numberOfComments = $o["numberOfComments"];
+            $this->numberOfComments = $o["numberOfComments"];
         }
         $this->comments = array();
         if (isset($o['comments'])) {
             foreach ($o['comments'] as $i => $x) {
-                    $this->comments[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($x);
+                $this->comments[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Discussion from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->title = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'details') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->details = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'created') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->created = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->contributor = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'modified') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->modified = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'numberOfComments') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->numberOfComments = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'comment') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($xml);
+            if (!isset($this->comments)) {
+                $this->comments = array();
+            }
+            array_push($this->comments, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Discussion from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Discussion to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('fs', 'discussion', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'fs', null, 'http://familysearch.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Discussion to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->title) {
+            $writer->startElementNs('fs', 'title', null);
+            $writer->text($this->title);
+            $writer->endElement();
+        }
+        if ($this->details) {
+            $writer->startElementNs('fs', 'details', null);
+            $writer->text($this->details);
+            $writer->endElement();
+        }
+        if ($this->created) {
+            $writer->startElementNs('fs', 'created', null);
+            $writer->text($this->created);
+            $writer->endElement();
+        }
+        if ($this->contributor) {
+            $writer->startElementNs('fs', 'contributor', null);
+            $this->contributor->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->modified) {
+            $writer->startElementNs('fs', 'modified', null);
+            $writer->text($this->modified);
+            $writer->endElement();
+        }
+        if ($this->numberOfComments) {
+            $writer->startElementNs('fs', 'numberOfComments', null);
+            $writer->text($this->numberOfComments);
+            $writer->endElement();
+        }
+        if ($this->comments) {
+            foreach ($this->comments as $i => $x) {
+                $writer->startElementNs('fs', 'comment', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

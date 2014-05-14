@@ -46,12 +46,23 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a FieldValueDescriptor from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -179,7 +190,81 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
         $this->displayLabels = array();
         if (isset($o['labels'])) {
             foreach ($o['labels'] as $i => $x) {
-                    $this->displayLabels[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->displayLabels[$i] = new \Gedcomx\Common\TextValue($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of FieldValueDescriptor from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'label') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->displayLabels)) {
+                $this->displayLabels = array();
+            }
+            array_push($this->displayLabels, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of FieldValueDescriptor from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'optional') && (empty($xml->namespaceURI))) {
+            $this->optional = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'labelId') && (empty($xml->namespaceURI))) {
+            $this->labelId = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this FieldValueDescriptor to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->optional) {
+            $writer->writeAttribute('optional', $this->optional);
+        }
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        if ($this->labelId) {
+            $writer->writeAttribute('labelId', $this->labelId);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->displayLabels) {
+            foreach ($this->displayLabels as $i => $x) {
+                $writer->startElementNs('gx', 'label', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

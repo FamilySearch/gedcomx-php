@@ -46,12 +46,23 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a NamePart from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -180,13 +191,95 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
             }
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
-                    $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+                $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of NamePart from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Qualifier($xml);
+            if (!isset($this->qualifiers)) {
+                $this->qualifiers = array();
+            }
+            array_push($this->qualifiers, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of NamePart from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'value') && (empty($xml->namespaceURI))) {
+            $this->value = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this NamePart to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->value) {
+            $writer->writeAttribute('value', $this->value);
+        }
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->qualifiers) {
+            foreach ($this->qualifiers as $i => $x) {
+                $writer->startElementNs('gx', 'qualifier', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

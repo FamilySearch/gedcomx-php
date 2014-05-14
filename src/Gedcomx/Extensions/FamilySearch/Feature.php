@@ -46,12 +46,23 @@ class Feature
     /**
      * Constructs a Feature from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -172,16 +183,138 @@ class Feature
     public function initFromArray($o)
     {
         if (isset($o['name'])) {
-                $this->name = $o["name"];
+            $this->name = $o["name"];
         }
         if (isset($o['description'])) {
-                $this->description = $o["description"];
+            $this->description = $o["description"];
         }
         if (isset($o['enabled'])) {
-                $this->enabled = $o["enabled"];
+            $this->enabled = $o["enabled"];
         }
         if (isset($o['activationDate'])) {
-                $this->activationDate = $o["activationDate"];
+            $this->activationDate = $o["activationDate"];
+        }
+    }
+
+    /**
+     * Initializes this Feature from an XML reader.
+     *
+     * @param \XMLReader $xml The reader to use to initialize this object.
+     */
+    public function initFromReader($xml)
+    {
+        $empty = $xml->isEmptyElement;
+
+        if ($xml->hasAttributes) {
+            $moreAttributes = $xml->moveToFirstAttribute();
+            while ($moreAttributes) {
+                if (!$this->setKnownAttribute($xml)) {
+                    //skip unknown attributes...
+                }
+                $moreAttributes = $xml->moveToNextAttribute();
+            }
+        }
+
+        if (!$empty) {
+            $xml->read();
+            while ($xml->nodeType != \XMLReader::END_ELEMENT) {
+                if ($xml->nodeType != \XMLReader::ELEMENT) {
+                    //no-op: skip any insignificant whitespace, comments, etc.
+                }
+                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
+                    }
+                }
+                $xml->read(); //advance the reader.
+            }
+        }
+    }
+
+
+    /**
+     * Sets a known child element of Feature from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = false;
+        if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'description') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->description = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'enabled') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->enabled = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'activationDate') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->activationDate = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Feature from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Feature to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->name) {
+            $writer->startElementNs('fs', 'name', null);
+            $writer->text($this->name);
+            $writer->endElement();
+        }
+        if ($this->description) {
+            $writer->startElementNs('fs', 'description', null);
+            $writer->text($this->description);
+            $writer->endElement();
+        }
+        if ($this->enabled) {
+            $writer->startElementNs('fs', 'enabled', null);
+            $writer->text($this->enabled);
+            $writer->endElement();
+        }
+        if ($this->activationDate) {
+            $writer->startElementNs('fs', 'activationDate', null);
+            $writer->text($this->activationDate);
+            $writer->endElement();
         }
     }
 }

@@ -41,12 +41,23 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
     /**
      * Constructs a PlaceDisplayProperties from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -137,13 +148,90 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
     {
         parent::initFromArray($o);
         if (isset($o['fullName'])) {
-                $this->fullName = $o["fullName"];
+            $this->fullName = $o["fullName"];
         }
         if (isset($o['name'])) {
-                $this->name = $o["name"];
+            $this->name = $o["name"];
         }
         if (isset($o['type'])) {
-                $this->type = $o["type"];
+            $this->type = $o["type"];
+        }
+    }
+
+    /**
+     * Sets a known child element of PlaceDisplayProperties from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'fullName') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->fullName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'type') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->type = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of PlaceDisplayProperties from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this PlaceDisplayProperties to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->fullName) {
+            $writer->startElementNs('gx', 'fullName', null);
+            $writer->text($this->fullName);
+            $writer->endElement();
+        }
+        if ($this->name) {
+            $writer->startElementNs('gx', 'name', null);
+            $writer->text($this->name);
+            $writer->endElement();
+        }
+        if ($this->type) {
+            $writer->startElementNs('gx', 'type', null);
+            $writer->text($this->type);
+            $writer->endElement();
         }
     }
 }

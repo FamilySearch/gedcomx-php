@@ -18,7 +18,7 @@ class DocumentType
     /**
      *  The document is an abstract of a record or document.
      */
-    const ABSTRCT = "http://gedcomx.org/Abstract";
+    const ABSTRACT = "http://gedcomx.org/Abstract";
 
     /**
      *  The document is a translation of a record or document.

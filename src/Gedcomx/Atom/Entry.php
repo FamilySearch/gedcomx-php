@@ -100,14 +100,30 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
     private $updated;
 
     /**
+     * Additional attributes.
+     */
+    private $otherAttributes = array();
+
+    /**
      * Constructs a Entry from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -414,50 +430,266 @@ class Entry extends \Gedcomx\Atom\ExtensibleElement
         $this->authors = array();
         if (isset($o['authors'])) {
             foreach ($o['authors'] as $i => $x) {
-                    $this->authors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->authors[$i] = new \Gedcomx\Atom\Person($x);
             }
         }
         $this->categories = array();
         if (isset($o['categories'])) {
             foreach ($o['categories'] as $i => $x) {
-                    $this->categories[$i] = new \Gedcomx\Atom\Category($x);
+                $this->categories[$i] = new \Gedcomx\Atom\Category($x);
             }
         }
         if (isset($o['confidence'])) {
-                $this->confidence = $o["confidence"];
+            $this->confidence = $o["confidence"];
         }
         if (isset($o['content'])) {
-                $this->content = new \Gedcomx\Atom\Content($o["content"]);
+            $this->content = new \Gedcomx\Atom\Content($o["content"]);
         }
         $this->contributors = array();
         if (isset($o['contributors'])) {
             foreach ($o['contributors'] as $i => $x) {
-                    $this->contributors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->contributors[$i] = new \Gedcomx\Atom\Person($x);
             }
         }
         if (isset($o['id'])) {
-                $this->id = $o["id"];
+            $this->id = $o["id"];
         }
         $this->links = array();
         if (isset($o['links'])) {
             foreach ($o['links'] as $i => $x) {
-                    $this->links[$i] = new \Gedcomx\Links\Link($x);
+                $this->links[$i] = new \Gedcomx\Links\Link($x);
             }
         }
         if (isset($o['published'])) {
-                $this->published = $o["published"];
+            $this->published = $o["published"];
         }
         if (isset($o['rights'])) {
-                $this->rights = $o["rights"];
+            $this->rights = $o["rights"];
         }
         if (isset($o['score'])) {
-                $this->score = $o["score"];
+            $this->score = $o["score"];
         }
         if (isset($o['title'])) {
-                $this->title = $o["title"];
+            $this->title = $o["title"];
         }
         if (isset($o['updated'])) {
-                $this->updated = $o["updated"];
+            $this->updated = $o["updated"];
+        }
+    }
+
+    /**
+     * Sets a known child element of Entry from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'author') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = new \Gedcomx\Atom\Person($xml);
+            if (!isset($this->authors)) {
+                $this->authors = array();
+            }
+            array_push($this->authors, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'category') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = new \Gedcomx\Atom\Category($xml);
+            if (!isset($this->categories)) {
+                $this->categories = array();
+            }
+            array_push($this->categories, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'confidence') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->confidence = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'content') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = new \Gedcomx\Atom\Content($xml);
+            $this->content = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = new \Gedcomx\Atom\Person($xml);
+            if (!isset($this->contributors)) {
+                $this->contributors = array();
+            }
+            array_push($this->contributors, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'id') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->id = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'link') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = new \Gedcomx\Links\Link($xml);
+            if (!isset($this->links)) {
+                $this->links = array();
+            }
+            array_push($this->links, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'published') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->published = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'rights') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->rights = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'score') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->score = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->title = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'updated') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->updated = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Entry from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Entry to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('atom', 'entry', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+            $writer->writeAttributeNs('xmlns', 'atom', null, 'http://www.w3.org/2005/Atom');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Entry to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->authors) {
+            foreach ($this->authors as $i => $x) {
+                $writer->startElementNs('atom', 'author', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->categories) {
+            foreach ($this->categories as $i => $x) {
+                $writer->startElementNs('atom', 'category', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->confidence) {
+            $writer->startElementNs('gx', 'confidence', null);
+            $writer->text($this->confidence);
+            $writer->endElement();
+        }
+        if ($this->content) {
+            $writer->startElementNs('atom', 'content', null);
+            $this->content->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->contributors) {
+            foreach ($this->contributors as $i => $x) {
+                $writer->startElementNs('atom', 'contributor', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->id) {
+            $writer->startElementNs('atom', 'id', null);
+            $writer->text($this->id);
+            $writer->endElement();
+        }
+        if ($this->links) {
+            foreach ($this->links as $i => $x) {
+                $writer->startElementNs('atom', 'link', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->published) {
+            $writer->startElementNs('atom', 'published', null);
+            $writer->text($this->published);
+            $writer->endElement();
+        }
+        if ($this->rights) {
+            $writer->startElementNs('atom', 'rights', null);
+            $writer->text($this->rights);
+            $writer->endElement();
+        }
+        if ($this->score) {
+            $writer->startElementNs('gx', 'score', null);
+            $writer->text($this->score);
+            $writer->endElement();
+        }
+        if ($this->title) {
+            $writer->startElementNs('atom', 'title', null);
+            $writer->text($this->title);
+            $writer->endElement();
+        }
+        if ($this->updated) {
+            $writer->startElementNs('atom', 'updated', null);
+            $writer->text($this->updated);
+            $writer->endElement();
         }
     }
 }

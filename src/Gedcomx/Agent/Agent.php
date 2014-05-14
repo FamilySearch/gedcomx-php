@@ -75,12 +75,23 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Agent from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -271,10 +282,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$i] = $x->toArray();
             }
             $a['identifiers'] = $ab;
         }
@@ -310,52 +318,207 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
         $this->accounts = array();
         if (isset($o['accounts'])) {
             foreach ($o['accounts'] as $i => $x) {
-                    $this->accounts[$i] = new \Gedcomx\Agent\OnlineAccount($x);
+                $this->accounts[$i] = new \Gedcomx\Agent\OnlineAccount($x);
             }
         }
         $this->addresses = array();
         if (isset($o['addresses'])) {
             foreach ($o['addresses'] as $i => $x) {
-                    $this->addresses[$i] = new \Gedcomx\Agent\Address($x);
+                $this->addresses[$i] = new \Gedcomx\Agent\Address($x);
             }
         }
         $this->emails = array();
         if (isset($o['emails'])) {
             foreach ($o['emails'] as $i => $x) {
-                    $this->emails[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->emails[$i] = new \Gedcomx\Common\ResourceReference($x);
             }
         }
         if (isset($o['homepage'])) {
-                $this->homepage = new \Gedcomx\Common\ResourceReference($o["homepage"]);
+            $this->homepage = new \Gedcomx\Common\ResourceReference($o["homepage"]);
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
             foreach ($o['identifiers'] as $i => $x) {
-                if (is_array($x)) {
-                    $this->identifiers[$i] = array();
-                    foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
-                        $this->identifiers[$i][$j]->setValue($y);
-                    }
-                }
-                else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
-                }
+                $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
             }
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                    $this->names[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->names[$i] = new \Gedcomx\Common\TextValue($x);
             }
         }
         if (isset($o['openid'])) {
-                $this->openid = new \Gedcomx\Common\ResourceReference($o["openid"]);
+            $this->openid = new \Gedcomx\Common\ResourceReference($o["openid"]);
         }
         $this->phones = array();
         if (isset($o['phones'])) {
             foreach ($o['phones'] as $i => $x) {
-                    $this->phones[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->phones[$i] = new \Gedcomx\Common\ResourceReference($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Agent from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'account') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Agent\OnlineAccount($xml);
+            if (!isset($this->accounts)) {
+                $this->accounts = array();
+            }
+            array_push($this->accounts, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'address') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Agent\Address($xml);
+            if (!isset($this->addresses)) {
+                $this->addresses = array();
+            }
+            array_push($this->addresses, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'email') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            if (!isset($this->emails)) {
+                $this->emails = array();
+            }
+            array_push($this->emails, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'homepage') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->homepage = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            if (!isset($this->identifiers)) {
+                $this->identifiers = array();
+            }
+            array_push($this->identifiers, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->names)) {
+                $this->names = array();
+            }
+            array_push($this->names, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'openid') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->openid = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'phone') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            if (!isset($this->phones)) {
+                $this->phones = array();
+            }
+            array_push($this->phones, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Agent from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Agent to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'agent', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Agent to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->accounts) {
+            foreach ($this->accounts as $i => $x) {
+                $writer->startElementNs('gx', 'account', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->addresses) {
+            foreach ($this->addresses as $i => $x) {
+                $writer->startElementNs('gx', 'address', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->emails) {
+            foreach ($this->emails as $i => $x) {
+                $writer->startElementNs('gx', 'email', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->homepage) {
+            $writer->startElementNs('gx', 'homepage', null);
+            $this->homepage->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->identifiers) {
+            foreach ($this->identifiers as $i => $x) {
+                $writer->startElementNs('gx', 'identifier', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->names) {
+            foreach ($this->names as $i => $x) {
+                $writer->startElementNs('gx', 'name', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->openid) {
+            $writer->startElementNs('gx', 'openid', null);
+            $this->openid->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->phones) {
+            foreach ($this->phones as $i => $x) {
+                $writer->startElementNs('gx', 'phone', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

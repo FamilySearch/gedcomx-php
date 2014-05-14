@@ -67,12 +67,23 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a Fact from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -265,24 +276,155 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
             $this->type = $o["type"];
         }
         if (isset($o['date'])) {
-                $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
         }
         if (isset($o['place'])) {
-                $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
+            $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
         }
         if (isset($o['value'])) {
-                $this->value = $o["value"];
+            $this->value = $o["value"];
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
-                    $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+                $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                    $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Fact from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $this->date = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'place') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\PlaceReference($xml);
+            $this->place = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'value') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->value = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\Qualifier($xml);
+            if (!isset($this->qualifiers)) {
+                $this->qualifiers = array();
+            }
+            array_push($this->qualifiers, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Records\Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Fact from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'primary') && (empty($xml->namespaceURI))) {
+            $this->primary = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Fact to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'fact', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Fact to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->primary) {
+            $writer->writeAttribute('primary', $this->primary);
+        }
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->date) {
+            $writer->startElementNs('gx', 'date', null);
+            $this->date->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->place) {
+            $writer->startElementNs('gx', 'place', null);
+            $this->place->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->value) {
+            $writer->startElementNs('gx', 'value', null);
+            $writer->text($this->value);
+            $writer->endElement();
+        }
+        if ($this->qualifiers) {
+            foreach ($this->qualifiers as $i => $x) {
+                $writer->startElementNs('gx', 'qualifier', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->fields) {
+            foreach ($this->fields as $i => $x) {
+                $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

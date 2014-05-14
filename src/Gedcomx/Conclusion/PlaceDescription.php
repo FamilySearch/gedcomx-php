@@ -76,12 +76,23 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     /**
      * Constructs a PlaceDescription from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -291,26 +302,152 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                    $this->names[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->names[$i] = new \Gedcomx\Common\TextValue($x);
             }
         }
         if (isset($o['temporalDescription'])) {
-                $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
+            $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
         }
         if (isset($o['latitude'])) {
-                $this->latitude = $o["latitude"];
+            $this->latitude = $o["latitude"];
         }
         if (isset($o['longitude'])) {
-                $this->longitude = $o["longitude"];
+            $this->longitude = $o["longitude"];
         }
         if (isset($o['spatialDescription'])) {
-                $this->spatialDescription = new \Gedcomx\Common\ResourceReference($o["spatialDescription"]);
+            $this->spatialDescription = new \Gedcomx\Common\ResourceReference($o["spatialDescription"]);
         }
         if (isset($o['jurisdiction'])) {
-                $this->jurisdiction = new \Gedcomx\Common\ResourceReference($o["jurisdiction"]);
+            $this->jurisdiction = new \Gedcomx\Common\ResourceReference($o["jurisdiction"]);
         }
         if (isset($o['display'])) {
-                $this->displayExtension = new \Gedcomx\Conclusion\PlaceDisplayProperties($o["display"]);
+            $this->displayExtension = new \Gedcomx\Conclusion\PlaceDisplayProperties($o["display"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of PlaceDescription from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\TextValue($xml);
+            if (!isset($this->names)) {
+                $this->names = array();
+            }
+            array_push($this->names, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'temporalDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $this->temporalDescription = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'latitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->latitude = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'longitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->longitude = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'spatialDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->spatialDescription = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'jurisdiction') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->jurisdiction = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'display') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\PlaceDisplayProperties($xml);
+            $this->displayExtension = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of PlaceDescription from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this PlaceDescription to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->names) {
+            foreach ($this->names as $i => $x) {
+                $writer->startElementNs('gx', 'name', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->temporalDescription) {
+            $writer->startElementNs('gx', 'temporalDescription', null);
+            $this->temporalDescription->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->latitude) {
+            $writer->startElementNs('gx', 'latitude', null);
+            $writer->text($this->latitude);
+            $writer->endElement();
+        }
+        if ($this->longitude) {
+            $writer->startElementNs('gx', 'longitude', null);
+            $writer->text($this->longitude);
+            $writer->endElement();
+        }
+        if ($this->spatialDescription) {
+            $writer->startElementNs('gx', 'spatialDescription', null);
+            $this->spatialDescription->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->jurisdiction) {
+            $writer->startElementNs('gx', 'jurisdiction', null);
+            $this->jurisdiction->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->displayExtension) {
+            $writer->startElementNs('gx', 'display', null);
+            $this->displayExtension->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }

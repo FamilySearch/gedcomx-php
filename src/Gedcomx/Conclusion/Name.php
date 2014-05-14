@@ -46,12 +46,23 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     /**
      * Constructs a Name from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -171,15 +182,114 @@ class Name extends \Gedcomx\Conclusion\Conclusion
             $this->type = $o["type"];
         }
         if (isset($o['preferred'])) {
-                $this->preferred = $o["preferred"];
+            $this->preferred = $o["preferred"];
         }
         if (isset($o['date'])) {
-                $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
         }
         $this->nameForms = array();
         if (isset($o['nameForms'])) {
             foreach ($o['nameForms'] as $i => $x) {
-                    $this->nameForms[$i] = new \Gedcomx\Conclusion\NameForm($x);
+                $this->nameForms[$i] = new \Gedcomx\Conclusion\NameForm($x);
+            }
+        }
+    }
+
+    /**
+     * Sets a known child element of Name from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'preferred') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->preferred = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $this->date = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'nameForm') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\NameForm($xml);
+            if (!isset($this->nameForms)) {
+                $this->nameForms = array();
+            }
+            array_push($this->nameForms, $child);
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Name from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes this Name to an XML writer.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     */
+    public function toXml($writer, $includeNamespaces = true)
+    {
+        $writer->startElementNS('gx', 'name', null);
+        if ($includeNamespaces) {
+            $writer->writeAttributeNs('xmlns', 'gx', null, 'http://gedcomx.org/v1/');
+        }
+        $this->writeXmlContents($writer);
+        $writer->endElement();
+    }
+
+    /**
+     * Writes the contents of this Name to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        if ($this->type) {
+            $writer->writeAttribute('type', $this->type);
+        }
+        parent::writeXmlContents($writer);
+        if ($this->preferred) {
+            $writer->startElementNs('gx', 'preferred', null);
+            $writer->text($this->preferred);
+            $writer->endElement();
+        }
+        if ($this->date) {
+            $writer->startElementNs('gx', 'date', null);
+            $this->date->writeXmlContents($writer);
+            $writer->endElement();
+        }
+        if ($this->nameForms) {
+            foreach ($this->nameForms as $i => $x) {
+                $writer->startElementNs('gx', 'nameForm', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
             }
         }
     }

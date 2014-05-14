@@ -39,12 +39,23 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Constructs a Comment from a (parsed) JSON hash
      *
-     * @param array $o
+     * @param mixed $o Either an array (JSON) or an XMLReader.
      */
     public function __construct($o = null)
     {
-        if ($o) {
+        if (is_array($o)) {
             $this->initFromArray($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
+            }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -135,13 +146,87 @@ class Comment extends \Gedcomx\Links\HypermediaEnabledData
     {
         parent::initFromArray($o);
         if (isset($o['text'])) {
-                $this->text = $o["text"];
+            $this->text = $o["text"];
         }
         if (isset($o['created'])) {
-                $this->created = $o["created"];
+            $this->created = $o["created"];
         }
         if (isset($o['contributor'])) {
-                $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+        }
+    }
+
+    /**
+     * Sets a known child element of Comment from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether a child element was set.
+     */
+    protected function setKnownChildElement($xml) {
+        $happened = parent::setKnownChildElement($xml);
+        if ($happened) {
+          return true;
+        }
+        else if (($xml->localName == 'text') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->text = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'created') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->created = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->contributor = $child;
+            $happened = true;
+        }
+        return $happened;
+    }
+
+    /**
+     * Sets a known attribute of Comment from an XML reader.
+     *
+     * @param \XMLReader $xml The reader.
+     * @return bool Whether an attribute was set.
+     */
+    protected function setKnownAttribute($xml) {
+        if (parent::setKnownAttribute($xml)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Writes the contents of this Comment to an XML writer. The startElement is expected to be already provided.
+     *
+     * @param \XMLWriter $writer The XML writer.
+     */
+    public function writeXmlContents($writer)
+    {
+        parent::writeXmlContents($writer);
+        if ($this->text) {
+            $writer->startElementNs('fs', 'text', null);
+            $writer->text($this->text);
+            $writer->endElement();
+        }
+        if ($this->created) {
+            $writer->startElementNs('fs', 'created', null);
+            $writer->text($this->created);
+            $writer->endElement();
+        }
+        if ($this->contributor) {
+            $writer->startElementNs('fs', 'contributor', null);
+            $this->contributor->writeXmlContents($writer);
+            $writer->endElement();
         }
     }
 }
