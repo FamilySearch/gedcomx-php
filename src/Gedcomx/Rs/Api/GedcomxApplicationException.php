@@ -3,7 +3,7 @@
 
 namespace Gedcomx\Rs\Api;
 
-use GuzzleHttp\Message\Response;
+use Guzzle\Http\Message\Response;
 
 
 class GedcomxApplicationException extends \Exception
@@ -25,7 +25,7 @@ class GedcomxApplicationException extends \Exception
     }
 
     /**
-     * @return \GuzzleHttp\Message\Response
+     * @return \Guzzle\Http\Message\Response
      */
     public function getResponse()
     {

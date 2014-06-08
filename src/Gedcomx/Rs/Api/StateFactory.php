@@ -3,7 +3,7 @@
 
 namespace Gedcomx\Rs\Api;
 
-use GuzzleHttp\Client;
+use Guzzle\Http\Client;
 
 class StateFactory
 {
