@@ -27,7 +27,8 @@ class SerializationTest extends \PHPUnit_Framework_TestCase {
         //print $content;
         $recordSet = new RecordSet($xml);
         $this->assertEquals(31, sizeof($recordSet->getRecords()));
-        $this->assertEquals("#s1", $recordSet->getRecords()[0]->getDescriptionRef());
+        $records = $recordSet->getRecords();
+        $this->assertEquals("#s1", $records[0]->getDescriptionRef());
         //todo: do some more assertions...
     }
 

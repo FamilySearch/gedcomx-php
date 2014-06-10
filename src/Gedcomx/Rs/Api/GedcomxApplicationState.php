@@ -4,10 +4,10 @@
 namespace Gedcomx\Rs\Api;
 
 use Gedcomx\Links\Link;
-use GuzzleHttp\Client;
-use GuzzleHttp\Message\Request;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Post\PostBody;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\EntityEnclosingRequest;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 
@@ -89,7 +89,7 @@ abstract class GedcomxApplicationState
         }
 
         //load link headers
-        $linkHeaders = Response::parseHeader($this->response, 'Link');
+        $linkHeaders = $this->response->getHeaders();
         foreach ($linkHeaders as $linkHeader) {
             if (isset($linkHeader['rel'])) {
                 $link = new Link();
@@ -123,7 +123,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @return \GuzzleHttp\Client
+     * @return \Guzzle\Http\Client
      */
     public function getClient()
     {
@@ -139,7 +139,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @return \GuzzleHttp\Message\Request
+     * @return \Guzzle\Http\Message\Request
      */
     public function getRequest()
     {
@@ -147,7 +147,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @return \GuzzleHttp\Message\Response
+     * @return \Guzzle\Http\Message\Response
      */
     public function getResponse()
     {
@@ -431,12 +431,13 @@ abstract class GedcomxApplicationState
         }
 
         $request = $this->createRequest('POST');
+        /**
+         * @var $request EntityEnclosingRequest
+         */
         $request->setUrl($href);
         $request->setHeader('Accept', 'application/json');
         $request->setHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $postBody = new PostBody();
-        $postBody->replaceFields($formData);
-        $request->setBody($postBody);
+        $request->addPostFields($formData);
         $response = $this->invoke($request);
 
         $statusCode = intval($response->getStatusCode());
