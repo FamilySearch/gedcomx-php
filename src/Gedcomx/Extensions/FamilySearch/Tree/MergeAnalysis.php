@@ -274,7 +274,7 @@ class MergeAnalysis
                 if ($xml->nodeType != \XMLReader::ELEMENT) {
                     //no-op: skip any insignificant whitespace, comments, etc.
                 }
-                else if (!$xml->isEmptyElement && !$this->setKnownChildElement($xml)) {
+                else if (!$this->setKnownChildElement($xml)) {
                     $n = $xml->localName;
                     $ns = $xml->namespaceURI;
                     //skip the unknown element
