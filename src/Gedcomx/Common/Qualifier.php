@@ -191,6 +191,9 @@ class Qualifier
      */
     public function writeXmlContents($writer)
     {
+        if ($this->name) {
+            $writer->writeAttribute("name", $this->name);
+        }
         if ($this->value) {
             $writer->text($this->value);
         }
