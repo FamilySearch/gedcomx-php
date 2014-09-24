@@ -1,7 +1,8 @@
 <?php
 
+namespace Gedcomx\Tests;
 
-abstract class ApiTestCase extends PHPUnit_Framework_TestCase{
+abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
 	protected $apiEndpoint;
 	protected $apiCredentials;

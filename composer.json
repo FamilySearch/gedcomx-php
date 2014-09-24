@@ -22,8 +22,13 @@
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
-        "psr-0": {
-            "Gedcomx": "src/"
+        "psr-4": {
+            "Gedcomx\\": "src/"
         }
-    }
+    },
+	"autoload-dev": {
+		"psr-4": {
+			"Gedcomx\\Tests\\": "tests/"
+		}
+	}
 }

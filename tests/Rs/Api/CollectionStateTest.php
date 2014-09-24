@@ -1,5 +1,9 @@
 <?php
 
+namespace Gedcomx\Tests\Rs\Api;
+
+use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Rs\Api\StateFactory;
 
 class CollectionStateTest extends ApiTestCase{
 
@@ -13,7 +17,6 @@ class CollectionStateTest extends ApiTestCase{
 				$this->apiCredentials->apiKey)
 			->readPersons();
 
-
 		$this->assertNotNull($persons->getPerson());
 	}
 
@@ -26,7 +29,6 @@ class CollectionStateTest extends ApiTestCase{
 				$this->apiCredentials->password,
 				$this->apiCredentials->apiKey)
 			->readPersons();
-
 
 		$this->assertNotNull($persons->getPerson());
 	}

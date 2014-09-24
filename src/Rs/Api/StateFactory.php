@@ -46,6 +46,10 @@ class StateFactory
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 
+	function buildPersonsState( $client, $request, $response, $accessToken ){
+		return new PersonsState( $client, $request, $response, $accessToken, $this );
+	}
+
     function buildPersonState($client, $request, $response, $accessToken)
     {
         return new PersonState($client, $request, $response, $accessToken, $this);
