@@ -465,20 +465,22 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string $method The http method.
+	 * @param array $options An optional list of options to add to the request
      * @return Request
      */
-    protected function createRequest($method)
+    protected function createRequest($method, $options = array() )
     {
-        return $this->client->createRequest($method);
+        return $this->client->createRequest($method, null, $options );
     }
 
     /**
      * @param string $method The http method.
-     * @return Request
+	 * @param array $options an optional list of options to add to the request
+	 * @return Request
      */
-    protected function createAuthenticatedRequest($method)
+    protected function createAuthenticatedRequest($method, $options = array() )
     {
-        $request = $this->createRequest($method);
+        $request = $this->createRequest($method, $options);
         if (isset($this->accessToken)) {
             $request->addHeader('Authorization', "Bearer {$this->accessToken}");
         }
@@ -498,11 +500,12 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string $method The http method.
+	 * @param array $options an optional list of options to add to the request
      * @return Request The request.
      */
-    protected function createAuthenticatedGedcomxRequest($method)
+    protected function createAuthenticatedGedcomxRequest($method, $options = array() )
     {
-        $request = $this->createAuthenticatedRequest($method);
+        $request = $this->createAuthenticatedRequest($method, $options);
         $request->setHeader('Accept', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         $request->setHeader('Content-Type', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         return $request;

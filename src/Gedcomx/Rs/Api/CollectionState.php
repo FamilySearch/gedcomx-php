@@ -64,13 +64,62 @@ class CollectionState extends GedcomxApplicationState
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
-    /**
+	/**
+	 * @param array $options an optional list of parameters to add to the request object
+	 * @return PersonState|null
+	 */
+	public function readPersonForCurrentUser( $options = array() )
+	{
+		$link = $this->getLink(Rel::CURRENT_USER_PERSON);
+		if (!$link) {
+			return null;
+		}
+
+		$href = $link->getHref();
+		if (!$href) {
+			return null;
+		}
+
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
+		$request->setUrl($href);
+		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+	}
+
+	/**
+	 * @param array $options an optional list of parameters to add to the request object
      * @return PersonsState|null
      */
-    public function readPersons()
+    public function readPersons( $options = array() )
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+		$link = $this->getLink(Rel::PERSONS);
+		if (!$link) {
+			return null;
+		}
+
+		$href = $link->getHref();
+		if (!$href) {
+			return null;
+		}
+
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
+		$request->setUrl($href);
+		return $this->stateFactory->buildPersonsState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
+
+	/**
+	 * @param String $uri optional only to gracefully handle hiccups in the code
+	 * @param array $options an optional list of parameter to modify the request object
+	 * @returns PersonState|null
+	 */
+	public function readPerson( $uri = null, $options = array() ){
+		if( $uri == null ){
+			return null;
+		}
+
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $options);
+		$request->setUrl( $uri );
+		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+	}
 
     /**
      * @param Person|Gedcomx $person
@@ -79,26 +128,6 @@ class CollectionState extends GedcomxApplicationState
     public function addPerson($person)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @return PersonState|null
-     */
-    public function readPersonForCurrentUser()
-    {
-        $link = $this->getLink(Rel::CURRENT_USER_PERSON);
-        if (!$link) {
-            return null;
-        }
-
-        $href = $link->getHref();
-        if (!$href) {
-            return null;
-        }
-
-        $request = $this->createAuthenticatedGedcomxRequest("GET");
-        $request->setUrl($href);
-        return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     /**
