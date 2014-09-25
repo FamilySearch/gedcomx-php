@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
-use Gedcomx\Conclusion\Person;
 use RuntimeException;
 
-class PersonsState extends GedcomxApplicationState
+class RelationshipsState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -17,7 +17,7 @@ class PersonsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new PersonsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new RelationshipsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -32,19 +32,19 @@ class PersonsState extends GedcomxApplicationState
     }
 
     /**
-     * @return Person[]|null
+     * @return Relationship[]|null
      */
-    public function getPersons()
+    public function getRelationships()
     {
         if ($this->entity) {
-            return $this->entity->getPersons();
+            return $this->entity->getRelationships();
         }
 
         return null;
     }
 
     /**
-     * @return CollectionState|null
+     * @return CollectionState|null The collection that contains these collections.
      */
     public function readCollection()
     {
@@ -52,10 +52,30 @@ class PersonsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Person|Gedcomx $person
-     * @return PersonState|null
+     * @param Relationship|Gedcomx $relationship
+     * @return RelationshipState|null
      */
-    public function addPerson($person)
+    public function addRelationship($relationship)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param PersonState $person1
+     * @param PersonState $person2
+     * @return RelationshipState|null
+     */
+    public function addSpouseRelationship($person1, $person2)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param PersonState $person1
+     * @param PersonState $person2
+     * @return RelationshipState|null
+     */
+    public function addParentRelationship($person1, $person2)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }

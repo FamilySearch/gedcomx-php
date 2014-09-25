@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Links\Link;
 use Guzzle\Http\Client;
@@ -292,7 +292,11 @@ abstract class GedcomxApplicationState
      */
     public function getLink($rel)
     {
-        return isset($this->links[$rel]) ? $this->links[$rel] : null;
+		if( isset($this->links[$rel]) ){
+			$link = $this->links[$rel];
+			return $link->getHref() ? $link : null;
+		}
+        return null;
     }
 
     /**

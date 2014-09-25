@@ -1,12 +1,11 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use RuntimeException;
 
-class AncestryResultsState extends GedcomxApplicationState
+class RecordsState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -16,7 +15,7 @@ class AncestryResultsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new AncestryResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new RecordsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -28,11 +27,6 @@ class AncestryResultsState extends GedcomxApplicationState
     protected function getScope()
     {
         return $this->getEntity();
-    }
-
-    public function getTree()
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement a tree-walking mechanism.
     }
 
 }

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
 
-class RecordsState extends GedcomxApplicationState
+class RecordState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -15,7 +15,7 @@ class RecordsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new RecordsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new RecordState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Guzzle\Http\Client;
 

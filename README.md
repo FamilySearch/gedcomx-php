@@ -89,8 +89,8 @@ $source1 = $gedcomx->getSourceDescriptions()[0];
 ## Read the Person for the Current User
 
 ```php
-use Gedcomx\Rs\Api\StateFactory;
-use Gedcomx\Rs\Api\PersonState;
+use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Conclusion\Person;
 
 /**
@@ -116,8 +116,8 @@ $person = $currentPerson->getPerson();
 ## Search a Collection for Persons
 
 ```php
-use Gedcomx\Rs\Api\StateFactory;
-use Gedcomx\Rs\Api\PersonSearchResultsState;
+use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\PersonSearchResultsState;
 use Gedcomx\Conclusion\Person;
 
 /**

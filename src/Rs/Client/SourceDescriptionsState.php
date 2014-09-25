@@ -1,14 +1,13 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
-use Gedcomx\Conclusion\Person;
 use Gedcomx\Gedcomx;
 use Gedcomx\Source\SourceDescription;
 use RuntimeException;
 
-class SourceDescriptionState extends GedcomxApplicationState
+class SourceDescriptionsState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -18,7 +17,7 @@ class SourceDescriptionState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new SourceDescriptionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new SourceDescriptionsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -33,29 +32,40 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
-     * @param SourceDescription $description
-     * @return SourceDescriptionState
+     * @return CollectionState|null
      */
-    public function update($description)
+    public function readCollection()
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @return PersonsState
+     * @param SourceDescription|Gedcomx $description
+     * @return SourceDescriptionState|null
      */
-    public function readPersonas()
+    public function addSourceDescription($description)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
-    /**
-     * @param Person|Gedcomx $persona
-     * @return PersonState
-     */
-    public function addPersona($persona)
+    public function readNextPage()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return parent::readNextPage();
+    }
+
+    public function readPreviousPage()
+    {
+        return parent::readPreviousPage();
+    }
+
+    public function readFirstPage()
+    {
+        return parent::readFirstPage();
+    }
+
+    public function readLastPage()
+    {
+        return parent::readLastPage();
     }
 
 }

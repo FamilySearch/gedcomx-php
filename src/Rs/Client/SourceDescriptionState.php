@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Conclusion\Person;
 use Gedcomx\Gedcomx;
 use Gedcomx\Source\SourceDescription;
 use RuntimeException;
 
-class SourceDescriptionsState extends GedcomxApplicationState
+class SourceDescriptionState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -17,7 +18,7 @@ class SourceDescriptionsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new SourceDescriptionsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new SourceDescriptionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -32,40 +33,29 @@ class SourceDescriptionsState extends GedcomxApplicationState
     }
 
     /**
-     * @return CollectionState|null
+     * @param SourceDescription $description
+     * @return SourceDescriptionState
      */
-    public function readCollection()
+    public function update($description)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceDescription|Gedcomx $description
-     * @return SourceDescriptionState|null
+     * @return PersonsState
      */
-    public function addSourceDescription($description)
+    public function readPersonas()
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
-    public function readNextPage()
+    /**
+     * @param Person|Gedcomx $persona
+     * @return PersonState
+     */
+    public function addPersona($persona)
     {
-        return parent::readNextPage();
-    }
-
-    public function readPreviousPage()
-    {
-        return parent::readPreviousPage();
-    }
-
-    public function readFirstPage()
-    {
-        return parent::readFirstPage();
-    }
-
-    public function readLastPage()
-    {
-        return parent::readLastPage();
+        throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
 }

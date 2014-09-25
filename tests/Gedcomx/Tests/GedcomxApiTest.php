@@ -3,7 +3,7 @@
 
 namespace Gedcomx\Tests;
 
-use Gedcomx\Rs\Api\StateFactory;
+use Gedcomx\Rs\Client\StateFactory;
 
 class GedcomxApiTest extends \PHPUnit_Framework_TestCase {
 

@@ -71,17 +71,12 @@ class CollectionState extends GedcomxApplicationState
 	public function readPersonForCurrentUser( $options = array() )
 	{
 		$link = $this->getLink(Rel::CURRENT_USER_PERSON);
-		if (!$link) {
-			return null;
-		}
-
-		$href = $link->getHref();
-		if (!$href) {
+		if (is_null($link)) {
 			return null;
 		}
 
 		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
-		$request->setUrl($href);
+		$request->setUrl($link->getHref());
 		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
 	}
 
@@ -91,19 +86,10 @@ class CollectionState extends GedcomxApplicationState
      */
     public function readPersons( $options = array() )
     {
-		$link = $this->getLink(Rel::PERSONS);
-		if (!$link) {
-			return null;
-		}
-
-		$href = $link->getHref();
-		if (!$href) {
-			return null;
-		}
-
-		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
-		$request->setUrl($href);
-		return $this->stateFactory->buildPersonsState($this->client, $request, $this->client->send($request), $this->accessToken);
+		/*
+		 * Implemented in Java code, but there is no read (GET) for Persons
+		 * only POST
+		 */
     }
 
 	/**

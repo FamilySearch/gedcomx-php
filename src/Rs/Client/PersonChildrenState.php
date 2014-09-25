@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
-use Gedcomx\Gedcomx;
 use RuntimeException;
 
-class PersonParentsState extends GedcomxApplicationState
+class PersonChildrenState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -18,7 +18,7 @@ class PersonParentsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new PersonParentsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new PersonChildrenState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -57,15 +57,15 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Person $parent
+     * @param Person $child
      * @return Relationship|null
      */
-    public function findRelationshipTo($parent)
+    public function findRelationshipTo($child)
     {
         $relationships = $this->getRelationships();
         if ($relationships) {
             foreach ($relationships as $relationship) {
-                if ($relationship->getPerson2() && $relationship->getPerson2()->getResource() && $relationship->getPerson2()->getResource() == '#' . $parent->getId()) {
+                if ($relationship->getPerson2() && $relationship->getPerson2()->getResource() && $relationship->getPerson2()->getResource() == '#' . $child->getId()) {
                     return $relationship;
                 }
             }
@@ -83,10 +83,10 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Person $parent
+     * @param Person $child
      * @return PersonState
      */
-    public function readParent($parent)
+    public function readChild($child)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
@@ -110,11 +110,12 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Person $parent
+     * @param Person $child
      * @return RelationshipState
      */
-    public function removeRelationshipTo($parent)
+    public function removeRelationshipTo($child)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
+
 }

@@ -1,15 +1,13 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
-use Gedcomx\Atom\Entry;
-use Gedcomx\Atom\Feed;
-use Gedcomx\Conclusion\Person;
 use Gedcomx\Gedcomx;
+use Gedcomx\Conclusion\Person;
 use RuntimeException;
 
-class PersonSearchResultsState extends GedcomxApplicationState
+class PersonsState extends GedcomxApplicationState
 {
 
     function __construct($client, $request, $response, $accessToken, $stateFactory)
@@ -19,7 +17,7 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
     protected function reconstruct($request, $response)
     {
-        return new PersonSearchResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+        return new PersonsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     protected function loadEntity()
@@ -30,31 +28,34 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
     protected function getScope()
     {
-        return $this->getResults();
-    }
-
-    /**
-     * @return Feed
-     */
-    public function getResults()
-    {
         return $this->getEntity();
     }
 
     /**
-     * @param Entry $entry
-     * @return PersonState
+     * @return Person[]|null
      */
-    public function readPersonOfEntry($entry)
+    public function getPersons()
+    {
+        if ($this->entity) {
+            return $this->entity->getPersons();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return CollectionState|null
+     */
+    public function readCollection()
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param Person $person
-     * @return PersonState
+     * @param Person|Gedcomx $person
+     * @return PersonState|null
      */
-    public function readPerson($person)
+    public function addPerson($person)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use RuntimeException;

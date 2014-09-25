@@ -1,21 +1,20 @@
 <?php
 
-namespace Gedcomx\Tests\Rs\Api;
+namespace Gedcomx\Tests\Rs\Client;
 
 use Gedcomx\Tests\ApiTestCase;
-use Gedcomx\Rs\Api\StateFactory;
+use Gedcomx\Rs\Client\StateFactory;
 
 class CollectionStateTest extends ApiTestCase{
 
-	public function testCanReadPersons(){
+	public function testSearchForPersons(){
 		$stateFactory = new StateFactory();
 		$persons = $stateFactory
 			->newCollectionState($this->apiEndpoint)
 			->authenticateViaOAuth2Password(
 				$this->apiCredentials->username,
 				$this->apiCredentials->password,
-				$this->apiCredentials->apiKey)
-			->readPersons();
+				$this->apiCredentials->apiKey);
 
 		$this->assertNotNull($persons->getPerson());
 	}
@@ -28,7 +27,7 @@ class CollectionStateTest extends ApiTestCase{
 				$this->apiCredentials->username,
 				$this->apiCredentials->password,
 				$this->apiCredentials->apiKey)
-			->readPersons();
+			->readPerson('');
 
 		$this->assertNotNull($persons->getPerson());
 	}
