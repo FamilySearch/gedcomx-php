@@ -7,7 +7,7 @@
 	class HeaderParameter
 	{
 		const LANG = "Accept-Language";
-		const LOCALE = LANG;
+		const LOCALE = self::LANG;
 		const IF_NONE_MATCH = "If-None-Match";
 		const IF_MODIFIED_SINCE = "If-Modified-Since";
 		const IF_MATCH = "If-Match";
