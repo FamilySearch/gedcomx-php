@@ -1,9 +1,10 @@
 <?php
 
-
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Links\Link;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -374,7 +375,15 @@ abstract class GedcomxApplicationState
         return $this->authenticateViaOAuth2($formData);
     }
 
-    /**
+	public function getETag() {
+		return $this->response->getHeader(HeaderParameter::ETag);
+	}
+
+	public function getLastModified() {
+		return $this->response->getHeader(HeaderParameter::LAST_MODIFIED);
+	}
+
+	/**
      * @param string $rel The rel
      * @return GedcomxApplicationState The requested page.
      */
