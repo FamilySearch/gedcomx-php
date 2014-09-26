@@ -60,4 +60,8 @@ class StateFactory
         return new AncestryResultsState($client, $request, $response, $accessToken, $this);
     }
 
+	public function buildPersonSearchResultsState($client, $request, $response, $accessToken){
+		return new PersonSearchResultsState( $client, $request, $response, $accessToken, $this );
+	}
+
 }

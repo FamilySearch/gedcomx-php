@@ -294,8 +294,7 @@ abstract class GedcomxApplicationState
     public function getLink($rel)
     {
 		if( isset($this->links[$rel]) ){
-			$link = $this->links[$rel];
-			return $link->getHref() ? $link : null;
+			return $this->links[$rel];
 		}
         return null;
     }

@@ -1,13 +1,15 @@
 <?php
 
 
-namespace Gedcomx\Rs\Api;
+namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Records\Collection;
+use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
+use Rize\UriTemplate;
 use RuntimeException;
 
 class CollectionState extends GedcomxApplicationState
@@ -71,13 +73,13 @@ class CollectionState extends GedcomxApplicationState
 	public function readPersonForCurrentUser( $options = array() )
 	{
 		$link = $this->getLink(Rel::CURRENT_USER_PERSON);
-		if (is_null($link)) {
+		if ($link !== null) {
 			return null;
 		}
 
 		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
 		$request->setUrl($link->getHref());
-		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken );
 	}
 
 	/**
@@ -94,17 +96,49 @@ class CollectionState extends GedcomxApplicationState
 
 	/**
 	 * @param String $uri optional only to gracefully handle hiccups in the code
-	 * @param array $options an optional list of parameter to modify the request object
+	 * @param StateTransitionOption $opt,... 0 or more StateTransitionOption objects are allowed
 	 * @returns PersonState|null
 	 */
-	public function readPerson( $uri = null, $options = array() ){
+	public function readPerson( $uri = null, StateTransitionOption $opt = null ){
 		if( $uri == null ){
 			return null;
 		}
 
-		$request = $this->createAuthenticatedGedcomxRequest("GET", $options);
+		$transitionOptions = $this->getTransitionOptions( func_get_args() );
+
+		$request = $this->createAuthenticatedGedcomxRequest("GET");
 		$request->setUrl( $uri );
 		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+	}
+
+	/**
+	 * @param GedcomxSearchQuery|string $query
+	 * @param StateTransitionOption $opt,... 0 or more StateTransitionOption objects are allowed
+	 * @return PersonSearchResultsState|null
+	 */
+	public function searchForPersons($query, $opt = null )
+	{
+		$searchLink = $this->getLink(Rel::PERSON_SEARCH);
+		if ($searchLink === null || $searchLink->getTemplate() === null) {
+			return null;
+		}
+        if( $query instanceof GedcomxPersonSearchQueryBuilder ){
+            $queryString = $query->build();
+        } else {
+            $queryString = $query;
+        }
+
+        $template = new UriTemplate();
+        $uri = $template->expand($searchLink->getTemplate(), array(
+            "q" => $queryString,
+            "access_token" => $this->accessToken
+        ));
+
+		$transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest("GET");
+        $request->setUrl( $uri );
+
+		return $this->stateFactory->buildPersonSearchResultsState( $this->client, $request, $this->client->send($request), $this->accessToken );
 	}
 
     /**
@@ -112,15 +146,6 @@ class CollectionState extends GedcomxApplicationState
      * @return PersonState|null
      */
     public function addPerson($person)
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param GedcomxSearchQuery|string $query
-     * @return PersonSearchResultsState|null
-     */
-    public function searchForPersons($query)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
@@ -220,4 +245,10 @@ class CollectionState extends GedcomxApplicationState
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
+
+	private function getTransitionOptions( $args )
+	{
+		array_shift($args);
+		return $args;
+	}
 }
