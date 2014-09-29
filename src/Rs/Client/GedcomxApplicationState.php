@@ -9,6 +9,7 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
+use Guzzle\Http\QueryString;
 use RuntimeException;
 
 
@@ -90,9 +91,9 @@ abstract class GedcomxApplicationState
         }
 
         //load link headers
-        $linkHeaders = $this->response->getHeaders();
+        $linkHeaders = $this->getLinkHeaders($this->response->getHeaders());
         foreach ($linkHeaders as $linkHeader) {
-            if (isset($linkHeader['rel'])) {
+/*          if (isset($linkHeader['rel'])) {
                 $link = new Link();
                 $link->setRel($linkHeader['rel']);
                 $href = $linkHeader[0];
@@ -108,6 +109,7 @@ abstract class GedcomxApplicationState
                 $link->setType($linkHeader['type']);
                 $links[$linkHeader['rel']] = $link;
             }
+*/
         }
 
         //load links from the entity.
@@ -382,6 +384,22 @@ abstract class GedcomxApplicationState
 		return $this->response->getHeader(HeaderParameter::LAST_MODIFIED);
 	}
 
+    /**
+     * @param $headers array of headers returned with the response
+     *
+     * @return array array of link options if Link header found
+     * @throws Exception
+     */
+    private function getLinkHeaders($headers)
+    {
+        foreach( $headers as $h ){
+            if( $h->getName() == "Link" ){
+                throw new Exception("Link header found.");
+            }
+        }
+        return array();
+    }
+
 	/**
      * @param string $rel The rel
      * @return GedcomxApplicationState The requested page.
@@ -442,11 +460,10 @@ abstract class GedcomxApplicationState
             throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
         }
 
-        $request = $this->createRequest('POST');
+        $request = $this->createRequest('POST', $href);
         /**
          * @var $request EntityEnclosingRequest
          */
-        $request->setUrl($href);
         $request->setHeader('Accept', 'application/json');
         $request->setHeader('Content-Type', 'application/x-www-form-urlencoded');
         $request->addPostFields($formData);
@@ -476,23 +493,27 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param string $method The http method.
-	 * @param array $options An optional list of options to add to the request
-     * @return Request
+     * @param string       $method  The http method.
+     * @param array|string $uri     an array with a URL template or a string
+     * @param array        $options an optional list of options to add to the request
+     *
+     * @return Request The request.
      */
-    protected function createRequest($method, $options = array() )
+    protected function createRequest($method, $uri, $options = array() )
     {
-        return $this->client->createRequest($method, null, $options );
+        return $this->client->createRequest($method, $uri, $options );
     }
 
     /**
-     * @param string $method The http method.
-	 * @param array $options an optional list of options to add to the request
-	 * @return Request
+     * @param string       $method  The http method.
+     * @param array|string $uri     an array with a URL template or a string
+     * @param array        $options an optional list of options to add to the request
+     *
+     * @return Request The request.
      */
-    protected function createAuthenticatedRequest($method, $options = array() )
+    protected function createAuthenticatedRequest($method, $uri, $options = array() )
     {
-        $request = $this->createRequest($method, $options);
+        $request = $this->createRequest($method, $uri, $options);
         if (isset($this->accessToken)) {
             $request->addHeader('Authorization', "Bearer {$this->accessToken}");
         }
@@ -500,24 +521,29 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param string $method The http method.
+     * @param string       $method  The http method.
+     * @param array|string $uri     an array with a URL template or a string
+     * @param array        $options an optional list of options to add to the request
+     *
      * @return Request The request.
      */
-    protected function createAuthenticatedFeedRequest($method)
+    protected function createAuthenticatedFeedRequest($method, $uri, $options)
     {
-        $request = $this->createAuthenticatedRequest($method);
+        $request = $this->createAuthenticatedRequest($method, $uri, $options);
         $request->setHeader('Accept', GedcomxApplicationState::ATOM_MEDIA_TYPE);
         return $request;
     }
 
     /**
-     * @param string $method The http method.
-	 * @param array $options an optional list of options to add to the request
+     * @param string       $method  The http method.
+     * @param array|string $uri     an array with a URL template or a string
+     * @param array        $options an optional list of options to add to the request
+     *
      * @return Request The request.
      */
-    protected function createAuthenticatedGedcomxRequest($method, $options = array() )
+    protected function createAuthenticatedGedcomxRequest($method, $uri, $options = array() )
     {
-        $request = $this->createAuthenticatedRequest($method, $options);
+        $request = $this->createAuthenticatedRequest($method, $uri, $options);
         $request->setHeader('Accept', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         $request->setHeader('Content-Type', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         return $request;
@@ -531,4 +557,11 @@ abstract class GedcomxApplicationState
     {
         return $this->client->send($request);
     }
+
+    protected function getTransitionOptions( $args )
+    {
+        array_shift($args);
+        return $args;
+    }
+
 }

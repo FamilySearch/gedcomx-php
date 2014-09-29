@@ -21,20 +21,23 @@ class CollectionStateTest extends ApiTestCase{
 				$this->apiCredentials->password,
 				$this->apiCredentials->apiKey)
 			->searchForPersons($query);
+        $results = $searchResults->getResults();
 
-		$this->assertNotNull($searchResults->getPerson());
+		$this->assertNotNull($searchResults);
 	}
 
 	public function testSearchForPersonsWithQueryString(){
 		$stateFactory = new StateFactory();
-		$persons = $stateFactory
+        $query = "givenName:Richard Henry~ surname:Washington~";
+        $searchResults = $stateFactory
 			->newCollectionState($this->apiEndpoint)
 			->authenticateViaOAuth2Password(
 				$this->apiCredentials->username,
 				$this->apiCredentials->password,
-				$this->apiCredentials->apiKey);
+				$this->apiCredentials->apiKey)
+            ->searchForPersons($query);
 
-		$this->assertNotNull($persons->getPerson());
+		$this->assertNotNull($searchResults);
 	}
 
 	public function testCanReadPerson(){

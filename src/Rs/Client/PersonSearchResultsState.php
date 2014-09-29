@@ -7,7 +7,6 @@ use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Gedcomx;
-use RuntimeException;
 
 class PersonSearchResultsState extends GedcomxApplicationState
 {
@@ -42,21 +41,44 @@ class PersonSearchResultsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Entry $entry
-     * @return PersonState
+     * @param Entry $person
+     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     *
+     * @return PersonState|null
      */
-    public function readPersonOfEntry($entry)
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+    public function readPerson( Entry $person, $transitionOption = null ) {
+        $link = $person->getLink(Rel::PERSON);
+        if( $link === null ){
+            $link = $person->getLink(Rel::SELF);
+        }
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
+        return $this->stateFactory->newPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     /**
-     * @param Person $person
-     * @return PersonState
+     * @param Entry $person
+     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     *
+     * @return RecordState|null
      */
-    public function readPerson($person)
+    public function readRecord( Entry $person, StateTransitionOption $transitionOption = null )
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $person->getLink(Rel::RECORD);
+        if( $link === null ){
+            $link = $person->getLink(Rel::SELF);
+        }
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
+        return $this->stateFactory->newRecordState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     public function readNextPage()

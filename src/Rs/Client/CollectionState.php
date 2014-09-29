@@ -77,8 +77,7 @@ class CollectionState extends GedcomxApplicationState
 			return null;
 		}
 
-		$request = $this->createAuthenticatedGedcomxRequest("GET", $options );
-		$request->setUrl($link->getHref());
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $options );
 		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken );
 	}
 
@@ -106,15 +105,15 @@ class CollectionState extends GedcomxApplicationState
 
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
 
-		$request = $this->createAuthenticatedGedcomxRequest("GET");
-		$request->setUrl( $uri );
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $uri, $transitionOptions);
 		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
 	}
 
 	/**
-	 * @param GedcomxSearchQuery|string $query
-	 * @param StateTransitionOption $opt,... 0 or more StateTransitionOption objects are allowed
-	 * @return PersonSearchResultsState|null
+     * @param GedcomxSearchQuery|string $query
+     * @param StateTransitionOption     $opt,... 0 or more StateTransitionOption objects are allowed
+     *
+     * @return PersonSearchResultsState|null
 	 */
 	public function searchForPersons($query, $opt = null )
 	{
@@ -128,15 +127,16 @@ class CollectionState extends GedcomxApplicationState
             $queryString = $query;
         }
 
-        $template = new UriTemplate();
-        $uri = $template->expand($searchLink->getTemplate(), array(
-            "q" => $queryString,
-            "access_token" => $this->accessToken
-        ));
+        $uri = array(
+            $searchLink->getTemplate(),
+            array(
+                "q" => $queryString,
+                "access_token" => $this->accessToken
+            )
+        );
 
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
-        $request = $this->createAuthenticatedGedcomxRequest("GET");
-        $request->setUrl( $uri );
+        $request = $this->createAuthenticatedFeedRequest("GET", $uri, $transitionOptions);
 
 		return $this->stateFactory->buildPersonSearchResultsState( $this->client, $request, $this->client->send($request), $this->accessToken );
 	}
@@ -245,10 +245,4 @@ class CollectionState extends GedcomxApplicationState
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
-
-	private function getTransitionOptions( $args )
-	{
-		array_shift($args);
-		return $args;
-	}
 }
