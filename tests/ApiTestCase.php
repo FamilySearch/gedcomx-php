@@ -2,10 +2,13 @@
 
 namespace Gedcomx\Tests;
 
+use Gedcomx\Rs\Client\StateFactory;
+
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
 	protected $apiEndpoint;
 	protected $apiCredentials;
+    protected $collectionState;
 
 	public function setUp(){
 		$this->apiEndpoint = 'https://sandbox.familysearch.org/platform/collections/tree';
@@ -14,5 +17,12 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 			'password' => "1234sdkpass",
 			'apiKey' => "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
 		);
+        $stateFactory = new StateFactory();
+        $this->collectionState = $stateFactory
+            ->newCollectionState($this->apiEndpoint)
+            ->authenticateViaOAuth2Password(
+                $this->apiCredentials->username,
+                $this->apiCredentials->password,
+                $this->apiCredentials->apiKey);
 	}
 } 

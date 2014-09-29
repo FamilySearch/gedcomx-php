@@ -9,10 +9,12 @@
 
 namespace Gedcomx\Conclusion;
 
+use Gedcomx\Conclusion\Subject;
+
 /**
  * A person.
  */
-class Person extends \Gedcomx\Conclusion\Subject
+class Person extends Subject implements HasFacts, HasFields
 {
 
     /**
@@ -95,7 +97,7 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
 
     /**
-     * Whether this person is the &quot;principal&quot; person extracted from the record.
+     * Whether this person is the 'principal' person extracted from the record.
      *
      * @return boolean
      */
@@ -105,7 +107,7 @@ class Person extends \Gedcomx\Conclusion\Subject
     }
 
     /**
-     * Whether this person is the &quot;principal&quot; person extracted from the record.
+     * Whether this person is the 'principal' person extracted from the record.
      *
      * @param boolean $principal
      */

@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
 use Gedcomx\Conclusion\Person;
-use Gedcomx\Gedcomx;
 
 class PersonSearchResultsState extends GedcomxApplicationState
 {
@@ -24,7 +22,7 @@ class PersonSearchResultsState extends GedcomxApplicationState
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
-        return new Gedcomx($json);
+        return new Feed($json);
     }
 
     protected function getScope()
@@ -40,43 +38,46 @@ class PersonSearchResultsState extends GedcomxApplicationState
         return $this->getEntity();
     }
 
+
+
     /**
-     * @param Entry $person
+     * @param Person                $person               Gedcomx\Conclusion\Person object
      * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
      *
      * @return PersonState|null
      */
-    public function readPerson( Entry $person, $transitionOption = null ) {
+    public function readPerson(Person $person, $transitionOption = null)
+    {
         $link = $person->getLink(Rel::PERSON);
-        if( $link === null ){
+        if ($link === null) {
             $link = $person->getLink(Rel::SELF);
         }
         if ($link === null || $link->getHref() === null) {
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
         return $this->stateFactory->newPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     /**
-     * @param Entry $person
+     * @param Entry $person Gedcomx\Atom\Entry
      * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
      *
      * @return RecordState|null
      */
-    public function readRecord( Entry $person, StateTransitionOption $transitionOption = null )
+    public function readRecord(Entry $person, StateTransitionOption $transitionOption = null)
     {
         $link = $person->getLink(Rel::RECORD);
-        if( $link === null ){
+        if ($link === null) {
             $link = $person->getLink(Rel::SELF);
         }
         if ($link === null || $link->getHref() === null) {
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
         return $this->stateFactory->newRecordState($this->client, $request, $this->client->send($request), $this->accessToken);
     }

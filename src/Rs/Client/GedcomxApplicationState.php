@@ -9,7 +9,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
-use Guzzle\Http\QueryString;
 use RuntimeException;
 
 
@@ -511,7 +510,7 @@ abstract class GedcomxApplicationState
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedRequest($method, $uri, $options = array() )
+    protected function createAuthenticatedRequest($method, $uri = null, $options = array() )
     {
         $request = $this->createRequest($method, $uri, $options);
         if (isset($this->accessToken)) {

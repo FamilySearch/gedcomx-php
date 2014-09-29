@@ -9,7 +9,6 @@ use Gedcomx\Conclusion\Person;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
-use Rize\UriTemplate;
 use RuntimeException;
 
 class CollectionState extends GedcomxApplicationState
@@ -93,15 +92,29 @@ class CollectionState extends GedcomxApplicationState
 		 */
     }
 
-	/**
-	 * @param String $uri optional only to gracefully handle hiccups in the code
-	 * @param StateTransitionOption $opt,... 0 or more StateTransitionOption objects are allowed
+    /**
+	 * @param string                $personId The XXXX-XXX person identifier
+	 * @param StateTransitionOption $opt,...  0 or more StateTransitionOption objects are allowed
+	 *
 	 * @returns PersonState|null
-	 */
-	public function readPerson( $uri = null, StateTransitionOption $opt = null ){
-		if( $uri == null ){
+     */
+	public function readPerson( $personId, StateTransitionOption $opt = null ){
+		if( $personId == null ){
 			return null;
 		}
+
+        $personLink = $this->getLink(Rel::PERSON);
+        if ($personLink === null || $personLink->getTemplate() === null) {
+            return null;
+        }
+
+        $uri = array(
+            $personLink->getTemplate(),
+            array(
+                "pid" => $personId,
+                "access_token" => $this->accessToken
+            )
+        );
 
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
 
@@ -147,6 +160,14 @@ class CollectionState extends GedcomxApplicationState
      */
     public function addPerson($person)
     {
+
+        if( $person instanceof Person ){
+            $entity = new Gedcomx();
+            $entity.addPerson($person);
+        } else {
+            $entity = $person;
+        }
+
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
