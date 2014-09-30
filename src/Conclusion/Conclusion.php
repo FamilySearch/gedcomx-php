@@ -9,10 +9,16 @@
 
 namespace Gedcomx\Conclusion;
 
+use Gedcomx\Common\HasNotes;
+use Gedcomx\Common\Attributable;
+use Gedcomx\Common\Attribution;
+use Gedcomx\Links\HypermediaEnabledData;
+use Gedcomx\Source\ReferencesSources;
+
 /**
  * A genealogical conclusion.
  */
-class Conclusion extends \Gedcomx\Links\HypermediaEnabledData
+class Conclusion extends HypermediaEnabledData implements Attributable, ReferencesSources, HasNotes
 {
 
     /**
@@ -133,7 +139,7 @@ class Conclusion extends \Gedcomx\Links\HypermediaEnabledData
      *
      * @param \Gedcomx\Common\Attribution $attribution
      */
-    public function setAttribution($attribution)
+    public function setAttribution( Attribution $attribution)
     {
         $this->attribution = $attribution;
     }

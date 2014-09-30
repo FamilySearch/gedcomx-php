@@ -38,15 +38,13 @@ class PersonSearchResultsState extends GedcomxApplicationState
         return $this->getEntity();
     }
 
-
-
     /**
-     * @param Person                $person               Gedcomx\Conclusion\Person object
+     * @param Person                $person               Gedcomx\Conclusion\Person
      * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
      *
      * @return PersonState|null
      */
-    public function readPerson(Person $person, $transitionOption = null)
+    public function readPersonFromConclusion( Person $person, StateTransitionOption $transitionOption = null)
     {
         $link = $person->getLink(Rel::PERSON);
         if ($link === null) {
@@ -58,7 +56,28 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
-        return $this->stateFactory->newPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+        return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+    }
+
+    /**
+     * @param Entry                 $person               Gedcomx\Atom\Entry
+     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     *
+     * @return PersonState|null
+     */
+    public function readPersonFromEntry( Entry $person, StateTransitionOption $transitionOption = null)
+    {
+        $link = $person->getLink(Rel::PERSON);
+        if ($link === null) {
+            $link = $person->getLink(Rel::SELF);
+        }
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
+        return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     /**
@@ -79,7 +98,7 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
-        return $this->stateFactory->newRecordState($this->client, $request, $this->client->send($request), $this->accessToken);
+        return $this->stateFactory->buildRecordState($this->client, $request, $this->client->send($request), $this->accessToken);
     }
 
     public function readNextPage()

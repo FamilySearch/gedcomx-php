@@ -10,6 +10,7 @@
 namespace Gedcomx\Conclusion;
 
 use Gedcomx\Conclusion\Subject;
+use Gedcomx\Records\HasFields;
 
 /**
  * A person.

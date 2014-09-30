@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Atom;
+use Gedcomx\Links\Link;
 
 /**
  * <p>The Atom data formats provide a format for web content and metadata syndication. The XML media type is defined by
@@ -69,7 +70,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * a reference from a feed to a Web resource.
      *
-     * @var \Gedcomx\Links\Link[]
+     * @var Link[]
      */
     private $links;
 
@@ -281,7 +282,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * a reference from a feed to a Web resource.
      *
-     * @return \Gedcomx\Links\Link[]
+     * @return Link[]
      */
     public function getLinks()
     {
@@ -291,7 +292,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * a reference from a feed to a Web resource.
      *
-     * @param \Gedcomx\Links\Link[] $links
+     * @param Link[] $links
      */
     public function setLinks($links)
     {
@@ -545,6 +546,9 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
         $this->links = array();
         if (isset($o['links'])) {
             foreach ($o['links'] as $i => $x) {
+                if( ! array_key_exists("rel", $x) ){
+                    $x["rel"] = $i;
+                }
                 $this->links[$i] = new \Gedcomx\Links\Link($x);
             }
         }
@@ -642,7 +646,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
             $happened = true;
         }
         else if (($xml->localName == 'link') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Links\Link($xml);
+            $child = new Link($xml);
             if (!isset($this->links)) {
                 $this->links = array();
             }

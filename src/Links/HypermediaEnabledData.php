@@ -9,10 +9,12 @@
 
 namespace Gedcomx\Links;
 
+use Gedcomx\Common\ExtensibleData;
+
 /**
  * An data type that supports hypermedia controls (i.e. links).
  */
-class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
+class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
 {
 
     /**
@@ -26,6 +28,8 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
      * Constructs a HypermediaEnabledData from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -94,6 +98,9 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
         $this->links = array();
         if (isset($o['links'])) {
             foreach ($o['links'] as $i => $x) {
+                if( ! array_key_exists("rel", $x) ){
+                    $x["rel"] = $i;
+                }
                 $this->links[$i] = new \Gedcomx\Links\Link($x);
             }
         }
@@ -150,5 +157,76 @@ class HypermediaEnabledData extends \Gedcomx\Common\ExtensibleData
                 $writer->endElement();
             }
         }
+    }
+
+    /**
+     * @param Link $link
+     */
+    public function addLink(Link $link)
+    {
+        $this->links[] =  $link;
+    }
+
+    /**
+     * Add a hypermedia link relationship
+     *
+     * @param string $rel  see Gedcom\Rs\Client\Rel
+     * @param string $href The target URI.
+     */
+    public function addLinkRelation($rel, $href)
+    {
+        $this->links[] = new Link( array(
+            "rel" => $rel,
+            "href" => $href
+        ));
+    }
+
+    /**
+     * Add a templated link.
+     *
+     * @param string $rel      see Gedcom\Rs\Client\Rel
+     * @param string $template The link template.
+     */
+    public function addTemplatedLink($rel, $template)
+    {
+        $this->links[] = new Link( array(
+            "rel" => $rel,
+            "template" => $template
+        ));
+    }
+
+    /**
+     * Get a link by its rel.
+     *
+     * @param string $rel see Gedcom\Rs\Client\Rel
+     *
+     * @return Link
+     */
+    public function getLink($rel)
+    {
+        foreach ( $this->links as $idx => $link ) {
+            if ( $link->getRel() == $rel ) {
+                return $link;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get a list of links by rel.
+     *
+     * @param string $rel see Gedcom\Rs\Client\Rel
+     *
+     * @return Link[]
+     */
+    public function getLinksByRel($rel)
+    {
+        $links = array();
+        foreach ( $this->links as $link ) {
+            if ($link->getRel() == $rel) {
+                $links[] = $rel;
+            }
+        }
+        return $links;
     }
 }

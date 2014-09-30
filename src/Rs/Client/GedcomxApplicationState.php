@@ -405,7 +405,16 @@ abstract class GedcomxApplicationState
      */
     protected function readPage($rel)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink($rel);
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
+        $request->setHeader("Accept", $this->request->getHeader("Accept"));
+        $request->setHeader("Content-Type", $this->request->getHeader("Content-Type"));
+        $class = get_class($this);
+        return new $class( $this->client, $request, $this->client->send($request), $this->accessToken, $this->stateFactory );
     }
 
     /**

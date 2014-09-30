@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Gedcomx\Rs\Client;
+namespace Gedcomx\Rs\Client\Exception;
 
 use Guzzle\Http\Message\Response;
 
