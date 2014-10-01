@@ -9,10 +9,13 @@
 
 namespace Gedcomx\Conclusion;
 
+use Gedcomx\Common\Qualifier;
+use Gedcomx\Records\Field;
+
 /**
  * A conclusion about a fact applicable to a person or relationship.
  */
-class Fact extends \Gedcomx\Conclusion\Conclusion
+class Fact extends Conclusion
 {
 
     /**
@@ -32,14 +35,14 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The date of applicability of this fact.
      *
-     * @var \Gedcomx\Conclusion\DateInfo
+     * @var DateInfo
      */
     private $date;
 
     /**
      * The place of applicability of this fact.
      *
-     * @var \Gedcomx\Conclusion\PlaceReference
+     * @var PlaceReference
      */
     private $place;
 
@@ -53,14 +56,14 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The qualifiers associated with this fact.
      *
-     * @var \Gedcomx\Common\Qualifier[]
+     * @var Qualifier[]
      */
     private $qualifiers;
 
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
@@ -68,6 +71,8 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
      * Constructs a Fact from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -128,7 +133,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The date of applicability of this fact.
      *
-     * @return \Gedcomx\Conclusion\DateInfo
+     * @return DateInfo
      */
     public function getDate()
     {
@@ -138,7 +143,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The date of applicability of this fact.
      *
-     * @param \Gedcomx\Conclusion\DateInfo $date
+     * @param DateInfo $date
      */
     public function setDate($date)
     {
@@ -147,7 +152,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The place of applicability of this fact.
      *
-     * @return \Gedcomx\Conclusion\PlaceReference
+     * @return PlaceReference
      */
     public function getPlace()
     {
@@ -157,7 +162,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The place of applicability of this fact.
      *
-     * @param \Gedcomx\Conclusion\PlaceReference $place
+     * @param PlaceReference $place
      */
     public function setPlace($place)
     {
@@ -185,7 +190,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The qualifiers associated with this fact.
      *
-     * @return \Gedcomx\Common\Qualifier[]
+     * @return Qualifier[]
      */
     public function getQualifiers()
     {
@@ -195,7 +200,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The qualifiers associated with this fact.
      *
-     * @param \Gedcomx\Common\Qualifier[] $qualifiers
+     * @param Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -204,7 +209,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -214,7 +219,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -276,10 +281,10 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
             $this->type = $o["type"];
         }
         if (isset($o['date'])) {
-            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = $o['date'] instanceof DateInfo ? $o['date'] : new DateInfo($o["date"]);
         }
         if (isset($o['place'])) {
-            $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
+            $this->place = $o['place'] instanceof PlaceReference ? $o['place'] : new PlaceReference($o["place"]);
         }
         if (isset($o['value'])) {
             $this->value = $o["value"];
@@ -287,13 +292,13 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
-                $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+                $this->qualifiers[$i] = $x instanceof Qualifier ? $x : new Qualifier($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = $x instanceof Field ? $x : new Field($x);
             }
         }
     }
@@ -310,12 +315,12 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
           return true;
         }
         else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $child = new DateInfo($xml);
             $this->date = $child;
             $happened = true;
         }
         else if (($xml->localName == 'place') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\PlaceReference($xml);
+            $child = new PlaceReference($xml);
             $this->place = $child;
             $happened = true;
         }
@@ -328,7 +333,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
             $happened = true;
         }
         else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Qualifier($xml);
+            $child = new Qualifier($xml);
             if (!isset($this->qualifiers)) {
                 $this->qualifiers = array();
             }
@@ -336,7 +341,7 @@ class Fact extends \Gedcomx\Conclusion\Conclusion
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

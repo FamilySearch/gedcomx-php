@@ -191,13 +191,13 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
         $this->parts = array();
         if (isset($o['parts'])) {
             foreach ($o['parts'] as $i => $x) {
-                $this->parts[$i] = new \Gedcomx\Conclusion\NamePart($x);
+                $this->parts[$i] = $x instanceof NamePart ? $x : new NamePart($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = $x instanceof Field ? $x : new Field($x);
             }
         }
     }

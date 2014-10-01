@@ -185,12 +185,12 @@ class Name extends \Gedcomx\Conclusion\Conclusion
             $this->preferred = $o["preferred"];
         }
         if (isset($o['date'])) {
-            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = $o["date"] instanceof DateInfo ? $o["date"] : new DateInfo($o["date"]);
         }
         $this->nameForms = array();
         if (isset($o['nameForms'])) {
             foreach ($o['nameForms'] as $i => $x) {
-                $this->nameForms[$i] = new \Gedcomx\Conclusion\NameForm($x);
+                $this->nameForms[$i] = $x instanceof NameForm ? $x : new NameForm($x);
             }
         }
     }

@@ -60,25 +60,4 @@ class PersonsState extends GedcomxApplicationState
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
-    public function readNextPage()
-    {
-        return parent::readNextPage();
-    }
-
-    public function readPreviousPage()
-    {
-        return parent::readPreviousPage();
-    }
-
-    public function readFirstPage()
-    {
-        return parent::readFirstPage();
-    }
-
-    public function readLastPage()
-    {
-        return parent::readLastPage();
-    }
-
-
 }

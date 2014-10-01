@@ -6,6 +6,7 @@ use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Guzzle\Http\Client;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
@@ -289,7 +290,7 @@ abstract class GedcomxApplicationState
     public function ifSuccessful()
     {
         if ($this->hasError()) {
-            throw new GedcomxApplicationException($this->buildFailureMessage(), $this->response);
+            throw new GedcomxApplicationException($this->buildFailureMessage($this->request, $this->response), $this->response);
         }
 
         return $this;
@@ -381,25 +382,35 @@ abstract class GedcomxApplicationState
 
 
     /**
+     * @param array $headers optional: if not present current state object's headers
+     *                       will be used.
      * @return string[] warning messages if Warning Headers are found
      */
-    public function getWarnings()
+    public function getWarnings( $headers = null )
     {
-        $headers = $this->response->getHeaders();
+        if( $headers === null ){
+            $headers = $this->response->getHeaders();
+        }
 
         $warnings = array();
         foreach( $headers as $h ){
             if( $h->getName() == "Warning" ){
-                $warnings[] = $h->getValue();
+                $warnings = $h->toArray();
             }
         }
 
         return $warnings;
     }
 
-    protected function buildFailureMessage() {
-        $message = "Unsuccessful " . $this->request.getMethod() . " to " . $this->getUri() . " (" . $this->response->getStatus() . ")";
-        $warnings = $this->getWarnings();
+    /**
+     * @param \Guzzle\Http\Message\Request   $request   HTTP request object
+     * @param \Guzzle\Http\Message\Response  $response  HTTP response object
+     *
+     * @return string
+     */
+    protected function buildFailureMessage( $request, $response ) {
+        $message = "Unsuccessful " . $request->getMethod() . " to " . $request->getUrl() . " (" . $response->getStatusCode() . ")";
+        $warnings = $this->getWarnings($response->getHeaders());
         foreach( $warnings as $w ) {
             $message .= "\nWarning: " . $w;
         }
@@ -578,6 +589,7 @@ abstract class GedcomxApplicationState
      * @param Request                 $request the request to send.
      * @param StateTransitionOption[] $options to be applied before sending
      *
+     * @throws Exception\GedcomxApplicationException
      * @return Response The response.
      */
     protected function invoke($request, $options = null)
@@ -587,7 +599,15 @@ abstract class GedcomxApplicationState
                 $opt->apply($request);
             }
         }
-        return $this->client->send($request);
+        $response = null;
+        try{
+            $response = $this->client->send($request);
+        }
+        catch( ClientErrorResponseException $e ){
+            throw new GedcomxApplicationException( $this->buildFailureMessage($e->getRequest(), $e->getResponse()), $e->getResponse() );
+        }
+
+        return $response;
     }
 
     protected function getTransitionOptions( $args )

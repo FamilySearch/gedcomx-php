@@ -19,7 +19,7 @@ class GedcomxApplicationException extends \Exception
 	 * @param Response $response [optional]
 	 * @param null $previous
 	 */
-    function __construct($message = "", $response = NULL, $previous = null)
+    function __construct($message = "", $response = null, $previous = null)
     {
         parent::__construct($message, 0, $previous);
         $this->response = $response;

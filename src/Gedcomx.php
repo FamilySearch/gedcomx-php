@@ -126,6 +126,8 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a Gedcomx from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -822,4 +824,19 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             }
         }
     }
+
+    /**
+     * Add a person to the data set.
+     *
+     * @param Person $person The person to be added.
+     */
+    public function addPerson( $person ) {
+        if ($person !== null) {
+            if ($this->persons === null){
+                $this->persons = array();
+            }
+            $this->persons[]  = $person;
+        }
+    }
+
 }

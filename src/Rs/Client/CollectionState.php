@@ -155,20 +155,29 @@ class CollectionState extends GedcomxApplicationState
 	}
 
     /**
-     * @param Person|Gedcomx $person
+     * @param Person|Gedcomx        $person
+     * @param StateTransitionOption $options,... 0 or more StateTransitionOption objects are allowed
+     *
      * @return PersonState|null
      */
-    public function addPerson($person)
+    public function addPerson($person, $options = null)
     {
+        $link = $this->getLink(Rel::PERSONS);
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
 
         if( $person instanceof Person ){
             $entity = new Gedcomx();
-            $entity.addPerson($person);
+            $entity->addPerson($person);
         } else {
             $entity = $person;
         }
 
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $link->getHref());
+        $request->setBody($entity->toJson());
+        return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request, $transitionOptions), $this->accessToken);
     }
 
     /**
