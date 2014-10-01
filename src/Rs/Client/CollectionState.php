@@ -76,8 +76,9 @@ class CollectionState extends GedcomxApplicationState
 			return null;
 		}
 
-		$request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $options );
-		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken );
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+		$request = $this->createAuthenticatedGedcomxRequest("GET",$link->getHref());
+		return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken );
 	}
 
 	/**
@@ -117,9 +118,8 @@ class CollectionState extends GedcomxApplicationState
         );
 
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
-
-		$request = $this->createAuthenticatedGedcomxRequest("GET", $uri, $transitionOptions);
-		return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+		$request = $this->createAuthenticatedGedcomxRequest("GET", $uri);
+		return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken);
 	}
 
 	/**
@@ -149,9 +149,9 @@ class CollectionState extends GedcomxApplicationState
         );
 
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
-        $request = $this->createAuthenticatedFeedRequest("GET", $uri, $transitionOptions);
+        $request = $this->createAuthenticatedFeedRequest("GET", $uri);
 
-		return $this->stateFactory->buildPersonSearchResultsState( $this->client, $request, $this->client->send($request), $this->accessToken );
+		return $this->stateFactory->buildPersonSearchResultsState( $this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken );
 	}
 
     /**
@@ -218,11 +218,18 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
      * @return SourceDescriptionsState|null
      */
-    public function readSourceDescriptions()
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+    public function readSourceDescriptions( $options = null ) {
+        $link = $this->getLink(Rel::SOURCE_DESCRIPTIONS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest("GET",$link->getHref());
+        return $this->stateFactory->newSourceDescriptionsState($request, $this->invoke($request,$transitionOptions), $this->accessToken);
     }
 
     /**

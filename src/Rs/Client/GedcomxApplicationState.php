@@ -418,35 +418,47 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
      * @return GedcomxApplicationState The next page.
      */
-    protected function readNextPage()
+    protected function readNextPage( $options = null )
     {
-        return $this->readPage(Rel::NEXT);
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::NEXT, $options );
     }
 
     /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
      * @return GedcomxApplicationState The previous page.
      */
-    protected function readPreviousPage()
+    protected function readPreviousPage( $options = null )
     {
-        return $this->readPage(Rel::PREVIOUS);
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::PREVIOUS, $options);
     }
 
     /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
      * @return GedcomxApplicationState The first page.
      */
-    protected function readFirstPage()
+    protected function readFirstPage( $options = null )
     {
-        return $this->readPage(Rel::FIRST);
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::FIRST, $options);
     }
 
     /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
      * @return GedcomxApplicationState the last page.
      */
-    protected function readLastPage()
+    protected function readLastPage( $options = null )
     {
-        return $this->readPage(Rel::LAST);
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::LAST, $options);
     }
 
     /**
@@ -502,26 +514,24 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string       $method  The http method.
-     * @param array|string $uri     an array with a URL template or a string
-     * @param array        $options an optional list of options to add to the request
+     * @param string|array $uri     optional: string with an href, or an array with template info
      *
      * @return Request The request.
      */
-    protected function createRequest($method, $uri, $options = array() )
+    protected function createRequest($method, $uri = null)
     {
-        return $this->client->createRequest($method, $uri, $options );
+        return $this->client->createRequest($method, $uri );
     }
 
     /**
      * @param string       $method  The http method.
-     * @param array|string $uri     an array with a URL template or a string
-     * @param array        $options an optional list of options to add to the request
+     * @param string|array $uri     optional: string with an href, or an array with template info
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedRequest($method, $uri = null, $options = array() )
+    protected function createAuthenticatedRequest($method, $uri = null)
     {
-        $request = $this->createRequest($method, $uri, $options);
+        $request = $this->createRequest($method, $uri);
         if (isset($this->accessToken)) {
             $request->addHeader('Authorization', "Bearer {$this->accessToken}");
         }
@@ -530,45 +540,53 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string       $method  The http method.
-     * @param array|string $uri     an array with a URL template or a string
-     * @param array        $options an optional list of options to add to the request
+     * @param string|array $uri     optional: string with an href, or an array with template info
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedFeedRequest($method, $uri, $options)
+    protected function createAuthenticatedFeedRequest($method, $uri = null)
     {
-        $request = $this->createAuthenticatedRequest($method, $uri, $options);
+        $request = $this->createAuthenticatedRequest($method, $uri);
         $request->setHeader('Accept', GedcomxApplicationState::ATOM_MEDIA_TYPE);
         return $request;
     }
 
     /**
      * @param string       $method  The http method.
-     * @param array|string $uri     an array with a URL template or a string
-     * @param array        $options an optional list of options to add to the request
+     * @param string|array $uri    optional: string with an href, or an array with template info
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedGedcomxRequest($method, $uri, $options = array() )
+    protected function createAuthenticatedGedcomxRequest($method, $uri)
     {
-        $request = $this->createAuthenticatedRequest($method, $uri, $options);
+        $request = $this->createAuthenticatedRequest($method, $uri);
         $request->setHeader('Accept', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         $request->setHeader('Content-Type', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         return $request;
     }
 
     /**
-     * @param $request Request the request to send.
+     * @param Request                 $request the request to send.
+     * @param StateTransitionOption[] $options to be applied before sending
+     *
      * @return Response The response.
      */
-    protected function invoke($request)
+    protected function invoke($request, $options = null)
     {
+        if( $options !== null ){
+            foreach( $options as $opt ){
+                $opt->apply($request);
+            }
+        }
         return $this->client->send($request);
     }
 
     protected function getTransitionOptions( $args )
     {
-        array_shift($args);
+        while (!empty($args) && !$args[0] instanceof StateTransitionOption){
+            array_shift($args);
+        }
+
         return $args;
     }
 

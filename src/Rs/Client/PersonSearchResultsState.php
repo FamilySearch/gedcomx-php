@@ -55,8 +55,13 @@ class PersonSearchResultsState extends GedcomxApplicationState
         }
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
-        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
-        return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
+        return $this->stateFactory->buildPersonState(
+            $this->client,
+            $request,
+            $this->invoke($request, $transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
@@ -76,8 +81,13 @@ class PersonSearchResultsState extends GedcomxApplicationState
         }
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
-        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
-        return $this->stateFactory->buildPersonState($this->client, $request, $this->client->send($request), $this->accessToken);
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
+        return $this->stateFactory->buildPersonState(
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
@@ -97,29 +107,12 @@ class PersonSearchResultsState extends GedcomxApplicationState
         }
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
-        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref(), $transitionOptions);
-        return $this->stateFactory->buildRecordState($this->client, $request, $this->client->send($request), $this->accessToken);
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
+        return $this->stateFactory->buildRecordState(
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
     }
-
-    public function readNextPage()
-    {
-        return parent::readNextPage();
-    }
-
-    public function readPreviousPage()
-    {
-        return parent::readPreviousPage();
-    }
-
-    public function readFirstPage()
-    {
-        return parent::readFirstPage();
-    }
-
-    public function readLastPage()
-    {
-        return parent::readLastPage();
-    }
-
-
 }
