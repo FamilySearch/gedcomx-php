@@ -57,7 +57,6 @@ class PersonSearchResultsStateTest extends ApiTestCase{
         $this->assertNotNull($personState);
     }
 
-
     public function testCanReadPersonFromEntry(){
         $searchResults = $this->collectionState
             ->searchForPersons($this->searchQuery);
@@ -76,5 +75,12 @@ class PersonSearchResultsStateTest extends ApiTestCase{
         $second = $nextPage->getEntity()->getEntries();
 
         $this->assertNotEquals( $first, $second );
+    }
+
+    public function testWarningsAreReturned(){
+        $searchResults = $this->collectionState
+            ->searchForPersons("firsstName:Ruby");
+
+        $this->assertArrayHasKey( "warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
     }
 } 

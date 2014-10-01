@@ -90,25 +90,12 @@ abstract class GedcomxApplicationState
         }
 
         //load link headers
-        $linkHeaders = $this->getLinkHeaders($this->response->getHeaders());
+        $linkHeaders = $this->getLinkHeaders();
         foreach ($linkHeaders as $linkHeader) {
-/*          if (isset($linkHeader['rel'])) {
-                $link = new Link();
-                $link->setRel($linkHeader['rel']);
-                $href = $linkHeader[0];
-                if (isset($href)) {
-                    $href = trim($href, "<>");
-                    $link->setHref($href);
-                }
-                $link->setAccept($linkHeader['accept']);
-                $link->setAllow($linkHeader['allow']);
-                $link->setHreflang($linkHeader['hreflang']);
-                $link->setTemplate($linkHeader['template']);
-                $link->setTitle($linkHeader['title']);
-                $link->setType($linkHeader['type']);
+            if (isset($linkHeader['rel'])) {
+                $link = new Link($linkHeader);
                 $links[$linkHeader['rel']] = $link;
             }
-*/
         }
 
         //load links from the entity.
@@ -283,11 +270,6 @@ abstract class GedcomxApplicationState
         return $this->reconstruct($request, $this->invoke($request));
     }
 
-    public function getWarnings()
-    {
-        //todo:
-    }
-
     /**
      * @param string $rel The link rel.
      * @return \Gedcomx\Links\Link
@@ -307,7 +289,7 @@ abstract class GedcomxApplicationState
     public function ifSuccessful()
     {
         if ($this->hasError()) {
-            throw new GedcomxApplicationException();
+            throw new GedcomxApplicationException($this->buildFailureMessage(), $this->response);
         }
 
         return $this;
@@ -384,22 +366,49 @@ abstract class GedcomxApplicationState
 	}
 
     /**
-     * @param $headers array of headers returned with the response
-     *
-     * @return array array of link options if Link header found
-     * @throws Exception
+     * @return Link[] links if Link headers found
      */
-    private function getLinkHeaders($headers)
+    private function getLinkHeaders()
     {
+        $headers = $this->response->getHeaders();
         foreach( $headers as $h ){
             if( $h->getName() == "Link" ){
-                throw new Exception("Link header found.");
+                return $h->getLinks();
             }
         }
         return array();
     }
 
-	/**
+
+    /**
+     * @return string[] warning messages if Warning Headers are found
+     */
+    public function getWarnings()
+    {
+        $headers = $this->response->getHeaders();
+
+        $warnings = array();
+        foreach( $headers as $h ){
+            if( $h->getName() == "Warning" ){
+                $warnings[] = $h->getValue();
+            }
+        }
+
+        return $warnings;
+    }
+
+    protected function buildFailureMessage() {
+        $message = "Unsuccessful " . $this->request.getMethod() . " to " . $this->getUri() . " (" . $this->response->getStatus() . ")";
+        $warnings = $this->getWarnings();
+        foreach( $warnings as $w ) {
+            $message .= "\nWarning: " . $w;
+        }
+
+        return $message;
+    }
+
+
+    /**
      * @param string $rel The rel
      * @return GedcomxApplicationState The requested page.
      */

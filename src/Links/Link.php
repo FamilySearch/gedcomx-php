@@ -325,6 +325,9 @@ class Link
         if (isset($o['href'])) {
             $this->href = $o["href"];
         }
+        if (isset($o['url'])) {
+            $this->href = $o["url"];
+        }
     }
 
     /**
