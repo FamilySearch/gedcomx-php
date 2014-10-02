@@ -9,8 +9,10 @@ class PersonsStateTest extends ApiTestCase {
 
     public function testCanAddPerson()
     {
-        $person = PersonBuilder::createPerson();
-        $this->collectionState
+        $person = PersonBuilder::buildPerson();
+        $personState = $this->collectionState
             ->addPerson( $person );
+
+        $this->assertAttributeEquals( "201", "statusCode", $personState->getResponse() );
     }
 } 

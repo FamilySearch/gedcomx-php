@@ -839,4 +839,37 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
         }
     }
 
+    /**
+     * Add a source description to the data set.
+     *
+     * @param The $sourceDescription
+     */
+    public function addSourceDescription( $sourceDescription ) {
+        if ($sourceDescription != null) {
+            $this->sourceDescriptions[] = $sourceDescription;
+        }
+    }
+
+    public function embed($gedcomx)
+    {
+        $links = $gedcomx->getLinks();
+        if ($links != null) {
+            foreach ($links as $link) {
+                $found = false;
+                if ($link . getRel() != null) {
+                    if ($this->getLinks() != null) {
+                        foreach ($this->getLinks() as $target) {
+                            if ($link->getRel() . equals($target->getRel())) {
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!$found) {
+                    $this->addLink($link);
+                }
+            }
+        }
+    }
 }

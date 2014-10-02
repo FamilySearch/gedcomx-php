@@ -17,7 +17,7 @@ use Gedcomx\Types\NameType;
 
 class PersonBuilder {
 
-    public static function createPerson()
+    public static function buildPerson()
     {
         $person = new Person();
         $person->setGender(new Gender(array("type" => GenderType::MALE)));
@@ -42,6 +42,13 @@ class PersonBuilder {
                         ))
                     )
                 ))
+            ),
+            "display" => array(
+                "birthDate" => "27 Jan 1949",
+                "birthPlace" => "Queenstown, New Zealand",
+                "gender" => "Male",
+                "lifespan" => "17 Jan 1949 - 13 Jun 1970",
+                "name" => "Bob Friendly"
             )
         ));
         $facts = array(

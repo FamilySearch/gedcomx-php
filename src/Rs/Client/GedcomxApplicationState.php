@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
@@ -421,9 +422,11 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string $rel The rel
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
      * @return GedcomxApplicationState The requested page.
      */
-    protected function readPage($rel)
+    protected function readPage($rel, $options = null)
     {
         $link = $this->getLink($rel);
         if ($link === null || $link->getHref() === null) {
@@ -431,10 +434,11 @@ abstract class GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
         $request->setHeader("Accept", $this->request->getHeader("Accept"));
         $request->setHeader("Content-Type", $this->request->getHeader("Content-Type"));
         $class = get_class($this);
-        return new $class( $this->client, $request, $this->client->send($request), $this->accessToken, $this->stateFactory );
+        return new $class( $this->client, $request, $this->invoke($request, $transitionOptions), $this->accessToken, $this->stateFactory );
     }
 
     /**
@@ -585,6 +589,50 @@ abstract class GedcomxApplicationState
         return $request;
     }
 
+    protected function createRequestForEmbeddedResource($method, $uri) {
+        return $this->createAuthenticatedGedcomxRequest($method, $uri);
+    }
+
+    /**
+     * @param \Gedcomx\Links\Link                      $link
+     * @param \Gedcomx\Gedcomx                         $entity
+     * @param \Gedcomx\Rs\Client\StateTransitionOption $options
+     *
+     * @throws Exception\GedcomxApplicationException
+     */
+    protected function embed( $link, $entity, $options = null ){
+        if ($link->getHref() != null) {
+            $transitionOptions = $this->getTransitionOptions( func_get_args() );
+            $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link->getHref());
+            $lastEmbeddedResponse = $this->invoke($lastEmbeddedRequest, $transitionOptions);
+            if ($lastEmbeddedResponse->getStatusCode() == 200) {
+                $json = json_decode($lastEmbeddedResponse->getBody(),true);
+                $entity->embed(new Gedcomx($json));
+            }
+            else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
+                throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);
+            }
+            else {
+                //todo: log a warning? throw an error?
+            }
+        }
+
+    }
+
+    protected function getTransitionOptions( $args )
+    {
+        while (!empty($args) && !$args[0] instanceof StateTransitionOption){
+            if( is_array($args[0]) ){
+                if(!empty($args[0]) && $args[0][0] instanceof StateTransitionOption ){
+                    return $args[0];
+                }
+            }
+            array_shift($args);
+        }
+
+        return $args;
+    }
+
     /**
      * @param Request                 $request the request to send.
      * @param StateTransitionOption[] $options to be applied before sending
@@ -608,15 +656,6 @@ abstract class GedcomxApplicationState
         }
 
         return $response;
-    }
-
-    protected function getTransitionOptions( $args )
-    {
-        while (!empty($args) && !$args[0] instanceof StateTransitionOption){
-            array_shift($args);
-        }
-
-        return $args;
     }
 
 }
