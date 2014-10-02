@@ -46,26 +46,35 @@ class StateFactory
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 
-	function buildPersonsState( $client, $request, $response, $accessToken ){
+    public function createState( $class, $client, $request, $response, $access_token ){
+        $functionName = "build{$class}";
+        return $this->$functionName($client, $request, $response, $access_token);
+    }
+
+    protected function buildSourceDescriptionsState( $client, $request, $response, $access_token ){
+        return new SourceDescriptionsState( $client, $request, $response, $access_token, $this );
+    }
+
+    protected function buildPersonsState( $client, $request, $response, $accessToken ){
 		return new PersonsState( $client, $request, $response, $accessToken, $this );
 	}
 
-    function buildPersonState($client, $request, $response, $accessToken)
+    protected function buildPersonState($client, $request, $response, $accessToken)
     {
         return new PersonState($client, $request, $response, $accessToken, $this);
     }
-    
-    public function buildAncestryResultsState($client, $request, $response, $accessToken)
+
+    protected function buildAncestryResultsState($client, $request, $response, $accessToken)
     {
         return new AncestryResultsState($client, $request, $response, $accessToken, $this);
     }
 
-	public function buildPersonSearchResultsState($client, $request, $response, $accessToken)
+    protected function buildPersonSearchResultsState($client, $request, $response, $accessToken)
     {
 		return new PersonSearchResultsState( $client, $request, $response, $accessToken, $this );
 	}
 
-    public function buildRecordState($client, $request, $response, $accessToken)
+    protected function buildRecordState($client, $request, $response, $accessToken)
     {
         return new RecordState( $client, $request, $response, $accessToken, $this );
     }

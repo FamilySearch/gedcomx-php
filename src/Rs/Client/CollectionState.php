@@ -9,6 +9,8 @@ use Gedcomx\Conclusion\Person;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 class CollectionState extends GedcomxApplicationState
@@ -78,7 +80,13 @@ class CollectionState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions( func_get_args() );
 		$request = $this->createAuthenticatedGedcomxRequest("GET",$link->getHref());
-		return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken );
+		return $this->stateFactory->createState(
+            "PersonState",
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
 	}
 
 	/**
@@ -94,32 +102,25 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-	 * @param string                $personId The XXXX-XXX person identifier
+	 * @param string                $uri      href from a Link object
 	 * @param StateTransitionOption $opt,...  0 or more StateTransitionOption objects are allowed
 	 *
 	 * @returns PersonState|null
      */
-	public function readPerson( $personId, StateTransitionOption $opt = null ){
-		if( $personId == null ){
+	public function readPerson( $uri, StateTransitionOption $opt = null ){
+		if( $uri == null ){
 			return null;
 		}
 
-        $personLink = $this->getLink(Rel::PERSON);
-        if ($personLink === null || $personLink->getTemplate() === null) {
-            return null;
-        }
-
-        $uri = array(
-            $personLink->getTemplate(),
-            array(
-                "pid" => $personId,
-                "access_token" => $this->accessToken
-            )
-        );
-
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
 		$request = $this->createAuthenticatedGedcomxRequest("GET", $uri);
-		return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken);
+		return $this->stateFactory->createState(
+            "PersonState",
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
 	}
 
 	/**
@@ -151,7 +152,13 @@ class CollectionState extends GedcomxApplicationState
 		$transitionOptions = $this->getTransitionOptions( func_get_args() );
         $request = $this->createAuthenticatedFeedRequest("GET", $uri);
 
-		return $this->stateFactory->buildPersonSearchResultsState( $this->client, $request, $this->invoke($request,$transitionOptions), $this->accessToken );
+		return $this->stateFactory->createState(
+            "PersonSearchResultsState",
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
 	}
 
     /**
@@ -177,7 +184,13 @@ class CollectionState extends GedcomxApplicationState
         $transitionOptions = $this->getTransitionOptions( func_get_args() );
         $request = $this->createAuthenticatedGedcomxRequest("POST", $link->getHref());
         $request->setBody($entity->toJson());
-        return $this->stateFactory->buildPersonState($this->client, $request, $this->invoke($request, $transitionOptions), $this->accessToken);
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->invoke($request, $transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
@@ -238,16 +251,39 @@ class CollectionState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions( func_get_args() );
         $request = $this->createAuthenticatedGedcomxRequest("GET",$link->getHref());
-        return $this->stateFactory->newSourceDescriptionsState($request, $this->invoke($request,$transitionOptions), $this->accessToken);
+        return $this->stateFactory->createState(
+            "SourceDescriptionsState",
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param SourceDescription|Gedcomx $description
+     * @param SourceDescription $source
+     *
+     * @throws GedcomxApplicationException
      * @return SourceDescriptionState|null
      */
-    public function addSourceDescription($description)
+    public function addSourceDescription($source)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::SOURCE_DESCRIPTIONS);
+        if ( $link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding source descriptions.", getUri()));
+        }
+
+        $entity = new Gedcomx();
+        $entity->addSourceDescription($source);
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        return $this->stateFactory->createState(
+            "SourceDescriptionState",
+            $this->client,
+            $request,
+            $this->invoke($request, $transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**

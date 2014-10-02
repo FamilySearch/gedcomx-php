@@ -56,7 +56,8 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
-        return $this->stateFactory->buildPersonState(
+        return $this->stateFactory->createState(
+            "PersonState",
             $this->client,
             $request,
             $this->invoke($request, $transitionOptions),
@@ -82,7 +83,8 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
-        return $this->stateFactory->buildPersonState(
+        return $this->stateFactory->createState(
+            "PersonState",
             $this->client,
             $request,
             $this->invoke($request,$transitionOptions),
@@ -108,11 +110,57 @@ class PersonSearchResultsState extends GedcomxApplicationState
 
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
-        return $this->stateFactory->buildRecordState(
+        return $this->stateFactory->createState(
+            "RecordState",
             $this->client,
             $request,
             $this->invoke($request,$transitionOptions),
             $this->accessToken
         );
     }
+
+    /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
+     * @return GedcomxApplicationState The next page.
+     */
+    public function readNextPage( $options = null )
+    {
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::NEXT, $options );
+    }
+
+    /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
+     * @return GedcomxApplicationState The previous page.
+     */
+    public function readPreviousPage( $options = null )
+    {
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::PREVIOUS, $options);
+    }
+
+    /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
+     * @return GedcomxApplicationState The first page.
+     */
+    public function readFirstPage( $options = null )
+    {
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::FIRST, $options);
+    }
+
+    /**
+     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     *
+     * @return GedcomxApplicationState the last page.
+     */
+    public function readLastPage( $options = null )
+    {
+        $options = $this->getTransitionOptions( func_get_args() );
+        return $this->readPage(Rel::LAST, $options);
+    }
+
 }

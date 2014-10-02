@@ -11,6 +11,7 @@ use Gedcomx\Conclusion\Name;
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Conclusion\Person;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use RuntimeException;
@@ -76,18 +77,26 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Rs\Client\StateTransitionOption $options,... zero or more StateTransitionOption objects
      * @return AncestryResultsState|null
      */
-    public function readAncestry()
+    public function readAncestry( $options = null )
     {
         $link = $this->getLink(Rel::ANCESTRY);
         if (!$link||!$link->getHref()) {
             return null;
         }
-        
+
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET");
         $request->setUrl($link->getHref());
-        return $this->stateFactory->buildAncestryResultsState($this->client, $request, $this->client->send($request), $this->accessToken);
+        return $this->stateFactory->createState(
+            "AncestryResultsState",
+            $this->client,
+            $request,
+            $this->invoke($request,$transitionOptions),
+            $this->accessToken
+        );
         
     }
 
@@ -116,11 +125,13 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param StateTransitionOption $options,...
      * @return PersonState $this
      */
-    public function loadSourceReferences()
+    public function loadSourceReferences( $options = null )
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        return $this->loadEmbeddedResources( array(Rel::SOURCE_REFERENCES), $transitionOptions);
     }
 
     /**
@@ -280,39 +291,94 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param SourceReference $sourceReference
-     * @return PersonState
+     * @param SourceDescriptionState|RecordState|SourceReference $obj
+     * @param StateTransitionOption                              $options,...
+     *
+     * @throws Exception\GedcomxApplicationException
+     * @return PersonState|null
      */
-    public function addSourceReference($sourceReference)
+    public function addSourceReference($obj, $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
+        $class = get_class($obj);
+        switch ($class) {
+            case "SourceReference":
+                $reference = $obj;
+                break;
+
+            case "SourceDescriptionState":
+            case "RecordState":
+                $reference = new SourceReference();
+                $reference->setDescriptionRef($obj->getSelfUri());
+                break;
+
+            default:
+                throw new GedcomxApplicationException("Unrecognized object type $class in PersonState->addSourceReference()");
+        }
+
+        return $this->addSourceReferences( array($reference), $transitionOptions );
     }
 
     /**
-     * @param SourceReference[] $sourceReferences
-     * @return PersonState
+     * @param SourceReference[]     $refs
+     * @param StateTransitionOption $options,...
+     *
+     * @return PersonState|null
      */
-    public function addSourceReferences($sourceReferences)
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+    public function addSourceReferences($refs, $options = null) {
+        $person = createEmptySelf();
+        $person->setSources($refs);
+
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        return $this->updateSourceReferences($person, $transitionOptions);
     }
 
     /**
-     * @param SourceReference $sourceReference
+     * @param SourceReference       $sourceReference
+     * @param StateTransitionOption $options,...
+     *
      * @return PersonState
      */
-    public function updateSourceReference($sourceReference)
+    public function updateSourceReference($sourceReference, $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+        return $this->updateSourceReferences( array($sourceReference,$transitionOptions) );
     }
 
     /**
-     * @param SourceReference[] $sourceReferences
+     * @param Person|SourceReference[] $source
+     * @param StateTransitionOption    $options,...
+     *
      * @return PersonState
      */
-    public function updateSourceReferences($sourceReferences)
+    public function updateSourceReferences($source, $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = null;
+        if($source instanceof Person){
+           $person = $source;
+        } else {
+            $person = createEmptySelf();
+            $person->setSources($source);
+        }
+        $target = $this->getSelfUri();
+        $link = $this->getLink(Rel::SOURCE_REFERENCES);
+        if( $link === null || $link.getHref() === null ){
+            $target = $link->getHref();
+        }
+
+        $gedcom = new Gedcomx();
+        $gedcom->setPersons(array($person));
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $target);
+        $request->setBody( $gedcom->toJson() );
+        $transitionOptions = $this->getTransitionOptions( func_get_args() );
+
+        return $this->stateFactory->createState(
+            "PersonState",
+            $this->client,
+            $this->request,
+            $this->invoke($request, $transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
@@ -518,4 +584,36 @@ class PersonState extends GedcomxApplicationState
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
+
+    /*
+     * @return \Gedcomx\Conclusion\Person
+     */
+    protected function createEmptySelf() {
+        $person = new Person();
+        $person->setId(getLocalSelfId());
+        return $person;
+    }
+
+    protected function getLocalSelfId() {
+        $me = getPerson();
+        return $me == null ? null : $me->getId();
+    }
+
+    /**
+     * @param string[]              $rels
+     * @param StateTransitionOption $options,...
+     *
+     * @return PersonState
+     */
+    public function loadEmbeddedResources( $rels, $options = null ) {
+        foreach ( $rels as $rel) {
+            $link = $this->getLink($rel);
+            if ($this->entity != null && $link != null && $link->getHref() != null) {
+                $this->embed($link, $this->entity, $options);
+            }
+        }
+
+        return $this;
+    }
+
 }
