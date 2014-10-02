@@ -33,6 +33,8 @@ class ResourceReference
      * Constructs a ResourceReference from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

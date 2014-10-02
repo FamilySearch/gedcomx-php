@@ -9,10 +9,15 @@
 
 namespace Gedcomx\Source;
 
+use Gedcomx\Common\Attributable;
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Qualifier;
+use Gedcomx\Links\HypermediaEnabledData;
+
 /**
  * An attributable reference to a description of a source.
  */
-class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
+class SourceReference extends HypermediaEnabledData implements Attributable
 {
 
     /**
@@ -32,7 +37,7 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The qualifiers associated with this source reference.
      *
-     * @var \Gedcomx\Common\Qualifier[]
+     * @var Qualifier[]
      */
     private $qualifiers;
 
@@ -40,6 +45,8 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a SourceReference from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -93,14 +100,14 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
      *
      * @param \Gedcomx\Common\Attribution $attribution
      */
-    public function setAttribution($attribution)
+    public function setAttribution(Attribution $attribution)
     {
         $this->attribution = $attribution;
     }
     /**
      * The qualifiers associated with this source reference.
      *
-     * @return \Gedcomx\Common\Qualifier[]
+     * @return Qualifier[]
      */
     public function getQualifiers()
     {
@@ -110,7 +117,7 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The qualifiers associated with this source reference.
      *
-     * @param \Gedcomx\Common\Qualifier[] $qualifiers
+     * @param Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -153,12 +160,12 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
             $this->descriptionRef = $o["description"];
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = $o['attribution'] instanceof Attribution ? $o['attribution'] :  new Attribution($o["attribution"]);
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
-                $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+                $this->qualifiers[$i] = $x instanceof Qualifier ? $x : new Qualifier($x);
             }
         }
     }
@@ -175,12 +182,12 @@ class SourceReference extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }
         else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Qualifier($xml);
+            $child = new Qualifier($xml);
             if (!isset($this->qualifiers)) {
                 $this->qualifiers = array();
             }

@@ -8,19 +8,20 @@
  */
 
 namespace Gedcomx\Common;
+use Gedcomx\Common\ResourceReference;
 
 /**
  * Attribution for genealogical information. Attribution is used to model <strong>who</strong> is contributing/modifying
      * information, <strong>when</strong> they contributed it, and <strong>why</strong> they are making the
      * contribution/modification.
  */
-class Attribution extends \Gedcomx\Common\ExtensibleData
+class Attribution extends ExtensibleData
 {
 
     /**
      * Reference to the contributor of the attributed data.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $contributor;
 
@@ -42,6 +43,8 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
      * Constructs a Attribution from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -64,7 +67,7 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     /**
      * Reference to the contributor of the attributed data.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getContributor()
     {
@@ -74,7 +77,7 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     /**
      * Reference to the contributor of the attributed data.
      *
-     * @param \Gedcomx\Common\ResourceReference $contributor
+     * @param ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -148,7 +151,7 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
     {
         parent::initFromArray($o);
         if (isset($o['contributor'])) {
-            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+            $this->contributor = $o['contributor'] instanceof ResourceReference ? $o['contributor'] : new ResourceReference($o["contributor"]);
         }
         if (isset($o['modified'])) {
             $this->modified = $o["modified"];
@@ -170,7 +173,7 @@ class Attribution extends \Gedcomx\Common\ExtensibleData
           return true;
         }
         else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->contributor = $child;
             $happened = true;
         }

@@ -8,6 +8,11 @@
  */
 
 namespace Gedcomx\Source;
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Records\Field;
 
 /**
  * Represents a description of a source.
@@ -173,6 +178,8 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a SourceDescription from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -747,41 +754,41 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->citations = array();
         if (isset($o['citations'])) {
             foreach ($o['citations'] as $i => $x) {
-                $this->citations[$i] = new \Gedcomx\Source\SourceCitation($x);
+                $this->citations[$i] = $x instanceof SourceCitation ? $x : new SourceCitation($x);
             }
         }
         if (isset($o['mediator'])) {
-            $this->mediator = new \Gedcomx\Common\ResourceReference($o["mediator"]);
+            $this->mediator = $x instanceof ResourceReference ? $x : new ResourceReference($o["mediator"]);
         }
         $this->sources = array();
         if (isset($o['sources'])) {
             foreach ($o['sources'] as $i => $x) {
-                $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->sources[$i] = $x instanceof SourceReference ? $x : new SourceReference($x);
             }
         }
         if (isset($o['analysis'])) {
-            $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
+            $this->analysis = $o['analysis'] instanceof ResourceReference ? $o['analysis'] : new ResourceReference($o["analysis"]);
         }
         if (isset($o['componentOf'])) {
-            $this->componentOf = new \Gedcomx\Source\SourceReference($o["componentOf"]);
+            $this->componentOf = $o['componentOf'] instanceof SourceReference ? $o['componentOf'] : new SourceReference($o["componentOf"]);
         }
         $this->titles = array();
         if (isset($o['titles'])) {
             foreach ($o['titles'] as $i => $x) {
-                $this->titles[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->titles[$i] = $x instanceof TextValue ? $x : new TextValue($x);
             }
         }
         if (isset($o['titleLabel'])) {
-            $this->titleLabel = new \Gedcomx\Common\TextValue($o["titleLabel"]);
+            $this->titleLabel = $x instanceof TextValue ? $x : new TextValue($o["titleLabel"]);
         }
         $this->notes = array();
         if (isset($o['notes'])) {
             foreach ($o['notes'] as $i => $x) {
-                $this->notes[$i] = new \Gedcomx\Common\Note($x);
+                $this->notes[$i] = $x instanceof Note ? $x : new Note($x);
             }
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = $o['attribution'] instanceof Attribution ? $o['attribution'] : new Attribution($o["attribution"]);
         }
         if (isset($o['sortKey'])) {
             $this->sortKey = $o["sortKey"];
@@ -789,7 +796,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->description = array();
         if (isset($o['description'])) {
             foreach ($o['description'] as $i => $x) {
-                $this->description[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->description[$i] = $x instanceof TextValue ? $x : new TextValue($x);
             }
         }
         $this->identifiers = array();
@@ -816,7 +823,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->coverage = array();
         if (isset($o['coverage'])) {
             foreach ($o['coverage'] as $i => $x) {
-                $this->coverage[$i] = new \Gedcomx\Source\Coverage($x);
+                $this->coverage[$i] = $o['coverage'] instanceof Coverage ? $o['coverage'] : new Coverage($x);
             }
         }
         $this->rights = array();
@@ -828,14 +835,14 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = $x instanceof Field ? $x : new Field($x);
             }
         }
         if (isset($o['repository'])) {
-            $this->repository = new \Gedcomx\Common\ResourceReference($o["repository"]);
+            $this->repository = $o["repository"] instanceof ResourceReference ? $o["repository"] : new ResourceReference($o["repository"]);
         }
         if (isset($o['descriptor'])) {
-            $this->descriptorRef = new \Gedcomx\Common\ResourceReference($o["descriptor"]);
+            $this->descriptorRef = $o["descriptor"] instanceof ResourceReference ? $o["descriptor"] : new ResourceReference($o["descriptor"]);
         }
     }
 
@@ -851,7 +858,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'citation') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceCitation($xml);
+            $child = new SourceCitation($xml);
             if (!isset($this->citations)) {
                 $this->citations = array();
             }
@@ -859,12 +866,12 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'mediator') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->mediator = $child;
             $happened = true;
         }
         else if (($xml->localName == 'source') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceReference($xml);
+            $child = new SourceReference($xml);
             if (!isset($this->sources)) {
                 $this->sources = array();
             }
@@ -872,17 +879,17 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'analysis') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->analysis = $child;
             $happened = true;
         }
         else if (($xml->localName == 'componentOf') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceReference($xml);
+            $child = new SourceReference($xml);
             $this->componentOf = $child;
             $happened = true;
         }
         else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->titles)) {
                 $this->titles = array();
             }
@@ -890,12 +897,12 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'titleLabel') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             $this->titleLabel = $child;
             $happened = true;
         }
         else if (($xml->localName == 'note') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Note($xml);
+            $child = new Note($xml);
             if (!isset($this->notes)) {
                 $this->notes = array();
             }
@@ -903,7 +910,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }
@@ -916,7 +923,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'description') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->description)) {
                 $this->description = array();
             }
@@ -948,7 +955,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'coverage') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\Coverage($xml);
+            $child = new Coverage($xml);
             if (!isset($this->coverage)) {
                 $this->coverage = array();
             }
@@ -967,7 +974,7 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }
@@ -975,12 +982,12 @@ class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'repository') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->repository = $child;
             $happened = true;
         }
         else if (($xml->localName == 'descriptor') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->descriptorRef = $child;
             $happened = true;
         }
