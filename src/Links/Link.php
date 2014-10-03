@@ -237,6 +237,9 @@ class Link
      */
     public function getHref()
     {
+        if( is_object($this->href)){
+            return $this->href . "";
+        }
         return $this->href;
     }
 
