@@ -217,14 +217,15 @@ abstract class GedcomxApplicationState
         }
     }
 
-    public function head()
+    public function head($option = null)
     {
-        $request = $this->createAuthenticatedRequest("HEAD");
+        $transitionOptions = $this->getTransitionOptions(func_get_args());
+        $request = $this->createAuthenticatedRequest(Request::HEAD, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
         }
-        return $this->reconstruct($request, $this->invoke($request));
+        return $this->reconstruct($request, $this->invoke($request,$transitionOptions));
     }
 
     public function get()

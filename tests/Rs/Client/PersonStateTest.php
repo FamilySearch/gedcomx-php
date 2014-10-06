@@ -31,6 +31,15 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
     }
 
+    public function testReadPersonHeaders(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        self::$personState->head();
+
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+    }
+
     public function testAddNameToPerson(){
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
@@ -120,7 +129,8 @@ class PersonStateTest extends ApiTestCase{
         $uri = array(
             $link->getTemplate(),
             array(
-                "pid" => "KWQ7-Y57"
+                "pid" => "KWQ7-Y57",
+                "access_token" => $this->collectionState->getAccessToken()
             )
         );
 
