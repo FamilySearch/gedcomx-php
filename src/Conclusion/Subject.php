@@ -10,12 +10,13 @@
 namespace Gedcomx\Conclusion;
 
 use Gedcomx\Common\Attributable;
+use Gedcomx\Common\ExtensibleData;
 
 /**
  * The <tt>Subject</tt> data type defines the abstract concept of a genealogical <em>subject</em>. A <em>subject</em> is something with a unique and
-     * intrinsic identity, e.g., a person, a location on the surface of the earth. We identify that <em>subject</em> in time and space using various supporting
-     * <em>conclusions</em>, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting <em>conclusions</em> to form an
-     * apparently-unique identity by which we can distinguish our <em>subject</em> from all other possible <em>subjects</em>.
+ * intrinsic identity, e.g., a person, a location on the surface of the earth. We identify that <em>subject</em> in time and space using various supporting
+ * <em>conclusions</em>, e.g. for a person: things like name, birth date, age, address, etc. We aggregate these supporting <em>conclusions</em> to form an
+ * apparently-unique identity by which we can distinguish our <em>subject</em> from all other possible <em>subjects</em>.
  */
 class Subject extends Conclusion implements Attributable
 {
@@ -52,6 +53,8 @@ class Subject extends Conclusion implements Attributable
      * Constructs a Subject from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -315,4 +318,29 @@ class Subject extends Conclusion implements Attributable
             }
         }
     }
+
+    /**
+     * Merges data from provided object with current object
+     *
+     * @param ExtensibleData $subject Assumes \Gedcomx\Conclusion\Subject or a subclass
+     */
+    protected function embed(ExtensibleData $subject) {
+        $this->extracted = $this->extracted == null ? $subject->extracted : $this->extracted;
+
+        if ($subject->identifiers != null) {
+            $this->identifiers = $this->identifiers == null ? array() : $this->identifiers;
+            $this->identifiers.addAll($subject->identifiers);
+        }
+        if ($subject->media != null) {
+            $this->media = $this->media == null ? array() : $this->media;
+            $this->media.addAll($subject->media);
+        }
+        if ($subject->evidence != null) {
+            $this->evidence = $this->evidence == null ? array() : $this->evidence;
+            $this->evidence.addAll($subject->evidence);
+        }
+
+        parent::embed($subject);
+    }
+
 }

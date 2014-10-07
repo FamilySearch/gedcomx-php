@@ -229,4 +229,13 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
         }
         return $links;
     }
+
+    /**
+     * Merges given data with current object
+     *
+     * @param ExtensibleData $data Assumes \Gedcomx\Links\HypermediaEnabledData or a subclass
+     */
+    protected function embed(ExtensibleData $data) {
+        parent::embed($data);
+    }
 }

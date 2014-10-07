@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Conclusion;
 
+use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Conclusion\Subject;
 use Gedcomx\Records\HasFields;
 
@@ -78,6 +79,8 @@ class Person extends Subject implements HasFacts, HasFields
      * Constructs a Person from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -121,7 +124,7 @@ class Person extends Subject implements HasFacts, HasFields
      *
      * @return boolean
      */
-    public function getPrivate()
+    public function isPrivate()
     {
         return $this->private;
     }
@@ -140,7 +143,7 @@ class Person extends Subject implements HasFacts, HasFields
      *
      * @return boolean
      */
-    public function getLiving()
+    public function isLiving()
     {
         return $this->living;
     }
@@ -484,5 +487,41 @@ class Person extends Subject implements HasFacts, HasFields
             $this->displayExtension->writeXmlContents($writer);
             $writer->endElement();
         }
+    }
+
+    /**
+     * Embed the specified person into this one.
+     *
+     * @param ExtensibleData $person assumes \Gedcomx\Conclusion\Person or a subclass
+     */
+    public function embed(ExtensibleData $person) {
+        if( $this->private == null ){
+            $this->private = $person->isPrivate();
+        }
+        $this->living = $this->living == null ? $person->isLiving() : $this->living;
+        $this->principal = $this->principal == null ? $person->principal : $this->principal;
+        $this->gender = $this->gender == null ? $person->gender : $this->gender;
+        if ($this->displayExtension != null && $person->displayExtension != null) {
+            $this->displayExtension->embed($person->getDisplayExtension());
+        }
+        else if ($person->displayExtension != null) {
+            $this->displayExtension = $person->displayExtension;
+        }
+        if ($person->names != null) {
+            if( $this->names == null ){
+                $this->names = array();
+            }
+            $this->names.addAll($person->names);
+        }
+        if ($person->facts != null) {
+            $this->facts = $this->facts == null ? array() : $this->facts;
+            $this->facts.addAll($person->facts);
+        }
+        if ($person->fields != null) {
+            $this->fields = $this->fields == null ? array() : $this->fields;
+            $this->fields.addAll($person->fields);
+        }
+        parent::embed($person);
+
     }
 }

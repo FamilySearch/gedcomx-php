@@ -179,14 +179,19 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
      *
      * @return PersonState $this
      */
-    public function loadNotes()
+    public function loadNotes($option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $func_args = array(
+            array(Rel::NOTES),
+        );
+        $func_args = array_merge($func_args, $this->getTransitionOptions(func_get_args()));
+        return call_user_func_array(
+            array($this, 'loadEmbeddedResources'),
+            $func_args
+        );
     }
 
     /**
@@ -835,7 +840,7 @@ class PersonState extends GedcomxApplicationState
         foreach ( $rels as $rel) {
             $link = $this->getLink($rel);
             if ($this->entity != null && $link != null && $link->getHref() != null) {
-                $this->embed($link, $this->entity, $transitionOptions);
+                $this->embed($link, $transitionOptions);
             }
         }
 

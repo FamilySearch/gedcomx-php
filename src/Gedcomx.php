@@ -8,6 +8,19 @@
  */
 
 namespace Gedcomx;
+use Gedcomx\Agent\Agent;
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\ExtensibleData;
+use Gedcomx\Common\Note;
+use Gedcomx\Conclusion\Document;
+use Gedcomx\Conclusion\Event;
+use Gedcomx\Conclusion\Person;
+use Gedcomx\Conclusion\PlaceDescription;
+use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Records\Collection;
+use Gedcomx\Records\Field;
+use Gedcomx\Records\RecordDescriptor;
+use Gedcomx\Source\SourceDescription;
 
 /**
  * <p>The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
@@ -48,77 +61,77 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The attribution of this genealogical data.
      *
-     * @var \Gedcomx\Common\Attribution
+     * @var Attribution
      */
     private $attribution;
 
     /**
      * The persons included in this genealogical data set.
      *
-     * @var \Gedcomx\Conclusion\Person[]
+     * @var Person[]
      */
     private $persons;
 
     /**
      * The relationships included in this genealogical data set.
      *
-     * @var \Gedcomx\Conclusion\Relationship[]
+     * @var Relationship[]
      */
     private $relationships;
 
     /**
      * The descriptions of sources included in this genealogical data set.
      *
-     * @var \Gedcomx\Source\SourceDescription[]
+     * @var SourceDescription[]
      */
     private $sourceDescriptions;
 
     /**
      * The agents included in this genealogical data set.
      *
-     * @var \Gedcomx\Agent\Agent[]
+     * @var Agent[]
      */
     private $agents;
 
     /**
      * The events included in this genealogical data set.
      *
-     * @var \Gedcomx\Conclusion\Event[]
+     * @var Event[]
      */
     private $events;
 
     /**
      * The places included in this genealogical data set.
      *
-     * @var \Gedcomx\Conclusion\PlaceDescription[]
+     * @var PlaceDescription[]
      */
     private $places;
 
     /**
      * The documents included in this genealogical data set.
      *
-     * @var \Gedcomx\Conclusion\Document[]
+     * @var Document[]
      */
     private $documents;
 
     /**
      * The collections included in this genealogical data set.
      *
-     * @var \Gedcomx\Records\Collection[]
+     * @var Collection[]
      */
     private $collections;
 
     /**
      * The extracted fields included in this genealogical data set.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
     /**
      * The record descriptors included in this genealogical data set.
      *
-     * @var \Gedcomx\Records\RecordDescriptor[]
+     * @var RecordDescriptor[]
      */
     private $recordDescriptors;
 
@@ -207,7 +220,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The attribution of this genealogical data.
      *
-     * @return \Gedcomx\Common\Attribution
+     * @return Attribution
      */
     public function getAttribution()
     {
@@ -217,7 +230,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The attribution of this genealogical data.
      *
-     * @param \Gedcomx\Common\Attribution $attribution
+     * @param Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -226,7 +239,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The persons included in this genealogical data set.
      *
-     * @return \Gedcomx\Conclusion\Person[]
+     * @return Person[]
      */
     public function getPersons()
     {
@@ -236,7 +249,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The persons included in this genealogical data set.
      *
-     * @param \Gedcomx\Conclusion\Person[] $persons
+     * @param Person[] $persons
      */
     public function setPersons($persons)
     {
@@ -245,7 +258,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The relationships included in this genealogical data set.
      *
-     * @return \Gedcomx\Conclusion\Relationship[]
+     * @return Relationship[]
      */
     public function getRelationships()
     {
@@ -255,7 +268,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The relationships included in this genealogical data set.
      *
-     * @param \Gedcomx\Conclusion\Relationship[] $relationships
+     * @param Relationship[] $relationships
      */
     public function setRelationships($relationships)
     {
@@ -264,7 +277,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The descriptions of sources included in this genealogical data set.
      *
-     * @return \Gedcomx\Source\SourceDescription[]
+     * @return SourceDescription[]
      */
     public function getSourceDescriptions()
     {
@@ -274,7 +287,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The descriptions of sources included in this genealogical data set.
      *
-     * @param \Gedcomx\Source\SourceDescription[] $sourceDescriptions
+     * @param SourceDescription[] $sourceDescriptions
      */
     public function setSourceDescriptions($sourceDescriptions)
     {
@@ -283,7 +296,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The agents included in this genealogical data set.
      *
-     * @return \Gedcomx\Agent\Agent[]
+     * @return Agent[]
      */
     public function getAgents()
     {
@@ -293,7 +306,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The agents included in this genealogical data set.
      *
-     * @param \Gedcomx\Agent\Agent[] $agents
+     * @param Agent[] $agents
      */
     public function setAgents($agents)
     {
@@ -302,7 +315,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The events included in this genealogical data set.
      *
-     * @return \Gedcomx\Conclusion\Event[]
+     * @return Event[]
      */
     public function getEvents()
     {
@@ -312,7 +325,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The events included in this genealogical data set.
      *
-     * @param \Gedcomx\Conclusion\Event[] $events
+     * @param Event[] $events
      */
     public function setEvents($events)
     {
@@ -321,7 +334,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The places included in this genealogical data set.
      *
-     * @return \Gedcomx\Conclusion\PlaceDescription[]
+     * @return PlaceDescription[]
      */
     public function getPlaces()
     {
@@ -331,7 +344,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The places included in this genealogical data set.
      *
-     * @param \Gedcomx\Conclusion\PlaceDescription[] $places
+     * @param PlaceDescription[] $places
      */
     public function setPlaces($places)
     {
@@ -340,7 +353,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The documents included in this genealogical data set.
      *
-     * @return \Gedcomx\Conclusion\Document[]
+     * @return Document[]
      */
     public function getDocuments()
     {
@@ -350,7 +363,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The documents included in this genealogical data set.
      *
-     * @param \Gedcomx\Conclusion\Document[] $documents
+     * @param Document[] $documents
      */
     public function setDocuments($documents)
     {
@@ -359,7 +372,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The collections included in this genealogical data set.
      *
-     * @return \Gedcomx\Records\Collection[]
+     * @return Collection[]
      */
     public function getCollections()
     {
@@ -369,7 +382,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The collections included in this genealogical data set.
      *
-     * @param \Gedcomx\Records\Collection[] $collections
+     * @param Collection[] $collections
      */
     public function setCollections($collections)
     {
@@ -378,7 +391,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The extracted fields included in this genealogical data set.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -388,7 +401,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The extracted fields included in this genealogical data set.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -397,7 +410,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The record descriptors included in this genealogical data set.
      *
-     * @return \Gedcomx\Records\RecordDescriptor[]
+     * @return RecordDescriptor[]
      */
     public function getRecordDescriptors()
     {
@@ -407,7 +420,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The record descriptors included in this genealogical data set.
      *
-     * @param \Gedcomx\Records\RecordDescriptor[] $recordDescriptors
+     * @param RecordDescriptor[] $recordDescriptors
      */
     public function setRecordDescriptors($recordDescriptors)
     {
@@ -525,66 +538,66 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $this->profile = $o["profile"];
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new Attribution($o["attribution"]);
         }
         $this->persons = array();
         if (isset($o['persons'])) {
             foreach ($o['persons'] as $i => $x) {
-                $this->persons[$i] = new \Gedcomx\Conclusion\Person($x);
+                $this->persons[$i] = new Person($x);
             }
         }
         $this->relationships = array();
         if (isset($o['relationships'])) {
             foreach ($o['relationships'] as $i => $x) {
-                $this->relationships[$i] = new \Gedcomx\Conclusion\Relationship($x);
+                $this->relationships[$i] = new Relationship($x);
             }
         }
         $this->sourceDescriptions = array();
         if (isset($o['sourceDescriptions'])) {
             foreach ($o['sourceDescriptions'] as $i => $x) {
-                $this->sourceDescriptions[$i] = new \Gedcomx\Source\SourceDescription($x);
+                $this->sourceDescriptions[$i] = new SourceDescription($x);
             }
         }
         $this->agents = array();
         if (isset($o['agents'])) {
             foreach ($o['agents'] as $i => $x) {
-                $this->agents[$i] = new \Gedcomx\Agent\Agent($x);
+                $this->agents[$i] = new Agent($x);
             }
         }
         $this->events = array();
         if (isset($o['events'])) {
             foreach ($o['events'] as $i => $x) {
-                $this->events[$i] = new \Gedcomx\Conclusion\Event($x);
+                $this->events[$i] = new Event($x);
             }
         }
         $this->places = array();
         if (isset($o['places'])) {
             foreach ($o['places'] as $i => $x) {
-                $this->places[$i] = new \Gedcomx\Conclusion\PlaceDescription($x);
+                $this->places[$i] = new PlaceDescription($x);
             }
         }
         $this->documents = array();
         if (isset($o['documents'])) {
             foreach ($o['documents'] as $i => $x) {
-                $this->documents[$i] = new \Gedcomx\Conclusion\Document($x);
+                $this->documents[$i] = new Document($x);
             }
         }
         $this->collections = array();
         if (isset($o['collections'])) {
             foreach ($o['collections'] as $i => $x) {
-                $this->collections[$i] = new \Gedcomx\Records\Collection($x);
+                $this->collections[$i] = new Collection($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
         }
         $this->recordDescriptors = array();
         if (isset($o['recordDescriptors'])) {
             foreach ($o['recordDescriptors'] as $i => $x) {
-                $this->recordDescriptors[$i] = new \Gedcomx\Records\RecordDescriptor($x);
+                $this->recordDescriptors[$i] = new RecordDescriptor($x);
             }
         }
     }
@@ -601,12 +614,12 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }
         else if (($xml->localName == 'person') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Person($xml);
+            $child = new Person($xml);
             if (!isset($this->persons)) {
                 $this->persons = array();
             }
@@ -614,7 +627,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'relationship') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Relationship($xml);
+            $child = new Relationship($xml);
             if (!isset($this->relationships)) {
                 $this->relationships = array();
             }
@@ -622,7 +635,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'sourceDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceDescription($xml);
+            $child = new SourceDescription($xml);
             if (!isset($this->sourceDescriptions)) {
                 $this->sourceDescriptions = array();
             }
@@ -630,7 +643,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'agent') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Agent\Agent($xml);
+            $child = new Agent($xml);
             if (!isset($this->agents)) {
                 $this->agents = array();
             }
@@ -638,7 +651,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'event') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Event($xml);
+            $child = new Event($xml);
             if (!isset($this->events)) {
                 $this->events = array();
             }
@@ -646,7 +659,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'place') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\PlaceDescription($xml);
+            $child = new PlaceDescription($xml);
             if (!isset($this->places)) {
                 $this->places = array();
             }
@@ -654,7 +667,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'document') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Document($xml);
+            $child = new Document($xml);
             if (!isset($this->documents)) {
                 $this->documents = array();
             }
@@ -662,7 +675,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'collection') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Collection($xml);
+            $child = new Collection($xml);
             if (!isset($this->collections)) {
                 $this->collections = array();
             }
@@ -670,7 +683,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }
@@ -678,7 +691,7 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'recordDescriptor') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\RecordDescriptor($xml);
+            $child = new RecordDescriptor($xml);
             if (!isset($this->recordDescriptors)) {
                 $this->recordDescriptors = array();
             }
@@ -850,16 +863,21 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
         }
     }
 
-    public function embed($gedcomx)
+    /**
+     * Merges given data with current object
+     *
+     * @param ExtensibleData $gedcomx Assumes Gedcomx\Gedcomx or a subclass
+     */
+    public function embed(ExtensibleData $gedcomx)
     {
         $links = $gedcomx->getLinks();
         if ($links != null) {
             foreach ($links as $link) {
                 $found = false;
-                if ($link . getRel() != null) {
+                if ($link->getRel() != null) {
                     if ($this->getLinks() != null) {
                         foreach ($this->getLinks() as $target) {
-                            if ($link->getRel() . equals($target->getRel())) {
+                            if ($link->getRel() == $target->getRel()) {
                                 $found = true;
                                 break;
                             }
@@ -868,6 +886,216 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
                 }
                 if (!$found) {
                     $this->addLink($link);
+                }
+            }
+        }
+
+        $persons = $gedcomx->getPersons();
+        if ($persons != null) {
+            foreach ($persons as $person) {
+                $found = false;
+                if ($person->getId() != null) {
+                    if ($this->getPersons() != null) {
+                        foreach ($this->getPersons() as $target) {
+                            if ($person->getId() == $target->getId()) {
+                                $target->embed($person);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!$found) {
+                    $this->addPerson($person);
+                }
+            }
+        }
+
+        $relationships = $gedcomx->getRelationships();
+        if ($relationships != null) {
+            foreach ($relationships as $relationship) {
+                $found = false;
+                if ($relationship->getId() != null) {
+                    if ($this->getRelationships() != null) {
+                        foreach ($this->getRelationships() as $target) {
+                            if ($relationship->getId() == $target->getId()) {
+                                $target->embed($relationship);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addRelationship($relationship);
+                }
+            }
+        }
+
+        $sourceDescriptions = $gedcomx->getSourceDescriptions();
+        if ($sourceDescriptions != null) {
+            foreach ($sourceDescriptions as $sourceDescription) {
+                $found = false;
+                if ($sourceDescription->getId() != null) {
+                    if ($this->getSourceDescriptions() != null) {
+                        foreach ($this->getSourceDescriptions() as $target) {
+                            if ($sourceDescription->getId() == $target->getId()) {
+                                $target->embed($sourceDescription);
+                                $found = true;
+                                break;
+                            }
+                        }
+                  }
+                }
+                if (! $found) {
+                    $this->addSourceDescription($sourceDescription);
+                }
+            }
+        }
+
+        $agents = $gedcomx->getAgents();
+        if ($agents != null) {
+            foreach ($agents as $agent) {
+                $found = false;
+                if ($agent->getId() != null) {
+                    if ($this->getAgents() != null) {
+                        foreach ($this->getAgents() as $target) {
+                            if ($agent->getId() == $target->getId()) {
+                                $target->embed($agent);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addAgent($agent);
+                }
+            }
+        }
+
+        $events = $gedcomx->getEvents();
+        if ($events != null) {
+            foreach ($events as $event) {
+                $found = false;
+
+                if ($event->getId() != null) {
+                    if ($this->getEvents() != null) {
+                        foreach ($this->getEvents() as $target) {
+                            if ($event->getId() == $target->getId()) {
+                                $target->embed($event);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    addEvent(event);
+                }
+            }
+        }
+
+        $placeDescriptions = $gedcomx->getPlaces();
+        if ($placeDescriptions != null) {
+            foreach ($placeDescriptions as $placeDescription) {
+                $found = false;
+                if ($placeDescription->getId() != null) {
+                    if ($this->getPlaces() != null) {
+                        foreach ($this->getPlaces() as $target) {
+                            if ($placeDescription->getId() == $target->getId()) {
+                                $target->embed(placeDescription);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addPlace($placeDescription);
+                }
+            }
+        }
+
+        $documents = $gedcomx->getDocuments();
+        if ($documents != null) {
+            foreach ($documents  as $document) {
+                $found = false;
+                if ($document->getId() != null) {
+                    if ($this->getDocuments() != null) {
+                        foreach ($this->getDocuments() as $target) {
+                            if ($document.getId() == $target->getId()) {
+                                $target->embed($document);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!$found) {
+                    $this->addDocument($document);
+                }
+            }
+        }
+
+        $collections = $gedcomx->getCollections();
+        if ($collections != null) {
+            foreach ($collections as $collection) {
+                $found = false;
+                if ($collection->getId() != null) {
+                    if ($this->getCollections() != null) {
+                        foreach ($this->getCollections() as $target) {
+                            if ($collection->getId() == $target->getId()) {
+                                $target->embed($collection);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addCollection($collection);
+                }
+            }
+        }
+
+        $fields = $gedcomx->getFields();
+        if ($fields != null) {
+            foreach ($fields as $field) {
+                $found = false;
+                if ($field->getId() != null) {
+                    if ($this->getFields() != null) {
+                        foreach ($this->getFields() as $target) {
+                            if ($field->getId() == $target->getId()) {
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addField($field);
+                }
+          }
+        }
+
+        $recordDescriptors = $gedcomx->getRecordDescriptors();
+        if ($recordDescriptors != null) {
+            foreach ($recordDescriptors as $recordDescriptor) {
+                $found = false;
+                if ($recordDescriptor->getId() != null) {
+                    if ($this->getRecordDescriptors() != null) {
+                        foreach ($this->getRecordDescriptors() as $target) {
+                            if ($recordDescriptor.getId() == $target->getId()) {
+                                $target->embed($recordDescriptor);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $found) {
+                    $this->addRecordDescriptor(recordDescriptor);
                 }
             }
         }

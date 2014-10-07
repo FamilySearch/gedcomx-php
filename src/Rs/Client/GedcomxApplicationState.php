@@ -596,19 +596,18 @@ abstract class GedcomxApplicationState
 
     /**
      * @param \Gedcomx\Links\Link                      $link
-     * @param \Gedcomx\Gedcomx                         $entity
      * @param \Gedcomx\Rs\Client\StateTransitionOption $options
      *
      * @throws Exception\GedcomxApplicationException
      */
-    protected function embed( $link, $entity, $options = null ){
+    protected function embed( $link, $options = null ){
         if ($link->getHref() != null) {
             $transitionOptions = $this->getTransitionOptions( func_get_args() );
             $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link->getHref());
             $lastEmbeddedResponse = $this->invoke($lastEmbeddedRequest, $transitionOptions);
             if ($lastEmbeddedResponse->getStatusCode() == 200) {
                 $json = json_decode($lastEmbeddedResponse->getBody(),true);
-                $entity->embed(new Gedcomx($json));
+                $this->entity->embed(new Gedcomx($json));
             }
             else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
                 throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);

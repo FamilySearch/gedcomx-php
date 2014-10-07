@@ -31,6 +31,8 @@ class ExtensibleData
      * Constructs a ExtensibleData from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -213,4 +215,17 @@ class ExtensibleData
             $writer->writeAttribute('id', $this->id);
         }
     }
+
+    /**
+     * Merges given data with current object
+     *
+     * @param ExtensibleData $data
+     */
+    protected function embed(ExtensibleData $data) {
+        if ($data->extensionElements != null) {
+            $this->extensionElements = $this->extensionElements == null ? array() : $this->extensionElements;
+            $this->extensionElements->addAll($data->extensionElements);
+        }
+    }
+
 }

@@ -113,15 +113,28 @@ class PersonStateTest extends ApiTestCase{
         $this->assertGreaterThan( 0, count($sourceList), "No source descriptions were returned.");
     }
 
+    public function testCanReadPersonNotes(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        self::$personState
+            ->loadNotes();
 
-    public function createPerson()
+        $persons = self::$personState->getEntity()->getPersons();
+        $notes = $persons[0]->getNotes();
+
+        $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
+
+    }
+
+    private function createPerson()
     {
         $person = PersonBuilder::buildPerson();
         return $this->collectionState
             ->addPerson($person);
     }
 
-    public function getPerson(){
+    private function getPerson(){
         $link = $this->collectionState->getLink(Rel::PERSON);
         if ($link === null || $link->getTemplate() === null) {
             return null;
@@ -137,4 +150,5 @@ class PersonStateTest extends ApiTestCase{
         return $this->collectionState
             ->readPerson( $uri );
     }
+
 }
