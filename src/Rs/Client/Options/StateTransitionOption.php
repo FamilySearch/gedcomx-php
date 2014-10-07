@@ -1,6 +1,6 @@
 <?php
 
-	namespace Gedcomx\Rs\Client;
+	namespace Gedcomx\Rs\Client\Options;
 
 	use Guzzle\Http\Message\Request;
 

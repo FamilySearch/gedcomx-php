@@ -4,7 +4,7 @@
 
 	use Guzzle\Http\Message\Request;
 
-	class HeaderParameter
+	class HeaderParameter implements StateTransitionOption
 	{
 		const LANG = "Accept-Language";
 		const LOCALE = self::LANG;

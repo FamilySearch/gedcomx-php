@@ -4,12 +4,14 @@ namespace Gedcomx\Tests\Rs\Client;
 
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Conclusion\Name;
+use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\GenderType;
+use Gedcomx\Types\RelationshipType;
 
 class PersonStateTest extends ApiTestCase{
 
@@ -124,8 +126,60 @@ class PersonStateTest extends ApiTestCase{
         $notes = $persons[0]->getNotes();
 
         $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
-
     }
+
+    public function testCanReadPersonParentRelationships(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        self::$personState
+            ->loadParentRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No parents were returned.');
+    }
+
+    public function testCanReadPersonChildRelationships(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        self::$personState
+            ->loadChildRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No children were returned.');
+    }
+
+    public function testCanReadPersonSpouseRelationships(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        self::$personState
+            ->loadSpouseRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::COUPLE, "type", $relationships[0], 'No spouses were returned.');
+    }
+
+    public function testCanReadPersonSpouseRelationshipsWithPersons(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        $option = new QueryParameter(true,"persons","");
+        self::$personState
+            ->loadSpouseRelationships($option);
+
+        $persons = self::$personState->getEntity()->getPersons();
+
+        $this->assertGreaterThan( 0, count($persons), "No person records were returned.");
+    }
+
+    /*
+     * Private helper functions
+     */
 
     private function createPerson()
     {

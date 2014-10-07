@@ -5,6 +5,7 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
 use Gedcomx\Conclusion\Person;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 
 class PersonSearchResultsState extends GedcomxApplicationState
 {

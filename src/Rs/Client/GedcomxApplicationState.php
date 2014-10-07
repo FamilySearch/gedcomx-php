@@ -6,6 +6,7 @@ use Gedcomx\Gedcomx;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Request;
@@ -631,6 +632,22 @@ abstract class GedcomxApplicationState
         }
 
         return $args;
+    }
+
+    /**
+     * @param string $functionName The function to call. Assumed to be in $this scope
+     * @param array  $args         New arguments to pass to the function
+     * @param array  $passed_args  Possible optional arguments from the calling function
+     *
+     * @return mixed
+     */
+    protected function callFunction( $functionName, array $args, array $passed_args ){
+        $func_args = array_merge($args, $this->getTransitionOptions($passed_args));
+        return call_user_func_array(
+            array($this, $functionName),
+            $func_args
+        );
+
     }
 
     /**

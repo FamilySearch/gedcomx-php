@@ -167,7 +167,6 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
      *
      * @return PersonState $this
      */
@@ -184,50 +183,49 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadNotes($option = null)
     {
-        $func_args = array(
+        $args = array(
             array(Rel::NOTES),
         );
-        $func_args = array_merge($func_args, $this->getTransitionOptions(func_get_args()));
-        return call_user_func_array(
-            array($this, 'loadEmbeddedResources'),
-            $func_args
+        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     *
+     * @return PersonState $this
+     */
+    public function loadParentRelationships($option = null)
+    {
+        $args = array(
+            array(Rel::PARENT_RELATIONSHIPS),
         );
+        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
      * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
      *
      * @return PersonState $this
      */
-    public function loadParentRelationships()
+    public function loadSpouseRelationships($option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $args = array(
+            array(Rel::SPOUSE_RELATIONSHIPS),
+        );
+        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
      * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
      *
      * @return PersonState $this
      */
-    public function loadSpouseRelationships()
+    public function loadChildRelationships($option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
-     *
-     * @return PersonState $this
-     */
-    public function loadChildRelationships()
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $args = array(
+            array(Rel::CHILD_RELATIONSHIPS),
+        );
+        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**

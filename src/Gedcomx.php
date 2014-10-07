@@ -864,6 +864,20 @@ class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
     }
 
     /**
+     * Add a relationship to the data set.
+     *
+     * @param Relationship $relationship The relationship to be added.
+     */
+    public function addRelationship( Relationship $relationship ) {
+        if ($relationship != null) {
+            if ($this->relationships == null) {
+                $this->relationships = array();
+            }
+            $this->relationships[] = $relationship;
+        }
+    }
+
+    /**
      * Merges given data with current object
      *
      * @param ExtensibleData $gedcomx Assumes Gedcomx\Gedcomx or a subclass
