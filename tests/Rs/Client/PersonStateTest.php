@@ -33,9 +33,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testReadPersonHeaders(){
         self::$personState = $this->getPerson();
-        self::$personState->head();
+        $newState = self::$personState->head();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
     }
 
     public function testAddNameToPerson(){
@@ -43,14 +43,14 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->createPerson();
         }
         if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getLink(Rel::SELF)->getHref();
+            $uri = self::$personState->getSelfUri();
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
         $name = PersonBuilder::nickName();
-        self::$personState->addName($name);
+        $newPersonState = self::$personState->addName($name);
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
     }
 
     public function testUpdateGenderOnPerson(){
@@ -58,7 +58,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->createPerson();
         }
         if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getLink(Rel::SELF)->getHref();
+            $uri = self::$personState->getSelfUri();
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
@@ -75,7 +75,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->createPerson();
         }
         if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getLink(Rel::SELF)->getHref();
+            $uri = self::$personState->getSelfUri();
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
