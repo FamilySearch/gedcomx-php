@@ -143,7 +143,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadSourceReferences(StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::SOURCE_REFERENCES), func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::SOURCE_REFERENCES)), func_get_args());
     }
 
     /**
@@ -386,7 +386,7 @@ class PersonState extends GedcomxApplicationState
     public function updateFacts(array $facts, StateTransitionOption $option = null)
     {
         $person = $this->createEmptySelf();
-        $person->setNames($facts);
+        $person->setFacts($facts);
         return $this->passOptionsTo('updateConclusions', array($person), func_get_args());
     }
 

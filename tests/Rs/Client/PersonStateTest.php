@@ -24,19 +24,15 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testReadPersonState(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         $personState = $this->collectionState
-            ->readPerson(self::$personState->getLink(Rel::SELF)->getHref());
+            ->readPerson(self::$personState->getSelfUri());
 
         $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
     }
 
     public function testReadPersonHeaders(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState->head();
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
@@ -66,7 +62,9 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
-        $gender = new Gender(GenderType::UNKNOWN);
+        $gender = new Gender(array(
+            "type" =>GenderType::MALE
+        ));
         self::$personState->updateGender($gender);
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
@@ -81,7 +79,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
-        $fact = PersonBuilder::nickName();
+        $fact = PersonBuilder::militaryService();
         self::$personState->addFact($fact);
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
@@ -90,6 +88,7 @@ class PersonStateTest extends ApiTestCase{
     public function testCanAddSourceReferenceWithStateObject(){
         /*
          * addSourceDescription isn't working. Will come back to this later.
+         *
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -104,9 +103,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonSources(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState
             ->loadSourceReferences();
 
@@ -116,9 +113,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonNotes(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState
             ->loadNotes();
 
@@ -129,9 +124,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonParentRelationships(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState
             ->loadParentRelationships();
 
@@ -141,9 +134,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonChildRelationships(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState
             ->loadChildRelationships();
 
@@ -153,9 +144,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonSpouseRelationships(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         self::$personState
             ->loadSpouseRelationships();
 
@@ -165,9 +154,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCanReadPersonSpouseRelationshipsWithPersons(){
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
+        self::$personState = $this->getPerson();
         $option = new QueryParameter(true,"persons","");
         self::$personState
             ->loadSpouseRelationships($option);
@@ -196,7 +183,7 @@ class PersonStateTest extends ApiTestCase{
         $uri = array(
             $link->getTemplate(),
             array(
-                "pid" => "KWQ7-Y57",
+                "pid" => "KWW6-H43",
                 "access_token" => $this->collectionState->getAccessToken()
             )
         );

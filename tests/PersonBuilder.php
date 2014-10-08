@@ -109,4 +109,16 @@ class PersonBuilder
             )
         ));
     }
+
+    public static function militaryService()
+    {
+        return new Fact(array(
+            'primary' => true,
+            'type' => FactType::MILITARYSERVICE,
+            'date' => new DateInfo(array(
+                    "original" => "March 12, 1968"
+                )),
+            'value' => 'Corporal: Vietnam 1968-1970'
+        ));
+    }
 }
