@@ -12,8 +12,6 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
-use RuntimeException;
-
 
 abstract class GedcomxApplicationState
 {
@@ -225,48 +223,74 @@ abstract class GedcomxApplicationState
         }
     }
 
-    public function head($option = null)
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     */
+    public function head(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedRequest(Request::HEAD, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
         }
-        return $this->reconstruct($request, $this->invoke($request,$transitionOptions));
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
-    public function get()
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     */
+    public function get(StateTransitionOption $option = null)
     {
         $request = $this->createAuthenticatedRequest("GET");
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
         }
-        return $this->reconstruct($request, $this->invoke($request));
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
-    public function delete()
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     */
+    public function delete(StateTransitionOption $option = null)
     {
         $request = $this->createAuthenticatedRequest("DELETE");
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
         }
-        return $this->reconstruct($request, $this->invoke($request));
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
-    public function options()
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     */
+    public function options(StateTransitionOption $option = null)
     {
         $request = $this->createAuthenticatedRequest("OPTIONS");
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
         }
-        return $this->reconstruct($request, $this->invoke($request));
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
-    public function put($entity)
+    /**
+     * @param                                                  $entity
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     * @throws GedcomxApplicationException
+     */
+    public function put($entity, StateTransitionOption $option = null)
     {
         $request = $this->createAuthenticatedRequest("PUT");
         $accept = $this->request->getHeader("Accept");
@@ -278,7 +302,7 @@ abstract class GedcomxApplicationState
             $request->setHeader("Content-Type", $contentType);
         }
         $request->setBody(json_encode($entity->toArray()));
-        return $this->reconstruct($request, $this->invoke($request));
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
     /**
@@ -418,7 +442,7 @@ abstract class GedcomxApplicationState
      *
      * @return string
      */
-    protected function buildFailureMessage( $request, $response ) {
+    protected function buildFailureMessage( Request $request, Response $response ) {
         $message = "Unsuccessful " . $request->getMethod() . " to " . $request->getUrl() . " (" . $response->getStatusCode() . ")";
         $warnings = $this->getWarnings($response->getHeaders());
         foreach( $warnings as $w ) {
@@ -430,12 +454,12 @@ abstract class GedcomxApplicationState
 
 
     /**
-     * @param string $rel The rel
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param string                                           $rel        The rel
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
-     * @return GedcomxApplicationState The requested page.
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
      */
-    protected function readPage($rel, $options = null)
+    protected function readPage($rel, StateTransitionOption $option = null)
     {
         $link = $this->getLink($rel);
         if ($link === null || $link->getHref() === null) {
@@ -443,63 +467,65 @@ abstract class GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
         $request->setHeader("Accept", $this->request->getHeader("Accept"));
         $request->setHeader("Content-Type", $this->request->getHeader("Content-Type"));
         $class = get_class($this);
-        return new $class( $this->client, $request, $this->invoke($request, $transitionOptions), $this->accessToken, $this->stateFactory );
+        return new $class(
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->accessToken,
+            $this->stateFactory
+        );
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
-     * @return GedcomxApplicationState The next page.
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
      */
-    protected function readNextPage( $options = null )
+    protected function readNextPage( StateTransitionOption $option = null )
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::NEXT, $options );
+        return $this->passOptionsTo('readPage',array(Rel::NEXT), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
-     * @return GedcomxApplicationState The previous page.
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
      */
-    protected function readPreviousPage( $options = null )
+    protected function readPreviousPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::PREVIOUS, $options);
+        return $this->passOptionsTo('readPage',array(Rel::PREVIOUS), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
-     * @return GedcomxApplicationState The first page.
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
      */
-    protected function readFirstPage( $options = null )
+    protected function readFirstPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::FIRST, $options);
+        return $this->passOptionsTo('readPage',array(Rel::FIRST), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
-     * @return GedcomxApplicationState the last page.
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
      */
-    protected function readLastPage( $options = null )
+    protected function readLastPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::LAST, $options);
+        return $this->passOptionsTo('readPage',array(Rel::LAST), func_get_args());
     }
 
     /**
      * @param array $formData The form parameters.
-     * @return GedcomxApplicationState $this
+     *                        
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState $this
      * @throws GedcomxApplicationException If there are problems.
      */
-    protected function authenticateViaOAuth2($formData)
+    protected function authenticateViaOAuth2(array $formData)
     {
         $tokenLink = $this->getLink(Rel::OAUTH2_TOKEN);
         if (!isset($tokenLink)) {
@@ -603,16 +629,15 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Links\Link                      $link
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $options
+     * @param \Gedcomx\Links\Link                              $link
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws Exception\GedcomxApplicationException
      */
-    protected function embed( $link, $options = null ){
+    protected function embed(Link $link, StateTransitionOption $option = null ){
         if ($link->getHref() != null) {
-            $transitionOptions = $this->getTransitionOptions( func_get_args() );
             $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link->getHref());
-            $lastEmbeddedResponse = $this->invoke($lastEmbeddedRequest, $transitionOptions);
+            $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
             if ($lastEmbeddedResponse->getStatusCode() == 200) {
                 $json = json_decode($lastEmbeddedResponse->getBody(),true);
                 $this->entity->embed(new Gedcomx($json));
@@ -627,7 +652,12 @@ abstract class GedcomxApplicationState
 
     }
 
-    protected function getTransitionOptions( $args )
+    /**
+     * @param array $args expects the results from func_get_args()
+     *
+     * @return array
+     */
+    protected function getTransitionOptions( array $args )
     {
         while (!empty($args) && !$args[0] instanceof StateTransitionOption){
             if( is_array($args[0]) ){
@@ -648,7 +678,7 @@ abstract class GedcomxApplicationState
      *
      * @return mixed
      */
-    protected function callFunction( $functionName, array $args, array $passed_args ){
+    protected function passOptionsTo( $functionName, array $args, array $passed_args ){
         $func_args = array_merge($args, $this->getTransitionOptions($passed_args));
         return call_user_func_array(
             array($this, $functionName),
@@ -658,13 +688,13 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param Request               $request the request to send.
-     * @param StateTransitionOption $option,... StateTransitionOptions to be applied before sending
+     * @param \Guzzle\Http\Message\Request                     $request    the request to send.
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... StateTransitionOptions to be applied before sending
      *
      * @throws Exception\GedcomxApplicationException
      * @return Response The response.
      */
-    protected function invoke(Request $request, $option = null)
+    protected function invoke(Request $request, StateTransitionOption $option = null)
     {
         $options = func_get_args();
         array_shift($options);

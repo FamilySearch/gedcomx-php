@@ -113,7 +113,7 @@
                 "PersonState",
                 $this->client,
                 $request,
-                $this->callFunction('invoke', array($request), func_get_args()),
+                $this->passOptionsTo('invoke', array($request), func_get_args()),
                 $this->accessToken
             );
         }
@@ -140,7 +140,7 @@
                 "PersonState",
                 $this->client,
                 $request,
-                $this->callFunction("invoke", array($request), func_get_args()),
+                $this->passOptionsTo("invoke", array($request), func_get_args()),
                 $this->accessToken
             );
         }
@@ -167,7 +167,7 @@
                 "RelationshipState",
                 $this->client,
                 $request,
-                $this->callFunction('invoke', array(request), func_get_args()),
+                $this->passOptionsTo('invoke', array(request), func_get_args()),
                 $this->accessToken
             );
         }
@@ -195,7 +195,7 @@
                 "RelationshipState",
                 $this->client,
                 $request,
-                $this->callFunction('invoke', array(request), func_get_args()),
+                $this->passOptionsTo('invoke', array(request), func_get_args()),
                 $this->accessToken
             );
         }
@@ -228,7 +228,7 @@
                 "RelationshipState",
                 $this->client,
                 $request,
-                $this->callFunction('invoke', array($request), func_get_args()),
+                $this->passOptionsTo('invoke', array($request), func_get_args()),
                 $this->accessToken
             );
         }

@@ -12,8 +12,11 @@ use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
+use Gedcomx\Tests\SerializationTest;
+use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
@@ -22,7 +25,7 @@ class PersonState extends GedcomxApplicationState
 {
 
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
@@ -71,192 +74,177 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return CollectionState|null
      */
-    public function readCollection()
+    public function readCollection(StateTransitionOption $option = null)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... 
+     * 
      * @return AncestryResultsState|null
      */
-    public function readAncestry( $option = null )
+    public function readAncestry(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::ANCESTRY);
         if (!$link||!$link->getHref()) {
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET");
         $request->setUrl($link->getHref());
         return $this->stateFactory->createState(
             "AncestryResultsState",
             $this->client,
             $request,
-            $this->invoke($request,$transitionOptions),
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
             $this->accessToken
         );
-        
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... 
      *
      * @return DescendancyResultsState|null
      */
-    public function readDescendancy()
+    public function readDescendancy(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadAllEmbeddedResources()
+    public function loadAllEmbeddedResources(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadConclusions()
+    public function loadConclusions(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadSourceReferences( $option = null )
+    public function loadSourceReferences(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
-        return $this->loadEmbeddedResources( array(Rel::SOURCE_REFERENCES), $transitionOptions);
+        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::SOURCE_REFERENCES), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadMediaReferences()
+    public function loadMediaReferences(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadEvidenceReferences()
+    public function loadEvidenceReferences(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadNotes($option = null)
+    public function loadNotes(StateTransitionOption $option = null)
     {
         $args = array(
             array(Rel::NOTES),
         );
-        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadParentRelationships($option = null)
+    public function loadParentRelationships(StateTransitionOption $option = null)
     {
         $args = array(
             array(Rel::PARENT_RELATIONSHIPS),
         );
-        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadSpouseRelationships($option = null)
+    public function loadSpouseRelationships(StateTransitionOption $option = null)
     {
         $args = array(
             array(Rel::SPOUSE_RELATIONSHIPS),
         );
-        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState $this
+     * @return \Gedcomx\Rs\Client\PersonState $this
      */
-    public function loadChildRelationships($option = null)
+    public function loadChildRelationships(StateTransitionOption $option = null)
     {
         $args = array(
             array(Rel::CHILD_RELATIONSHIPS),
         );
-        return $this->callFunction('loadEmbeddedResources', $args, func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', $args, func_get_args());
     }
 
     /**
      * @param \Gedcomx\Conclusion\Person               $person
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *                                                             or an array of StateTransitionOption objects
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function update(Person $person, $option = null)
+    public function update(Person $person, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         if ($this->getLink(Rel::CONCLUSIONS) != null && ($person->getNames() != null || $person->getFacts() != null || $person->getGender() != null)) {
-            $this->updateConclusions($person, $transitionOptions);
+            $this->passOptionsTo('updateConclusions', array($person), func_get_args());
         }
 
         if ($this->getLink(Rel::EVIDENCE_REFERENCES) != null && $person->getEvidence() != null) {
-            $this->updateEvidenceReferences($person, $transitionOptions);
+            $this->passOptionsTo('updateEvidenceReferences', array($person), func_get_args());
         }
 
         if ($this->getLink(Rel::MEDIA_REFERENCES) != null && $person->getMedia() != null) {
-            $this->updateMediaReferences($person, $transitionOptions);
+            $this->passOptionsTo('updateMediaReferences', array($person), func_get_args());
         }
 
         if ($this->getLink(Rel::SOURCE_REFERENCES) != null && $person->getSources() != null) {
-            $this->updateSourceReferences($person, $transitionOptions);
+            $this->passOptionsTo('updateSourceReferences', array($person), func_get_args());
         }
 
         if ($this->getLink(Rel::NOTES) != null && $person->getNotes() != null) {
-            $this->updateNotes($person, $transitionOptions);
+            $this->passOptionsTo('updateNotes', array($person), func_get_args());
         }
 
         $gx = new Gedcomx();
@@ -266,182 +254,161 @@ class PersonState extends GedcomxApplicationState
             "PersonState",
             $this->client,
             $request,
-            $this->invoke($request, $transitionOptions),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Gender               $gender
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Gender                       $gender
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addGender(Gender $gender, $option = null)
+    public function addGender(Gender $gender, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        $this->updateGender($gender, $transitionOptions);
+        $this->passOptionsTo('updateGender', array($gender), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Gender               $gender
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Gender                       $gender
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateGender(Gender $gender, $option = null)
+    public function updateGender(Gender $gender, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $person = $this->createEmptySelf();
         $person->setGender($gender);
-        return $this->updateConclusions($person, $transitionOptions);
+        return $this->passOptionsTo('updateConclusions', array($person), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Name                 $name
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Name                         $name
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addName(Name $name, $option = null)
+    public function addName(Name $name, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        return $this->addNames(array($name),$transitionOptions);
+        return $this->passOptionsTo('addNames',array(array($name)), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Name[]               $names
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Name[]                       $names
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addNames($names, $option = null)
+    public function addNames(array $names, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $person = $this->createEmptySelf();
         $person->setNames($names);
-        return $this->updateConclusions($person, $transitionOptions);
+        return $this->passOptionsTo('updateConclusions', array($person), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Conclusion\Name                         $name
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updateName(Name $name, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateNames', array(array($name)), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Conclusion\Name[]                       $names
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updateNames(array $names, StateTransitionOption $option = null )
+    {
+        $person = $this->createEmptySelf();
+        $person->setNames($names);
+        return $this->passOptionsTo('updateConclusions', array($person), func_get_args());
     }
 
     /**
      * @param \Gedcomx\Conclusion\Name $name
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateName(Name $name, $option = null)
+    public function deleteName(Name $name, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        return updateNames(arra($name),$transitionOptions);
-    }
-
-    /**
-     * @param \Gedcomx\Conclusion\Name[]               $names
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
-     *
-     * @return PersonState
-     */
-    public function updateNames($names, $option = null )
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        $person = $this->createEmptySelf();
-        $person->setNames($names);
-        return $this->updateConclusions($person, $transitionOptions);
-    }
-
-    /**
-     * @param Name $name
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
-     * @return PersonState
-     */
-    public function deleteName($name)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Fact                 $fact
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Fact                         $fact
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addFact(Fact $fact, $option = null)
+    public function addFact(Fact $fact, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        return $this->updateFacts(array($fact), $transitionOptions);
+        return $this->passOptionsTo('updateFacts', array(array($fact)), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Fact[]               $facts
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Fact[]                       $facts
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addFacts($facts, $option = null)
+    public function addFacts(array $facts, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        return $this->updateFacts($facts, $transitionOptions);
+        return $this->passOptionsTo('updateFacts', array($facts), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Fact                 $fact
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Fact                         $fact
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *                                                             or an array of StateTransitionOption objects
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateFact($fact, $option = null)
+    public function updateFact(Fact $fact, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        return $this->updateFacts(array($fact), $transitionOptions);
+        return $this->passOptionsTo('updateFacts', array($fact), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Fact[]               $facts
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Fact[]                       $facts
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *                                                             or an array of StateTransitionOption objects
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateFacts($facts, $option = null)
+    public function updateFacts(array $facts, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $person = $this->createEmptySelf();
         $person->setNames($facts);
-        return $this->updateConclusions($person, $transitionOptions);
+        return $this->passOptionsTo('updateConclusions', array($person), func_get_args());
     }
 
     /**
-     * @param Fact $fact
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     *                                                             or an array of StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Conclusion\Fact                         $fact
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     * 
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function deleteFact($fact)
+    public function deleteFact(Fact $fact, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Gedcomx|\Gedcomx\Conclusion\Person $obj
-     * @param \Gedcomx\Rs\Client\StateTransitionOption    $option,... zero or more StateTransitionOption objects
-     *                                                                or an array of StateTransitionOption objects
+     * @param \Gedcomx\Gedcomx|\Gedcomx\Conclusion\Person      $obj
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws Exception\GedcomxApplicationException
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateConclusions($obj, $option = null) {
+    public function updateConclusions($obj, StateTransitionOption $option = null) {
         if( $obj instanceof Person ){
             $gx = new Gedcomx();
             $gx->addPerson($obj);
@@ -452,7 +419,6 @@ class PersonState extends GedcomxApplicationState
         }
 
         $target = $this->getSelfUri();
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $conclusionsLink = $this->getLink(Rel::CONCLUSIONS);
         if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
             $target = $conclusionsLink.getHref();
@@ -464,22 +430,20 @@ class PersonState extends GedcomxApplicationState
             "PersonState",
             $this->client,
             $request,
-            $this->invoke($request, $transitionOptions),
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
      * @param SourceDescriptionState|RecordState|SourceReference $obj
-     * @param StateTransitionOption                              $option,...
-     *                                                             or an array of StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption   $option,...
      *
      * @throws Exception\GedcomxApplicationException
-     * @return PersonState|null
+     * @return \Gedcomx\Rs\Client\PersonState|null
      */
-    public function addSourceReference($obj, $option = null)
+    public function addSourceReference($obj, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $class = get_class($obj);
         switch ($class) {
             case "SourceReference":
@@ -496,42 +460,40 @@ class PersonState extends GedcomxApplicationState
                 throw new GedcomxApplicationException("Unrecognized object type $class in PersonState->addSourceReference()");
         }
 
-        return $this->addSourceReferences( array($reference), $transitionOptions );
+        return $this->passOptionsTo('addSourceReferences',array(array($reference)), func_get_args());
     }
 
     /**
-     * @param SourceReference[]     $refs
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Source\SourceReference[]                $refs
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState|null
+     * @return \Gedcomx\Rs\Client\PersonState|null
      */
-    public function addSourceReferences($refs, $option = null) {
+    public function addSourceReferences(array $refs, StateTransitionOption $option = null) {
         $person = createEmptySelf();
         $person->setSources($refs);
 
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
-        return $this->updateSourceReferences($person, $transitionOptions);
+        return $this->passOptionsTo('updateSourceReferences', array($person), func_get_args());
     }
 
     /**
-     * @param SourceReference       $sourceReference
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Source\SourceReference                  $sourceReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateSourceReference($sourceReference, $option = null)
+    public function updateSourceReference(SourceReference $sourceReference, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
-        return $this->updateSourceReferences( array($sourceReference,$transitionOptions) );
+        return $this->passOptionsTo('updateSourceReferences', array($sourceReference), func_get_args());
     }
 
     /**
-     * @param Person|SourceReference[] $source
-     * @param StateTransitionOption    $option,...
+     * @param \Gedcomx\Conclusion\Person|\Gedcomx\Source\SourceReference[] $source
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption             $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateSourceReferences($source, $option = null)
+    public function updateSourceReferences($source, StateTransitionOption $option = null)
     {
         $person = null;
         if($source instanceof Person){
@@ -562,203 +524,199 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param SourceReference $sourceReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Source\SourceReference                  $sourceReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function deleteSourceReference($sourceReference)
+    public function deleteSourceReference(SourceReference $sourceReference, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceReference $mediaReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Source\SourceReference                  $mediaReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addMediaReference($mediaReference)
+    public function addMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceReference[] $mediaReferences
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Source\SourceReference[]                $mediaReferences
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addMediaReferences($mediaReferences)
+    public function addMediaReferences(array $mediaReferences, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceReference $mediaReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Source\SourceReference                  $mediaReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateMediaReference($mediaReference)
+    public function updateMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Source\SourceReference[]                $mediaReferences
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updateMediaReferences(array $mediaReferences, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Source\SourceReference                  $mediaReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function deleteMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference[]              $evidenceReferences
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addEvidenceReferences(array $evidenceReferences, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updateEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference[]              $evidenceReferences
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updateEvidenceReferences(array $evidenceReferences, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function deleteEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
+    {
+        throw new RuntimeException("function currently not implemented."); //todo: implement
+    }
+
+    /**
+     * @param \Gedcomx\Common\Note $note
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addNote(Note $note, StateTransitionOption $option = null)
     {
         $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceReference[] $mediaReferences
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Common\Note[]                           $notes
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function updateMediaReferences($mediaReferences)
+    public function addNotes(array $notes, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param SourceReference $mediaReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Common\Note                             $note
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function deleteMediaReference($mediaReference)
+    public function updateNote(Note $note, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param EvidenceReference $evidenceReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Common\Note[]                           $notes
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addEvidenceReference($evidenceReference)
+    public function updateNotes(array $notes, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param EvidenceReference[] $evidenceReferences
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Common\Note                             $note
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addEvidenceReferences($evidenceReferences)
+    public function deleteNote(Note $note, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param EvidenceReference $evidenceReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function updateEvidenceReference($evidenceReference)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param EvidenceReference[] $evidenceReferences
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function updateEvidenceReferences($evidenceReferences)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param EvidenceReference $evidenceReference
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function deleteEvidenceReference($evidenceReference)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param Note $note
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function addNote($note)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param Note[] $notes
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function addNotes($notes)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param Note $note
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function updateNote($note)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param Note[] $notes
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function updateNotes($notes)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param Note $note
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
-     */
-    public function deleteNote($note)
-    {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     * 
      * @return PersonParentsState
      */
-    public function readParents()
+    public function readParents(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonChildrenState
      */
-    public function readChildren($option = null)
+    public function readChildren(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $link = $this->getLink(Rel::CHILDREN);
         if ($link == null || $link->getHref() == null) {
             return null;
@@ -770,61 +728,60 @@ class PersonState extends GedcomxApplicationState
             "PersonChildrenState",
             $this->client,
             $request,
-            $this->invoke($request, $transitionOptions),
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
-     * @param Person $person
-     * @return PersonState
+     * @param \Gedcomx\Conclusion\Person $person
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addParent($person)
+    public function addParent(Person $person, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param Person $person
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addChild($person)
+    public function addChild(Person $person, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
      * @return PersonSpousesState
      */
-    public function readSpouses()
+    public function readSpouses(StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
-     * @param Person $person
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
-     * @return PersonState
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addSpouse($person)
+    public function addSpouse(Person $person, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
     /**
      * @param mixed $data The file
      * @param SourceDescription $description
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      */
-    public function addArtifact($data, $description = null)
+    public function addArtifact($data, SourceDescription $description = null, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 
@@ -844,16 +801,15 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * @param string[]              $rels
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonState
+     * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function loadEmbeddedResources( $rels, $option = null ) {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
+    public function loadEmbeddedResources( array $rels, StateTransitionOption $option = null ) {
         foreach ( $rels as $rel) {
             $link = $this->getLink($rel);
             if ($this->entity != null && $link != null && $link->getHref() != null) {
-                $this->embed($link, $transitionOptions);
+                $this->passOptionsTo('embed', array($link), func_get_args());
             }
         }
 

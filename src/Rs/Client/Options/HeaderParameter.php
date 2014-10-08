@@ -37,6 +37,9 @@
 			}
 		}
 
+        /**
+         * @param Request $request
+         */
 		public function apply(Request $request)
 		{
 			if ($this->replace) {
@@ -46,11 +49,21 @@
 			}
 		}
 
+        /**
+         * @param string $value
+         *
+         * @return HeaderParameter
+         */
 		public static function lang($value)
 		{
 			return new HeaderParameter(true, self::LANG, $value);
 		}
 
+        /**
+         * @param string $value
+         *
+         * @return HeaderParameter
+         */
 		public static function locale($value)
 		{
 			return new HeaderParameter(true, self::LOCALE, $value);

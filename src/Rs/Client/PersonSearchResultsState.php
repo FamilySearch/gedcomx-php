@@ -6,16 +6,19 @@ use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class PersonSearchResultsState extends GedcomxApplicationState
 {
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new PersonSearchResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -40,12 +43,12 @@ class PersonSearchResultsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Person                $person               Gedcomx\Conclusion\Person
-     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonState|null
      */
-    public function readPersonFromConclusion( Person $person, StateTransitionOption $transitionOption = null)
+    public function readPersonFromConclusion( Person $person, StateTransitionOption $option = null)
     {
         $link = $person->getLink(Rel::PERSON);
         if ($link === null) {
@@ -55,24 +58,23 @@ class PersonSearchResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,
             $request,
-            $this->invoke($request, $transitionOptions),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
-     * @param Entry                 $person               Gedcomx\Atom\Entry
-     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Atom\Entry                              $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonState|null
      */
-    public function readPersonFromEntry( Entry $person, StateTransitionOption $transitionOption = null)
+    public function readPersonFromEntry( Entry $person, StateTransitionOption $option = null)
     {
         $link = $person->getLink(Rel::PERSON);
         if ($link === null) {
@@ -82,24 +84,23 @@ class PersonSearchResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,
             $request,
-            $this->invoke($request,$transitionOptions),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
-     * @param Entry $person Gedcomx\Atom\Entry
-     * @param StateTransitionOption $transitionOption,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Atom\Entry                              $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return RecordState|null
      */
-    public function readRecord(Entry $person, StateTransitionOption $transitionOption = null)
+    public function readRecord(Entry $person, StateTransitionOption $option = null)
     {
         $link = $person->getLink(Rel::RECORD);
         if ($link === null) {
@@ -109,59 +110,54 @@ class PersonSearchResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
         return $this->stateFactory->createState(
             "RecordState",
             $this->client,
             $request,
-            $this->invoke($request,$transitionOptions),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return GedcomxApplicationState The next page.
      */
-    public function readNextPage( $options = null )
+    public function readNextPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::NEXT, $options );
+        return $this->passOptionsTo('readPage', array(Rel::NEXT), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return GedcomxApplicationState The previous page.
      */
-    public function readPreviousPage( $options = null )
+    public function readPreviousPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::PREVIOUS, $options);
+        return $this->passOptionsTo('readPage', array(Rel::PREVIOUS), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return GedcomxApplicationState The first page.
      */
-    public function readFirstPage( $options = null )
+    public function readFirstPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::FIRST, $options);
+        return $this->passOptionsTo('readPage', array(Rel::FIRST), func_get_args());
+
     }
 
     /**
-     * @param StateTransitionOption $options,... zero or more StateTransitionOption objects
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return GedcomxApplicationState the last page.
      */
-    public function readLastPage( $options = null )
+    public function readLastPage(StateTransitionOption $option = null)
     {
-        $options = $this->getTransitionOptions( func_get_args() );
-        return $this->readPage(Rel::LAST, $options);
+        return $this->passOptionsTo('readPage', array(Rel::LAST), func_get_args());
     }
-
 }

@@ -40,26 +40,51 @@
             $query->add( $this->name, $this->value );
         }
 
+        /**
+         * @param string $value
+         *
+         * @return QueryParameter
+         */
         public static function accessToken($value)
         {
             return new QueryParameter(true, self::ACCESS_TOKEN, $value);
         }
 
+        /**
+         * @param string $value
+         *
+         * @return QueryParameter
+         */
         public static function count($value)
         {
             return new QueryParameter(true, self::COUNT, $value);
         }
 
+        /**
+         * @param string $value
+         *
+         * @return QueryParameter
+         */
         public static function generations($value)
         {
             return new QueryParameter(true, self::GENERATIONS, $value);
         }
 
+        /**
+         * @param string $value
+         *
+         * @return QueryParameter
+         */
         public static function searchQuery($value)
         {
             return new QueryParameter(true, self::SEARCH_QUERY, $value);
         }
 
+        /**
+         * @param string $value
+         *
+         * @return QueryParameter
+         */
         public static function start($value)
         {
             return new QueryParameter(true, self::START, $value);
