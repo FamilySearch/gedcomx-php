@@ -50,7 +50,14 @@ abstract class GedcomxApplicationState
      */
     protected $entity;
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    /**
+     * @param Client       $client
+     * @param Request      $request
+     * @param Response     $response
+     * @param string       $accessToken
+     * @param StateFactory $stateFactory
+     */
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         $this->client = $client;
         $this->request = $request;
@@ -71,7 +78,7 @@ abstract class GedcomxApplicationState
         }
     }
 
-    protected abstract function reconstruct($request, $response);
+    protected abstract function reconstruct(Request $request, Response $response);
 
     protected abstract function loadEntity();
 
@@ -651,15 +658,17 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param Request                 $request the request to send.
-     * @param StateTransitionOption[] $options to be applied before sending
+     * @param Request               $request the request to send.
+     * @param StateTransitionOption $option,... StateTransitionOptions to be applied before sending
      *
      * @throws Exception\GedcomxApplicationException
      * @return Response The response.
      */
-    protected function invoke($request, $options = null)
+    protected function invoke(Request $request, $option = null)
     {
-        if( $options !== null ){
+        $options = func_get_args();
+        array_shift($options);
+        if( $options !== null && !empty($options) ){
             foreach( $options as $opt ){
                 $opt->apply($request);
             }

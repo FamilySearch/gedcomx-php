@@ -59,6 +59,10 @@ class StateFactory
 		return new PersonsState( $client, $request, $response, $accessToken, $this );
 	}
 
+    protected function buildPersonChildrenState( $client, $request, $response, $accessToken ){
+        return new PersonChildrenState( $client, $request, $response, $accessToken, $this );
+    }
+
     protected function buildPersonState($client, $request, $response, $accessToken)
     {
         return new PersonState($client, $request, $response, $accessToken, $this);

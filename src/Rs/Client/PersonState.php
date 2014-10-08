@@ -15,6 +15,7 @@ use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 class PersonState extends GedcomxApplicationState
@@ -26,7 +27,7 @@ class PersonState extends GedcomxApplicationState
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new PersonState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -466,7 +467,7 @@ class PersonState extends GedcomxApplicationState
             $this->invoke($request, $transitionOptions),
             $this->accessToken
         );
-  }
+    }
 
     /**
      * @param SourceDescriptionState|RecordState|SourceReference $obj
@@ -752,12 +753,26 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * @param \Gedcomx\Rs\Client\StateTransitionOption $option,... zero or more StateTransitionOption objects
+     *
      * @return PersonChildrenState
      */
-    public function readChildren()
+    public function readChildren($option = null)
     {
         $transitionOptions = $this->getTransitionOptions(func_get_args());
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::CHILDREN);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+
+        return $this->stateFactory->createState(
+            "PersonChildrenState",
+            $this->client,
+            $request,
+            $this->invoke($request, $transitionOptions),
+            $this->accessToken
+        );
     }
 
     /**
