@@ -47,13 +47,13 @@ class PersonStateTest extends ApiTestCase{
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 301
      */
     public function testReadMergedPerson(){
         // KWWD-X35 was merged with KWWD-CMF
-        self::$personState = $this->getPerson('KWWD-X35');
+        self::$personState = $this->getPerson('KWWD-CMF');
+
+        $this->assertAttributeEquals( "301", "statusCode", self::$personState->getResponse() );
+
     }
 
     /**
@@ -157,6 +157,9 @@ class PersonStateTest extends ApiTestCase{
     }
      */
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
+     */
     public function testReadPersonChildren(){
         if( self::$personState == null ){
             self::$personState = $this->getPerson();
@@ -168,11 +171,16 @@ class PersonStateTest extends ApiTestCase{
 
         $this->assertGreaterThan( 0, count($children), "No person records were returned.");
     }
-    
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 404
+     */
     public function testReadNotFoundPerson(){
-        //todo
+        self::$personState = $this->getPerson('ABCD-123');
     }
-    
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
@@ -188,13 +196,17 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "304", "statusCode", $secondState->getResponse() );
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
+     */
     public function testReadPersonNotes(){
         self::$personState = $this->getPerson();
         self::$personState
             ->loadNotes();
 
-        $persons = self::$personState->getEntity()->getPersons();
-        $notes = $persons[0]->getNotes();
+        /** @var $person \Gedcomx\Conclusion\Person */
+        $person = self::$personState->getEntity()->getPerson();
+        $notes = $person->getNotes();
 
         $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
     }
