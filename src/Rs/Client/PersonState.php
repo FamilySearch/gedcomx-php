@@ -512,13 +512,12 @@ class PersonState extends GedcomxApplicationState
         $gedcom->setPersons(array($person));
         $request = $this->createAuthenticatedGedcomxRequest("POST", $target);
         $request->setBody( $gedcom->toJson() );
-        $transitionOptions = $this->getTransitionOptions( func_get_args() );
 
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,
             $this->request,
-            $this->invoke($request, $transitionOptions),
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
             $this->accessToken
         );
     }
@@ -652,7 +651,6 @@ class PersonState extends GedcomxApplicationState
      */
     public function addNote(Note $note, StateTransitionOption $option = null)
     {
-        $transitionOptions = $this->getTransitionOptions(func_get_args());
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
 

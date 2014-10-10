@@ -657,14 +657,9 @@ abstract class GedcomxApplicationState
      *
      * @return array
      */
-    protected function getTransitionOptions( array $args )
+    private function findTransitionOptions( array $args )
     {
-        while (!empty($args) && !$args[0] instanceof StateTransitionOption){
-            if( is_array($args[0]) ){
-                if(!empty($args[0]) && $args[0][0] instanceof StateTransitionOption ){
-                    return $args[0];
-                }
-            }
+        while (! empty($args) && ! $args[0] instanceof StateTransitionOption){
             array_shift($args);
         }
 
@@ -679,7 +674,7 @@ abstract class GedcomxApplicationState
      * @return mixed
      */
     protected function passOptionsTo( $functionName, array $args, array $passed_args ){
-        $func_args = array_merge($args, $this->getTransitionOptions($passed_args));
+        $func_args = array_merge($args, $this->findTransitionOptions($passed_args));
         return call_user_func_array(
             array($this, $functionName),
             $func_args
