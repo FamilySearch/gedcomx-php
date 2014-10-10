@@ -705,7 +705,20 @@ class PersonState extends GedcomxApplicationState
      */
     public function readParents(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::PARENTS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+
+        return $this->stateFactory->createState(
+            "PersonParentsState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**

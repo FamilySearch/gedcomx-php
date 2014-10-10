@@ -210,10 +210,21 @@ class PersonStateTest extends ApiTestCase{
 
         $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
     }
-    
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
+     */
     public function testReadParentsOfPerson()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        $parentState = self::$personState
+            ->readParents();
+
+        $parents = $parentState->getEntity()->getPersons();
+
+        $this->assertGreaterThan( 0, count($parents), "No person records were returned.");
     }
     
     public function testReadSpousesOfPerson()

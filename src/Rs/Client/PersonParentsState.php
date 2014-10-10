@@ -6,17 +6,28 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 class PersonParentsState extends GedcomxApplicationState
 {
-
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    /**
+     * @param Client       $client
+     * @param Request      $request
+     * @param Response     $response
+     * @param string       $accessToken
+     * @param StateFactory $stateFactory
+     */
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct( Request $request, Response $response)
     {
         return new PersonParentsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -60,7 +71,7 @@ class PersonParentsState extends GedcomxApplicationState
      * @param Person $parent
      * @return Relationship|null
      */
-    public function findRelationshipTo($parent)
+    public function findRelationshipTo(Person $parent)
     {
         $relationships = $this->getRelationships();
         if ($relationships) {
@@ -75,46 +86,135 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * @param Options\StateTransitionOption $option,...
+     *
      * @return PersonState
      */
-    public function readPerson()
+    public function readPerson(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::PERSON);
+        if ($link == null || link.getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Person $parent
+     * @param Person                        $parent
+     * @param Options\StateTransitionOption $option,...
+     *
      * @return PersonState
      */
-    public function readParent($parent)
+    public function readParent(Person $parent, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $parent->getLink(Rel::PERSON);
+        if ($link == null) {
+            $link = $parent->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Relationship $relationship
+     * @param Relationship                  $relationship
+     * @param Options\StateTransitionOption $option,...
+     *
      * @return RelationshipState
      */
-    public function readRelationship($relationship)
+    public function readRelationship(Relationship $relationship, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $relationship->getLink(Rel::RELATIONSHIP);
+        if ($link == null) {
+            $link = $relationship->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'RelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Relationship $relationship
+     * @param Relationship                  $relationship
+     * @param Options\StateTransitionOption $option,...
+     *
+     * @throws Exception\GedcomxApplicationException
      * @return RelationshipState
      */
-    public function removeRelationship($relationship)
+    public function removeRelationship(Relationship $relationship, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $relationship->getLink(Rel::RELATIONSHIP);
+        if ($link == null) {
+            $link = $relationship->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'RelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Person $parent
+     * @param Person                        $parent
+     * @param Options\StateTransitionOption $option,...
+     *
+     * @throws Exception\GedcomxApplicationException
      * @return RelationshipState
      */
-    public function removeRelationshipTo($parent)
+    public function removeRelationshipTo(Person $parent, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $relationship = $this->findRelationshipTo($parent);
+        if ($relationship == null){
+            throw new GedcomxApplicationException("Unable to remove relationship: not found.");
+        }
+
+        $link = $relationship->getLink(Rel::RELATIONSHIP);
+        if ($link == null) {
+            $link = $relationship->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'RelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->accessToken
+        );
     }
 }
