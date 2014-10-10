@@ -393,7 +393,7 @@ abstract class GedcomxApplicationState
     }
 
 	public function getETag() {
-		return $this->response->getHeader(HeaderParameter::ETag);
+		return $this->response->getHeader(HeaderParameter::ETAG);
 	}
 
 	public function getLastModified() {

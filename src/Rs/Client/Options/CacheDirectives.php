@@ -3,7 +3,6 @@
 	namespace Gedcomx\Rs\Client\Options;
 
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
-	use Gedcomx\Rs\Client\StateTransitionOption;
 	use Guzzle\Http\Message\Request;
 
 	class CacheDirectives implements StateTransitionOption

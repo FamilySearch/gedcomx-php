@@ -7,9 +7,21 @@ use Gedcomx\Rs\Client\StateFactory;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
-	protected $apiEndpoint;
-	protected $apiCredentials;
+    /**
+     * @var string
+     */
+    protected $apiEndpoint;
+    /**
+     * @var stdClass
+     */
+    protected $apiCredentials;
+    /**
+     * @var \Gedcomx\Rs\Client\CollectionState
+     */
     protected $collectionState;
+    /**
+     * @var \Faker\Generator
+     */
     protected $faker;
 
 	public function setUp()

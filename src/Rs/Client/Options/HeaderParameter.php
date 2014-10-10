@@ -12,7 +12,7 @@
 		const IF_MODIFIED_SINCE = "If-Modified-Since";
 		const IF_MATCH = "If-Match";
 		const IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
-		const ETag = "ETag";
+		const ETAG = "ETag";
 		const LAST_MODIFIED = "Last-Modified";
 
 		private $replace;

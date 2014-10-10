@@ -3,7 +3,6 @@
 	namespace Gedcomx\Rs\Client\Options;
 
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
-	use Gedcomx\Rs\Client\StateTransitionOption;
 	use Guzzle\Http\Message\Request;
 
 	class Preconditions implements StateTransitionOption
@@ -11,14 +10,35 @@
 		private $etag;
 		private $lastModified;
 
+        public function setLastModified(\DateTime $lastModified)
+        {
+            $this->lastModified = $lastModified;
+        }
+        /**
+         * @param string $etag
+         */
+        public function setEtag($etag)
+        {
+            $this->etag = $etag;
+        }
+        /**
+         * @param string    $etag
+         * @param \DateTime $lastModified
+         */
+		public function setBothConditions($etag, \DateTime $lastModified)
+		{
+            $this->etag = $etag;
+            $this->lastModified = $lastModified;
+		}
+
         /**
          * @param GedcomxApplicationState $state
          */
-		public function __construct(GedcomxApplicationState $state)
-		{
-			$this->etag = $state->getETag();
-			$this->lastModified = $state->getLastModified();
-		}
+        public function setState(GedcomxApplicationState $state)
+        {
+            $this->etag = $state->getETag();
+            $this->lastModified = $state->getLastModified();
+        }
 
         /**
          * @param Request $request

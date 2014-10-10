@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests\Rs\Client;
 
 use Gedcomx\Conclusion\Gender;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceDescription;
@@ -15,7 +16,7 @@ use Gedcomx\Types\RelationshipType;
 class PersonStateTest extends ApiTestCase{
 
     /**
-     * @var \Gedcomx\Rs\Client\PersonState $personState
+     * @var \Gedcomx\Rs\Client\PersonState
      */
     private static $personState;
 
@@ -172,8 +173,19 @@ class PersonStateTest extends ApiTestCase{
         //todo
     }
     
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
+     */
     public function testReadNotModifiedPerson(){
-        
+        self::$personState = $this->getPerson();
+        $options = array();
+        $options[] = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, self::$personState->getResponse()->getEtag());
+        $options[] = new HeaderParameter(true, HeaderParameter::ETAG, self::$personState->getResponse()->getEtag());
+
+        $secondState = $this->getPerson(self::$personState->getPerson()->getId(), $options);
+
+        $this->assertAttributeEquals( "304", "statusCode", $secondState->getResponse() );
     }
 
     public function testReadPersonNotes(){
@@ -334,7 +346,7 @@ class PersonStateTest extends ApiTestCase{
             ->addPerson($person);
     }
 
-    private function getPerson($pid = 'KWW6-H43'){
+    private function getPerson($pid = 'KWW6-H43', array $options = array()){
         $link = $this->collectionState->getLink(Rel::PERSON);
         if ($link === null || $link->getTemplate() === null) {
             return null;
@@ -347,8 +359,8 @@ class PersonStateTest extends ApiTestCase{
             )
         );
 
-        return $this->collectionState
-            ->readPerson( $uri );
+        $args = array_merge(array($uri), $options);
+        return call_user_func_array(array($this->collectionState,"readPerson"), $args);
     }
 
 }
