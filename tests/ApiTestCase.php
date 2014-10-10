@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Tests;
 
+use Faker\Factory;
 use Gedcomx\Rs\Client\StateFactory;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
@@ -9,8 +10,12 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 	protected $apiEndpoint;
 	protected $apiCredentials;
     protected $collectionState;
+    protected $faker;
 
-	public function setUp(){
+	public function setUp()
+    {
+        $this->faker = Factory::create();
+
 		$this->apiEndpoint = 'https://sandbox.familysearch.org/platform/collections/tree';
 		$this->apiCredentials = (object)array(
 			'username' => "sdktester",

@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Tests;
 
+use Faker\Generator;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\DisplayProperties;
 use Gedcomx\Conclusion\Fact;
@@ -19,70 +20,92 @@ use Gedcomx\Types\NameType;
 class PersonBuilder
 {
 
-    public static function buildPerson()
+    public static function buildPerson( Generator $faker )
     {
+        /*
+         * Can't use faker for dates. It doesn't deal well with negative timestamps.
+         */
+        $gender = $faker->boolean() ? GenderType::FEMALE : GenderType::MALE;
+        $rnd = rand(50,200);
+        $birthDate = new \DateTime("-{$rnd} years");
+        $birthPlace = $faker->city() . ", " . $faker->state() . ", United States";
+        $rnd = rand(5,95);
+        $deathDate = new \DateTime($birthDate->format("F d, Y") . "+{$rnd}years");
+        $living = false;
+        if ($deathDate->getTimestamp() > time()) {
+            $living = true;
+        }
+
         $person = new Person();
-        $person->setGender(new Gender(array("type" => GenderType::MALE)));
-        $person->setLiving(false);
+        $person->setGender(new Gender(array("type" => $gender)));
+        $person->setLiving($living);
         $person->setPrincipal(false);
 
-        $display = new DisplayProperties(array(
-            "birthDate"  => "27 Jan 1949",
-            "birthPlace" => "Queenstown, New Zealand",
-            "gender"     => "Male",
-            "lifespan"   => "17 Jan 1949 - 13 Jun 1970",
-            "name"       => "Bob Friendly"
-        ));
-        $person->setDisplayExtension($display);
-
-        $name = self::birthName();
+        $name = self::birthName($faker, $gender);
         $person->setNames(array($name));
 
-        $facts = array(
-            new Fact(array(
+        $facts = array();
+        $birth = new Fact(
+            array(
                 "type"  => FactType::BIRTH,
                 "date"  => new DateInfo(array(
-                        "original" => "January 27, 1949"
+                        "original" => $birthDate->format("F d, Y")
                     )),
                 "place" => new PlaceReference(array(
                         "description" => "possibly, maybe, don't know",
-                        "original"    => "Lakes District Hospital, Queenstown, Otago, New Zealand"
+                        "original"    => $birthPlace
                     ))
-            )),
-            new Fact(array(
-                "type"  => FactType::DEATH,
-                "date"  => new DateInfo(array(
-                        "original" => "June 13, 1970"
-                    )),
-                "place" => new PlaceReference(array(
-                        "description" => "possibly, maybe, don't know",
-                        "original"    => "Da Nang, Vientnam"
-                    ))
-            ))
-        );
+            ));
+        $facts[] = $birth;
+
+        if (!$living) {
+            $death = new Fact(
+                array(
+                    "type"  => FactType::DEATH,
+                    "date"  => new DateInfo(array(
+                            "original" => $deathDate->format("F d, Y")
+                        )),
+                    "place" => new PlaceReference(array(
+                            "description" => "possibly, maybe, don't know",
+                            "original"    => $faker->city() . ", " . $faker->state() . ", United States"
+                        ))
+                ));
+            $facts[] = $death;
+        }
 
         $person->setFacts($facts);
+
+        $display = new DisplayProperties(array(
+            "birthDate"  => $birthDate->format("d M Y"),
+            "birthPlace" => $birthPlace,
+            "gender"     => $gender,
+            "lifespan"   => $birthDate->format("d M Y") . " - " . ($living ? '' : $deathDate->format("d M Y")),
+            "name"       => $name->toString()
+        ));
+        $person->setDisplayExtension($display);
 
         return $person;
     }
 
-    public static function birthName()
+    public static function birthName(Generator $faker, $gender )
     {
+        $firstName = $faker->firstName($gender);
+        $lastName = $faker->lastName();
         return new Name(array(
             "type"      => NameType::BIRTHNAME,
             "preferred" => true,
             "nameForms" => array(
                 new NameForm(array(
                     "lang"     => 'en',
-                    "fullText" => 'Bob Friendly',
+                    "fullText" => $firstName . ' ' . $lastName,
                     "parts"    => array(
                         new NamePart(array(
                             "type"  => NamePartType::GIVEN,
-                            "value" => "Bob"
+                            "value" => $firstName
                         )),
                         new NamePart(array(
                             "type"  => NamePartType::SURNAME,
-                            "value" => "Friendly"
+                            "value" => $lastName
                         ))
                     )
                 ))
@@ -91,18 +114,19 @@ class PersonBuilder
 
     }
 
-    public static function nickName()
+    public static function nickName(Faker $faker, $gender = 'female' )
     {
+        $name = $faker->firstName($gender);
         return new Name(array(
             "type"      => NameType::ALSOKNOWNAS,
             "nameForms" => array(
                 new NameForm(array(
                     "lang"     => 'en',
-                    "fullText" => 'Bobby-Ray',
+                    "fullText" => $name,
                     "parts"    => array(
                         new NamePart(array(
                             "type"  => NamePartType::GIVEN,
-                            "value" => "Bobby-Ray"
+                            "value" => $name
                         ))
                     )
                 ))
@@ -118,7 +142,7 @@ class PersonBuilder
             'date' => new DateInfo(array(
                     "original" => "March 12, 1968"
                 )),
-            'value' => 'Corporal: Vietnam 1968-1970'
+            'value' => 'Corporal'
         ));
     }
 }

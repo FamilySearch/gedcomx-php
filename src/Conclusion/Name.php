@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Types\NamePartType;
 
 /**
  * A name conclusion.
@@ -142,6 +143,7 @@ class Name extends \Gedcomx\Conclusion\Conclusion
     {
         $this->nameForms = $nameForms;
     }
+
     /**
      * Returns the associative array for this Name
      *
@@ -293,4 +295,13 @@ class Name extends \Gedcomx\Conclusion\Conclusion
             }
         }
     }
+
+    public function toString(){
+        if( !empty($this->nameForms) ){
+            return $this->nameForms[0]->toString();
+        }
+
+        return '';
+    }
+
 }

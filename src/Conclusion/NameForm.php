@@ -289,4 +289,8 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
             }
         }
     }
+
+    public function toString(){
+        return $this->fullText;
+    }
 }
