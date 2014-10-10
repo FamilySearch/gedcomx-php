@@ -15,7 +15,7 @@
      * limitations under the License.
      */
 
-    namespace Gedcomx\Tests\Rs\Client;
+    namespace Gedcomx\Rs\Client;
 
     use Gedcomx\Conclusion\Person;
     use Gedcomx\Conclusion\Relationship;
