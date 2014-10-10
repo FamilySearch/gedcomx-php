@@ -3,7 +3,6 @@
 namespace Gedcomx\Tests\Rs\Client;
 
 use Gedcomx\Conclusion\Gender;
-use Gedcomx\Conclusion\Name;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceDescription;
@@ -15,30 +14,256 @@ use Gedcomx\Types\RelationshipType;
 
 class PersonStateTest extends ApiTestCase{
 
+    /**
+     * @var \Gedcomx\Rs\Client\PersonState $personState
+     */
     private static $personState;
 
-    public function testCanCreatePerson(){
+    /*
+     * Example requests from https://familysearch.org/developers/docs/api/tree/Person_resource
+     */
+    public function testCreatePerson(){
         self::$personState = $this->createPerson();
 
         $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
     }
-
-    public function testReadPersonState(){
-        self::$personState = $this->getPerson();
-        $personState = $this->collectionState
-            ->readPerson(self::$personState->getSelfUri());
-
-        $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
+    
+    public function testCreatePersonSourceReference(){
+        //todo
+    }
+    
+    public function testCreatePersonConclusion(){
+        //todo
+    }
+    
+    public function testCreateDiscussionReference(){
+        //todo
     }
 
-    public function testReadPersonHeaders(){
+    public function testCreateNote(){
+        //todo
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 301
+     */
+    public function testReadMergedPerson(){
+        // KWWD-X35 was merged with KWWD-CMF
+        self::$personState = $this->getPerson('KWWD-X35');
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 410
+     */
+    public function testReadDeletedPerson(){
+        self::$personState = $this->getPerson('KWQ7-Y57');
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
+     */
+    public function testReadPerson(){
+        self::$personState = $this->getPerson();
+
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
+     */
+    public function testReadPersonSourceReferences(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadSourceReferences();
+
+        $sourceList = self::$personState->getEntity()->getSourceDescriptions();
+
+        $this->assertGreaterThan( 0, count($sourceList), "No source descriptions were returned.");
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
+     * Not implemented in the API. No links returned on PersonState for
+     * /platform/tree/persons/PPPP-PPP/sources
+     */
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
+     */
+    public function testReadRelationshipsToChildren(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadChildRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No children were returned.');
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
+     */
+    public function testReadRelationshipsToParents(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadParentRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No parents were returned.');
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
+     */
+    public function testReadRelationshipsToSpouses(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadSpouseRelationships();
+
+        $relationships = self::$personState->getEntity()->getRelationships();
+
+        $this->assertAttributeEquals( RelationshipType::COUPLE, "type", $relationships[0], 'No spouses were returned.');
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
+     */
+    public function testReadRelationshipsToSpousesWithPersons(){
+        self::$personState = $this->getPerson();
+        $option = new QueryParameter(true,"persons","");
+        self::$personState
+            ->loadSpouseRelationships($option);
+
+        $persons = self::$personState->getEntity()->getPersons();
+
+        $this->assertGreaterThan( 0, count($persons), "No person records were returned.");
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
+     */
+    public function testReadDiscussionReferences(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadDiscussionReferences();
+
+        /*
+         * Just want to make sure we got here without any errors for now.
+         */
+        $this->assertTrue(true);
+    }
+
+    public function testReadPersonChildren(){
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        $childrenState = self::$personState
+            ->readChildren();
+
+        $children = $childrenState->getEntity()->getPersons();
+
+        $this->assertGreaterThan( 0, count($children), "No person records were returned.");
+    }
+    
+    public function testReadNotFoundPerson(){
+        //todo
+    }
+    
+    public function testReadNotModifiedPerson(){
+        
+    }
+
+    public function testReadPersonNotes(){
+        self::$personState = $this->getPerson();
+        self::$personState
+            ->loadNotes();
+
+        $persons = self::$personState->getEntity()->getPersons();
+        $notes = $persons[0]->getNotes();
+
+        $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
+    }
+    
+    public function testReadParentsOfPerson()
+    {
+        //todo
+    }
+    
+    public function testReadSpousesOfPerson()
+    {
+        //todo
+    }
+
+    public function testHeadPerson()
+    {
         self::$personState = $this->getPerson();
         $newState = self::$personState->head();
 
         $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
     }
 
-    public function testAddNameToPerson(){
+    public function testUpdatePersonSourceReference()
+    {
+        //todo
+    }
+
+    public function testUpdatePersonConclusion()
+    {
+        //todo
+    }
+
+    public function testUpdatePersonCustomNonEventFact()
+    {
+        //todo
+    }
+
+    public function testUpdatePersonWithPreconditions()
+    {
+        //todo
+    }
+
+    public function testDeletePerson()
+    {
+        //todo
+    }
+
+    public function testDeletePersonSourceReference()
+    {
+        //todo
+    }
+
+    public function testDeletePersonConclusion()
+    {
+        //todo
+    }
+
+    public function testDeletePersonWithPreconditions()
+    {
+        //todo
+    }
+
+    public function testDeleteDiscussionReference()
+    {
+        //todo
+    }
+
+    public function testRestorePerson()
+    {
+        //todo
+    }
+    /*
+     * PersonState method tests not included above
+     */
+
+    // PersonState::updateGender - see testUpdatePersonConcl
+    public function testAddName(){
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -53,7 +278,7 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
     }
 
-    public function testUpdateGenderOnPerson(){
+    public function testUpdateGender(){
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -85,7 +310,7 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
-    public function testCanAddSourceReferenceWithStateObject(){
+    public function testAddSourceReferenceWithStateObject(){
         /*
          * addSourceDescription isn't working. Will come back to this later.
          *
@@ -102,68 +327,6 @@ class PersonStateTest extends ApiTestCase{
          */
     }
 
-    public function testCanReadPersonSources(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadSourceReferences();
-
-        $sourceList = self::$personState->getEntity()->getSourceDescriptions();
-
-        $this->assertGreaterThan( 0, count($sourceList), "No source descriptions were returned.");
-    }
-
-    public function testCanReadPersonNotes(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadNotes();
-
-        $persons = self::$personState->getEntity()->getPersons();
-        $notes = $persons[0]->getNotes();
-
-        $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
-    }
-
-    public function testCanReadPersonParentRelationships(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadParentRelationships();
-
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No parents were returned.');
-    }
-
-    public function testCanReadPersonChildRelationships(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadChildRelationships();
-
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No children were returned.');
-    }
-
-    public function testCanReadPersonSpouseRelationships(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadSpouseRelationships();
-
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::COUPLE, "type", $relationships[0], 'No spouses were returned.');
-    }
-
-    public function testCanReadPersonSpouseRelationshipsWithPersons(){
-        self::$personState = $this->getPerson();
-        $option = new QueryParameter(true,"persons","");
-        self::$personState
-            ->loadSpouseRelationships($option);
-
-        $persons = self::$personState->getEntity()->getPersons();
-
-        $this->assertGreaterThan( 0, count($persons), "No person records were returned.");
-    }
-
     /*
      * Private helper functions
      */
@@ -175,7 +338,7 @@ class PersonStateTest extends ApiTestCase{
             ->addPerson($person);
     }
 
-    private function getPerson(){
+    private function getPerson($pid = 'KWW6-H43'){
         $link = $this->collectionState->getLink(Rel::PERSON);
         if ($link === null || $link->getTemplate() === null) {
             return null;
@@ -183,7 +346,7 @@ class PersonStateTest extends ApiTestCase{
         $uri = array(
             $link->getTemplate(),
             array(
-                "pid" => "KWW6-H43",
+                "pid" => $pid,
                 "access_token" => $this->collectionState->getAccessToken()
             )
         );
