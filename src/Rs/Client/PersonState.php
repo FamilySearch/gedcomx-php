@@ -720,7 +720,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
 
         return $this->stateFactory->createState(
             "PersonChildrenState",
