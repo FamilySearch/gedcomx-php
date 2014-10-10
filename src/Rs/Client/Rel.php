@@ -52,4 +52,6 @@ class Rel
     const SOURCE_REFERENCES = 'source-references';
     const SPOUSES = 'spouses';
     const SPOUSE_RELATIONSHIPS = 'spouse-relationships';
+    const DISCUSSION_REFERENCE = "discussion-reference";
+    const DISCUSSION_REFERENCES = "discussion-references";
 }

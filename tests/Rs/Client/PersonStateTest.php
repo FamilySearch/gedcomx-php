@@ -147,18 +147,14 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
+     * todo
      * https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
-     */
+     *
+     * Requires Family Search Extensions to work properly. Will come back to it.
+     *
     public function testReadDiscussionReferences(){
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadDiscussionReferences();
-
-        /*
-         * Just want to make sure we got here without any errors for now.
-         */
-        $this->assertTrue(true);
     }
+     */
 
     public function testReadPersonChildren(){
         if( self::$personState == null ){
