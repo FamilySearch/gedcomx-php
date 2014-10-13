@@ -15,7 +15,7 @@ use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
-use Gedcomx\Tests\SerializationTest;
+use Gedcomx\Types;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -72,6 +72,23 @@ class PersonState extends GedcomxApplicationState
 
         return null;
     }
+
+
+    public function getSpouseRelationships() {
+        $relationships = $this->getRelationships();
+        if ($relationships == null) {
+            $relationships = array();
+        }
+        if ($relationships != null) {
+            foreach( $relationships as $idx => $r ){
+                if ($r->getKnownType() != RelationshipType::Couple) {
+                    unset($relationships[$idx]);
+                }
+            }
+        }
+        return $relationships;
+    }
+
 
     /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
@@ -766,13 +783,49 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param int                   $index
+     * @param StateTransitionOption $option,...
+     *
+     * @return PersonSpousesState|null
+     */
+    public function readSpouseFromIndex($index, StateTransitionOption $option = null)
+    {
+        $spouseRelationships = $this->getSpouseRelationships();
+        if (count($spouseRelationships) <= $index) {
+            return null;
+        }
+        return $this->passOptionsTo(
+            'readSpouseFromRelationship',
+            array($spouseRelationships[$index]),
+            func_get_args()
+        );
+    }
+
+    public function readSpouseFromRelationship($relationship, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readRelative', array($relationship), func_get_args());
+    }
+
+    /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonSpousesState
      */
     public function readSpouses(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::SPOUSES);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonSpousesState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**

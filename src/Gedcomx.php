@@ -17,6 +17,7 @@ use Gedcomx\Conclusion\Event;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\PlaceDescription;
 use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Records\Collection;
 use Gedcomx\Records\Field;
 use Gedcomx\Records\RecordDescriptor;
@@ -34,7 +35,7 @@ use Gedcomx\Source\SourceDescription;
      * 
      * <p>This documentation is provided as a non-normative reference guide.</p>
  */
-class Gedcomx extends \Gedcomx\Links\HypermediaEnabledData
+class Gedcomx extends HypermediaEnabledData
 {
 
     /**

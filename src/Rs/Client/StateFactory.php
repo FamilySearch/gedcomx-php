@@ -132,6 +132,19 @@ class StateFactory
      * @param \Guzzle\Http\Message\Response $response
      * @param string                        $accessToken The access token for this session
      *
+     * @return \Gedcomx\Rs\Client\PersonSpousesState
+     */
+    protected function buildPersonSpousesState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new PersonSpousesState( $client, $request, $response, $accessToken, $this );
+    }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
      */
     protected function buildAncestryResultsState(Client $client, Request $request, Response $response, $accessToken)

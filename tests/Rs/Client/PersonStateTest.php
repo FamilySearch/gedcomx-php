@@ -229,7 +229,13 @@ class PersonStateTest extends ApiTestCase{
     
     public function testReadSpousesOfPerson()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->getPerson();
+        }
+        $spouseState = self::$personState
+            ->readSpouses();
+
+        $this->assertAttributeEquals( "200", "statusCode", $spouseState->getResponse() );
     }
 
     public function testHeadPerson()

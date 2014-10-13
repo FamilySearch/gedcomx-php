@@ -3,7 +3,6 @@
 namespace Gedcomx\Tests;
 
 use Faker\Generator;
-use Faker\Provider\cs_CZ\DateTime;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\DisplayProperties;
 use Gedcomx\Conclusion\Fact;
