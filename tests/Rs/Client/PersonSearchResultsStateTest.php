@@ -55,6 +55,7 @@ class PersonSearchResultsStateTest extends ApiTestCase{
         $personState = $searchResults->readPersonFromConclusion($persons[0]);
 
         $this->assertNotNull($personState);
+        $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
     }
 
     public function testCanReadPersonFromEntry(){
@@ -65,6 +66,7 @@ class PersonSearchResultsStateTest extends ApiTestCase{
         $personState = $searchResults->readPersonFromEntry($entries[0]);
 
         $this->assertNotNull($personState);
+        $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
     }
 
     public function testCanReadNextPage(){

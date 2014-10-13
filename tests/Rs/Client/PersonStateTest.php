@@ -83,9 +83,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSourceReferences();
 
-        $sourceList = self::$personState->getEntity()->getSourceDescriptions();
-
-        $this->assertGreaterThan( 0, count($sourceList), "No source descriptions were returned.");
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -102,9 +100,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadChildRelationships();
 
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No children were returned.');
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -115,9 +111,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadParentRelationships();
 
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::PARENTCHILD, "type", $relationships[0], 'No parents were returned.');
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -128,9 +122,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSpouseRelationships();
 
-        $relationships = self::$personState->getEntity()->getRelationships();
-
-        $this->assertAttributeEquals( RelationshipType::COUPLE, "type", $relationships[0], 'No spouses were returned.');
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -142,9 +134,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSpouseRelationships($option);
 
-        $persons = self::$personState->getEntity()->getPersons();
-
-        $this->assertGreaterThan( 0, count($persons), "No person records were returned.");
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -167,9 +157,7 @@ class PersonStateTest extends ApiTestCase{
         $childrenState = self::$personState
             ->readChildren();
 
-        $children = $childrenState->getEntity()->getPersons();
-
-        $this->assertGreaterThan( 0, count($children), "No person records were returned.");
+        $this->assertAttributeEquals( "200", "statusCode", $childrenState->getResponse() );
     }
 
     /**
@@ -204,11 +192,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadNotes();
 
-        /** @var \Gedcomx\Conclusion\Person[] $persons */
-        $persons = self::$personState->getEntity()->getPersons();
-        $notes = $persons[0]->getNotes();
-
-        $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -222,9 +206,7 @@ class PersonStateTest extends ApiTestCase{
         $parentState = self::$personState
             ->readParents();
 
-        $parents = $parentState->getEntity()->getPersons();
-
-        $this->assertGreaterThan( 0, count($parents), "No person records were returned.");
+        $this->assertAttributeEquals( "200", "statusCode", $parentState->getResponse() );
     }
     
     public function testReadSpousesOfPerson()
