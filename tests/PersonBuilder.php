@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests;
 
 use Faker\Generator;
+use Faker\Provider\cs_CZ\DateTime;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\DisplayProperties;
 use Gedcomx\Conclusion\Fact;
@@ -114,7 +115,7 @@ class PersonBuilder
 
     }
 
-    public static function nickName(Faker $faker, $gender = 'female' )
+    public static function nickName(Generator $faker, $gender = 'female' )
     {
         $name = $faker->firstName($gender);
         return new Name(array(
@@ -134,15 +135,18 @@ class PersonBuilder
         ));
     }
 
-    public static function militaryService()
+    public static function militaryService(Generator $faker)
     {
+        $rnd = rand(50,125);
+
+        $date = new \DateTime("-{$rnd} years");
         return new Fact(array(
             'primary' => true,
             'type' => FactType::MILITARYSERVICE,
             'date' => new DateInfo(array(
-                    "original" => "March 12, 1968"
+                    "original" => $date->format("F d, Y")
                 )),
-            'value' => 'Corporal'
+            'value' => $faker->sentence(6)
         ));
     }
 }

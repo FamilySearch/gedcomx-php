@@ -204,9 +204,9 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadNotes();
 
-        /** @var $person \Gedcomx\Conclusion\Person */
-        $person = self::$personState->getEntity()->getPerson();
-        $notes = $person->getNotes();
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = self::$personState->getEntity()->getPersons();
+        $notes = $persons[0]->getNotes();
 
         $this->assertGreaterThan( 0, count($notes), "No notes were returned.");
     }
@@ -335,7 +335,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
-        $fact = PersonBuilder::militaryService();
+        $fact = PersonBuilder::militaryService($this->faker);
         self::$personState->addFact($fact);
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );

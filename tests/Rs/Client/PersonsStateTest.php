@@ -9,7 +9,7 @@ class PersonsStateTest extends ApiTestCase {
 
     public function testCanAddPerson()
     {
-        $person = PersonBuilder::buildPerson();
+        $person = PersonBuilder::buildPerson($this->faker);
         $personState = $this->collectionState
             ->addPerson( $person );
 
