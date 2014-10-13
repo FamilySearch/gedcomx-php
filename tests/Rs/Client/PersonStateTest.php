@@ -65,7 +65,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
-        $fact = PersonBuilder::militaryService($this->faker);
+        $fact = PersonBuilder::militaryService();
         self::$personState->addFact($fact);
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
@@ -82,9 +82,9 @@ class PersonStateTest extends ApiTestCase{
         }
 
         $note = NoteBuilder::createNote();
-        self::$personState->addNote( $note );
+        $noteState = self::$personState->addNote( $note );
 
-        $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals( "201", "statusCode", $noteState->getResponse() );
     }
 
     /**
@@ -333,7 +333,7 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->collectionState
                 ->readPerson($uri);
         }
-        $name = PersonBuilder::nickName($this->faker);
+        $name = PersonBuilder::nickName();
         $newPersonState = self::$personState->addName($name);
 
         $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
@@ -362,7 +362,7 @@ class PersonStateTest extends ApiTestCase{
 
     private function createPerson()
     {
-        $person = PersonBuilder::buildPerson($this->faker);
+        $person = PersonBuilder::buildPerson();
         return $this->collectionState
             ->addPerson($person);
     }

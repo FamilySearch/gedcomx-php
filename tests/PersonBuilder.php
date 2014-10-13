@@ -2,7 +2,7 @@
 
 namespace Gedcomx\Tests;
 
-use Faker\Generator;
+use Faker\Factory;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\DisplayProperties;
 use Gedcomx\Conclusion\Fact;
@@ -20,15 +20,25 @@ use Gedcomx\Types\NameType;
 class PersonBuilder
 {
 
-    public static function buildPerson( Generator $faker )
+    private static $faker;
+
+    private static function faker(){
+        if( self::$faker == null ){
+            self::$faker = Factory::create();
+        }
+
+        return self::$faker;
+    }
+    
+    public static function buildPerson()
     {
         /*
          * Can't use faker for dates. It doesn't deal well with negative timestamps.
          */
-        $gender = $faker->boolean() ? GenderType::FEMALE : GenderType::MALE;
+        $gender = self::faker()->boolean() ? GenderType::FEMALE : GenderType::MALE;
         $rnd = rand(50,200);
         $birthDate = new \DateTime("-{$rnd} years");
-        $birthPlace = $faker->city() . ", " . $faker->state() . ", United States";
+        $birthPlace = self::faker()->city() . ", " . self::faker()->state() . ", United States";
         $rnd = rand(5,95);
         $deathDate = new \DateTime($birthDate->format("F d, Y") . "+{$rnd}years");
         $living = false;
@@ -41,7 +51,7 @@ class PersonBuilder
         $person->setLiving($living);
         $person->setPrincipal(false);
 
-        $name = self::birthName($faker, $gender);
+        $name = self::birthName($gender);
         $person->setNames(array($name));
 
         $facts = array();
@@ -67,7 +77,7 @@ class PersonBuilder
                         )),
                     "place" => new PlaceReference(array(
                             "description" => "possibly, maybe, don't know",
-                            "original"    => $faker->city() . ", " . $faker->state() . ", United States"
+                            "original"    => self::faker()->city() . ", " . self::faker()->state() . ", United States"
                         ))
                 ));
             $facts[] = $death;
@@ -87,10 +97,10 @@ class PersonBuilder
         return $person;
     }
 
-    public static function birthName(Generator $faker, $gender )
+    public static function birthName($gender)
     {
-        $firstName = $faker->firstName($gender);
-        $lastName = $faker->lastName();
+        $firstName = self::faker()->firstName($gender);
+        $lastName = self::faker()->lastName();
         return new Name(array(
             "type"      => NameType::BIRTHNAME,
             "preferred" => true,
@@ -114,9 +124,9 @@ class PersonBuilder
 
     }
 
-    public static function nickName(Generator $faker, $gender = 'female' )
+    public static function nickName($gender = 'female' )
     {
-        $name = $faker->firstName($gender);
+        $name = self::faker()->firstName($gender);
         return new Name(array(
             "type"      => NameType::ALSOKNOWNAS,
             "nameForms" => array(
@@ -134,7 +144,7 @@ class PersonBuilder
         ));
     }
 
-    public static function militaryService(Generator $faker)
+    public static function militaryService()
     {
         $rnd = rand(50,125);
 
@@ -145,7 +155,7 @@ class PersonBuilder
             'date' => new DateInfo(array(
                     "original" => $date->format("F d, Y")
                 )),
-            'value' => $faker->sentence(6)
+            'value' => self::faker()->sentence(6)
         ));
     }
 }

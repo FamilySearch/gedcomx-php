@@ -10,9 +10,9 @@ use Gedcomx\Common\Note;
 
 class NoteBuilder {
 
-    public static $faker;
+    private static $faker;
 
-    public static function faker(){
+    private static function faker(){
         if( self::$faker == null ){
             self::$faker = Factory::create();
         }
