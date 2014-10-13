@@ -9,10 +9,12 @@
 
 namespace Gedcomx\Common;
 
+use Gedcomx\Links\HypermediaEnabledData;
+
 /**
  * A note about a genealogical resource (e.g. conclusion or source).
  */
-class Note extends \Gedcomx\Links\HypermediaEnabledData
+class Note extends HypermediaEnabledData
 {
 
     /**
@@ -47,6 +49,8 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a Note from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -184,7 +188,11 @@ class Note extends \Gedcomx\Links\HypermediaEnabledData
             $this->text = $o["text"];
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            if($o['attribution'] instanceof Attribution ){
+                $this->attribution = $o['attribution'];
+            } else {
+                $this->attribution = new Attribution($o["attribution"]);
+            }
         }
     }
 

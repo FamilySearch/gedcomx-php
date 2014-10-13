@@ -8,6 +8,7 @@ use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\GenderType;
@@ -28,21 +29,62 @@ class PersonStateTest extends ApiTestCase{
 
         $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
     }
-    
+
     public function testCreatePersonSourceReference(){
         //todo
     }
-    
-    public function testCreatePersonConclusion(){
-        //todo
+
+    /*
+     * https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
+     *
+     * Two cases are presented here. Add new conclusion and update an exiting conclusion
+     */
+    public function testUpdateGender(){
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+        if( self::$personState->getPerson() == null ){
+            $uri = self::$personState->getSelfUri();
+            self::$personState = $this->collectionState
+                ->readPerson($uri);
+        }
+        $gender = new Gender(array(
+            "type" =>GenderType::MALE
+        ));
+        self::$personState->updateGender($gender);
+
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
-    
+
+    public function testAddFactToPerson(){
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+        if( self::$personState->getPerson() == null ){
+            $uri = self::$personState->getSelfUri();
+            self::$personState = $this->collectionState
+                ->readPerson($uri);
+        }
+        $fact = PersonBuilder::militaryService($this->faker);
+        self::$personState->addFact($fact);
+
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+    }
+
+
     public function testCreateDiscussionReference(){
         //todo
     }
 
     public function testCreateNote(){
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+
+        $note = NoteBuilder::createNote();
+        self::$personState->addNote( $note );
+
+        $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -295,38 +337,6 @@ class PersonStateTest extends ApiTestCase{
         $newPersonState = self::$personState->addName($name);
 
         $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
-    }
-
-    public function testUpdateGender(){
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
-        }
-        $gender = new Gender(array(
-            "type" =>GenderType::MALE
-        ));
-        self::$personState->updateGender($gender);
-
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
-    }
-
-    public function testAddFactToPerson(){
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
-        }
-        $fact = PersonBuilder::militaryService($this->faker);
-        self::$personState->addFact($fact);
-
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
     public function testAddSourceReferenceWithStateObject(){

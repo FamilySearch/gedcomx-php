@@ -101,8 +101,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... 
-     * 
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
      * @return AncestryResultsState|null
      */
     public function readAncestry(StateTransitionOption $option = null)
@@ -124,7 +124,7 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... 
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return DescendancyResultsState|null
      */
@@ -410,7 +410,7 @@ class PersonState extends GedcomxApplicationState
     /**
      * @param \Gedcomx\Conclusion\Fact                         $fact
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-     * 
+     *
      * @return \Gedcomx\Rs\Client\PersonState
      */
     public function deleteFact(Fact $fact, StateTransitionOption $option = null)
@@ -668,7 +668,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function addNote(Note $note, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('addNotes', array(array($note)), func_get_args());
     }
 
     /**
@@ -679,7 +679,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function addNotes(array $notes, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('updateNotes',array($notes), func_get_args());
     }
 
     /**
@@ -690,7 +690,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateNote(Note $note, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('updateNotes', array(array($note)), func_get_args());
     }
 
     /**
@@ -701,7 +701,38 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateNotes(array $notes, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = $this->createEmptySelf();
+        $person->setNotes($notes);
+
+        return $this->passOptionsTo('updatePersonNotes',array($person), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updatePersonNotes(Person $person, StateTransitionOption $option = null)
+    {
+        $target = $this->getSelfUri();
+        $conclusionsLink = $this->getLink(Rel::NOTES);
+        if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
+            $target = $conclusionsLink->getHref();
+        }
+
+        $gx = new Gedcomx();
+        $gx->setPersons(array($person));
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request->setBody($gx->toJson());
+
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
@@ -717,7 +748,7 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-     * 
+     *
      * @return PersonParentsState
      */
     public function readParents(StateTransitionOption $option = null)
