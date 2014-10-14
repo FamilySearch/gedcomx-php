@@ -241,7 +241,7 @@ abstract class GedcomxApplicationState
     /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     * @return mixed
      */
     public function get(StateTransitionOption $option = null)
     {

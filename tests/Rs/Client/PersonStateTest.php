@@ -5,6 +5,7 @@ namespace Gedcomx\Tests\Rs\Client;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
+use Gedcomx\Rs\Client\Options\Preconditions;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceReference;
@@ -330,6 +331,11 @@ class PersonStateTest extends ApiTestCase{
         //todo
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     */
     public function testDeletePersonSourceReference()
     {
         if( self::$personState == null ){
@@ -379,9 +385,24 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "204", "statusCode", $deletedState->getResponse() );
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 412
+     */
     public function testDeletePersonWithPreconditions()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson()->get();
+        }
+
+        $mangled = str_replace(array(1,3,5,'a','b','d'), array(8,4,3,'Z','X','W'), self::$personState->getResponse()->getEtag());
+        $check = new Preconditions();
+        $check->setEtag($mangled);
+        $check->setLastModified(new \DateTime(self::$personState->getResponse()->getLastModified()));
+
+        self::$personState->delete($check);
     }
 
     /**
