@@ -36,26 +36,7 @@ class PersonStateTest extends ApiTestCase{
 
     /*
      * https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
-     *
-     * Two cases are presented here. Add new conclusion and update an exiting conclusion
      */
-    public function testUpdateGender(){
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
-        }
-        $gender = new Gender(array(
-            "type" =>GenderType::MALE
-        ));
-        self::$personState->updateGender($gender);
-
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
-    }
-
     public function testAddFactToPerson(){
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
@@ -277,7 +258,21 @@ class PersonStateTest extends ApiTestCase{
 
     public function testUpdatePersonConclusion()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+        if( self::$personState->getPerson() == null ){
+            $uri = self::$personState->getSelfUri();
+            self::$personState = $this->collectionState
+                ->readPerson($uri);
+        }
+        $gender = new Gender(array(
+            "type" =>GenderType::MALE
+        ));
+        self::$personState->updateGender($gender);
+
+        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+
     }
 
     public function testUpdatePersonCustomNonEventFact()
