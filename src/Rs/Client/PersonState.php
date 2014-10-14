@@ -301,6 +301,18 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Conclusion\Gender                       $gender
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function deleteGender(Gender $gender, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('deleteConclusion', array($gender), func_get_args());
+    }
+
+
+    /**
      * @param \Gedcomx\Conclusion\Name                         $name
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -356,7 +368,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function deleteName(Name $name, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('deleteConclusion', array($name),func_get_args());
     }
 
     /**
@@ -415,7 +427,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function deleteFact(Fact $fact, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('deleteConclusion',array($fact),func_get_args());
     }
 
     /**
@@ -438,7 +450,7 @@ class PersonState extends GedcomxApplicationState
         $target = $this->getSelfUri();
         $conclusionsLink = $this->getLink(Rel::CONCLUSIONS);
         if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
-            $target = $conclusionsLink.getHref();
+            $target = $conclusionsLink->getHref();
         }
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
@@ -911,4 +923,22 @@ class PersonState extends GedcomxApplicationState
         return $this;
     }
 
+    protected function deleteConclusion( Conclusion $conclusion, StateTransitionOption $option = null){
+        $link = $conclusion->getLink(Rel::CONCLUSION);
+        if($link == null){
+            $conclusion->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 }
