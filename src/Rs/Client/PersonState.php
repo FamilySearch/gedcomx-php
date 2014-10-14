@@ -269,6 +269,7 @@ class PersonState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->addPerson($person);
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri() );
+        $request->setBody($gx->toJson());
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,

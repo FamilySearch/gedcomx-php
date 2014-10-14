@@ -326,9 +326,25 @@ class PersonStateTest extends ApiTestCase{
         //todo
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 412
+     */
     public function testUpdatePersonWithPreconditions()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson()->get();
+        }
+
+        $mangled = str_replace(array(1,3,5,'a','b','d'), array(8,4,3,'Z','X','W'), self::$personState->getResponse()->getEtag());
+        $check = new Preconditions();
+        $check->setEtag($mangled);
+        $check->setLastModified(new \DateTime(self::$personState->getResponse()->getLastModified()));
+
+        $persons = self::$personState->getEntity()->getPersons();
+        self::$personState->update($persons[0], $check);
     }
 
     /**
