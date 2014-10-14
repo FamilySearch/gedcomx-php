@@ -3,8 +3,10 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Common\Attribution;
 use Gedcomx\Common\EvidenceReference;
 use Gedcomx\Common\Note;
+use Gedcomx\Conclusion\Conclusion;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Conclusion\Name;
@@ -465,29 +467,43 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param SourceDescriptionState|RecordState|SourceReference $obj
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption   $option,...
+     * @param RecordState                                      $record
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws Exception\GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
-    public function addSourceReference($obj, StateTransitionOption $option = null)
+    public function addSourceReferenceRecord(RecordState $record, StateTransitionOption $option = null)
     {
-        $class = get_class($obj);
-        switch ($class) {
-            case "SourceReference":
-                $reference = $obj;
-                break;
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($record->getSelfUri());
 
-            case "SourceDescriptionState":
-            case "RecordState":
-                $reference = new SourceReference();
-                $reference->setDescriptionRef($obj->getSelfUri());
-                break;
+        return $this->passOptionsTo('addSourceReferences',array(array($reference)), func_get_args());
+    }
 
-            default:
-                throw new GedcomxApplicationException("Unrecognized object type $class in PersonState->addSourceReference()");
-        }
+    /**
+     * @param SourceReference                                  $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws GedcomxApplicationException
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function addSourceReferenceObj(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addSourceReferences',array(array($reference)), func_get_args());
+    }
+
+    /**
+     * @param SourceDescriptionState                           $stateObj
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws GedcomxApplicationException
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function addSourceReferenceState(SourceDescriptionState $stateObj, StateTransitionOption $option = null)
+    {
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($stateObj->getSelfUri());
 
         return $this->passOptionsTo('addSourceReferences',array(array($reference)), func_get_args());
     }
@@ -499,7 +515,7 @@ class PersonState extends GedcomxApplicationState
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
     public function addSourceReferences(array $refs, StateTransitionOption $option = null) {
-        $person = createEmptySelf();
+        $person = $this->createEmptySelf();
         $person->setSources($refs);
 
         return $this->passOptionsTo('updateSourceReferences', array($person), func_get_args());
@@ -533,7 +549,7 @@ class PersonState extends GedcomxApplicationState
         }
         $target = $this->getSelfUri();
         $link = $this->getLink(Rel::SOURCE_REFERENCES);
-        if( $link === null || $link.getHref() === null ){
+        if( $link != null && $link->getHref() != null ){
             $target = $link->getHref();
         }
 

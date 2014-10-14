@@ -245,7 +245,7 @@ abstract class GedcomxApplicationState
      */
     public function get(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("GET");
+        $request = $this->createAuthenticatedRequest("GET", $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);

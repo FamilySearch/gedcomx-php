@@ -82,6 +82,18 @@ class StateFactory
      * @param \Guzzle\Http\Message\Response $response
      * @param string                        $accessToken The access token for this session
      *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionsState
+     */
+    protected function buildSourceDescriptionState( Client $client, Request $request, Response $response, $accessToken ){
+        return new SourceDescriptionState( $client, $request, $response, $accessToken, $this );
+    }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
      * @return \Gedcomx\Rs\Client\PersonsState
      */
     protected function buildPersonsState( Client $client, Request $request, Response $response, $accessToken ){

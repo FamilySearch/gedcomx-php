@@ -2,11 +2,13 @@
 
 namespace Gedcomx\Tests\Rs\Client;
 
+use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Source\SourceDescription;
+use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
@@ -30,8 +32,26 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
     }
 
-    public function testCreatePersonSourceReference(){
-        //todo
+    public function testCreatePersonSourceReference()
+    {
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson()->get();
+        }
+
+        $sourceState = $this->createSource();
+        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+        $reference->setAttribution( new Attribution( array(
+            "changeMessage" => $this->faker->sentence(6)
+        )));
+        $newState = self::$personState->addSourceReferenceObj($reference);
+        $this->assertAttributeEquals( "201", "statusCode", $newState->getResponse() );
+        /*
+         * todo: implement test for PersonState::addSourceReferenceRecord
+         * todo: implement test for PersonState::addSourceReferenceState
+         */
     }
 
     /*
@@ -52,9 +72,12 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
-
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
+     */
     public function testCreateDiscussionReference(){
-        //todo
+        //todo: implement testCreateDiscussionReference: requires FamilyTree Extensions
+        $this->assertTrue(true);
     }
 
     public function testCreateNote(){
@@ -72,8 +95,8 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
      */
     public function testReadMergedPerson(){
-        // KWWD-X35 was merged with KWWD-CMF
-        self::$personState = $this->getPerson('KWWD-CMF');
+        // KWWV-DN4 was merged with KWWN-MQY
+        self::$personState = $this->getPerson('KWWV-DN4');
 
         $this->assertAttributeEquals( "301", "statusCode", self::$personState->getResponse() );
 
@@ -151,14 +174,14 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * todo
      * https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      *
      * Requires Family Search Extensions to work properly. Will come back to it.
-     *
-    public function testReadDiscussionReferences(){
-    }
      */
+    public function testReadDiscussionReferences(){
+        //todo: implement testReadDiscussionReferences: requires FamilyTree Extentions
+        $this->assertTrue(true);
+    }
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
@@ -241,6 +264,9 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
+     */
     public function testUpdatePersonSourceReference()
     {
         //todo
@@ -282,29 +308,6 @@ class PersonStateTest extends ApiTestCase{
 
     public function testDeletePersonConclusion()
     {
-        //todo
-    }
-
-    public function testDeletePersonWithPreconditions()
-    {
-        //todo
-    }
-
-    public function testDeleteDiscussionReference()
-    {
-        //todo
-    }
-
-    public function testRestorePerson()
-    {
-        //todo
-    }
-    /*
-     * PersonState method tests not included above
-     */
-
-    // PersonState::updateGender - see testUpdatePersonConcl
-    public function testAddName(){
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -317,6 +320,24 @@ class PersonStateTest extends ApiTestCase{
         $newPersonState = self::$personState->addName($name);
 
         $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
+
+        $deletedState = $newPersonState->deleteName($name);
+
+        $this->assertAttributeEquals( "204", "statusCode", $deletedState->getResponse() );
+    }
+
+    public function testDeletePersonWithPreconditions()
+    {
+        //todo
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
+     */
+    public function testDeleteDiscussionReference()
+    {
+        //todo: implement testDeleteDiscussionReference: requires FamilyTree Extensions
+        $this->assertTrue(true);
     }
 
     public function testAddSourceReferenceWithStateObject(){
@@ -339,7 +360,6 @@ class PersonStateTest extends ApiTestCase{
     /**
      * https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
      * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
-     * https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
      *
      * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      * @expectedExceptionCode 410
@@ -358,6 +378,15 @@ class PersonStateTest extends ApiTestCase{
         $persons = self::$personState->getEntity()->getPersons();
         $id = $persons[0]->getId();
         self::$personState = $this->getPerson($id);
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
+     */
+    public function testRestorePerson()
+    {
+        //todo: implement testRestorePerson: requires FamilyTree Extensions
+        $this->assertTrue(true);
     }
 
     /*
@@ -386,6 +415,16 @@ class PersonStateTest extends ApiTestCase{
 
         $args = array_merge(array($uri), $options);
         return call_user_func_array(array($this->collectionState,"readPerson"), $args);
+    }
+
+    private function createSource(){
+        $source = SourceBuilder::buildSource();
+        $link = $this->collectionState->getLink(Rel::SOURCE_DESCRIPTIONS);
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+
+        return $this->collectionState->addSourceDescription($source);
     }
 
 }
