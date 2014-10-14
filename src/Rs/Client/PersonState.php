@@ -568,14 +568,30 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Source\SourceReference                  $sourceReference
+     * @param \Gedcomx\Source\SourceReference                  $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
+     * @throws GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function deleteSourceReference(SourceReference $sourceReference, StateTransitionOption $option = null)
+    public function deleteSourceReference(SourceReference $reference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $reference->getLink(Rel::SOURCE_REFERENCE);
+        if ($link == null ) {
+            $link = $reference->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**

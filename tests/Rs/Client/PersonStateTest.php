@@ -332,7 +332,24 @@ class PersonStateTest extends ApiTestCase{
 
     public function testDeletePersonSourceReference()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson()->get();
+        }
+
+        $sourceState = $this->createSource();
+        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+
+        self::$personState->addSourceReferenceObj($reference);
+        $newState = self::$personState->loadSourceReferences();
+        
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = $newState->getEntity()->getPersons();
+        $references = $persons[0]->getSources();
+        $newerState = $newState->deleteSourceReference($references[0]);
+        $this->assertAttributeEquals( "204", "statusCode", $newerState->getResponse() );
     }
 
     public function testDeletePersonConclusion()
