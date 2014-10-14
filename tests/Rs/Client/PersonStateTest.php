@@ -344,7 +344,7 @@ class PersonStateTest extends ApiTestCase{
 
         self::$personState->addSourceReferenceObj($reference);
         $newState = self::$personState->loadSourceReferences();
-        
+
         /** @var \Gedcomx\Conclusion\Person[] $persons */
         $persons = $newState->getEntity()->getPersons();
         $references = $persons[0]->getSources();
@@ -352,6 +352,9 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "204", "statusCode", $newerState->getResponse() );
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     */
     public function testDeletePersonConclusion()
     {
         if( self::$personState == null ){
@@ -366,8 +369,12 @@ class PersonStateTest extends ApiTestCase{
         $newPersonState = self::$personState->addName($name);
 
         $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
+        $newPersonState = self::$personState->get();
 
-        $deletedState = $newPersonState->deleteName($name);
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = $newPersonState->getEntity()->getPersons();
+        $names = $persons[0]->getNames();
+        $deletedState = $newPersonState->deleteName($names[1]);
 
         $this->assertAttributeEquals( "204", "statusCode", $deletedState->getResponse() );
     }
