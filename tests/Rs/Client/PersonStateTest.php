@@ -80,16 +80,6 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 410
-     */
-    public function testReadDeletedPerson(){
-        self::$personState = $this->getPerson('KWQ7-Y57');
-    }
-
-    /**
      * https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
      */
     public function testReadPerson(){
@@ -285,11 +275,6 @@ class PersonStateTest extends ApiTestCase{
         //todo
     }
 
-    public function testDeletePerson()
-    {
-        //todo
-    }
-
     public function testDeletePersonSourceReference()
     {
         //todo
@@ -349,6 +334,30 @@ class PersonStateTest extends ApiTestCase{
 
         $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
          */
+    }
+
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
+     * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
+     * https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
+     *
+     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @expectedExceptionCode 410
+     */
+    public function testDeletePerson()
+    {
+        self::$personState = $this->createPerson();
+        $uri = self::$personState->getSelfUri();
+        self::$personState = $this->collectionState
+            ->readPerson($uri);
+        $newState = self::$personState->delete();
+
+        $this->assertAttributeEquals( "204", "statusCode", $newState->getResponse() );
+
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = self::$personState->getEntity()->getPersons();
+        $id = $persons[0]->getId();
+        self::$personState = $this->getPerson($id);
     }
 
     /*

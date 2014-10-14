@@ -260,7 +260,7 @@ abstract class GedcomxApplicationState
      */
     public function delete(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("DELETE");
+        $request = $this->createAuthenticatedRequest("DELETE", $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
