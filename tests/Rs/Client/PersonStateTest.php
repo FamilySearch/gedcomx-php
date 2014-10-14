@@ -7,14 +7,12 @@ use Gedcomx\Conclusion\Gender;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
-use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\GenderType;
-use Gedcomx\Types\RelationshipType;
 
 class PersonStateTest extends ApiTestCase{
 
@@ -50,9 +48,23 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals( "201", "statusCode", $newState->getResponse() );
         /*
          * todo: implement test for PersonState::addSourceReferenceRecord
-         * todo: implement test for PersonState::addSourceReferenceState
          */
     }
+
+    public function testCreatePersonSourceReferenceWithStateObject()
+    {
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+        $source = SourceBuilder::buildSource();
+        $sourceState = $this->collectionState
+            ->addSourceDescription($source);
+
+        $newState = self::$personState->addSourceReferenceState($sourceState);
+
+        $this->assertAttributeEquals( "201", "statusCode", $newState->getResponse() );
+    }
+
 
     /*
      * https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
@@ -269,7 +281,24 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testUpdatePersonSourceReference()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson()->get();
+        }
+
+        $sourceState = $this->createSource();
+        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+        $reference->setAttribution( new Attribution( array(
+            "changeMessage" => $this->faker->sentence(6)
+        )));
+
+        self::$personState->addSourceReferenceObj($reference);
+        $newState = self::$personState->loadSourceReferences();
+        $persons = $newState->getEntity()->getPersons();
+        $newerState = $newState->updateSourceReferences($persons[0]);
+        $this->assertAttributeEquals( "204", "statusCode", $newerState->getResponse() );
     }
 
     public function testUpdatePersonConclusion()
@@ -338,23 +367,6 @@ class PersonStateTest extends ApiTestCase{
     {
         //todo: implement testDeleteDiscussionReference: requires FamilyTree Extensions
         $this->assertTrue(true);
-    }
-
-    public function testAddSourceReferenceWithStateObject(){
-        /*
-         * addSourceDescription isn't working. Will come back to this later.
-         *
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        $source = SourceBuilder::buildSource();
-        $sourceState = $this->collectionState
-            ->addSourceDescription($source);
-
-        self::$personState->addSourceReference($sourceState);
-
-        $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
-         */
     }
 
     /**
