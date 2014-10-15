@@ -63,6 +63,8 @@ class FamilySearchPlatform extends \Gedcomx\Gedcomx
      * Constructs a FamilySearchPlatform from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

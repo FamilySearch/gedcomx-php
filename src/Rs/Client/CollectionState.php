@@ -17,8 +17,6 @@ use RuntimeException;
 
 class CollectionState extends GedcomxApplicationState
 {
-
-
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
