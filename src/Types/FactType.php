@@ -425,4 +425,100 @@ class FactType
      *  A fact about a sociological relationship between a parent and a child, but not definable in typical legal or biological terms.
      */
     const SOCIOLOGICALPARENT = "http://gedcomx.org/SociologicalParent";
+
+    private $birthLikeFactTypes = array(BAPTISM, BIRTH, CHRISTENING, BLESSING, CIRCUMCISION, ADOPTION);
+    private $deathLikeFactTypes = array(DEATH, BURIAL, CREMATION, FUNERAL, PROBATE, WILL);
+    private $marriageLikeFactTypes = array(MARRIAGE, ENGAGEMENT, MARRIAGEBANNS, MARRIAGECONTRACT, MARRIAGELICENSE, MARRIAGENOTICE);
+    private $divorceLikeFactTypes = array(DIVORCE, DIVORCEFILING, ANNULMENT, SEPARATION);
+    private $migrationlikeFactTypes = array(IMMIGRATION, EMIGRATION, NATURALIZATION, MOVETO, MOVEFROM);
+    private $personFactTypes = array(
+        ADOPTION, ADULTCHRISTENING, AMNESTY, APPRENTICESHIP, BAPTISM, BARMITZVAH, BATMITZVAH, BIRTH, BLESSING, BURIAL,
+        CASTE, CENSUS, CHRISTENING, CIRCUMCISION, CLAN, CONFIRMATION, CREMATION, DEATH, EMIGRATION, ETHNICITY,
+        EXCOMMUNICATION, FIRSTCOMMUNION, LIVING, FUNERAL, EDUCATION, IMMIGRATION, IMPRISONMENT, LANDTRANSACTION,
+        MARITALSTATUS, MEDICAL, MILITARYAWARD, MILITARYDISCHARGE, MILITARYSERVICE, MISSION, MOVETO, MOVEFROM,
+        NATURALIZATION, NUMBEROFMARRIAGES, NATIONALID, NATIONALITY, OCCUPATION, ORDINATION, PHYSICALDESCRIPTION,
+        PROBATE, PROPERTY, RELIGION, RESIDENCE, RETIREMENT, STILLBIRTH, MULTIPLEBIRTH, WILL, VISIT
+    );
+    private $coupleFactTypes = array(
+        ANNULMENT, COMMONLAWMARRIAGE, DIVORCE, DIVORCEFILING, ENGAGEMENT, MARRIAGE, MARRIAGEBANNS, MARRIAGECONTRACT,
+        MARRIAGELICENSE, MARRIAGENOTICE, NUMBEROFCHILDREN, SEPARATION
+    );
+    private $parentChildFactTypes = array(
+        BIOLOGICALPARENT, ADOPTIVEPARENT, STEPPARENT, FOSTERPARENT, GUARDIANPARENT, SOCIOLOGICALPARENT
+    );
+
+    /**
+     * @param string $type FactType constant
+     *
+     * @return bool
+     */
+    public function appliesToBirth($type)
+    {
+        return in_array($type, $this->birthLikeFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     *
+     * @return bool
+     */
+    public function appliesToDeath($type)
+    {
+        return in_array($type, $this->deathLikeFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToMarriage($type)
+    {
+        return in_array($type, $this->marriageLikeFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToDivorce($type)
+    {
+        return in_array($type, $this->divorceLikeFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToMigration($type)
+    {
+        return in_array($type, $this->migrationlikeFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToPerson($type)
+    {
+        return in_array($type, $this->personFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToCouples($type)
+    {
+        return in_array($type, $this->coupleFactTypes);
+    }
+
+    /**
+     * @param string $type FactType constant
+     * @return bool
+     */
+    public function appliesToParentChild($type)
+    {
+        return in_array($type, $this->parentChildFactTypes);
+    }
+
 }

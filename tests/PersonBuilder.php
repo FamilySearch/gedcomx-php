@@ -158,4 +158,20 @@ class PersonBuilder
             'value' => self::faker()->sentence(6)
         ));
     }
+
+    public static function eagleScout()
+    {
+        $rnd = rand(50,125);
+
+        $date = new \DateTime("-{$rnd} years");
+        return new Fact(array(
+            'primary' => true,
+            'type' => "data:,Eagle%20Scout",
+            'date' => new DateInfo(array(
+                "original" => $date->format("F d, Y")
+            )),
+            'value' => self::faker()->sentence(6)
+        ));
+    }
+
 }

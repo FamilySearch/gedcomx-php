@@ -80,9 +80,9 @@ class PersonStateTest extends ApiTestCase{
                 ->readPerson($uri);
         }
         $fact = PersonBuilder::militaryService();
-        self::$personState->addFact($fact);
+        $newState = self::$personState->addFact($fact);
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
     }
 
     /**
@@ -323,7 +323,18 @@ class PersonStateTest extends ApiTestCase{
 
     public function testUpdatePersonCustomNonEventFact()
     {
-        //todo
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+        if( self::$personState->getPerson() == null ){
+            $uri = self::$personState->getSelfUri();
+            self::$personState = $this->collectionState
+                ->readPerson($uri);
+        }
+        $fact = PersonBuilder::eagleScout();
+        $newState = self::$personState->addFact($fact);
+
+        $this->assertAttributeEquals( "204", "statusCode", $newState->getResponse() );
     }
 
     /**
