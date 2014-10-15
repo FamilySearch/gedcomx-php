@@ -199,6 +199,33 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Common\Note $note
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws GedcomxApplicationException
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function readNote(Note $note, StateTransitionOption $option = null)
+    {
+        $link = $note->getLink(Rel::NOTE);
+        if( $link == null ){
+            $link = $note->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null ){
+            throw new GedcomxApplicationException("Note cannot be read: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
+    /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState $this
@@ -781,14 +808,30 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Common\Note                             $note
+     * @param \Gedcomx\Common\Note $note
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
+     * @throws GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\PersonState
      */
     public function deleteNote(Note $note, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $note->getLink(Rel::NOTE);
+        if ($link == null){
+            $link = $note->getLink(Rel::SELF);
+        }
+        if ($link == null || $link->getHref() == null ){
+            throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**

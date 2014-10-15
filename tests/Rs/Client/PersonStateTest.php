@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests\Rs\Client;
 
 use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Note;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
@@ -238,12 +239,45 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testReadPersonNotes(){
         self::$personState = $this->getPerson();
-        self::$personState
-            ->loadNotes();
+        self::$personState->loadNotes();
 
         $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
     }
 
+    /**
+     * https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
+     */
+    public function testReadPersonNote()
+    {
+        self::$personState = $this->getPerson();
+        self::$personState->loadNotes();
+        $persons = self::$personState->getEntity()->getPersons();
+        $notes = $persons[0]->getNotes();
+        $newState = self::$personState
+            ->readNote($notes[0]);
+
+        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
+    }
+
+    /**
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     */
+    public function testDeletePersonNote()
+    {
+        if( self::$personState == null ){
+            self::$personState = $this->createPerson();
+        }
+
+        $note = NoteBuilder::createNote();
+        $noteState = self::$personState->addNote( $note );
+
+        $note = new Note();
+        $note->addLink($noteState->getLink(Rel::SELF));
+
+        $delState = self::$personState->deleteNote($note);
+
+        $this->assertAttributeEquals( "204", "statusCode", $delState->getResponse() );
+    }
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
      */
