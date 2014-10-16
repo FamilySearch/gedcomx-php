@@ -17,6 +17,8 @@ namespace Gedcomx\Extensions\FamilySearch;
 class FamilySearchPlatform extends \Gedcomx\Gedcomx
 {
 
+    const JSON_MEDIA_TYPE = 'application/x-fs-v1+json';
+
     /**
      * The child-and-parents relationships for this data set.
      *

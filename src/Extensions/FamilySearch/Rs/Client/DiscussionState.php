@@ -2,12 +2,11 @@
 
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
-	use Gedcomx\Rs\Client\GedcomxApplicationState;
 	use Guzzle\Http\Client;
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;
 
-	class DiscussionState extends GedcomxApplicationState
+	class DiscussionState extends FamilySearchApplicationState
 	{
 
 		public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)

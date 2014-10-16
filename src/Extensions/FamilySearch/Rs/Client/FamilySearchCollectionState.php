@@ -12,8 +12,6 @@
 
 	class FamilySearchCollectionState extends CollectionState
 	{
-		const FAMILYSEARCH_MEDIA_TYPE = 'application/x-fs-v1+json';
-
 		function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
 		{
 			parent::__construct($client, $request, $response, $accessToken, $stateFactory);
@@ -216,20 +214,4 @@
 				$this->accessToken
 			);
 		}
-
-		/**
-		 * @param string       $method The http method.
-		 * @param string|array $uri    string with an href, or an array with template info
-		 *
-		 * @return Request The request.
-		 */
-		protected function createAuthenticatedFamilyTreeRequest($method, $uri)
-		{
-			$request = $this->createAuthenticatedRequest($method, $uri);
-			$request->setHeader('Accept', self::FAMILYSEARCH_MEDIA_TYPE);
-			$request->setHeader('Content-Type', self::FAMILYSEARCH_MEDIA_TYPE);
-
-			return $request;
-		}
-
 	}
