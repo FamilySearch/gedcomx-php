@@ -9,12 +9,14 @@
 
 namespace Gedcomx\Extensions\FamilySearch;
 
+use Gedcomx\Gedcomx;
+
 /**
  * <p>The FamilySearch data types define serialization formats that are specific the FamilySearch developer platform. These
      * data formats are extensions of the <a href="http://gedcomx.org">GEDCOM X</a> media types and provide concepts and data types
      * that are specific to FamilySearch and therefore haven't been adopted into a formal, more general specification.</p>
  */
-class FamilySearchPlatform extends \Gedcomx\Gedcomx
+class FamilySearchPlatform extends Gedcomx
 {
 
     const JSON_MEDIA_TYPE = 'application/x-fs-v1+json';

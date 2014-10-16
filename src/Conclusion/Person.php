@@ -43,14 +43,14 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The gender conclusion for the person.
      *
-     * @var \Gedcomx\Conclusion\Gender
+     * @var Gender
      */
     private $gender;
 
     /**
      * The name conclusions for the person.
      *
-     * @var \Gedcomx\Conclusion\Name[]
+     * @var Name[]
      */
     private $names;
 
@@ -160,7 +160,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The gender conclusion for the person.
      *
-     * @return \Gedcomx\Conclusion\Gender
+     * @return Gender
      */
     public function getGender()
     {
@@ -170,7 +170,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The gender conclusion for the person.
      *
-     * @param \Gedcomx\Conclusion\Gender $gender
+     * @param Gender $gender
      */
     public function setGender($gender)
     {
@@ -179,7 +179,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The name conclusions for the person.
      *
-     * @return \Gedcomx\Conclusion\Name[]
+     * @return Name[]
      */
     public function getNames()
     {
@@ -189,7 +189,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The name conclusions for the person.
      *
-     * @param \Gedcomx\Conclusion\Name[] $names
+     * @param Name[] $names
      */
     public function setNames($names)
     {
@@ -318,12 +318,12 @@ class Person extends Subject implements HasFacts, HasFields
             $this->living = $o["living"];
         }
         if (isset($o['gender'])) {
-            $this->gender = new \Gedcomx\Conclusion\Gender($o["gender"]);
+            $this->gender = new Gender($o["gender"]);
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                $this->names[$i] = new \Gedcomx\Conclusion\Name($x);
+                $this->names[$i] = new Name($x);
             }
         }
         $this->facts = array();
@@ -363,12 +363,12 @@ class Person extends Subject implements HasFacts, HasFields
             $happened = true;
         }
         else if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Gender($xml);
+            $child = new Gender($xml);
             $this->gender = $child;
             $happened = true;
         }
         else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Name($xml);
+            $child = new Name($xml);
             if (!isset($this->names)) {
                 $this->names = array();
             }

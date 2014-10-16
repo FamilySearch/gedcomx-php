@@ -6,6 +6,7 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\EvidenceReference;
 use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Conclusion;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Gender;
@@ -81,16 +82,51 @@ class PersonState extends GedcomxApplicationState
         if ($relationships == null) {
             $relationships = array();
         }
-        if ($relationships != null) {
-            foreach( $relationships as $idx => $r ){
-                if ($r->getKnownType() != RelationshipType::Couple) {
-                    unset($relationships[$idx]);
-                }
+        foreach( $relationships as $idx => $r ){
+            if ($r->getKnownType() != RelationshipType::Couple) {
+                unset($relationships[$idx]);
             }
         }
+
         return $relationships;
     }
 
+    public function getChildRelationships() {
+        $relationships = $this->getRelationships();
+        if ($relationships == null) {
+            $relationships = array();
+        }
+        foreach( $relationships as $idx => $r ){
+            if ($r->getKnownType() != RelationshipType::ParentChild || !refersToMe($r->getPerson1())) {
+                unset($relationships[$idx]);
+            }
+        }
+
+        return $relationships;
+    }
+
+    public function getParentRelationships() {
+        $relationships = $this->getRelationships();
+        if ($relationships == null) {
+            $relationships = array();
+        }
+        foreach( $relationships as $idx => $r ){
+            if ($r->getKnownType() != RelationshipType::Couple) {
+                unset($relationships[$idx]);
+            }
+        }
+
+        return $relationships;
+    }
+
+    /**
+     * @param ResourceReference $ref
+     *
+     * @return bool
+     */
+    protected function refersToMe(ResourceReference $ref) {
+        return $ref != null && $ref->getResource() != null && $ref->getResource().toString() == "#" . $this->getLocalSelfId();
+    }
 
     /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...

@@ -9,44 +9,48 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Tree;
 
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Conclusion\Fact;
+use Gedcomx\Conclusion\Subject;
+
 /**
  * The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
  */
-class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
+class ChildAndParentsRelationship extends Subject
 {
 
     /**
      * The father of the child.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $father;
 
     /**
      * The mother of the child.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $mother;
 
     /**
      * child in the relationship.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $child;
 
     /**
      * The fact conclusions for the father.
      *
-     * @var \Gedcomx\Conclusion\Fact[]
+     * @var Fact[]
      */
     private $fatherFacts;
 
     /**
      * The fact conclusions for the mother.
      *
-     * @var \Gedcomx\Conclusion\Fact[]
+     * @var Fact[]
      */
     private $motherFacts;
 
@@ -54,6 +58,8 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
      * Constructs a ChildAndParentsRelationship from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -76,7 +82,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The father of the child.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getFather()
     {
@@ -86,7 +92,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The father of the child.
      *
-     * @param \Gedcomx\Common\ResourceReference $father
+     * @param ResourceReference $father
      */
     public function setFather($father)
     {
@@ -95,7 +101,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The mother of the child.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getMother()
     {
@@ -105,7 +111,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The mother of the child.
      *
-     * @param \Gedcomx\Common\ResourceReference $mother
+     * @param ResourceReference $mother
      */
     public function setMother($mother)
     {
@@ -114,7 +120,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * child in the relationship.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getChild()
     {
@@ -124,7 +130,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * child in the relationship.
      *
-     * @param \Gedcomx\Common\ResourceReference $child
+     * @param ResourceReference $child
      */
     public function setChild($child)
     {
@@ -133,7 +139,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The fact conclusions for the father.
      *
-     * @return \Gedcomx\Conclusion\Fact[]
+     * @return Fact[]
      */
     public function getFatherFacts()
     {
@@ -143,7 +149,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The fact conclusions for the father.
      *
-     * @param \Gedcomx\Conclusion\Fact[] $fatherFacts
+     * @param Fact[] $fatherFacts
      */
     public function setFatherFacts($fatherFacts)
     {
@@ -152,7 +158,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The fact conclusions for the mother.
      *
-     * @return \Gedcomx\Conclusion\Fact[]
+     * @return Fact[]
      */
     public function getMotherFacts()
     {
@@ -162,7 +168,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     /**
      * The fact conclusions for the mother.
      *
-     * @param \Gedcomx\Conclusion\Fact[] $motherFacts
+     * @param Fact[] $motherFacts
      */
     public function setMotherFacts($motherFacts)
     {
@@ -212,24 +218,24 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
     {
         parent::initFromArray($o);
         if (isset($o['father'])) {
-            $this->father = new \Gedcomx\Common\ResourceReference($o["father"]);
+            $this->father = new ResourceReference($o["father"]);
         }
         if (isset($o['mother'])) {
-            $this->mother = new \Gedcomx\Common\ResourceReference($o["mother"]);
+            $this->mother = new ResourceReference($o["mother"]);
         }
         if (isset($o['child'])) {
-            $this->child = new \Gedcomx\Common\ResourceReference($o["child"]);
+            $this->child = new ResourceReference($o["child"]);
         }
         $this->fatherFacts = array();
         if (isset($o['fatherFacts'])) {
             foreach ($o['fatherFacts'] as $i => $x) {
-                $this->fatherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->fatherFacts[$i] = new Fact($x);
             }
         }
         $this->motherFacts = array();
         if (isset($o['motherFacts'])) {
             foreach ($o['motherFacts'] as $i => $x) {
-                $this->motherFacts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->motherFacts[$i] = new Fact($x);
             }
         }
     }
@@ -246,22 +252,22 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
           return true;
         }
         else if (($xml->localName == 'father') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->father = $child;
             $happened = true;
         }
         else if (($xml->localName == 'mother') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->mother = $child;
             $happened = true;
         }
         else if (($xml->localName == 'child') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->child = $child;
             $happened = true;
         }
         else if (($xml->localName == 'fatherFact') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Fact($xml);
+            $child = new Fact($xml);
             if (!isset($this->fatherFacts)) {
                 $this->fatherFacts = array();
             }
@@ -269,7 +275,7 @@ class ChildAndParentsRelationship extends \Gedcomx\Conclusion\Subject
             $happened = true;
         }
         else if (($xml->localName == 'motherFact') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Fact($xml);
+            $child = new Fact($xml);
             if (!isset($this->motherFacts)) {
                 $this->motherFacts = array();
             }

@@ -2,11 +2,15 @@
 
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
+	use Gedcomx\Conclusion\Person;
+	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+	use Gedcomx\Rs\Client\GedcomxApplicationState;
+	use Gedcomx\Util\HttpStatus;
 	use Guzzle\Http\Client;
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;
 
-	class DiscussionState extends FamilySearchApplicationState
+	class DiscussionState extends GedcomxApplicationState
 	{
 
 		public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
@@ -22,7 +26,7 @@
 		 * @return FamilySearchPlatform
 		 */
   		protected function loadEntity() {
-			if ($this->response->getStatusCode() == 200) {
+			if ($this->response->getStatusCode() == HttpStatus::OK) {
 				return $this->getEntity();
 			}
 
@@ -31,7 +35,7 @@
 
 		protected function getScope()
 		{
-			return $this->getDiscusson();
+			return $this->getDiscussion();
 		}
 
 		/**
@@ -48,4 +52,5 @@
 
 			return null;
 		}
+
 	}

@@ -203,6 +203,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     {
         $this->notes = $notes;
     }
+
     /**
      * Returns the associative array for this Conclusion
      *

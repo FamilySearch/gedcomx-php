@@ -71,6 +71,111 @@ class ExtensibleData
     {
         $this->id = $id;
     }
+
+    /**
+     * Custom extension elements for a conclusion.
+     *
+     * @return array Custom extension elements for a conclusion.
+     */
+    public function getExtensionElements() {
+        return $this->extensionElements;
+    }
+
+    /**
+     * Custom extension elements for a conclusion.
+     *
+     * @param array $elements Custom extension elements for a conclusion.
+     */
+    public function setExtensionElements(array $elements)
+    {
+        $this->extensionElements = $elements;
+    }
+
+    /**
+     * Add an extension element.
+     *
+     * @param mixed $element The extension element to add.
+     */
+    public function addExtensionElement($element)
+    {
+        if ($this->extensionElements == null) {
+            $this->extensionElements = array();
+        }
+
+        $this->extensionElements[] = $element;
+    }
+
+    /**
+     * Remove extension elements of a given type.
+     *
+     * @param string $class The type of extension element to remove.
+     *
+     * @return array The removed extension elements.
+     */
+    public function removeExtensionElements($class)
+    {
+        $removed = array();
+        if ($this->extensionElements != null) {
+            foreach ($this->extensionElements as $idx => $e) {
+                if (get_class($e) == $class) {
+                    $removed[] = $e;
+                    unset($this->extensionElements[$idx]);
+                }
+            }
+        }
+
+        return $removed;
+    }
+
+    /**
+     * Sets an extension element by first removing all previous elements of the same type, then adding it to the list.
+     *
+     * @param mixed $element The element to set.
+     */
+    public function setExtensionElement($element)
+    {
+        $this->removeExtensionElements(get_class($element));
+        $this->addExtensionElement($element);
+    }
+
+    /**
+     * Finds the first extension of a specified type.
+     *
+     * @param string $class The type.
+     *
+     * @return mixed The extension, or null if none found.
+     */
+    public function findExtensionOfType($class)
+    {
+        $candidates = $this->findExtensionsOfType($class);
+
+        if (count($candidates) > 0) {
+            return $candidates[0];
+        }
+
+        return null;
+    }
+
+  /**
+   * Find the extensions of a specified type.
+   *
+   * @param string $class The type.
+   * @return array The extensions, possibly empty but not null.
+   */
+    public function findExtensionsOfType($class)
+    {
+        $ext = array();
+        if ($this->extensionElements != null) {
+            foreach ($this->extensionElements as $e) {
+                if (get_class($e) == $class) {
+                    $ext[] = $e;
+                }
+            }
+        }
+
+        return $ext;
+    }
+
     /**
      * Returns the associative array for this ExtensibleData
      *
@@ -224,7 +329,7 @@ class ExtensibleData
     protected function embed(ExtensibleData $data) {
         if ($data->extensionElements != null) {
             $this->extensionElements = $this->extensionElements == null ? array() : $this->extensionElements;
-            $this->extensionElements->addAll($data->extensionElements);
+            array_merge($this->extensionElements, $data->extensionElements);
         }
     }
 
