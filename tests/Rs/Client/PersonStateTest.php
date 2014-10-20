@@ -30,6 +30,9 @@ class PersonStateTest extends ApiTestCase{
      * Example requests from https://familysearch.org/developers/docs/api/tree/Person_resource
      */
     public function testCreatePerson(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->createPerson();
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse() );
@@ -37,6 +40,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testCreatePersonSourceReference()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson()->get();
         }
@@ -58,6 +64,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testCreatePersonSourceReferenceWithStateObject()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -74,6 +83,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
      */
     public function testAddFactToPerson(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -84,7 +96,7 @@ class PersonStateTest extends ApiTestCase{
         $fact = PersonBuilder::militaryService();
         $newState = self::$personState->addFact($fact);
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse() );
     }
 
     /**
@@ -96,6 +108,9 @@ class PersonStateTest extends ApiTestCase{
     }
 
     public function testCreateNote(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -111,16 +126,32 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testReadMergedPerson(){
         // KWWV-DN4 was merged with KWWN-MQY
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson('KWWV-DN4');
+        /**
+         * This assertion--technically the correct response for a person that has been merged--
+         * assumes that the HTTP client code does not automatically follow redirects.
+         *
+         * $this->assertAttributeEquals(HttpStatus::MOVED_PERMANENTLY, "statusCode", self::$personState->getResponse() );
+         *
+         * Hacking the code to disable the redirect feature for this test seems undesirable. Instead we'll
+         * assert that an id different from the one we requested is returned.
+         */
+        $persons = self::$personState->getEntity()->getPersons();
+        $person = $persons[0];
 
-        $this->assertAttributeEquals(HttpStatus::MOVED_PERMANENTLY, "statusCode", self::$personState->getResponse() );
-
+        $this->assertNotEquals( 'KWWV-DN4', $person->getId() );
     }
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
      */
     public function testReadPerson(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
@@ -130,6 +161,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
      */
     public function testReadPersonSourceReferences(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState
             ->loadSourceReferences();
@@ -147,6 +181,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
      */
     public function testReadRelationshipsToChildren(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState
             ->loadChildRelationships();
@@ -158,6 +195,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
      */
     public function testReadRelationshipsToParents(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState
             ->loadParentRelationships();
@@ -169,6 +209,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
      */
     public function testReadRelationshipsToSpouses(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState
             ->loadSpouseRelationships();
@@ -180,6 +223,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
      */
     public function testReadRelationshipsToSpousesWithPersons(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         $option = new QueryParameter(true,"persons","");
         self::$personState
@@ -202,6 +248,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
      */
     public function testReadPersonChildren(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->getPerson();
         }
@@ -215,6 +264,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
      */
     public function testReadNotFoundPerson(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson('ABCD-123');
         $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", self::$personState ->getResponse() );
     }
@@ -223,6 +275,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
      */
     public function testReadNotModifiedPerson(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         $options = array();
         $options[] = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, self::$personState->getResponse()->getEtag());
@@ -237,6 +292,9 @@ class PersonStateTest extends ApiTestCase{
      * https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
      */
     public function testReadPersonNotes(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState->loadNotes();
 
@@ -248,6 +306,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testReadPersonNote()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         self::$personState->loadNotes();
         $persons = self::$personState->getEntity()->getPersons();
@@ -263,6 +324,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testDeletePersonNote()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -282,6 +346,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testReadParentsOfPerson()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->getPerson();
         }
@@ -293,6 +360,9 @@ class PersonStateTest extends ApiTestCase{
     
     public function testReadSpousesOfPerson()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->getPerson();
         }
@@ -304,6 +374,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testHeadPerson()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         self::$personState = $this->getPerson();
         $newState = self::$personState->head();
 
@@ -315,6 +388,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testUpdatePersonSourceReference()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson()->get();
         }
@@ -337,6 +413,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testUpdatePersonConclusion()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -355,6 +434,9 @@ class PersonStateTest extends ApiTestCase{
 
     public function testUpdatePersonCustomNonEventFact()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -373,6 +455,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testUpdatePersonWithPreconditions()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson()->get();
         }
@@ -394,6 +479,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testDeletePersonSourceReference()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson()->get();
         }
@@ -419,6 +507,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testDeletePersonConclusion()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
@@ -445,6 +536,9 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testDeletePersonWithPreconditions()
     {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
         if( self::$personState == null ){
             self::$personState = $this->createPerson()->get();
         }
