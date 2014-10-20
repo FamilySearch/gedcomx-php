@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedcomx\Extensions\FamilySearch\Rs\FamilyTree;
+namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Guzzle\Http\Message\Request;

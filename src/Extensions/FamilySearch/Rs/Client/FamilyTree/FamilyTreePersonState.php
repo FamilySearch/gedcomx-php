@@ -6,21 +6,17 @@
     use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState;
-    use Gedcomx\Extensions\FamilySearch\Rs\FamilyTree\ChangeHistoryState;
-    use Gedcomx\Extensions\FamilySearch\Rs\FamilyTree\ChildAndParentsRelationshipState;
     use Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship;
     use Gedcomx\Extensions\FamilySearch\Tree\DiscussionReference;
     use Gedcomx\Gedcomx;
     use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
     use Gedcomx\Rs\Client\Options\StateTransitionOption;
     use Gedcomx\Rs\Client\PersonState;
-    use Gedcomx\Rs\Client\Rel;
     use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
-	use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel as ExtRel;
-	use Gedcomx\Extensions\FamilySearch\Rs\FamilyTree\FamilyTreeStateFactory;
+	use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
     use Gedcomx\Rs\Client\SourceDescriptionsState;
-    use Gedcomx\Util\HttpStatus;
+    use Gedcomx\Rs\Client\Util\HttpStatus;
     use Guzzle\Http\Client;
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\Message\Response;
@@ -38,11 +34,11 @@
             return new FamilyTreePersonState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
         }
 
-        protected function loadEntityConditionally(Response $response)
+        protected function loadEntityConditionally()
         {
-            if ($response->getInfo('request_header') == Request::GET
-                && ($response->getStatusCode() == HttpStatus::OK || $response->getStatusCode() == HttpStatus::GONE)
-                || $response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
+            if ($this->request->getMethod() == Request::GET
+                && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
+                || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
             ) {
                 return $this->loadEntity();
             } else {
@@ -111,11 +107,12 @@
         }
 
         /**
-         * @param $rel
+         * @param string      $rel
+         * @param string|null $uri
          *
          * @return Request
          */
-        protected function createRequestForEmbeddedResource($rel)
+        protected function createRequestForEmbeddedResource($rel, $uri = null)
         {
             $link = $this->getLink($rel);
             $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
@@ -138,7 +135,7 @@
          */
         public function readPortraits(StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::PORTRAITS);
+            $link = $this->getLink(Rel::PORTRAITS);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }
@@ -161,7 +158,7 @@
          */
         public function readPortrait(StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::PORTRAIT);
+            $link = $this->getLink(Rel::PORTRAIT);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }
@@ -325,7 +322,7 @@
          */
         public function  readChangeHistory(StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::CHANGE_HISTORY);
+            $link = $this->getLink(Rel::CHANGE_HISTORY);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }
@@ -371,7 +368,7 @@
          */
         public function restore(StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::RESTORE);
+            $link = $this->getLink(Rel::RESTORE);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }
@@ -420,7 +417,7 @@
 		 */
         protected function transitionToPersonMerge($method, FamilyTreePersonState $candidate, StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::MERGE);
+            $link = $this->getLink(Rel::MERGE);
             if ($link == null || $link->getTemplate() == null) {
                 return null;
             }
@@ -476,7 +473,7 @@
          */
         public function addNonMatchPerson(Person $person, StateTransitionOption $option = null)
         {
-            $link = $this->getLink(ExtRel::NOT_A_MATCHES);
+            $link = $this->getLink(Rel::NOT_A_MATCHES);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }

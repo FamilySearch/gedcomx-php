@@ -1,7 +1,7 @@
 <?php
 
 
-	namespace Gedcomx\Util;
+	namespace Gedcomx\Rs\Client\Util;
 
 	class HttpStatus
 	{

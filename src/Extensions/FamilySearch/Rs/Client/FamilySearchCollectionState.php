@@ -4,7 +4,12 @@
 
 	use Gedcomx\Common\TextValue;
 	use Gedcomx\Conclusion\DateInfo;
+	use Gedcomx\Extensions\FamilySearch\Discussions\Discussion;
+	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+	use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 	use Gedcomx\Rs\Client\CollectionState;
+	use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+	use Gedcomx\Rs\Client\Options\StateTransitionOption;
 	use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 	use Guzzle\Http\Client;
 	use Guzzle\Http\Message\Request;
@@ -32,7 +37,7 @@
 		{
 			$json = json_decode($this->response->getBody(), true);
 
-			return new Gedcomx($json);
+			return new FamilySearchPlatform($json);
 		}
 
 		protected function getScope()
@@ -96,13 +101,14 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedFamilyTreeRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
 				'UserState',
 				$this->client,
 				$request,
-				$this->passOptionsTo('invoke', $request, func_get_args()),
+				$this->passOptionsTo('invoke', array($request), func_get_args()),
 				$this->accessToken
 			);
 		}
@@ -119,7 +125,8 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedFamilyTreeRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
 				'UserHistoryState',
@@ -176,13 +183,14 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedFamilyTreeRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
 				'DiscussionsState',
 				$this->client,
 				$request,
-				$this->passOptionsTo('invoke', $request, func_get_args()),
+				$this->passOptionsTo('invoke', array($request), func_get_args()),
 				$this->accessToken
 			);
 		}
@@ -203,7 +211,8 @@
 
 			$entity = new FamilySearchPlatform();
 			$entity->addDiscussion($discussion);
-			$request = $this->createAuthenticatedFamilyTreeRequest(Request::POST, $link->getHref());
+			$request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+			FamilySearchRequest::applyFamilySearchMediaType($request);
 			$request->setBody($entity->toJson());
 
 			return $this->stateFactory->createState(

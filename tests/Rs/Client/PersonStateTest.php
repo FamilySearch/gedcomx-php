@@ -5,16 +5,19 @@ namespace Gedcomx\Tests\Rs\Client;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Conclusion\Gender;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Rel;
+use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\GenderType;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 
 class PersonStateTest extends ApiTestCase{
 
@@ -29,7 +32,7 @@ class PersonStateTest extends ApiTestCase{
     public function testCreatePerson(){
         self::$personState = $this->createPerson();
 
-        $this->assertAttributeEquals( "201", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse() );
     }
 
     public function testCreatePersonSourceReference()
@@ -39,7 +42,7 @@ class PersonStateTest extends ApiTestCase{
         }
 
         $sourceState = $this->createSource();
-        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
@@ -47,7 +50,7 @@ class PersonStateTest extends ApiTestCase{
             "changeMessage" => $this->faker->sentence(6)
         )));
         $newState = self::$personState->addSourceReferenceObj($reference);
-        $this->assertAttributeEquals( "201", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
         /*
          * todo: implement test for PersonState::addSourceReferenceRecord
          */
@@ -59,12 +62,11 @@ class PersonStateTest extends ApiTestCase{
             self::$personState = $this->createPerson();
         }
         $source = SourceBuilder::buildSource();
-        $sourceState = $this->collectionState
-            ->addSourceDescription($source);
+        $sourceState = $this->collectionState()->addSourceDescription($source);
 
         $newState = self::$personState->addSourceReferenceState($sourceState);
 
-        $this->assertAttributeEquals( "201", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
     }
 
 
@@ -77,13 +79,12 @@ class PersonStateTest extends ApiTestCase{
         }
         if( self::$personState->getPerson() == null ){
             $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
+            self::$personState = $this->collectionState()->readPerson($uri);
         }
         $fact = PersonBuilder::militaryService();
         $newState = self::$personState->addFact($fact);
 
-        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
     }
 
     /**
@@ -102,7 +103,7 @@ class PersonStateTest extends ApiTestCase{
         $note = NoteBuilder::createNote();
         $noteState = self::$personState->addNote( $note );
 
-        $this->assertAttributeEquals( "201", "statusCode", $noteState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse() );
     }
 
     /**
@@ -112,7 +113,7 @@ class PersonStateTest extends ApiTestCase{
         // KWWV-DN4 was merged with KWWN-MQY
         self::$personState = $this->getPerson('KWWV-DN4');
 
-        $this->assertAttributeEquals( "301", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::MOVED_PERMANENTLY, "statusCode", self::$personState->getResponse() );
 
     }
 
@@ -122,7 +123,7 @@ class PersonStateTest extends ApiTestCase{
     public function testReadPerson(){
         self::$personState = $this->getPerson();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -133,7 +134,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSourceReferences();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -150,7 +151,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadChildRelationships();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -161,7 +162,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadParentRelationships();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -172,7 +173,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSpouseRelationships();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -184,7 +185,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState
             ->loadSpouseRelationships($option);
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -207,17 +208,15 @@ class PersonStateTest extends ApiTestCase{
         $childrenState = self::$personState
             ->readChildren();
 
-        $this->assertAttributeEquals( "200", "statusCode", $childrenState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $childrenState->getResponse() );
     }
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 404
      */
     public function testReadNotFoundPerson(){
         self::$personState = $this->getPerson('ABCD-123');
+        $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", self::$personState ->getResponse() );
     }
 
     /**
@@ -231,7 +230,7 @@ class PersonStateTest extends ApiTestCase{
 
         $secondState = $this->getPerson(self::$personState->getPerson()->getId(), $options);
 
-        $this->assertAttributeEquals( "304", "statusCode", $secondState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NOT_MODIFIED, "statusCode", $secondState->getResponse() );
     }
 
     /**
@@ -241,7 +240,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState = $this->getPerson();
         self::$personState->loadNotes();
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
     }
 
     /**
@@ -256,7 +255,7 @@ class PersonStateTest extends ApiTestCase{
         $newState = self::$personState
             ->readNote($notes[0]);
 
-        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
     }
 
     /**
@@ -276,7 +275,7 @@ class PersonStateTest extends ApiTestCase{
 
         $delState = self::$personState->deleteNote($note);
 
-        $this->assertAttributeEquals( "204", "statusCode", $delState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $delState->getResponse() );
     }
     /**
      * https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
@@ -289,7 +288,7 @@ class PersonStateTest extends ApiTestCase{
         $parentState = self::$personState
             ->readParents();
 
-        $this->assertAttributeEquals( "200", "statusCode", $parentState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $parentState->getResponse() );
     }
     
     public function testReadSpousesOfPerson()
@@ -300,7 +299,7 @@ class PersonStateTest extends ApiTestCase{
         $spouseState = self::$personState
             ->readSpouses();
 
-        $this->assertAttributeEquals( "200", "statusCode", $spouseState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $spouseState->getResponse());
     }
 
     public function testHeadPerson()
@@ -308,7 +307,7 @@ class PersonStateTest extends ApiTestCase{
         self::$personState = $this->getPerson();
         $newState = self::$personState->head();
 
-        $this->assertAttributeEquals( "200", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse());
     }
 
     /**
@@ -321,7 +320,7 @@ class PersonStateTest extends ApiTestCase{
         }
 
         $sourceState = $this->createSource();
-        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse());
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
@@ -333,7 +332,7 @@ class PersonStateTest extends ApiTestCase{
         $newState = self::$personState->loadSourceReferences();
         $persons = $newState->getEntity()->getPersons();
         $newerState = $newState->updateSourceReferences($persons[0]);
-        $this->assertAttributeEquals( "204", "statusCode", $newerState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
     }
 
     public function testUpdatePersonConclusion()
@@ -343,15 +342,14 @@ class PersonStateTest extends ApiTestCase{
         }
         if( self::$personState->getPerson() == null ){
             $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
+            self::$personState = $this->collectionState()->readPerson($uri);
         }
         $gender = new Gender(array(
             "type" =>GenderType::MALE
         ));
         self::$personState->updateGender($gender);
 
-        $this->assertAttributeEquals( "200", "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse());
 
     }
 
@@ -362,20 +360,16 @@ class PersonStateTest extends ApiTestCase{
         }
         if( self::$personState->getPerson() == null ){
             $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
+            self::$personState = $this->collectionState()->readPerson($uri);
         }
         $fact = PersonBuilder::eagleScout();
         $newState = self::$personState->addFact($fact);
 
-        $this->assertAttributeEquals( "204", "statusCode", $newState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse());
     }
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 412
      */
     public function testUpdatePersonWithPreconditions()
     {
@@ -389,7 +383,8 @@ class PersonStateTest extends ApiTestCase{
         $check->setLastModified(new \DateTime(self::$personState->getResponse()->getLastModified()));
 
         $persons = self::$personState->getEntity()->getPersons();
-        self::$personState->update($persons[0], $check);
+        $state = self::$personState->update($persons[0], $check);
+        $this->assertAttributeEquals(HttpStatus::PRECONDITION_FAILED, "statusCode", $state->getResponse());
     }
 
     /**
@@ -404,7 +399,7 @@ class PersonStateTest extends ApiTestCase{
         }
 
         $sourceState = $this->createSource();
-        $this->assertAttributeEquals( "201", "statusCode", $sourceState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
@@ -416,7 +411,7 @@ class PersonStateTest extends ApiTestCase{
         $persons = $newState->getEntity()->getPersons();
         $references = $persons[0]->getSources();
         $newerState = $newState->deleteSourceReference($references[0]);
-        $this->assertAttributeEquals( "204", "statusCode", $newerState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
     }
 
     /**
@@ -429,13 +424,12 @@ class PersonStateTest extends ApiTestCase{
         }
         if( self::$personState->getPerson() == null ){
             $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState
-                ->readPerson($uri);
+            self::$personState = $this->collectionState()->readPerson($uri);
         }
         $name = PersonBuilder::nickName();
         $newPersonState = self::$personState->addName($name);
 
-        $this->assertAttributeEquals( "204", "statusCode", $newPersonState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newPersonState->getResponse() );
         $newPersonState = self::$personState->get();
 
         /** @var \Gedcomx\Conclusion\Person[] $persons */
@@ -443,14 +437,11 @@ class PersonStateTest extends ApiTestCase{
         $names = $persons[0]->getNames();
         $deletedState = $newPersonState->deleteName($names[1]);
 
-        $this->assertAttributeEquals( "204", "statusCode", $deletedState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deletedState->getResponse());
     }
 
     /**
      * https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 412
      */
     public function testDeletePersonWithPreconditions()
     {
@@ -463,7 +454,8 @@ class PersonStateTest extends ApiTestCase{
         $check->setEtag($mangled);
         $check->setLastModified(new \DateTime(self::$personState->getResponse()->getLastModified()));
 
-        self::$personState->delete($check);
+        $dState = self::$personState->delete($check);
+        $this->assertAttributeEquals(HttpStatus::PRECONDITION_FAILED, "statusCode", $dState->getResponse());
     }
 
     /**
@@ -478,33 +470,28 @@ class PersonStateTest extends ApiTestCase{
     /**
      * https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
      * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
-     *
-     * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @expectedExceptionCode 410
-     */
-    public function testDeletePerson()
-    {
-        self::$personState = $this->createPerson();
-        $uri = self::$personState->getSelfUri();
-        self::$personState = $this->collectionState
-            ->readPerson($uri);
-        $newState = self::$personState->delete();
-
-        $this->assertAttributeEquals( "204", "statusCode", $newState->getResponse() );
-
-        /** @var \Gedcomx\Conclusion\Person[] $persons */
-        $persons = self::$personState->getEntity()->getPersons();
-        $id = $persons[0]->getId();
-        self::$personState = $this->getPerson($id);
-    }
-
-    /**
      * https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
      */
-    public function testRestorePerson()
+    public function testDeleteAndRestorePerson()
     {
-        //todo: implement testRestorePerson: requires FamilyTree Extensions
-        $this->assertTrue(true);
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson()->get();
+        $newState = $personState->delete();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse(), "Delete person failed. Returned {$newState->getResponse()->getStatusCode()}");
+
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = $personState->getEntity()->getPersons();
+        $id = $persons[0]->getId();
+        $newState = $this->getPerson($id);
+        $this->assertAttributeEquals(HttpStatus::GONE, "statusCode", $newState->getResponse(), "Read deleted person failed. Returned {$newState->getResponse()->getStatusCode()}");
+
+        $factory = new FamilyTreeStateFactory();
+        $ftOne = $this->collectionState($factory);
+        $ftTwo = $ftOne->readPersonById($id);
+        $ftThree = $ftTwo->restore();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $ftThree->getResponse(), "Restore person failed. Returned {$ftThree->getResponse()->getStatusCode()}");
     }
 
     /*
@@ -514,35 +501,32 @@ class PersonStateTest extends ApiTestCase{
     private function createPerson()
     {
         $person = PersonBuilder::buildPerson();
-        return $this->collectionState
-            ->addPerson($person);
+        return $this->collectionState()->addPerson($person);
     }
 
     private function getPerson($pid = 'KWW6-H43', array $options = array()){
-        $link = $this->collectionState->getLink(Rel::PERSON);
+        $link = $this->collectionState()->getLink(Rel::PERSON);
         if ($link === null || $link->getTemplate() === null) {
             return null;
         }
         $uri = array(
             $link->getTemplate(),
             array(
-                "pid" => $pid,
-                "access_token" => $this->collectionState->getAccessToken()
+                "pid" => $pid
             )
         );
 
         $args = array_merge(array($uri), $options);
-        return call_user_func_array(array($this->collectionState,"readPerson"), $args);
+        return call_user_func_array(array($this->collectionState(),"readPerson"), $args);
     }
 
     private function createSource(){
         $source = SourceBuilder::buildSource();
-        $link = $this->collectionState->getLink(Rel::SOURCE_DESCRIPTIONS);
+        $link = $this->collectionState()->getLink(Rel::SOURCE_DESCRIPTIONS);
         if ($link === null || $link->getHref() === null) {
             return null;
         }
 
-        return $this->collectionState->addSourceDescription($source);
+        return $this->collectionState()->addSourceDescription($source);
     }
-
 }

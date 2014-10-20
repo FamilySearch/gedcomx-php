@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Gedcomx\Extensions\FamilySearch\Rs\FamilyTree;
+namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 
 interface PreferredRelationshipState

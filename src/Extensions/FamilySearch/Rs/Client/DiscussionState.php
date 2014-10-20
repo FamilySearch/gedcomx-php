@@ -5,7 +5,7 @@
 	use Gedcomx\Conclusion\Person;
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
-	use Gedcomx\Util\HttpStatus;
+	use Gedcomx\Rs\Client\Util\HttpStatus;
 	use Guzzle\Http\Client;
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;

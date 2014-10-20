@@ -7,6 +7,7 @@ use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Request;
@@ -68,7 +69,7 @@ abstract class GedcomxApplicationState
 
     protected function loadEntityConditionally()
     {
-        if ('HEAD' != $this->request->getMethod() && $this->response->getStatusCode() == 200) {
+        if ($this->request->getMethod() != 'HEAD' && $this->response->getStatusCode() == HttpStatus::OK) {
             return $this->loadEntity();
         }
         else {
@@ -579,7 +580,7 @@ abstract class GedcomxApplicationState
      */
     protected function createRequest($method, $uri = null)
     {
-        return $this->client->createRequest($method, $uri );
+        return $this->client->createRequest($method, $uri);
     }
 
     /**
@@ -670,13 +671,17 @@ abstract class GedcomxApplicationState
      * @param string $functionName The function to call. Assumed to be in $this scope
      * @param array  $args         New arguments to pass to the function
      * @param array  $passed_args  Possible optional arguments from the calling function
+     * @param null   $scope
      *
      * @return mixed
      */
-    protected function passOptionsTo( $functionName, array $args, array $passed_args ){
+    protected function passOptionsTo( $functionName, array $args, array $passed_args, $scope = null ){
         $func_args = array_merge($args, $this->findTransitionOptions($passed_args));
+        if( $scope == null ){
+            $scope = 'self';
+        }
         return call_user_func_array(
-            array($this, $functionName),
+            $scope . '::' . $functionName,
             $func_args
         );
 

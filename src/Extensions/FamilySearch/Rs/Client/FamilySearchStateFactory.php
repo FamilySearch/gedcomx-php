@@ -2,13 +2,32 @@
 
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
-	use Gedcomx\Extensions\FamilySearch\Rs\Client\StateFactory;
+	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+	use Gedcomx\Rs\Client\GedcomxApplicationState;
+	use Gedcomx\Rs\Client\StateFactory;
 	use Guzzle\Http\Client;
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;
 
 	class FamilySearchStateFactory extends StateFactory
 	{
+		/**
+		 * @param string              $uri    The URI to the collection.
+		 * @param \Guzzle\Http\Client $client The client to use.
+		 * @param string              $method The method.
+		 *
+		 * @return FamilySearchCollectionState The collection state.
+		 */
+		public function buildCollectionState($uri, Client $client = null, $method = "GET")
+		{
+			if (!$client) {
+				$client = new Client();
+			}
+
+			$request = $client->createRequest($method, $uri);
+			$request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
+			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
+		}
 
 		/**
 		 * Create a new places state with the given URI
@@ -17,9 +36,9 @@
 		 * @param Client $client
 		 * @param string $method
 		 *
-		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PlacesState a new places state created with with the given URI
+		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlacesState a new places state created with with the given URI
 		 */
-		public function newPlacesState($uri, $client = null, $method = "GET")
+		public function buildPlacesState($uri, $client = null, $method = "GET")
 		{
 			if ($client == null) {
 				$client = new Client();
@@ -27,7 +46,7 @@
 			$request = $client->createRequest($method, $uri);
 			$request->setHeader("Accept", GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
 
-			return new PlacesState($client, $request, $client->send($request), null, $this);
+			return new FamilySearchPlacesState($client, $request, $client->send($request), null, $this);
 		}
 
 		/**
@@ -106,19 +125,6 @@
 		protected function buildPersonMatchResultsState(Client $client, Request $request, Response $response, $accessToken)
 		{
 			return new PersonMatchResultsState($client, $request, $response, $accessToken, $this);
-		}
-
-		/**
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
-		 * @param string                        $accessToken The access token for this session
-		 *
-		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState
-		 */
-		protected function buildCollectionState(Client $client, Request $request, Response $response, $accessToken)
-		{
-			return new FamilySearchCollectionState($client, $request, $response, $accessToken, $this);
 		}
 
 		/**

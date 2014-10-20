@@ -16,30 +16,49 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      */
     protected $apiCredentials;
     /**
-     * @var \Gedcomx\Rs\Client\CollectionState
+     * @var \Gedcomx\Rs\Client\StateFactory
      */
-    protected $collectionState;
+    protected $currentFactory;
     /**
      * @var \Faker\Generator
      */
     protected $faker;
+    /**
+     * @var \Gedcomx\Rs\Client\CollectionState
+     */
+    private $collectionState;
 
 	public function setUp()
     {
         $this->faker = Factory::create();
 
-		$this->apiEndpoint = 'https://sandbox.familysearch.org/platform/collections/tree';
 		$this->apiCredentials = (object)array(
 			'username' => "sdktester",
 			'password' => "1234sdkpass",
 			'apiKey' => "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
 		);
-        $stateFactory = new StateFactory();
-        $this->collectionState = $stateFactory
-            ->newCollectionState($this->apiEndpoint)
-            ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey);
 	}
-} 
+
+    protected function collectionState($factory = null){
+        if( $factory == null ){
+            if( $this->collectionState == null ){
+                throw new \RuntimeException("Collection state is null");
+            } else {
+                return $this->collectionState;
+            }
+        }
+        if (get_class($this->currentFactory) == get_class($factory) && $this->collectionState != null) {
+            return $this->collectionState;
+        } else {
+            $this->collectionState = $factory
+                ->newCollectionState()
+                ->authenticateViaOAuth2Password(
+                    $this->apiCredentials->username,
+                    $this->apiCredentials->password,
+                    $this->apiCredentials->apiKey);
+            $this->currentFactory = $factory;
+
+            return $this->collectionState;
+        }
+    }
+}

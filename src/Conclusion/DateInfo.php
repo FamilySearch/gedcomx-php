@@ -9,10 +9,14 @@
 
 namespace Gedcomx\Conclusion;
 
+use Gedcomx\Common\ExtensibleData;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Records\Field;
+
 /**
  * A concluded genealogical date.
  */
-class DateInfo extends \Gedcomx\Common\ExtensibleData
+class DateInfo extends ExtensibleData
 {
 
     /**
@@ -33,14 +37,14 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
      * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @var \Gedcomx\Common\TextValue[]
+     * @var TextValue[]
      */
     private $normalizedExtensions;
 
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
@@ -48,6 +52,8 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
      * Constructs a DateInfo from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -105,11 +111,26 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     {
         $this->formal = $formal;
     }
+
+    /**
+     * Add a normalized value to this date object
+     *
+     * @param TextValue $normalized
+     */
+    public function addNormalizedExtension(TextValue $normalized)
+    {
+        if( $this->normalizedExtensions == null ){
+            $this->normalizedExtensions = array($normalized);
+        } else {
+            $this->normalizedExtensions[] = $normalized;
+        }
+    }
+
     /**
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
-       * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @return \Gedcomx\Common\TextValue[]
+     * @return TextValue[]
      */
     public function getNormalizedExtensions()
     {
@@ -120,7 +141,7 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
      * The list of normalized values for the date, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @param \Gedcomx\Common\TextValue[] $normalizedExtensions
+     * @param TextValue[] $normalizedExtensions
      */
     public function setNormalizedExtensions($normalizedExtensions)
     {
@@ -129,7 +150,7 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -139,7 +160,7 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -194,13 +215,13 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
         $this->normalizedExtensions = array();
         if (isset($o['normalized'])) {
             foreach ($o['normalized'] as $i => $x) {
-                $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->normalizedExtensions[$i] = new TextValue($x);
             }
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
         }
     }
@@ -233,7 +254,7 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'normalized') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->normalizedExtensions)) {
                 $this->normalizedExtensions = array();
             }
@@ -241,7 +262,7 @@ class DateInfo extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

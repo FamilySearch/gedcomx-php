@@ -2,7 +2,7 @@
 
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
-	class Rel
+	class Rel extends \Gedcomx\Rs\Client\Rel
 	{
 		const CHANGE_HISTORY = "change-history";
 		const COMMENT = "comment";

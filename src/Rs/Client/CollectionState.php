@@ -196,10 +196,12 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-     * @param Relationship|Gedcomx $relationship
+     * @param Relationship|Gedcomx  $relationship
+     * @param StateTransitionOption $option
+     *
      * @return RelationshipState|null
      */
-    public function addRelationship($relationship)
+    public function addRelationship(Relationship $relationship, StateTransitionOption $option = null)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }

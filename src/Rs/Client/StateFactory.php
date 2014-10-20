@@ -9,27 +9,38 @@ use Guzzle\Http\Message\Response;
 
 class StateFactory
 {
+    const URI = "https://familysearch.org/platform/collections/tree";
+    const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
 
-    function __construct()
-    {
+    protected $production;
+
+    public function __construct( $production = false ){
+        $this->production = $production;
     }
 
     /**
-     * @param string              $uri    The URI to the collection.
      * @param \Guzzle\Http\Client $client The client to use.
      * @param string              $method The method.
      *
      * @return CollectionState The collection state.
      */
-    public function newCollectionState($uri, Client $client = null, $method = "GET")
+    public function newCollectionState(Client $client = null, $method = "GET")
     {
         if (!$client) {
-            $client = new Client();
+            $client = $this->defaultClient();
         }
 
-        $request = $client->createRequest($method, $uri);
+        $request = $client->createRequest($method, ($this->production ? self::URI : self::SANDBOX_URI));
         $request->setHeader("Accept", GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
+    }
+
+    protected function defaultClient(){
+        return new Client( '', array(
+            "request.options" => array(
+                "exceptions" => false
+            )
+        ));
     }
 
     /**

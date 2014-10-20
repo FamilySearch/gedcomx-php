@@ -12,7 +12,7 @@ namespace Gedcomx\Conclusion;
 /**
  * A relationship between two or more persons.
  */
-class Relationship extends \Gedcomx\Conclusion\Subject
+class Relationship extends Subject
 {
 
     /**
@@ -85,6 +85,13 @@ class Relationship extends \Gedcomx\Conclusion\Subject
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return RelationshipType|null
+     */
+    public function getKnownType() {
+        return $this->getType();
     }
 
     /**

@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch;
 
+use Gedcomx\Extensions\FamilySearch\Discussions\Discussion;
 use Gedcomx\Gedcomx;
 
 /**
@@ -24,42 +25,42 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The child-and-parents relationships for this data set.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[]
+     * @var Tree\ChildAndParentsRelationship[]
      */
     private $childAndParentsRelationships;
 
     /**
      * The discussions included in this data set.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[]
+     * @var Discussions\Discussion[]
      */
     private $discussions;
 
     /**
      * The users included in this genealogical data set.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Users\User[]
+     * @var Users\User[]
      */
     private $users;
 
     /**
      * The merges for this data set.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Tree\Merge[]
+     * @var Tree\Merge[]
      */
     private $merges;
 
     /**
      * The merge analysis results for this data set.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[]
+     * @var Tree\MergeAnalysis[]
      */
     private $mergeAnalyses;
 
     /**
      * The set of features defined in the platform API.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Feature[]
+     * @var Feature[]
      */
     private $features;
 
@@ -91,7 +92,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The child-and-parents relationships for this data set.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[]
+     * @return Tree\ChildAndParentsRelationship[]
      */
     public function getChildAndParentsRelationships()
     {
@@ -101,16 +102,32 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The child-and-parents relationships for this data set.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship[] $childAndParentsRelationships
+     * @param Tree\ChildAndParentsRelationship[] $childAndParentsRelationships
      */
     public function setChildAndParentsRelationships($childAndParentsRelationships)
     {
         $this->childAndParentsRelationships = $childAndParentsRelationships;
     }
+
+    /**
+     * Add a discussion to the data set.
+     *
+     * @param Discussion $discussion The discussion to be added.
+     */
+    public function addDiscussion( Discussion $discussion ) {
+        if ($discussion != null) {
+            if ($this->discussions == null) {
+                $this->discussions = array($discussion);
+            } else {
+                $this->discussions[] = $discussion;
+            }
+        }
+    }
+
     /**
      * The discussions included in this data set.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[]
+     * @return Discussions\Discussion[]
      */
     public function getDiscussions()
     {
@@ -120,7 +137,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The discussions included in this data set.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Discussions\Discussion[] $discussions
+     * @param Discussions\Discussion[] $discussions
      */
     public function setDiscussions($discussions)
     {
@@ -129,7 +146,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The users included in this genealogical data set.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Users\User[]
+     * @return Users\User[]
      */
     public function getUsers()
     {
@@ -139,7 +156,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The users included in this genealogical data set.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Users\User[] $users
+     * @param Users\User[] $users
      */
     public function setUsers($users)
     {
@@ -148,7 +165,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The merges for this data set.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Tree\Merge[]
+     * @return Tree\Merge[]
      */
     public function getMerges()
     {
@@ -158,7 +175,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The merges for this data set.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Tree\Merge[] $merges
+     * @param Tree\Merge[] $merges
      */
     public function setMerges($merges)
     {
@@ -167,7 +184,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The merge analysis results for this data set.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[]
+     * @return Tree\MergeAnalysis[]
      */
     public function getMergeAnalyses()
     {
@@ -177,7 +194,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The merge analysis results for this data set.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis[] $mergeAnalyses
+     * @param Tree\MergeAnalysis[] $mergeAnalyses
      */
     public function setMergeAnalyses($mergeAnalyses)
     {
@@ -186,7 +203,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The set of features defined in the platform API.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Feature[]
+     * @return Feature[]
      */
     public function getFeatures()
     {
@@ -196,7 +213,7 @@ class FamilySearchPlatform extends Gedcomx
     /**
      * The set of features defined in the platform API.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Feature[] $features
+     * @param Feature[] $features
      */
     public function setFeatures($features)
     {
@@ -267,37 +284,37 @@ class FamilySearchPlatform extends Gedcomx
         $this->childAndParentsRelationships = array();
         if (isset($o['childAndParentsRelationships'])) {
             foreach ($o['childAndParentsRelationships'] as $i => $x) {
-                $this->childAndParentsRelationships[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($x);
+                $this->childAndParentsRelationships[$i] = new Tree\ChildAndParentsRelationship($x);
             }
         }
         $this->discussions = array();
         if (isset($o['discussions'])) {
             foreach ($o['discussions'] as $i => $x) {
-                $this->discussions[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($x);
+                $this->discussions[$i] = new Discussions\Discussion($x);
             }
         }
         $this->users = array();
         if (isset($o['users'])) {
             foreach ($o['users'] as $i => $x) {
-                $this->users[$i] = new \Gedcomx\Extensions\FamilySearch\Users\User($x);
+                $this->users[$i] = new Users\User($x);
             }
         }
         $this->merges = array();
         if (isset($o['merges'])) {
             foreach ($o['merges'] as $i => $x) {
-                $this->merges[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($x);
+                $this->merges[$i] = new Tree\Merge($x);
             }
         }
         $this->mergeAnalyses = array();
         if (isset($o['mergeAnalyses'])) {
             foreach ($o['mergeAnalyses'] as $i => $x) {
-                $this->mergeAnalyses[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($x);
+                $this->mergeAnalyses[$i] = new Tree\MergeAnalysis($x);
             }
         }
         $this->features = array();
         if (isset($o['features'])) {
             foreach ($o['features'] as $i => $x) {
-                $this->features[$i] = new \Gedcomx\Extensions\FamilySearch\Feature($x);
+                $this->features[$i] = new Feature($x);
             }
         }
     }
@@ -314,7 +331,7 @@ class FamilySearchPlatform extends Gedcomx
           return true;
         }
         else if (($xml->localName == 'childAndParentsRelationship') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship($xml);
+            $child = new Tree\ChildAndParentsRelationship($xml);
             if (!isset($this->childAndParentsRelationships)) {
                 $this->childAndParentsRelationships = array();
             }
@@ -322,7 +339,7 @@ class FamilySearchPlatform extends Gedcomx
             $happened = true;
         }
         else if (($xml->localName == 'discussion') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Discussions\Discussion($xml);
+            $child = new Discussions\Discussion($xml);
             if (!isset($this->discussions)) {
                 $this->discussions = array();
             }
@@ -330,7 +347,7 @@ class FamilySearchPlatform extends Gedcomx
             $happened = true;
         }
         else if (($xml->localName == 'user') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Users\User($xml);
+            $child = new Users\User($xml);
             if (!isset($this->users)) {
                 $this->users = array();
             }
@@ -338,7 +355,7 @@ class FamilySearchPlatform extends Gedcomx
             $happened = true;
         }
         else if (($xml->localName == 'merge') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Tree\Merge($xml);
+            $child = new Tree\Merge($xml);
             if (!isset($this->merges)) {
                 $this->merges = array();
             }
@@ -346,7 +363,7 @@ class FamilySearchPlatform extends Gedcomx
             $happened = true;
         }
         else if (($xml->localName == 'mergeAnalysis') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Tree\MergeAnalysis($xml);
+            $child = new Tree\MergeAnalysis($xml);
             if (!isset($this->mergeAnalyses)) {
                 $this->mergeAnalyses = array();
             }
@@ -354,7 +371,7 @@ class FamilySearchPlatform extends Gedcomx
             $happened = true;
         }
         else if (($xml->localName == 'feature') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Feature($xml);
+            $child = new Feature($xml);
             if (!isset($this->features)) {
                 $this->features = array();
             }

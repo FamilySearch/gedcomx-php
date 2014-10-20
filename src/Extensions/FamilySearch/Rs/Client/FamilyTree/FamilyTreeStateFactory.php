@@ -1,27 +1,31 @@
 <?php
 
 
-    namespace Gedcomx\Extensions\FamilySearch\Rs\FamilyTree;
+    namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
+    use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
     use Guzzle\Http\Client;
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\Message\Response;
 
-    class FamilyTreeStateFactory extends familysearchstatefactory
+    class FamilyTreeStateFactory extends FamilySearchStateFactory
     {
-
         /**
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
-         * @param string                        $accessToken The access token for this session
+         * @param \Guzzle\Http\Client $client The client to use.
+         * @param string              $method The method.
          *
-         * @returns FamilySearchFamilyTree
+         * @return FamilyTreeCollectionState The collection state.
          */
-        public function buildFamilyTreeState(Client $client, Request $request, Response $response, $accessToken)
+        public function newCollectionState(Client $client = null, $method = "GET")
         {
-            return $this->newCollectionState($client, $request, $response, $accessToken, $this);
+            if (!$client) {
+                $client = $this->defaultClient();
+            }
+
+            $request = $client->createRequest($method, ($this->production ? self::URI : self::SANDBOX_URI));
+            $request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
+            return new FamilyTreeCollectionState($client, $request, $client->send($request), null, $this);
         }
 
         /**
@@ -45,7 +49,7 @@
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
          */
-        protected function newRelationshipsState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildRelationshipsState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new FamilyTreeRelationshipsState($client, $request, $response, $accessToken, $this);
         }
@@ -56,22 +60,9 @@
          * @param \Guzzle\Http\Message\Response $response
          * @param string                        $accessToken The access token for this session
          *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchFamilyTree
+         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState
          */
-        protected function newCollectionState(Client $client, Request $request, Response $response, $accessToken)
-        {
-            return new FamilySearchFamilyTree($client, $request, $response, $accessToken, $this);
-        }
-
-        /**
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
-         * @param string                        $accessToken The access token for this session
-         *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTreePersonState
-         */
-        protected function newPersonState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildPersonState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new FamilyTreePersonState($client, $request, $response, $accessToken, $this);
         }
@@ -82,9 +73,9 @@
          * @param \Guzzle\Http\Message\Response $response
          * @param string                        $accessToken The access token for this session
          *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTreeRelationshipState
+         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState
          */
-        protected function newRelationshipState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildRelationshipState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new FamilyTreeRelationshipState($client, $request, $response, $accessToken, $this);
         }
@@ -95,9 +86,9 @@
          * @param \Guzzle\Http\Message\Response $response
          * @param string                        $accessToken The access token for this session
          *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTreePersonParentsState
+         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonParentsState
          */
-        protected function newPersonParentsState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildPersonParentsState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new FamilyTreePersonParentsState($client, $request, $response, $accessToken, $this);
         }
@@ -108,9 +99,9 @@
          * @param \Guzzle\Http\Message\Response $response
          * @param string                        $accessToken The access token for this session
          *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTreePersonChildrenState
+         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonChildrenState
          */
-        protected function newPersonChildrenState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildPersonChildrenState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new FamilyTreePersonChildrenState($client, $request, $response, $accessToken, $this);
         }
@@ -121,24 +112,10 @@
          * @param \Guzzle\Http\Message\Response $response
          * @param string                        $accessToken The access token for this session
          *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\ChangeHistoryState
+         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChangeHistoryState
          */
-        protected function newChangeHistoryState(Client $client, Request $request, Response $response, $accessToken)
+        protected function buildChangeHistoryState(Client $client, Request $request, Response $response, $accessToken)
         {
             return new ChangeHistoryState($client, $request, $response, $accessToken, $this);
         }
-
-        /**
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
-         * @param string                        $accessToken The access token for this session
-         *
-         * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscoveryState
-         */
-        protected function newDiscoveryState(Client $client, Request $request, Response $response, $accessToken)
-        {
-            return new DiscoveryState($client, $request, $response, $accessToken, $this);
-        }
-
     }
