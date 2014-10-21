@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
+use Gedcomx\Common\Attribution;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**

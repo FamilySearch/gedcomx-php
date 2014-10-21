@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests;
 
 use Faker\Factory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{

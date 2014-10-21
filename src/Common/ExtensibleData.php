@@ -9,10 +9,12 @@
 
 namespace Gedcomx\Common;
 
+use Gedcomx\Rs\Client\SupportsExtensionElements;
+
 /**
  * A set of data that supports extension elements.
  */
-class ExtensibleData
+class ExtensibleData implements SupportsExtensionElements, HasTransientProperties
 {
 
     /**
@@ -26,6 +28,8 @@ class ExtensibleData
      * Custom extension elements for a conclusion.
      */
     private $extensionElements = array();
+
+    private $transientProperties = array();
 
     /**
      * Constructs a ExtensibleData from a (parsed) JSON hash
@@ -187,6 +191,12 @@ class ExtensibleData
         if ($this->id) {
             $a["id"] = $this->id;
         }
+        if( $this->extensionElements ){
+            foreach ($this->extensionElements as $ext) {
+
+            }
+
+        }
         return $a;
     }
 
@@ -333,4 +343,36 @@ class ExtensibleData
         }
     }
 
+    /**
+     * Get the transient properties.
+     *
+     * @return the transient properties.
+     */
+    public function getTransientProperties()
+    {
+        return $this->transientProperties;
+    }
+
+    /**
+     * Get a transient (non-serialized) property.
+     *
+     * @param string name The name of the property.
+     *
+     * @return mixed The property.
+     */
+    public function getTransientProperty($name)
+    {
+        return isset($this->transientProperties[$name]) ? $this->transientProperties[$name] : null;
+    }
+
+    /**
+     * Set a transient (non-serialized) property.
+     *
+     * @param string name the name of the property.
+     * @param mixed  value the property value.
+     */
+    public function setTransientProperty($name, $value)
+    {
+        $this->transientProperties[$name] = $value;
+    }
 }

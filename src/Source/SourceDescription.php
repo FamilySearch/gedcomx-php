@@ -12,12 +12,13 @@ use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
+use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Records\Field;
 
 /**
  * Represents a description of a source.
  */
-class SourceDescription extends \Gedcomx\Links\HypermediaEnabledData
+class SourceDescription extends HypermediaEnabledData
 {
 
     /**
