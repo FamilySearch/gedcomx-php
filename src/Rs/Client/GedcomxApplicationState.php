@@ -625,8 +625,8 @@ abstract class GedcomxApplicationState
         return $request;
     }
 
-    protected function createRequestForEmbeddedResource($method, $uri) {
-        return $this->createAuthenticatedGedcomxRequest($method, $uri);
+    protected function createRequestForEmbeddedResource($method, Link $link) {
+        return $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
     }
 
     /**
@@ -637,7 +637,7 @@ abstract class GedcomxApplicationState
      */
     protected function embed(Link $link, StateTransitionOption $option = null ){
         if ($link->getHref() != null) {
-            $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link->getHref());
+            $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
             $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
             if ($lastEmbeddedResponse->getStatusCode() == 200) {
                 $json = json_decode($lastEmbeddedResponse->getBody(),true);

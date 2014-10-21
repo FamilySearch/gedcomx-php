@@ -9,6 +9,7 @@
     use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
     use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
     use Gedcomx\Gedcomx;
+    use Gedcomx\Links\Link;
     use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
     use Gedcomx\Rs\Client\Options\StateTransitionOption;
     use Gedcomx\Rs\Client\PersonState;
@@ -107,16 +108,15 @@
         }
 
         /**
-         * @param string      $rel
-         * @param string|null $uri
+         * @param string              $method
+         * @param \Gedcomx\Links\Link $link
          *
          * @return Request
          */
-        protected function createRequestForEmbeddedResource($rel, $uri = null)
+        protected function createRequestForEmbeddedResource($method, Link $link)
         {
-            $link = $this->getLink($rel);
-            $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
-            if ($rel == Rel::DISCUSSION_REFERENCES) {
+            $request = $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
+            if ($link->getRel() == Rel::DISCUSSION_REFERENCES) {
                 FamilySearchRequest::applyFamilySearchMediaType($request);
             }
 
@@ -125,7 +125,7 @@
 
         public function loadDiscussionReferences(StateTransitionOption $option = null)
         {
-            return $this->passOptionsTo('loadEmbeddedResources', array(Rel::DISCUSSION_REFERENCES), func_get_args());
+            return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::DISCUSSION_REFERENCES)), func_get_args());
         }
 
         /**
@@ -201,7 +201,7 @@
          */
         public function addDiscussionReferences(array $refs, StateTransitionOption $option = null)
         {
-            return $this->passOptionsTo('updateDiscussionReference', array($refs), func_get_args());
+            return $this->passOptionsTo('updateDiscussionReferences', array($refs), func_get_args());
         }
 
         /**
@@ -247,7 +247,9 @@
 
             $gx = new Gedcomx();
             $gx->setPersons(array($person));
+
             $request = $this->createAuthenticatedRequest(Request::POST, $target);
+            $request->setBody( $gx->toJson() );
             FamilySearchRequest::applyFamilySearchMediaType($request);
 
             return $this->stateFactory->createState(
