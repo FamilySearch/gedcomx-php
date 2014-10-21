@@ -5,6 +5,7 @@ namespace Gedcomx\Tests\Rs\Client;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Conclusion\Gender;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
@@ -13,12 +14,19 @@ use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\DiscussionBuilder;
 use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\GenderType;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 
+/*
+ * Testing use cases https://familysearch.org/developers/docs/api/tree/Person_resource
+ *
+ * Only testing we get the expected response codes from the API. Data validation will
+ * have to be added elsewhere.
+ */
 class PersonStateTest extends ApiTestCase{
 
     /**
@@ -26,8 +34,8 @@ class PersonStateTest extends ApiTestCase{
      */
     private static $personState;
 
-    /*
-     * Example requests from https://familysearch.org/developers/docs/api/tree/Person_resource
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Person_usecase
      */
     public function testCreatePerson(){
         $factory = new StateFactory();
@@ -38,6 +46,9 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse() );
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
+     */
     public function testCreatePersonSourceReference()
     {
         $factory = new StateFactory();
@@ -62,6 +73,10 @@ class PersonStateTest extends ApiTestCase{
          */
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
+     * @throws \Gedcomx\Rs\Client\GedcomxApplicationException
+     */
     public function testCreatePersonSourceReferenceWithStateObject()
     {
         $factory = new StateFactory();
@@ -80,7 +95,7 @@ class PersonStateTest extends ApiTestCase{
 
 
     /*
-     * https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
      */
     public function testAddFactToPerson(){
         $factory = new StateFactory();
@@ -103,16 +118,13 @@ class PersonStateTest extends ApiTestCase{
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
-        $factory = new FamilySearchStateFactory();
+        $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
-
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
 
         $personState = $this->getPerson();
         $newState = $personState->addDiscussionState($discussionState);
@@ -138,7 +150,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
      */
     public function testReadMergedPerson(){
         // KWWV-DN4 was merged with KWWN-MQY
@@ -155,14 +167,13 @@ class PersonStateTest extends ApiTestCase{
          * Hacking the code to disable the redirect feature for this test seems undesirable. Instead we'll
          * assert that an id different from the one we requested is returned.
          */
-        $persons = self::$personState->getEntity()->getPersons();
-        $person = $persons[0];
+        $person = self::$personState->getPerson();
 
         $this->assertNotEquals( 'KWWV-DN4', $person->getId() );
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
      */
     public function testReadPerson(){
         $factory = new StateFactory();
@@ -174,7 +185,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
      */
     public function testReadPersonSourceReferences(){
         $factory = new StateFactory();
@@ -188,13 +199,17 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
-     * Not implemented in the API. No links returned on PersonState for
-     * /platform/tree/persons/PPPP-PPP/sources
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
      */
+    public function testReadPersonSources()
+    {
+        // Not currently implemented in the API. No links returned on PersonState for
+        // /platform/tree/persons/PPPP-PPP/sources
+        $this->assertTrue(true);
+    }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
      */
     public function testReadRelationshipsToChildren(){
         $factory = new StateFactory();
@@ -208,7 +223,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
      */
     public function testReadRelationshipsToParents(){
         $factory = new StateFactory();
@@ -222,7 +237,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
      */
     public function testReadRelationshipsToSpouses(){
         $factory = new StateFactory();
@@ -236,7 +251,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
      */
     public function testReadRelationshipsToSpousesWithPersons(){
         $factory = new StateFactory();
@@ -286,7 +301,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
      */
     public function testReadNotFoundPerson(){
         $factory = new StateFactory();
@@ -297,7 +312,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
      */
     public function testReadNotModifiedPerson(){
         $factory = new StateFactory();
@@ -314,7 +329,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
      */
     public function testReadPersonNotes(){
         $factory = new StateFactory();
@@ -327,7 +342,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
      */
     public function testReadPersonNote()
     {
@@ -336,8 +351,8 @@ class PersonStateTest extends ApiTestCase{
 
         self::$personState = $this->getPerson();
         self::$personState->loadNotes();
-        $persons = self::$personState->getEntity()->getPersons();
-        $notes = $persons[0]->getNotes();
+        $person = self::$personState->getPerson();
+        $notes = $person->getNotes();
         $newState = self::$personState
             ->readNote($notes[0]);
 
@@ -345,7 +360,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
      */
     public function testDeletePersonNote()
     {
@@ -367,7 +382,7 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $delState->getResponse() );
     }
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
      */
     public function testReadParentsOfPerson()
     {
@@ -382,7 +397,10 @@ class PersonStateTest extends ApiTestCase{
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $parentState->getResponse() );
     }
-    
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Spouses_of_a_Person_usecase
+     */
     public function testReadSpousesOfPerson()
     {
         $factory = new StateFactory();
@@ -397,6 +415,9 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $spouseState->getResponse());
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Head_Person_usecase
+     */
     public function testHeadPerson()
     {
         $factory = new StateFactory();
@@ -409,7 +430,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
      */
     public function testUpdatePersonSourceReference()
     {
@@ -436,6 +457,9 @@ class PersonStateTest extends ApiTestCase{
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Conclusion_usecase
+     */
     public function testUpdatePersonConclusion()
     {
         $factory = new StateFactory();
@@ -457,6 +481,9 @@ class PersonStateTest extends ApiTestCase{
 
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Custom_Non-Event_Fact_usecase
+     */
     public function testUpdatePersonCustomNonEventFact()
     {
         $factory = new StateFactory();
@@ -476,7 +503,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
      */
     public function testUpdatePersonWithPreconditions()
     {
@@ -498,9 +525,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
-     *
-     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
      */
     public function testDeletePersonSourceReference()
     {
@@ -528,7 +553,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
      */
     public function testDeletePersonConclusion()
     {
@@ -557,7 +582,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
      */
     public function testDeletePersonWithPreconditions()
     {
@@ -578,7 +603,7 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
     {
@@ -599,9 +624,9 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
-     * https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
-     * https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
      */
     public function testDeleteAndRestorePerson()
     {
