@@ -14,7 +14,7 @@ namespace Gedcomx\Records;
  */
 class Collection extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'collections';
     /**
      * The language of this description of the collection
      *

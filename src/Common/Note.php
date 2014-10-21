@@ -16,7 +16,7 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class Note extends HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'notes';
     /**
      * The language of the note.
      *

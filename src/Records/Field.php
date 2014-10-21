@@ -14,7 +14,7 @@ namespace Gedcomx\Records;
  */
 class Field extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'fields';
     /**
      * The type of the gender.
      *

@@ -14,7 +14,7 @@ namespace Gedcomx\Source;
  */
 class Coverage extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'coverage';
     /**
      * The type of record being covered.
      *

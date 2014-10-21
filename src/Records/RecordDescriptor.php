@@ -14,6 +14,7 @@ namespace Gedcomx\Records;
  */
 class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 {
+    const JSON_IDENTIFIER = 'recordDescriptors';
 
     /**
      * The language of this record description.

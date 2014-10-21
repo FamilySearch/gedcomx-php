@@ -19,7 +19,7 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class SourceReference extends HypermediaEnabledData implements Attributable
 {
-
+    const JSON_IDENTIFIER = 'sourceReferences';
     /**
      * A reference to a description of the source being referenced.
      *

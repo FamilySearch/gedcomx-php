@@ -18,7 +18,7 @@ use Gedcomx\Records\HasFields;
  */
 class Person extends Subject implements HasFacts, HasFields
 {
-
+    const JSON_IDENTIFIER = 'persons';
     /**
      * Whether this person is the &quot;principal&quot; person extracted from the record.
      *

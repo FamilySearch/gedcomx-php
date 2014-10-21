@@ -14,7 +14,7 @@ namespace Gedcomx\Conclusion;
  */
 class Relationship extends Subject
 {
-
+    const JSON_IDENTIFIER = 'relationships';
     /**
      * The type of this relationship.
      *

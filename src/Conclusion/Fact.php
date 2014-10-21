@@ -17,7 +17,7 @@ use Gedcomx\Records\Field;
  */
 class Fact extends Conclusion
 {
-
+    const JSON_IDENTIFIER = 'facts';
     /**
      * Whether this fact is the primary fact of the record from which the subject was extracted.
      *

@@ -17,7 +17,7 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class DiscussionReference extends HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'discussion-references';
     /**
      * The id of the discussion being referenced.
      *

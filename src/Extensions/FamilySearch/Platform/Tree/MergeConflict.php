@@ -14,7 +14,7 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class MergeConflict
 {
-
+    const JSON_IDENTIFIER = 'mergeConflict';
     /**
      * (no documentation provided)
      *
@@ -33,6 +33,8 @@ class MergeConflict
      * Constructs a MergeConflict from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

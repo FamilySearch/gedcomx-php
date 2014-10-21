@@ -14,7 +14,7 @@ namespace Gedcomx\Conclusion;
  */
 class Document extends \Gedcomx\Conclusion\Conclusion
 {
-
+    const JSON_IDENTIFIER = 'documents';
     /**
      * The text type of the document.
      *
@@ -47,6 +47,8 @@ class Document extends \Gedcomx\Conclusion\Conclusion
      * Constructs a Document from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

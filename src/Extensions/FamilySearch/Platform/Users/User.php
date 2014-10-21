@@ -16,7 +16,7 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class User extends HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'users';
     /**
      * (no documentation provided)
      *

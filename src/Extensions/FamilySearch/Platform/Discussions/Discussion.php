@@ -16,7 +16,7 @@ use Gedcomx\Common\ResourceReference;
  */
 class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'discussions';
     /**
      * the one-line summary text
      *

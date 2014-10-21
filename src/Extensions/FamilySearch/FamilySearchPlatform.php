@@ -19,7 +19,7 @@ use Gedcomx\Gedcomx;
  */
 class FamilySearchPlatform extends Gedcomx
 {
-
+    const JSON_IDENTIFIER = 'familysearch';
     const JSON_MEDIA_TYPE = 'application/x-fs-v1+json';
 
     /**

@@ -17,7 +17,7 @@ use Gedcomx\Common\ResourceReference;
  */
 class Attribution extends ExtensibleData
 {
-
+    const JSON_IDENTIFIER = 'attribution';
     /**
      * Reference to the contributor of the attributed data.
      *

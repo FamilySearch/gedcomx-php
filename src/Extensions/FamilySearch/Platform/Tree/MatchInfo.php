@@ -14,7 +14,7 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class MatchInfo
 {
-
+    const JSON_IDENTIFIER = 'matchInfo';
     /**
      * The way this match has been resolved.
      *
@@ -33,6 +33,8 @@ class MatchInfo
      * Constructs a MatchInfo from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

@@ -18,7 +18,7 @@ use Gedcomx\Conclusion\Subject;
  */
 class ChildAndParentsRelationship extends Subject
 {
-
+    const JSON_IDENTIFIER = 'child-and-parents-relationships';
     /**
      * The father of the child.
      *

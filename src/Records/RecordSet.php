@@ -14,7 +14,7 @@ namespace Gedcomx\Records;
  */
 class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'records';
     /**
      * The language of the genealogical data.
      *

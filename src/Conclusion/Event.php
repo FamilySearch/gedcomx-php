@@ -14,7 +14,7 @@ namespace Gedcomx\Conclusion;
  */
 class Event extends \Gedcomx\Conclusion\Subject
 {
-
+    const JSON_IDENTIFIER = 'events';
     /**
      * The type of the event.
      *

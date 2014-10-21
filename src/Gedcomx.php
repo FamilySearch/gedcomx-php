@@ -37,7 +37,7 @@ use Gedcomx\Source\SourceDescription;
  */
 class Gedcomx extends HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'gedcomx';
     /**
      * The language of the genealogical data.
      *

@@ -14,7 +14,7 @@ namespace Gedcomx\Conclusion;
  */
 class Gender extends \Gedcomx\Conclusion\Conclusion
 {
-
+    const JSON_IDENTIFIER = 'genders';
     /**
      * The type of the gender.
      *
@@ -33,6 +33,8 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
      * Constructs a Gender from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

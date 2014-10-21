@@ -14,7 +14,7 @@ namespace Gedcomx\Common;
  */
 class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'evidence';
     /**
      * The resource id of the resource being referenced.
      *

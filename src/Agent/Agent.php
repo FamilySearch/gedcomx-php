@@ -15,7 +15,7 @@ namespace Gedcomx\Agent;
  */
 class Agent extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'agents';
     /**
      * The accounts that belong to this person or organization.
      *

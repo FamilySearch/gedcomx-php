@@ -16,7 +16,7 @@ use Gedcomx\Links\SupportsLinks;
  */
 class Entry extends ExtensibleElement implements SupportsLinks
 {
-
+    const JSON_IDENTIFIER = 'entries';
     /**
      * The author of the entry.
      *

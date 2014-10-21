@@ -14,7 +14,7 @@ namespace Gedcomx\Records;
  */
 class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'collectionContent';
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
      *

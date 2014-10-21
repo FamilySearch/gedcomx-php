@@ -14,7 +14,7 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Artifacts;
  */
 class ArtifactMetadata
 {
-
+    const JSON_IDENTIFIER = 'artifactMetadata';
     /**
      * The type of the gender.
      *

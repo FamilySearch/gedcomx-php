@@ -193,9 +193,8 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
         }
         if( $this->extensionElements ){
             foreach ($this->extensionElements as $ext) {
-
+                $a[$ext::jsonIdentifier][] = $ext;
             }
-
         }
         return $a;
     }

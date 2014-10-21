@@ -20,7 +20,7 @@ use Gedcomx\Records\Field;
  */
 class SourceDescription extends HypermediaEnabledData
 {
-
+    const JSON_IDENTIFIER = 'sourceDescriptions';
     /**
      * The URI (if applicable) of the actual source.
      *
