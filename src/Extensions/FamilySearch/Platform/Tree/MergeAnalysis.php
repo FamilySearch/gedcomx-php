@@ -7,7 +7,9 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
+
+use Gedcomx\Common\ResourceReference;
 
 /**
  * 
@@ -18,35 +20,35 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @var \Gedcomx\Common\ResourceReference[]
+     * @var ResourceReference[]
      */
     private $survivorResources;
 
     /**
      * (no documentation provided)
      *
-     * @var \Gedcomx\Common\ResourceReference[]
+     * @var ResourceReference[]
      */
     private $duplicateResources;
 
     /**
      * (no documentation provided)
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[]
+     * @var MergeConflict[]
      */
     private $conflictingResources;
 
     /**
      * (no documentation provided)
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $survivor;
 
     /**
      * (no documentation provided)
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $duplicate;
 
@@ -54,6 +56,8 @@ class MergeAnalysis
      * Constructs a MergeAnalysis from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -76,7 +80,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @return \Gedcomx\Common\ResourceReference[]
+     * @return ResourceReference[]
      */
     public function getSurvivorResources()
     {
@@ -86,7 +90,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @param \Gedcomx\Common\ResourceReference[] $survivorResources
+     * @param ResourceReference[] $survivorResources
      */
     public function setSurvivorResources($survivorResources)
     {
@@ -95,7 +99,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @return \Gedcomx\Common\ResourceReference[]
+     * @return ResourceReference[]
      */
     public function getDuplicateResources()
     {
@@ -105,7 +109,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @param \Gedcomx\Common\ResourceReference[] $duplicateResources
+     * @param ResourceReference[] $duplicateResources
      */
     public function setDuplicateResources($duplicateResources)
     {
@@ -114,7 +118,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[]
+     * @return MergeConflict[]
      */
     public function getConflictingResources()
     {
@@ -124,7 +128,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict[] $conflictingResources
+     * @param MergeConflict[] $conflictingResources
      */
     public function setConflictingResources($conflictingResources)
     {
@@ -133,7 +137,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getSurvivor()
     {
@@ -143,7 +147,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @param \Gedcomx\Common\ResourceReference $survivor
+     * @param ResourceReference $survivor
      */
     public function setSurvivor($survivor)
     {
@@ -152,7 +156,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getDuplicate()
     {
@@ -162,7 +166,7 @@ class MergeAnalysis
     /**
      * (no documentation provided)
      *
-     * @param \Gedcomx\Common\ResourceReference $duplicate
+     * @param ResourceReference $duplicate
      */
     public function setDuplicate($duplicate)
     {
@@ -226,26 +230,26 @@ class MergeAnalysis
         $this->survivorResources = array();
         if (isset($o['survivorResources'])) {
             foreach ($o['survivorResources'] as $i => $x) {
-                $this->survivorResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->survivorResources[$i] = new ResourceReference($x);
             }
         }
         $this->duplicateResources = array();
         if (isset($o['duplicateResources'])) {
             foreach ($o['duplicateResources'] as $i => $x) {
-                $this->duplicateResources[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->duplicateResources[$i] = new ResourceReference($x);
             }
         }
         $this->conflictingResources = array();
         if (isset($o['conflictingResources'])) {
             foreach ($o['conflictingResources'] as $i => $x) {
-                $this->conflictingResources[$i] = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($x);
+                $this->conflictingResources[$i] = new MergeConflict($x);
             }
         }
         if (isset($o['survivor'])) {
-            $this->survivor = new \Gedcomx\Common\ResourceReference($o["survivor"]);
+            $this->survivor = new ResourceReference($o["survivor"]);
         }
         if (isset($o['duplicate'])) {
-            $this->duplicate = new \Gedcomx\Common\ResourceReference($o["duplicate"]);
+            $this->duplicate = new ResourceReference($o["duplicate"]);
         }
     }
 
@@ -297,7 +301,7 @@ class MergeAnalysis
     protected function setKnownChildElement($xml) {
         $happened = false;
         if (($xml->localName == 'survivorResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             if (!isset($this->survivorResources)) {
                 $this->survivorResources = array();
             }
@@ -305,7 +309,7 @@ class MergeAnalysis
             $happened = true;
         }
         else if (($xml->localName == 'duplicateResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             if (!isset($this->duplicateResources)) {
                 $this->duplicateResources = array();
             }
@@ -313,7 +317,7 @@ class MergeAnalysis
             $happened = true;
         }
         else if (($xml->localName == 'conflictingResource') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Tree\MergeConflict($xml);
+            $child = new MergeConflict($xml);
             if (!isset($this->conflictingResources)) {
                 $this->conflictingResources = array();
             }
@@ -321,12 +325,12 @@ class MergeAnalysis
             $happened = true;
         }
         else if (($xml->localName == 'survivor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->survivor = $child;
             $happened = true;
         }
         else if (($xml->localName == 'duplicate') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->duplicate = $child;
             $happened = true;
         }

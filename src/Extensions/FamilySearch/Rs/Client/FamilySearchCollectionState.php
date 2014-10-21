@@ -4,7 +4,7 @@
 
 	use Gedcomx\Common\TextValue;
 	use Gedcomx\Conclusion\DateInfo;
-	use Gedcomx\Extensions\FamilySearch\Discussions\Discussion;
+	use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 	use Gedcomx\Rs\Client\CollectionState;

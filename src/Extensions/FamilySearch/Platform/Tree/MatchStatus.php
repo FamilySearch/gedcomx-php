@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
  * The way a match was resolved.

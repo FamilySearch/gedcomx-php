@@ -2,7 +2,10 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 

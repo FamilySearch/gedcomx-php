@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Artifacts;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Artifacts;
 
 /**
  * FamilySearch-specific metadata about an artifact.

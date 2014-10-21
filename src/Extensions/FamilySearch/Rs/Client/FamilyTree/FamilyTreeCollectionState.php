@@ -8,7 +8,7 @@
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
-    use Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship;
+    use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
     use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
     use Gedcomx\Rs\Client\Options\StateTransitionOption;
     use Gedcomx\Rs\Client\PersonState;

@@ -7,12 +7,14 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
+
+use Gedcomx\Links\HypermediaEnabledData;
 
 /**
  * 
  */
-class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
+class DiscussionReference extends HypermediaEnabledData
 {
 
     /**
@@ -40,6 +42,8 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a DiscussionReference from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -152,7 +156,7 @@ class DiscussionReference extends \Gedcomx\Links\HypermediaEnabledData
             $this->resource = $o["resource"];
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = $o['attribution'] instanceof Attribution ? $o['attribution'] : new Attribution($o["attribution"]);
         }
     }
 

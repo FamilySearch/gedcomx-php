@@ -7,12 +7,14 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Users;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Users;
+
+use Gedcomx\Links\HypermediaEnabledData;
 
 /**
  * Family Tree User Service User
  */
-class User extends \Gedcomx\Links\HypermediaEnabledData
+class User extends HypermediaEnabledData
 {
 
     /**
@@ -138,6 +140,8 @@ class User extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a User from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

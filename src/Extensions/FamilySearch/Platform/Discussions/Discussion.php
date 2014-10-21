@@ -7,7 +7,9 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Discussions;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
+
+use Gedcomx\Common\ResourceReference;
 
 /**
  * A discussion.
@@ -39,7 +41,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * contributor of discussion
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $contributor;
 
@@ -60,7 +62,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The comments on this discussion.
      *
-     * @var \Gedcomx\Extensions\FamilySearch\Discussions\Comment[]
+     * @var Comment[]
      */
     private $comments;
 
@@ -68,6 +70,8 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a Discussion from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -147,7 +151,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * contributor of discussion
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getContributor()
     {
@@ -157,7 +161,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * contributor of discussion
      *
-     * @param \Gedcomx\Common\ResourceReference $contributor
+     * @param ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -204,7 +208,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The comments on this discussion.
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Discussions\Comment[]
+     * @return Comment[]
      */
     public function getComments()
     {
@@ -214,7 +218,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The comments on this discussion.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Discussions\Comment[] $comments
+     * @param Comment[] $comments
      */
     public function setComments($comments)
     {
@@ -275,7 +279,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
             $this->created = $o["created"];
         }
         if (isset($o['contributor'])) {
-            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+            $this->contributor = new ResourceReference($o["contributor"]);
         }
         if (isset($o['modified'])) {
             $this->modified = $o["modified"];
@@ -286,7 +290,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
         $this->comments = array();
         if (isset($o['comments'])) {
             foreach ($o['comments'] as $i => $x) {
-                $this->comments[$i] = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($x);
+                $this->comments[$i] = new Comment($x);
             }
         }
     }
@@ -327,7 +331,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->contributor = $child;
             $happened = true;
         }
@@ -348,7 +352,7 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'comment') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Extensions\FamilySearch\Discussions\Comment($xml);
+            $child = new Comment($xml);
             if (!isset($this->comments)) {
                 $this->comments = array();
             }

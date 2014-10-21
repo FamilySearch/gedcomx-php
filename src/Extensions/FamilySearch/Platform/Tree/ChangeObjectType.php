@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
  * Enumeration of the possible change object types.

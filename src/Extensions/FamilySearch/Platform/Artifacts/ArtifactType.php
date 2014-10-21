@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Artifacts;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Artifacts;
 
 /**
  * Enumeration of known artifact types.

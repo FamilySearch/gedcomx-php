@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
  * The set of operations applicable to FamilySearch data.

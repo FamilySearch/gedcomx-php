@@ -7,7 +7,7 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Tree;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Fact;

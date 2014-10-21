@@ -7,12 +7,14 @@
  *
  */
 
-namespace Gedcomx\Extensions\FamilySearch\Discussions;
+namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
+
+use Gedcomx\Links\HypermediaEnabledData;
 
 /**
  * 
  */
-class Comment extends \Gedcomx\Links\HypermediaEnabledData
+class Comment extends HypermediaEnabledData
 {
 
     /**

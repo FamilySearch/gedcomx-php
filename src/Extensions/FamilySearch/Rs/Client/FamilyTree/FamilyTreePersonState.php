@@ -6,8 +6,8 @@
     use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState;
-    use Gedcomx\Extensions\FamilySearch\Tree\ChildAndParentsRelationship;
-    use Gedcomx\Extensions\FamilySearch\Tree\DiscussionReference;
+    use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+    use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
     use Gedcomx\Gedcomx;
     use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
     use Gedcomx\Rs\Client\Options\StateTransitionOption;
