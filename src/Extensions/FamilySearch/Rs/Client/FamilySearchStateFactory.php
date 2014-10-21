@@ -3,6 +3,7 @@
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+	use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
 	use Gedcomx\Rs\Client\StateFactory;
 	use Guzzle\Http\Client;
@@ -12,7 +13,6 @@
 	class FamilySearchStateFactory extends StateFactory
 	{
 		/**
-		 * @param string              $uri    The URI to the collection.
 		 * @param \Guzzle\Http\Client $client The client to use.
 		 * @param string              $method The method.
 		 *
@@ -38,7 +38,7 @@
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlacesState a new places state created with with the given URI
 		 */
-		public function buildPlacesState($uri, $client = null, $method = "GET")
+		public function newPlacesState($uri, $client = null, $method = "GET")
 		{
 			if ($client == null) {
 				$client = new Client();
@@ -47,6 +47,19 @@
 			$request->setHeader("Accept", GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
 
 			return new FamilySearchPlacesState($client, $request, $client->send($request), null, $this);
+		}
+
+		/**
+		 * @param \Guzzle\Http\Client           $client
+		 * @param \Guzzle\Http\Message\Request  $request
+		 * @param \Guzzle\Http\Message\Response $response
+		 * @param string                        $accessToken The access token for this session
+		 *
+		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
+		 */
+		protected function buildPersonState(Client $client, Request $request, Response $response, $accessToken)
+		{
+			return new FamilyTreePersonState($client, $request, $response, $accessToken, $this);
 		}
 
 		/**

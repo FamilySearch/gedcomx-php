@@ -90,6 +90,28 @@
 		}
 
 		/**
+		 * @param string                $uri      href from a Link object
+		 * @param StateTransitionOption $option,...
+		 *
+		 * @returns FamilyTreePersonState|null
+		 */
+		public function readPerson( $uri, StateTransitionOption $option = null ){
+			if( $uri == null ){
+				return null;
+			}
+
+			$request = $this->createAuthenticatedRequest("GET", $uri);
+			FamilySearchRequest::applyFamilySearchMediaType($request);
+			return $this->stateFactory->createState(
+				"PersonState",
+				$this->client,
+				$request,
+				$this->passOptionsTo('invoke', array($request),func_get_args()),
+				$this->accessToken
+			);
+		}
+
+		/**
 		 * @param StateTransitionOption $option
 		 *
 		 * @return UserState|null
