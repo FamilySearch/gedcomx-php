@@ -75,7 +75,7 @@ class CollectionState extends GedcomxApplicationState
 	public function readPersonForCurrentUser(StateTransitionOption $option = null)
 	{
 		$link = $this->getLink(Rel::CURRENT_USER_PERSON);
-		if ($link !== null) {
+		if ($link == null || $link->getHref() == null) {
 			return null;
 		}
 

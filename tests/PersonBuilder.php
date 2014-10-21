@@ -2,7 +2,6 @@
 
 namespace Gedcomx\Tests;
 
-use Faker\Factory;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\DisplayProperties;
 use Gedcomx\Conclusion\Fact;
@@ -17,19 +16,8 @@ use Gedcomx\Types\GenderType;
 use Gedcomx\Types\NamePartType;
 use Gedcomx\Types\NameType;
 
-class PersonBuilder
+class PersonBuilder extends TestBuilder
 {
-
-    private static $faker;
-
-    private static function faker(){
-        if( self::$faker == null ){
-            self::$faker = Factory::create();
-        }
-
-        return self::$faker;
-    }
-    
     public static function buildPerson()
     {
         /*

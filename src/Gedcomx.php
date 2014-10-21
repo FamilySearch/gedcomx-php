@@ -856,9 +856,9 @@ class Gedcomx extends HypermediaEnabledData
     /**
      * Add a source description to the data set.
      *
-     * @param The $sourceDescription
+     * @param SourceDescription $sourceDescription
      */
-    public function addSourceDescription( $sourceDescription ) {
+    public function addSourceDescription(SourceDescription $sourceDescription) {
         if ($sourceDescription != null) {
             $this->sourceDescriptions[] = $sourceDescription;
         }

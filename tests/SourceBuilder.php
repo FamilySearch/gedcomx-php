@@ -6,7 +6,7 @@ namespace Gedcomx\Tests;
 
 use Gedcomx\Source\SourceDescription;
 
-class SourceBuilder {
+class SourceBuilder extends TestBuilder{
 
     public static function buildSource(){
         return new SourceDescription(array(

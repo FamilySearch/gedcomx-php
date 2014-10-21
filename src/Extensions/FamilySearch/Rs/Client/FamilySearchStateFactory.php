@@ -18,13 +18,13 @@
 		 *
 		 * @return FamilySearchCollectionState The collection state.
 		 */
-		public function buildCollectionState($uri, Client $client = null, $method = "GET")
+		public function newCollectionState(Client $client = null, $method = "GET")
 		{
 			if (!$client) {
-				$client = new Client();
+				$client = $this->defaultClient();
 			}
 
-			$request = $client->createRequest($method, $uri);
+			$request = $client->createRequest($method, ($this->production ? self::URI : self::SANDBOX_URI));
 			$request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
