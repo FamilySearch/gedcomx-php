@@ -204,9 +204,11 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      */
     public function getLink($rel)
     {
-        foreach ( $this->links as $idx => $link ) {
-            if ( $link->getRel() == $rel ) {
-                return $link;
+        if( $this->links != null ){
+            foreach ( $this->links as $idx => $link ) {
+                if ( $link->getRel() == $rel ) {
+                    return $link;
+                }
             }
         }
         return null;

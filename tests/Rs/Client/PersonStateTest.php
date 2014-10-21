@@ -100,13 +100,29 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
-        //todo: implement testCreateDiscussionReference: requires FamilyTree Extensions
-        $this->assertTrue(true);
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
+
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+
+        $discussionState = $this->collectionState()->addDiscussion($discussion);
+
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->getPerson();
+        $newState = $personState->addDiscussionState($discussionState);
+
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Note_usecase
+     */
     public function testCreateNote(){
         $factory = new StateFactory();
         $this->collectionState($factory);
@@ -235,17 +251,26 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
-     *
-     * Requires Family Search Extensions to work properly. Will come back to it.
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
     public function testReadDiscussionReferences(){
-        //todo: implement testReadDiscussionReferences: requires FamilyTree Extentions
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->getPerson();
+        $personState->loadDiscussionReferences();
+
+        /*
+         * load* functions don't update the state object. As long as we get here
+         * without an exception (which the embed function will throw if the load
+         * fails) we should be okay.
+         */
+
         $this->assertTrue(true);
     }
 
     /**
-     * https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
      */
     public function testReadPersonChildren(){
         $factory = new StateFactory();
@@ -557,8 +582,20 @@ class PersonStateTest extends ApiTestCase{
      */
     public function testDeleteDiscussionReference()
     {
-        //todo: implement testDeleteDiscussionReference: requires FamilyTree Extensions
-        $this->assertTrue(true);
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+
+        $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $ref = new DiscussionReference();
+        $ref->setResource($discussionState->getSelfUri());
+
+        $personState = $this->getPerson();
+        $newState = $personState->deleteDiscussionReference($ref);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
     }
 
     /**
@@ -586,41 +623,5 @@ class PersonStateTest extends ApiTestCase{
         $ftTwo = $ftOne->readPersonById($id);
         $ftThree = $ftTwo->restore();
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $ftThree->getResponse(), "Restore person failed. Returned {$ftThree->getResponse()->getStatusCode()}");
-    }
-
-    /*
-     * Private helper functions
-     */
-
-    private function createPerson()
-    {
-        $person = PersonBuilder::buildPerson();
-        return $this->collectionState()->addPerson($person);
-    }
-
-    private function getPerson($pid = 'KWW6-H43', array $options = array()){
-        $link = $this->collectionState()->getLink(Rel::PERSON);
-        if ($link === null || $link->getTemplate() === null) {
-            return null;
-        }
-        $uri = array(
-            $link->getTemplate(),
-            array(
-                "pid" => $pid
-            )
-        );
-
-        $args = array_merge(array($uri), $options);
-        return call_user_func_array(array($this->collectionState(),"readPerson"), $args);
-    }
-
-    private function createSource(){
-        $source = SourceBuilder::buildSource();
-        $link = $this->collectionState()->getLink(Rel::SOURCE_DESCRIPTIONS);
-        if ($link === null || $link->getHref() === null) {
-            return null;
-        }
-
-        return $this->collectionState()->addSourceDescription($source);
     }
 }

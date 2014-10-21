@@ -270,9 +270,16 @@
          */
         public function  deleteDiscussionReference(DiscussionReference $reference, StateTransitionOption $option = null)
         {
-            $link = $reference->getLink(Rel::DISCUSSION_REFERENCE);
-            if ($link == null) {
-                $link = $reference->getLink(Rel::SELF);
+            $link = null;
+            if( $reference->getLinks() != null ){
+                $link = $reference->getLink(Rel::DISCUSSION_REFERENCE);
+                if ($link == null) {
+                    $link = $reference->getLink(Rel::SELF);
+                }
+            }
+            if( $link == null ){
+                $link = new Link();
+                $link->setHref($reference->getResource());
             }
             if ($link == null || $link->getHref() == null) {
                 throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
