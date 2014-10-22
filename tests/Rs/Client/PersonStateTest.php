@@ -43,7 +43,7 @@ class PersonStateTest extends ApiTestCase{
 
         self::$personState = $this->createPerson();
 
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse(), $this->buildFailMessage(__METHOD__, self::$personState) );
     }
 
     /**

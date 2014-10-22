@@ -5,6 +5,7 @@ namespace Gedcomx\Tests;
 use Faker\Factory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
@@ -70,7 +71,12 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         $message = $methodName . " failed. Returned " . $stateObj->getResponse()->getStatusCode() . ".";
         $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->getEffectiveUrl();
         $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
-        $message .= "\nRequest:\n" . $stateObj->getRequest()->getBody();
+        $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept");
+        $message .= "\nRequest:" . (
+            $stateObj->getRequest() instanceof EntityEnclosingRequest ?
+                "\n".$stateObj->getRequest()->getBody() :
+                " n/a"
+        );
         $message .= "\nResponse:\n" . $stateObj->getResponse()->getBody();
 
         return $message;
@@ -79,7 +85,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
     protected  function createPerson()
     {
         $person = PersonBuilder::buildPerson();
-        return $this->collectionState()->addPerson($person)->get();
+        return $this->collectionState()->addPerson($person);
     }
 
     protected  function getPerson($pid = 'KWW6-H43', array $options = array()){
