@@ -17,7 +17,6 @@ use Gedcomx\Records\Field;
  */
 class Fact extends Conclusion
 {
-    const JSON_IDENTIFIER = 'facts';
     /**
      * Whether this fact is the primary fact of the record from which the subject was extracted.
      *
@@ -273,34 +272,41 @@ class Fact extends Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['primary'])) {
             $this->primary = $o["primary"];
+            unset($o['primary']);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
         if (isset($o['date'])) {
             $this->date = $o['date'] instanceof DateInfo ? $o['date'] : new DateInfo($o["date"]);
+            unset($o['date']);
         }
         if (isset($o['place'])) {
             $this->place = $o['place'] instanceof PlaceReference ? $o['place'] : new PlaceReference($o["place"]);
+            unset($o['place']);
         }
         if (isset($o['value'])) {
             $this->value = $o["value"];
+            unset($o['value']);
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
                 $this->qualifiers[$i] = $x instanceof Qualifier ? $x : new Qualifier($x);
             }
+            unset($o['qualifiers']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
                 $this->fields[$i] = $x instanceof Field ? $x : new Field($x);
             }
+            unset($o['fields']);
         }
+        parent::initFromArray($o);
     }
 
     /**

@@ -11,6 +11,7 @@ namespace Gedcomx\Conclusion;
 
 use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Conclusion\Subject;
+use Gedcomx\Records\Field;
 use Gedcomx\Records\HasFields;
 
 /**
@@ -18,7 +19,6 @@ use Gedcomx\Records\HasFields;
  */
 class Person extends Subject implements HasFacts, HasFields
 {
-    const JSON_IDENTIFIER = 'persons';
     /**
      * Whether this person is the &quot;principal&quot; person extracted from the record.
      *
@@ -57,21 +57,21 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The fact conclusions for the person.
      *
-     * @var \Gedcomx\Conclusion\Fact[]
+     * @var Fact[]
      */
     private $facts;
 
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @var \Gedcomx\Conclusion\DisplayProperties
+     * @var DisplayProperties
      */
     private $displayExtension;
 
@@ -198,7 +198,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The fact conclusions for the person.
      *
-     * @return \Gedcomx\Conclusion\Fact[]
+     * @return Fact[]
      */
     public function getFacts()
     {
@@ -208,7 +208,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The fact conclusions for the person.
      *
-     * @param \Gedcomx\Conclusion\Fact[] $facts
+     * @param Fact[] $facts
      */
     public function setFacts($facts)
     {
@@ -217,7 +217,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -227,7 +227,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -236,7 +236,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @return \Gedcomx\Conclusion\DisplayProperties
+     * @return DisplayProperties
      */
     public function getDisplayExtension()
     {
@@ -246,7 +246,7 @@ class Person extends Subject implements HasFacts, HasFields
     /**
      * Display properties for the person. Display properties are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @param \Gedcomx\Conclusion\DisplayProperties $displayExtension
+     * @param DisplayProperties $displayExtension
      */
     public function setDisplayExtension($displayExtension)
     {
@@ -307,40 +307,48 @@ class Person extends Subject implements HasFacts, HasFields
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['principal'])) {
             $this->principal = $o["principal"];
+            unset($o['principle']);
         }
         if (isset($o['private'])) {
             $this->private = $o["private"];
+            unset($o['private']);
         }
         if (isset($o['living'])) {
             $this->living = $o["living"];
+            unset($o['living']);
         }
         if (isset($o['gender'])) {
             $this->gender = new Gender($o["gender"]);
+            unset($o['gender']);
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
                 $this->names[$i] = new Name($x);
             }
+            unset($o['names']);
         }
         $this->facts = array();
         if (isset($o['facts'])) {
             foreach ($o['facts'] as $i => $x) {
-                $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->facts[$i] = new Fact($x);
             }
+            unset($o['facts']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
+            unset($o['fields']);
         }
         if (isset($o['display'])) {
-            $this->displayExtension = new \Gedcomx\Conclusion\DisplayProperties($o["display"]);
+            $this->displayExtension = new DisplayProperties($o["display"]);
+            unset($o['display']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -376,7 +384,7 @@ class Person extends Subject implements HasFacts, HasFields
             $happened = true;
         }
         else if (($xml->localName == 'fact') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Fact($xml);
+            $child = new Fact($xml);
             if (!isset($this->facts)) {
                 $this->facts = array();
             }
@@ -384,7 +392,7 @@ class Person extends Subject implements HasFacts, HasFields
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }
@@ -392,7 +400,7 @@ class Person extends Subject implements HasFacts, HasFields
             $happened = true;
         }
         else if (($xml->localName == 'display') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\DisplayProperties($xml);
+            $child = new DisplayProperties($xml);
             $this->displayExtension = $child;
             $happened = true;
         }

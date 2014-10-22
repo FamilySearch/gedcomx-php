@@ -295,34 +295,42 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
                 $this->names[$i] = new \Gedcomx\Common\TextValue($x);
             }
+            unset($o["names"]);
         }
         if (isset($o['temporalDescription'])) {
             $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
+            unset($o["temporalDescription"]);
         }
         if (isset($o['latitude'])) {
             $this->latitude = $o["latitude"];
+            unset($o["latitude"]);
         }
         if (isset($o['longitude'])) {
             $this->longitude = $o["longitude"];
+            unset($o["longitude"]);
         }
         if (isset($o['spatialDescription'])) {
             $this->spatialDescription = new \Gedcomx\Common\ResourceReference($o["spatialDescription"]);
+            unset($o["spatialDescription"]);
         }
         if (isset($o['jurisdiction'])) {
             $this->jurisdiction = new \Gedcomx\Common\ResourceReference($o["jurisdiction"]);
+            unset($o["jurisdiction"]);
         }
         if (isset($o['display'])) {
             $this->displayExtension = new \Gedcomx\Conclusion\PlaceDisplayProperties($o["display"]);
+            unset($o["display"]);
         }
+        parent::initFromArray($o);
     }
 
     /**

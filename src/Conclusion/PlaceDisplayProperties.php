@@ -146,16 +146,19 @@ class PlaceDisplayProperties extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['fullName'])) {
             $this->fullName = $o["fullName"];
+            unset($o['fullName']);
         }
         if (isset($o['name'])) {
             $this->name = $o["name"];
+            unset($o['name']);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
+        parent::initFromArray($o);
     }
 
     /**

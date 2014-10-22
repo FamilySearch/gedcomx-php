@@ -15,7 +15,6 @@ use Gedcomx\Types\NamePartType;
  */
 class Name extends \Gedcomx\Conclusion\Conclusion
 {
-    const JSON_IDENTIFIER = 'names';
     /**
      * The type of the name.
      *
@@ -181,22 +180,26 @@ class Name extends \Gedcomx\Conclusion\Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         if (isset($o['preferred'])) {
             $this->preferred = $o["preferred"];
+            unset($o["preferred"]);
         }
         if (isset($o['date'])) {
             $this->date = $o["date"] instanceof DateInfo ? $o["date"] : new DateInfo($o["date"]);
+            unset($o["date"]);
         }
         $this->nameForms = array();
         if (isset($o['nameForms'])) {
             foreach ($o['nameForms'] as $i => $x) {
                 $this->nameForms[$i] = $x instanceof NameForm ? $x : new NameForm($x);
             }
+            unset($o["nameForms"]);
         }
+        parent::initFromArray($o);
     }
 
     /**

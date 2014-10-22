@@ -20,7 +20,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @var \Gedcomx\Links\Link[]
+     * @var Link[]
      */
     private $links;
 
@@ -52,7 +52,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @return \Gedcomx\Links\Link[]
+     * @return Link[]
      */
     public function getLinks()
     {
@@ -62,7 +62,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
     /**
      * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @param \Gedcomx\Links\Link[] $links
+     * @param Link[] $links
      */
     public function setLinks($links)
     {
@@ -94,16 +94,17 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         $this->links = array();
         if (isset($o['links'])) {
             foreach ($o['links'] as $i => $x) {
                 if( ! array_key_exists("rel", $x) ){
                     $x["rel"] = $i;
                 }
-                $this->links[$i] = new \Gedcomx\Links\Link($x);
+                $this->links[$i] = new Link($x);
             }
+            unset($o['links']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -118,7 +119,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
           return true;
         }
         else if (($xml->localName == 'link') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Links\Link($xml);
+            $child = new Link($xml);
             if (!isset($this->links)) {
                 $this->links = array();
             }

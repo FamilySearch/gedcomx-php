@@ -14,7 +14,6 @@ namespace Gedcomx\Links;
  */
 class Link
 {
-    const JSON_IDENTIFIER = 'links';
     /**
      * The language of the resource being linked to.
      *

@@ -14,7 +14,6 @@ namespace Gedcomx\Records;
  */
 class Field extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'fields';
     /**
      * The type of the gender.
      *
@@ -25,7 +24,7 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The set of values for the field.
      *
-     * @var \Gedcomx\Records\FieldValue[]
+     * @var FieldValue[]
      */
     private $values;
 
@@ -74,7 +73,7 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The set of values for the field.
      *
-     * @return \Gedcomx\Records\FieldValue[]
+     * @return FieldValue[]
      */
     public function getValues()
     {
@@ -84,7 +83,7 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The set of values for the field.
      *
-     * @param \Gedcomx\Records\FieldValue[] $values
+     * @param FieldValue[] $values
      */
     public function setValues($values)
     {
@@ -119,16 +118,18 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
         $this->values = array();
         if (isset($o['values'])) {
             foreach ($o['values'] as $i => $x) {
-                $this->values[$i] = new \Gedcomx\Records\FieldValue($x);
+                $this->values[$i] = new FieldValue($x);
             }
+            unset($o['values']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -143,7 +144,7 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'value') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\FieldValue($xml);
+            $child = new FieldValue($xml);
             if (!isset($this->values)) {
                 $this->values = array();
             }

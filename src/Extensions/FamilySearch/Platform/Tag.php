@@ -4,5 +4,4 @@
 
     class Tag
     {
-        const JSON_IDENTIFIER = 'tags';
     }

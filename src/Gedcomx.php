@@ -37,7 +37,6 @@ use Gedcomx\Source\SourceDescription;
  */
 class Gedcomx extends HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'gedcomx';
     /**
      * The language of the genealogical data.
      *
@@ -528,79 +527,93 @@ class Gedcomx extends HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['lang']);
         }
         if (isset($o['description'])) {
             $this->descriptionRef = $o["description"];
+            unset($o['description']);
         }
         if (isset($o['profile'])) {
             $this->profile = $o["profile"];
+            unset($o['profile']);
         }
         if (isset($o['attribution'])) {
             $this->attribution = new Attribution($o["attribution"]);
+            unset($o['attribution']);
         }
         $this->persons = array();
         if (isset($o['persons'])) {
             foreach ($o['persons'] as $i => $x) {
                 $this->persons[$i] = new Person($x);
             }
+            unset($o['persons']);
         }
         $this->relationships = array();
         if (isset($o['relationships'])) {
             foreach ($o['relationships'] as $i => $x) {
                 $this->relationships[$i] = new Relationship($x);
             }
+            unset($o['relationships']);
         }
         $this->sourceDescriptions = array();
         if (isset($o['sourceDescriptions'])) {
             foreach ($o['sourceDescriptions'] as $i => $x) {
                 $this->sourceDescriptions[$i] = new SourceDescription($x);
             }
+            unset($o['sourceDescriptions']);
         }
         $this->agents = array();
         if (isset($o['agents'])) {
             foreach ($o['agents'] as $i => $x) {
                 $this->agents[$i] = new Agent($x);
             }
+            unset($o['agents']);
         }
         $this->events = array();
         if (isset($o['events'])) {
             foreach ($o['events'] as $i => $x) {
                 $this->events[$i] = new Event($x);
             }
+            unset($o['events']);
         }
         $this->places = array();
         if (isset($o['places'])) {
             foreach ($o['places'] as $i => $x) {
                 $this->places[$i] = new PlaceDescription($x);
             }
+            unset($o['places']);
         }
         $this->documents = array();
         if (isset($o['documents'])) {
             foreach ($o['documents'] as $i => $x) {
                 $this->documents[$i] = new Document($x);
             }
+            unset($o['documents']);
         }
         $this->collections = array();
         if (isset($o['collections'])) {
             foreach ($o['collections'] as $i => $x) {
                 $this->collections[$i] = new Collection($x);
             }
+            unset($o['collections']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
                 $this->fields[$i] = new Field($x);
             }
+            unset($o['fields']);
         }
         $this->recordDescriptors = array();
         if (isset($o['recordDescriptors'])) {
             foreach ($o['recordDescriptors'] as $i => $x) {
                 $this->recordDescriptors[$i] = new RecordDescriptor($x);
             }
+            unset($o['recordDescriptors']);
         }
+        parent::initFromArray($o);
     }
 
     /**

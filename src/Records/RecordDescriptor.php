@@ -14,7 +14,6 @@ namespace Gedcomx\Records;
  */
 class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'recordDescriptors';
 
     /**
      * The language of this record description.
@@ -26,7 +25,7 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptors of the fields that are applicable to this record.
      *
-     * @var \Gedcomx\Records\FieldDescriptor[]
+     * @var FieldDescriptor[]
      */
     private $fields;
 
@@ -75,7 +74,7 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptors of the fields that are applicable to this record.
      *
-     * @return \Gedcomx\Records\FieldDescriptor[]
+     * @return FieldDescriptor[]
      */
     public function getFields()
     {
@@ -85,7 +84,7 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptors of the fields that are applicable to this record.
      *
-     * @param \Gedcomx\Records\FieldDescriptor[] $fields
+     * @param FieldDescriptor[] $fields
      */
     public function setFields($fields)
     {
@@ -120,16 +119,18 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['lang']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\FieldDescriptor($x);
+                $this->fields[$i] = new FieldDescriptor($x);
             }
+            unset($o['fields']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -144,7 +145,7 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\FieldDescriptor($xml);
+            $child = new FieldDescriptor($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

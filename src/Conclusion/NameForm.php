@@ -181,25 +181,29 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['lang']);
         }
         if (isset($o['fullText'])) {
             $this->fullText = $o["fullText"];
+            unset($o['fullText']);
         }
         $this->parts = array();
         if (isset($o['parts'])) {
             foreach ($o['parts'] as $i => $x) {
                 $this->parts[$i] = $x instanceof NamePart ? $x : new NamePart($x);
             }
+            unset($o['parts']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
                 $this->fields[$i] = $x instanceof Field ? $x : new Field($x);
             }
+            unset($o['fields']);
         }
+        parent::initFromArray($o);
     }
 
     /**

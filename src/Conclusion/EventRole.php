@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\ResourceReference;
 
 /**
  * A role that a specific person plays in an event.
@@ -25,7 +26,7 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     /**
      * Reference to the person playing the role in the event.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $person;
 
@@ -81,7 +82,7 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     /**
      * Reference to the person playing the role in the event.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getPerson()
     {
@@ -91,7 +92,7 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
     /**
      * Reference to the person playing the role in the event.
      *
-     * @param \Gedcomx\Common\ResourceReference $person
+     * @param ResourceReference $person
      */
     public function setPerson($person)
     {
@@ -144,16 +145,19 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         if (isset($o['person'])) {
-            $this->person = new \Gedcomx\Common\ResourceReference($o["person"]);
+            $this->person = new ResourceReference($o["person"]);
+            unset($o["person"]);
         }
         if (isset($o['details'])) {
             $this->details = $o["details"];
+            unset($o["details"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -168,7 +172,7 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
           return true;
         }
         else if (($xml->localName == 'person') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->person = $child;
             $happened = true;
         }

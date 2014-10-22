@@ -202,22 +202,27 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['resource'])) {
             $this->resource = $o["resource"];
+            unset($o["resource"]);
         }
         if (isset($o['datatype'])) {
             $this->datatype = $o["datatype"];
+            unset($o["datatype"]);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         if (isset($o['labelId'])) {
             $this->labelId = $o["labelId"];
+            unset($o["labelId"]);
         }
         if (isset($o['text'])) {
             $this->text = $o["text"];
+            unset($o["text"]);
         }
+        parent::initFromArray($o);
     }
 
     /**

@@ -14,7 +14,6 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class Merge
 {
-    const JSON_IDENTIFIER = 'merge';
     /**
      * List of resources to remove from the survivor person.
      *

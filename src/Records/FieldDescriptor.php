@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Common\TextValue;
 
 /**
  * A description of a field in a record.
@@ -25,14 +26,14 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The description of the field.
      *
-     * @var \Gedcomx\Common\TextValue[]
+     * @var TextValue[]
      */
     private $description;
 
     /**
      * Descriptors of the values that are applicable to the field.
      *
-     * @var \Gedcomx\Records\FieldValueDescriptor[]
+     * @var FieldValueDescriptor[]
      */
     private $values;
 
@@ -81,7 +82,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The description of the field.
      *
-     * @return \Gedcomx\Common\TextValue[]
+     * @return TextValue[]
      */
     public function getDescription()
     {
@@ -91,7 +92,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The description of the field.
      *
-     * @param \Gedcomx\Common\TextValue[] $description
+     * @param TextValue[] $description
      */
     public function setDescription($description)
     {
@@ -100,7 +101,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptors of the values that are applicable to the field.
      *
-     * @return \Gedcomx\Records\FieldValueDescriptor[]
+     * @return FieldValueDescriptor[]
      */
     public function getValues()
     {
@@ -110,7 +111,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptors of the values that are applicable to the field.
      *
-     * @param \Gedcomx\Records\FieldValueDescriptor[] $values
+     * @param FieldValueDescriptor[] $values
      */
     public function setValues($values)
     {
@@ -152,22 +153,25 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['originalLabel'])) {
             $this->originalLabel = $o["originalLabel"];
+            unset($o["originalLabel"]);
         }
         $this->description = array();
         if (isset($o['description'])) {
             foreach ($o['description'] as $i => $x) {
-                $this->description[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->description[$i] = new TextValue($x);
             }
+            unset($o["description"]);
         }
         $this->values = array();
         if (isset($o['values'])) {
             foreach ($o['values'] as $i => $x) {
-                $this->values[$i] = new \Gedcomx\Records\FieldValueDescriptor($x);
+                $this->values[$i] = new FieldValueDescriptor($x);
             }
+            unset($o["values"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -190,7 +194,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'description') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->description)) {
                 $this->description = array();
             }
@@ -198,7 +202,7 @@ class FieldDescriptor extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'value') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\FieldValueDescriptor($xml);
+            $child = new FieldValueDescriptor($xml);
             if (!isset($this->values)) {
                 $this->values = array();
             }

@@ -16,7 +16,6 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class User extends HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'users';
     /**
      * (no documentation provided)
      *
@@ -554,58 +553,75 @@ class User extends HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['alternateEmail'])) {
             $this->alternateEmail = $o["alternateEmail"];
+            unset($o['alternateEmail']);
         }
         if (isset($o['birthDate'])) {
             $this->birthDate = $o["birthDate"];
+            unset($o['birthDate']);
         }
         if (isset($o['contactName'])) {
             $this->contactName = $o["contactName"];
+            unset($o['contactName']);
         }
         if (isset($o['country'])) {
             $this->country = $o["country"];
+            unset($o['country']);
         }
         if (isset($o['displayName'])) {
             $this->displayName = $o["displayName"];
+            unset($o['displayName']);
         }
         if (isset($o['email'])) {
             $this->email = $o["email"];
+            unset($o['email']);
         }
         if (isset($o['familyName'])) {
             $this->familyName = $o["familyName"];
+            unset($o['familyName']);
         }
         if (isset($o['fullName'])) {
             $this->fullName = $o["fullName"];
+            unset($o['fullName']);
         }
         if (isset($o['gender'])) {
             $this->gender = $o["gender"];
+            unset($o['gender']);
         }
         if (isset($o['givenName'])) {
             $this->givenName = $o["givenName"];
+            unset($o['givenName']);
         }
         if (isset($o['helperAccessPin'])) {
             $this->helperAccessPin = $o["helperAccessPin"];
+            unset($o['helperAccessPin']);
         }
         if (isset($o['ldsMemberAccount'])) {
             $this->ldsMemberAccount = $o["ldsMemberAccount"];
+            unset($o['ldsMemberAccount']);
         }
         if (isset($o['mailingAddress'])) {
             $this->mailingAddress = $o["mailingAddress"];
+            unset($o['mailingAddress']);
         }
         if (isset($o['personId'])) {
             $this->personId = $o["personId"];
+            unset($o['personId']);
         }
         if (isset($o['phoneNumber'])) {
             $this->phoneNumber = $o["phoneNumber"];
+            unset($o['phoneNumber']);
         }
         if (isset($o['preferredLanguage'])) {
             $this->preferredLanguage = $o["preferredLanguage"];
+            unset($o['preferredLanguage']);
         }
         if (isset($o['treeUserId'])) {
             $this->treeUserId = $o["treeUserId"];
+            unset($o['treeUserId']);
         }
+        parent::initFromArray($o);
     }
 
     /**

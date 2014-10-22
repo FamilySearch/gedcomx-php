@@ -8,6 +8,9 @@
  */
 
 namespace Gedcomx\Agent;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Conclusion\Identifier;
 
 /**
  * An agent, e.g. person, organization, or group. In genealogical research, an agent often
@@ -15,60 +18,59 @@ namespace Gedcomx\Agent;
  */
 class Agent extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'agents';
     /**
      * The accounts that belong to this person or organization.
      *
-     * @var \Gedcomx\Agent\OnlineAccount[]
+     * @var OnlineAccount[]
      */
     private $accounts;
 
     /**
      * The addresses that belong to this person or organization.
      *
-     * @var \Gedcomx\Agent\Address[]
+     * @var Address[]
      */
     private $addresses;
 
     /**
      * The emails that belong to this person or organization.
      *
-     * @var \Gedcomx\Common\ResourceReference[]
+     * @var ResourceReference[]
      */
     private $emails;
 
     /**
      * The homepage.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $homepage;
 
     /**
      * The list of identifiers for the agent.
      *
-     * @var \Gedcomx\Conclusion\Identifier[]
+     * @var Identifier[]
      */
     private $identifiers;
 
     /**
      * The list of names for the agent.
      *
-     * @var \Gedcomx\Common\TextValue[]
+     * @var TextValue[]
      */
     private $names;
 
     /**
      * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $openid;
 
     /**
      * The phones that belong to this person or organization.
      *
-     * @var \Gedcomx\Common\ResourceReference[]
+     * @var ResourceReference[]
      */
     private $phones;
 
@@ -98,7 +100,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The accounts that belong to this person or organization.
      *
-     * @return \Gedcomx\Agent\OnlineAccount[]
+     * @return OnlineAccount[]
      */
     public function getAccounts()
     {
@@ -108,7 +110,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The accounts that belong to this person or organization.
      *
-     * @param \Gedcomx\Agent\OnlineAccount[] $accounts
+     * @param OnlineAccount[] $accounts
      */
     public function setAccounts($accounts)
     {
@@ -117,7 +119,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The addresses that belong to this person or organization.
      *
-     * @return \Gedcomx\Agent\Address[]
+     * @return Address[]
      */
     public function getAddresses()
     {
@@ -127,7 +129,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The addresses that belong to this person or organization.
      *
-     * @param \Gedcomx\Agent\Address[] $addresses
+     * @param Address[] $addresses
      */
     public function setAddresses($addresses)
     {
@@ -136,7 +138,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The emails that belong to this person or organization.
      *
-     * @return \Gedcomx\Common\ResourceReference[]
+     * @return ResourceReference[]
      */
     public function getEmails()
     {
@@ -146,7 +148,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The emails that belong to this person or organization.
      *
-     * @param \Gedcomx\Common\ResourceReference[] $emails
+     * @param ResourceReference[] $emails
      */
     public function setEmails($emails)
     {
@@ -155,7 +157,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The homepage.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getHomepage()
     {
@@ -165,7 +167,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The homepage.
      *
-     * @param \Gedcomx\Common\ResourceReference $homepage
+     * @param ResourceReference $homepage
      */
     public function setHomepage($homepage)
     {
@@ -174,7 +176,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The list of identifiers for the agent.
      *
-     * @return \Gedcomx\Conclusion\Identifier[]
+     * @return Identifier[]
      */
     public function getIdentifiers()
     {
@@ -184,7 +186,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The list of identifiers for the agent.
      *
-     * @param \Gedcomx\Conclusion\Identifier[] $identifiers
+     * @param Identifier[] $identifiers
      */
     public function setIdentifiers($identifiers)
     {
@@ -193,7 +195,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The list of names for the agent.
      *
-     * @return \Gedcomx\Common\TextValue[]
+     * @return TextValue[]
      */
     public function getNames()
     {
@@ -203,7 +205,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The list of names for the agent.
      *
-     * @param \Gedcomx\Common\TextValue[] $names
+     * @param TextValue[] $names
      */
     public function setNames($names)
     {
@@ -212,7 +214,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getOpenid()
     {
@@ -222,7 +224,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The &lt;a href=&quot;http://openid.net/&quot;&gt;openid&lt;/a&gt; of the person or organization.
      *
-     * @param \Gedcomx\Common\ResourceReference $openid
+     * @param ResourceReference $openid
      */
     public function setOpenid($openid)
     {
@@ -231,7 +233,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The phones that belong to this person or organization.
      *
-     * @return \Gedcomx\Common\ResourceReference[]
+     * @return ResourceReference[]
      */
     public function getPhones()
     {
@@ -241,7 +243,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The phones that belong to this person or organization.
      *
-     * @param \Gedcomx\Common\ResourceReference[] $phones
+     * @param ResourceReference[] $phones
      */
     public function setPhones($phones)
     {
@@ -317,27 +319,30 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         $this->accounts = array();
         if (isset($o['accounts'])) {
             foreach ($o['accounts'] as $i => $x) {
-                $this->accounts[$i] = new \Gedcomx\Agent\OnlineAccount($x);
+                $this->accounts[$i] = new OnlineAccount($x);
             }
+            unset($o['accounts']);
         }
         $this->addresses = array();
         if (isset($o['addresses'])) {
             foreach ($o['addresses'] as $i => $x) {
-                $this->addresses[$i] = new \Gedcomx\Agent\Address($x);
+                $this->addresses[$i] = new Address($x);
             }
+            unset($o['addresses']);
         }
         $this->emails = array();
         if (isset($o['emails'])) {
             foreach ($o['emails'] as $i => $x) {
-                $this->emails[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->emails[$i] = new ResourceReference($x);
             }
+            unset($o['emails']);
         }
         if (isset($o['homepage'])) {
-            $this->homepage = new \Gedcomx\Common\ResourceReference($o["homepage"]);
+            $this->homepage = new ResourceReference($o["homepage"]);
+            unset($o['homepage']);
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
@@ -345,30 +350,35 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
                 if (is_array($x)) {
                     $this->identifiers[$i] = array();
                     foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
+                        $this->identifiers[$i][$j] = new Identifier();
                         $this->identifiers[$i][$j]->setValue($y);
                     }
                 }
                 else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+                    $this->identifiers[$i] = new Identifier($x);
                 }
             }
+            unset($o['identifiers']);
         }
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                $this->names[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->names[$i] = new TextValue($x);
             }
+            unset($o['names']);
         }
         if (isset($o['openid'])) {
-            $this->openid = new \Gedcomx\Common\ResourceReference($o["openid"]);
+            $this->openid = new ResourceReference($o["openid"]);
+            unset($o['openid']);
         }
         $this->phones = array();
         if (isset($o['phones'])) {
             foreach ($o['phones'] as $i => $x) {
-                $this->phones[$i] = new \Gedcomx\Common\ResourceReference($x);
+                $this->phones[$i] = new ResourceReference($x);
             }
+            unset($o['phones']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -383,7 +393,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'account') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Agent\OnlineAccount($xml);
+            $child = new OnlineAccount($xml);
             if (!isset($this->accounts)) {
                 $this->accounts = array();
             }
@@ -391,7 +401,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'address') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Agent\Address($xml);
+            $child = new Address($xml);
             if (!isset($this->addresses)) {
                 $this->addresses = array();
             }
@@ -399,7 +409,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'email') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             if (!isset($this->emails)) {
                 $this->emails = array();
             }
@@ -407,12 +417,12 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'homepage') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->homepage = $child;
             $happened = true;
         }
         else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            $child = new Identifier($xml);
             if (!isset($this->identifiers)) {
                 $this->identifiers = array();
             }
@@ -420,7 +430,7 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->names)) {
                 $this->names = array();
             }
@@ -428,12 +438,12 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'openid') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->openid = $child;
             $happened = true;
         }
         else if (($xml->localName == 'phone') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             if (!isset($this->phones)) {
                 $this->phones = array();
             }

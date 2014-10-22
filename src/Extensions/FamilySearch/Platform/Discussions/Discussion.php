@@ -16,7 +16,6 @@ use Gedcomx\Common\ResourceReference;
  */
 class Discussion extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'discussions';
     /**
      * the one-line summary text
      *
@@ -268,31 +267,38 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['title'])) {
             $this->title = $o["title"];
+            unset($o['title']);
         }
         if (isset($o['details'])) {
             $this->details = $o["details"];
+            unset($o['details']);
         }
         if (isset($o['created'])) {
             $this->created = $o["created"];
+            unset($o['created']);
         }
         if (isset($o['contributor'])) {
             $this->contributor = new ResourceReference($o["contributor"]);
+            unset($o['contributor']);
         }
         if (isset($o['modified'])) {
             $this->modified = $o["modified"];
+            unset($o['modified']);
         }
         if (isset($o['numberOfComments'])) {
             $this->numberOfComments = $o["numberOfComments"];
+            unset($o['numberOfComments']);
         }
         $this->comments = array();
         if (isset($o['comments'])) {
             foreach ($o['comments'] as $i => $x) {
                 $this->comments[$i] = new Comment($x);
             }
+            unset($o['comments']);
         }
+        parent::initFromArray($o);
     }
 
     /**

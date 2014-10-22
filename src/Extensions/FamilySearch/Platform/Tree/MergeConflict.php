@@ -14,7 +14,6 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class MergeConflict
 {
-    const JSON_IDENTIFIER = 'mergeConflict';
     /**
      * (no documentation provided)
      *

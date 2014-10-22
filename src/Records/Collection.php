@@ -8,13 +8,13 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Common\Attribution;
 
 /**
  * A collection of genealogical resources.
  */
 class Collection extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'collections';
     /**
      * The language of this description of the collection
      *
@@ -39,14 +39,14 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptions of the content of this collection.
      *
-     * @var \Gedcomx\Records\CollectionContent[]
+     * @var CollectionContent[]
      */
     private $content;
 
     /**
      * Attribution metadata for this collection.
      *
-     * @var \Gedcomx\Common\Attribution
+     * @var Attribution
      */
     private $attribution;
 
@@ -133,7 +133,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptions of the content of this collection.
      *
-     * @return \Gedcomx\Records\CollectionContent[]
+     * @return CollectionContent[]
      */
     public function getContent()
     {
@@ -143,7 +143,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Descriptions of the content of this collection.
      *
-     * @param \Gedcomx\Records\CollectionContent[] $content
+     * @param CollectionContent[] $content
      */
     public function setContent($content)
     {
@@ -152,7 +152,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Attribution metadata for this collection.
      *
-     * @return \Gedcomx\Common\Attribution
+     * @return Attribution
      */
     public function getAttribution()
     {
@@ -162,7 +162,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Attribution metadata for this collection.
      *
-     * @param \Gedcomx\Common\Attribution $attribution
+     * @param Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -206,25 +206,30 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['lang']);
         }
         if (isset($o['title'])) {
             $this->title = $o["title"];
+            unset($o['title']);
         }
         if (isset($o['size'])) {
             $this->size = $o["size"];
+            unset($o['size']);
         }
         $this->content = array();
         if (isset($o['content'])) {
             foreach ($o['content'] as $i => $x) {
-                $this->content[$i] = new \Gedcomx\Records\CollectionContent($x);
+                $this->content[$i] = new CollectionContent($x);
             }
+            unset($o['content']);
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new Attribution($o["attribution"]);
+            unset($o['attribution']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -255,7 +260,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'content') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\CollectionContent($xml);
+            $child = new CollectionContent($xml);
             if (!isset($this->content)) {
                 $this->content = array();
             }
@@ -263,7 +268,7 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }

@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Atom;
 use Gedcomx\Links\Link;
+use Gedcomx\Records\Field;
 
 /**
  * <p>The Atom data formats provide a format for web content and metadata syndication. The XML media type is defined by
@@ -21,21 +22,21 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The author of the feed.
      *
-     * @var \Gedcomx\Atom\Person[]
+     * @var Person[]
      */
     private $authors;
 
     /**
      * information about a category associated with the feed
      *
-     * @var \Gedcomx\Atom\Person[]
+     * @var Person[]
      */
     private $contributors;
 
     /**
      * identifies the agent used to generate the feed
      *
-     * @var \Gedcomx\Atom\Generator
+     * @var Generator
      */
     private $generator;
 
@@ -112,14 +113,14 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The entries in the feed.
      *
-     * @var \Gedcomx\Atom\Entry[]
+     * @var Entry[]
      */
     private $entries;
 
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $facets;
 
@@ -149,7 +150,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The author of the feed.
      *
-     * @return \Gedcomx\Atom\Person[]
+     * @return Person[]
      */
     public function getAuthors()
     {
@@ -159,7 +160,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The author of the feed.
      *
-     * @param \Gedcomx\Atom\Person[] $authors
+     * @param Person[] $authors
      */
     public function setAuthors($authors)
     {
@@ -168,7 +169,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * information about a category associated with the feed
      *
-     * @return \Gedcomx\Atom\Person[]
+     * @return Person[]
      */
     public function getContributors()
     {
@@ -178,7 +179,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * information about a category associated with the feed
      *
-     * @param \Gedcomx\Atom\Person[] $contributors
+     * @param Person[] $contributors
      */
     public function setContributors($contributors)
     {
@@ -187,7 +188,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * identifies the agent used to generate the feed
      *
-     * @return \Gedcomx\Atom\Generator
+     * @return Generator
      */
     public function getGenerator()
     {
@@ -197,7 +198,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * identifies the agent used to generate the feed
      *
-     * @param \Gedcomx\Atom\Generator $generator
+     * @param Generator $generator
      */
     public function setGenerator($generator)
     {
@@ -396,7 +397,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The entries in the feed.
      *
-     * @return \Gedcomx\Atom\Entry[]
+     * @return Entry[]
      */
     public function getEntries()
     {
@@ -406,7 +407,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The entries in the feed.
      *
-     * @param \Gedcomx\Atom\Entry[] $entries
+     * @param Entry[] $entries
      */
     public function setEntries($entries)
     {
@@ -415,7 +416,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFacets()
     {
@@ -425,7 +426,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * The list of facets for the feed, used for convenience in browsing and filtering.
      *
-     * @param \Gedcomx\Records\Field[] $facets
+     * @param Field[] $facets
      */
     public function setFacets($facets)
     {
@@ -515,33 +516,39 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         $this->authors = array();
         if (isset($o['authors'])) {
             foreach ($o['authors'] as $i => $x) {
-                $this->authors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->authors[$i] = new Person($x);
             }
+            unset($o['authors']);
         }
         $this->contributors = array();
         if (isset($o['contributors'])) {
             foreach ($o['contributors'] as $i => $x) {
-                $this->contributors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->contributors[$i] = new Person($x);
             }
+            unset($o['contributors']);
         }
         if (isset($o['generator'])) {
-            $this->generator = new \Gedcomx\Atom\Generator($o["generator"]);
+            $this->generator = new Generator($o["generator"]);
+            unset($o['generator']);
         }
         if (isset($o['icon'])) {
             $this->icon = $o["icon"];
+            unset($o['icon']);
         }
         if (isset($o['id'])) {
             $this->id = $o["id"];
+            unset($o['id']);
         }
         if (isset($o['results'])) {
             $this->results = $o["results"];
+            unset($o['results']);
         }
         if (isset($o['index'])) {
             $this->index = $o["index"];
+            unset($o['index']);
         }
         $this->links = array();
         if (isset($o['links'])) {
@@ -549,36 +556,45 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
                 if( ! array_key_exists("rel", $x) ){
                     $x["rel"] = $i;
                 }
-                $this->links[$i] = new \Gedcomx\Links\Link($x);
+                $this->links[$i] = new Link($x);
             }
+            unset($o['links']);
         }
         if (isset($o['logo'])) {
             $this->logo = $o["logo"];
+            unset($o['logo']);
         }
         if (isset($o['rights'])) {
             $this->rights = $o["rights"];
+            unset($o['rights']);
         }
         if (isset($o['subtitle'])) {
             $this->subtitle = $o["subtitle"];
+            unset($o['subtitle']);
         }
         if (isset($o['title'])) {
             $this->title = $o["title"];
+            unset($o['title']);
         }
         if (isset($o['updated'])) {
             $this->updated = $o["updated"];
+            unset($o['updated']);
         }
         $this->entries = array();
         if (isset($o['entries'])) {
             foreach ($o['entries'] as $i => $x) {
-                $this->entries[$i] = new \Gedcomx\Atom\Entry($x);
+                $this->entries[$i] = new Entry($x);
             }
+            unset($o['entries']);
         }
         $this->facets = array();
         if (isset($o['facets'])) {
             foreach ($o['facets'] as $i => $x) {
-                $this->facets[$i] = new \Gedcomx\Records\Field($x);
+                $this->facets[$i] = new Field($x);
             }
+            unset($o['facets']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -593,7 +609,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
           return true;
         }
         else if (($xml->localName == 'author') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Person($xml);
+            $child = new Person($xml);
             if (!isset($this->authors)) {
                 $this->authors = array();
             }
@@ -601,7 +617,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
             $happened = true;
         }
         else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Person($xml);
+            $child = new Person($xml);
             if (!isset($this->contributors)) {
                 $this->contributors = array();
             }
@@ -609,7 +625,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
             $happened = true;
         }
         else if (($xml->localName == 'generator') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Generator($xml);
+            $child = new Generator($xml);
             $this->generator = $child;
             $happened = true;
         }
@@ -694,7 +710,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
             $happened = true;
         }
         else if (($xml->localName == 'entry') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Entry($xml);
+            $child = new Entry($xml);
             if (!isset($this->entries)) {
                 $this->entries = array();
             }
@@ -702,7 +718,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
             $happened = true;
         }
         else if (($xml->localName == 'facet') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->facets)) {
                 $this->facets = array();
             }

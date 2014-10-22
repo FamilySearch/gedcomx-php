@@ -205,25 +205,29 @@ class DateInfo extends ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['original'])) {
             $this->original = $o["original"];
+            unset($o['original']);
         }
         if (isset($o['formal'])) {
             $this->formal = $o["formal"];
+            unset($o['formal']);
         }
         $this->normalizedExtensions = array();
         if (isset($o['normalized'])) {
             foreach ($o['normalized'] as $i => $x) {
                 $this->normalizedExtensions[$i] = new TextValue($x);
             }
+            unset($o['normalized']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
                 $this->fields[$i] = new Field($x);
             }
+            unset($o['fields']);
         }
+        parent::initFromArray($o);
     }
 
     /**

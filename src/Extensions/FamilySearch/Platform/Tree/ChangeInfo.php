@@ -14,7 +14,6 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class ChangeInfo
 {
-    const JSON_IDENTIFIER = 'changeInfo';
     /**
      * An optional modifier for the object to which the operation applies.
      *

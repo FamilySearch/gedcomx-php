@@ -10,6 +10,7 @@
 namespace Gedcomx\Common;
 
 use Gedcomx\Rs\Client\SupportsExtensionElements;
+use Gedcomx\Util\JsonMapper;
 
 /**
  * A set of data that supports extension elements.
@@ -193,7 +194,10 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
         }
         if( $this->extensionElements ){
             foreach ($this->extensionElements as $ext) {
-                $a[$ext::JSON_IDENTIFIER][] = $ext->toArray();
+                $jsonKey = JsonMapper::getJsonKey(get_class($ext));
+                if( $jsonKey != null ){
+                    $a[$jsonKey][] = $ext->toArray();
+                }
             }
         }
         return $a;
@@ -201,6 +205,8 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
 
     /**
      * Returns the JSON string for this ExtensibleData
+     *
+     *
      *
      * @return string
      */
@@ -218,6 +224,15 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
     {
         if (isset($o['id'])) {
             $this->id = $o["id"];
+            unset($o['id']);
+        }
+        if (! empty($o)) {
+            foreach ($o as $key => $data) {
+                $class = JsonMapper::getClassName($key);
+                if ($class != null) {
+                    $this->extensionElements[] = new $class($data);
+                }
+            }
         }
     }
 
@@ -338,7 +353,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
     protected function embed(ExtensibleData $data) {
         if ($data->extensionElements != null) {
             $this->extensionElements = $this->extensionElements == null ? array() : $this->extensionElements;
-            array_merge($this->extensionElements, $data->extensionElements);
+            $this->extensionElements = array_merge($this->extensionElements, $data->extensionElements);
         }
     }
 

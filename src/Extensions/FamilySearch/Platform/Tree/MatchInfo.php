@@ -14,7 +14,6 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
  */
 class MatchInfo
 {
-    const JSON_IDENTIFIER = 'matchInfo';
     /**
      * The way this match has been resolved.
      *

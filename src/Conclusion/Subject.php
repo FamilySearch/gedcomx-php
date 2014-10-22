@@ -10,7 +10,9 @@
 namespace Gedcomx\Conclusion;
 
 use Gedcomx\Common\Attributable;
+use Gedcomx\Common\EvidenceReference;
 use Gedcomx\Common\ExtensibleData;
+use Gedcomx\Source\SourceReference;
 
 /**
  * The <tt>Subject</tt> data type defines the abstract concept of a genealogical <em>subject</em>. A <em>subject</em> is something with a unique and
@@ -31,21 +33,21 @@ class Subject extends Conclusion implements Attributable
     /**
      * References to the evidence being referenced.
      *
-     * @var \Gedcomx\Common\EvidenceReference[]
+     * @var EvidenceReference[]
      */
     private $evidence;
 
     /**
      * References to multimedia resources associated with this subject.
      *
-     * @var \Gedcomx\Source\SourceReference[]
+     * @var SourceReference[]
      */
     private $media;
 
     /**
      * The list of identifiers for the subject.
      *
-     * @var \Gedcomx\Conclusion\Identifier[]
+     * @var Identifier[]
      */
     private $identifiers;
 
@@ -96,7 +98,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * References to the evidence being referenced.
      *
-     * @return \Gedcomx\Common\EvidenceReference[]
+     * @return EvidenceReference[]
      */
     public function getEvidence()
     {
@@ -106,7 +108,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * References to the evidence being referenced.
      *
-     * @param \Gedcomx\Common\EvidenceReference[] $evidence
+     * @param EvidenceReference[] $evidence
      */
     public function setEvidence($evidence)
     {
@@ -115,7 +117,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * References to multimedia resources associated with this subject.
      *
-     * @return \Gedcomx\Source\SourceReference[]
+     * @return SourceReference[]
      */
     public function getMedia()
     {
@@ -125,7 +127,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * References to multimedia resources associated with this subject.
      *
-     * @param \Gedcomx\Source\SourceReference[] $media
+     * @param SourceReference[] $media
      */
     public function setMedia($media)
     {
@@ -134,7 +136,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * The list of identifiers for the subject.
      *
-     * @return \Gedcomx\Conclusion\Identifier[]
+     * @return Identifier[]
      */
     public function getIdentifiers()
     {
@@ -144,7 +146,7 @@ class Subject extends Conclusion implements Attributable
     /**
      * The list of identifiers for the subject.
      *
-     * @param \Gedcomx\Conclusion\Identifier[] $identifiers
+     * @param Identifier[] $identifiers
      */
     public function setIdentifiers($identifiers)
     {
@@ -196,21 +198,23 @@ class Subject extends Conclusion implements Attributable
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['extracted'])) {
             $this->extracted = $o["extracted"];
+            unset($o['extracted']);
         }
         $this->evidence = array();
         if (isset($o['evidence'])) {
             foreach ($o['evidence'] as $i => $x) {
-                $this->evidence[$i] = new \Gedcomx\Common\EvidenceReference($x);
+                $this->evidence[$i] = new EvidenceReference($x);
             }
+            unset($o['evidence']);
         }
         $this->media = array();
         if (isset($o['media'])) {
             foreach ($o['media'] as $i => $x) {
-                $this->media[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->media[$i] = new SourceReference($x);
             }
+            unset($o['media']);
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
@@ -218,15 +222,17 @@ class Subject extends Conclusion implements Attributable
                 if (is_array($x)) {
                     $this->identifiers[$i] = array();
                     foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
+                        $this->identifiers[$i][$j] = new Identifier();
                         $this->identifiers[$i][$j]->setValue($y);
                     }
                 }
                 else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+                    $this->identifiers[$i] = new Identifier($x);
                 }
             }
+            unset($o['identifiers']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -241,7 +247,7 @@ class Subject extends Conclusion implements Attributable
           return true;
         }
         else if (($xml->localName == 'evidence') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\EvidenceReference($xml);
+            $child = new EvidenceReference($xml);
             if (!isset($this->evidence)) {
                 $this->evidence = array();
             }
@@ -249,7 +255,7 @@ class Subject extends Conclusion implements Attributable
             $happened = true;
         }
         else if (($xml->localName == 'media') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceReference($xml);
+            $child = new SourceReference($xml);
             if (!isset($this->media)) {
                 $this->media = array();
             }
@@ -257,7 +263,7 @@ class Subject extends Conclusion implements Attributable
             $happened = true;
         }
         else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            $child = new Identifier($xml);
             if (!isset($this->identifiers)) {
                 $this->identifiers = array();
             }

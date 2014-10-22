@@ -19,7 +19,6 @@ use Gedcomx\Gedcomx;
  */
 class FamilySearchPlatform extends Gedcomx
 {
-    const JSON_IDENTIFIER = 'familysearch';
     const JSON_MEDIA_TYPE = 'application/x-fs-v1+json';
 
     /**
@@ -280,43 +279,49 @@ class FamilySearchPlatform extends Gedcomx
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         $this->childAndParentsRelationships = array();
         if (isset($o['childAndParentsRelationships'])) {
             foreach ($o['childAndParentsRelationships'] as $i => $x) {
                 $this->childAndParentsRelationships[$i] = new Platform\Tree\ChildAndParentsRelationship($x);
             }
+            unset($o['childAndParentsRelationships']);
         }
         $this->discussions = array();
         if (isset($o['discussions'])) {
             foreach ($o['discussions'] as $i => $x) {
                 $this->discussions[$i] = new Platform\Discussions\Discussion($x);
             }
+            unset($o['discussions']);
         }
         $this->users = array();
         if (isset($o['users'])) {
             foreach ($o['users'] as $i => $x) {
                 $this->users[$i] = new Platform\Users\User($x);
             }
+            unset($o['users']);
         }
         $this->merges = array();
         if (isset($o['merges'])) {
             foreach ($o['merges'] as $i => $x) {
                 $this->merges[$i] = new Platform\Tree\Merge($x);
             }
+            unset($o['merges']);
         }
         $this->mergeAnalyses = array();
         if (isset($o['mergeAnalyses'])) {
             foreach ($o['mergeAnalyses'] as $i => $x) {
                 $this->mergeAnalyses[$i] = new Platform\Tree\MergeAnalysis($x);
             }
+            unset($o['mergeAnalyses']);
         }
         $this->features = array();
         if (isset($o['features'])) {
             foreach ($o['features'] as $i => $x) {
                 $this->features[$i] = new Feature($x);
             }
+            unset($o['features']);
         }
+        parent::initFromArray($o);
     }
 
     /**

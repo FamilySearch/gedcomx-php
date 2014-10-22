@@ -116,8 +116,9 @@ class PersonStateTest extends ApiTestCase{
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
-    public function testCreateDiscussionReference(){
+    public function testCreateAndReadDiscussionReference(){
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
@@ -130,6 +131,17 @@ class PersonStateTest extends ApiTestCase{
         $newState = $personState->addDiscussionState($discussionState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
+
+        $personState->loadDiscussionReferences();
+
+        $found = false;
+        foreach ($personState->getPerson()->getExtensionElements() as $ext) {
+            if ($ext instanceof DiscussionReference) {
+                $found = true;
+                break;
+            }
+        }
+        $this->assertTrue($found);
     }
 
     /**
@@ -263,25 +275,6 @@ class PersonStateTest extends ApiTestCase{
             ->loadSpouseRelationships($option);
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
-     */
-    public function testReadDiscussionReferences(){
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        $personState = $this->getPerson();
-        $personState->loadDiscussionReferences();
-
-        /*
-         * load* functions don't update the state object. As long as we get here
-         * without an exception (which the embed function will throw if the load
-         * fails) we should be okay.
-         */
-
-        $this->assertTrue(true);
     }
 
     /**

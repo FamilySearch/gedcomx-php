@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
 
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
@@ -34,7 +35,7 @@ class Comment extends HypermediaEnabledData
     /**
      * contributor of comment
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $contributor;
 
@@ -102,7 +103,7 @@ class Comment extends HypermediaEnabledData
     /**
      * contributor of comment
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getContributor()
     {
@@ -112,7 +113,7 @@ class Comment extends HypermediaEnabledData
     /**
      * contributor of comment
      *
-     * @param \Gedcomx\Common\ResourceReference $contributor
+     * @param ResourceReference $contributor
      */
     public function setContributor($contributor)
     {
@@ -146,16 +147,19 @@ class Comment extends HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['text'])) {
             $this->text = $o["text"];
+            unset($o['text']);
         }
         if (isset($o['created'])) {
             $this->created = $o["created"];
+            unset($o['created']);
         }
         if (isset($o['contributor'])) {
-            $this->contributor = new \Gedcomx\Common\ResourceReference($o["contributor"]);
+            $this->contributor = new ResourceReference($o["contributor"]);
+            unset($o['contributor']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -186,7 +190,7 @@ class Comment extends HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->contributor = $child;
             $happened = true;
         }

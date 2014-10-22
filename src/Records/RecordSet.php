@@ -8,13 +8,13 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Gedcomx;
 
 /**
  * The GEDCOM X bulk record data formats are used to exchange bulk genealogical data sets, grouped into records.
  */
 class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'records';
     /**
      * The language of the genealogical data.
      *
@@ -25,14 +25,14 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Metadata about this record set; shared among all records in the set.
      *
-     * @var \Gedcomx\Gedcomx
+     * @var Gedcomx
      */
     private $metadata;
 
     /**
      * The records included in this genealogical data set.
      *
-     * @var \Gedcomx\Gedcomx[]
+     * @var Gedcomx[]
      */
     private $records;
 
@@ -81,7 +81,7 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Metadata about this record set; shared among all records in the set.
      *
-     * @return \Gedcomx\Gedcomx
+     * @return Gedcomx
      */
     public function getMetadata()
     {
@@ -91,7 +91,7 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Metadata about this record set; shared among all records in the set.
      *
-     * @param \Gedcomx\Gedcomx $metadata
+     * @param Gedcomx $metadata
      */
     public function setMetadata($metadata)
     {
@@ -100,7 +100,7 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The records included in this genealogical data set.
      *
-     * @return \Gedcomx\Gedcomx[]
+     * @return Gedcomx[]
      */
     public function getRecords()
     {
@@ -110,7 +110,7 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * The records included in this genealogical data set.
      *
-     * @param \Gedcomx\Gedcomx[] $records
+     * @param Gedcomx[] $records
      */
     public function setRecords($records)
     {
@@ -148,19 +148,22 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o["lang"]);
         }
         if (isset($o['metadata'])) {
-            $this->metadata = new \Gedcomx\Gedcomx($o["metadata"]);
+            $this->metadata = new Gedcomx($o["metadata"]);
+            unset($o["metadata"]);
         }
         $this->records = array();
         if (isset($o['records'])) {
             foreach ($o['records'] as $i => $x) {
-                $this->records[$i] = new \Gedcomx\Gedcomx($x);
+                $this->records[$i] = new Gedcomx($x);
             }
+            unset($o["records"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -175,12 +178,12 @@ class RecordSet extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'metadata') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Gedcomx($xml);
+            $child = new Gedcomx($xml);
             $this->metadata = $child;
             $happened = true;
         }
         else if (($xml->localName == 'record') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Gedcomx($xml);
+            $child = new Gedcomx($xml);
             if (!isset($this->records)) {
                 $this->records = array();
             }

@@ -17,7 +17,6 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class DiscussionReference extends HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'discussion-references';
     /**
      * The id of the discussion being referenced.
      *
@@ -149,16 +148,19 @@ class DiscussionReference extends HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['resourceId'])) {
             $this->resourceId = $o["resourceId"];
+            unset($o['resourceId']);
         }
         if (isset($o['resource'])) {
             $this->resource = $o["resource"];
+            unset($o['resource']);
         }
         if (isset($o['attribution'])) {
             $this->attribution = $o['attribution'] instanceof Attribution ? $o['attribution'] : new Attribution($o["attribution"]);
+            unset($o['attribution']);
         }
+        parent::initFromArray($o);
     }
 
     /**

@@ -14,7 +14,6 @@ namespace Gedcomx\Conclusion;
  */
 class Document extends \Gedcomx\Conclusion\Conclusion
 {
-    const JSON_IDENTIFIER = 'documents';
     /**
      * The text type of the document.
      *
@@ -175,19 +174,23 @@ class Document extends \Gedcomx\Conclusion\Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['textType'])) {
             $this->textType = $o["textType"];
+            unset($o["textType"]);
         }
         if (isset($o['extracted'])) {
             $this->extracted = $o["extracted"];
+            unset($o["extracted"]);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         if (isset($o['text'])) {
             $this->text = $o["text"];
+            unset($o["text"]);
         }
+        parent::initFromArray($o);
     }
 
     /**

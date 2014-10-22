@@ -8,13 +8,13 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Records\Field;
 
 /**
  * A gender conclusion.
  */
 class Gender extends \Gedcomx\Conclusion\Conclusion
 {
-    const JSON_IDENTIFIER = 'genders';
     /**
      * The type of the gender.
      *
@@ -25,7 +25,7 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
@@ -76,7 +76,7 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -86,7 +86,7 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -121,16 +121,18 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
+            unset($o["fields"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -145,7 +147,7 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
           return true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

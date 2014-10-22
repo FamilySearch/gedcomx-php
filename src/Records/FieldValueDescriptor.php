@@ -177,22 +177,26 @@ class FieldValueDescriptor extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['optional'])) {
             $this->optional = $o["optional"];
+            unset($o['optional']);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
         if (isset($o['labelId'])) {
             $this->labelId = $o["labelId"];
+            unset($o['labelId']);
         }
         $this->displayLabels = array();
         if (isset($o['labels'])) {
             foreach ($o['labels'] as $i => $x) {
                 $this->displayLabels[$i] = new \Gedcomx\Common\TextValue($x);
             }
+            unset($o['labels']);
         }
+        parent::initFromArray($o);
     }
 
     /**

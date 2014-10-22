@@ -16,18 +16,17 @@ use Gedcomx\Links\SupportsLinks;
  */
 class Entry extends ExtensibleElement implements SupportsLinks
 {
-    const JSON_IDENTIFIER = 'entries';
     /**
      * The author of the entry.
      *
-     * @var \Gedcomx\Atom\Person[]
+     * @var Person[]
      */
     private $authors;
 
     /**
      * information about a category associated with an entry.
      *
-     * @var \Gedcomx\Atom\Category[]
+     * @var Category[]
      */
     private $categories;
 
@@ -41,14 +40,14 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * The content of the entry.
      *
-     * @var \Gedcomx\Atom\Content
+     * @var Content
      */
     private $content;
 
     /**
      * information about a category associated with the entry
      *
-     * @var \Gedcomx\Atom\Person[]
+     * @var Person[]
      */
     private $contributors;
 
@@ -137,7 +136,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * The author of the entry.
      *
-     * @return \Gedcomx\Atom\Person[]
+     * @return Person[]
      */
     public function getAuthors()
     {
@@ -147,7 +146,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * The author of the entry.
      *
-     * @param \Gedcomx\Atom\Person[] $authors
+     * @param Person[] $authors
      */
     public function setAuthors($authors)
     {
@@ -156,7 +155,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * information about a category associated with an entry.
      *
-     * @return \Gedcomx\Atom\Category[]
+     * @return Category[]
      */
     public function getCategories()
     {
@@ -166,7 +165,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * information about a category associated with an entry.
      *
-     * @param \Gedcomx\Atom\Category[] $categories
+     * @param Category[] $categories
      */
     public function setCategories($categories)
     {
@@ -194,7 +193,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * The content of the entry.
      *
-     * @return \Gedcomx\Atom\Content
+     * @return Content
      */
     public function getContent()
     {
@@ -204,7 +203,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * The content of the entry.
      *
-     * @param \Gedcomx\Atom\Content $content
+     * @param Content $content
      */
     public function setContent($content)
     {
@@ -213,7 +212,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * information about a category associated with the entry
      *
-     * @return \Gedcomx\Atom\Person[]
+     * @return Person[]
      */
     public function getContributors()
     {
@@ -223,7 +222,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
     /**
      * information about a category associated with the entry
      *
-     * @param \Gedcomx\Atom\Person[] $contributors
+     * @param Person[] $contributors
      */
     public function setContributors($contributors)
     {
@@ -433,33 +432,38 @@ class Entry extends ExtensibleElement implements SupportsLinks
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         $this->authors = array();
         if (isset($o['authors'])) {
             foreach ($o['authors'] as $i => $x) {
-                $this->authors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->authors[$i] = new Person($x);
             }
+            unset($o['authors']);
         }
         $this->categories = array();
         if (isset($o['categories'])) {
             foreach ($o['categories'] as $i => $x) {
-                $this->categories[$i] = new \Gedcomx\Atom\Category($x);
+                $this->categories[$i] = new Category($x);
             }
+            unset($o['categories']);
         }
         if (isset($o['confidence'])) {
             $this->confidence = $o["confidence"];
+            unset($o['confidence']);
         }
         if (isset($o['content'])) {
-            $this->content = new \Gedcomx\Atom\Content($o["content"]);
+            $this->content = new Content($o["content"]);
+            unset($o['content']);
         }
         $this->contributors = array();
         if (isset($o['contributors'])) {
             foreach ($o['contributors'] as $i => $x) {
-                $this->contributors[$i] = new \Gedcomx\Atom\Person($x);
+                $this->contributors[$i] = new Person($x);
             }
+            unset($o['contributors']);
         }
         if (isset($o['id'])) {
             $this->id = $o["id"];
+            unset($o['id']);
         }
         $this->links = array();
         if (isset($o['links'])) {
@@ -469,22 +473,29 @@ class Entry extends ExtensibleElement implements SupportsLinks
                 }
                 $this->links[$i] = new \Gedcomx\Links\Link($x);
             }
+            unset($o['links']);
         }
         if (isset($o['published'])) {
             $this->published = $o["published"];
+            unset($o['published']);
         }
         if (isset($o['rights'])) {
             $this->rights = $o["rights"];
+            unset($o['rights']);
         }
         if (isset($o['score'])) {
             $this->score = $o["score"];
+            unset($o['score']);
         }
         if (isset($o['title'])) {
             $this->title = $o["title"];
+            unset($o['title']);
         }
         if (isset($o['updated'])) {
             $this->updated = $o["updated"];
+            unset($o['updated']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -499,7 +510,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
           return true;
         }
         else if (($xml->localName == 'author') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Person($xml);
+            $child = new Person($xml);
             if (!isset($this->authors)) {
                 $this->authors = array();
             }
@@ -507,7 +518,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
             $happened = true;
         }
         else if (($xml->localName == 'category') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Category($xml);
+            $child = new Category($xml);
             if (!isset($this->categories)) {
                 $this->categories = array();
             }
@@ -523,12 +534,12 @@ class Entry extends ExtensibleElement implements SupportsLinks
             $happened = true;
         }
         else if (($xml->localName == 'content') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Content($xml);
+            $child = new Content($xml);
             $this->content = $child;
             $happened = true;
         }
         else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://www.w3.org/2005/Atom')) {
-            $child = new \Gedcomx\Atom\Person($xml);
+            $child = new Person($xml);
             if (!isset($this->contributors)) {
                 $this->contributors = array();
             }

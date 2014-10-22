@@ -8,6 +8,8 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\Qualifier;
+use Gedcomx\Records\Field;
 
 /**
  * A part of a name.
@@ -32,14 +34,14 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
     /**
      * The qualifiers associated with this name part.
      *
-     * @var \Gedcomx\Common\Qualifier[]
+     * @var Qualifier[]
      */
     private $qualifiers;
 
@@ -107,7 +109,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -117,7 +119,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -126,7 +128,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * The qualifiers associated with this name part.
      *
-     * @return \Gedcomx\Common\Qualifier[]
+     * @return Qualifier[]
      */
     public function getQualifiers()
     {
@@ -136,7 +138,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
     /**
      * The qualifiers associated with this name part.
      *
-     * @param \Gedcomx\Common\Qualifier[] $qualifiers
+     * @param Qualifier[] $qualifiers
      */
     public function setQualifiers($qualifiers)
     {
@@ -181,25 +183,29 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['value'])) {
             $this->value = $o["value"];
+            unset($o['value']);
         }
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
+            unset($o['fields']);
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
-                $this->qualifiers[$i] = new \Gedcomx\Common\Qualifier($x);
+                $this->qualifiers[$i] = new Qualifier($x);
             }
+            unset($o['qualifiers']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -214,7 +220,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
           return true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }
@@ -222,7 +228,7 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Qualifier($xml);
+            $child = new Qualifier($xml);
             if (!isset($this->qualifiers)) {
                 $this->qualifiers = array();
             }

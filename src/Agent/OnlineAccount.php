@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Agent;
+use Gedcomx\Common\ResourceReference;
 
 /**
  * An online account for a web application.
@@ -25,7 +26,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     /**
      * The homepage of the service that provides this account.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $serviceHomepage;
 
@@ -74,7 +75,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     /**
      * The homepage of the service that provides this account.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getServiceHomepage()
     {
@@ -84,7 +85,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     /**
      * The homepage of the service that provides this account.
      *
-     * @param \Gedcomx\Common\ResourceReference $serviceHomepage
+     * @param ResourceReference $serviceHomepage
      */
     public function setServiceHomepage($serviceHomepage)
     {
@@ -115,13 +116,15 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['accountName'])) {
             $this->accountName = $o["accountName"];
+            unset($o['accountName']);
         }
         if (isset($o['serviceHomepage'])) {
-            $this->serviceHomepage = new \Gedcomx\Common\ResourceReference($o["serviceHomepage"]);
+            $this->serviceHomepage = new ResourceReference($o["serviceHomepage"]);
+            unset($o['serviceHomepage']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -144,7 +147,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'serviceHomepage') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->serviceHomepage = $child;
             $happened = true;
         }

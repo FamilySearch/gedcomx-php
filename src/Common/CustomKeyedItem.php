@@ -7,7 +7,6 @@
 
     class CustomKeyedItem implements HasJsonKey
     {
-        const JSON_IDENTIFIER = 'customKeys';
 
         private $key;
         private $val1;

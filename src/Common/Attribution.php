@@ -17,7 +17,6 @@ use Gedcomx\Common\ResourceReference;
  */
 class Attribution extends ExtensibleData
 {
-    const JSON_IDENTIFIER = 'attribution';
     /**
      * Reference to the contributor of the attributed data.
      *
@@ -149,16 +148,19 @@ class Attribution extends ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['contributor'])) {
             $this->contributor = $o['contributor'] instanceof ResourceReference ? $o['contributor'] : new ResourceReference($o["contributor"]);
+            unset($o['contributor']);
         }
         if (isset($o['modified'])) {
             $this->modified = $o["modified"];
+            unset($o['modified']);
         }
         if (isset($o['changeMessage'])) {
             $this->changeMessage = $o["changeMessage"];
+            unset($o['changeMessage']);
         }
+        parent::initFromArray($o);
     }
 
     /**

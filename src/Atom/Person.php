@@ -144,16 +144,19 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['name'])) {
             $this->name = $o["name"];
+            unset($o['name']);
         }
         if (isset($o['uri'])) {
             $this->uri = $o["uri"];
+            unset($o['uri']);
         }
         if (isset($o['email'])) {
             $this->email = $o["email"];
+            unset($o['email']);
         }
+        parent::initFromArray($o);
     }
 
     /**

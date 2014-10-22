@@ -14,7 +14,6 @@ namespace Gedcomx\Common;
  */
 class ResourceReference
 {
-    const JSON_IDENTIFIER = 'resourceReference';
     /**
      * The resource id of the resource being referenced.
      *

@@ -16,7 +16,6 @@ use Gedcomx\Links\HypermediaEnabledData;
  */
 class Note extends HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'notes';
     /**
      * The language of the note.
      *
@@ -177,15 +176,17 @@ class Note extends HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['lang']);
         }
         if (isset($o['subject'])) {
             $this->subject = $o["subject"];
+            unset($o['subject']);
         }
         if (isset($o['text'])) {
             $this->text = $o["text"];
+            unset($o['text']);
         }
         if (isset($o['attribution'])) {
             if($o['attribution'] instanceof Attribution ){
@@ -193,7 +194,9 @@ class Note extends HypermediaEnabledData
             } else {
                 $this->attribution = new Attribution($o["attribution"]);
             }
+            unset($o['attribution']);
         }
+        parent::initFromArray($o);
     }
 
     /**

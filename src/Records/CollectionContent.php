@@ -14,7 +14,6 @@ namespace Gedcomx\Records;
  */
 class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'collectionContent';
     /**
      * A completeness factor for this content aspect, a value between 0 and 1.
      *
@@ -144,16 +143,19 @@ class CollectionContent extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['completeness'])) {
             $this->completeness = $o["completeness"];
+            unset($o['completeness']);
         }
         if (isset($o['count'])) {
             $this->count = $o["count"];
+            unset($o['count']);
         }
         if (isset($o['resourceType'])) {
             $this->resourceType = $o["resourceType"];
+            unset($o['resourceType']);
         }
+        parent::initFromArray($o);
     }
 
     /**

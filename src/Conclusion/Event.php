@@ -14,7 +14,6 @@ namespace Gedcomx\Conclusion;
  */
 class Event extends \Gedcomx\Conclusion\Subject
 {
-    const JSON_IDENTIFIER = 'events';
     /**
      * The type of the event.
      *
@@ -25,21 +24,21 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The date of this event.
      *
-     * @var \Gedcomx\Conclusion\DateInfo
+     * @var DateInfo
      */
     private $date;
 
     /**
      * The place of this event.
      *
-     * @var \Gedcomx\Conclusion\PlaceReference
+     * @var PlaceReference
      */
     private $place;
 
     /**
      * The roles played in this event.
      *
-     * @var \Gedcomx\Conclusion\EventRole[]
+     * @var EventRole[]
      */
     private $roles;
 
@@ -88,7 +87,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The date of this event.
      *
-     * @return \Gedcomx\Conclusion\DateInfo
+     * @return DateInfo
      */
     public function getDate()
     {
@@ -98,7 +97,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The date of this event.
      *
-     * @param \Gedcomx\Conclusion\DateInfo $date
+     * @param DateInfo $date
      */
     public function setDate($date)
     {
@@ -107,7 +106,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The place of this event.
      *
-     * @return \Gedcomx\Conclusion\PlaceReference
+     * @return PlaceReference
      */
     public function getPlace()
     {
@@ -117,7 +116,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The place of this event.
      *
-     * @param \Gedcomx\Conclusion\PlaceReference $place
+     * @param PlaceReference $place
      */
     public function setPlace($place)
     {
@@ -126,7 +125,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The roles played in this event.
      *
-     * @return \Gedcomx\Conclusion\EventRole[]
+     * @return EventRole[]
      */
     public function getRoles()
     {
@@ -136,7 +135,7 @@ class Event extends \Gedcomx\Conclusion\Subject
     /**
      * The roles played in this event.
      *
-     * @param \Gedcomx\Conclusion\EventRole[] $roles
+     * @param EventRole[] $roles
      */
     public function setRoles($roles)
     {
@@ -177,22 +176,26 @@ class Event extends \Gedcomx\Conclusion\Subject
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o["type"]);
         }
         if (isset($o['date'])) {
-            $this->date = new \Gedcomx\Conclusion\DateInfo($o["date"]);
+            $this->date = new DateInfo($o["date"]);
+            unset($o["date"]);
         }
         if (isset($o['place'])) {
-            $this->place = new \Gedcomx\Conclusion\PlaceReference($o["place"]);
+            $this->place = new PlaceReference($o["place"]);
+            unset($o["place"]);
         }
         $this->roles = array();
         if (isset($o['roles'])) {
             foreach ($o['roles'] as $i => $x) {
-                $this->roles[$i] = new \Gedcomx\Conclusion\EventRole($x);
+                $this->roles[$i] = new EventRole($x);
             }
+            unset($o["roles"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -207,17 +210,17 @@ class Event extends \Gedcomx\Conclusion\Subject
           return true;
         }
         else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $child = new DateInfo($xml);
             $this->date = $child;
             $happened = true;
         }
         else if (($xml->localName == 'place') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\PlaceReference($xml);
+            $child = new PlaceReference($xml);
             $this->place = $child;
             $happened = true;
         }
         else if (($xml->localName == 'role') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\EventRole($xml);
+            $child = new EventRole($xml);
             if (!isset($this->roles)) {
                 $this->roles = array();
             }

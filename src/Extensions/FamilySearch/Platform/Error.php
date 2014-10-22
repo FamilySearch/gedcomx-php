@@ -4,7 +4,6 @@
 
     class Error
     {
-        const JSON_IDENTIFIER = 'errors';
 
         private $code;
         private $label;

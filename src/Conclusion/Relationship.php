@@ -8,13 +8,14 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Records\Field;
 
 /**
  * A relationship between two or more persons.
  */
 class Relationship extends Subject
 {
-    const JSON_IDENTIFIER = 'relationships';
     /**
      * The type of this relationship.
      *
@@ -27,7 +28,7 @@ class Relationship extends Subject
      * the other person in this relationship and implies neither order nor role. When the relationship type
      * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $person1;
 
@@ -36,21 +37,21 @@ class Relationship extends Subject
      * the other person in this relationship and implies neither order nor role. When the relationship type
      * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $person2;
 
     /**
      * The fact conclusions for the relationship.
      *
-     * @var \Gedcomx\Conclusion\Fact[]
+     * @var Fact[]
      */
     private $facts;
 
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
@@ -108,7 +109,7 @@ class Relationship extends Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getPerson1()
     {
@@ -120,7 +121,7 @@ class Relationship extends Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @param \Gedcomx\Common\ResourceReference $person1
+     * @param ResourceReference $person1
      */
     public function setPerson1($person1)
     {
@@ -131,7 +132,7 @@ class Relationship extends Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getPerson2()
     {
@@ -143,7 +144,7 @@ class Relationship extends Subject
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @param \Gedcomx\Common\ResourceReference $person2
+     * @param ResourceReference $person2
      */
     public function setPerson2($person2)
     {
@@ -152,7 +153,7 @@ class Relationship extends Subject
     /**
      * The fact conclusions for the relationship.
      *
-     * @return \Gedcomx\Conclusion\Fact[]
+     * @return Fact[]
      */
     public function getFacts()
     {
@@ -162,7 +163,7 @@ class Relationship extends Subject
     /**
      * The fact conclusions for the relationship.
      *
-     * @param \Gedcomx\Conclusion\Fact[] $facts
+     * @param Fact[] $facts
      */
     public function setFacts($facts)
     {
@@ -171,7 +172,7 @@ class Relationship extends Subject
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -181,7 +182,7 @@ class Relationship extends Subject
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -229,28 +230,33 @@ class Relationship extends Subject
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['type'])) {
             $this->type = $o["type"];
+            unset($o['type']);
         }
         if (isset($o['person1'])) {
-            $this->person1 = new \Gedcomx\Common\ResourceReference($o["person1"]);
+            $this->person1 = new ResourceReference($o["person1"]);
+            unset($o['person1']);
         }
         if (isset($o['person2'])) {
-            $this->person2 = new \Gedcomx\Common\ResourceReference($o["person2"]);
+            $this->person2 = new ResourceReference($o["person2"]);
+            unset($o['person2']);
         }
         $this->facts = array();
         if (isset($o['facts'])) {
             foreach ($o['facts'] as $i => $x) {
-                $this->facts[$i] = new \Gedcomx\Conclusion\Fact($x);
+                $this->facts[$i] = new Fact($x);
             }
+            unset($o['facts']);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
+            unset($o['fields']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -265,17 +271,17 @@ class Relationship extends Subject
           return true;
         }
         else if (($xml->localName == 'person1') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->person1 = $child;
             $happened = true;
         }
         else if (($xml->localName == 'person2') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->person2 = $child;
             $happened = true;
         }
         else if (($xml->localName == 'fact') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Fact($xml);
+            $child = new Fact($xml);
             if (!isset($this->facts)) {
                 $this->facts = array();
             }
@@ -283,7 +289,7 @@ class Relationship extends Subject
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

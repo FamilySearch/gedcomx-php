@@ -144,16 +144,19 @@ class Category extends \Gedcomx\Atom\CommonAttributes
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['scheme'])) {
             $this->scheme = $o["scheme"];
+            unset($o['scheme']);
         }
         if (isset($o['term'])) {
             $this->term = $o["term"];
+            unset($o['term']);
         }
         if (isset($o['label'])) {
             $this->label = $o["label"];
+            unset($o['label']);
         }
+        parent::initFromArray($o);
     }
 
     /**

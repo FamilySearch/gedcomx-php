@@ -376,40 +376,51 @@ class Address extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['city'])) {
             $this->city = $o["city"];
+            unset($o['city']);
         }
         if (isset($o['country'])) {
             $this->country = $o["country"];
+            unset($o['country']);
         }
         if (isset($o['postalCode'])) {
             $this->postalCode = $o["postalCode"];
+            unset($o['postalCode']);
         }
         if (isset($o['stateOrProvince'])) {
             $this->stateOrProvince = $o["stateOrProvince"];
+            unset($o['stateOrProvince']);
         }
         if (isset($o['street'])) {
             $this->street = $o["street"];
+            unset($o['street']);
         }
         if (isset($o['street2'])) {
             $this->street2 = $o["street2"];
+            unset($o['street2']);
         }
         if (isset($o['street3'])) {
             $this->street3 = $o["street3"];
+            unset($o['street3']);
         }
         if (isset($o['street4'])) {
             $this->street4 = $o["street4"];
+            unset($o['street4']);
         }
         if (isset($o['street5'])) {
             $this->street5 = $o["street5"];
+            unset($o['street5']);
         }
         if (isset($o['street6'])) {
             $this->street6 = $o["street6"];
+            unset($o['street6']);
         }
         if (isset($o['value'])) {
             $this->value = $o["value"];
+            unset($o['value']);
         }
+        parent::initFromArray($o);
     }
 
     /**

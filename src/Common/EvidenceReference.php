@@ -14,7 +14,6 @@ namespace Gedcomx\Common;
  */
 class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
 {
-    const JSON_IDENTIFIER = 'evidence';
     /**
      * The resource id of the resource being referenced.
      *
@@ -32,7 +31,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Attribution metadata for evidence reference.
      *
-     * @var \Gedcomx\Common\Attribution
+     * @var Attribution
      */
     private $attribution;
 
@@ -100,7 +99,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Attribution metadata for evidence reference.
      *
-     * @return \Gedcomx\Common\Attribution
+     * @return Attribution
      */
     public function getAttribution()
     {
@@ -110,7 +109,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
     /**
      * Attribution metadata for evidence reference.
      *
-     * @param \Gedcomx\Common\Attribution $attribution
+     * @param Attribution $attribution
      */
     public function setAttribution($attribution)
     {
@@ -144,16 +143,19 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['resourceId'])) {
             $this->resourceId = $o["resourceId"];
+            unset($o["resourceId"]);
         }
         if (isset($o['resource'])) {
             $this->resource = $o["resource"];
+            unset($o["resource"]);
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new Attribution($o["attribution"]);
+            unset($o["attribution"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -168,7 +170,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
           return true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }

@@ -13,8 +13,11 @@ use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\HasNotes;
 use Gedcomx\Common\Attributable;
 use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Source\ReferencesSources;
+use Gedcomx\Source\SourceReference;
 
 /**
  * A genealogical conclusion.
@@ -39,28 +42,28 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * Attribution metadata for a conclusion.
      *
-     * @var \Gedcomx\Common\Attribution
+     * @var Attribution
      */
     private $attribution;
 
     /**
      * The source references for a conclusion.
      *
-     * @var \Gedcomx\Source\SourceReference[]
+     * @var SourceReference[]
      */
     private $sources;
 
     /**
      * A reference to the analysis document explaining the analysis that went into this conclusion.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $analysis;
 
     /**
      * Notes about a person.
      *
-     * @var \Gedcomx\Common\Note[]
+     * @var Note[]
      */
     private $notes;
 
@@ -130,7 +133,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * Attribution metadata for a conclusion.
      *
-     * @return \Gedcomx\Common\Attribution
+     * @return Attribution
      */
     public function getAttribution()
     {
@@ -140,7 +143,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * Attribution metadata for a conclusion.
      *
-     * @param \Gedcomx\Common\Attribution $attribution
+     * @param Attribution $attribution
      */
     public function setAttribution( Attribution $attribution)
     {
@@ -149,7 +152,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * The source references for a conclusion.
      *
-     * @return \Gedcomx\Source\SourceReference[]
+     * @return SourceReference[]
      */
     public function getSources()
     {
@@ -159,7 +162,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * The source references for a conclusion.
      *
-     * @param \Gedcomx\Source\SourceReference[] $sources
+     * @param SourceReference[] $sources
      */
     public function setSources($sources)
     {
@@ -168,7 +171,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * A reference to the analysis document explaining the analysis that went into this conclusion.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getAnalysis()
     {
@@ -178,7 +181,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * A reference to the analysis document explaining the analysis that went into this conclusion.
      *
-     * @param \Gedcomx\Common\ResourceReference $analysis
+     * @param ResourceReference $analysis
      */
     public function setAnalysis($analysis)
     {
@@ -187,7 +190,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * Notes about a person.
      *
-     * @return \Gedcomx\Common\Note[]
+     * @return Note[]
      */
     public function getNotes()
     {
@@ -197,7 +200,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     /**
      * Notes about a person.
      *
-     * @param \Gedcomx\Common\Note[] $notes
+     * @param Note[] $notes
      */
     public function setNotes($notes)
     {
@@ -249,31 +252,37 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['confidence'])) {
             $this->confidence = $o["confidence"];
+            unset($o['notes']);
         }
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o['notes']);
         }
         if (isset($o['attribution'])) {
-            $this->attribution = new \Gedcomx\Common\Attribution($o["attribution"]);
+            $this->attribution = new Attribution($o["attribution"]);
+            unset($o['notes']);
         }
         $this->sources = array();
         if (isset($o['sources'])) {
             foreach ($o['sources'] as $i => $x) {
-                $this->sources[$i] = new \Gedcomx\Source\SourceReference($x);
+                $this->sources[$i] = new SourceReference($x);
             }
+            unset($o['notes']);
         }
         if (isset($o['analysis'])) {
-            $this->analysis = new \Gedcomx\Common\ResourceReference($o["analysis"]);
+            $this->analysis = new ResourceReference($o["analysis"]);
+            unset($o['notes']);
         }
         $this->notes = array();
         if (isset($o['notes'])) {
             foreach ($o['notes'] as $i => $x) {
-                $this->notes[$i] = new \Gedcomx\Common\Note($x);
+                $this->notes[$i] = new Note($x);
             }
+            unset($o['notes']);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -288,12 +297,12 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
           return true;
         }
         else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Attribution($xml);
+            $child = new Attribution($xml);
             $this->attribution = $child;
             $happened = true;
         }
         else if (($xml->localName == 'source') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Source\SourceReference($xml);
+            $child = new SourceReference($xml);
             if (!isset($this->sources)) {
                 $this->sources = array();
             }
@@ -301,12 +310,12 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
             $happened = true;
         }
         else if (($xml->localName == 'analysis') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->analysis = $child;
             $happened = true;
         }
         else if (($xml->localName == 'note') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\Note($xml);
+            $child = new Note($xml);
             if (!isset($this->notes)) {
                 $this->notes = array();
             }
@@ -384,20 +393,20 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      * @param ExtensibleData $conclusion
      */
     protected function embed(ExtensibleData $conclusion) {
-        if( $this->lang == null ){
+        if( $this->lang != null ){
             $this->lang = $conclusion->lang;
         }
-        if( $this->confidence == null ){
+        if( $this->confidence != null ){
             $this->confidence = $conclusion->confidence;
         }
-        if( $this->attribution == null ){
+        if( $this->attribution != null ){
             $this->attribution = $conclusion->attribution;
         }
-        if( $this->analysis == null ){
+        if( $this->analysis != null ){
             $this->analysis = $conclusion->analysis;
         }
         if ($conclusion->notes != null) {
-            if( $this->notes == null ){
+            if( $this->notes != null ){
                 $this->notes = $conclusion->notes;
             } else {
                 $this->notes = array_merge($this->notes, $conclusion->notes);

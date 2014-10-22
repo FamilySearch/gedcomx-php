@@ -4,7 +4,6 @@
 
     class HealthConfig
     {
-        const JSON_IDENTIFIER = 'healthConfig';
 
         private $databaseVersion;
         private $buildVersion;

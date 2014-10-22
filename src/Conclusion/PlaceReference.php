@@ -8,6 +8,8 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Records\Field;
 
 /**
  * A reference to genealogical place.
@@ -33,14 +35,14 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
      * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @var \Gedcomx\Common\TextValue[]
+     * @var TextValue[]
      */
     private $normalizedExtensions;
 
     /**
      * The references to the record fields being used as evidence.
      *
-     * @var \Gedcomx\Records\Field[]
+     * @var Field[]
      */
     private $fields;
 
@@ -109,7 +111,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @return \Gedcomx\Common\TextValue[]
+     * @return TextValue[]
      */
     public function getNormalizedExtensions()
     {
@@ -120,7 +122,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
      * The list of normalized values for the place, provided for display purposes by the application. Normalized values
        * are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
      *
-     * @param \Gedcomx\Common\TextValue[] $normalizedExtensions
+     * @param TextValue[] $normalizedExtensions
      */
     public function setNormalizedExtensions($normalizedExtensions)
     {
@@ -129,7 +131,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return \Gedcomx\Records\Field[]
+     * @return Field[]
      */
     public function getFields()
     {
@@ -139,7 +141,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param \Gedcomx\Records\Field[] $fields
+     * @param Field[] $fields
      */
     public function setFields($fields)
     {
@@ -184,25 +186,29 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['description'])) {
             $this->descriptionRef = $o["description"];
+            unset($o["description"]);
         }
         if (isset($o['original'])) {
             $this->original = $o["original"];
+            unset($o["original"]);
         }
         $this->normalizedExtensions = array();
         if (isset($o['normalized'])) {
             foreach ($o['normalized'] as $i => $x) {
-                $this->normalizedExtensions[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->normalizedExtensions[$i] = new TextValue($x);
             }
+            unset($o["normalized"]);
         }
         $this->fields = array();
         if (isset($o['fields'])) {
             foreach ($o['fields'] as $i => $x) {
-                $this->fields[$i] = new \Gedcomx\Records\Field($x);
+                $this->fields[$i] = new Field($x);
             }
+            unset($o["fields"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
@@ -225,7 +231,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'normalized') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->normalizedExtensions)) {
                 $this->normalizedExtensions = array();
             }
@@ -233,7 +239,7 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
             $happened = true;
         }
         else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Records\Field($xml);
+            $child = new Field($xml);
             if (!isset($this->fields)) {
                 $this->fields = array();
             }

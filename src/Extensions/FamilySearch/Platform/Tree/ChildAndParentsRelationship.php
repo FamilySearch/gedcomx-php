@@ -18,7 +18,6 @@ use Gedcomx\Conclusion\Subject;
  */
 class ChildAndParentsRelationship extends Subject
 {
-    const JSON_IDENTIFIER = 'child-and-parents-relationships';
     /**
      * The father of the child.
      *
@@ -216,28 +215,33 @@ class ChildAndParentsRelationship extends Subject
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['father'])) {
             $this->father = new ResourceReference($o["father"]);
+            unset($o['father']);
         }
         if (isset($o['mother'])) {
             $this->mother = new ResourceReference($o["mother"]);
+            unset($o['mother']);
         }
         if (isset($o['child'])) {
             $this->child = new ResourceReference($o["child"]);
+            unset($o['child']);
         }
         $this->fatherFacts = array();
         if (isset($o['fatherFacts'])) {
             foreach ($o['fatherFacts'] as $i => $x) {
                 $this->fatherFacts[$i] = new Fact($x);
             }
+            unset($o['fatherFacts']);
         }
         $this->motherFacts = array();
         if (isset($o['motherFacts'])) {
             foreach ($o['motherFacts'] as $i => $x) {
                 $this->motherFacts[$i] = new Fact($x);
             }
+            unset($o['motherFacts']);
         }
+        parent::initFromArray($o);
     }
 
     /**

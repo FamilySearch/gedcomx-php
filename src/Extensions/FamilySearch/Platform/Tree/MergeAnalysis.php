@@ -16,7 +16,6 @@ use Gedcomx\Common\ResourceReference;
  */
 class MergeAnalysis
 {
-    const JSON_IDENTIFIER = 'mergeAnalysis';
     /**
      * (no documentation provided)
      *

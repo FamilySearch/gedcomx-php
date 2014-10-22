@@ -7,7 +7,6 @@
 
     class UniqueCustomKeyedItem implements HasJsonKey
     {
-        const JSON_IDENTIFIER = 'ucustomKeys';
 
         private $key;
         private $val1;

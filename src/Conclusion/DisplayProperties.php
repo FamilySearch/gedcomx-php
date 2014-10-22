@@ -378,40 +378,51 @@ class DisplayProperties extends \Gedcomx\Common\ExtensibleData
      */
     public function initFromArray($o)
     {
-        parent::initFromArray($o);
         if (isset($o['ascendancyNumber'])) {
             $this->ascendancyNumber = $o["ascendancyNumber"];
+            unset($o["ascendancyNumber"]);
         }
         if (isset($o['birthDate'])) {
             $this->birthDate = $o["birthDate"];
+            unset($o["birthDate"]);
         }
         if (isset($o['birthPlace'])) {
             $this->birthPlace = $o["birthPlace"];
+            unset($o["birthPlace"]);
         }
         if (isset($o['deathDate'])) {
             $this->deathDate = $o["deathDate"];
+            unset($o["deathDate"]);
         }
         if (isset($o['deathPlace'])) {
             $this->deathPlace = $o["deathPlace"];
+            unset($o["deathPlace"]);
         }
         if (isset($o['descendancyNumber'])) {
             $this->descendancyNumber = $o["descendancyNumber"];
+            unset($o["descendancyNumber"]);
         }
         if (isset($o['gender'])) {
             $this->gender = $o["gender"];
+            unset($o["gender"]);
         }
         if (isset($o['lifespan'])) {
             $this->lifespan = $o["lifespan"];
+            unset($o["lifespan"]);
         }
         if (isset($o['marriageDate'])) {
             $this->marriageDate = $o["marriageDate"];
+            unset($o["marriageDate"]);
         }
         if (isset($o['marriagePlace'])) {
             $this->marriagePlace = $o["marriagePlace"];
+            unset($o["marriagePlace"]);
         }
         if (isset($o['name'])) {
             $this->name = $o["name"];
+            unset($o["name"]);
         }
+        parent::initFromArray($o);
     }
 
     /**
