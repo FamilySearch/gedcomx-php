@@ -17,6 +17,7 @@
     use Gedcomx\Types\RelationshipType;
     use Gedcomx\Rs\Client\Util\HttpStatus;
     use Guzzle\Http\Client;
+    use Guzzle\Http\Message\EntityEnclosingRequest;
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\Message\Response;
 
@@ -124,6 +125,7 @@
             $entity->setChildAndParentsRelationships(array($rel));
             $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
+            /** @var EntityEnclosingRequest $request */
             $request->setBody($entity);
 
             return $this->stateFactory->createState(
@@ -153,6 +155,7 @@
             $entity->setChildAndParentsRelationships($chaps);
             $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
+            /** @var EntityEnclosingRequest $request */
             $request->setBody($entity->toJson());
 
             return $this->stateFactory->createState(

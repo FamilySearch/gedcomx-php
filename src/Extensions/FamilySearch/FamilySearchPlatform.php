@@ -10,6 +10,7 @@
 namespace Gedcomx\Extensions\FamilySearch;
 
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Gedcomx;
 
 /**
@@ -19,6 +20,9 @@ use Gedcomx\Gedcomx;
  */
 class FamilySearchPlatform extends Gedcomx
 {
+    const PROJECT_ID = "fs-platform";
+    //const NAMESPACE = "http://familysearch.org/v1/";
+    const XML_MEDIA_TYPE = "application/x-fs-v1+xml";
     const JSON_MEDIA_TYPE = 'application/x-fs-v1+json';
 
     /**
@@ -106,6 +110,17 @@ class FamilySearchPlatform extends Gedcomx
     public function setChildAndParentsRelationships($childAndParentsRelationships)
     {
         $this->childAndParentsRelationships = $childAndParentsRelationships;
+    }
+
+    /**
+     * @param ChildAndParentsRelationship $relation
+     */
+    public function addChildAndParentsRelationship(ChildAndParentsRelationship $relation)
+    {
+        if ($this->childAndParentsRelationships == null) {
+            $this->childAndParentsRelationships = array();
+        }
+        $this->childAndParentsRelationships[] = $relation;
     }
 
     /**
