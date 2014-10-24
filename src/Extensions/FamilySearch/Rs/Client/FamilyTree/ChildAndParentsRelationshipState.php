@@ -4,6 +4,7 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Common\EvidenceReference;
 use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Conclusion;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Relationship;
@@ -22,7 +23,8 @@ use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class ChildAndParentsRelationshipState extends GedcomxApplicationState implements PreferredRelationshipState{
+class ChildAndParentsRelationshipState extends GedcomxApplicationState implements PreferredRelationshipState
+{
 
     protected function reconstruct(Request $request, Response $response)
     {
@@ -44,33 +46,36 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
     /**
      * @return ChildAndParentsRelationship|null
      */
-    public function getRelationship() {
+    public function getRelationship()
+    {
         if ($this->getEntity() != null) {
             $relationships = $this->getEntity()->getChildAndParentsRelationships();
             if ($relationships != null && !empty($relationships)) {
-               return $relationships[0];
+                return $relationships[0];
             }
         }
-        return  null;
+        return null;
     }
 
     /**
      * @return Conclusion
      */
-    public function getConclusion() {
+    public function getConclusion()
+    {
         return $this->getFatherFact() != null ? $this->getFatherFact()
             : $this->getMotherFact() != null ? $this->getMotherFact()
-            : null;
+                : null;
     }
 
     /**
      * @return Fact|string
      */
-    public function getFatherFact() {
+    public function getFatherFact()
+    {
         $relationship = $this->getRelationship();
         if ($relationship != null) {
             $facts = $relationship->getFatherFacts();
-            if ($facts != null && ! empty($facts)) {
+            if ($facts != null && !empty($facts)) {
                 return $facts[0];
             }
         }
@@ -81,11 +86,12 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
     /**
      * @return Fact|null
      */
-    public function getMotherFact() {
+    public function getMotherFact()
+    {
         $relationship = $this->getRelationship();
         if ($relationship != null) {
             $facts = $relationship->getMotherFacts();
-            if ($facts != null && ! empty($facts)) {
+            if ($facts != null && !empty($facts)) {
                 return $facts[0];
             }
         }
@@ -101,7 +107,7 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
         $relationship = $this->getRelationship();
         if ($relationship != null) {
             $notes = $relationship->getNotes();
-            if ($notes != null && ! empty($notes)) {
+            if ($notes != null && !empty($notes)) {
                 return $notes[0];
             }
         }
@@ -128,7 +134,8 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
     /**
      * @return EvidenceReference|null
      */
-    public function getEvidenceReference() {
+    public function getEvidenceReference()
+    {
         $relationship = $this->getRelationship();
         if ($relationship != null) {
             $evidence = $relationship->getEvidence();
@@ -143,7 +150,8 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
     /**
      * @return SourceReference|null
      */
-    public function getMediaReference() {
+    public function getMediaReference()
+    {
         $relationship = $this->getRelationship();
         if ($relationship != null) {
             $media = $relationship->getMedia();
@@ -160,11 +168,12 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
      *
      * @return FamilyTreeCollectionState|null
      */
-    public function readCollection(StateTransitionOption $option = null) {
+    public function readCollection(StateTransitionOption $option = null)
+    {
         $link = $this->getLink(Rel::COLLECTION);
-    if ($link == null || $link->getHref() == null) {
-        return null;
-    }
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
         return $this->stateFactory->createState(
@@ -177,7 +186,7 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
 
     /**
      * @param string $method
-     * @param Link   $link
+     * @param Link $link
      *
      * @return Request
      */
@@ -194,18 +203,19 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
      *
      * @return $this
      */
-    public function loadEmbeddedResource(StateTransitionOption $option = null) {
+    public function loadEmbeddedResource(StateTransitionOption $option = null)
+    {
         $this->passOptionsTo('includeEmbeddedResources', array($this->entity), func_get_args());
         return $this;
     }
 
     /**
-     * @param array                 $rels
+     * @param array $rels
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState|null
      */
-    public function loadEmbeddedResources(array $rels, StateTransitionOption $option = null) 
+    public function loadEmbeddedResources(array $rels, StateTransitionOption $option = null)
     {
         foreach ($rels as $rel) {
             $link = $this->getLink($rel);
@@ -221,7 +231,8 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
      *
      * @return ChildAndParentsRelationshipState
      */
-    public function loadConclusions(StateTransitionOption $option = null) {
+    public function loadConclusions(StateTransitionOption $option = null)
+    {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::CONCLUSIONS)), func_get_args());
     }
 
@@ -230,695 +241,750 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function loadSourceReferences(StateTransitionOption $option = null) {
-    return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::SOURCE_REFERENCES)), func_get_args());
-  }
+    public function loadSourceReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::SOURCE_REFERENCES)), func_get_args());
+    }
 
     /**
      * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function loadMediaReferences(StateTransitionOption $option = null) {
-    return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::MEDIA_REFERENCES)), func_get_args());
-  }
+    public function loadMediaReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::MEDIA_REFERENCES)), func_get_args());
+    }
 
     /**
      * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function loadEvidenceReferences(StateTransitionOption $option = null) {
-    return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::EVIDENCE_REFERENCES)), func_get_args());
-  }
+    public function loadEvidenceReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::EVIDENCE_REFERENCES)), func_get_args());
+    }
 
     /**
      * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function loadNotes(StateTransitionOption $option = null) {
-    return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
-  }
+    public function loadNotes(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
+    }
 
     /**
      * @return ChildAndParentsRelationship
      */
-  protected function createEmptySelf() {
-    $relationship = new ChildAndParentsRelationship();
-    $relationship->setId($this->getLocalSelfId());
-    return $relationship;
-  }
+    protected function createEmptySelf()
+    {
+        $relationship = new ChildAndParentsRelationship();
+        $relationship->setId($this->getLocalSelfId());
+        return $relationship;
+    }
 
     /**
      * @return null|string
      */
-  protected function getLocalSelfId() {
-    $me = $this->getRelationship();
-    return $me == null ? null : $me->getId();
-  }
+    protected function getLocalSelfId()
+    {
+        $me = $this->getRelationship();
+        return $me == null ? null : $me->getId();
+    }
 
     /**
-     * @param Fact                  $fact
+     * @param Fact $fact
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addFatherFact(Fact $fact, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addFatherFacts', array(array($fact)), func_get_args());
-  }
+    public function addFatherFact(Fact $fact, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addFatherFacts', array(array($fact)), func_get_args());
+    }
 
     /**
-     * @param array                 $facts
+     * @param array $facts
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addFatherFacts(array $facts, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setFatherFacts($facts);
-    return $this->passOptionsTo('updateRelationship',array($relationship, Rel::CONCLUSIONS), func_get_args());
-  }
+    public function addFatherFacts(array $facts, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setFatherFacts($facts);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
+    }
 
     /**
-     * @param Fact                  $fact
+     * @param Fact $fact
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateFatherFact(Fact $fact, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateFatherFacts', array(array($fact)), func_get_args());
-  }
+    public function updateFatherFact(Fact $fact, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateFatherFacts', array(array($fact)), func_get_args());
+    }
 
     /**
-     * @param array                 $facts
+     * @param array $facts
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateFatherFacts(array $facts, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setFatherFacts($facts);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
-  }
+    public function updateFatherFacts(array $facts, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setFatherFacts($facts);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
+    }
 
     /**
-     * @param Fact                  $fact
+     * @param Fact $fact
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addMotherFact(Fact $fact, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addMotherFacts',array(array($fact)), func_get_args());
-  }
+    public function addMotherFact(Fact $fact, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addMotherFacts', array(array($fact)), func_get_args());
+    }
 
     /**
-     * @param array                 $facts
+     * @param array $facts
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addMotherFacts(array $facts, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setMotherFacts($facts);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
-  }
+    public function addMotherFacts(array $facts, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setMotherFacts($facts);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
+    }
 
     /**
-     * @param Fact                  $fact
+     * @param Fact $fact
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateMotherFact(Fact $fact, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateMotherFacts', array(array($fact)), func_get_args());
-  }
+    public function updateMotherFact(Fact $fact, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateMotherFacts', array(array($fact)), func_get_args());
+    }
 
     /**
-     * @param array                 $facts
+     * @param array $facts
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateMotherFacts(array $facts, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setMotherFacts($facts);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
-  }
+    public function updateMotherFacts(array $facts, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setMotherFacts($facts);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::CONCLUSIONS), func_get_args());
+    }
 
     /**
-     * @param Fact                  $fact
+     * @param Fact $fact
      * @param StateTransitionOption $option
      *
      * @return mixed
      * @throws GedcomxApplicationException
      */
-  public function deleteFact(Fact $fact, StateTransitionOption $option = null) {
-    $link = $fact->getLink(Rel::CONCLUSION);
-    $link = $link == null ? $fact->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
-    }
+    public function deleteFact(Fact $fact, StateTransitionOption $option = null)
+    {
+        $link = $fact->getLink(Rel::CONCLUSION);
+        $link = $link == null ? $fact->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
+        }
 
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-      FamilySearchRequest::applyFamilySearchMediaType($request);
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke',array($request), func_get_args()),
-        $this->accessToken);
-  }
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken);
+    }
 
     /**
      * @param SourceDescriptionState $source
-     * @param StateTransitionOption  $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function addSourceReferenceState(SourceDescriptionState $source, StateTransitionOption $option = null) {
-    $reference = new SourceReference();
-    $reference->setDescriptionRef($source->getSelfUri());
-    return $this->passOptionsTo('addSourceReference', array($reference), func_get_args());
-  }
-
-    /**
-     * @param SourceReference       $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addSourceReference(SourceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addSourceReferences', array(array($reference)), func_get_args());
-  }
+    public function addSourceReferenceState(SourceDescriptionState $source, StateTransitionOption $option = null)
+    {
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($source->getSelfUri());
+        return $this->passOptionsTo('addSourceReference', array($reference), func_get_args());
+    }
 
     /**
-     * @param array                 $refs
+     * @param SourceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addSourceReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setSources($refs);
-    return $this->passOptionsTo('updateSourceReferences', array($relationship), func_get_args());
-  }
+    public function addSourceReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addSourceReferences', array(array($reference)), func_get_args());
+    }
 
     /**
-     * @param SourceReference       $reference
+     * @param array $refs
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateSourceReference(SourceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateSourceReferences', array(array($reference)), func_get_args());
-  }
+    public function addSourceReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setSources($refs);
+        return $this->passOptionsTo('updateSourceReferences', array($relationship), func_get_args());
+    }
 
     /**
-     * @param array                 $refs
+     * @param SourceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateSourceReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setSources($refs);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SOURCE_REFERENCES), func_get_args());
-  }
+    public function updateSourceReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateSourceReferences', array(array($reference)), func_get_args());
+    }
 
     /**
-     * @param SourceReference       $reference
+     * @param array $refs
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateSourceReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setSources($refs);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SOURCE_REFERENCES), func_get_args());
+    }
+
+    /**
+     * @param SourceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
      */
-  public function deleteSourceReference(SourceReference $reference, StateTransitionOption $option = null) {
-    $link = $reference->getLink(Rel::SOURCE_REFERENCE);
-    $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
-    }
+    public function deleteSourceReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        $link = $reference->getLink(Rel::SOURCE_REFERENCE);
+        $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
+        }
 
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-      FamilySearchRequest::applyFamilySearchMediaType($request);
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
-
-
-    /**
-     * @param SourceReference       $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function addMediaReference(SourceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addMediaReferences', array(array($reference)), func_get_args());
-  }
-
-    /**
-     * @param array                 $refs
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function addMediaReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setMedia($refs);
-    return $this->passOptionsTo('updateMediaReferences', array($relationship), func_get_args());
-  }
-
-    /**
-     * @param SourceReference       $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-    public function updateMediaReference(SourceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateMediaReferences', array(array($reference)), func_get_args());
-  }
-
-    /**
-     * @param array                 $refs
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-    public function updateMediaReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setMedia($refs);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::MEDIA_REFERENCES), func_get_args());
-  }
-
-    /**
-     * @param SourceReference       $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     * @throws GedcomxApplicationException
-     */
-public function deleteMediaReference(SourceReference $reference, StateTransitionOption $option = null) {
-    $link = $reference->getLink(Rel::MEDIA_REFERENCE);
-    $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
-    }
-
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-    FamilySearchRequest::applyFamilySearchMediaType($request);
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
-
-    /**
-     * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function addEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addEvidenceReferences', array(array($reference)), func_get_args());
-  }
-
-    /**
-     * @param array                 $refs
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function addEvidenceReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setEvidence($refs);
-    return $this->passOptionsTo('updateRelationship',array($relationship, Rel::EVIDENCE_REFERENCES), func_get_args());
-  }
-
-    /**
-     * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function updateEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateEvidenceReferences', array($reference), func_get_args());
-  }
-
-    /**
-     * @param array                 $refs
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     */
-  public function updateEvidenceReferences(array $refs, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setEvidence($refs);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::EVIDENCE_REFERENCES), func_get_args());
-  }
-
-    /**
-     * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
-     *
-     * @return ChildAndParentsRelationshipState
-     * @throws GedcomxApplicationException
-     */
-    public function deleteEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null) {
-    $link = $reference->getLink(Rel::EVIDENCE_REFERENCE);
-    $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
-    }
-
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
 
     /**
-     * @param Note                  $note
+     * @param SourceReference $reference
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function addMediaReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addMediaReferences', array(array($reference)), func_get_args());
+    }
+
+    /**
+     * @param array $refs
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function addMediaReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setMedia($refs);
+        return $this->passOptionsTo('updateMediaReferences', array($relationship), func_get_args());
+    }
+
+    /**
+     * @param SourceReference $reference
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateMediaReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateMediaReferences', array(array($reference)), func_get_args());
+    }
+
+    /**
+     * @param array $refs
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateMediaReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setMedia($refs);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::MEDIA_REFERENCES), func_get_args());
+    }
+
+    /**
+     * @param SourceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
      */
-  public function readNote(Note $note, StateTransitionOption $option = null) {
-    $link = $note->getLink(Rel::NOTE);
-    $link = $link == null ? $note->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Note cannot be read: missing link.");
+    public function deleteMediaReference(SourceReference $reference, StateTransitionOption $option = null)
+    {
+        $link = $reference->getLink(Rel::MEDIA_REFERENCE);
+        $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
-    $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState', 
-        $this->client,
-        $request, 
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken);
-  }
-
     /**
-     * @param Note                  $note
+     * @param EvidenceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addNote(Note $note, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('addNotes', array(array($note)), func_get_args());
-  }
+    public function addEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addEvidenceReferences', array(array($reference)), func_get_args());
+    }
 
     /**
-     * @param array                 $notes
+     * @param array $refs
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function addNotes(array $notes, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setNotes($notes);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::NOTES), func_get_args());
-  }
+    public function addEvidenceReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setEvidence($refs);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::EVIDENCE_REFERENCES), func_get_args());
+    }
 
     /**
-     * @param Note                  $note
+     * @param EvidenceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateNote(Note $note, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateNotes', array(array($note)), func_get_args());
-  }
+    public function updateEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateEvidenceReferences', array($reference), func_get_args());
+    }
 
     /**
-     * @param array                 $notes
+     * @param array $refs
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateNotes(array $notes, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-    $relationship->setNotes($notes);
-    return $this->passOptionsTo('updateRelationship', array($relationship, Rel::NOTES), func_get_args());
-  }
+    public function updateEvidenceReferences(array $refs, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setEvidence($refs);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::EVIDENCE_REFERENCES), func_get_args());
+    }
 
     /**
-     * @param Note                  $note
+     * @param EvidenceReference $reference
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
      */
-  public function deleteNote(Note $note, StateTransitionOption $option = null) {
-    $link = $note->getLink(Rel::NOTE);
-    $link = $link == null ? $note->getLink(Rel::SELF) : $link;
-    if ($link == null || $link->getHref() == null) {
-        throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
+    public function deleteEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        $link = $reference->getLink(Rel::EVIDENCE_REFERENCE);
+        $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+    /**
+     * @param Note $note
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     * @throws GedcomxApplicationException
+     */
+    public function readNote(Note $note, StateTransitionOption $option = null)
+    {
+        $link = $note->getLink(Rel::NOTE);
+        $link = $link == null ? $note->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Note cannot be read: missing link.");
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken);
+    }
+
+    /**
+     * @param Note $note
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function addNote(Note $note, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addNotes', array(array($note)), func_get_args());
+    }
+
+    /**
+     * @param array $notes
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function addNotes(array $notes, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setNotes($notes);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::NOTES), func_get_args());
+    }
+
+    /**
+     * @param Note $note
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateNote(Note $note, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateNotes', array(array($note)), func_get_args());
+    }
+
+    /**
+     * @param array $notes
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateNotes(array $notes, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setNotes($notes);
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::NOTES), func_get_args());
+    }
+
+    /**
+     * @param Note $note
+     * @param StateTransitionOption $option
+     *
+     * @return ChildAndParentsRelationshipState
+     * @throws GedcomxApplicationException
+     */
+    public function deleteNote(Note $note, StateTransitionOption $option = null)
+    {
+        $link = $note->getLink(Rel::NOTE);
+        $link = $link == null ? $note->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
     /**
      * @param StateTransitionOption $option
      *
      * @return ChangeHistoryState|null
      */
-  public function readChangeHistory(StateTransitionOption $option = null) {
-    $link = $this->getLink(Rel::CHANGE_HISTORY);
-    if ($link == null || $link->getHref() == null) {
-        return null;
-    }
+    public function readChangeHistory(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::CHANGE_HISTORY);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
 
-    $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChangeHistoryState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+        $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChangeHistoryState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
     /**
      * @param StateTransitionOption $option
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
-  public function readChild(StateTransitionOption $option = null) {
-    $relationship = $this->getRelationship();
-    if ($relationship == null) {
-        return null;
-    }
+    public function readChild(StateTransitionOption $option = null)
+    {
+        $relationship = $this->getRelationship();
+        if ($relationship == null) {
+            return null;
+        }
 
-    $child = $relationship->getChild();
-    if ($child == null || $child->getResource() == null) {
-        return null;
-    }
+        $child = $relationship->getChild();
+        if ($child == null || $child->getResource() == null) {
+            return null;
+        }
 
-    $request = $this->createAuthenticatedRequest(Request::GET, $child->getResource());
-    return $this->stateFactory->createState(
-        'PersonState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+        $request = $this->createAuthenticatedRequest(Request::GET, $child->getResource());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
     /**
      * @param StateTransitionOption $option
      *
      * @return PersonState|null
      */
-  public function readFather(StateTransitionOption $option = null) {
-    $relationship = $this->getRelationship();
-    if ($relationship == null) {
-        return null;
-    }
+    public function readFather(StateTransitionOption $option = null)
+    {
+        $relationship = $this->getRelationship();
+        if ($relationship == null) {
+            return null;
+        }
 
-    $father = $relationship->getFather();
-    if ($father == null || $father->getResource() == null) {
-        return null;
-    }
+        $father = $relationship->getFather();
+        if ($father == null || $father->getResource() == null) {
+            return null;
+        }
 
-    $request = $this->createAuthenticatedRequest(Request::GET, $father->getResource());
-    return $this->stateFactory->createState(
-        'PersonState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-      $this->accessToken
-    );
-  }
+        $request = $this->createAuthenticatedRequest(Request::GET, $father->getResource());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
     /**
-     * @param PersonState           $father
+     * @param PersonState $father
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  public function updateFatherWithState(PersonState $father, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateFather', array($father->getSelfUri()), func_get_args());
-}
-
-  public function updateFather($fatherId, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf();
-      .father(new ResourceReference(fatherId));
-    $fsp = new FamilySearchPlatform();
-    $fsp->addChildAndParentsRelationship($relationship);
-    $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
-      /** @var EntityEnclosingRequest $request  */
-      $request->setBody($fsp->toJson());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
-
-  public function deleteFather(StateTransitionOption $option = null) {
-    $link = $this->getLink(Rel::FATHER_ROLE);
-    if ($link == null || $link->getHref() == null) {
-        return null;
+    public function updateFatherWithState(PersonState $father, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateFather', array($father->getSelfUri()), func_get_args());
     }
 
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
-
-  public function readMother(StateTransitionOption $option = null) {
-    $relationship = $this->getRelationship();
-    if ($relationship == null) {
-        return null;
+    /**
+     * @param string                $fatherId
+     * @param StateTransitionOption $option
+     * 
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateFather($fatherId, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setFather(new ResourceReference($fatherId));
+        $fsp = new FamilySearchPlatform();
+        $fsp->addChildAndParentsRelationship($relationship);
+        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        /** @var EntityEnclosingRequest $request */
+        $request->setBody($fsp->toJson());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
-    $mother = $relationship->getMother();
-    if ($mother == null || $mother->getResource() == null) {
-        return null;
+    public function deleteFather(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::FATHER_ROLE);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
-    $request = $this->createAuthenticatedRequest(Request::GET, $mother->getResource());
-    return $this->stateFactory->createState(
-        'PersonState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+    public function readMother(StateTransitionOption $option = null)
+    {
+        $relationship = $this->getRelationship();
+        if ($relationship == null) {
+            return null;
+        }
 
-  public function updateMotherWithState(PersonState $mother, StateTransitionOption $option = null) {
-    return $this->passOptionsTo('updateMother', array($mother->getSelfUri(), func_get_args());
-}
+        $mother = $relationship->getMother();
+        if ($mother == null || $mother->getResource() == null) {
+            return null;
+        }
 
-  public function updateMother($motherId, StateTransitionOption $option = null) {
-    $relationship = $this->createEmptySelf().mother(new ResourceReference(motherId));
-    $fsp = new FamilySearchPlatform();
-    $fsp->addChildAndParentsRelationship($relationship);
-    $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
-      /** @var EntityEnclosingRequest $request */
-      $request->setBody($fsp->toJson());
-      FamilySearchRequest::applyFamilySearchMediaType($request);
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
-
-  public function deleteMother(StateTransitionOption $option = null) {
-    $link = $this->getLink(Rel::MOTHER_ROLE);
-    if ($link == null || $link->getHref() == null) {
-        return null;
+        $request = $this->createAuthenticatedRequest(Request::GET, $mother->getResource());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
-    $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-      $this->client,
-      $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken)
-        ;
-  }
-
-  public function restore(StateTransitionOption $option = null) {
-    $link = $this->getLink(Rel::RESTORE);
-    if ($link == null || $link->getHref() == null) {
-        return null;
+    public function updateMotherWithState(PersonState $mother, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateMother', array($mother->getSelfUri(), func_get_args()));
     }
 
-    $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-  }
+    public function updateMother($motherId, StateTransitionOption $option = null)
+    {
+        $relationship = $this->createEmptySelf();
+        $relationship->setMother(new ResourceReference($motherId));
+        $fsp = new FamilySearchPlatform();
+        $fsp->addChildAndParentsRelationship($relationship);
+        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        /** @var EntityEnclosingRequest $request */
+        $request->setBody($fsp->toJson());
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
-   /**
-     * @param Relationship          $relationship
-     * @param string                $rel
+    public function deleteMother(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::MOTHER_ROLE);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken);
+    }
+
+    public function restore(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::RESTORE);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
+    /**
+     * @param Relationship $relationship
+     * @param string $rel
      * @param StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-  protected function updateRelationship(Relationship $relationship, $rel, StateTransitionOption $option = null) {
-    $target = $this->getSelfUri();
-    $link = $this->getLink($rel);
-    if ($link != null && $link->getHref() != null) {
-        $target = $link->getHref();
+    protected function updateRelationship(Relationship $relationship, $rel, StateTransitionOption $option = null)
+    {
+        $target = $this->getSelfUri();
+        $link = $this->getLink($rel);
+        if ($link != null && $link->getHref() != null) {
+            $target = $link->getHref();
+        }
+
+        $gx = new FamilySearchPlatform();
+        $gx->setChildAndParentsRelationships(array($relationship));
+        $request = $this->createAuthenticatedRequest(Request::POST, $target);
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        /** @var EntityEnclosingRequest $request */
+        $request->setBody($gx->toJson());
+
+        return $this->stateFactory->createState(
+            'ChildAndParentsRelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
-
-    $gx = new FamilySearchPlatform();
-    $gx->setChildAndParentsRelationships(array($relationship));
-    $request = $this->createAuthenticatedRequest(Request::POST, $target);
-    FamilySearchRequest::applyFamilySearchMediaType($request);
-    /** @var EntityEnclosingRequest $request */
-    $request->setBody($gx->toJson());
-
-    return $this->stateFactory->createState(
-        'ChildAndParentsRelationshipState',
-        $this->client,
-        $request,
-        $this->passOptionsTo('invoke', array($request), func_get_args()),
-        $this->accessToken
-    );
-}
 
 }
