@@ -106,6 +106,17 @@ class Relationship extends Subject
     {
         $this->type = $type;
     }
+
+    /**
+     * The type of this relationship.
+     *
+     * @param string $type
+     */
+    public function setKnownType($type)
+    {
+        $this->setType($type);
+    }
+
     /**
      * A reference to a person in the relationship. The name &quot;person1&quot; is used only to distinguish it from
        * the other person in this relationship and implies neither order nor role. When the relationship type
@@ -152,6 +163,19 @@ class Relationship extends Subject
     {
         $this->person2 = $person2;
     }
+
+    /**
+     * @param Fact $fact
+     */
+    public function addFact(Fact $fact)
+    {
+        if ($this->facts == null) {
+           $this->facts = array();
+        }
+
+        $this->facts[] = $fact;
+    }
+
     /**
      * The fact conclusions for the relationship.
      *
@@ -171,6 +195,19 @@ class Relationship extends Subject
     {
         $this->facts = $facts;
     }
+
+    /**
+     * @param Field $field
+     */
+    public function addField(Field $field)
+    {
+        if ($this->fields == null) {
+            $this->fields = array();
+        }
+
+        $this->fields[] = $field;
+    }
+
     /**
      * The references to the record fields being used as evidence.
      *

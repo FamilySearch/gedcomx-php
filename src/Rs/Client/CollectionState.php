@@ -3,6 +3,8 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Person;
@@ -10,7 +12,9 @@ use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
+use Gedcomx\Types\RelationshipType;
 use Guzzle\Http\Client;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
@@ -188,42 +192,118 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * @param array $relationships
+     * @param StateTransitionOption $option
+     * @return RelationshipState
+     * @throws GedcomxApplicationException
+     */
+    public function addRelationships(array $relationships, StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::RELATIONSHIPS);
+        if (link == null || link . getHref() == null) {
+            throw new GedcomxApplicationException(String . format("Collection at %s doesn't support adding relationships.", getUri()));
+        }
+
+        $entity = new Gedcomx();
+        $entity->setRelationships($relationships);
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        return $this->stateFactory->createState(
+            'RelationshipsState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
+    /**
      * @return RelationshipsState|null
      */
     public function readRelationships()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::RELATIONSHIPS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'RelationshipsState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Relationship|Gedcomx  $relationship
-     * @param StateTransitionOption $option
+     * @param Relationship|Gedcomx $relationship
+     * @param StateTransitionOption $option,...
      *
+     * @throws GedcomxApplicationException
      * @return RelationshipState|null
      */
     public function addRelationship(Relationship $relationship, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::RELATIONSHIPS);
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding relationships.", $this->getUri()));
+        }
+
+        $entity = new Gedcomx();
+        $entity->addRelationship($relationship);
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        /** @var EntityEnclosingRequest $request */
+        $request->setBody($entity->toJson());
+        return $this->stateFactory->createState(
+            'RelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
      * @param PersonState $person1
      * @param PersonState $person2
+     * @param Fact $fact
+     * @param StateTransitionOption $option,...
+     *
      * @return RelationshipState|null
      */
-    public function addSpouseRelationship(PersonState $person1, PersonState $person2)
+    public function addSpouseRelationship(PersonState $person1, PersonState $person2, Fact $fact = null, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $relationship = new Relationship();
+        $relationship->setPerson1(new ResourceReference($person1->getSelfUri()));
+        $relationship->setPerson2(new ResourceReference($person2->getSelfUri()));
+        $relationship->setKnownType(RelationshipType::COUPLE);
+        if ($fact != null) {
+            $relationship->addFact($fact);
+        }
+
+        return $this->passOptionsTo('addRelationship',array($relationship), func_get_args());
     }
 
     /**
-     * @param PersonState $person1
-     * @param PersonState $person2
+     * @param PersonState $parent
+     * @param PersonState $child
+     * @param Fact $fact
+     * @param StateTransitionOption $option,...
+     *
      * @return RelationshipState|null
      */
-    public function addParentRelationship(PersonState $person1, PersonState $person2)
+    public function addParentRelationship(PersonState $parent, PersonState $child, Fact $fact = null, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $relationship = new Relationship();
+        $relationship->setPerson1(new ResourceReference($parent->getSelfUri()));
+        $relationship->setPerson2(new ResourceReference($child->getSelfUri()));
+        $relationship->setKnownType(RelationshipType::PARENTCHILD);
+        if ($fact != null) {
+            $relationship->addFact($fact);
+        }
+
+        return $this->passOptionsTo('addRelationship', array($relationship), func_get_args());
     }
 
     /**

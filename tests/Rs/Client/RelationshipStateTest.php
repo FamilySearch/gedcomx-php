@@ -4,11 +4,8 @@
 namespace Gedcomx\Tests\Rs\Client;
 
 
-use Gedcomx\Common\ResourceReference;
-use Gedcomx\Conclusion\Relationship;
-use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 
 class RelationshipStateTest extends ApiTestCase {
@@ -24,20 +21,9 @@ class RelationshipStateTest extends ApiTestCase {
         $person1 = $this->createPerson();
         $person2 = $this->createPerson();
 
-        $oneRef = new ResourceReference(array(
-            "resource" => $person1->getSelfUri()
-        ));
-        $twoRef = new ResourceReference(array(
-            "resource" => $person2->getSelfUri()
-        ));
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
 
-        $relationship = new Relationship();
-        $relationship->setPerson1($oneRef);
-        $relationship->setPerson2($twoRef);
-
-        $relation = $this->collectionState()->addRelationship($relationship);
-
-		$this->assertTrue(true);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 	}
 
     /**
@@ -48,24 +34,10 @@ class RelationshipStateTest extends ApiTestCase {
         $this->collectionState($factory);
 
         $child = $this->createPerson();
-        $person1 = $this->createPerson();
-        $person2 = $this->createPerson();
+        $parent = $this->createPerson();
 
-        $childRef = new ResourceReference(array(
-            "resource" => $child->getSelfUri()
-        ));
-        $oneRef = new ResourceReference(array(
-            "resource" => $person1->getSelfUri()
-        ));
-        $twoRef = new ResourceReference(array(
-            "resource" => $person2->getSelfUri()
-        ));
+        $relation = $this->collectionState()->addSpouseRelationship($parent, $child);
 
-
-        $relationship = new ChildAndParentsRelationship();
-        $relationship->setFather($oneRef);
-        $relationship->setMother($twoRef);
-        $relationship->setChild($childRef);
-
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", self::$personState->getResponse(), $this->buildFailMessage(__METHOD__, self::$personState) );
     }
 } 
