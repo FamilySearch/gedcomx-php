@@ -5,7 +5,11 @@ namespace Gedcomx\Tests\Rs\Client;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Conclusion\Gender;
+use Gedcomx\Conclusion\Person;
+use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
@@ -642,5 +646,28 @@ class PersonStateTest extends ApiTestCase{
         $ftTwo = $ftOne->readPersonById($id);
         $ftThree = $ftTwo->restore();
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $ftThree->getResponse(), "Restore person failed. Returned {$ftThree->getResponse()->getStatusCode()}");
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Relationships_usecase
+     */
+    public function testPersonWithRelationships()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->collectionState()->readPersonWithRelationshipsById($this->getPersonId());
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person->getResponse(), "Restore person failed. Returned {$person->getResponse()->getStatusCode()}");
+
+        $thePerson = $person->getPerson();
+        $ftRelationships = $person->getChildAndParentsRelationships();
+        $relationships = $person->getRelationships();
+
+        $data_check = $thePerson instanceof Person
+                          && count($ftRelationships) > 0
+                          && $ftRelationships[0] instanceof ChildAndParentsRelationship
+                          && count($relationships) > 0
+                          && $relationships[0] instanceof Relationship;
+        $this->assertTrue($data_check);
     }
 }

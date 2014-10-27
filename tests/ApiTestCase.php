@@ -41,6 +41,10 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 		);
 	}
 
+    /**
+     * @param StateFactory|FamilyTreeStateFactory $factory
+     * @return \Gedcomx\Rs\Client\CollectionState|\Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
+     */
     protected function collectionState($factory = null){
         if( $factory == null ){
             if( $this->collectionState == null ){

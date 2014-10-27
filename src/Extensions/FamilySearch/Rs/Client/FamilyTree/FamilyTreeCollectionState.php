@@ -230,6 +230,7 @@
                 )
             );
             $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+            FamilySearchRequest::applyFamilySearchMediaType($request);
 
             return $this->stateFactory->createState(
                 'PersonState',
