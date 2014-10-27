@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Gedcomx;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
@@ -108,7 +109,7 @@ abstract class GedcomxApplicationState
         }
 
         //load links from the entity.
-        if (isset($this->entity)) {
+        if (isset($this->entity) && $this->entity->getLinks() != null) {
             $links = array_merge($links, $this->entity->getLinks());
         }
 
@@ -211,6 +212,16 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * @param string $name The name of the header to retrieve.
+     *
+     * @return array return a specific header for this state.
+     */
+    public function getHeader($name)
+    {
+        return $this->response->getHeader($name);
+    }
+
+    /**
      * @return string The self-URI for this state.
      */
     public function getSelfUri()
@@ -222,6 +233,20 @@ abstract class GedcomxApplicationState
         else {
             return $this->getUri();
         }
+    }
+
+    /**
+     * @return ResourceReference
+     */
+    public function getResourceReference(){
+        $args = array(
+            'resource' => $this->getSelfUri()
+        );
+        if ($this->getScope() != null) {
+           $args['resourceId'] = $this->getScope()->getId();
+        }
+
+        return new ResourceReference($args);
     }
 
     /**

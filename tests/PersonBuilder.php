@@ -18,20 +18,33 @@ use Gedcomx\Types\NameType;
 
 class PersonBuilder extends TestBuilder
 {
-    public static function buildPerson()
+    public static function buildPerson($gender)
     {
         /*
          * Can't use faker for dates. It doesn't deal well with negative timestamps.
          */
-        $gender = self::faker()->boolean() ? GenderType::FEMALE : GenderType::MALE;
-        $rnd = rand(50,200);
-        $birthDate = new \DateTime("-{$rnd} years");
-        $birthPlace = self::faker()->city() . ", " . self::faker()->state() . ", United States";
-        $rnd = rand(5,95);
-        $deathDate = new \DateTime($birthDate->format("F d, Y") . "+{$rnd}years");
+        switch ($gender) {
+            case 'male':
+                $gender = GenderType::MALE;
+                break;
+            case 'female':
+                $gender = GenderType::FEMALE;
+                break;
+            default:
+                $gender = self::faker()->boolean() ? GenderType::FEMALE : GenderType::MALE;
+        }
+
+
+        $birth = FactBuilder::birth();
+        $death = FactBuilder::death($birth);
+        $facts = array();
+        $facts[] = $birth;
+
         $living = false;
-        if ($deathDate->getTimestamp() > time()) {
+        if ($death->getDate()->getDateTime()->getTimestamp() > time()) {
             $living = true;
+        } else {
+            $facts[] = $death;
         }
 
         $person = new Person();
@@ -42,42 +55,14 @@ class PersonBuilder extends TestBuilder
         $name = self::birthName($gender);
         $person->setNames(array($name));
 
-        $facts = array();
-        $birth = new Fact(
-            array(
-                "type"  => FactType::BIRTH,
-                "date"  => new DateInfo(array(
-                        "original" => $birthDate->format("F d, Y")
-                    )),
-                "place" => new PlaceReference(array(
-                        "description" => "possibly, maybe, don't know",
-                        "original"    => $birthPlace
-                    ))
-            ));
-        $facts[] = $birth;
-
-        if (!$living) {
-            $death = new Fact(
-                array(
-                    "type"  => FactType::DEATH,
-                    "date"  => new DateInfo(array(
-                            "original" => $deathDate->format("F d, Y")
-                        )),
-                    "place" => new PlaceReference(array(
-                            "description" => "possibly, maybe, don't know",
-                            "original"    => self::faker()->city() . ", " . self::faker()->state() . ", United States"
-                        ))
-                ));
-            $facts[] = $death;
-        }
 
         $person->setFacts($facts);
 
         $display = new DisplayProperties(array(
-            "birthDate"  => $birthDate->format("d M Y"),
-            "birthPlace" => $birthPlace,
+            "birthDate"  => $birth->getDate()->getDateTime()->format("d M Y"),
+            "birthPlace" => $birth->getPlace()->getOriginal(),
             "gender"     => $gender,
-            "lifespan"   => $birthDate->format("d M Y") . " - " . ($living ? '' : $deathDate->format("d M Y")),
+            "lifespan"   => $birth->getDate()->getDateTime()->format("d M Y") . " - " . ($living ? '' : $death->getDate()->getDateTime()->format("d M Y")),
             "name"       => $name->toString()
         ));
         $person->setDisplayExtension($display);
@@ -131,35 +116,4 @@ class PersonBuilder extends TestBuilder
             )
         ));
     }
-
-    public static function militaryService()
-    {
-        $rnd = rand(50,125);
-
-        $date = new \DateTime("-{$rnd} years");
-        return new Fact(array(
-            'primary' => true,
-            'type' => FactType::MILITARYSERVICE,
-            'date' => new DateInfo(array(
-                    "original" => $date->format("F d, Y")
-                )),
-            'value' => self::faker()->sentence(6)
-        ));
-    }
-
-    public static function eagleScout()
-    {
-        $rnd = rand(50,125);
-
-        $date = new \DateTime("-{$rnd} years");
-        return new Fact(array(
-            'primary' => true,
-            'type' => "data:,Eagle%20Scout",
-            'date' => new DateInfo(array(
-                "original" => $date->format("F d, Y")
-            )),
-            'value' => self::faker()->sentence(6)
-        ));
-    }
-
 }

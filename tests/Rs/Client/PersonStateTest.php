@@ -15,6 +15,7 @@ use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\DiscussionBuilder;
+use Gedcomx\Tests\FactBuilder;
 use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
@@ -75,7 +76,7 @@ class PersonStateTest extends ApiTestCase{
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
-     * @throws \Gedcomx\Rs\Client\GedcomxApplicationException
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
     public function testCreatePersonSourceReferenceWithStateObject()
     {
@@ -108,7 +109,7 @@ class PersonStateTest extends ApiTestCase{
             $uri = self::$personState->getSelfUri();
             self::$personState = $this->collectionState()->readPerson($uri);
         }
-        $fact = PersonBuilder::militaryService();
+        $fact = FactBuilder::militaryService();
         $newState = self::$personState->addFact($fact);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse() );
@@ -489,7 +490,7 @@ class PersonStateTest extends ApiTestCase{
             $uri = self::$personState->getSelfUri();
             self::$personState = $this->collectionState()->readPerson($uri);
         }
-        $fact = PersonBuilder::eagleScout();
+        $fact = FactBuilder::eagleScout();
         $newState = self::$personState->addFact($fact);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse());

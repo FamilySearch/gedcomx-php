@@ -166,6 +166,14 @@ class DateInfo extends ExtensibleData
     {
         $this->fields = $fields;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateTime()
+    {
+        return new \DateTime($this->getFormal());
+    }
     /**
      * Returns the associative array for this DateInfo
      *

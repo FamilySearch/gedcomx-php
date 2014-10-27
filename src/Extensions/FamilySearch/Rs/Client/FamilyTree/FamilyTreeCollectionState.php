@@ -93,15 +93,15 @@
          *
          * @return ChildAndParentsRelationshipState
          */
-        public function addChildWithFatherOrMother(PersonState $child, PersonState $father = null, PersonState $mother = null, StateTransitionOption $option = null)
+        public function addChildAndParents(PersonState $child, PersonState $father = null, PersonState $mother = null, StateTransitionOption $option = null)
         {
             $rel = new ChildAndParentsRelationship();
-            $rel->setChild(new ResourceReference($child->getSelfUri()));
+            $rel->setChild($child->getResourceReference());
             if ($father != null) {
-                $rel->setFather(new ResourceReference($father->getSelfUri()));
+                $rel->setFather($father->getResourceReference());
             }
             if ($mother != null) {
-                $rel->setMother(new ResourceReference($mother->getSelfUri()));
+                $rel->setMother($mother->getResourceReference());
             }
 
             return $this->passOptionsTo('addChildAndParentsRelationship', array($rel), func_get_args());
@@ -126,7 +126,7 @@
             $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
             /** @var EntityEnclosingRequest $request */
-            $request->setBody($entity);
+            $request->setBody($entity->toJson());
 
             return $this->stateFactory->createState(
                 'ChildAndParentsRelationshipState',
@@ -173,8 +173,6 @@
         public function readDiscoveryDocument(StateTransitionOption $option = null)
         {
             $request = $this->createAuthenticatedFeedRequest(Request::GET, $this->getSelfUri());
-
-            //todo build(getSelfUri() . resolve("/.well-known/app-meta"), HttpMethod . GET);
 
             return $this->reconstruct($request,$this->passOptionsTo('invoke', array($request), func_get_args()));
         }

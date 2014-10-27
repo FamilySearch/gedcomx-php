@@ -40,7 +40,7 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
 
     protected function getScope()
     {
-        // TODO: Implement getScope() method.
+        return $this->getRelationship();
     }
 
     /**

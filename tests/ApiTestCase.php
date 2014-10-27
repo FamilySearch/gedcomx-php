@@ -79,12 +79,20 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         );
         $message .= "\nResponse:\n" . $stateObj->getResponse()->getBody();
 
+        $warnings = $stateObj->getHeader('warning');
+        if (!empty($warnings)) {
+            $message .= "Warnings:\n";
+            foreach ($warnings->values as $msg) {
+                $message .= $msg . "\n";
+            }
+        }
+
         return $message;
     }
 
-    protected  function createPerson()
+    protected  function createPerson($gender = null)
     {
-        $person = PersonBuilder::buildPerson();
+        $person = PersonBuilder::buildPerson($gender);
         return $this->collectionState()->addPerson($person);
     }
 

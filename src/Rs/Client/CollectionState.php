@@ -275,8 +275,8 @@ class CollectionState extends GedcomxApplicationState
     public function addSpouseRelationship(PersonState $person1, PersonState $person2, Fact $fact = null, StateTransitionOption $option = null)
     {
         $relationship = new Relationship();
-        $relationship->setPerson1(new ResourceReference($person1->getSelfUri()));
-        $relationship->setPerson2(new ResourceReference($person2->getSelfUri()));
+        $relationship->setPerson1($person1->getResourceReference());
+        $relationship->setPerson2($person2->getResourceReference());
         $relationship->setKnownType(RelationshipType::COUPLE);
         if ($fact != null) {
             $relationship->addFact($fact);
