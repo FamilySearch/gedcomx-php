@@ -3,11 +3,13 @@
 namespace Gedcomx\Tests;
 
 use Faker\Factory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
+
 
     /**
      * @var string
@@ -29,6 +31,11 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      * @var \Gedcomx\Rs\Client\CollectionState
      */
     private $collectionState;
+
+    /**
+     * @var string
+     */
+    private $personId = 'KWW6-H43';
 
 	public function setUp()
     {
@@ -100,7 +107,14 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         return $this->collectionState()->addPerson($person);
     }
 
-    protected  function getPerson($pid = 'KWW6-H43', array $options = array()){
+    protected function getPersonId(){
+        return $this->personId;
+    }
+
+    protected  function getPerson($pid = null, array $options = array()){
+        if ($pid == null) {
+            $pid = $this->personId;
+        }
         $link = $this->collectionState()->getLink(Rel::PERSON);
         if ($link === null || $link->getTemplate() === null) {
             return null;

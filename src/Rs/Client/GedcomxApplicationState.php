@@ -271,7 +271,7 @@ abstract class GedcomxApplicationState
      */
     public function get(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("GET", $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest(Request::GET, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
@@ -286,7 +286,7 @@ abstract class GedcomxApplicationState
      */
     public function delete(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("DELETE", $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest(Request::DELETE, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
@@ -301,7 +301,7 @@ abstract class GedcomxApplicationState
      */
     public function options(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("OPTIONS");
+        $request = $this->createAuthenticatedRequest(Request::OPTIONS, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
@@ -318,7 +318,7 @@ abstract class GedcomxApplicationState
      */
     public function put($entity, StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest("PUT");
+        $request = $this->createAuthenticatedRequest(Request::PUT, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->setHeader("Accept", $accept);
@@ -327,9 +327,33 @@ abstract class GedcomxApplicationState
         if (isset($contentType)) {
             $request->setHeader("Content-Type", $contentType);
         }
-        $request->setBody(json_encode($entity->toArray()));
+        $request->setBody($entity->toJson());
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
+
+
+    /**
+     * @param                                                  $entity
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     * @throws GedcomxApplicationException
+     */
+    public function post($entity, StateTransitionOption $option = null)
+    {
+        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $accept = $this->request->getHeader("Accept");
+        if (isset($accept)) {
+            $request->setHeader("Accept", $accept);
+        }
+        $contentType = $this->request->getHeader("Content-Type");
+        if (isset($contentType)) {
+            $request->setHeader("Content-Type", $contentType);
+        }
+        $request->setBody($entity->toJson());
+        return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
+    }
+
 
     /**
      * @param string $rel The link rel.

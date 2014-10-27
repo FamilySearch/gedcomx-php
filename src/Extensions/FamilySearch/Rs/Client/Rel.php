@@ -13,8 +13,8 @@
 		const MERGE = "merge";
 		const MERGE_MIRROR = "merge-mirror";
 		const NORMALIZED_DATE = "normalized-date";
-		const NOT_A_MATCHES = "non-matches";
-		const NOT_A_MATCH = "non-match";
+		const NON_MATCHES = "non-matches";
+		const NON_MATCH = "non-match";
 		const PERSON_MATCHES_QUERY = "person-matches-query";
 		const PORTRAIT = "portrait";
 		const PORTRAITS = "portraits";

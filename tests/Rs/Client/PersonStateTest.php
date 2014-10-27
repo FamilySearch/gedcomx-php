@@ -670,4 +670,41 @@ class PersonStateTest extends ApiTestCase{
                           && $relationships[0] instanceof Relationship;
         $this->assertTrue($data_check);
     }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Not-a-Match_Declarations_usecase
+     */
+    public function testUpdatePersonNotAMatch()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personData = PersonBuilder::buildPerson(null);
+
+        $one = $this->collectionState()->addPerson($personData)->get();
+        $two = $this->collectionState()->addPerson($personData)->get();
+
+        $nonMatch = $one->addNonMatchPerson($two->getPerson());
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $nonMatch->getResponse(), "Restore person failed. Returned {$nonMatch->getResponse()->getStatusCode()}");
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Not-a-Match_usecase
+     */
+    public function testDeletePersonNotAMatch()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personData = PersonBuilder::buildPerson(null);
+
+        $one = $this->collectionState()->addPerson($personData)->get();
+        $two = $this->collectionState()->addPerson($personData)->get();
+
+        $nonMatch = $one->addNonMatchPerson($two->getPerson());
+        $rematch = $nonMatch->removeNonMatch($two->getPerson());
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $rematch->getResponse(), "Restore person failed. Returned {$rematch->getResponse()->getStatusCode()}");
+    }
+
 }

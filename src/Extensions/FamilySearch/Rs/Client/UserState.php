@@ -27,6 +27,9 @@ class UserState extends GedcomxApplicationState{
         // TODO: Implement getScope() method.
     }
 
+    /**
+     * @return \Gedcomx\Extensions\FamilySearch\Platform\Users\User.php|null
+     */
     public function getUser(){
         if ($this->getEntity() != null && $this->getEntity()->getUsers() != null) {
             $users = $this->getEntity()->getUsers();

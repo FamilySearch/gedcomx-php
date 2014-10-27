@@ -19,6 +19,7 @@
     use Gedcomx\Rs\Client\SourceDescriptionsState;
     use Gedcomx\Rs\Client\Util\HttpStatus;
     use Guzzle\Http\Client;
+    use Guzzle\Http\Message\EntityEnclosingRequest;
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\Message\Response;
 
@@ -482,7 +483,7 @@
          */
         public function addNonMatchPerson(Person $person, StateTransitionOption $option = null)
         {
-            $link = $this->getLink(Rel::NOT_A_MATCHES);
+            $link = $this->getLink(Rel::NON_MATCHES);
             if ($link == null || $link->getHref() == null) {
                 return null;
             }
@@ -491,6 +492,9 @@
             $entity->addPerson($person);
             $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
+            /** @var EntityEnclosingRequest $request */
+            $json = $entity->toJson();
+            $request->setBody($entity->toJson());
 
             return $this->stateFactory->createState(
                 'PersonNonMatchesState',
