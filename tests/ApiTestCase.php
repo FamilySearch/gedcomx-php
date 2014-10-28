@@ -50,6 +50,8 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
     /**
      * @param StateFactory|FamilyTreeStateFactory $factory
+     *
+     * @throws \RuntimeException
      * @return \Gedcomx\Rs\Client\CollectionState|\Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
      */
     protected function collectionState($factory = null){
@@ -93,7 +95,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         $warnings = $stateObj->getHeader('warning');
         if (!empty($warnings)) {
             $message .= "Warnings:\n";
-            foreach ($warnings->values as $msg) {
+            foreach ($warnings->toArray() as $msg) {
                 $message .= $msg . "\n";
             }
         }
