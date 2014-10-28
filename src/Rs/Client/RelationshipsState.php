@@ -3,19 +3,24 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 class RelationshipsState extends GedcomxApplicationState
 {
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new RelationshipsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -53,31 +58,34 @@ class RelationshipsState extends GedcomxApplicationState
 
     /**
      * @param Relationship|Gedcomx $relationship
-     * @return RelationshipState|null
+     *
+     * @throws \RuntimeException
      */
-    public function addRelationship($relationship)
+    public function addRelationship(Relationship $relationship)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        throw new RuntimeException("GedcomX function currently not implemented in the API. Use FamilyTreeRelationshipState.");
     }
 
     /**
-     * @param PersonState $person1
-     * @param PersonState $person2
-     * @return RelationshipState|null
+     * @param Person $person1
+     * @param Person $person2
+     *
+     * @throws \RuntimeException
      */
-    public function addSpouseRelationship($person1, $person2)
+    public function addSpouseRelationship(Person $person1, Person $person2)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        throw new RuntimeException("GedcomX function currently not implemented in the API. Use FamilyTreeRelationshipState.");
     }
 
     /**
-     * @param PersonState $person1
-     * @param PersonState $person2
-     * @return RelationshipState|null
+     * @param \Gedcomx\Conclusion\Person $person1
+     * @param \Gedcomx\Conclusion\Person $person2
+     *
+     * @throws \RuntimeException
      */
-    public function addParentRelationship($person1, $person2)
+    public function addParentRelationship(Person $person1, Person $person2)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        throw new RuntimeException("GedcomX function currently not implemented in the API. Use FamilyTreeRelationshipState.");
     }
 
     public function readNextPage()

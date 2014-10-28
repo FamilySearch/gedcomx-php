@@ -580,7 +580,21 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
+     */
+    public function testDeletePerson()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson()->get();
+
+        $dState = $personState->delete();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $dState->getResponse());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_With_Preconditions_usecase
      */
     public function testDeletePersonWithPreconditions()
     {
@@ -705,6 +719,61 @@ class PersonStateTest extends ApiTestCase{
         $rematch = $nonMatch->removeNonMatch($two->getPerson());
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $rematch->getResponse(), "Restore person failed. Returned {$rematch->getResponse()->getStatusCode()}");
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Spouse_Relationship_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Preferred_Spouse_Relationship_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Spouse_Relationship_usecase
+     */
+    public function testPreferredSpouseRelationship()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $userState = $this->collectionState()->readCurrentUser();
+
+        /* First create a relationship */
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+
+        /* Set the preferred relationship */
+        $updated = $this->collectionState()->updatePreferredSpouseRelationship(
+            $userState->getUser()->getTreeUserId(),
+            $person1->getPerson()->getId(),
+            $relation
+        );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+
+        /* Read the preferred state */
+        $preferred = $this->collectionState()->readPreferredSpouseRelationship(
+            $userState->getUser()->getTreeUserId(),
+            $person1->getPerson()->getId()
+        );
+        /*
+         * readPreferredSpouseRelationship returns a '303/See Other' response which
+         * the HTTP client will follow. We'll test to make sure that the effective
+         * URL on the response contains couple-relationship which indicates we've
+         * been bounced to the preferred relationship.
+         */
+        $this->assertAttributeContains('couple-relationship', "effectiveUrl", $preferred->getResponse(), $this->buildFailMessage(__METHOD__, $preferred));
+
+        /* Now clean up */
+        $updated = $this->collectionState()->deletePreferredSpouseRelationship(
+            $userState->getUser()->getTreeUserId(),
+            $person1->getPerson()->getId()
+        );
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+
+        //todo: Delete couple relationship
+
+        $deleted = $person1->delete();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+        $deleted = $person2->delete();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+
     }
 
 }
