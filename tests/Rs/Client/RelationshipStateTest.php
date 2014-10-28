@@ -22,8 +22,6 @@ class RelationshipStateTest extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-
-
         $person1 = $this->createPerson('male')->get();
         $person2 = $this->createPerson('female')->get();
 
@@ -127,7 +125,17 @@ class RelationshipStateTest extends ApiTestCase
      */
     public function testHeadCoupleRelationship()
     {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
 
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+
+        $headers = $relation->head();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $headers->getResponse(), $this->buildFailMessage(__METHOD__, $headers));
     }
 
     /**
