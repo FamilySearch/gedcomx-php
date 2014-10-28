@@ -14,7 +14,7 @@ use Gedcomx\Tests\FactBuilder;
 class RelationshipsStateTest extends ApiTestCase {
 
 	/**
-	 * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Note_usecase
+	 * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
 	 */
 	public function testCreateCoupleRelationship()
 	{
@@ -34,7 +34,6 @@ class RelationshipsStateTest extends ApiTestCase {
         $data_check = $entity->getPerson1() instanceof ResourceReference
                           && $entity->getPerson2() instanceof ResourceReference;
         $this->assertTrue( $data_check );
-
 	}
 
     /**

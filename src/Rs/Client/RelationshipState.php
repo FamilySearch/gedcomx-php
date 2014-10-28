@@ -539,6 +539,10 @@ class RelationshipState extends GedcomxApplicationState
         );
     }
 
+    public function updateSelf(Relationship $relationship){
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SELF), func_get_args());
+    }
+
     protected function updateRelationship(Relationship $relationship, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
@@ -550,7 +554,10 @@ class RelationshipState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->setRelationships(array($relationship));
 
+        /** @var $request EntityEnclosingRequest */
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request->setBody($gx->toJson());
+
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
