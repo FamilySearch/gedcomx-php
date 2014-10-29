@@ -9,7 +9,6 @@ use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
@@ -90,7 +89,7 @@ class PersonStateTest extends ApiTestCase{
         if( self::$personState == null ){
             self::$personState = $this->createPerson();
         }
-        $source = SourceBuilder::buildSource();
+        $source = SourceBuilder::newSource();
         $sourceState = $this->collectionState()->addSourceDescription($source);
 
         $newState = self::$personState->addSourceReferenceState($sourceState);

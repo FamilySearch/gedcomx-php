@@ -10,6 +10,7 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Source\SourceReference;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -28,6 +29,25 @@ class RelationshipState extends GedcomxApplicationState
     protected function reconstruct(Request $request, Response $response)
     {
         return new RelationshipState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+    }
+
+    /*
+     * @return \Gedcomx\Conclusion\Relationship
+     */
+    protected function createEmptySelf()
+    {
+        $relationship = new Relationship();
+        $relationship->setId($this->getLocalSelfId());
+        return $relationship;
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function getLocalSelfId()
+    {
+        $me = $this->getRelationship();
+        return $me == null ? null : $me->getId();
     }
 
     protected function loadEntity()
@@ -178,7 +198,7 @@ class RelationshipState extends GedcomxApplicationState
      */
     public function updateSourceReference(SourceReference $reference, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('updateSourceReferences', array($reference), func_get_args());
+        return $this->passOptionsTo('updateSourceReferences', array(array($reference)), func_get_args());
     }
 
     /**
@@ -220,7 +240,6 @@ class RelationshipState extends GedcomxApplicationState
             $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
-
     }
 
     /**
@@ -567,25 +586,50 @@ class RelationshipState extends GedcomxApplicationState
         );
     }
 
-
-    /*
-     * @return \Gedcomx\Conclusion\Relationship
-     */
-    protected function createEmptySelf()
+    public function loadConclusions(StateTransitionOption $option = null)
     {
-        $relationship = new Relationship();
-        $relationship->setId($this->getLocalSelfId());
-        return $relationship;
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::CONCLUSIONS)), func_get_args());
     }
 
-    /**
-     * @return null|string
-     */
-    protected function getLocalSelfId()
+    public function loadSourceReferences(StateTransitionOption $option = null)
     {
-        $me = $this->getRelationship();
-        return $me == null ? null : $me->getId();
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::SOURCE_REFERENCES)), func_get_args());
     }
 
+    public function loadMediaReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::MEDIA_REFERENCES)), func_get_args());
+    }
+
+    public function loadEvidenceReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::EVIDENCE_REFERENCES)), func_get_args());
+    }
+
+    public function loadNotes(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
+    }
+
+    public function loadEmbeddedResources(array $rels, StateTransitionOption $option = null)
+    {
+        foreach ($rels as $rel) {
+            $link = $this->getLink($rel);
+            if ($this->entity != null && $link != null && $link->getHref() != null) {
+                $this->passOptionsTo('embed', array($link), func_get_args());
+            }
+        }
+        return $this;
+    }
+
+    public function loadAllEmbeddedResources(StateTransitionOption $option = null)
+    {
+        $loader = new EmbeddedLinkLoader();
+        $links = $loader->loadEmbeddedLinks($this->entity);
+        foreach ($links as $link) {
+            $this->passOptionsTo('embed', array($link), func_get_args());
+        }
+        return $this;
+    }
 
 }

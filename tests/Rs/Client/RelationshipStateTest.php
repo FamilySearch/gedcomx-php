@@ -2,11 +2,14 @@
 
 namespace Gedcomx\Tests\Rs\Client;
 
+use Gedcomx\Common\Attribution;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
+use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 
 class RelationshipStateTest extends ApiTestCase
@@ -27,7 +30,6 @@ class RelationshipStateTest extends ApiTestCase
 
         /* CREATE */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 
         /* READ */
@@ -61,6 +63,60 @@ class RelationshipStateTest extends ApiTestCase
      */
     public function testCreateCoupleRelationshipSourceReference()
     {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* Create Relationship */
+        /** @var $relation RelationshipState */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+
+        /* Create source */
+        $sourceState = $this->createSource();
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $sourceState));
+
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+        $reference->setAttribution( new Attribution( array(
+            "changeMessage" => $this->faker->sentence(6)
+        )));
+
+        /* CREATE the source reference on the relationship */
+        $relation->addSourceReference($reference);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__."(addReference)", $sourceState));
+
+        /* READ the source references back */
+        $relation->loadSourceReferences();
+        $this->assertNotEmpty($relation->getRelationship()->getSources(), "loadForRead");
+
+        /* UPDATE */
+        $newMessage = $this->faker->sentence(8);
+        $reference->setAttribution( new Attribution( array(
+            "changeMessage" => $newMessage
+        )));
+        $updated = $relation->updateSourceReference($reference);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(updateSource)", $updated));
+
+        $relation->loadSourceReferences();
+        $sources = $relation->getRelationship()->getSources();
+        $changeMessage = $sources[0]->getAttribution()->getChangeMessage();
+        $this->assertEquals($newMessage, $changeMessage, "Change message doesn't match");
+
+        /* DELETE */
+        $relation->deleteSourceReference($sources[0]);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__."(deleteSource)", $relation) );
+
+        $relation->loadSourceReferences();
+        $sources = $relation->getRelationship()->getSources();
+        $this->assertEmpty($sources, "Sources should be empty.");
+
+        $sourceState->delete();
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
 
     }
 
