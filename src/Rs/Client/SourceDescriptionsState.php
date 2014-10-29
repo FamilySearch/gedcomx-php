@@ -4,18 +4,22 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use RuntimeException;
 
 class SourceDescriptionsState extends GedcomxApplicationState
 {
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new SourceDescriptionsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -32,20 +36,33 @@ class SourceDescriptionsState extends GedcomxApplicationState
     }
 
     /**
-     * @return CollectionState|null
+     * @link https://familysearch.org/developers/docs/api/sources/Source_Descriptions_resource
+     *
+     * @throws \RuntimeException
      */
     public function readCollection()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        throw new RuntimeException("Function currently not implemented in API.");
     }
 
     /**
-     * @param SourceDescription|Gedcomx $description
+     * @param \Gedcomx\Source\SourceDescription $source
+     * @param Options\StateTransitionOption     $option
+     *
      * @return SourceDescriptionState|null
      */
-    public function addSourceDescription($description)
+    public function addSourceDescription(SourceDescription $source, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $entity = new Gedcomx();
+        $entity->addSourceDescription($source);
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri());
+        return $this->stateFactory->createState(
+            'SourceDescriptionState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     public function readNextPage()

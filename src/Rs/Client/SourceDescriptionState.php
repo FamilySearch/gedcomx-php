@@ -8,6 +8,7 @@ use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
 use Guzzle\Http\Client;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
@@ -33,11 +34,11 @@ class SourceDescriptionState extends GedcomxApplicationState
 
     protected function getScope()
     {
-        return $this->getEntity();
+        return $this->getSourceDescription();
     }
 
     /**
-     * @return SourceDescriptionState|null
+     * @return SourceDescription|null
      */
     public function getSourceDescription()
     {
@@ -57,11 +58,13 @@ class SourceDescriptionState extends GedcomxApplicationState
      *
      * @return SourceDescriptionState
      */
-    public function update($description, StateTransitionOption $option = null)
+    public function update(SourceDescription $description, StateTransitionOption $option = null)
     {
         $entity = new Gedcomx();
         $entity->setSourceDescriptions(array($description));
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $entity->getSelfUri());
+        /** @var EntityEnclosingRequest $request */
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri());
+        $request->setBody($entity->toJson());
         return $this->stateFactory->createState(
             'SourceDescriptionState',
             $this->client,

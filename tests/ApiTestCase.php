@@ -133,7 +133,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
     }
 
     protected function createSource(){
-        $source = SourceBuilder::buildSource();
+        $source = SourceBuilder::newSource();
         $link = $this->collectionState()->getLink(Rel::SOURCE_DESCRIPTIONS);
         if ($link === null || $link->getHref() === null) {
             return null;
