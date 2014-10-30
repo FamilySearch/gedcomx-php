@@ -207,7 +207,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadConclusions(StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::CONCLUSIONS), func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::CONCLUSIONS)), func_get_args());
     }
 
     /**
@@ -227,7 +227,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadMediaReferences(StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::MEDIA_REFERENCES), func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::MEDIA_REFERENCES)), func_get_args());
     }
 
     /**
@@ -237,7 +237,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadEvidenceReferences(StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::EVIDENCE_REFERENCES), func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::EVIDENCE_REFERENCES)), func_get_args());
     }
 
     /**
@@ -247,7 +247,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadNotes(StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::NOTES), func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
     }
 
     /**
