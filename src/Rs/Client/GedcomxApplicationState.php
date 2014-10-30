@@ -727,13 +727,16 @@ abstract class GedcomxApplicationState
     protected function passOptionsTo( $functionName, array $args, array $passed_args, $scope = null ){
         $func_args = array_merge($args, $this->findTransitionOptions($passed_args));
         if( $scope == null ){
-            $scope = 'static';
+            $func = 'static::' . $functionName;
+        } elseif (is_string($scope)) {
+            $func = $scope . "::" . $functionName;
+        } else {
+            $func = array($scope, $functionName);
         }
         return call_user_func_array(
-            $scope . '::' . $functionName,
+            $func,
             $func_args
         );
-
     }
 
     /**

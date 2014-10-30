@@ -8,13 +8,15 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\HasNotes;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Records\Field;
+use Gedcomx\Records\HasFields;
 
 /**
  * A relationship between two or more persons.
  */
-class Relationship extends Subject
+class Relationship extends Subject implements HasFacts, HasNotes, HasFields
 {
     /**
      * The type of this relationship.
@@ -174,6 +176,30 @@ class Relationship extends Subject
         }
 
         $this->facts[] = $fact;
+    }
+
+    /**
+     * Return a fact of a specific type.
+     * @param string Fact type
+     *
+     * @return Fact[]|Fact|null
+     */
+    public function getFactsOfType($type)
+    {
+        $facts = array();
+        foreach ($this->facts as $f) {
+            if ($f->getType() == $type) {
+                $facts[] = $f;
+            }
+        }
+
+        if (empty($facts)) {
+            return null;
+        } elseif (count($facts) == 1) {
+            return $facts[0];
+        } else {
+            return $facts;
+        }
     }
 
     /**

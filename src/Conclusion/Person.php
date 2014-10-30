@@ -195,6 +195,31 @@ class Person extends Subject implements HasFacts, HasFields
     {
         $this->names = $names;
     }
+
+    /**
+     * Return a fact of a specific type.
+     * @param string Fact type
+     *
+     * @return Fact[]|Fact|null
+     */
+    public function getFactsOfType($type)
+    {
+        $facts = array();
+        foreach ($this->facts as $f) {
+            if ($f->getType() == $type) {
+                $facts[] = $f;
+            }
+        }
+
+        if (empty($facts)) {
+            return null;
+        } elseif (count($facts) == 1) {
+            return $facts[0];
+        } else {
+            return $facts;
+        }
+    }
+
     /**
      * The fact conclusions for the person.
      *

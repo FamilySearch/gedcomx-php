@@ -112,4 +112,23 @@ class FactBuilder extends TestBuilder {
         ));
     }
 
+    /**
+     * @param \DateTime $birthdate
+     *
+     * @return Fact
+     */
+    public static function marriage(\DateTime $birthdate)
+    {
+        $rnd = rand(18,40);
+        $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
+
+        return new Fact(array(
+            'primary' => true,
+            'type' => FactType::MARRIAGE,
+            'date' => new DateInfo(array(
+                    "original" => $date->format("F d, Y")
+                ))
+        ));
+    }
+
 }
