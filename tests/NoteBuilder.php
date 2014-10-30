@@ -8,18 +8,8 @@ use Faker\Factory;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 
-class NoteBuilder {
-
-    private static $faker;
-
-    private static function faker(){
-        if( self::$faker == null ){
-            self::$faker = Factory::create();
-        }
-
-        return self::$faker;
-    }
-
+class NoteBuilder extends TestBuilder
+{
     /**
      * @return \Gedcomx\Common\Note
      */

@@ -98,7 +98,7 @@ class RelationshipState extends GedcomxApplicationState
     {
         $relationship = $this->createEmptySelf();
         $relationship->setFacts($facts);
-        return $this->passOptionsTo('updateConclusions', array($relationship), func_get_args());
+        return $this->passOptionsTo('updateRelationship', array($relationship, REL::CONCLUSIONS), func_get_args());
     }
 
     /**
@@ -122,7 +122,7 @@ class RelationshipState extends GedcomxApplicationState
     {
         $relationship = $this->createEmptySelf();
         $relationship->setFacts($facts);
-        return $this->passOptionsTo('updateConclusions', array($relationship), func_get_args());
+        return $this->passOptionsTo('updateRelationship', array($relationship, REL::CONCLUSIONS), func_get_args());
     }
 
     /**
