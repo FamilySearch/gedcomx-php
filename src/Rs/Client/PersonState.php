@@ -19,7 +19,9 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Types;
+use Gedcomx\Types\RelationshipType;
 use Guzzle\Http\Client;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
@@ -83,7 +85,7 @@ class PersonState extends GedcomxApplicationState
             $relationships = array();
         }
         foreach( $relationships as $idx => $r ){
-            if ($r->getKnownType() != RelationshipType::Couple) {
+            if ($r->getKnownType() != RelationshipType::COUPLE) {
                 unset($relationships[$idx]);
             }
         }
@@ -97,7 +99,7 @@ class PersonState extends GedcomxApplicationState
             $relationships = array();
         }
         foreach( $relationships as $idx => $r ){
-            if ($r->getKnownType() != RelationshipType::ParentChild || !refersToMe($r->getPerson1())) {
+            if ($r->getKnownType() != RelationshipType::PARENTCHILD || !$this->refersToMe($r->getPerson1())) {
                 unset($relationships[$idx]);
             }
         }
@@ -111,7 +113,7 @@ class PersonState extends GedcomxApplicationState
             $relationships = array();
         }
         foreach( $relationships as $idx => $r ){
-            if ($r->getKnownType() != RelationshipType::Couple) {
+            if ($r->getKnownType() != RelationshipType::COUPLE) {
                 unset($relationships[$idx]);
             }
         }
@@ -125,7 +127,7 @@ class PersonState extends GedcomxApplicationState
      * @return bool
      */
     protected function refersToMe(ResourceReference $ref) {
-        return $ref != null && $ref->getResource() != null && $ref->getResource().toString() == "#" . $this->getLocalSelfId();
+        return $ref != null && $ref->getResource() != null && $ref->getResource() == "#" . $this->getLocalSelfId();
     }
 
     /**
@@ -135,7 +137,19 @@ class PersonState extends GedcomxApplicationState
      */
     public function readCollection(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::COLLECTION);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'CollectionState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
@@ -178,7 +192,12 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadAllEmbeddedResources(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $loader = new EmbeddedLinkLoader();
+        $links = $loader->loadEmbeddedLinks($this->entity);
+        foreach ($links as $link) {
+            $this->passOptionsTo('embed', array($link), func_get_args());
+        }
+        return $this;
     }
 
     /**
@@ -188,7 +207,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadConclusions(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::CONCLUSIONS), func_get_args());
     }
 
     /**
@@ -208,7 +227,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadMediaReferences(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::MEDIA_REFERENCES), func_get_args());
     }
 
     /**
@@ -218,7 +237,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadEvidenceReferences(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::EVIDENCE_REFERENCES), func_get_args());
     }
 
     /**
@@ -228,10 +247,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function loadNotes(StateTransitionOption $option = null)
     {
-        $args = array(
-            array(Rel::NOTES),
-        );
-        return $this->passOptionsTo('loadEmbeddedResources', $args, func_get_args());
+        return $this->passOptionsTo('loadEmbeddedResources', array(Rel::NOTES), func_get_args());
     }
 
     /**
@@ -331,6 +347,7 @@ class PersonState extends GedcomxApplicationState
 
         $gx = new Gedcomx();
         $gx->addPerson($person);
+        /** @var EntityEnclosingRequest $request */
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri() );
         $request->setBody($gx->toJson());
         return $this->stateFactory->createState(
@@ -518,7 +535,7 @@ class PersonState extends GedcomxApplicationState
         if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
             $target = $conclusionsLink->getHref();
         }
-
+        /** @var EntityEnclosingRequest $request */
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
         $request->setBody($gx->toJson());
         return $this->stateFactory->createState(
@@ -608,7 +625,7 @@ class PersonState extends GedcomxApplicationState
         if($source instanceof Person){
            $person = $source;
         } else {
-            $person = createEmptySelf();
+            $person = $this->createEmptySelf();
             $person->setSources($source);
         }
         $target = $this->getSelfUri();
@@ -619,6 +636,7 @@ class PersonState extends GedcomxApplicationState
 
         $gedcom = new Gedcomx();
         $gedcom->setPersons(array($person));
+        /** @var EntityEnclosingRequest $request */
         $request = $this->createAuthenticatedGedcomxRequest("POST", $target);
         $request->setBody( $gedcom->toJson() );
 
@@ -831,6 +849,7 @@ class PersonState extends GedcomxApplicationState
 
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
+        /** @var EntityEnclosingRequest $request */
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
         $request->setBody($gx->toJson());
 
@@ -869,6 +888,26 @@ class PersonState extends GedcomxApplicationState
             $this->accessToken
         );
     }
+
+    public function readRelationship(Relationship $relationship, StateTransitionOption $option = null)
+    {
+        $link = $relationship->getLink(Rel::RELATIONSHIP);
+        $link = $link == null ? $relationship->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+
+        return $this->stateFactory->createState(
+            'RelationshipState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
 
     /**
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
@@ -984,14 +1023,21 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\PersonState                   $person
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
+     * @throws Exception\GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addSpouse(Person $person, StateTransitionOption $option = null)
+    public function addSpouse(PersonState $person, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $collection = $this->readCollection();
+        if ($collection == null || $collection->hasError()) {
+            throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
+        }
+
+        return $this->passOptionsTo('addSpouseRelationship', array($this,$person), func_get_args(), $collection);
+        //$collection->addSpouseRelationship($this, $person, options);
     }
 
     /**
