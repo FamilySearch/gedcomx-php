@@ -70,7 +70,10 @@ abstract class GedcomxApplicationState
 
     protected function loadEntityConditionally()
     {
-        if ($this->request->getMethod() != 'HEAD' && $this->response->getStatusCode() == HttpStatus::OK) {
+        if ($this->request->getMethod() != 'HEAD'
+                && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
+                || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
+        ) {
             return $this->loadEntity();
         }
         else {

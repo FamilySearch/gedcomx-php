@@ -3,6 +3,7 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\RelationshipState;
 use Guzzle\Http\Message\Request;

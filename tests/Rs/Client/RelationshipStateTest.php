@@ -422,10 +422,44 @@ class RelationshipStateTest extends ApiTestCase
     }
 
     /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Couple_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Couple_Relationship_usecase
      */
-    public function testRestoreCoupleRelationship()
+    public function testDeleteAndRestoreCoupleRelationship()
     {
-        //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* CREATE */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        $relation = $relation->get();
+
+        $relationship = new Relationship(array(
+            "links" => array(
+                array(
+                    "rel" => 'relationship',
+                    'href' => "https://sandbox.familysearch.org/platform/tree/couple-relationships/" . $relation->getRelationship()->getId()
+                )
+            )
+        ));
+
+        /* DELETE */
+        $deleted = $relation->delete();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), "Check deleted success. Returned {$deleted->getResponse()->getStatusCode()}");
+
+        $missing = $person1->readRelationship($relationship);
+        $this->assertAttributeEquals(HttpStatus::GONE, "statusCode", $missing->getResponse(), "Read deleted person failed. Returned {$missing->getResponse()->getStatusCode()}");
+
+        /* RESTORE */
+        $restored = $missing->restore();
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $restored->getResponse(), "Restore person failed. Returned {$restored->getResponse()->getStatusCode()}");
+
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
     }
 }
