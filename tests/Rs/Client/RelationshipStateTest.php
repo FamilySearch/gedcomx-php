@@ -14,6 +14,7 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\FactBuilder;
+use Gedcomx\Tests\NoteBuilder;
 use Gedcomx\Types\FactType;
 
 class RelationshipStateTest extends ApiTestCase
@@ -315,7 +316,20 @@ class RelationshipStateTest extends ApiTestCase
      */
     public function testCreateCoupleRelationshipNote()
     {
-        //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* Create Relationship */
+        /** @var $relation RelationshipState */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+
+        $note = NoteBuilder::createNote();
+        $updated = $relation->addNote($note);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $updated));
     }
 
     /**
@@ -323,7 +337,49 @@ class RelationshipStateTest extends ApiTestCase
      */
     public function testReadCoupleRelationshipNotes()
     {
-        //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* Create Relationship */
+        /** @var $relation RelationshipState */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+
+        $note = NoteBuilder::createNote();
+        $updated = $relation->addNote($note);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $updated));
+
+        $relation->loadNotes();
+        $this->assertNotEmpty($relation->getRelationship()->getNotes());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Couple_Relationship_Note_resource
+     */
+    public function testReadCoupleRelationshipNote()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* Create Relationship */
+        /** @var $relation RelationshipState */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+
+        $note = NoteBuilder::createNote();
+        $updated = $relation->addNote($note);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $updated));
+
+        $relation->loadNotes();
+        $notes = $relation->getRelationship()->getNotes();
+        $noted = $relation->readNote($notes[0]);
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
     }
 
     /**
