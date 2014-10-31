@@ -254,26 +254,26 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
     {
         if (isset($o['confidence'])) {
             $this->confidence = $o["confidence"];
-            unset($o['notes']);
+            unset($o['confidence']);
         }
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
-            unset($o['notes']);
+            unset($o['lang']);
         }
         if (isset($o['attribution'])) {
             $this->attribution = new Attribution($o["attribution"]);
-            unset($o['notes']);
+            unset($o['attribution']);
         }
         $this->sources = array();
         if (isset($o['sources'])) {
             foreach ($o['sources'] as $i => $x) {
                 $this->sources[$i] = new SourceReference($x);
             }
-            unset($o['notes']);
+            unset($o['sources']);
         }
         if (isset($o['analysis'])) {
             $this->analysis = new ResourceReference($o["analysis"]);
-            unset($o['notes']);
+            unset($o['analysis']);
         }
         $this->notes = array();
         if (isset($o['notes'])) {

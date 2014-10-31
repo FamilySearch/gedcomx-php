@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
+use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Subject;
@@ -357,5 +358,19 @@ class ChildAndParentsRelationship extends Subject
                 $writer->endElement();
             }
         }
+    }
+
+    public function embed(ExtensibleData $relationship)
+    {
+        if ($relationship->motherFacts != null) {
+            $this->motherFacts = $this->motherFacts == null ? array() : $this->motherFacts;
+            $this->motherFacts . addAll($relationship->motherFacts);
+        }
+        if ($relationship->fatherFacts != null) {
+            $this->fatherFacts = $this->fatherFacts == null ? array() : $this->fatherFacts;
+            $this->fatherFacts . addAll($relationship->fatherFacts);
+        }
+        parent::embed($relationship);
+
     }
 }

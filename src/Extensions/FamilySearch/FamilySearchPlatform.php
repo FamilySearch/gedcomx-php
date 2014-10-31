@@ -9,8 +9,12 @@
 
 namespace Gedcomx\Extensions\FamilySearch;
 
+use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\MergeAnalysis;
+use Gedcomx\Extensions\FamilySearch\Platform\Users\User;
 use Gedcomx\Gedcomx;
 
 /**
@@ -157,6 +161,21 @@ class FamilySearchPlatform extends Gedcomx
     {
         $this->discussions = $discussions;
     }
+
+    /**
+     * Add a user to the data set.
+     *
+     * @param Platform\Users\User $user The user to be added.
+     */
+    public function addUser(User $user)
+    {
+        if ($user != null) {
+            if ($this->users == null)
+                $this->users = array();
+            $users[] = $user;
+        }
+    }
+
     /**
      * The users included in this genealogical data set.
      *
@@ -176,6 +195,21 @@ class FamilySearchPlatform extends Gedcomx
     {
         $this->users = $users;
     }
+
+    /**
+     * Add a merge to the data set.
+     *
+     * @param Merge $merge The user to be added.
+     */
+    public function addMerge(Merge $merge)
+    {
+        if ($merge != null) {
+            if ($this->merges == null)
+                $this->merges = array();
+            $this->merges[] = $merge;
+        }
+    }
+
     /**
      * The merges for this data set.
      *
@@ -195,6 +229,21 @@ class FamilySearchPlatform extends Gedcomx
     {
         $this->merges = $merges;
     }
+
+    /**
+     * Add a merge analysis to the data set.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\MergeAnalysis $mergeAnalysis The user to be added.
+     */
+    public function addMergeAnalysis(MergeAnalysis $mergeAnalysis)
+    {
+        if ($mergeAnalysis != null) {
+            if ($this->mergeAnalyses == null)
+                $this->mergeAnalyses = array();
+            $this->mergeAnalyses[] = $mergeAnalysis;
+        }
+    }
+
     /**
      * The merge analysis results for this data set.
      *
@@ -482,5 +531,57 @@ class FamilySearchPlatform extends Gedcomx
                 $writer->endElement();
             }
         }
+    }
+
+    /**
+     * Merges given data with current object
+     *
+     * @param FamilySearchPlatform|ExtensibleData $gedcomx Assumes Gedcomx\Gedcomx or a subclass
+     */
+    public function embed(ExtensibleData $gedcomx)
+    {
+        $childRelationships = $gedcomx->getChildAndParentsRelationships();
+        if ($childRelationships != null) {
+            foreach ($childRelationships as $chr) {
+                $found = false;
+                if ($chr->getId() != null) {
+                    if ($this->getChildAndParentsRelationships() != null) {
+                        foreach ($this->getChildAndParentsRelationships() as $target) {
+                            if ($chr->getId() == $target->getId()) {
+                                $target->embed($chr);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!$found) {
+                    $this->addChildAndParentsRelationship($chr);
+                }
+            }
+        }
+
+        $discussions = $gedcomx->getDiscussions();
+        if ($discussions != null) {
+            foreach ($discussions as $d) {
+                $found = false;
+                if ($d->getId() != null) {
+                    if ($this->getDiscussions() != null) {
+                        foreach ($this->getDiscussions() as $target) {
+                            if ($d->getId() == $target->getId()) {
+                                $target->embed($d);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!$found) {
+                    $this->addDiscussion($d);
+                }
+            }
+        }
+
+        parent::embed($gedcomx);
     }
 }

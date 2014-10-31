@@ -693,7 +693,8 @@ abstract class GedcomxApplicationState
             $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
             if ($lastEmbeddedResponse->getStatusCode() == 200) {
                 $json = json_decode($lastEmbeddedResponse->getBody(),true);
-                $this->entity->embed(new Gedcomx($json));
+                $entityClass = get_class($this->entity);
+                $this->entity->embed(new $entityClass($json));
             }
             else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
                 throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);

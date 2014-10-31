@@ -7,9 +7,9 @@ use Gedcomx\Common\Note;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Conclusion;
 use Gedcomx\Conclusion\Fact;
-use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Links\Link;
@@ -23,7 +23,7 @@ use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class ChildAndParentsRelationshipState extends GedcomxApplicationState implements PreferredRelationshipState
+class ChildAndParentsRelationshipState extends FamilySearchCollectionState implements PreferredRelationshipState
 {
 
     protected function reconstruct(Request $request, Response $response)
@@ -220,7 +220,7 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
         foreach ($rels as $rel) {
             $link = $this->getLink($rel);
             if ($this->entity != null && $link != null && $link->getHref() != null) {
-                $this->passOptionsTo('embed', array($link, $this->entity), func_get_args());
+                $this->passOptionsTo('embed', array($link), func_get_args());
             }
         }
         return $this;
@@ -957,13 +957,15 @@ class ChildAndParentsRelationshipState extends GedcomxApplicationState implement
     }
 
     /**
-     * @param Relationship $relationship
-     * @param string $rel
-     * @param StateTransitionOption $option
+     * Update a relationship passing in a Rel link to specify what needs to be updated.
+     *
+     * @param ChildAndParentsRelationship $relationship
+     * @param string                      $rel
+     * @param StateTransitionOption       $option
      *
      * @return ChildAndParentsRelationshipState
      */
-    protected function updateRelationship(Relationship $relationship, $rel, StateTransitionOption $option = null)
+    protected function updateRelationship(ChildAndParentsRelationship $relationship, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
         $link = $this->getLink($rel);

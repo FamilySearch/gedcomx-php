@@ -7,7 +7,8 @@
 	use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
-	use Gedcomx\Rs\Client\CollectionState;
+    use Gedcomx\Links\Link;
+    use Gedcomx\Rs\Client\CollectionState;
 	use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 	use Gedcomx\Rs\Client\Options\StateTransitionOption;
 	use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
@@ -245,4 +246,28 @@
 				$this->accessToken
 			);
 		}
+
+        /**
+         * @param \Gedcomx\Links\Link                              $link
+         * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+         *
+         * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+         */
+        protected function embed(Link $link, StateTransitionOption $option = null ){
+            if ($link->getHref() != null) {
+                $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+                $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
+                if ($lastEmbeddedResponse->getStatusCode() == 200) {
+                    $json = json_decode($lastEmbeddedResponse->getBody(),true);
+                    $this->entity->embed(new FamilySearchPlatform($json));
+                }
+                else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
+                    throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);
+                }
+                else {
+                    //todo: log a warning? throw an error?
+                }
+            }
+
+        }
 	}
