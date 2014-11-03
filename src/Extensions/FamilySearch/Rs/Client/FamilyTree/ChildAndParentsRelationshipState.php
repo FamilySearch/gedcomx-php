@@ -31,13 +31,6 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         return new ChildAndParentsRelationshipState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
-    protected function loadEntity()
-    {
-        $json = json_decode($this->response->getBody(), true);
-
-        return new FamilySearchPlatform($json);
-    }
-
     protected function getScope()
     {
         return $this->getRelationship();

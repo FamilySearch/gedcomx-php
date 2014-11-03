@@ -16,7 +16,7 @@ use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class DiscussionState extends GedcomxApplicationState
+class DiscussionState extends FamilySearchCollectionState
 {
 
     public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
@@ -27,18 +27,6 @@ class DiscussionState extends GedcomxApplicationState
     protected function reconstruct(Request $request, Response $response)
     {
         return new DiscussionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
-    }
-
-    /**
-     * @return FamilySearchPlatform
-     */
-    protected function loadEntity()
-    {
-        if ($this->response->getStatusCode() == HttpStatus::OK) {
-            return $this->getEntity();
-        }
-
-        return null;
     }
 
     protected function getScope()
@@ -107,23 +95,9 @@ class DiscussionState extends GedcomxApplicationState
         return $request;
     }
 
-    public function update(Discussion $discussion, StateTransitionOption $option = null)
+    public function updateDiscussion(Discussion $discussion, StateTransitionOption $option = null)
     {
-        $fsp = new FamilySearchPlatform();
-        $fsp->addDiscussion($discussion);
-
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($fsp->toJson());
-
-        return $this->stateFactory->createState(
-            'DiscussionState',
-            $this->client,
-            $request,
-            $this->passOptionsTo('invoke', array($request), func_get_args()),
-            $this->accessToken
-        );
+        return $this->passOptionsTo('update', array($discussion, Rel::SELF), func_get_args());
     }
 
     /**
@@ -157,7 +131,7 @@ class DiscussionState extends GedcomxApplicationState
     {
         $discussion = $this->createEmptySelf();
         $discussion->setComments($comments);
-        return $this->passOptionsTo('updateDiscussion', array($discussion), func_get_args());
+        return $this->passOptionsTo('update', array($discussion, Rel::COMMENTS), func_get_args());
     }
 
     /**
@@ -179,25 +153,28 @@ class DiscussionState extends GedcomxApplicationState
     {
         $discussion = $this->createEmptySelf();
         $discussion->setComments($comments);
-        return $this->passOptionsTo('updateDiscussion', array($discussion), func_get_args());
+        return $this->passOptionsTo('update', array($discussion,Rel::COMMENTS), func_get_args());
     }
 
     /**
      * @param Discussion $discussion
+     * @param string $rel
      * @param StateTransitionOption $option
      * @return DiscussionState
      */
-    protected function updateDiscusson(Discussion $discussion, StateTransitionOption $option = null)
+    protected function update(Discussion $discussion, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
-        $link = $this->getLink(Rel::COMMENTS);
+        $link = $this->getLink($rel);
         if ($link != null && $link->getHref() != null) {
             $target = $link->getHref();
         }
 
-        $gx = new FamilySearchPlatform();
-        $gx->setDiscussions(array($discussion));
+        $fsp = new FamilySearchPlatform();
+        $fsp->setDiscussions(array($discussion));
         $request = $this->createAuthenticatedRequest(Request::POST, $target);
+        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request->setBody($fsp->toJson());
         return $this->stateFactory->createState(
             'DiscussionState',
             $this->client,

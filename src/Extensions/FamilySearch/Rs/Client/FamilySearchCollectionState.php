@@ -262,7 +262,7 @@
                     $this->entity->embed(new FamilySearchPlatform($json));
                 }
                 else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
-                    throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);
+                    throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse->getStatusCode(), $lastEmbeddedRequest->getUrl()), $lastEmbeddedResponse);
                 }
                 else {
                     //todo: log a warning? throw an error?
