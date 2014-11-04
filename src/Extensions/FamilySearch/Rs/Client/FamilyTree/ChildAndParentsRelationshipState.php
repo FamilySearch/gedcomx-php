@@ -14,7 +14,6 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
-use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\SourceDescriptionState;
@@ -179,7 +178,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
 
     /**
      * @param string $method
-     * @param Link $link
+     * @param Link   $link
      *
      * @return Request
      */
@@ -203,8 +202,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $rels
-     * @param StateTransitionOption $option
+     * @param array                 $rels
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState|null
      */
@@ -289,8 +288,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Fact $fact
-     * @param StateTransitionOption $option
+     * @param Fact                  $fact
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -300,8 +299,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $facts
-     * @param StateTransitionOption $option
+     * @param array                                            $facts
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -313,8 +312,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Fact $fact
-     * @param StateTransitionOption $option
+     * @param \Gedcomx\Conclusion\Fact                         $fact
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -324,8 +323,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $facts
-     * @param StateTransitionOption $option
+     * @param array                 $facts
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -337,8 +336,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Fact $fact
-     * @param StateTransitionOption $option
+     * @param Fact                  $fact
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -348,8 +347,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $facts
-     * @param StateTransitionOption $option
+     * @param array                 $facts
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -361,8 +360,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Fact $fact
-     * @param StateTransitionOption $option
+     * @param Fact                  $fact
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -372,8 +371,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $facts
-     * @param StateTransitionOption $option
+     * @param array                 $facts
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -385,8 +384,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Fact $fact
-     * @param StateTransitionOption $option
+     * @param Fact                  $fact
+     * @param StateTransitionOption $option,...
      *
      * @return mixed
      * @throws GedcomxApplicationException
@@ -411,7 +410,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
 
     /**
      * @param SourceDescriptionState $source
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption  $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -423,8 +422,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -434,8 +433,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -443,12 +442,12 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     {
         $relationship = $this->createEmptySelf();
         $relationship->setSources($refs);
-        return $this->passOptionsTo('updateSourceReferences', array($relationship), func_get_args());
+        return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SOURCE_REFERENCES), func_get_args());
     }
 
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -458,8 +457,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -471,8 +470,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
@@ -496,10 +495,9 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         );
     }
 
-
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -509,8 +507,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -522,8 +520,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -533,8 +531,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -546,8 +544,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param SourceReference $reference
-     * @param StateTransitionOption $option
+     * @param SourceReference       $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
@@ -572,8 +570,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param EvidenceReference $reference
-     * @param StateTransitionOption $option
+     * @param EvidenceReference     $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -583,8 +581,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -596,8 +594,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param EvidenceReference $reference
-     * @param StateTransitionOption $option
+     * @param EvidenceReference     $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -607,8 +605,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $refs
-     * @param StateTransitionOption $option
+     * @param array                 $refs
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -620,8 +618,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param EvidenceReference $reference
-     * @param StateTransitionOption $option
+     * @param EvidenceReference     $reference
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
@@ -646,8 +644,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Note $note
-     * @param StateTransitionOption $option
+     * @param Note                  $note
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
@@ -670,8 +668,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Note $note
-     * @param StateTransitionOption $option
+     * @param Note                  $note
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -681,8 +679,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $notes
-     * @param StateTransitionOption $option
+     * @param array                 $notes
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -694,8 +692,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Note $note
-     * @param StateTransitionOption $option
+     * @param Note                  $note
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -705,8 +703,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param array $notes
-     * @param StateTransitionOption $option
+     * @param array                 $notes
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -718,8 +716,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param Note $note
-     * @param StateTransitionOption $option
+     * @param Note                  $note
+     * @param StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      * @throws GedcomxApplicationException
@@ -743,7 +741,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return ChangeHistoryState|null
      */
@@ -765,7 +763,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -792,7 +790,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return PersonState|null
      */
@@ -819,26 +817,26 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @param PersonState $father
-     * @param StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\PersonState                   $father
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
      */
-    public function updateFatherWithState(PersonState $father, StateTransitionOption $option = null)
+    public function updateFatherWithPersonState(PersonState $father, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('updateFather', array($father->getSelfUri()), func_get_args());
+        return $this->passOptionsTo('updateFather', array($father->getResourceReference()), func_get_args());
     }
 
     /**
-     * @param string                $fatherId
-     * @param StateTransitionOption $option
-     * 
-     * @return ChildAndParentsRelationshipState
+     * @param \Gedcomx\Common\ResourceReference                $father
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState
      */
-    public function updateFather($fatherId, StateTransitionOption $option = null)
+    public function updateFather(ResourceReference $father, StateTransitionOption $option = null)
     {
         $relationship = $this->createEmptySelf();
-        $relationship->setFather(new ResourceReference($fatherId));
+        $relationship->setFather($father);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
         $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
@@ -892,15 +890,27 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         );
     }
 
-    public function updateMotherWithState(PersonState $mother, StateTransitionOption $option = null)
+    /**
+     * @param \Gedcomx\Rs\Client\PersonState                   $mother
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return ChildAndParentsRelationshipState
+     */
+    public function updateMotherWithPersonState(PersonState $mother, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('updateMother', array($mother->getSelfUri(), func_get_args()));
+        return $this->passOptionsTo('updateMother', array($mother->getResourceReference()), func_get_args());
     }
 
-    public function updateMother($motherId, StateTransitionOption $option = null)
+    /**
+     * @param \Gedcomx\Common\ResourceReference                $mother
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState
+     */
+    public function updateMother(ResourceReference $mother, StateTransitionOption $option = null)
     {
         $relationship = $this->createEmptySelf();
-        $relationship->setMother(new ResourceReference($motherId));
+        $relationship->setMother($mother);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
         $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
@@ -916,6 +926,11 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         );
     }
 
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return ChildAndParentsRelationshipState|null
+     */
     public function deleteMother(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::MOTHER_ROLE);
@@ -932,6 +947,11 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             $this->accessToken);
     }
 
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return ChildAndParentsRelationshipState|null
+     */
     public function restore(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::RESTORE);
@@ -952,9 +972,9 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Update a relationship passing in a Rel link to specify what needs to be updated.
      *
-     * @param ChildAndParentsRelationship $relationship
-     * @param string                      $rel
-     * @param StateTransitionOption       $option
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship $relationship
+     * @param string                                                                     $rel
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option
      *
      * @return ChildAndParentsRelationshipState
      */
