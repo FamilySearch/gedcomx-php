@@ -58,9 +58,7 @@ class PersonStateTest extends ApiTestCase{
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson()->get();
-        }
+        $personState = $this->createPerson()->get();
 
         $sourceState = $this->createSource();
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
@@ -70,7 +68,7 @@ class PersonStateTest extends ApiTestCase{
         $reference->setAttribution( new Attribution( array(
             "changeMessage" => $this->faker->sentence(6)
         )));
-        $newState = self::$personState->addSourceReferenceObj($reference);
+        $newState = $personState->addSourceReferenceObj($reference);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
         /*
          * todo: implement test for PersonState::addSourceReferenceRecord
@@ -207,11 +205,10 @@ class PersonStateTest extends ApiTestCase{
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        self::$personState
-            ->loadSourceReferences();
+        $personState = $this->getPerson();
+        $personState->loadSourceReferences();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertNotEmpty($personState->getEntity()->getSourceDescriptions());
     }
 
     /**
