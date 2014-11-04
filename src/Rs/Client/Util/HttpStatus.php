@@ -64,7 +64,7 @@
 		const NOT_EXTENDED = 510;
 		const NETWORK_AUTHENTICATION_REQUIRED = 511;
 
-		private static $statusTexts = array(
+		private static $statusText = array(
 			100 => 'Continue',
 			101 => 'Switching Protocols',
 			102 => 'Processing',
@@ -127,6 +127,6 @@
 
 		public static function getText($code)
 		{
-			return self::$statusTexts[$code];
+			return self::$statusText[$code];
 		}
 	}

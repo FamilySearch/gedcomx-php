@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
@@ -97,7 +98,20 @@ class DiscussionStateTest extends ApiTestCase{
      */
     public function testCreateComment()
     {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
 
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+
+        $state = $this->collectionState()->addDiscussion($discussion);
+        $state = $state->get();
+
+        $comment = DiscussionBuilder::createComment($userState);
+        $state = $state->addComment($comment);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $state->getResponse(), $this->buildFailMessage(__METHOD__, $state));
+
+        $state->delete();
     }
 
     /**
@@ -105,15 +119,25 @@ class DiscussionStateTest extends ApiTestCase{
      */
     public function testReadComments()
     {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
 
-    }
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+        $state = $this->collectionState()->addDiscussion($discussion);
 
-    /**
-     * @link https://familysearch.org/developers/docs/api/discussions/Read_Discussion_usecase
-     */
-    public function testReadComment()
-    {
+        $state = $state->get();
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $state = $state->get();
 
+        $state->loadComments();
+        $comments = $state->getDiscussion()->getComments();
+        $this->assertEquals(2, count($comments));
+
+        $state->delete();
     }
 
     /**
@@ -121,7 +145,43 @@ class DiscussionStateTest extends ApiTestCase{
      */
     public function testUpdateComment()
     {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
 
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+        /** @var DiscussionState $state */
+        $state = $this->collectionState()->addDiscussion($discussion);
+
+        $state = $state->get();
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $state = $state->get();
+
+        $state->loadComments();
+        $comments = $state->getDiscussion()->getComments();
+        $comment = $comments[0];
+        $newText = $this->faker->paragraph();
+        $comment->setText($newText);
+
+        $updated = $state->updateComment($comment);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+
+        $state->loadComments();
+        $this->assertEquals(2, count($comments));
+
+        $pass = false;
+        $comments = $state->getDiscussion()->getComments();
+        foreach ($comments as $c) {
+            if ($c->getId() == $comment->getId() & $c->getText() == $newText){
+                $pass = true;
+            }
+        }
+        $this->assertTrue($pass);
+
+        $state->delete();
     }
 
     /**
@@ -129,6 +189,33 @@ class DiscussionStateTest extends ApiTestCase{
      */
     public function testDeleteComment()
     {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
 
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+        /** @var DiscussionState $state */
+        $state = $this->collectionState()->addDiscussion($discussion);
+
+        $state = $state->get();
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $comment = DiscussionBuilder::createComment($userState);
+        $state->addComment($comment);
+        $state = $state->get();
+
+        $state->loadComments();
+        $comments = $state->getDiscussion()->getComments();
+        $comment = $comments[0];
+
+        $deleted = $state->deleteComment($comment);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+
+        $state = $state->get();
+        $state->loadComments();
+        $comments = $state->getDiscussion()->getComments();
+        $this->assertEquals(1, count($comments));
+
+        $state->delete();
     }
 } 

@@ -43,6 +43,7 @@ class Comment extends HypermediaEnabledData
      * Constructs a Comment from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -156,7 +157,7 @@ class Comment extends HypermediaEnabledData
             unset($o['created']);
         }
         if (isset($o['contributor'])) {
-            $this->contributor = new ResourceReference($o["contributor"]);
+            $this->contributor = $o['contributor'] instanceof ResourceReference ? $o["contributor"] : new ResourceReference($o["contributor"]);
             unset($o['contributor']);
         }
         parent::initFromArray($o);

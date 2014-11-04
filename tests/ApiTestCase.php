@@ -6,6 +6,7 @@ use Faker\Factory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
@@ -81,7 +82,8 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
     {
         $method = explode("\\",$methodName );
         $methodName = array_pop($method);
-        $message = $methodName . " failed. Returned " . $stateObj->getResponse()->getStatusCode() . ".";
+        $code = $stateObj->getResponse()->getStatusCode();
+        $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
         $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->getEffectiveUrl();
         $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
         $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept");

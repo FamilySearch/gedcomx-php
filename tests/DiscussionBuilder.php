@@ -2,7 +2,9 @@
 
 namespace Gedcomx\Tests;
 
+use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Comment;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\UserState;
 
 class DiscussionBuilder extends TestBuilder
 {
@@ -23,5 +25,13 @@ class DiscussionBuilder extends TestBuilder
         );
 
         return new Discussion($data);
+    }
+
+    public static function createComment(UserState $user)
+    {
+        return new Comment(array(
+            "text" => self::faker()->sentence(12),
+            "contributor" => $user->getResourceReference()
+        ));
     }
 }

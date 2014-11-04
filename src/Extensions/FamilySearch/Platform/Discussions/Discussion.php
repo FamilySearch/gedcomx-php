@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
 
+use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\ResourceReference;
 
 /**
@@ -223,6 +224,19 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
     {
         $this->comments = $comments;
     }
+
+    /**
+     * Add a comment.
+     *
+     * @param Comment comment The comment to add.
+     */
+    public function addComment(Comment $comment) {
+        if ($this->comments == null) {
+            $this->comments = array();
+        }
+        $this->comments[] = $comment;
+    }
+
     /**
      * Returns the associative array for this Discussion
      *
@@ -444,5 +458,32 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
                 $writer->endElement();
             }
         }
+    }
+
+    public function embed(ExtensibleData $discussion)
+    {
+        $comments = $discussion->getComments();
+        if ($comments != null) {
+            foreach ($comments as $comment) {
+                $found = false;
+                if ($comment->getId() != null) {
+                    if ($this->getComments() != null) {
+                        foreach ($this->getComments() as $target) {
+                            if ($comment->getId() == $target->getId()) {
+                                $target->embed($comment);
+                                $found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (!$found) {
+                    $this->addComment($comment);
+                }
+            }
+        }
+
+        parent::embed($discussion);
     }
 }

@@ -76,7 +76,7 @@ class DiscussionState extends FamilySearchCollectionState
     {
         $link = $this->getLink(Rel::COMMENTS);
         if ($this->entity != null && $link != null && $link->getHref() != null) {
-            $this->passOptionsTo('embed', array($link, $this->entity), func_get_args());
+            $this->passOptionsTo('embed', array($link), func_get_args());
         }
 
         return $this;
@@ -199,6 +199,7 @@ class DiscussionState extends FamilySearchCollectionState
         }
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'DiscussionState',
             $this->client,
