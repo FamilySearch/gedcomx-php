@@ -17,7 +17,9 @@ use Guzzle\Http\Message\Response;
 
 abstract class GedcomxApplicationState
 {
-
+    const APPLICATION_JSON_TYPE = 'application/json';
+    const HTML_TYPE = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+    const FORM_DATA_TYPE = 'application/x-www-form-urlencoded';
     const GEDCOMX_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
     const ATOM_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
 
@@ -440,6 +442,22 @@ abstract class GedcomxApplicationState
             'grant_type' => 'client_credentials',
             'client_id' => $clientId,
             'client_secret' => $clientSecret
+        );
+
+        return $this->authenticateViaOAuth2($formData);
+    }
+
+    /**
+     * @param string $clientId The client id.
+     * @param string $ipAddress The client's ipaddress.
+     * @return GedcomxApplicationState $this
+     */
+    public function authenticateViaOAuth2WithoutCredentials($ipAddress, $clientId)
+    {
+        $formData = array(
+            'grant_type' => 'unauthenticated_session',
+            'ip_address' => $ipAddress,
+            'client_id' => $clientId
         );
 
         return $this->authenticateViaOAuth2($formData);
