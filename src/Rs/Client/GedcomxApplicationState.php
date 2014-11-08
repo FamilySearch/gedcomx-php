@@ -229,13 +229,29 @@ abstract class GedcomxApplicationState
      */
     public function getSelfUri()
     {
-        $selfLink = $this->getLink(Rel::SELF);
-        if (isset($selfLink)) {
-            return $selfLink->getHref();
+        $selfRel = $this->getSelfRel();
+        $link = null;
+        if ($selfRel != null) {
+            $link = $this->getLink($selfRel);
         }
-        else {
+        if ($link == null){
+            $link = $this->getLink(Rel::SELF);
+        }
+        $self = null;
+        if ($link != null){
+            if ($link->getHref() != null){
+                $self = $link->getHref();
+            }
+        }
+        if ($self == null){
             return $this->getUri();
+        }else{
+            return $self;
         }
+    }
+
+    public function getSelfRel(){
+        return null;
     }
 
     /**
