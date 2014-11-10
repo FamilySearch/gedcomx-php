@@ -36,6 +36,10 @@ class AgentState extends GedcomxApplicationState
         return $this->getAgent();
     }
 
+    public function getSelfRel()
+    {
+        return Rel::AGENT;
+    }
     /**
      * @return Agent
      */

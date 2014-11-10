@@ -37,6 +37,10 @@ class SourceDescriptionState extends GedcomxApplicationState
         return $this->getSourceDescription();
     }
 
+    public function getSelfRel() {
+        return Rel::DESCRIPTION;
+    }
+
     /**
      * @return SourceDescription|null
      */

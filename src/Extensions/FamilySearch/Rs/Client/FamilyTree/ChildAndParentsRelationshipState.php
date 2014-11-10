@@ -35,6 +35,11 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         return $this->getRelationship();
     }
 
+    public function getSelfRel()
+    {
+        return Rel::RELATIONSHIP;
+    }
+
     /**
      * @return ChildAndParentsRelationship|null
      */

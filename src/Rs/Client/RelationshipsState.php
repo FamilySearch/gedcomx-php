@@ -36,6 +36,9 @@ class RelationshipsState extends GedcomxApplicationState
         return $this->getEntity();
     }
 
+    public function getSelfRel(){
+        return Rel::RELATIONSHIP;
+    }
     /**
      * @return Relationship[]|null
      */
