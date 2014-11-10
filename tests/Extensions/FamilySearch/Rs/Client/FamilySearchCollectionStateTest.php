@@ -43,12 +43,12 @@ class FamilySearchCollectionStateTest extends ApiTestCase
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
         $historyState = $this->collectionState()->readCurrentUserHistory();
-
+        $stateTwo = $historyState->post($historyState->getEntity());
 
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $historyState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $historyState)
+            $stateTwo->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $stateTwo)
         );
     }
 }
