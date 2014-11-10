@@ -22,7 +22,8 @@ class AncestryResultsState extends GedcomxApplicationState
         return new AncestryResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
-    public function getSelfRel() {
+    public function getSelfRel()
+    {
         return Rel::ANCESTRY;
     }
 
@@ -37,25 +38,27 @@ class AncestryResultsState extends GedcomxApplicationState
         return $this->getEntity();
     }
 
-    public function getTree() {
-       if ($this->getEntity()) {
-           return new AncestryTree($this->getEntity());
-       }
+    public function getTree()
+    {
+        if ($this->getEntity()) {
+            return new AncestryTree($this->getEntity());
+        }
     }
 
-    public function readPerson($ancestorNumber, StateTransitionOption $option = null) {
-        $ancestor = $this->getTree().getAncestor(ancestorNumber);
+    public function readPerson($ancestorNumber, StateTransitionOption $option = null)
+    {
+        $ancestor = $this->getTree()->getAncestor(ancestorNumber);
         if ($ancestor == null) {
             return null;
         }
 
         $selfLink = $ancestor->getPerson()->getLink(Rel::PERSON);
         if ($selfLink == null || $selfLink->getHref() == null) {
-            $selfLink = ancestor.getPerson()->getLink(Rel::SELF);
+            $selfLink = $ancestor->getPerson()->getLink(Rel::SELF);
         }
 
         $personUri = null;
-        if ($selfLink && $selfLink->getHref()){
+        if ($selfLink && $selfLink->getHref()) {
             $personUri = $selfLink->getHref();
         }
         if (!$personUri) {
@@ -68,7 +71,7 @@ class AncestryResultsState extends GedcomxApplicationState
             "PersonState",
             $this->client,
             $request,
-            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
