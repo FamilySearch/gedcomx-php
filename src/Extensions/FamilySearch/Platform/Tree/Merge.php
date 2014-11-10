@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
+use Gedcomx\Common\ResourceReference;
 
 /**
  * 
@@ -72,6 +73,17 @@ class Merge
     {
         $this->resourcesToDelete = $resourcesToDelete;
     }
+
+    /**
+     * Add a resource to the list of resources to delete from the survivor.
+     *
+     * @param \Gedcomx\Common\ResourceReference $resource
+     */
+    public function addResourceToDelete(ResourceReference $resource)
+    {
+        $this->resourcesToDelete[] = $resource;
+    }
+
     /**
      * List of resources to copy from the duplicate person to survivor person.
      *
@@ -91,6 +103,17 @@ class Merge
     {
         $this->resourcesToCopy = $resourcesToCopy;
     }
+
+    /**
+     * Add a resource to the list of resources to copy to the survivor.
+     *
+     * @param \Gedcomx\Common\ResourceReference $resource
+     */
+    public function addResourceToCopy(ResourceReference $resource)
+    {
+        $this->resourcesToCopy[] = $resource;
+    }
+
     /**
      * Returns the associative array for this Merge
      *

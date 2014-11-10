@@ -67,6 +67,10 @@ class PersonState extends GedcomxApplicationState
         return $this->getPerson();
     }
 
+    public function getSelfRel()
+    {
+        return Rel::PERSON;
+    }
     /**
      * Get the Person object off the GedcomX entity
      *
