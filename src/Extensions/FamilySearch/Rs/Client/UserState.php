@@ -24,7 +24,7 @@ class UserState extends GedcomxApplicationState{
 
     protected function getScope()
     {
-        // TODO: Implement getScope() method.
+        return $this->getUser();
     }
 
     /**

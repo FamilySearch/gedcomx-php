@@ -10,7 +10,6 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Source\SourceReference;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -621,15 +620,4 @@ class RelationshipState extends GedcomxApplicationState
         }
         return $this;
     }
-
-    public function loadAllEmbeddedResources(StateTransitionOption $option = null)
-    {
-        $loader = new EmbeddedLinkLoader();
-        $links = $loader->loadEmbeddedLinks($this->entity);
-        foreach ($links as $link) {
-            $this->passOptionsTo('embed', array($link), func_get_args());
-        }
-        return $this;
-    }
-
 }

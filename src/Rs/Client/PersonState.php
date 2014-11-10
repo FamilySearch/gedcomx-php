@@ -16,7 +16,6 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Types;
@@ -224,24 +223,6 @@ class PersonState extends GedcomxApplicationState
     public function readDescendancy(StateTransitionOption $option = null)
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /**
-     * Load all external resources such as notes, media, and evidence. See
-     * EmbeddedLinkLoader for a complete list.
-     *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-     *
-     * @return \Gedcomx\Rs\Client\PersonState $this
-     */
-    public function loadAllEmbeddedResources(StateTransitionOption $option = null)
-    {
-        $loader = new EmbeddedLinkLoader();
-        $links = $loader->loadEmbeddedLinks($this->entity);
-        foreach ($links as $link) {
-            $this->passOptionsTo('embed', array($link), func_get_args());
-        }
-        return $this;
     }
 
     /**

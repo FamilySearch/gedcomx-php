@@ -5,16 +5,19 @@ namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Agent\Agent;
 use Gedcomx\Gedcomx;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class AgentState extends GedcomxApplicationState
 {
 
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new AgentState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }

@@ -2,12 +2,14 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Common\Attributable;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Gedcomx;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -51,6 +53,14 @@ abstract class GedcomxApplicationState
      * @var object
      */
     protected $entity;
+    /**
+     * @var \Guzzle\Http\Message\Request
+     */
+    private $lastEmbeddedRequest;
+    /**
+     * @var \Guzzle\Http\Message\Response
+     */
+    private $lastEmbeddedResponse;
 
     /**
      * @param Client       $client
@@ -72,9 +82,9 @@ abstract class GedcomxApplicationState
 
     protected function loadEntityConditionally()
     {
-        if ($this->request->getMethod() != 'HEAD'
-                && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
-                || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
+        if (   ($this->request->getMethod() != Request::HEAD && $this->request->getMethod() != Request::OPTIONS)
+            && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
+            || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
         ) {
             return $this->loadEntity();
         }
@@ -88,6 +98,16 @@ abstract class GedcomxApplicationState
     protected abstract function loadEntity();
 
     protected abstract function getScope();
+
+    /**
+     * @param \Guzzle\Http\Message\Request $request
+     *
+     * @return mixed
+     */
+    public function inject(Request $request)
+    {
+        return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request)));
+    }
 
     /**
      * @return array
@@ -159,6 +179,22 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * @return \Guzzle\Http\Message\Request
+     */
+    public function getLastEmbeddedRequest()
+    {
+        return $this->lastEmbeddedRequest;
+    }
+
+    /**
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function getLastEmbeddedResponse()
+    {
+        return $this->lastEmbeddedResponse;
+    }
+
+    /**
      * @return object
      */
     public function getEntity()
@@ -209,6 +245,16 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function hasStatus($status)
+    {
+        return $status == $this->getResponse()->getStatusCode() ? true : false;
+    }
+
+    /**
      * @return array The headers for this state.
      */
     public function getHeaders()
@@ -254,6 +300,20 @@ abstract class GedcomxApplicationState
 
     public function getSelfRel(){
         return null;
+    }
+
+    /**
+     * @return \Guzzle\Http\Message\Header|null
+     */
+    public function getETag() {
+        return $this->response->getHeader(HeaderParameter::ETAG);
+    }
+
+    /**
+     * @return \Guzzle\Http\Message\Header|null
+     */
+    public function getLastModified() {
+        return $this->response->getHeader(HeaderParameter::LAST_MODIFIED);
     }
 
     /**
@@ -378,6 +438,7 @@ abstract class GedcomxApplicationState
 
     /**
      * @param string $rel The link rel.
+     *
      * @return \Gedcomx\Links\Link
      */
     public function getLink($rel)
@@ -385,7 +446,13 @@ abstract class GedcomxApplicationState
 		if( isset($this->links[$rel]) ){
 			return $this->links[$rel];
 		}
+
         return null;
+    }
+
+    public function getLinks()
+    {
+        return $this->links == null ? array() : $this->links;
     }
 
     /**
@@ -401,11 +468,67 @@ abstract class GedcomxApplicationState
         return $this;
     }
 
+    protected function authenticateWithAccessToken($accessToken) {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
     /**
-     * @param string $username The username.
-     * @param string $password The password.
-     * @param string $clientId The client id.
-     * @param string $clientSecret  The client secret.
+     * @param array $formData The form parameters.
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState $this
+     * @throws GedcomxApplicationException If there are problems.
+     */
+    protected function authenticateViaOAuth2(array $formData)
+    {
+        $tokenLink = $this->getLink(Rel::OAUTH2_TOKEN);
+        if (!isset($tokenLink)) {
+            $here = $this->getUri();
+            throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
+        }
+
+        $href = $tokenLink->getHref();
+        if (!isset($href)) {
+            $here = $this->getUri();
+            throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
+        }
+
+        $request = $this->createRequest('POST', $href);
+        /**
+         * @var $request EntityEnclosingRequest
+         */
+        $request->setHeader('Accept', 'application/json');
+        $request->setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $request->addPostFields($formData);
+        $response = $this->invoke($request);
+
+        $statusCode = intval($response->getStatusCode());
+        if ($statusCode >= 200 && $statusCode < 300) {
+            $tokens = $response->json();
+            $accessToken = $tokens['access_token'];
+
+            if (!isset($accessToken)) {
+                //workaround to accommodate providers that were built on an older version of the oauth2 specification.
+                $accessToken = $tokens['token'];
+            }
+
+            if (!isset($accessToken)) {
+                throw new GedcomxApplicationException('Illegal access token response: no access_token provided.', $response);
+            }
+
+            $this->accessToken = $accessToken;
+            return $this;
+        }
+        else {
+            throw new GedcomxApplicationException('Unable to obtain an access token.', $response);
+        }
+    }
+
+    /**
+     * @param string $username     The username.
+     * @param string $password     The password.
+     * @param string $clientId     The client id.
+     * @param string $clientSecret The client secret.
      * @return GedcomxApplicationState $this
      */
     public function authenticateViaOAuth2Password($username, $password, $clientId, $clientSecret = NULL)
@@ -478,14 +601,6 @@ abstract class GedcomxApplicationState
 
         return $this->authenticateViaOAuth2($formData);
     }
-
-	public function getETag() {
-		return $this->response->getHeader(HeaderParameter::ETAG);
-	}
-
-	public function getLastModified() {
-		return $this->response->getHeader(HeaderParameter::LAST_MODIFIED);
-	}
 
     /**
      * @return Link[] links if Link headers found
@@ -607,58 +722,6 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param array $formData The form parameters.
-     *                        
-     * @return \Gedcomx\Rs\Client\GedcomxApplicationState $this
-     * @throws GedcomxApplicationException If there are problems.
-     */
-    protected function authenticateViaOAuth2(array $formData)
-    {
-        $tokenLink = $this->getLink(Rel::OAUTH2_TOKEN);
-        if (!isset($tokenLink)) {
-            $here = $this->getUri();
-            throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
-        }
-
-        $href = $tokenLink->getHref();
-        if (!isset($href)) {
-            $here = $this->getUri();
-            throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
-        }
-
-        $request = $this->createRequest('POST', $href);
-        /**
-         * @var $request EntityEnclosingRequest
-         */
-        $request->setHeader('Accept', 'application/json');
-        $request->setHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $request->addPostFields($formData);
-        $response = $this->invoke($request);
-
-        $statusCode = intval($response->getStatusCode());
-        if ($statusCode >= 200 && $statusCode < 300) {
-            $tokens = $response->json();
-            $accessToken = $tokens['access_token'];
-
-            if (!isset($accessToken)) {
-                //workaround to accommodate providers that were built on an older version of the oauth2 specification.
-                $accessToken = $tokens['token'];
-            }
-
-            if (!isset($accessToken)) {
-                throw new GedcomxApplicationException('Illegal access token response: no access_token provided.', $response);
-            }
-
-            $this->accessToken = $accessToken;
-            return $this;
-        }
-        else {
-            throw new GedcomxApplicationException('Unable to obtain an access token.', $response);
-        }
-
-    }
-
-    /**
      * @param string       $method  The http method.
      * @param string|array $uri     optional: string with an href, or an array with template info
      *
@@ -723,15 +786,15 @@ abstract class GedcomxApplicationState
      */
     protected function embed(Link $link, StateTransitionOption $option = null ){
         if ($link->getHref() != null) {
-            $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
-            $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
-            if ($lastEmbeddedResponse->getStatusCode() == 200) {
-                $json = json_decode($lastEmbeddedResponse->getBody(),true);
+            $this->lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+            $this->lastEmbeddedResponse = $this->passOptionsTo('invoke',array($this->lastEmbeddedRequest), func_get_args());
+            if ($this->lastEmbeddedResponse->getStatusCode() == 200) {
+                $json = json_decode($this->lastEmbeddedResponse->getBody(),true);
                 $entityClass = get_class($this->entity);
                 $this->entity->embed(new $entityClass($json));
             }
-            else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
-                throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $lastEmbeddedRequest.getURI()), $lastEmbeddedResponse);
+            else if (floor($this->lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
+                throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $this->lastEmbeddedResponse.getClientResponseStatus().getReasonPhrase(), $this->lastEmbeddedRequest.getURI()), $this->lastEmbeddedResponse);
             }
             else {
                 //todo: log a warning? throw an error?
@@ -739,6 +802,30 @@ abstract class GedcomxApplicationState
         }
 
     }
+
+    /**
+     * Load all external resources such as notes, media, and evidence. See
+     * EmbeddedLinkLoader for a complete list.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState $this
+     */
+    public function loadAllEmbeddedResources(StateTransitionOption $option = null)
+    {
+        $loader = new EmbeddedLinkLoader();
+        $links = $loader->loadEmbeddedLinks($this->entity);
+        foreach ($links as $link) {
+            $this->passOptionsTo('embed', array($link), func_get_args());
+        }
+        return $this;
+    }
+
+
+    protected function includeEmbeddedResources(StateTransitionOption $options = null) {
+        $this->passOptionsTo('loadAllEmbeddedResources', array(), func_get_args());
+    }
+
 
     /**
      * @param array $args expects the results from func_get_args()
@@ -762,7 +849,7 @@ abstract class GedcomxApplicationState
      *
      * @return mixed
      */
-    protected function passOptionsTo( $functionName, array $args, array $passed_args, $scope = null ){
+    protected function passOptionsTo( $functionName, array $args, array $passed_args = array(), $scope = null ){
         $func_args = array_merge($args, $this->findTransitionOptions($passed_args));
         if( $scope == null ){
             $func = 'static::' . $functionName;
@@ -774,6 +861,60 @@ abstract class GedcomxApplicationState
         return call_user_func_array(
             $func,
             $func_args
+        );
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\AgentState|null
+     */
+    public function readContributor(StateTransitionOption $option = null)
+    {
+        $scope = $this->getScope();
+        if ($scope instanceof Attributable) {
+            return $this->passOptionsTo('readAttributableContributor', array($scope), func_get_args());
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param \Gedcomx\Common\Attributable                     $attributable
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\AgentState|null
+     */
+    public function readAttributableContributor(Attributable $attributable, StateTransitionOption $option = null)
+    {
+        $attribution = $attributable->getAttribution();
+        if ($attribution == null) {
+            return null;
+        }
+
+        $reference = $attribution->getContributor();
+        return $this->passOptionsTo('readReferenceContributor', array($reference), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\ResourceReference                $contributor
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\AgentState|null
+     */
+    public function readReferenceContributor(ResourceReference $contributor, StateTransitionOption $option = null)
+    {
+        if ($contributor == null || $contributor->getResource() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $contributor->getResource());
+        return $this->stateFactory->createState(
+            'AgentState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
         );
     }
 

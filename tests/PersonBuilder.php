@@ -94,7 +94,6 @@ class PersonBuilder extends TestBuilder
                 ))
             )
         ));
-
     }
 
     public static function nickName($gender = 'female' )

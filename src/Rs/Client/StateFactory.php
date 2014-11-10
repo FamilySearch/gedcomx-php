@@ -225,4 +225,17 @@ class StateFactory
     {
         return new RelationshipState( $client, $request, $response, $accessToken, $this );
     }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\RecordState
+     */
+    protected function buildAgentState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new AgentState( $client, $request, $response, $accessToken, $this );
+    }
 }

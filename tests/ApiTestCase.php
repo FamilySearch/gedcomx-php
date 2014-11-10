@@ -32,7 +32,6 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      * @var \Gedcomx\Rs\Client\CollectionState
      */
     private $collectionState;
-
     /**
      * @var string
      */

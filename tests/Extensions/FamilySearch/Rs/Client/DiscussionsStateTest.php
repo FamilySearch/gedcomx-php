@@ -16,7 +16,6 @@ class DiscussionsStateTest extends ApiTestCase {
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
 
-
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
