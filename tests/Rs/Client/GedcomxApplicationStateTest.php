@@ -2,6 +2,8 @@
 
 namespace Gedcomx\Tests\Rs\Client;
 
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Rel;
@@ -177,5 +179,17 @@ class GedcomxApplicationStateTest extends ApiTestCase
             $response->getStatusCode(),
             __METHOD__ . " failed. " . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().") returned."
         );
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_User_usecase
+     */
+    public function testReadUser()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $personState = $this->createPerson()->get();
+        $names = $personState->getPerson()->getNames();
+        $agentState = $personState->readAttributableContributor($names[0]);
     }
 }
