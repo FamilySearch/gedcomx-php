@@ -2,9 +2,6 @@
 
 namespace Gedcomx\Tests\Rs\Client;
 
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
-use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
@@ -85,27 +82,9 @@ class GedcomxApplicationStateTest extends ApiTestCase
     }
 
     /**
+     * No test case. Auth code is generated in the process of logging in with a third party provider.
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_with_Authorization_Code_usecase
      */
-    public function testObtainAccessTokenWithAuthorizationCode()
-    {
-        //todo: need a valid authcode to test against
-        $factory = new StateFactory();
-        try{
-            $collectionState = $factory
-                ->newCollectionState()
-                ->authenticateViaOAuth2AuthCode(
-                    'tGzv3JOkF0XG5Qx2TlKWIA',
-                    'https://familysearch.org/developers/sandbox-oauth2-redirect',
-                    $this->apiCredentials->apiKey
-                );
-        }
-        catch(GedcomxApplicationException $e){
-            $this->assertTrue(false);
-        }
-
-        $this->assertNotEmpty($collectionState->getAccessToken());
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_with_Username_and_Password_usecase
@@ -179,17 +158,5 @@ class GedcomxApplicationStateTest extends ApiTestCase
             $response->getStatusCode(),
             __METHOD__ . " failed. " . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().") returned."
         );
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_User_usecase
-     */
-    public function testReadUser()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-        $personState = $this->createPerson()->get();
-        $names = $personState->getPerson()->getNames();
-        $agentState = $personState->readAttributableContributor($names[0]);
     }
 }

@@ -821,4 +821,24 @@ class PersonStateTest extends ApiTestCase{
 
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_User_usecase
+     */
+    public function testAgentReadUser()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $personState = $this->createPerson()->get();
+        $names = $personState->getPerson()->getNames();
+        $agentState = $personState->readAttributableContributor($names[0]);
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $agentState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $agentState)
+        );
+        $this->assertNotEmpty($agentState->getAgent());
+    }
+
+
 }

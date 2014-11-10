@@ -18,4 +18,37 @@ class FamilySearchCollectionStateTest extends ApiTestCase
         $userState = $this->collectionState()->readCurrentUser();
         $this->assertEquals(HttpStatus::OK, $userState->getResponse()->getStatusCode());
     }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
+     */
+    public function testReadCurrentUserHistory()
+    {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
+        $historyState = $this->collectionState()->readCurrentUserHistory();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $historyState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $historyState)
+        );
+        $this->assertNotEmpty($historyState->getUserHistory());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
+     */
+    public function testUpdateCurrentUserHistory()
+    {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
+        $historyState = $this->collectionState()->readCurrentUserHistory();
+
+
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $historyState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $historyState)
+        );
+    }
 }

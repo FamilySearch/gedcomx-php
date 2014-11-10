@@ -139,7 +139,7 @@ abstract class GedcomxApplicationState
         }
 
         $scope = $this->getScope();
-        if (isset($scope)) {
+        if (isset($scope) && is_object($scope)) {
             $links = array_merge($links, $scope->getLinks());
         }
 
