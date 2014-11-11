@@ -9,12 +9,15 @@ use Guzzle\Http\Message\Response;
 
 class StateFactory
 {
-    const URI = "https://familysearch.org/platform/collections/tree";
+    const PRODUCTION_URI = "https://familysearch.org/platform/collections/tree";
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
 
+    /**
+     * @var boolean Are we in a production environment
+     */
     protected $production;
 
-    public function __construct( $production = false ){
+    public function __construct($production = false){
         $this->production = $production;
     }
 
@@ -30,8 +33,9 @@ class StateFactory
             $client = $this->defaultClient();
         }
 
-        $request = $client->createRequest($method, ($this->production ? self::URI : self::SANDBOX_URI));
-        $request->setHeader("Accept", GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
+        /** @var Request $request */
+        $request = $client->createRequest($method, ($this->production ? self::PRODUCTION_URI : self::SANDBOX_URI));
+        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -56,8 +60,9 @@ class StateFactory
             $client = new Client();
         }
 
+        /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
+        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 

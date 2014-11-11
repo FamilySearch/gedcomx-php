@@ -19,10 +19,10 @@ use Guzzle\Http\Message\Response;
 
 abstract class GedcomxApplicationState
 {
-    const APPLICATION_JSON_TYPE = 'application/json';
+    const JSON_APPLICATION_TYPE = 'application/json';
     const HTML_TYPE = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
     const FORM_DATA_TYPE = 'application/x-www-form-urlencoded';
-    const GEDCOMX_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
+    const JSON_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
     const ATOM_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
 
     /**
@@ -766,11 +766,11 @@ abstract class GedcomxApplicationState
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedGedcomxRequest($method, $uri)
+    protected function createAuthenticatedGedcomxRequest($method, $uri = null)
     {
         $request = $this->createAuthenticatedRequest($method, $uri);
-        $request->setHeader('Accept', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::GEDCOMX_MEDIA_TYPE);
+        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
         return $request;
     }
 

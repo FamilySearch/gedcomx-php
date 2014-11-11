@@ -146,7 +146,7 @@ class GedcomxApplicationStateTest extends ApiTestCase
 
         $link = $collectionState->getLink(Rel::OAUTH2_TOKEN);
         $request = $collectionState->getClient()->createRequest(Request::DELETE, $link->getHref());
-        $request->setHeader('Accept', GedcomxApplicationState::APPLICATION_JSON_TYPE);
+        $request->setHeader('Accept', GedcomxApplicationState::JSON_APPLICATION_TYPE);
         $request->setHeader('Authorization', "Bearer {$collectionState->getAccessToken()}");
 
         $query = $request->getQuery();
