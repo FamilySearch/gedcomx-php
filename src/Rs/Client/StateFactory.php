@@ -243,4 +243,17 @@ class StateFactory
     {
         return new AgentState( $client, $request, $response, $accessToken, $this );
     }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\RecordState
+     */
+    protected function buildPlaceSearchResultState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new PlaceSearchResultState( $client, $request, $response, $accessToken, $this );
+    }
 }
