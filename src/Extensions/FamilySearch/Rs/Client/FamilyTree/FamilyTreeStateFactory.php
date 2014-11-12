@@ -23,6 +23,7 @@
                 $client = $this->defaultClient();
             }
 
+            /** @var Request $request */
             $request = $client->createRequest($method, ($this->production ? self::URI : self::SANDBOX_URI));
             $request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
             return new FamilyTreeCollectionState($client, $request, $client->send($request), null, $this);

@@ -9,6 +9,7 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Records\Collection;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
