@@ -256,4 +256,18 @@ class StateFactory
     {
         return new PlaceSearchResultState( $client, $request, $response, $accessToken, $this );
     }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\PlaceDescriptionState
+     */
+    protected function buildPlaceDescriptionState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new PlaceDescriptionState($client, $request, $response, $accessToken, $this);
+    }
+
 }

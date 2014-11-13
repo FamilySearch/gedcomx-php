@@ -5,6 +5,8 @@
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
+	use Gedcomx\Rs\Client\PlaceDescriptionsState;
+	use Gedcomx\Rs\Client\PlaceDescriptionState;
 	use Gedcomx\Rs\Client\PlaceSearchResultsState;
 	use Gedcomx\Rs\Client\StateFactory;
 	use Guzzle\Http\Client;
@@ -43,8 +45,8 @@
 		 */
 		public function newPlacesState($client = null, $method = "GET")
 		{
-			if ($client == null) {
-				$client = new Client();
+			if (!$client) {
+				$client = $this->defaultClient();
 			}
 
 			/** @var Request $request */
@@ -203,10 +205,23 @@
 		 * @param \Guzzle\Http\Message\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
-		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceDescriptionState
+		 * @return \Gedcomx\Rs\Client\PlaceDescriptionState
 		 */
 		protected function buildPlaceDescriptionState(Client $client, Request $request, Response $response, $accessToken)
 		{
 			return new FamilySearchPlaceDescriptionState($client, $request, $response, $accessToken, $this);
+		}
+
+		/**
+		 * @param \Guzzle\Http\Client           $client
+		 * @param \Guzzle\Http\Message\Request  $request
+		 * @param \Guzzle\Http\Message\Response $response
+		 * @param string                        $accessToken The access token for this session
+		 *
+		 * @return \Gedcomx\Rs\Client\PlaceDescriptionsState
+		 */
+		protected function buildPlaceDescriptionsState(Client $client, Request $request, Response $response, $accessToken)
+		{
+			return new PlaceDescriptionsState($client, $request, $response, $accessToken, $this);
 		}
 	}
