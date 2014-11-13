@@ -23,4 +23,21 @@ class ChangeHistoryStateTests extends ApiTestCase
 
         $person->delete();
     }
+
+    public function testReadPersonChangeHistoryFirstPage()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->createPerson()->get();
+        $state = $person->readChangeHistory();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertNotNull($state->getPage());
+        $this->assertNotNull($state->getPage()->getEntries());
+        $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
+
+        $person->delete();
+    }
 }
