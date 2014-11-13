@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Common\TextValue;
 use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
@@ -28,14 +29,14 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      *
-     * @var \Gedcomx\Common\TextValue[]
+     * @var TextValue[]
      */
     private $names;
 
     /**
      * A description of the time period to which this place description is relevant.
-     *
-     * @var \Gedcomx\Conclusion\DateInfo
+
+     * @var DateInfo
      */
     private $temporalDescription;
 
@@ -78,6 +79,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
      * Constructs a PlaceDescription from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -119,7 +122,7 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      *
-     * @return \Gedcomx\Common\TextValue[]
+     * @return TextValue[]
      */
     public function getNames()
     {
@@ -129,7 +132,7 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     /**
      * An ordered list of standardized (or normalized), fully-qualified (in terms of what is known of the applicable jurisdictional hierarchy) names for this place that are applicable to this description of this place.
      *
-     * @param \Gedcomx\Common\TextValue[] $names
+     * @param TextValue[] $names
      */
     public function setNames($names)
     {
@@ -137,8 +140,8 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
     }
     /**
      * A description of the time period to which this place description is relevant.
-     *
-     * @return \Gedcomx\Conclusion\DateInfo
+
+     * @return DateInfo
      */
     public function getTemporalDescription()
     {
@@ -147,8 +150,9 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
 
     /**
      * A description of the time period to which this place description is relevant.
+
      *
-     * @param \Gedcomx\Conclusion\DateInfo $temporalDescription
+*@param DateInfo $temporalDescription
      */
     public function setTemporalDescription($temporalDescription)
     {
@@ -303,12 +307,12 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
         $this->names = array();
         if (isset($o['names'])) {
             foreach ($o['names'] as $i => $x) {
-                $this->names[$i] = new \Gedcomx\Common\TextValue($x);
+                $this->names[$i] = new TextValue($x);
             }
             unset($o["names"]);
         }
         if (isset($o['temporalDescription'])) {
-            $this->temporalDescription = new \Gedcomx\Conclusion\DateInfo($o["temporalDescription"]);
+            $this->temporalDescription = new DateInfo($o["temporalDescription"]);
             unset($o["temporalDescription"]);
         }
         if (isset($o['latitude'])) {
@@ -351,7 +355,7 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
           return true;
         }
         else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Common\TextValue($xml);
+            $child = new TextValue($xml);
             if (!isset($this->names)) {
                 $this->names = array();
             }
@@ -359,7 +363,7 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
             $happened = true;
         }
         else if (($xml->localName == 'temporalDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $child = new DateInfo($xml);
             $this->temporalDescription = $child;
             $happened = true;
         }

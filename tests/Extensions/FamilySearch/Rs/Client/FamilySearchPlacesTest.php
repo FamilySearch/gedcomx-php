@@ -36,7 +36,7 @@ class FamilySearchPlacesTest extends ApiTestCase
     {
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('393946', true, true);
+        $query->parentId('442102', true, true);
         $factory = new FamilySearchStateFactory();
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */

@@ -2,7 +2,9 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
@@ -31,10 +33,10 @@ class PlaceSearchResultsState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Rs\Client\Entry                 $place
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option
+     * @param \Gedcomx\Atom\Entry                              $place
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
-     * @return PlaceDescriptionState|null
+     * @return \Gedcomx\Rs\Client\PlaceDescriptionState|null
      */
     public function readPlaceDescription(Entry $place, StateTransitionOption $option = null)
     {
@@ -44,7 +46,7 @@ class PlaceSearchResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link . getHref());
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
 
         return $this->stateFactory->createState(
             'PlaceDescriptionState',
