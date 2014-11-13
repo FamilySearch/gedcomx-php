@@ -10,6 +10,7 @@
 namespace Gedcomx\Conclusion;
 use Gedcomx\Common\Qualifier;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A part of a name.
@@ -206,6 +207,11 @@ class NamePart extends \Gedcomx\Common\ExtensibleData
             unset($o['qualifiers']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitNamePart($this);
     }
 
     /**

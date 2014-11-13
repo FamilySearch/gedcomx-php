@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Rt\GedcomxModelVisitor;
 use Gedcomx\Types\NamePartType;
 
 /**
@@ -200,6 +201,11 @@ class Name extends \Gedcomx\Conclusion\Conclusion
             unset($o["nameForms"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitName($this);
     }
 
     /**

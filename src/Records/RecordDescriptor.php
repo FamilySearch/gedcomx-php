@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A descriptor for a common set of records.
@@ -131,6 +132,11 @@ class RecordDescriptor extends \Gedcomx\Links\HypermediaEnabledData
             unset($o['fields']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitRecordDescriptor($this);
     }
 
     /**

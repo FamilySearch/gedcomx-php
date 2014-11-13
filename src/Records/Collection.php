@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Records;
 use Gedcomx\Common\Attribution;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A collection of genealogical resources.
@@ -230,6 +231,11 @@ class Collection extends \Gedcomx\Links\HypermediaEnabledData
             unset($o['attribution']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitCollection($this);
     }
 
     /**

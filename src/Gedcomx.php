@@ -21,6 +21,7 @@ use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Records\Collection;
 use Gedcomx\Records\Field;
 use Gedcomx\Records\RecordDescriptor;
+use Gedcomx\Rt\GedcomxModelVisitor;
 use Gedcomx\Source\SourceDescription;
 
 /**
@@ -614,6 +615,11 @@ class Gedcomx extends HypermediaEnabledData
             unset($o['recordDescriptors']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitGedcomx($this);
     }
 
     /**

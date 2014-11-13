@@ -12,6 +12,7 @@ use Gedcomx\Common\HasNotes;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Records\Field;
 use Gedcomx\Records\HasFields;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A relationship between two or more persons.
@@ -322,6 +323,11 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
             unset($o['fields']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitRelationship($this);
     }
 
     /**

@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * An abstract document that contains derived (conclusionary) text -- for example, a transcription or researcher analysis.
@@ -191,6 +192,11 @@ class Document extends \Gedcomx\Conclusion\Conclusion
             unset($o["text"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitDocument($this);
     }
 
     /**

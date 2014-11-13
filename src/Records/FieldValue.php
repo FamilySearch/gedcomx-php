@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * An element representing a value in a record field.
@@ -223,6 +224,11 @@ class FieldValue extends \Gedcomx\Conclusion\Conclusion
             unset($o["text"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitFieldValue($this);
     }
 
     /**

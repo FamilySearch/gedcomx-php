@@ -11,6 +11,7 @@ namespace Gedcomx\Agent;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
 use Gedcomx\Conclusion\Identifier;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * An agent, e.g. person, organization, or group. In genealogical research, an agent often
@@ -379,6 +380,11 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
             unset($o['phones']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitAgent($this);
     }
 
     /**

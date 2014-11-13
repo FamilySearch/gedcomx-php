@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A form of a name.
@@ -204,6 +205,11 @@ class NameForm extends \Gedcomx\Common\ExtensibleData
             unset($o['fields']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitNameForm($this);
     }
 
     /**

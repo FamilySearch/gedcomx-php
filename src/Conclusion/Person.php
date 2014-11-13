@@ -13,6 +13,7 @@ use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Conclusion\Subject;
 use Gedcomx\Records\Field;
 use Gedcomx\Records\HasFields;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A person.
@@ -374,6 +375,11 @@ class Person extends Subject implements HasFacts, HasFields
             unset($o['display']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitPerson($this);
     }
 
     /**

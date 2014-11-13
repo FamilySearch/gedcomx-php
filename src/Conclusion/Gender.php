@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Conclusion;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A gender conclusion.
@@ -133,6 +134,11 @@ class Gender extends \Gedcomx\Conclusion\Conclusion
             unset($o["fields"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitGender($this);
     }
 
     /**

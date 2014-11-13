@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Atom;
+use Gedcomx\Util\JsonMapper;
 
 /**
  * 
@@ -28,6 +29,11 @@ class CommonAttributes
      * @var string
      */
     private $lang;
+
+    /**
+     * Custom extension elements for a conclusion.
+     */
+    private $extensionElements = array();
 
     /**
      * Constructs a CommonAttributes from a (parsed) JSON hash
@@ -126,9 +132,19 @@ class CommonAttributes
     {
         if (isset($o['base'])) {
             $this->base = $o["base"];
+            unset($o["base"]);
         }
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
+            unset($o["lang"]);
+        }
+        if (! empty($o)) {
+            foreach ($o as $key => $data) {
+                $class = JsonMapper::getClassName($key);
+                if ($class != null) {
+                    $this->extensionElements[] = new $class($data);
+                }
+            }
         }
     }
 
@@ -160,10 +176,43 @@ class CommonAttributes
                 else if (!$this->setKnownChildElement($xml)) {
                     $n = $xml->localName;
                     $ns = $xml->namespaceURI;
-                    //skip the unknown element
-                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
-                        $xml->read();
+                    $dom = new \DOMDocument();
+                    $nodeFactory = $dom;
+                    $dom->formatOutput = true;
+
+                    $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
+                    $dom->appendChild($e);
+                    if ($xml->hasAttributes) {
+                        $moreAttributes = $xml->moveToFirstAttribute();
+                        while ($moreAttributes) {
+                            $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                            $moreAttributes = $xml->moveToNextAttribute();
+                        }
                     }
+                    $dom = $e;
+
+                    //create any child elements...
+                    while ($xml->read() && $xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        if ($xml->nodeType == \XMLReader::ELEMENT) {
+                            $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
+                            $dom->appendChild($e);
+                            if ($xml->hasAttributes) {
+                                $moreAttributes = $xml->moveToFirstAttribute();
+                                while ($moreAttributes) {
+                                    $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                                    $moreAttributes = $xml->moveToNextAttribute();
+                                }
+                            }
+                            $dom = $e;
+                        }
+                        else if ($xml->nodeType == \XMLReader::TEXT) {
+                            $dom->textContent = $xml->value;
+                        }
+                        else if ($xml->nodeType == \XMLReader::END_ELEMENT) {
+                            $dom = $dom->parentNode;
+                        }
+                    }
+                    array_push($this->extensionElements, $nodeFactory);
                 }
                 $xml->read(); //advance the reader.
             }

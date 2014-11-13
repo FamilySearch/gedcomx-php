@@ -13,6 +13,7 @@ use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Subject;
+use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
 /**
  * The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
@@ -243,6 +244,11 @@ class ChildAndParentsRelationship extends Subject
             unset($o['motherFacts']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(FamilySearchPlatformModelVisitor $visitor)
+    {
+        $visitor->visitChildAndParentsRelationship($this);
     }
 
     /**

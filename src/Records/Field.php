@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Records;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A field of a record.
@@ -130,6 +131,11 @@ class Field extends \Gedcomx\Links\HypermediaEnabledData
             unset($o['values']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitField($this);
     }
 
     /**

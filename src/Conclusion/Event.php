@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A historical event.
@@ -196,6 +197,11 @@ class Event extends \Gedcomx\Conclusion\Subject
             unset($o["roles"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitEvent($this);
     }
 
     /**

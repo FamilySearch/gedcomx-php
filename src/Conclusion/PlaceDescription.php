@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Conclusion;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A PlaceDescription is used to describe the details of a place in terms of its name
@@ -331,6 +332,11 @@ class PlaceDescription extends \Gedcomx\Conclusion\Subject
             unset($o["display"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitPlaceDescription($this);
     }
 
     /**

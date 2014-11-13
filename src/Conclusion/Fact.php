@@ -11,6 +11,7 @@ namespace Gedcomx\Conclusion;
 
 use Gedcomx\Common\Qualifier;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A conclusion about a fact applicable to a person or relationship.
@@ -307,6 +308,11 @@ class Fact extends Conclusion
             unset($o['fields']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitFact($this);
     }
 
     /**

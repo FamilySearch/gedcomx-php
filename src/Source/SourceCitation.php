@@ -10,6 +10,7 @@
 namespace Gedcomx\Source;
 
 use Gedcomx\Links\HypermediaEnabledData;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * Represents a source citation.
@@ -197,6 +198,11 @@ class SourceCitation extends HypermediaEnabledData
         if (isset($o['value'])) {
             $this->value = $o["value"];
         }
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitSourceCitation($this);
     }
 
     /**
