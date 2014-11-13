@@ -1,20 +1,21 @@
 <?php
 
-
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use RuntimeException;
+use Gedcomx\Rs\Client\Util\DescendancyTree;
+use Guzzle\Http\Client;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class DescendancyResultsState extends GedcomxApplicationState
 {
-
-    function __construct($client, $request, $response, $accessToken, $stateFactory)
+    function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
-    protected function reconstruct($request, $response)
+    protected function reconstruct(Request $request, Response $response)
     {
         return new DescendancyResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
@@ -32,6 +33,8 @@ class DescendancyResultsState extends GedcomxApplicationState
 
     public function getTree()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement a tree-walking mechanism.
+        if ($this->getEntity() != null) {
+            return new DescendancyTree($this->getEntity());
+        }
     }
 }

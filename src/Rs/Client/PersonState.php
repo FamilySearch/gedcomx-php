@@ -226,7 +226,20 @@ class PersonState extends GedcomxApplicationState
      */
     public function readDescendancy(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::DESCENDANCY);
+        if (!$link||!$link->getHref()) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
+        $request->setUrl($link->getHref());
+        return $this->stateFactory->createState(
+            "DescendancyResultsState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
