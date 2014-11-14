@@ -68,10 +68,13 @@ class TextValue
      * The language of the text value.
      *
      * @param string $lang
+     *
+     * @return $this
      */
     public function setLang($lang)
     {
         $this->lang = $lang;
+        return $this;
     }
     /**
      * The text value.
@@ -87,10 +90,14 @@ class TextValue
      * The text value.
      *
      * @param string $value
+     *
+     * @return $this
      */
     public function setValue($value)
     {
         $this->value = $value;
+
+        return $this;
     }
     /**
      * Returns the associative array for this TextValue
