@@ -90,7 +90,7 @@ class VocabElementList
     }
 
     /**
-     * @return array
+     * @return \Gedcomx\Vocab\VocabElement[]
      */
     public function getElements()
     {
@@ -98,10 +98,18 @@ class VocabElementList
     }
 
     /**
-     * @param array $elements
+     * @param \Gedcomx\Vocab\VocabElement[]
      */
     public function setElements($elements)
     {
         $this->elements = $elements;
+    }
+
+    /**
+     * @param \Gedcomx\Vocab\VocabElement $element
+     */
+    public function addElement($element)
+    {
+        $this->elements[] = $element;
     }
 }

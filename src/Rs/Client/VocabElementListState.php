@@ -3,6 +3,7 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Rs\Client\Util\RdfCollection;
+use Gedcomx\Rs\Client\Util\RdfNode;
 use Gedcomx\Vocab\VocabElement;
 use Gedcomx\Vocab\VocabElementList;
 use Guzzle\Http\Message\Request;
@@ -28,7 +29,7 @@ class VocabElementListState extends GedcomxApplicationState
         $options = array("");
         $this->rdfCollection = new RdfCollection(JsonLD::toRdf($input, $options));
 
-        return $this;
+        return null;
     }
 
     protected function getScope()
@@ -49,26 +50,26 @@ class VocabElementListState extends GedcomxApplicationState
         $vocabElementList = new VocabElementList();
         $idQuad = $rootQuads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier");
         if ($idQuad != null) {
-            $vocabElementList->setId($idQuad->getObject()->getValue());
+            $vocabElementList->setId(RdfNode::getValue($idQuad->getObject()));
         }
-        $vocabElementList->setUri((string)$rootQuads->first()->getSubject());
+        $vocabElementList->setUri(RdfNode::getValue($rootQuads->first()->getSubject()));
 
-        $titleQuad = $rootQuads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier");
-        $vocabElementList->setTitle($titleQuad->getObject()->getValue());
+        $titleQuad = $rootQuads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "title");
+        $vocabElementList->setTitle(RdfNode::getValue($titleQuad->getObject()));
 
         $descriptionQuad = $rootQuads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "description");
-        $vocabElementList->setTitle($descriptionQuad->getObject()->getValue());
+        $vocabElementList->setDescription(RdfNode::getValue($descriptionQuad->getObject()));
 
         $firstQuads = $this->rdfCollection->quadsMatchingProperty(RdfConstants::RDF_FIRST);
         foreach ($firstQuads as $element) {
             /** @var \ML\JsonLD\TypedValue $node */
             $node = $element->getObject();
-            $quads = $this->rdfCollection->quadsMatchingSubject($node->getValue());
+            $quads = $this->rdfCollection->quadsMatchingSubject(RdfNode::getValue($node));
 
-            $vocabElementList[] = $this->mapToVocabElement($quads);
+            $vocabElementList->addElement($this->mapToVocabElement($quads));
         }
 
-        return $this;
+        return $vocabElementList;
     }
 
     /**
@@ -79,24 +80,25 @@ class VocabElementListState extends GedcomxApplicationState
     private function mapToVocabElement(RdfCollection $quads)
     {
         $vocabElement = new VocabElement();
-        $vocabElement->setId($quads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier")->getObject()->getValue());
-        $vocabElement->setUri((string)$quads->first()->getSubject());
+        $idQuad = $quads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier");
+        $vocabElement->setId(RdfNode::getValue($idQuad->getObject()));
+        $vocabElement->setUri(RdfNode::getValue($quads->first()->getSubject()));
 
         $subclass = $quads->getPropertyQuad(VocabConstants::RDFS_NAMESPACE . "subClassOf");
         if ($subclass != null) {
-            $vocabElement->setSubclass($subclass->getObject()->getValue());
+            $vocabElement->setSubclass(RdfNode::getValue($subclass->getObject()));
         }
 
         $type = $quads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "type");
         if ($type != null) {
-            $vocabElement->setType($type->getObject()->getValue());
+            $vocabElement->setType(RdfNode::getValue($type->getObject()));
         }
 
         $labels = $quads->quadsMatchingProperty(VocabConstants::RDFS_NAMESPACE . "label");
         if ($labels->count()) {
             foreach ($labels as $label) {
                 $node = $label->getObject();
-                $vocabElement->addLabel($node->getValue(), strtolower($node->getLanguage()));
+                $vocabElement->addLabel(RdfNode::getValue($node), RdfNode::getLanguage($node));
             }
         }
 
@@ -104,9 +106,10 @@ class VocabElementListState extends GedcomxApplicationState
         if ($comments->count()) {
             foreach ($comments as $comment) {
                 $node = $comment->getObject();
-                $vocabElement->addDescription($node->getValue(), strtolower($node->getLanguage()));
+                $vocabElement->addDescription(RdfNode::getValue($node), RdfNode::getLanguage($node));
             }
         }
-    }
 
+        return $vocabElement;
+    }
 }

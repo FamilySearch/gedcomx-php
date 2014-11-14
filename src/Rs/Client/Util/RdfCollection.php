@@ -15,7 +15,7 @@ class RdfCollection extends Collection
     {
         $matchingQuads = array();
         foreach ($this->items as $quad) {
-            if ($quad->subject->equals($uri)) {
+            if ($quad->getSubject()->equals($uri)) {
                 $matchingQuads[] = $quad;
             }
         }
@@ -32,24 +32,7 @@ class RdfCollection extends Collection
     {
         $matchingQuads = array();
         foreach ($this->items as $quad) {
-            if ($quad->property->equals($uri)) {
-                $matchingQuads[] = $quad;
-            }
-        }
-
-        return new static($matchingQuads);
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return RdfCollection
-     */
-    public function quadsMatchingObject($type)
-    {
-        $matchingQuads = array();
-        foreach ($this->items as $quad) {
-            if ($quad->object->equals($type)) {
+            if ($quad->getProperty()->equals($uri)) {
                 $matchingQuads[] = $quad;
             }
         }
@@ -65,7 +48,7 @@ class RdfCollection extends Collection
     public function getSubjectQuad($uri)
     {
         foreach ($this->items as $quad) {
-            if ($quad->subject->equals($uri)) {
+            if ($quad->getSubject()->equals($uri)) {
                 return $quad;
             }
         }
@@ -81,7 +64,7 @@ class RdfCollection extends Collection
     public function getPropertyQuad($uri)
     {
         foreach ($this->items as $quad) {
-            if ($quad->property->equals($uri)) {
+            if ($quad->getProperty()->equals($uri)) {
                 return $quad;
             }
         }

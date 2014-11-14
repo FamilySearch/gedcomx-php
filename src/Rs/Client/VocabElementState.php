@@ -2,6 +2,8 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Rs\Client\Util\RdfCollection;
+use Gedcomx\Rs\Client\Util\RdfNode;
 use Gedcomx\Vocab\VocabElement;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -31,7 +33,7 @@ class VocabElementState extends GedcomxApplicationState
         $options = array("");
         $this->rdfCollection = new RdfCollection(JsonLD::toRdf($input, $options));
 
-        return $this;
+        return null;
     }
 
     protected function getScope()
@@ -47,25 +49,25 @@ class VocabElementState extends GedcomxApplicationState
     public function getVocabElement(){
         $vocabElement = new VocabElement();
 
-        $idQuad = $this->rdfCollection->getPropertyQuad(VocabConstants::DC_NAMESPACE + "identifier");
-        $vocabElement->setId($idQuad->getObject()->getValue());
-        $vocabElement->setId((string)$this->rdfCollection->first()->getSubject());
+        $idQuad = $this->rdfCollection->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier");
+        $vocabElement->setId(RdfNode::getValue($idQuad->getObject()));
+        $vocabElement->setUri(RdfNode::getValue($this->rdfCollection->first()->getSubject()));
 
         $subclass = $this->rdfCollection->getPropertyQuad(VocabConstants::RDFS_NAMESPACE . "subClassOf");
         if ($subclass != null) {
-            $vocabElement->setSubclass($subclass->getObject()->getValue());
+            $vocabElement->setSubclass(RdfNode::getValue($subclass->getObject()));
         }
 
         $type = $this->rdfCollection->getPropertyQuad(VocabConstants::DC_NAMESPACE . "type");
         if ($type != null) {
-            $vocabElement->setType($type->getObject()->getValue());
+            $vocabElement->setType(RdfNode::getValue($type->getObject()));
         }
 
         $labels = $this->rdfCollection->quadsMatchingProperty(VocabConstants::RDFS_NAMESPACE . "label");
         if ($labels->count()) {
             foreach ($labels as $label) {
                 $node = $label->getObject();
-                $vocabElement->addLabel($node->getValue(), strtolower($node->getLanguage()));
+                $vocabElement->addLabel(RdfNode::getValue($node), RdfNode::getLanguage($node));
             }
         }
 
@@ -73,7 +75,7 @@ class VocabElementState extends GedcomxApplicationState
         if ($comments->count()) {
             foreach ($comments as $comment) {
                 $node = $comment->getObject();
-                $vocabElement->addDescription($node->getValue(), strtolower($node->getLanguage()));
+                $vocabElement->addDescription(RdfNode::getValue($node), RdfNode::getLanguage($node));
             }
         }
 

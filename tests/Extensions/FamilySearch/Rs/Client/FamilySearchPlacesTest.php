@@ -10,6 +10,16 @@ use Gedcomx\Tests\ApiTestCase;
 class FamilySearchPlacesTest extends ApiTestCase
 {
     /**
+     * @var
+     */
+    private $vocabListState;
+
+    /**
+     * @var
+     */
+    private $vocabElements;
+
+    /**
      * @link https://familysearch.org/developers/docs/api/places/Search_For_Places_usecase
      */
     public function testSearchForPlaces()
@@ -72,19 +82,49 @@ class FamilySearchPlacesTest extends ApiTestCase
     }
 
     /**
+     * @link https://familysearch.org/developers/docs/api/places/Place_Types_resource
+     */
+    public function testReadPlaceTypes()
+    {
+        $this->fetchVocabElements();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $this->vocabListState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__,$this->vocabListState)
+        );
+        $this->assertNotEmpty($this->vocabElements);
+    }
+
+    /**
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_usecase
      */
     public function testReadPlaceType()
     {
-        $factory = new FamilySearchStateFactory();
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $collection = $factory->newPlacesState()
-                          ->authenticateViaOAuth2Password(
-                              $this->apiCredentials->username,
-                              $this->apiCredentials->password,
-                              $this->apiCredentials->apiKey
+        $this->fetchVocabElements();
+
+        $type = $this->collection->readPlaceTypeById($this->vocabElements[0]->getId());
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $type->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__,$type)
         );
-        $types = $collection->readPlaceTypes();
-        $type = $collection->readPlaceTypeById('');
+        $this->assertNotEmpty($type->getVocabElement());
+    }
+
+    private function fetchVocabElements(){
+        if ($this->vocabElements == null) {
+            $factory = new FamilySearchStateFactory();
+            /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+            $this->collection = $factory->newPlacesState()
+                ->authenticateViaOAuth2Password(
+                    $this->apiCredentials->username,
+                    $this->apiCredentials->password,
+                    $this->apiCredentials->apiKey
+                );
+            $this->vocabListState = $this->collection->readPlaceTypes();
+            $this->vocabElements = $this->vocabListState->getVocabElementList()->getElements();
+        }
     }
 }

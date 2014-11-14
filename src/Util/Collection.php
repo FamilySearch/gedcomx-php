@@ -72,7 +72,12 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function first($default = null)
     {
-        return count($this->items) > 0 ? reset($this->items[0]) : $default;
+        if (count($this->items) > 0) {
+            reset($this->items);
+            return $this->items[0];
+        }
+
+        return $default;
     }
 
     /**
