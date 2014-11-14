@@ -283,4 +283,29 @@ class StateFactory
         return new PlaceDescriptionState($client, $request, $response, $accessToken, $this);
     }
 
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\PlaceDescriptionState
+     */
+    protected function buildVocabElementListState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new VocabElementListState($client, $request, $response, $accessToken, $this);
+    }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\PlaceDescriptionState
+     */
+    protected function buildVocabElementState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new VocabElementState($client, $request, $response, $accessToken, $this);
+    }
 }
