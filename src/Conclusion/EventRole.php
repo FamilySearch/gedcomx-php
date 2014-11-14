@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Conclusion;
 use Gedcomx\Common\ResourceReference;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A role that a specific person plays in an event.
@@ -158,6 +159,11 @@ class EventRole extends \Gedcomx\Conclusion\Conclusion
             unset($o["details"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitEventRole($this);
     }
 
     /**

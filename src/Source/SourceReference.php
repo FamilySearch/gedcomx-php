@@ -13,6 +13,7 @@ use Gedcomx\Common\Attributable;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Qualifier;
 use Gedcomx\Links\HypermediaEnabledData;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * An attributable reference to a description of a source.
@@ -167,6 +168,11 @@ class SourceReference extends HypermediaEnabledData implements Attributable
                 $this->qualifiers[$i] = $x instanceof Qualifier ? $x : new Qualifier($x);
             }
         }
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitSourceReference($this);
     }
 
     /**

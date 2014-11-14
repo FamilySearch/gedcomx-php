@@ -11,6 +11,7 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
 
 use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\ResourceReference;
+use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
 /**
  * A discussion.
@@ -313,6 +314,11 @@ class Discussion extends \Gedcomx\Links\HypermediaEnabledData
             unset($o['comments']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(FamilySearchPlatformModelVisitor $visitor)
+    {
+        $visitor->visitDiscussion($this);
     }
 
     /**

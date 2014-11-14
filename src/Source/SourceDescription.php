@@ -14,6 +14,7 @@ use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
 use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * Represents a description of a source.
@@ -844,6 +845,11 @@ class SourceDescription extends HypermediaEnabledData
         if (isset($o['descriptor'])) {
             $this->descriptorRef = $o["descriptor"] instanceof ResourceReference ? $o["descriptor"] : new ResourceReference($o["descriptor"]);
         }
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitSourceDescription($this);
     }
 
     /**

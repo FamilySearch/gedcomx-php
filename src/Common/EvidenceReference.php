@@ -8,6 +8,7 @@
  */
 
 namespace Gedcomx\Common;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A reference to a resource that is being used as evidence.
@@ -156,6 +157,11 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
             unset($o["attribution"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitEvidenceReference($this);
     }
 
     /**

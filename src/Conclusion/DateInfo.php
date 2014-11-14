@@ -12,6 +12,7 @@ namespace Gedcomx\Conclusion;
 use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\TextValue;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A concluded genealogical date.
@@ -236,6 +237,11 @@ class DateInfo extends ExtensibleData
             unset($o['fields']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitDate($this);
     }
 
     /**

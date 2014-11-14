@@ -10,6 +10,7 @@
 namespace Gedcomx\Common;
 
 use Gedcomx\Links\HypermediaEnabledData;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A note about a genealogical resource (e.g. conclusion or source).
@@ -197,6 +198,11 @@ class Note extends HypermediaEnabledData
             unset($o['attribution']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitNote($this);
     }
 
     /**

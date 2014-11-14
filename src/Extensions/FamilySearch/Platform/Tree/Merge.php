@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 use Gedcomx\Common\ResourceReference;
+use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
 /**
  * 
@@ -285,5 +286,10 @@ class Merge
                 $writer->endElement();
             }
         }
+    }
+
+    public function accept(FamilySearchPlatformModelVisitor $visitor)
+    {
+        $visitor->visitMerge($this);
     }
 }

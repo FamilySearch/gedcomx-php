@@ -10,6 +10,7 @@
 namespace Gedcomx\Conclusion;
 use Gedcomx\Common\TextValue;
 use Gedcomx\Records\Field;
+use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * A reference to genealogical place.
@@ -211,6 +212,11 @@ class PlaceReference extends \Gedcomx\Common\ExtensibleData
             unset($o["fields"]);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(GedcomxModelVisitor $visitor)
+    {
+        $visitor->visitPlaceReference($this);
     }
 
     /**

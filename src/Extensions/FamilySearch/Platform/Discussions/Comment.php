@@ -10,6 +10,7 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Discussions;
 
 use Gedcomx\Common\ResourceReference;
+use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
@@ -161,6 +162,11 @@ class Comment extends HypermediaEnabledData
             unset($o['contributor']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(FamilySearchPlatformModelVisitor $visitor)
+    {
+        $visitor->visitComment($this);
     }
 
     /**

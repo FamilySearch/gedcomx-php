@@ -9,6 +9,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Users;
 
+use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
@@ -622,6 +623,11 @@ class User extends HypermediaEnabledData
             unset($o['treeUserId']);
         }
         parent::initFromArray($o);
+    }
+
+    public function accept(FamilySearchPlatformModelVisitor $visitor)
+    {
+        $visitor->visitUser($this);
     }
 
     /**
