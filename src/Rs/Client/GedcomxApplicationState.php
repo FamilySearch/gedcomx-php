@@ -24,6 +24,7 @@ abstract class GedcomxApplicationState
     const FORM_DATA_TYPE = 'application/x-www-form-urlencoded';
     const JSON_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
     const ATOM_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
+    const LD_JSON_TYPE = 'application/ld+json';
 
     /**
      * @var Client
@@ -76,8 +77,8 @@ abstract class GedcomxApplicationState
         $this->response = $response;
         $this->accessToken = $accessToken;
         $this->stateFactory = $stateFactory;
-        $this->entity = $this->loadEntityConditionally($response);
-        $this->links = $this->loadLinks($response, $this->entity);
+        $this->entity = $this->loadEntityConditionally();
+        $this->links = $this->loadLinks();
     }
 
     protected function loadEntityConditionally()
