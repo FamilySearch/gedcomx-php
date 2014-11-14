@@ -4,6 +4,7 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Rs\Client\Exception\GedcomxInvalidQueryParameter;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\GedcomxSearchQuery;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\GedcomxPlaceSearchQueryBuilder;
@@ -48,7 +49,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
      *
      * @return \Gedcomx\Rs\Client\VocabElementListState|null
      */
-    private function readPlaceElementList($path, StateTransitionOption $option = null)
+    protected function readPlaceElementList($path, StateTransitionOption $option = null)
     {
         $link = $this->getLink($path);
         if (null == $link || null == $link->getTemplate()) {
@@ -63,7 +64,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request->setHeader("Accept", GedcomxApplicationState::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
             'VocabElementListState',

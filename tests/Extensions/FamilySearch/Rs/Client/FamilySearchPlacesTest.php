@@ -70,4 +70,21 @@ class FamilySearchPlacesTest extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $results->getResponse()->getStatusCode());
         $this->assertNotEmpty($results->getResults());
     }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_usecase
+     */
+    public function testReadPlaceType()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+        $collection = $factory->newPlacesState()
+                          ->authenticateViaOAuth2Password(
+                              $this->apiCredentials->username,
+                              $this->apiCredentials->password,
+                              $this->apiCredentials->apiKey
+        );
+        $types = $collection->readPlaceTypes();
+        $type = $collection->readPlaceTypeById('');
+    }
 }
