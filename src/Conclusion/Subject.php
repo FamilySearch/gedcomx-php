@@ -180,10 +180,7 @@ class Subject extends Conclusion implements Attributable
         if ($this->identifiers) {
             $ab = array();
             foreach ($this->identifiers as $i => $x) {
-                $ab[$i] = array();
-                foreach ($x as $j => $y) {
-                    $ab[$i][$j] = $y->getValue();
-                }
+                $ab[$x->getType()] = array($x->getValue());
             }
             $a['identifiers'] = $ab;
         }

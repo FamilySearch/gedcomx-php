@@ -3,6 +3,7 @@
     namespace Gedcomx\Rs\Client\Options;
 
     use Guzzle\Http\Message\Request;
+    use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 
     class QueryParameter implements StateTransitionOption
     {
@@ -37,6 +38,7 @@
         public function apply(Request $request)
         {
             $query = $request->getQuery(false);
+            $query->setAggregator(new DuplicateAggregator());
             $query->add( $this->name, $this->value );
         }
 
