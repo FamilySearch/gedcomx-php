@@ -13,8 +13,8 @@
 		const MERGE = "merge";
 		const MERGE_MIRROR = "merge-mirror";
 		const NORMALIZED_DATE = "normalized-date";
-		const NON_MATCHES = "non-matches";
-		const NON_MATCH = "non-match";
+		const NOT_A_MATCHES = "non-matches";
+		const NOT_A_MATCH = "non-match";
 		const PERSON_MATCHES_QUERY = "person-matches-query";
 		const PORTRAIT = "portrait";
 		const PORTRAITS = "portraits";
@@ -24,5 +24,4 @@
 		const PERSON_WITH_RELATIONSHIPS = "person-with-relationships";
 		const PREFERRED_SPOUSE_RELATIONSHIP = "preferred-spouse-relationship";
 		const PREFERRED_PARENT_RELATIONSHIP = "preferred-parent-relationship";
-
 	}
