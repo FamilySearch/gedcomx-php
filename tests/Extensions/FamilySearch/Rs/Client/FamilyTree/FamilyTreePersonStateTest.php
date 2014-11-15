@@ -4,6 +4,7 @@ namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\QueryParameter;
+use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 
@@ -105,5 +106,55 @@ class FamilyTreePersonStateTest extends ApiTestCase
 
         $person1->delete();
         $person2->delete();
+    }
+
+    public function testReadMatchScoresForPersons()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+
+        $query = new GedcomxPersonSearchQueryBuilder();
+        $query->givenName("GedcomX")
+            ->surname("User")
+            ->Gender("Male")
+            ->BirthDate("June 1800")
+            ->BirthPlace("Provo, Utah, Utah, United States")
+            ->DeathDate("July 14, 1900")
+            ->DeathPlace("Provo, Utah, Utah, United States");
+        $state = $collection->searchForPersonMatches($query);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertNotNull($state->getResults());
+        $this->assertNotNull($state->getResults()->getEntries());
+        $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
+        $this->assertGreaterThan(0, array_shift($state->getResults()->getEntries())->getScore());
+    }
+
+    public function testSearchForPersonMatches()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+
+        $query = new GedcomxPersonSearchQueryBuilder();
+        $query->fatherSurname("Heaton")
+            ->spouseSurname("Cox")
+            ->surname("Heaton")
+            ->givenName("Israel")
+            ->birthPlace("Orderville, UT")
+            ->deathDate("29 August 1936")
+            ->deathPlace("Kanab, Kane, UT")
+            ->spouseGivenName("Charlotte")
+            ->motherGivenName("Clarissa")
+            ->motherSurname("Hoyt")
+            ->gender("Male")
+            ->birthDate("30 January 1880")
+            ->fatherGivenName("Jonathan");
+        $state = $collection->searchForPersonMatches($query);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertNotNull($state->getResults());
+        $this->assertNotNull($state->getResults()->getEntries());
+        $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
     }
 }
