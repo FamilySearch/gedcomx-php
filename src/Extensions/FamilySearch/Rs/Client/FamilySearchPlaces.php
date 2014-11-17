@@ -204,7 +204,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedFeedRequest("GET", $uri);
-        $request->setHeader("Accept", GedcomxApplicationState::LD_JSON_TYPE);
+        $request->setHeader("Accept", GedcomxApplicationState::ATOM_MEDIA_TYPE);
 
         return $this->stateFactory->createState(
             "PlaceSearchResultsState",
