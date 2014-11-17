@@ -215,16 +215,13 @@ class Subject extends Conclusion implements Attributable
         }
         $this->identifiers = array();
         if (isset($o['identifiers'])) {
+            $this->identifiers = array();
             foreach ($o['identifiers'] as $i => $x) {
-                if (is_array($x)) {
-                    $this->identifiers[$i] = array();
-                    foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new Identifier();
-                        $this->identifiers[$i][$j]->setValue($y);
-                    }
-                }
-                else {
-                    $this->identifiers[$i] = new Identifier($x);
+                foreach($x as $idValue){
+                    $identifier = new Identifier();
+                    $identifier->setType($i);
+                    $identifier->setValue($idValue);
+                    array_push($this->identifiers, $identifier);
                 }
             }
             unset($o['identifiers']);
