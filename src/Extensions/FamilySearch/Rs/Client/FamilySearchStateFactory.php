@@ -7,6 +7,7 @@
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
 	use Gedcomx\Rs\Client\PlaceDescriptionsState;
 	use Gedcomx\Rs\Client\PlaceDescriptionState;
+	use Gedcomx\Rs\Client\PlaceGroupState;
 	use Gedcomx\Rs\Client\PlaceSearchResultsState;
 	use Gedcomx\Rs\Client\StateFactory;
 	use Guzzle\Http\Client;
@@ -223,5 +224,18 @@
 		protected function buildPlaceDescriptionsState(Client $client, Request $request, Response $response, $accessToken)
 		{
 			return new PlaceDescriptionsState($client, $request, $response, $accessToken, $this);
+		}
+
+		/**
+		 * @param \Guzzle\Http\Client           $client
+		 * @param \Guzzle\Http\Message\Request  $request
+		 * @param \Guzzle\Http\Message\Response $response
+		 * @param string                        $accessToken The access token for this session
+		 *
+		 * @return \Gedcomx\Rs\Client\PlaceDescriptionsState
+		 */
+		protected function buildPlaceGroupState(Client $client, Request $request, Response $response, $accessToken)
+		{
+			return new PlaceGroupState($client, $request, $response, $accessToken, $this);
 		}
 	}

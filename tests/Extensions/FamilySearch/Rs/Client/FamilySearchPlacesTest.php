@@ -113,6 +113,57 @@ class FamilySearchPlacesTest extends ApiTestCase
         $this->assertNotEmpty($type->getVocabElement());
     }
 
+    /**
+     *
+     */
+    public function testPlaceTypeGroups()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+        $collection = $factory->newPlacesState()
+            ->authenticateViaOAuth2Password(
+                $this->apiCredentials->username,
+                $this->apiCredentials->password,
+                $this->apiCredentials->apiKey
+            );
+
+        /**
+         * Read the list of group types.
+         * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_Groups_usecase
+         */
+        $groupTypesState = $collection->readPlaceTypeGroups();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $groupTypesState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(List group types)",$groupTypesState)
+        );
+        $groupTypes = $groupTypesState->getVocabElementList()->getElements();
+        $this->assertNotEmpty($groupTypes);
+        /**
+         * Read the list of types associated with a group.
+         * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_Group_usecase
+         */
+        $groupTypeState = $collection->readPlaceTypeGroupById($groupTypes[0]->getId());
+        $this->assertEquals(
+            HttpStatus::OK,
+            $groupTypeState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(List groups in type)",$groupTypeState)
+        );
+        $groups = $groupTypeState->getVocabElementList()->getElements();
+        $this->assertNotEmpty($groups);
+        /**
+         * Read a group from the list.
+         * @link https://familysearch.org/developers/docs/api/places/Place_Group_resource
+         */
+        $groupState = $collection->readPlaceGroupById(30);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $groupState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(Get group)",$groupState)
+        );
+        $this->assertNotEmpty($groupState->getPlaceGroup());
+    }
+
     private function fetchVocabElements(){
         if ($this->vocabElements == null) {
             $factory = new FamilySearchStateFactory();
