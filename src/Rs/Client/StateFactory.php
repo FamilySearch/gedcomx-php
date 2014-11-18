@@ -11,6 +11,8 @@ class StateFactory
 {
     const PRODUCTION_URI = "https://familysearch.org/platform/collections/tree";
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+    const PRODUCTION_DISCOVERY_URI = "https://familysearch.org/platform/collection";
+    const SANDBOX_DISCOVERY_URI = "https://sandbox.familysearch.org/platform/collection";
 
     /**
      * @var boolean Are we in a production environment
@@ -43,12 +45,40 @@ class StateFactory
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
+    /**
+     * @param string              $uri    Optional URI
+     * @param \Guzzle\Http\Client $client The client to use.
+     * @param string              $method The method.
+     *
+     * @return CollectionState The collection state.
+     */
+    public function newDiscoveryState($uri = null, $method = "GET", Client $client = null)
+    {
+        if (!$client) {
+            $client = $this->defaultClient();
+        }
+        if ($uri == null) {
+            $uri = $this->production ? self::PRODUCTION_DISCOVERY_URI : self::SANDBOX_DISCOVERY_URI;
+        }
+
+        /** @var Request $request */
+        $request = $client->createRequest($method, $uri);
+        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+        return new CollectionState($client, $request, $client->send($request), null, $this);
+    }
+
     protected function defaultClient(){
-        return new Client( '', array(
+        $opts = array(
             "request.options" => array(
                 "exceptions" => false
             )
-        ));
+        );
+        $fiddlerDebug = false;
+        if ($fiddlerDebug) {
+            $opts['request.options']['proxy'] = "tcp://127.0.0.1:8888";
+            $opts['request.options']['verify'] = false;
+        }
+        return new Client( '', $opts);
     }
 
     /**
