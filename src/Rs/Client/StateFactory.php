@@ -22,19 +22,23 @@ class StateFactory
     }
 
     /**
+     * @param string              $uri    Optional URI
      * @param \Guzzle\Http\Client $client The client to use.
      * @param string              $method The method.
      *
      * @return CollectionState The collection state.
      */
-    public function newCollectionState(Client $client = null, $method = "GET")
+    public function newCollectionState($uri = null, $method = "GET", Client $client = null)
     {
         if (!$client) {
             $client = $this->defaultClient();
         }
+        if ($uri == null) {
+            $uri = $this->production ? self::PRODUCTION_URI : self::SANDBOX_URI;
+        }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, ($this->production ? self::PRODUCTION_URI : self::SANDBOX_URI));
+        $request = $client->createRequest($method, $uri);
         $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
@@ -90,6 +94,18 @@ class StateFactory
      */
     protected function buildCollectionState( Client $client, Request $request, Response $response, $accessToken ){
         return new CollectionState( $client, $request, $response, $accessToken, $this );
+    }
+
+    /**
+     * @param \Guzzle\Http\Client           $client
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string                        $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionsState
+     */
+    protected function buildCollectionsState( Client $client, Request $request, Response $response, $accessToken ){
+        return new CollectionsState( $client, $request, $response, $accessToken, $this );
     }
 
     /**

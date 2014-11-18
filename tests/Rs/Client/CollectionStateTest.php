@@ -34,4 +34,16 @@ class CollectionStateTest extends ApiTestCase
         $personState = $collection->readPersonForCurrentUser($expect200);
         $this->assertEquals(HttpStatus::OK, $personState->getResponse()->getStatusCode());
     }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/discussions/Read_Date_Authority_usecase
+     */
+    public function testReadDateAuthority()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $subsState = $this->collectionState()->readSubcollections();
+
+        $dateState = $factory->newCollectionState();
+    }
 }

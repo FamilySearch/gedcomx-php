@@ -18,20 +18,25 @@
 	{
 		const PLACES_URI = "https://familysearch.org/platform/collections/places";
 		const PLACES_SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/places";
+
 		/**
-		 * @param \Guzzle\Http\Client $client The client to use.
+		 * @param string              $uri
 		 * @param string              $method The method.
+		 * @param \Guzzle\Http\Client $client The client to use.
 		 *
 		 * @return FamilySearchCollectionState The collection state.
 		 */
-		public function newCollectionState(Client $client = null, $method = "GET")
+		public function newCollectionState($uri = null, $method = "GET", Client $client = null)
 		{
 			if (!$client) {
 				$client = $this->defaultClient();
 			}
+			if ($uri == null) {
+				$uri = $this->production ? self::PRODUCTION_URI : self::SANDBOX_URI;
+			}
 
 			/** @var Request $request */
-			$request = $client->createRequest($method, ($this->production ? self::PRODUCTION_URI : self::SANDBOX_URI));
+			$request = $client->createRequest($method, $uri);
 			$request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
