@@ -29,7 +29,7 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->assertEquals(
             HttpStatus::OK,
             $analysis->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__,$analysis)
+            $this->buildFailMessage(__METHOD__, $analysis)
         );
         $this->assertNotEmpty($analysis->getAnalysis());
 
@@ -197,6 +197,7 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $state = $collection->searchForPersonMatches($query);
 
         $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
         $this->assertNotNull($state->getResults());
         $this->assertNotNull($state->getResults()->getEntries());
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
@@ -229,5 +230,29 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->assertNotNull($state->getResults());
         $this->assertNotNull($state->getResults()->getEntries());
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
+    }
+
+    public function testReadPersonNotAMatchDeclarations()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+
+        $p = PersonBuilder::buildPerson(null);
+        $person1 = $this->collectionState()->addPerson($p);
+        $person2 = $this->collectionState()->addPerson($p)->get();
+        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $matches = $person2->readMatches();
+        $entries = $matches->getResults()->getEntries();
+        $entry = array_shift($entries);
+        $id = $entry->getId();
+        $match = $collection->readPersonById($id);
+        $person2->addNonMatchState($match);
+        $state = $person2->readNonMatches();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+
+        $person1->delete();
+        $person2->delete();
     }
 }
