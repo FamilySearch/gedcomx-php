@@ -16,7 +16,7 @@ class ChangeEntry extends Entry
     public function __construct(Entry $entry)
     {
         $this->entry = $entry;
-        $this->changeInfo = $this->entry->findExtensionOfType('ChangeInfo');
+        $this->changeInfo = $this->entry->findExtensionOfType('Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeInfo');
     }
 
     public function getChangeInfo()
