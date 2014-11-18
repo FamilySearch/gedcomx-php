@@ -9,7 +9,7 @@ use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation;
 use ReflectionClass;
 
-class ChangeHistoryPage
+class ChangeHistoryPage extends Entry
 {
     private $feed;
     private $entries;

@@ -13,6 +13,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelation
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry;
 use Gedcomx\Tests\ApiTestCase;
 
 class ChangeHistoryStateTests extends ApiTestCase
@@ -117,5 +118,38 @@ class ChangeHistoryStateTests extends ApiTestCase
         $father->delete();
         $mother->delete();
         $son->delete();
+    }
+
+    public function testRestoreChangeAction()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        /** @var FamilyTreePersonState $person */
+        $person = $this->createPerson('male')->get();
+        $person->deleteFact(array_shift($person->getPerson()->getFacts()));
+        $changes = $person->readChangeHistory();
+        $deleted = null;
+        /** @var ChangeEntry $entry */
+        foreach ($changes->getPage()->getEntries() as $entry) {
+            if ($entry->getOperation() !== null && $entry->getOperation() == "http://familysearch.org/v1/Delete") {
+                $deleted = $entry;
+                break;
+            }
+        }
+        $restore = null;
+        /** @var ChangeEntry $entry */
+        foreach ($changes->getPage()->getEntries() as $entry) {
+            if ($entry->getObjectType() != null && $entry->getObjectType() === $deleted->getObjectType() && $entry->getObjectModifier() != null & $entry->getObjectModifier() == $deleted->getObjectModifier() && $entry->getOperation() != null & $entry->getOperation() != "http://familysearch.org/v1/Delete") {
+                $restore = $entry;
+                break;
+            }
+        }
+        $state = $changes->restoreChange($restore->getEntry());
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 204);
+
+        $person->delete();
     }
 }
