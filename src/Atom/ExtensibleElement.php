@@ -14,12 +14,6 @@ namespace Gedcomx\Atom;
  */
 class ExtensibleElement extends CommonAttributes
 {
-
-    /**
-     * Custom extension elements.
-     */
-    private $extensionElements = array();
-
     /**
      * Constructs a ExtensibleElement from a (parsed) JSON hash
      *
