@@ -6,12 +6,34 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\RelationshipState;
+use Gedcomx\Rs\Client\StateFactory;
+use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class FamilyTreeRelationshipState extends RelationshipState implements PreferredRelationshipState
 {
+    public function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
+    {
+        parent::__construct($client, $request, $response, $accessToken, $stateFactory);
+    }
+
+    protected function reconstruct(Request $request, Response $response)
+    {
+        return new FamilyTreeRelationshipState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
+    }
+
     /**
-     * @param StateTransitionOption $option,..
+     * @param StateTransitionOption $options
+     * @return FamilyTreeRelationshipState
+     */
+    public function loadDiscussionReferences(StateTransitionOption $options = null)
+    {
+        return parent::loadEmbeddedResources(array(Rel::DISCUSSION_REFERENCES), $options);
+    }
+
+    /**
+     * @param StateTransitionOption $option ,..
      *
      * @return ChangeHistoryState|null
      */
