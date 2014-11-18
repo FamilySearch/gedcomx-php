@@ -6,6 +6,10 @@ use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\PlaceReference;
+use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChangeHistoryState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
@@ -82,5 +86,36 @@ class ChangeHistoryStateTests extends ApiTestCase
 
         $husband->delete();
         $wife->delete();
+    }
+
+    public function testReadChildAndParentsRelationshipChangeHistory()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+
+        /** @var FamilyTreePersonState $father */
+        $father = $this->createPerson('male')->get();
+        /** @var FamilyTreePersonState $mother */
+        $mother = $this->createPerson('female');
+        /** @var FamilyTreePersonState $son */
+        $son = $this->createPerson('male');
+        $chap = new ChildAndParentsRelationship();
+        $chap->setFather($father->getResourceReference());
+        $chap->setMother($mother->getResourceReference());
+        $chap->setChild($son->getResourceReference());
+        /** @var ChildAndParentsRelationshipState $relationship */
+        $relationship = $collection->addChildAndParentsRelationship($chap)->get();
+        /** @var ChangeHistoryState $state */
+        $state = $relationship->readChangeHistory();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertNotNull($state->getEntity());
+        $this->assertNotNull($state->getEntity()->getEntries());
+        $this->assertGreaterThan(0, $state->getEntity()->getEntries());
+
+        $father->delete();
+        $mother->delete();
+        $son->delete();
     }
 }
