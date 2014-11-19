@@ -217,6 +217,9 @@ class Subject extends Conclusion implements Attributable
         if (isset($o['identifiers'])) {
             $this->identifiers = array();
             foreach ($o['identifiers'] as $i => $x) {
+                if (!is_array($x)) {
+                    $x = array($x);
+                }
                 foreach($x as $idValue){
                     $identifier = new Identifier();
                     $identifier->setType($i);

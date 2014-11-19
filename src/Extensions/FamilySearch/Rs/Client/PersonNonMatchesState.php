@@ -61,7 +61,7 @@ class PersonNonMatchesState extends PersonState
 
     public function removeNonMatch(Person $nonMatch, StateTransitionOption $option = null)
     {
-        $link = $nonMatch->getLink(Rel::NON_MATCHES);
+        $link = $nonMatch->getLink(Rel::NOT_A_MATCHES);
         if ($link == null || $link->getHref() == null) {
             return null;
         }

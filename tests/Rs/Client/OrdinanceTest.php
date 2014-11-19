@@ -43,8 +43,8 @@ class OrdinanceTest extends ApiTestCase
                 'general_public_user',
                 '1234pass',
                 $this->apiCredentials->apiKey);
-        $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->ordinanceUri);
-        $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
+        $request = $collectionState->getClient()->createRequest(Request::GET, $this->ordinanceUri);
+        $request->addHeader('Authorization', "Bearer " . $collectionState->getAccessToken());
         $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
         $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
         $response = $request->send();

@@ -7,8 +7,6 @@
 
 namespace Gedcomx\Util;
 
-use Traversable;
-
 class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
 {
     protected $items;

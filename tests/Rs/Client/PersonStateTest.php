@@ -301,7 +301,7 @@ class PersonStateTest extends ApiTestCase{
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson('ABCD-123');
+        self::$personState = $this->getPerson('MMMM-NNN');
         $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", self::$personState ->getResponse() );
     }
 
