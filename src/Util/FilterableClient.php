@@ -41,7 +41,6 @@ interface Filter
     /**
      * @param array|RequestInterface $requests
      * @return array|RequestInterface
-
      */
     function apply($requests);
 }

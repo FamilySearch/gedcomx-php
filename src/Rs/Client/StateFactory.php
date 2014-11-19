@@ -3,6 +3,7 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
 use Gedcomx\Util\FilterableClient;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
@@ -12,6 +13,7 @@ class StateFactory
 {
     const PRODUCTION_URI = "https://familysearch.org/platform/collections/tree";
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+    const ENABLE_LOG4PHP_LOGGING_ENV_NAME = "enableLog4PhpLogging";        // env variable/property to set
 
     /**
      * @var boolean Are we in a production environment
@@ -41,12 +43,19 @@ class StateFactory
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
-    protected function defaultClient(){
-        return new FilterableClient( '', array(
+    protected function defaultClient()
+    {
+        $client = new FilterableClient('', array(
             "request.options" => array(
                 "exceptions" => false
             )
         ));
+
+        $enableLogging = getenv($this::ENABLE_LOG4PHP_LOGGING_ENV_NAME);
+        if ($enableLogging) {
+            $client->addFilter(new Log4PhpLoggingFilter());
+        }
+        return $client;
     }
 
     /**
