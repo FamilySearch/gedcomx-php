@@ -3,13 +3,21 @@
 namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Faker\Provider\da_DK\Person;
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Extensions\FamilySearch\Feature;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
+use Guzzle\Http\Message\Header\HeaderCollection;
+use Guzzle\Http\Message\Header\HeaderInterface;
+use Guzzle\Http\Message\Request;
 
 class FamilyTreePersonStateTest extends ApiTestCase
 {
@@ -254,5 +262,51 @@ class FamilyTreePersonStateTest extends ApiTestCase
 
         $person1->delete();
         $person2->delete();
+    }
+
+    public function testReadPersonWithMultiplePendingModificationsActivated()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        /** @var Feature[] $features */
+        $features = array();
+
+        $request = $this->collectionState()->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
+        $request->addHeader("Accept", GedcomxApplicationState::JSON_APPLICATION_TYPE);
+        // Get all the features that are pending
+        $response = $request->send($request);
+
+        // Get each pending feature
+        $json = json_decode($response->getBody(true), true);
+        $fsp = new FamilySearchPlatform($json);
+        foreach ($fsp->getFeatures() as $feature) {
+            $features[] = $feature;
+        }
+
+        // Add every pending feature to the tree's current client
+        $this->collectionState()->getClient()->addFilter(new ExperimentsFilter(array_map(function (Feature $feature) {
+            return $feature->getName();
+        }, $features)));
+
+        $state = $this->createPerson();
+
+        // Ensure a response came back
+        $this->assertNotNull($state);
+        $check = array();
+        /** @var HeaderInterface $header */
+        foreach ($state->getRequest()->getHeaders() as $header) {
+            if ($header->getName() == "X-FS-Feature-Tag") {
+                $check[] = $header;
+            }
+        }
+
+        /** @var string[] $requestedFeatures */
+        $requestedFeatures = join(",", $check);
+        // Ensure each requested feature was found in the request headers
+        foreach($features as $feature){
+            $this->assertTrue(strpos($requestedFeatures, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
+        }
+
+        $state->delete();
     }
 }

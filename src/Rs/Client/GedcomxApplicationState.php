@@ -148,7 +148,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @return \Guzzle\Http\Client
+     * @return \Gedcomx\Util\FilterableClient
      */
     public function getClient()
     {
