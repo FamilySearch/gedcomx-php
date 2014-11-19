@@ -14,6 +14,8 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Types\RelationshipType;
+use Gedcomx\Util\DataSource;
+use Gedcomx\Util\MediaType;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
@@ -308,12 +310,57 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-     * @param mixed $data The file
-     * @param SourceDescription $description
+     * @param \Gedcomx\Source\SourceDescription                $description
+     * @param \Gedcomx\Rs\Client\GedcomxApplicationState       $state
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @throws \Gedcomx\Rs\Client\IllegalArgumentException
+     *
+     * @return string
      */
-    public function addArtifact($data, SourceDescription $description = null)
+    public function addArtifact(DataSource $artifact, SourceDescription $description = null, GedcomxApplicationState $state = null, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        if ($state == null){
+            $state = $this;
+        }
+        $link = $state->getLink(Rel::ARTIFACTS);
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException(sprintf("Resource at %s doesn't support adding artifacts.", state.getUri()));
+        }
+
+        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
+        $request = $state->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        if ($artifact->isFile()) {
+            $request->addPostFile($artifact->getName(), $artifact->getFilePath());
+        } else {
+            $request->setPostField($artifact->getName(), $artifact->getTextData());
+        }
+        if ($description != null) {
+            if ($description->getTitles() != null) {
+                foreach ($description->getTitles() as $value) {
+                    $request->setPostField("title", $value->getValue());
+                }
+            }
+            if ($description->getDescriptions() != null) {
+                foreach ($description->getDescriptions() as $value) {
+                    $request->setPostField("description", $value->getValue());
+                }
+            }
+            if ($description->getCitations() != null) {
+                foreach ($description->getCitations() as $citation) {
+                    $request->setPostField("citation", $citation->getValue());
+                }
+            }
+        }
+
+        return $state->stateFactory->createState(
+            'SourceDescriptionState',
+            $this->client,
+            $request,
+            $state->passOptionsTo('invoke', array($request), func_get_args()),
+            $state->accessToken
+        );
     }
 
     /**
