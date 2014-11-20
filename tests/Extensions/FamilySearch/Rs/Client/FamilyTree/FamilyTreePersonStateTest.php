@@ -5,6 +5,7 @@ namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
 use Faker\Provider\da_DK\Person;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Feature;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
@@ -305,10 +306,32 @@ class FamilyTreePersonStateTest extends ApiTestCase
         /** @var string[] $requestedFeatures */
         $requestedFeatures = join(",", $check);
         // Ensure each requested feature was found in the request headers
-        foreach($features as $feature){
+        foreach ($features as $feature) {
             $this->assertTrue(strpos($requestedFeatures, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
         }
 
         $state->delete();
+    }
+
+    public function testReadPersonWithPendingModificationActivated()
+    {
+        // The default client from this factory is assumed to add a single pending feature (if it doesn't, this test will fail)
+        $factory = new FamilySearchStateFactory();
+        $state = $this->collectionState($factory);
+
+        $this->assertNotNull($state);
+        $check = array();
+        /** @var HeaderInterface $header */
+        foreach ($state->getRequest()->getHeaders() as $header) {
+            if ($header->getName() == "X-FS-Feature-Tag") {
+                $check[] = $header;
+            }
+        }
+
+        /** @var string[] $requestedFeatures */
+        $requestedFeatures = join(",", $check);
+        $this->assertNotNull($requestedFeatures);
+        $this->assertEquals(false, strpos($requestedFeatures,","));
+        $this->assertEquals(1, count($requestedFeatures));
     }
 }
