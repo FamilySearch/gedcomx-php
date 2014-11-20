@@ -11,10 +11,10 @@ use Gedcomx\Conclusion\Person;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Types\RelationshipType;
-use Gedcomx\Util\DataSource;
 use Gedcomx\Util\MediaType;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -310,14 +310,13 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Rs\Client\Util\DataSource               $artifact
      * @param \Gedcomx\Source\SourceDescription                $description
      * @param \Gedcomx\Rs\Client\GedcomxApplicationState       $state
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     * @throws \Gedcomx\Rs\Client\IllegalArgumentException
-     *
-     * @return string
+      * @return string
      */
     public function addArtifact(DataSource $artifact, SourceDescription $description = null, GedcomxApplicationState $state = null, StateTransitionOption $option = null)
     {
@@ -332,9 +331,11 @@ class CollectionState extends GedcomxApplicationState
         /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
         $request = $state->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
         if ($artifact->isFile()) {
-            $request->addPostFile($artifact->getName(), $artifact->getFilePath());
+            $request->addPostFile($artifact->getPostFile());
         } else {
-            $request->setPostField($artifact->getName(), $artifact->getTextData());
+            foreach ($artifact->getParameters() as $key => $value) {
+                $request->setPostField($key, $value);
+            }
         }
         if ($description != null) {
             if ($description->getTitles() != null) {

@@ -2,6 +2,8 @@
 
 namespace Gedcomx\Tests\Extensions\Rs\Client\Memories;
 
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\ImageSource;
 use Gedcomx\Rs\Client\Util\MultiPartManager;
 use Gedcomx\Tests\ApiTestCase;
@@ -13,9 +15,13 @@ class FamilySearchMemoriesTest extends ApiTestCase
 
     public function testUploadMultiplePhotoMemories()
     {
-        $imageFile = $this->makeImage();
-        $artifact = new ImageSource($imageFile);
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+        $artifact->setTitle($this->faker->sentence(4));
 
+        $factory = new FamilySearchStateFactory();
+        $memories = $factory->newMemoriesState();
 
     }
 

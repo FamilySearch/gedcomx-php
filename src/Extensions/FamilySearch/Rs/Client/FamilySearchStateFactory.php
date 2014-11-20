@@ -4,6 +4,7 @@
 
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
+	use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
 	use Gedcomx\Rs\Client\PlaceDescriptionsState;
 	use Gedcomx\Rs\Client\PlaceDescriptionState;
@@ -18,6 +19,8 @@
 	{
 		const PLACES_URI = "https://familysearch.org/platform/collections/places";
 		const PLACES_SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/places";
+		const MEMORIES_URI = "https://familysearch.org/platform/collections/memories";
+		const MEMORIES_SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/memories";
 
 		/**
 		 * @param string              $uri
@@ -42,24 +45,55 @@
 		}
 
 		/**
-		 * Create a new places state with the given URI
+		 * Create a new places state
 		 *
-		 * @param Client $client
+		 * @param string $uri
 		 * @param string $method
+		 * @param Client $client
 		 *
-		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlacesState a new places state created with with the given URI
+		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces
 		 */
-		public function newPlacesState($client = null, $method = "GET")
+		public function newPlacesState($uri = null, $method = "GET", Client $client = null)
 		{
 			if (!$client) {
 				$client = $this->defaultClient();
 			}
 
+			if ($uri == null) {
+				$uri = $this->production ? self::PLACES_URI : self::PLACES_SANDBOX_URI;
+			}
+
 			/** @var Request $request */
-			$request = $client->createRequest($method, ($this->production ? self::PLACES_URI : self::PLACES_SANDBOX_URI));
+			$request = $client->createRequest($method, $uri);
 			$request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
 
 			return new FamilySearchPlaces($client, $request, $client->send($request), null, $this);
+		}
+
+		/**
+		 * Create a new memories state
+		 *
+		 * @param null   $uri
+		 * @param string $method
+		 * @param Client $client
+		 *
+		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories
+		 */
+		public function newMemoriesState($uri = null, $method = "GET", Client $client = null)
+		{
+			if (!$client) {
+				$client = $this->defaultClient();
+			}
+
+			if ($uri == null) {
+				$uri = $this->production ? self::MEMORIES_URI : self::MEMORIES_SANDBOX_URI;
+			}
+
+			/** @var Request $request */
+			$request = $client->createRequest($method, $uri);
+			$request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+
+			return new FamilySearchMemories($client, $request, $client->send($request), null, $this);
 		}
 
 		/**
