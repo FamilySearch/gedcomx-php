@@ -180,7 +180,8 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $matches = $person2->readMatches();
         $accepted = new QueryParameter(true, "status", "accepted");
 
-        $state = $matches->updateMatchStatus(array_shift($matches->getResults()->getEntries()), $accepted, $collection);
+        $entries = $matches->getResults()->getEntries();
+        $state = $matches->updateMatchStatus(array_shift($entries), $accepted, $collection);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 204);
@@ -209,7 +210,8 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->assertNotNull($state->getResults());
         $this->assertNotNull($state->getResults()->getEntries());
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
-        $this->assertGreaterThan(0, array_shift($state->getResults()->getEntries())->getScore());
+        $entries = $state->getResults()->getEntries();
+        $this->assertGreaterThan(0, array_shift($entries)->getScore());
     }
 
     public function testSearchForPersonMatches()

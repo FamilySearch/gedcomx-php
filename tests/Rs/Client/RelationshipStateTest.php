@@ -100,7 +100,7 @@ class RelationshipStateTest extends ApiTestCase
             "links" => array(
                 array(
                     "rel" => 'relationship',
-                    'href' => "https://sandbox.familysearch.org/platform/tree/couple-relationships/NOTFOUND"
+                    'href' => "https://sandbox.familysearch.org/platform/tree/couple-relationships/XXX-XXXX"
                 )
             )
         ));

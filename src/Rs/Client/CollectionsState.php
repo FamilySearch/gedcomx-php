@@ -31,7 +31,7 @@ class CollectionsState extends GedcomxApplicationState
 
     protected function getScope()
     {
-        return $this->getEntity();
+        return $this->getCollections();
     }
 
     /**
@@ -71,38 +71,4 @@ class CollectionsState extends GedcomxApplicationState
     {
         throw new RuntimeException("function currently not implemented."); //todo: implement
     }
-
-    /**
-     * @return CollectionsState|null
-     */
-    public function readNextPage()
-    {
-        return parent::readNextPage();
-    }
-
-    /**
-     * @return CollectionsState|null
-     */
-    public function readPreviousPage()
-    {
-        return parent::readPreviousPage();
-    }
-
-    /**
-     * @return CollectionsState|null
-     */
-    public function readFirstPage()
-    {
-        return parent::readFirstPage();
-    }
-
-    /**
-     * @return CollectionsState|null
-     */
-    public function readLastPage()
-    {
-        return parent::readLastPage();
-    }
-
-
 }

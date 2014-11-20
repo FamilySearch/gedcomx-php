@@ -72,14 +72,14 @@
 			}
 			$uri = array(
 				$link->getTemplate(),
-				array()
+				array('date' => $date)
 			);
 
 			$request = $this->createRequest(Request::GET, $uri);
 			$response = $this->passOptionsTo('invoke', array($request), func_get_args());
 			$dateValue = new DateInfo();
 			$dateValue->setOriginal($date);
-			$dateValue->addNormalizedExtension(new TextValue($response->getEntity()));
+			$dateValue->addNormalizedExtension(new TextValue(array('value' => $response->getBody(true))));
 			$headers = $response->getHeaders();
 			if ($headers != null && isset($headers["Location"])) {
 				$dateValue->setFormal($headers["Location"]);

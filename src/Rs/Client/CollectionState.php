@@ -365,35 +365,93 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-     * @return CollectionState|null
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\CollectionState|null
      */
-    public function readCollection()
+    public function readCollection(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::COLLECTION);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'CollectionState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @return CollectionsState|null
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\CollectionsState|null
      */
-    public function readSubcollections()
+    public function readSubcollections(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::SUBCOLLECTIONS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'CollectionsState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Collection|Gedcomx $collection
-     * @return CollectionState|null
+     * @param Collection                                       $collection
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @return \Gedcomx\Rs\Client\CollectionState|null
      */
-    public function addCollection($collection)
+    public function addCollection(Collection $collection, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::SUBCOLLECTIONS);
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding subcollections.", $this->getUri()));
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        $request->setBody($collection);
+        return $this->stateFactory->createState(
+            'CollectionState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @return SourceDescriptionsState|null
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionsState|null
      */
-    public function readResourcesOfCurrentUser()
+    public function readResourcesOfCurrentUser(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::CURRENT_USER_RESOURCES);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'SourceDescriptionsState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 }

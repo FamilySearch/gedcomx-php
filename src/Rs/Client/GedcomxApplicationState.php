@@ -25,6 +25,7 @@ abstract class GedcomxApplicationState
     const JSON_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
     const ATOM_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
     const LD_JSON_TYPE = 'application/ld+json';
+    const PLAIN_TEXT = 'text/plain';
 
     /**
      * @var Client
