@@ -4,8 +4,38 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4f0d98afa9c47bd05a43544e7bc9345",
+    "hash": "b172dea39aeadf3c6924ab8332575bda",
     "packages": [
+        {
+            "name": "apache/log4php",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git-wip-us.apache.org/repos/asf/logging-log4php.git",
+                "reference": "8c6df2481cd68d0d211d38f700406c5f0a9de0c2"
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/main/php/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "A versatile logging framework for PHP",
+            "homepage": "http://logging.apache.org/log4php/",
+            "keywords": [
+                "log",
+                "logging",
+                "php"
+            ],
+            "time": "2012-10-26 09:13:25"
+        },
         {
             "name": "guzzle/guzzle",
             "version": "v3.9.2",
@@ -196,17 +226,17 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.5.6",
+            "version": "v2.5.7",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "804eb28dbbfba9ffdab21fe2066744906cea2212"
+                "reference": "bb6fc12085cd195dceaf48016087b12b632df497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/804eb28dbbfba9ffdab21fe2066744906cea2212",
-                "reference": "804eb28dbbfba9ffdab21fe2066744906cea2212",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/bb6fc12085cd195dceaf48016087b12b632df497",
+                "reference": "bb6fc12085cd195dceaf48016087b12b632df497",
                 "shasum": ""
             },
             "require": {
@@ -249,7 +279,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 15:43:05"
+            "time": "2014-10-30 20:17:55"
         }
     ],
     "packages-dev": [
@@ -725,17 +755,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.6",
+            "version": "v2.5.7",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "2d9f527449cabfa8543dd7fa3a466d6ae83d6726"
+                "reference": "900d38bc8f74a50343ce65dd1c1e9819658ee56b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/2d9f527449cabfa8543dd7fa3a466d6ae83d6726",
-                "reference": "2d9f527449cabfa8543dd7fa3a466d6ae83d6726",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/900d38bc8f74a50343ce65dd1c1e9819658ee56b",
+                "reference": "900d38bc8f74a50343ce65dd1c1e9819658ee56b",
                 "shasum": ""
             },
             "require": {
@@ -768,7 +798,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-10-01 05:50:18"
+            "time": "2014-11-20 13:22:25"
         }
     ],
     "aliases": [],

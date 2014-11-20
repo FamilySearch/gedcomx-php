@@ -3,6 +3,8 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
+use Gedcomx\Util\FilterableClient;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -13,20 +15,22 @@ class StateFactory
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
     const PRODUCTION_DISCOVERY_URI = "https://familysearch.org/platform/collection";
     const SANDBOX_DISCOVERY_URI = "https://sandbox.familysearch.org/platform/collection";
+    const ENABLE_LOG4PHP_LOGGING_ENV_NAME = "enableLog4PhpLogging";        // env variable/property to set
 
     /**
      * @var boolean Are we in a production environment
      */
     protected $production;
 
-    public function __construct($production = false){
+    public function __construct($production = false)
+    {
         $this->production = $production;
     }
 
     /**
      * @param string              $uri    Optional URI
      * @param \Guzzle\Http\Client $client The client to use.
-     * @param string              $method The method.
+     * @param string $method The method.
      *
      * @return CollectionState The collection state.
      */
@@ -67,7 +71,8 @@ class StateFactory
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
-    protected function defaultClient(){
+    protected function defaultClient()
+    {
         $opts = array(
             "request.options" => array(
                 "exceptions" => false
@@ -78,20 +83,26 @@ class StateFactory
             $opts['request.options']['proxy'] = "tcp://127.0.0.1:8888";
             $opts['request.options']['verify'] = false;
         }
-        return new Client( '', $opts);
+        $client = new FilterableClient('', $opts);
+
+        $enableLogging = getenv($this::ENABLE_LOG4PHP_LOGGING_ENV_NAME);
+        if ($enableLogging) {
+            $client->addFilter(new Log4PhpLoggingFilter());
+        }
+        return $client;
     }
 
     /**
-     * @param string              $uri    The URI to the person.
+     * @param string $uri The URI to the person.
      * @param \Guzzle\Http\Client $client The client to use.
-     * @param string              $method The method.
+     * @param string $method The method.
      *
      * @return PersonState The person state.
      */
     public function newPersonState($uri, Client $client = null, $method = "GET")
     {
         if (!$client) {
-            $client = new Client();
+            $client = new FilterableClient();
         }
 
         /** @var Request $request */
@@ -101,36 +112,38 @@ class StateFactory
     }
 
     /**
-     * @param string                        $class        The name of the state class to create
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param string $class The name of the state class to create
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return mixed
      */
-    public function createState( $class, Client $client, Request $request, Response $response, $accessToken ){
+    public function createState($class, Client $client, Request $request, Response $response, $accessToken)
+    {
         $functionName = "build{$class}";
         return $this->$functionName($client, $request, $response, $accessToken);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
      */
-    protected function buildCollectionState( Client $client, Request $request, Response $response, $accessToken ){
-        return new CollectionState( $client, $request, $response, $accessToken, $this );
+    protected function buildCollectionState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new CollectionState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
      */
@@ -146,51 +159,55 @@ class StateFactory
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
      */
-    protected function buildSourceDescriptionsState( Client $client, Request $request, Response $response, $accessToken ){
-        return new SourceDescriptionsState( $client, $request, $response, $accessToken, $this );
+    protected function buildSourceDescriptionsState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new SourceDescriptionsState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
      */
-    protected function buildSourceDescriptionState( Client $client, Request $request, Response $response, $accessToken ){
-        return new SourceDescriptionState( $client, $request, $response, $accessToken, $this );
+    protected function buildSourceDescriptionState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new SourceDescriptionState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonsState
      */
-    protected function buildPersonsState( Client $client, Request $request, Response $response, $accessToken ){
-		return new PersonsState( $client, $request, $response, $accessToken, $this );
-	}
-
-    /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
-     *
-     * @return \Gedcomx\Rs\Client\PersonChildrenState
-     */
-    protected function buildPersonChildrenState( Client $client, Request $request, Response $response, $accessToken ){
-        return new PersonChildrenState( $client, $request, $response, $accessToken, $this );
+    protected function buildPersonsState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new PersonsState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
+     *
+     * @return \Gedcomx\Rs\Client\PersonChildrenState
+     */
+    protected function buildPersonChildrenState(Client $client, Request $request, Response $response, $accessToken)
+    {
+        return new PersonChildrenState($client, $request, $response, $accessToken, $this);
+    }
+
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
+     * @param \Guzzle\Http\Message\Response $response
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -200,36 +217,36 @@ class StateFactory
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonParentsState
      */
     protected function buildPersonParentsState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new PersonParentsState( $client, $request, $response, $accessToken, $this );
+        return new PersonParentsState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonSpousesState
      */
     protected function buildPersonSpousesState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new PersonSpousesState( $client, $request, $response, $accessToken, $this );
+        return new PersonSpousesState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
      */
@@ -239,10 +256,10 @@ class StateFactory
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
      */
@@ -252,75 +269,75 @@ class StateFactory
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonSearchResultsState
      */
     protected function buildPersonSearchResultsState(Client $client, Request $request, Response $response, $accessToken)
     {
-		return new PersonSearchResultsState( $client, $request, $response, $accessToken, $this );
-	}
+        return new PersonSearchResultsState($client, $request, $response, $accessToken, $this);
+    }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
      */
     protected function buildRecordState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new RecordState( $client, $request, $response, $accessToken, $this );
+        return new RecordState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
      */
     protected function buildRelationshipState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new RelationshipState( $client, $request, $response, $accessToken, $this );
+        return new RelationshipState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
      */
     protected function buildAgentState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new AgentState( $client, $request, $response, $accessToken, $this );
+        return new AgentState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
      */
     protected function buildPlaceSearchResultState(Client $client, Request $request, Response $response, $accessToken)
     {
-        return new PlaceSearchResultState( $client, $request, $response, $accessToken, $this );
+        return new PlaceSearchResultState($client, $request, $response, $accessToken, $this);
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
      */
@@ -330,10 +347,10 @@ class StateFactory
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
      */
@@ -343,10 +360,10 @@ class StateFactory
     }
 
     /**
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
-     * @param string                        $accessToken The access token for this session
+     * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
      */

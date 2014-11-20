@@ -6,8 +6,8 @@
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
+    use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 	use Gedcomx\Rs\Client\PlaceDescriptionsState;
-	use Gedcomx\Rs\Client\PlaceDescriptionState;
 	use Gedcomx\Rs\Client\PlaceGroupState;
 	use Gedcomx\Rs\Client\PlaceSearchResultsState;
 	use Gedcomx\Rs\Client\StateFactory;
@@ -44,8 +44,18 @@
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
 
-		/**
-		 * Create a new places state
+        protected function defaultClient()
+        {
+            $client = parent::defaultClient();
+
+            //how to add an experiment:
+            $client->addFilter(new ExperimentsFilter(array("birth-date-not-considered-death-declaration")));
+
+            return $client;
+        }
+
+        /**
+		 * Create a new places state with the given URI
 		 *
 		 * @param string $uri
 		 * @param string $method
