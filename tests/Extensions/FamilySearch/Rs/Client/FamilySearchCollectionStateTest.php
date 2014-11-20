@@ -4,6 +4,7 @@ namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\CollectionsState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
@@ -66,5 +67,20 @@ class FamilySearchCollectionStateTest extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
         $this->assertNotNull($subcollections->getCollections());
         $this->assertGreaterThan(0, count($subcollections->getCollections()));
+    }
+
+    public function testCreateUserDefinedCollection()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchCollectionState $collection */
+        $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
+        $c = new Collection();
+        $c->setTitle($this->faker->sha1);
+        $state = $collection->addCollection($c);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
+
+        $state->delete();
     }
 }

@@ -423,7 +423,9 @@ class CollectionState extends GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
-        $request->setBody($collection);
+        $entity = new Gedcomx();
+        $entity->setCollections(array($collection));
+        $request->setBody($entity->toJson());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
