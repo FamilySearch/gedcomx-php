@@ -50,11 +50,14 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
     /**
      * @param StateFactory|FamilyTreeStateFactory $factory
+     * @param string $uri
+     * @param string $method
+     * @param \Guzzle\Http\Client $client
      *
      * @throws \RuntimeException
      * @return \Gedcomx\Rs\Client\CollectionState|\Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
      */
-    protected function collectionState($factory = null){
+    protected function collectionState($factory = null, $uri = null, $method = "GET", $client = null){
         if( $factory == null ){
             if( $this->collectionState == null ){
                 throw new \RuntimeException("Collection state is null");
@@ -66,7 +69,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
             return $this->collectionState;
         } else {
             $this->collectionState = $factory
-                ->newCollectionState()
+                ->newCollectionState($uri, $method, $client)
                 ->authenticateViaOAuth2Password(
                     $this->apiCredentials->username,
                     $this->apiCredentials->password,
