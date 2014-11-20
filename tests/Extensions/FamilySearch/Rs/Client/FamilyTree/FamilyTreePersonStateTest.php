@@ -331,7 +331,78 @@ class FamilyTreePersonStateTest extends ApiTestCase
         /** @var string[] $requestedFeatures */
         $requestedFeatures = join(",", $check);
         $this->assertNotNull($requestedFeatures);
-        $this->assertEquals(false, strpos($requestedFeatures,","));
+        $this->assertEquals(false, strpos($requestedFeatures, ","));
         $this->assertEquals(1, count($requestedFeatures));
+    }
+
+    public function testRedirectToPerson()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->createPerson();
+        $id = $person->getResponse()->getHeader("X-ENTITY-ID")->__toString();
+        $uri = "https://sandbox.familysearch.org/platform/redirect?person=" . $id;
+        $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
+        $request->addHeader("Header", "application/json");
+        $response = $this->collectionState()->getClient()->send($request);
+
+        $this->assertNotNull($response);
+        $this->assertEquals(1, $response->getRedirectCount());
+        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+
+        $person->delete();
+    }
+
+    public function testRedirectToPersonMemories()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->createPerson();
+        $id = $person->getResponse()->getHeader("X-ENTITY-ID")->__toString();
+        $uri = "https://sandbox.familysearch.org/platform/redirect?context=memories&person=" . $id;
+        $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
+        $request->addHeader("Header", "application/json");
+        $response = $this->collectionState()->getClient()->send($request);
+
+        $this->assertNotNull($response);
+        $this->assertEquals(1, $response->getRedirectCount());
+        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+
+        $person->delete();
+    }
+
+    public function testRedirectToSourceLinker()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->createPerson()->get();
+        $uri = sprintf("https://sandbox.familysearch.org/platform/redirect?context=sourcelinker&person=%s&hintId=%s", $person->getPerson()->getId(), array_shift($person->getPerson()->getIdentifiers())->getValue());
+        $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
+        $request->addHeader("Header", "application/json");
+        $response = $this->collectionState()->getClient()->send($request);
+
+        $this->assertNotNull($response);
+        $this->assertEquals(1, $response->getRedirectCount());
+        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+
+        $person->delete();
+    }
+
+    public function testRedirectToUri()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $uri = "https://sandbox.familysearch.org/platform/redirect?uri=https://familysearch.org/some/path?p1%3Dp1-value%26p2%3Dp2-value";
+        $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
+        $request->addHeader("Header", "application/json");
+        $response = $this->collectionState()->getClient()->send($request);
+
+        $this->assertNotNull($response);
+        $this->assertEquals(1, $response->getRedirectCount());
+        $this->assertNotEquals($uri, $response->getEffectiveUrl());
     }
 }
