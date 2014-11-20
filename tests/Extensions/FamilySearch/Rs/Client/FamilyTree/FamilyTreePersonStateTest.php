@@ -2,11 +2,9 @@
 
 namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
-use Faker\Provider\da_DK\Person;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Feature;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
@@ -16,9 +14,7 @@ use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
-use Guzzle\Http\Message\Header\HeaderCollection;
 use Guzzle\Http\Message\Header\HeaderInterface;
-use Guzzle\Http\Message\Request;
 
 class FamilyTreePersonStateTest extends ApiTestCase
 {
@@ -379,7 +375,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->createPerson()->get();
-        $uri = sprintf("https://sandbox.familysearch.org/platform/redirect?context=sourcelinker&person=%s&hintId=%s", $person->getPerson()->getId(), array_shift($person->getPerson()->getIdentifiers())->getValue());
+
+        $identifiers = $person->getPerson()->getIdentifiers();
+        $uri = sprintf("https://sandbox.familysearch.org/platform/redirect?context=sourcelinker&person=%s&hintId=%s", $person->getPerson()->getId(), array_shift($identifiers)->getValue());
         $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
         $request->addHeader("Header", "application/json");
         $response = $this->collectionState()->getClient()->send($request);
