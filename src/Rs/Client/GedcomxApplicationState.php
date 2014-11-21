@@ -414,15 +414,13 @@ abstract class GedcomxApplicationState
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
-
     /**
-     * @param                                                  $entity
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     * @param \Gedcomx\Gedcomx                                 $entity
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
-     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
-     * @throws GedcomxApplicationException
+     * @return mixed
      */
-    public function post($entity, StateTransitionOption $option = null)
+    public function post(Gedcomx $entity, StateTransitionOption $option = null)
     {
         $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
@@ -435,6 +433,17 @@ abstract class GedcomxApplicationState
         }
         $request->setBody($entity->toJson());
         return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
+    }
+
+    /**
+     * An alias for the post method.
+     *
+     * @param \Gedcomx\Gedcomx                                 $entity
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     */
+    public function update(Gedcomx $entity, StateTransitionOption $option = null)
+    {
+        $this->passOptionsTo('post', array($entity), func_get_args());
     }
 
 

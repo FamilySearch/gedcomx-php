@@ -117,7 +117,7 @@ class SourceDescription extends HypermediaEnabledData
      *
      * @var \Gedcomx\Common\TextValue[]
      */
-    private $description;
+    private $descriptions;
 
     /**
      * The list of identifiers for the source.
@@ -452,9 +452,9 @@ class SourceDescription extends HypermediaEnabledData
      *
      * @return \Gedcomx\Common\TextValue[]
      */
-    public function getDescription()
+    public function getDescriptions()
     {
-        return $this->description;
+        return $this->descriptions;
     }
 
     /**
@@ -462,9 +462,9 @@ class SourceDescription extends HypermediaEnabledData
      *
      * @param \Gedcomx\Common\TextValue[] $description
      */
-    public function setDescription($description)
+    public function setDescriptions($description)
     {
-        $this->description = $description;
+        $this->descriptions = $description;
     }
     /**
      * The list of identifiers for the source.
@@ -681,9 +681,9 @@ class SourceDescription extends HypermediaEnabledData
         if ($this->sortKey) {
             $a["sortKey"] = $this->sortKey;
         }
-        if ($this->description) {
+        if ($this->descriptions) {
             $ab = array();
-            foreach ($this->description as $i => $x) {
+            foreach ($this->descriptions as $i => $x) {
                 $ab[$i] = $x->toArray();
             }
             $a['description'] = $ab;
@@ -794,10 +794,10 @@ class SourceDescription extends HypermediaEnabledData
         if (isset($o['sortKey'])) {
             $this->sortKey = $o["sortKey"];
         }
-        $this->description = array();
-        if (isset($o['description'])) {
-            foreach ($o['description'] as $i => $x) {
-                $this->description[$i] = $x instanceof TextValue ? $x : new TextValue($x);
+        $this->descriptions = array();
+        if (isset($o['descriptions'])) {
+            foreach ($o['descriptions'] as $i => $x) {
+                $this->descriptions[$i] = $x instanceof TextValue ? $x : new TextValue($x);
             }
         }
         $this->identifiers = array();
@@ -930,10 +930,10 @@ class SourceDescription extends HypermediaEnabledData
         }
         else if (($xml->localName == 'description') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
             $child = new TextValue($xml);
-            if (!isset($this->description)) {
-                $this->description = array();
+            if (!isset($this->descriptions)) {
+                $this->descriptions = array();
             }
-            array_push($this->description, $child);
+            array_push($this->descriptions, $child);
             $happened = true;
         }
         else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
@@ -1117,8 +1117,8 @@ class SourceDescription extends HypermediaEnabledData
             $writer->text($this->sortKey);
             $writer->endElement();
         }
-        if ($this->description) {
-            foreach ($this->description as $i => $x) {
+        if ($this->descriptions) {
+            foreach ($this->descriptions as $i => $x) {
                 $writer->startElementNs('gx', 'description', null);
                 $x->writeXmlContents($writer);
                 $writer->endElement();

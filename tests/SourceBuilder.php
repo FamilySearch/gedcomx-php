@@ -19,6 +19,9 @@ class SourceBuilder extends TestBuilder{
             "notes" => array(
                 array("text" => self::faker()->sentence(12))
             ),
+            "descriptions" => array(
+                array("value" => self::faker()->paragraph(2))
+            ),
             "attribution" => array(
                 "contributor" => array(
                     "resource" =>"https://familysearch.org/platform/users/agents/MM6M-8QJ",

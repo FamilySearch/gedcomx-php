@@ -17,7 +17,7 @@ class DataSource
     public function setFile($filepath)
     {
         $this->isFile = true;
-        $this->filename = $filepath;
+        $this->filepath = $filepath;
     }
 
     /**
@@ -75,6 +75,6 @@ class DataSource
      */
     public function isFile()
     {
-        return $this->isFile();
+        return $this->isFile;
     }
 }

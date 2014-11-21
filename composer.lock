@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b172dea39aeadf3c6924ab8332575bda",
+    "hash": "26debb1cd2612f1ef512f30f46b6f38b",
     "packages": [
         {
             "name": "apache/log4php",
@@ -386,6 +386,49 @@
                 "watermark"
             ],
             "time": "2014-11-09 11:54:16"
+        },
+        {
+            "name": "mpdf/mpdf",
+            "version": "v5.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/finwe/mpdf.git",
+                "reference": "ace190986978df40b9c416cf7ba8761945fc1758"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/finwe/mpdf/zipball/ace190986978df40b9c416cf7ba8761945fc1758",
+                "reference": "ace190986978df40b9c416cf7ba8761945fc1758",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=4.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "mpdf.php",
+                    "classes"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Back"
+                }
+            ],
+            "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
+            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2014-08-24 08:33:20"
         },
         {
             "name": "phpunit/php-code-coverage",

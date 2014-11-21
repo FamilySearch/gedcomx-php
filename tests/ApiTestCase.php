@@ -77,6 +77,15 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         }
     }
 
+    protected function authorize($state)
+    {
+        return $state->authenticateViaOAuth2Password(
+            $this->apiCredentials->username,
+            $this->apiCredentials->password,
+            $this->apiCredentials->apiKey
+        );
+    }
+
     protected function buildFailMessage( $methodName, $stateObj )
     {
         $method = explode("\\",$methodName );

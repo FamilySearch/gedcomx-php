@@ -57,12 +57,12 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
-     * @param SourceDescription     $description
-     * @param StateTransitionOption $option,...
+     * @param Gedcomx|SourceDescription $description
+     * @param StateTransitionOption     $option,...
      *
      * @return SourceDescriptionState
      */
-    public function update(SourceDescription $description, StateTransitionOption $option = null)
+    public function update(Gedcomx $description, StateTransitionOption $option = null)
     {
         $entity = new Gedcomx();
         $entity->setSourceDescriptions(array($description));
@@ -134,6 +134,7 @@ class SourceDescriptionState extends GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request->setBody($persona->toJson());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,

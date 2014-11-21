@@ -316,7 +316,7 @@ class CollectionState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-      * @return string
+      * @return \Gedcomx\Rs\Client\SourceDescriptionState
      */
     public function addArtifact(DataSource $artifact, SourceDescription $description = null, GedcomxApplicationState $state = null, StateTransitionOption $option = null)
     {
@@ -332,6 +332,9 @@ class CollectionState extends GedcomxApplicationState
         $request = $state->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
         if ($artifact->isFile()) {
             $request->addPostFile($artifact->getPostFile());
+            if ($artifact->getTitle()) {
+                $request->setPostField('title', $artifact->getTitle());
+            }
         } else {
             foreach ($artifact->getParameters() as $key => $value) {
                 $request->setPostField($key, $value);
