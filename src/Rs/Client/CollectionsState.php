@@ -5,6 +5,8 @@ namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Records\Collection;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Source\SourceDescription;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -47,20 +49,73 @@ class CollectionsState extends GedcomxApplicationState
     }
 
     /**
-     * @param Collection $collection The subcollection to read.
-     * @return CollectionState|null
+     * @return SourceDescription[]|null
      */
-    public function readSubcollection($collection)
+    public function getSourceDescriptions()
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        if ($this->entity) {
+            return $this->entity->getSourceDescriptions();
+        }
     }
 
     /**
+     * @param Collection|SourceDescription|null $collection
+     * @param StateTransitionOption $options,...
      * @return CollectionState|null The collection that contains these collections.
      */
-    public function readCollection()
+    public function readCollection($collection, StateTransitionOption $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = null;
+        if ($collection === null){
+            $link = $this->getLink(Rel::COLLECTION);
+            if ($link == null || $link->getHref() == null)
+            {
+                return null;
+            }
+            $link = $link->getHref();
+        }else if ($collection instanceof Collection) {
+            $link = $collection->getLink("self");
+            if ($link == null || $link->getHref() == null) {
+                return null;
+            }
+            $link = $link->getHref();
+        } else if ($collection instanceof SourceDescription){
+            $link = $collection->getAbout();
+            if (!$link){
+                return null;
+            }
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest("GET", $link);
+        return $this->stateFactory->createState(
+            "CollectionState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
+    /**
+     * @param Collection $collection
+     * @param StateTransitionOption $options
+     * @return CollectionState|null
+     */
+    public function updateCollection(Collection $collection, StateTransitionOption $options = null)
+    {
+        $link = $collection->getLink("self");
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $link->getHref());
+        return $this->stateFactory->createState(
+            "CollectionState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
@@ -69,6 +124,20 @@ class CollectionsState extends GedcomxApplicationState
      */
     public function addCollection($collection)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink("self");
+        $href = $link === null ? null : $link->getHref() == null ? null : $link->getHref();
+        $href = $href === null ? $this->getUri() : $href;
+
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $href);
+        /** @var CollectionState $result */
+        $result = $this->stateFactory->createState(
+            "CollectionState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+
+        return $result->ifSuccessful();
     }
 }

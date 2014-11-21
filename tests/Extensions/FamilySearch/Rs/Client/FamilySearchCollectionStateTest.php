@@ -6,6 +6,8 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\CollectionsState;
+use Gedcomx\Rs\Client\CollectionState;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 
@@ -82,5 +84,53 @@ class FamilySearchCollectionStateTest extends ApiTestCase
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
 
         $state->delete();
+    }
+
+    public function testReadUserDefinedCollection()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchCollectionState $collection */
+        $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
+        $c = new Collection();
+        $c->setTitle($this->faker->sha1);
+        $state = $collection->addCollection($c)->get();
+
+        $this->assertNotNull($state->ifSuccessful());
+
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $state->delete();
+    }
+
+    public function testUpdateUserDefinedCollection()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchCollectionState $collection */
+        $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
+        $c = new Collection();
+        $c->setTitle($this->faker->sha1);
+        /** @var CollectionState $subcollection */
+        $subcollection = $collection->addCollection($c)->get();
+        $subcollection->getCollection()->setTitle($this->faker->sha1);
+        $state = $subcollection->update($subcollection->getCollection());
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+
+        $state->delete();
+    }
+
+    public function testDeleteUserDefinedCollection()
+    {
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchCollectionState $collection */
+        $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
+        $c = new Collection();
+        $c->setTitle($this->faker->sha1);
+        $subcollection = $collection->addCollection($c)->get();
+        /** @var GedcomxApplicationState $state */
+        $state = $subcollection->delete();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
     }
 }
