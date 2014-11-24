@@ -436,18 +436,6 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * An alias for the post method.
-     *
-     * @param \Gedcomx\Gedcomx                                 $entity
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
-     */
-    public function update(Gedcomx $entity, StateTransitionOption $option = null)
-    {
-        $this->passOptionsTo('post', array($entity), func_get_args());
-    }
-
-
-    /**
      * @param string $rel The link rel.
      *
      * @return \Gedcomx\Links\Link
