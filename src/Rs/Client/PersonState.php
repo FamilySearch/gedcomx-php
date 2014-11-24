@@ -243,6 +243,72 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Rs\Client\PersonState                   $persona
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addPersona(PersonState $persona, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addPersonEvidence', array($persona), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addPersonaReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addEvidenceReference', array($reference), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference[]              $refs
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addPersonaReferences(array $refs, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('addEvidenceReferences', array($refs), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function updatePersonaReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateEvidenceReference', array($reference), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference[]              $refs
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
+    public function updatePersonaReferences(array $refs, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('updateEvidenceReferences', array($refs), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Common\EvidenceReference                $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
+    public function deletePersonaReference(EvidenceReference $reference, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('deleteEvidenceReference', array($reference), func_get_args());
+    }
+
+    /**
      * Load any Conclusions associated with this person.
      *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
@@ -300,6 +366,16 @@ class PersonState extends GedcomxApplicationState
     public function loadNotes(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function loadPersonaReferences(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('loadEvidenceReferences', array(), func_get_args());
     }
 
     /**
@@ -381,7 +457,6 @@ class PersonState extends GedcomxApplicationState
      *
      * @param \Gedcomx\Conclusion\Person               $person
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-     *                                                             or an array of StateTransitionOption objects
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -781,6 +856,19 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * @param \Gedcomx\Rs\Client\SourceDescriptionState        $description
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addMediaDescription(SourceDescriptionState $description, StateTransitionOption $option = null)
+    {
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($description->getSelfUri());
+        return $this->passOptionsTo('addMediaReference', array($reference), func_get_args());
+    }
+
+    /**
      * @param \Gedcomx\Source\SourceReference                  $mediaReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -788,7 +876,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function addMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('addMediaReferences', array(array($mediaReference)), func_get_args());
     }
 
     /**
@@ -799,7 +887,9 @@ class PersonState extends GedcomxApplicationState
      */
     public function addMediaReferences(array $mediaReferences, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = $this->createEmptySelf();
+        $person->setMedia($mediaReferences);
+        return $this->passOptionsTo('updateReferences', array($person, Rel::MEDIA_REFERENCES), func_get_args());
     }
 
     /**
@@ -810,7 +900,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('updateMediaReferences', array(array($mediaReference)), func_get_args());
     }
 
     /**
@@ -821,7 +911,9 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateMediaReferences(array $mediaReferences, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = $this->createEmptySelf();
+        $person->setMedia($mediaReferences);
+        return $this->passOptionsTo('updateReferences', array($person, Rel::MEDIA_REFERENCES), func_get_args());
     }
 
     /**
@@ -829,11 +921,40 @@ class PersonState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
     public function deleteMediaReference(SourceReference $mediaReference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $mediaReference->getLink(Rel::MEDIA_REFERENCE);
+        $link = $link == null ? $mediaReference->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->accessToken
+        );
     }
+
+    /**
+     * @param \Gedcomx\Rs\Client\PersonState                   $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState
+     */
+    public function addPersonEvidence(PersonState $person, StateTransitionOption $option = null)
+    {
+        $reference = new EvidenceReference();
+        $reference->setResource($person->getSelfUri());
+
+        return $this->passOptionsTo('addEvidenceReferences', array(array($reference)), func_get_args());
+    }
+
 
     /**
      * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
@@ -843,7 +964,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function addEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('addEvidenceReferences', array(array($evidenceReference)), func_get_args());
     }
 
     /**
@@ -854,7 +975,9 @@ class PersonState extends GedcomxApplicationState
      */
     public function addEvidenceReferences(array $evidenceReferences, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = $this->createEmptySelf();
+        $person->setEvidence($evidenceReferences);
+        return $this->passOptionsTo('updateReferences', array($person, Rel::EVIDENCE_REFERENCES), func_get_args());
     }
 
     /**
@@ -865,7 +988,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        return $this->passOptionsTo('updateEvidenceReferences', array(array($evidenceReference)), func_get_args());
     }
 
     /**
@@ -876,18 +999,58 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateEvidenceReferences(array $evidenceReferences, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $person = $this->createEmptySelf();
+        $person->setEvidence($evidenceReferences);
+        $this->passOptionsTo('updateReferences', array($person, Rel::EVIDENCE_REFERENCES), func_get_args());
     }
 
     /**
-     * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
+     * @param \Gedcomx\Common\EvidenceReference                $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
-    public function deleteEvidenceReference(EvidenceReference $evidenceReference, StateTransitionOption $option = null)
+    public function deleteEvidenceReference(EvidenceReference $reference, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $reference->getLink(Rel::EVIDENCE_REFERENCE);
+        $link = $link == null ? $reference->getLink(Rel::SELF) : $link;
+        if ($link == null || $link->getHref() == null) {
+            throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+
+    }
+
+    protected function updateReferences(Person $person, $rel, StateTransitionOption $option = null)
+    {
+        $target = $this->getSelfUri();
+        $conclusionsLink = $this->getLink($rel);
+        if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
+            $target = $conclusionsLink->getHref();
+        }
+
+        $gx = new Gedcomx();
+        $gx->setPersons(array($person));
+        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request->setBody($gx->toJson());
+
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
