@@ -432,6 +432,10 @@ abstract class GedcomxApplicationState
             $request->setHeader("Content-Type", $contentType);
         }
         $request->setBody($entity->toJson());
+
+        if ($entity instanceof Gedcomx && !$request->getHeader("Content-Type")){
+            $request->addHeader("Content-Type", GedcomxApplicationState::JSON_MEDIA_TYPE);
+        }
         return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
     }
 
