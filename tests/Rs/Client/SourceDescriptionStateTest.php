@@ -16,7 +16,8 @@ use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
 
-class SourceDescriptionStateTest extends ApiTestCase {
+class SourceDescriptionStateTest extends ApiTestCase
+{
 
     /**
      * @link https://familysearch.org/developers/docs/api/sources/Create_Source_Description_usecase
@@ -30,29 +31,52 @@ class SourceDescriptionStateTest extends ApiTestCase {
         /* CREATE */
         /** @var SourceDescriptionState $sourceState */
         $sourceState = $this->createSource();
-        $this->assertAttributeEquals( HttpStatus::CREATED, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__."(CREATE)", $sourceState));
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__ . "(CREATE)", $sourceState));
 
         /* READ */
         $sourceState = $sourceState->get();
-        $this->assertAttributeEquals( HttpStatus::OK, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__."(READ)", $sourceState));
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__ . "(READ)", $sourceState));
 
         /* UPDATE */
         $source = $sourceState->getSourceDescription();
-        $source->setAttribution( new Attribution( array(
+        $source->setAttribution(new Attribution(array(
             "changeMessage" => $this->faker->sentence(6)
         )));
         $updated = $sourceState->update($source);
-        $this->assertAttributeEquals( HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(UPDATE)", $updated));
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__ . "(UPDATE)", $updated));
 
         /* DELETE */
         $deleted = $sourceState->delete();
-        $this->assertAttributeEquals( HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__."(DELETE)", $deleted));
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__ . "(DELETE)", $deleted));
     }
 
 
     public function testReadSourceDescription()
     {
         $this->collectionState(new FamilyTreeStateFactory());
+        $sd = $this->createSourceDescription();
+        /** @var SourceDescriptionState $state */
+        $state = $this->collectionState()->addSourceDescription($sd)->get();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getSourceDescription());
+    }
+
+    public function testUpdateSourceDescription()
+    {
+        $this->collectionState(new FamilyTreeStateFactory());
+        $sd = $this->createSourceDescription();
+        /** @var SourceDescriptionState $description */
+        $description = $this->collectionState()->addSourceDescription($sd)->get();
+        $state = $description->update($description->getSourceDescription());
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+    }
+
+    private function createSourceDescription()
+    {
         $sd = new SourceDescription();
         $citation = new SourceCitation();
         $citation->setValue("\"United States Census, 1900.\" database and digital images, FamilySearch (https://familysearch.org/: accessed 17 Mar 2012), Ethel Hollivet, 1900; citing United States Census Office, Washington, D.C., 1900 Population Census Schedules, Los Angeles, California, population schedule, Los Angeles Ward 6, Enumeration District 58, p. 20B, dwelling 470, family 501, FHL microfilm 1,240,090; citing NARA microfilm publication T623, roll 90.");
@@ -71,11 +95,7 @@ class SourceDescriptionStateTest extends ApiTestCase {
         $attribution->setModified(time());
         $attribution->setChangeMessage("This is the change message");
         $sd->setAttribution($attribution);
-        /** @var SourceDescriptionState $state */
-        $state = $this->collectionState()->addSourceDescription($sd)->get();
 
-        $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
-        $this->assertNotNull($state->getSourceDescription());
+        return $sd;
     }
 }

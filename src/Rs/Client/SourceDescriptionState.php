@@ -37,7 +37,8 @@ class SourceDescriptionState extends GedcomxApplicationState
         return $this->getSourceDescription();
     }
 
-    public function getSelfRel() {
+    public function getSelfRel()
+    {
         return Rel::DESCRIPTION;
     }
 
@@ -46,8 +47,8 @@ class SourceDescriptionState extends GedcomxApplicationState
      */
     public function getSourceDescription()
     {
-        if ($this->getEntity() != null){
-            if( $this->getEntity()->getSourceDescriptions() != null && count($this->getEntity()->getSourceDescriptions()) > 0){
+        if ($this->getEntity() != null) {
+            if ($this->getEntity()->getSourceDescriptions() != null && count($this->getEntity()->getSourceDescriptions()) > 0) {
                 $descriptions = $this->getEntity()->getSourceDescriptions();
                 return $descriptions[0];
             }
@@ -58,14 +59,20 @@ class SourceDescriptionState extends GedcomxApplicationState
 
     /**
      * @param Gedcomx|SourceDescription $description
-     * @param StateTransitionOption     $option,...
+     * @param StateTransitionOption $option,...
      *
      * @return SourceDescriptionState
      */
-    public function update(Gedcomx $description, StateTransitionOption $option = null)
+    public function update($description, StateTransitionOption $option = null)
     {
-        $entity = new Gedcomx();
-        $entity->setSourceDescriptions(array($description));
+        $entity = null;
+
+        if ($description instanceof SourceDescription) {
+            $entity = new Gedcomx();
+            $entity->setSourceDescriptions(array($description));
+        } else {
+            $entity = $description;
+        }
         /** @var EntityEnclosingRequest $request */
         $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri());
         $request->setBody($entity->toJson());
@@ -73,7 +80,7 @@ class SourceDescriptionState extends GedcomxApplicationState
             'SourceDescriptionState',
             $this->client,
             $request,
-            $this->passOptionsTo('invoke',array($request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
@@ -103,11 +110,11 @@ class SourceDescriptionState extends GedcomxApplicationState
                 $this->passOptionsTo('invoke', array($request), func_get_args()),
                 $this->accessToken
             );
-    }
+        }
     }
 
     /**
-     * @param Person                $person
+     * @param Person $person
      * @param StateTransitionOption $option,...
      *
      * @return PersonState
@@ -116,11 +123,11 @@ class SourceDescriptionState extends GedcomxApplicationState
     {
         $entity = new Gedcomx();
         $entity->addPerson($person);
-        return $this->passOptionsTo('addGedcomxPersona',array($entity), func_get_args());
+        return $this->passOptionsTo('addGedcomxPersona', array($entity), func_get_args());
     }
 
     /**
-     * @param Gedcomx               $persona
+     * @param Gedcomx $persona
      * @param StateTransitionOption $option,...
      *
      * @return PersonState
