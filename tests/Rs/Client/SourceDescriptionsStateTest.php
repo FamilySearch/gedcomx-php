@@ -9,11 +9,13 @@ use Gedcomx\Common\TextValue;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\CollectionsState;
 use Gedcomx\Rs\Client\CollectionState;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
@@ -45,11 +47,20 @@ class SourceDescriptionsStateTest extends ApiTestCase
      */
     public function testCreateUserUploadedSource()
     {
-        $this->collectionState(new StateFactory());
-        /** @var SourceDescription $source */
+        $this->collectionState(new FamilyTreeStateFactory());
+        $person = $this->createPerson()->get();
+        $ds = new DataSource();
+        $ds->setTitle("Sample Memory");
+        $ds->setFile($this->createTextFile());
+        $person->addArtifact($ds);
+        $artifact = array_shift($person->readArtifacts()->getSourceDescriptions());
+        $memoryUri = $artifact->getLink("memory")->getHref();
         $source = SourceBuilder::newSource();
-        //todo: create a memory once the Memories code has been implemented
-        $source->setAbout('https://sandbox.familysearch.org/platform/memories/memories/103820');
+        $source->setAbout($memoryUri);
+        $state = $this->collectionState()->addSourceDescription($source);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
     }
 
     public function testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser()

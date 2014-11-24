@@ -155,4 +155,16 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         return $this->collectionState()->addSourceDescription($source);
     }
 
+    protected function createTextFile()
+    {
+        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".txt";
+
+        $file = file_put_contents($filename, join(" ", $this->faker->words()));
+        if (!$file) {
+            $this->fail("Failed to write test file.");
+        }
+
+
+        return $filename;
+    }
 }
