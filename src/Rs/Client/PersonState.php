@@ -3,7 +3,6 @@
 
 namespace Gedcomx\Rs\Client;
 
-use Gedcomx\Common\Attribution;
 use Gedcomx\Common\EvidenceReference;
 use Gedcomx\Common\Note;
 use Gedcomx\Common\ResourceReference;
@@ -16,6 +15,7 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Types;
@@ -24,7 +24,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
-use RuntimeException;
 
 class PersonState extends GedcomxApplicationState
 {
@@ -67,10 +66,37 @@ class PersonState extends GedcomxApplicationState
         return $this->getPerson();
     }
 
+    /**
+     * The fall back rel definition if Rel::SELF and the location header are undefined.
+     *
+     * @return string
+     */
     public function getSelfRel()
     {
         return Rel::PERSON;
     }
+
+    /*
+     * Create a Person object with this state's URI
+     *
+     * @return \Gedcomx\Conclusion\Person
+     */
+    protected function createEmptySelf() {
+        $person = new Person();
+        $person->setId($this->getLocalSelfId());
+        return $person;
+    }
+
+    /**
+     * Get the id of this Person.
+     *
+     * @return null|string
+     */
+    protected function getLocalSelfId() {
+        $me = $this->getPerson();
+        return $me == null ? null : $me->getId();
+    }
+
     /**
      * Get the Person object off the GedcomX entity
      *
@@ -107,7 +133,8 @@ class PersonState extends GedcomxApplicationState
      *
      * @return array|\Gedcomx\Conclusion\Relationship[]|null
      */
-    public function getSpouseRelationships() {
+    public function getSpouseRelationships()
+    {
         $relationships = $this->getRelationships();
         if ($relationships == null) {
             $relationships = array();
@@ -126,7 +153,8 @@ class PersonState extends GedcomxApplicationState
      *
      * @return array|\Gedcomx\Conclusion\Relationship[]|null
      */
-    public function getChildRelationships() {
+    public function getChildRelationships()
+    {
         $relationships = $this->getRelationships();
         if ($relationships == null) {
             $relationships = array();
@@ -145,7 +173,8 @@ class PersonState extends GedcomxApplicationState
      *
      * @return \Gedcomx\Conclusion\Relationship[]|null
      */
-    public function getParentRelationships() {
+    public function getParentRelationships()
+    {
         $relationships = $this->getRelationships();
         if ($relationships == null) {
             $relationships = array();
@@ -166,8 +195,171 @@ class PersonState extends GedcomxApplicationState
      *
      * @return bool
      */
-    protected function refersToMe(ResourceReference $ref) {
+    protected function refersToMe(ResourceReference $ref)
+    {
         return $ref != null && $ref->getResource() != null && $ref->getResource() == "#" . $this->getLocalSelfId();
+    }
+
+    /**
+     * Get the display extension values for this person
+     *
+     * @return \Gedcomx\Conclusion\DisplayProperties|null
+     */
+    public function getDisplayProperties()
+    {
+        $person = $this->getPerson();
+        return $person == null ? null : $person->getDisplayExtension();
+    }
+
+    /**
+     * Return a conclusion about this person
+     *
+     * @return \Gedcomx\Conclusion\Conclusion|null
+     */
+    public function getConclusion()
+    {
+        return $this->getName() != null ? $this->getName()
+            : $this->getGender() != null ? $this->getGender()
+            : $this->getFact() != null ? $this->getFact()
+            : null;
+    }
+
+    /**
+     * Get the name of this person
+     *
+     * @return \Gedcomx\Conclusion\Name|null
+     */
+    public function getName()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $names = $person->getNames();
+
+        return $names == null ? null
+            : count($names) === 0 ? null
+            : $names[0];
+    }
+
+    /**
+     * Get the gender of this person
+     *
+     * @return \Gedcomx\Conclusion\Gender|null
+     */
+    public function getGender()
+    {
+        $person = $this->getPerson();
+
+        return $person == null ? null : $person->getGender();
+    }
+
+    /**
+     * Get a fact about this person
+     *
+     * @return \Gedcomx\Conclusion\Fact|null
+     */
+    public function getFact()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $facts = $person->getFacts();
+
+        return $facts == null ? null
+            : count($facts) === 0 ? null
+            : $facts[0];
+    }
+
+    /**
+     * Get a note about this person
+     *
+     * @return \Gedcomx\Common\Note|null
+     */
+    public function getNote()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $notes = $person->getNotes();
+
+        return $notes == null ? null
+            : count($notes) === 0 ? null
+            : $notes[0];
+    }
+
+    /**
+     * Get a source reference about this person
+     *
+     * @return \Gedcomx\Source\SourceReference|null
+     */
+    public function getSourceReference()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $sources = $person->getSources();
+
+        return $sources == null ? null
+            : count($sources) === 0 ? null
+            : $sources[0];
+
+    }
+
+    /**
+     * Get an evidence reference about this person
+     *
+     * @return \Gedcomx\Common\EvidenceReference|null
+     */
+    public function getEvidenceReference()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $evidence = $person->getEvidence();
+
+        return $evidence == null ? null
+            : count($evidence) === 0 ? null
+            : $evidence[0];
+    }
+
+    /**
+     * Get a persona reference about this person
+     *
+     * @return \Gedcomx\Common\EvidenceReference|null
+     */
+    public function getPersonaReference()
+    {
+        return $this->getEvidenceReference();
+    }
+
+    /**
+     * Get a media reference about this person
+     *
+     * @return \Gedcomx\Source\SourceReference|null
+     */
+    public function getMediaReference()
+    {
+        $person = $this->getPerson();
+        if ($person == null) {
+            return null;
+        }
+
+        $media = $person->getMedia();
+
+        return $media == null ? null
+            : count($media) === 0 ? null
+                : $media[0];
+
     }
 
     /**
@@ -1195,10 +1387,39 @@ class PersonState extends GedcomxApplicationState
         );
     }
 
+    /**
+     * Read the relative given by a specific relationship definition
+     *
+     * @param \Gedcomx\Conclusion\Relationship                 $relationship
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readRelative(Relationship $relationship, StateTransitionOption $option = null)
+    {
+        $reference = null;
+        if ($this->refersToMe($relationship->getPerson1())) {
+            $reference = $relationship->getPerson2();
+        } elseif ($this->refersToMe($relationship->getPerson2())) {
+            $reference = $relationship->getPerson1();
+        }
+        if ($reference == null || $reference->getResource() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $reference->getResource());
+
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
 
     /**
      * Read the PersonParentsState for this person. (A Family Search extension.)
-     * todo: finish implementing PersonParentState
      *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1224,7 +1445,6 @@ class PersonState extends GedcomxApplicationState
 
     /**
      * Read the PersonChildrenState for this person. (A Family Search extension.)
-     * todo: finish implementing PersonChildrenState
      *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1249,13 +1469,108 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param \Gedcomx\Conclusion\Person $person
+     * Read the first child associated with this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readFirstChild(StateTransitionOption $option = null)
+    {
+        $this->passOptionsTo('readChildByIndex', array(0), func_get_args());
+    }
+
+    /**
+     * Read the child at a given position
+     *
+     * @param int                                              $index
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readChildByIndex($index, StateTransitionOption $option = null)
+    {
+        $childRelationships = $this->getChildRelationships();
+        if (count($childRelationships) === 0) {
+            return null;
+        }
+
+        return $this->passOptionsTo('readChild', array($childRelationships[$index]), func_get_args());
+    }
+
+    /**
+     * Read the child defined by this relationship
+     *
+     * @param \Gedcomx\Conclusion\Relationship                 $relationship
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readChild(Relationship $relationship, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readRelative', array($relationship), func_get_args());
+    }
+
+    /**
+     * Add a child to this person
+     *
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
-    public function addParent(Person $person, StateTransitionOption $option = null)
+    public function addChild(Person $person, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $collection = $this->readCollection();
+        if ($collection == null || $collection->hasError()) {
+            throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
+        }
+
+        return $this->passOptionsTo('addParentChildRelationship', array($this, $person), func_get_args(), $collection);
+    }
+
+    /**
+     * Read the first parent associated with this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readFirstParent(StateTransitionOption $option = null)
+    {
+        $this->passOptionsTo('readParentByIndex', array(0), func_get_args());
+    }
+
+    /**
+     * Read the parent at a given position
+     *
+     * @param int                                              $index
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readParentByIndex($index, StateTransitionOption $option = null)
+    {
+        $parentRelationships = $this->getParentRelationships();
+        if (count($parentRelationships) === 0) {
+            return null;
+        }
+
+        return $this->passOptionsTo('readParent', array($parentRelationships[$index]), func_get_args());
+    }
+
+    /**
+     * Read the parent defined by this relationship
+     *
+     * @param \Gedcomx\Conclusion\Relationship                 $relationship
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
+     */
+    public function readParent(Relationship $relationship, StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readRelative', array($relationship), func_get_args());
     }
 
     /**
@@ -1263,21 +1578,38 @@ class PersonState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
-    public function addChild(Person $person, StateTransitionOption $option = null)
+    public function addParent(Person $person, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $collection = $this->readCollection();
+        if ($collection == null || $collection->hasError()) {
+            throw new GedcomxApplicationException("Unable to add relationship: collection unavailable.");
+        }
+
+        return $this->passOptionsTo('addParentChildRelationship', array($person, $this), func_get_args(), $collection);
+    }
+
+    /**
+     * Read the first spouse record for this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonSpousesState|null
+     */
+    public function readFirstSpouse(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readSpouseFromIndex', array(0), func_get_args());
     }
 
     /**
      * Read the PersonSpousesState for this person based on the index in the relationship array.
      * (A Family Search extension.)
-     * todo: finish implementing PersonSpousesState
      *
      * @param int                   $index
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return PersonSpousesState|null
+     * @return \Gedcomx\Rs\Client\PersonSpousesState|null
      */
     public function readSpouseFromIndex($index, StateTransitionOption $option = null)
     {
@@ -1300,15 +1632,13 @@ class PersonState extends GedcomxApplicationState
      *
      * @return mixed
      */
-    public function readSpouseFromRelationship(Relationship $relationship, StateTransitionOption $option = null)
+    public function readSpouse(Relationship $relationship, StateTransitionOption $option = null)
     {
-        //todo: readRelative?
         return $this->passOptionsTo('readRelative', array($relationship), func_get_args());
     }
 
     /**
      * Read the spouses for this person
-     * todo: finish implementing PersonSpousesState
      *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1351,34 +1681,44 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
-     * @param mixed $data The file
-     * @param SourceDescription $description
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-     */
-    public function addArtifact($data, SourceDescription $description = null, StateTransitionOption $option = null)
-    {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
-
-    /*
-     * Create a Person object with this state's URI
+     * Read any artifacts associated with this person
      *
-     * @return \Gedcomx\Conclusion\Person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState|null
      */
-    protected function createEmptySelf() {
-        $person = new Person();
-        $person->setId($this->getLocalSelfId());
-        return $person;
+    public function readArtifacts(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::ARTIFACTS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'SourceDescription',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+
     }
 
     /**
-     * Get the id of this Person.
+     * Add an artifact to this person
      *
-     * @return null|string
+     * @param \Gedcomx\Rs\Client\Util\DataSource               $data
+     * @param \Gedcomx\Source\SourceDescription                $description
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState|null
      */
-    protected function getLocalSelfId() {
-        $me = $this->getPerson();
-        return $me == null ? null : $me->getId();
+    public function addArtifact(DataSource $data, SourceDescription $description = null, StateTransitionOption $option = null)
+    {
+        /** @var \Gedcomx\Rs\Client\CollectionState $collection */
+        $collection = $this->passOptionsTo('readCollection',array(), func_get_args());
+        return $this->passOptionsTo('addArtifact', array($data, $description, $this), func_get_args(), $collection);
     }
 
     /**

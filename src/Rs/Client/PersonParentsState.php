@@ -93,7 +93,7 @@ class PersonParentsState extends GedcomxApplicationState
     public function readPerson(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::PERSON);
-        if ($link == null || link.getHref() == null) {
+        if ($link == null || $link->getHref() == null) {
             return null;
         }
 
@@ -128,7 +128,7 @@ class PersonParentsState extends GedcomxApplicationState
             'PersonState',
             $this->client,
             $request,
-            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
@@ -154,7 +154,7 @@ class PersonParentsState extends GedcomxApplicationState
             'RelationshipState',
             $this->client,
             $request,
-            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
@@ -181,7 +181,7 @@ class PersonParentsState extends GedcomxApplicationState
             'RelationshipState',
             $this->client,
             $request,
-            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }
@@ -213,7 +213,7 @@ class PersonParentsState extends GedcomxApplicationState
             'RelationshipState',
             $this->client,
             $request,
-            $this->passOptionsTo('invoke', array(request), func_get_args()),
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
     }

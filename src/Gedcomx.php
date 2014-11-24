@@ -259,7 +259,7 @@ class Gedcomx extends HypermediaEnabledData
     /**
      * The relationships included in this genealogical data set.
      *
-     * @return Relationship[]
+     * @return \Gedcomx\Conclusion\Relationship[]
      */
     public function getRelationships()
     {

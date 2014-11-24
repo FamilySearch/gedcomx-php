@@ -67,6 +67,11 @@
             return $this->entity == null ? null : $this->entity->getPersons();
         }
 
+        /**
+         * Return the relationships associated with this person.
+         *
+         * @return \Gedcomx\Conclusion\Relationship[]
+         */
         public function getRelationships()
         {
             return $this->entity == null ? null : $this->entity->getRelationships();
@@ -84,7 +89,7 @@
                 foreach ($relationships as $relationship) {
                     $childReference = $relationship->getPerson2();
                     if ($childReference != null) {
-                        $reference = $childReference->getResource()->toString();
+                        $reference = $childReference->getResource();
                         if ($reference == "#" . $child->getId()) {
                             return $relationship;
                         }
@@ -167,7 +172,7 @@
                 "RelationshipState",
                 $this->client,
                 $request,
-                $this->passOptionsTo('invoke', array(request), func_get_args()),
+                $this->passOptionsTo('invoke', array($request), func_get_args()),
                 $this->accessToken
             );
         }
@@ -195,7 +200,7 @@
                 "RelationshipState",
                 $this->client,
                 $request,
-                $this->passOptionsTo('invoke', array(request), func_get_args()),
+                $this->passOptionsTo('invoke', array($request), func_get_args()),
                 $this->accessToken
             );
         }
