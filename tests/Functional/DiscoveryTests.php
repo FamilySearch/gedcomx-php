@@ -2,6 +2,9 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Rs\Client\Rel;
+use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 
 class DiscoveryTests extends ApiTestCase
