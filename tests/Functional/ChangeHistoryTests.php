@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedcomx\tests\Functional;
+namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\DateInfo;

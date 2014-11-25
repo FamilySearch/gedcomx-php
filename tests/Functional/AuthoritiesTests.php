@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedcomx\tests\Functional;
+namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
