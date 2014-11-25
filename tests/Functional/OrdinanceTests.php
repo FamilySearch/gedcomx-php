@@ -1,59 +1,18 @@
-<?php
+<?php 
 
-namespace Gedcomx\tests\Rs\Client;
+namespace Gedcomx\Rs\Functional\Client;
 
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
-use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\SandboxCredentials;
 use Guzzle\Http\Message\Request;
+use Gedcomx\Tests\ApiTestCase;
 
-class OrdinanceTest extends ApiTestCase
+class OrdinanceTests extends ApiTestCase
 {
     private $ordinanceUri = "https://sandbox.familysearch.org/platform/ordinances/ordinances";
     private $policyUri = "https://sandbox.familysearch.org/platform/ordinances/policy";
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_usecase
-     */
-    public function testReadOrdinances()
-    {
-        $this->collectionState(new StateFactory());
-        $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->ordinanceUri);
-        $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $response = $request->send();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $response->getStatusCode(),
-            'Error with valid Ordinance test. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().")"
-        );
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_%28Access_Forbidden%29_usecase
-     */
-    public function testReadOrdinancesForbidden()
-    {
-        $factory = new StateFactory();
-        $collectionState = $factory
-            ->newCollectionState()
-            ->authenticateViaOAuth2Password(
-                'general_public_user',
-                '1234pass',
-                $this->apiCredentials->apiKey);
-        $request = $collectionState->getClient()->createRequest(Request::GET, $this->ordinanceUri);
-        $request->addHeader('Authorization', "Bearer " . $collectionState->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $response = $request->send();
-        $this->assertEquals(
-            HttpStatus::FORBIDDEN,
-            $response->getStatusCode(),
-            'Error with invalid Ordinance test. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().")"
-        );
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinance_Policy_usecase
@@ -97,6 +56,48 @@ class OrdinanceTest extends ApiTestCase
             "Personnes pour lesquelles vous pouvez accomplir des ordonnances",
             $response->getBody(true),
             "Response doesn't appear to be in French."
+        );
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_usecase
+     */
+    public function testReadOrdinances()
+    {
+        $this->collectionState(new StateFactory());
+        $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->ordinanceUri);
+        $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
+        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $response = $request->send();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $response->getStatusCode(),
+            'Error with valid Ordinance test. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().")"
+        );
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_%28Access_Forbidden%29_usecase
+     */
+    public function testReadOrdinancesForbidden()
+    {
+        $factory = new StateFactory();
+        $collectionState = $factory
+            ->newCollectionState()
+            ->authenticateViaOAuth2Password(
+                'general_public_user',
+                '1234pass',
+                SandboxCredentials::API_KEY);
+        $request = $collectionState->getClient()->createRequest(Request::GET, $this->ordinanceUri);
+        $request->addHeader('Authorization', "Bearer " . $collectionState->getAccessToken());
+        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $response = $request->send();
+        $this->assertEquals(
+            HttpStatus::FORBIDDEN,
+            $response->getStatusCode(),
+            'Error with invalid Ordinance test. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().")"
         );
     }
 }
