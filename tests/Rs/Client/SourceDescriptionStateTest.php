@@ -75,6 +75,18 @@ class SourceDescriptionStateTest extends ApiTestCase
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
     }
 
+    public function testDeleteSourceDescription()
+    {
+        $this->collectionState(new FamilyTreeStateFactory());
+        $sd = $this->createSourceDescription();
+        /** @var SourceDescriptionState $description */
+        $description = $this->collectionState()->addSourceDescription($sd)->get();
+        $state = $description->delete();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+    }
+
     private function createSourceDescription()
     {
         $sd = new SourceDescription();
