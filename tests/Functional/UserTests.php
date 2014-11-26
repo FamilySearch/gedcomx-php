@@ -68,7 +68,18 @@ class UserTests extends ApiTestCase
      */
     public function testReadUser()
     {
-        $this->markTestIncomplete('Not yet implemented.');
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $personState = $this->createPerson()->get();
+        $names = $personState->getPerson()->getNames();
+        $agentState = $personState->readAttributableContributor($names[0]);
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $agentState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $agentState)
+        );
+        $this->assertNotEmpty($agentState->getAgent());
     }
 
     /**

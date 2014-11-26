@@ -157,9 +157,16 @@ class SearchAndMatchTests extends ApiTestCase
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Next_Page_of_Search_Results_usecase
      */
-    public function testReadNextPageOfSearchResults()
-    {
-        $this->markTestIncomplete("Not yet implemented.");
+    public function testReadNextPageOfSearchResults(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $searchResults = $this->collectionState()->searchForPersons($this->searchQuery);
+        $nextPage = $searchResults->readNextPage();
+        $first = $searchResults->getEntity()->getEntries();
+        $second = $nextPage->getEntity()->getEntries();
+
+        $this->assertNotEquals( $first, $second );
     }
 
     /**
@@ -232,4 +239,15 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Search_Persons_With_Warnings_and_Errors_usecase
+     */
+    public function testSearchPersonsWithWarningsAndErrors(){
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $searchResults = $this->collectionState()->searchForPersons("firsstName:Ruby");
+
+        $this->assertArrayHasKey( "warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
+    }
 }
