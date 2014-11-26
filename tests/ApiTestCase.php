@@ -161,7 +161,9 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
             return null;
         }
 
-        return $this->collectionState()->addSourceDescription($source);
+        $this->states[] = $state = $this->collectionState()->addSourceDescription($source);
+
+        return $state;
     }
 
     protected function createTextFile()
