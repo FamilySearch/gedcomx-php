@@ -3,8 +3,10 @@
 namespace Gedcomx\Tests;
 
 use Faker\Factory;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -16,10 +18,6 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      * @var string
      */
     protected $apiEndpoint;
-    /**
-     * @var stdClass
-     */
-    protected $apiCredentials;
     /**
      * @var \Gedcomx\Rs\Client\StateFactory
      */
@@ -37,16 +35,24 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      */
     private $personId = 'KWW6-H43';
 
+    /**
+     * @var \Gedcomx\Rs\Client\GedcomxApplicationState[]
+     */
+    protected $states;
+
 	public function setUp()
     {
         $this->faker = Factory::create();
-
-		$this->apiCredentials = (object)array(
-			'username' => "sdktester",
-			'password' => "1234sdkpass",
-			'apiKey' => "WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
-		);
 	}
+
+    public function tearDown()
+    {
+        if ($this->states != null && is_array($this->states)) {
+            foreach ($this->states as $s ){
+                $s->delete();
+            }
+        }
+    }
 
     /**
      * @param StateFactory|FamilyTreeStateFactory $factory
@@ -71,21 +77,26 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
             $this->collectionState = $factory
                 ->newCollectionState($uri, $method, $client)
                 ->authenticateViaOAuth2Password(
-                    $this->apiCredentials->username,
-                    $this->apiCredentials->password,
-                    $this->apiCredentials->apiKey);
+                    SandboxCredentials::USERNAME,
+                    SandboxCredentials::PASSWORD,
+                    SandboxCredentials::API_KEY);
             $this->currentFactory = $factory;
 
             return $this->collectionState;
         }
     }
 
-    protected function authorize($state)
+    /**
+     * @param \Gedcomx\Rs\Client\GedcomxApplicationState $state
+     *
+     * @return \Gedcomx\Rs\Client\GedcomxApplicationState
+     */
+    protected function authorize(GedcomxApplicationState $state)
     {
         return $state->authenticateViaOAuth2Password(
-            $this->apiCredentials->username,
-            $this->apiCredentials->password,
-            $this->apiCredentials->apiKey
+            SandboxCredentials::USERNAME,
+            SandboxCredentials::PASSWORD,
+            SandboxCredentials::API_KEY
         );
     }
 
@@ -152,7 +163,9 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
             return null;
         }
 
-        return $this->collectionState()->addSourceDescription($source);
+        $this->states[] = $state = $this->collectionState()->addSourceDescription($source);
+
+        return $state;
     }
 
     protected function createTextFile()
@@ -167,4 +180,26 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
         return $filename;
     }
+
+    protected  function createRelationship()
+    {
+        $father = $this->createPerson('male')->get();
+        $mother = $this->createPerson('female')->get();
+        $child = $this->createPerson()->get();
+
+        $rel = new ChildAndParentsRelationship();
+        $rel->setChild($child->getResourceReference());
+        $rel->setFather($father->getResourceReference());
+        $rel->setMother($mother->getResourceReference());
+
+        $rState = $this->collectionState()->addChildAndParentsRelationship($rel);
+
+        $this->states[] = $father;
+        $this->states[] = $child;
+        $this->states[] = $mother;
+        $this->states[] = $rState;
+
+        return $rState;
+    }
+
 }

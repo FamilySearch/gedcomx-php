@@ -1,41 +1,14 @@
 <?php
 
-namespace Gedcomx\Tests\Rs\Client;
+namespace Gedcomx\Tests\Functional;
 
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
-use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 
-class CollectionStateTest extends ApiTestCase
+class DiscoveryTests extends ApiTestCase
 {
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_Tree_Person_usecase
-     */
-    public function testReadCurrentTreePerson()
-    {
-        $collection = $this->collectionState(new StateFactory());
-        $personState = $collection->readPersonForCurrentUser();
-        /*
-         * readPersonForCurrentUser will return a 303 redirect by default.
-         * assert the URL on the person state is not the original request URL.
-         */
-        $this->assertFalse(strpos($personState->getResponse()->getEffectiveUrl(),Rel::CURRENT_USER_PERSON));
-    }
-    
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_Tree_Person_Expecting_200_Response_usecase
-     */
-    public function testReadCurrentTreePersonExpecting200()
-    {
-        $collection = $this->collectionState(new StateFactory());
-        $expect200 = new HeaderParameter(true,"Expect",200);
-        $personState = $collection->readPersonForCurrentUser($expect200);
-        $this->assertEquals(HttpStatus::OK, $personState->getResponse()->getStatusCode());
-    }
-
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Root_Collection_usecase
      */
@@ -123,7 +96,7 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSDA") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
@@ -148,11 +121,11 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSDF") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
-        $this->assertNotEmpty($link, 'Date Authority link not found');
+        $this->assertNotEmpty($link, 'Discussion link not found');
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
@@ -173,7 +146,7 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSMEM") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
@@ -198,7 +171,7 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSUDS") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
@@ -223,7 +196,7 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSPA") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
@@ -248,7 +221,7 @@ class CollectionStateTest extends ApiTestCase
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSHRA") {
-               $link = $record->getLink(Rel::SELF);
+                $link = $record->getLink(Rel::SELF);
                 break;
             }
         }
@@ -260,4 +233,5 @@ class CollectionStateTest extends ApiTestCase
             $this->buildFailMessage(__METHOD__."(Read place collection)", $dateState)
         );
     }
+
 }

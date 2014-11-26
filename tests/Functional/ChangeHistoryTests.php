@@ -1,12 +1,11 @@
 <?php
 
-namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
+namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\PlaceReference;
-use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChangeHistoryState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
@@ -16,7 +15,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry;
 use Gedcomx\Tests\ApiTestCase;
 
-class ChangeHistoryStateTests extends ApiTestCase
+class ChangeHistoryTests extends ApiTestCase
 {
     public function testReadPersonChangeHistory()
     {
@@ -127,7 +126,8 @@ class ChangeHistoryStateTests extends ApiTestCase
 
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson('male')->get();
-        $person->deleteFact(array_shift($person->getPerson()->getFacts()));
+        $facts = $person->getPerson()->getFacts();
+        $person->deleteFact(array_shift($facts));
         $changes = $person->readChangeHistory();
         $deleted = null;
         /** @var ChangeEntry $entry */

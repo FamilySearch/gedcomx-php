@@ -78,25 +78,4 @@ class PersonSearchResultsStateTest extends ApiTestCase{
         $this->assertNotNull($personState);
         $this->assertAttributeEquals( "200", "statusCode", $personState->getResponse() );
     }
-
-    public function testCanReadNextPage(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $searchResults = $this->collectionState()->searchForPersons($this->searchQuery);
-        $nextPage = $searchResults->readNextPage();
-        $first = $searchResults->getEntity()->getEntries();
-        $second = $nextPage->getEntity()->getEntries();
-
-        $this->assertNotEquals( $first, $second );
-    }
-
-    public function testWarningsAreReturned(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $searchResults = $this->collectionState()->searchForPersons("firsstName:Ruby");
-
-        $this->assertArrayHasKey( "warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
-    }
-} 
+}

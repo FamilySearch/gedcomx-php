@@ -1,13 +1,15 @@
 <?php
 
-namespace Gedcomx\Rs\Client;
+namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Tests\ApiTestCase;
 
-class DateAuthorityTest extends ApiTestCase
+class AuthoritiesTests extends ApiTestCase
 {
-    public function testDate(){
+    public function testDateAuthority()
+    {
         $factory = new FamilySearchStateFactory();
         $collections = $factory->newDiscoveryState()->readSubcollections()->getCollections();
         $link = null;
