@@ -4,11 +4,22 @@ namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\Gender;
+use Gedcomx\Conclusion\Person;
+use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
+use Gedcomx\Rs\Client\Options\Preconditions;
+use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\DiscussionBuilder;
+use Gedcomx\Tests\FactBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Types\GenderType;
 
@@ -51,6 +62,7 @@ class PersonTests extends ApiTestCase
         $reference->setAttribution( new Attribution( array(
             "changeMessage" => $this->faker->sentence(6)
         )));
+        /** @var \Gedcomx\Rs\Client\PersonState $newState */
         $newState = $personState->addSourceReferenceObj($reference);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
 
@@ -66,15 +78,13 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState()->readPerson($uri);
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
         }
         $fact = FactBuilder::militaryService();
-        $newState = self::$personState->addFact($fact);
+        $newState = $personState->addFact($fact);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse() );
     }
@@ -100,6 +110,7 @@ class PersonTests extends ApiTestCase
         $discussionState = $this->collectionState()->addDiscussion($discussion);
 
         $personState = $this->getPerson();
+        /** @var \Gedcomx\Rs\Client\PersonState $newState */
         $newState = $personState->addDiscussionState($discussionState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
@@ -107,20 +118,8 @@ class PersonTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Note_usecase
+     * @see NotesTests::testCreateNote
      */
-    public function testCreateNote(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-
-        $note = NoteBuilder::createNote();
-        $noteState = self::$personState->addNote( $note );
-
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse() );
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Merged_Person_usecase
@@ -130,17 +129,18 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson('KWWV-DN4');
+        $personState = $this->getPerson('KWWV-DN4');
         /**
          * This assertion--technically the correct response for a person that has been merged--
          * assumes that the HTTP client code does not automatically follow redirects.
          *
-         * $this->assertAttributeEquals(HttpStatus::MOVED_PERMANENTLY, "statusCode", self::$personState->getResponse() );
+         * $this->assertAttributeEquals(HttpStatus::MOVED_PERMANENTLY, "statusCode", $personState->getResponse() );
          *
          * Hacking the code to disable the redirect feature for this test seems undesirable. Instead we'll
          * assert that an id different from the one we requested is returned.
          */
-        $person = self::$personState->getPerson();
+        /** @var \Gedcomx\Conclusion\Person $person */
+        $person = $personState->getPerson();
 
         $this->assertNotEquals( 'KWWV-DN4', $person->getId() );
     }
@@ -157,9 +157,9 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
+        $personState = $this->getPerson();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
     }
 
     /**
@@ -174,6 +174,7 @@ class PersonTests extends ApiTestCase
         $stateOne = $collection->addPerson($person)->get();
         $stateTwo = $collection->addPerson($person)->get();
 
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $analysis */
         $analysis = $stateOne->readMergeAnalysis($stateTwo);
         $this->assertEquals(
             HttpStatus::OK,
@@ -198,6 +199,7 @@ class PersonTests extends ApiTestCase
         $person1 = $collection->addPerson($person)->get();
         $person2 = $collection->addPerson($person)->get();
 
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $state */
         $state = $person1->readMergeOptions($person2);
         $this->assertEquals(
             HttpStatus::OK,
@@ -220,6 +222,7 @@ class PersonTests extends ApiTestCase
         $person1 = $collection->addPerson($male)->get();
         $person2 = $collection->addPerson($female)->get();
 
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $state */
         $state = $person1->readMergeOptions($person2);
         $this->assertEquals(
             HttpStatus::OK,
@@ -288,12 +291,13 @@ class PersonTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->getPerson();
+        /** @var \Guzzle\Http\Message\Response $response */
         $response = $person->readPortrait();
 
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
             $response->getStatusCode(),
-            'Get portait failed. Returned: ' . HttpStatus::getText($response->getStatusCode) . "(" . $response->getStatusCode . ")"
+            'Get portrait failed. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(" . $response->getStatusCode() . ")"
         );
     }
 
@@ -311,6 +315,24 @@ class PersonTests extends ApiTestCase
         $response = $person->readPortrait($defaultImage);
 
         //todo: make some assertions as soon as the service is back up.
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Portraits_usecase
+     */
+    public function testReadPersonPortraits()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person = $this->getPerson();
+        $portraits = $person->readPortraits();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $portraits->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $portraits)
+        );
     }
 
     /**
@@ -337,35 +359,17 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Portraits_usecase
-     */
-    public function testReadPersonPortraits()
-    {
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        $person = $this->getPerson();
-        $portraits = $person->readPortraits();
-
-        $this->assertEquals(
-            HttpStatus::OK,
-            $portraits->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $portraits)
-        );
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
      */
     public function testReadRelationshipsToChildren(){
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        self::$personState
+        $personState = $this->getPerson();
+        $personState
             ->loadChildRelationships();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
     }
 
     /**
@@ -375,11 +379,11 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        self::$personState
+        $personState = $this->getPerson();
+        $personState
             ->loadParentRelationships();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
     }
 
     /**
@@ -389,11 +393,11 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        self::$personState
+        $personState = $this->getPerson();
+        $personState
             ->loadSpouseRelationships();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
     }
 
     /**
@@ -403,12 +407,12 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
+        $personState = $this->getPerson();
         $option = new QueryParameter(true,"persons","");
-        self::$personState
+        $personState
             ->loadSpouseRelationships($option);
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
     }
 
     /**
@@ -448,10 +452,8 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
-        $childrenState = self::$personState
+        $personState = $this->getPerson();
+        $childrenState = $personState
             ->readChildren();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $childrenState->getResponse() );
@@ -464,8 +466,8 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson('MMMM-NNN');
-        $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", self::$personState ->getResponse() );
+        $personState = $this->getPerson('MMMM-NNN');
+        $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", $personState ->getResponse() );
     }
 
     /**
@@ -475,28 +477,20 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
+        $personState = $this->getPerson();
         $options = array();
-        $options[] = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, self::$personState->getResponse()->getEtag());
-        $options[] = new HeaderParameter(true, HeaderParameter::ETAG, self::$personState->getResponse()->getEtag());
+        $options[] = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, $personState->getResponse()->getEtag());
+        $options[] = new HeaderParameter(true, HeaderParameter::ETAG, $personState->getResponse()->getEtag());
 
-        $secondState = $this->getPerson(self::$personState->getPerson()->getId(), $options);
+        $secondState = $this->getPerson($personState->getPerson()->getId(), $options);
 
         $this->assertAttributeEquals(HttpStatus::NOT_MODIFIED, "statusCode", $secondState->getResponse() );
     }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
+     * @see NotesTests::testReadNotes
      */
-    public function testReadNotes(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        self::$personState = $this->getPerson();
-        self::$personState->loadNotes();
-
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse() );
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
@@ -506,10 +500,8 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
-        $parentState = self::$personState
+        $personState = $this->getPerson();
+        $parentState = $personState
             ->readParents();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $parentState->getResponse() );
@@ -535,10 +527,8 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->getPerson();
-        }
-        $spouseState = self::$personState
+        $personState = $this->getPerson();
+        $spouseState = $personState
             ->readSpouses();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $spouseState->getResponse());
@@ -598,8 +588,8 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        $newState = self::$personState->head();
+        $personState = $this->getPerson();
+        $newState = $personState->head();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse());
     }
@@ -638,19 +628,17 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState()->readPerson($uri);
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
         }
         $gender = new Gender(array(
             "type" =>GenderType::MALE
         ));
-        self::$personState->updateGender($gender);
+        $personState->updateGender($gender);
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", self::$personState->getResponse());
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse());
 
     }
 
@@ -662,15 +650,13 @@ class PersonTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-        if( self::$personState->getPerson() == null ){
-            $uri = self::$personState->getSelfUri();
-            self::$personState = $this->collectionState()->readPerson($uri);
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
         }
         $fact = FactBuilder::eagleScout();
-        $newState = self::$personState->addFact($fact);
+        $newState = $personState->addFact($fact);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse());
     }
@@ -682,6 +668,191 @@ class PersonTests extends ApiTestCase
     {
         $this->assertTrue(false, "Test not yet implemented."); //todo
     }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Not-a-Match_Declarations_usecase
+     */
+    public function testUpdatePersonNotAMatchDeclarations()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personData = PersonBuilder::buildPerson(null);
+
+        $one = $this->collectionState()->addPerson($personData)->get();
+        $two = $this->collectionState()->addPerson($personData)->get();
+
+        $nonMatch = $one->addNonMatchPerson($two->getPerson());
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $nonMatch->getResponse(), "Restore person failed. Returned {$nonMatch->getResponse()->getStatusCode()}");
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
+     */
+    public function testUpdatePersonWithPreconditions()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson()->get();
+
+        $mangled = str_replace(array(1,3,5,'a','b','d'), array(8,4,3,'Z','X','W'), $personState->getResponse()->getEtag());
+        $check = new Preconditions();
+        $check->setEtag($mangled);
+        $check->setLastModified(new \DateTime($personState->getResponse()->getLastModified()));
+
+        $persons = $personState->getEntity()->getPersons();
+        $state = $personState->update($persons[0], $check);
+        $this->assertAttributeEquals(HttpStatus::PRECONDITION_FAILED, "statusCode", $state->getResponse());
+    }
+
+    /**
+     * testUpdatePreferredParentRelationship
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Parent_Relationship_usecase
+     * @see this::testPreferredParentRelationship
+     */
+
+    /**
+     * testUpdatePreferredSpouseRelationship
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Spouse_Relationship_usecase
+     * @see this::testPreferredSpouseRelationship
+     */
+
+    /**
+     * testDeletePerson
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
+     * @see this::testDeleteAndRestorePerson
+     */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
+     */
+    public function testDeletePersonSourceReference()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson()->get();
+
+        $sourceState = $this->createSource();
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
+
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+
+        $personState->addSourceReferenceObj($reference);
+        $newState = $personState->loadSourceReferences();
+
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = $newState->getEntity()->getPersons();
+        $references = $persons[0]->getSources();
+        $newerState = $newState->deleteSourceReference($references[0]);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
+     */
+    public function testDeletePersonConclusion()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
+        }
+        $name = PersonBuilder::nickName();
+        $newPersonState = $personState->addName($name);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newPersonState->getResponse() );
+        $newPersonState = $personState->get();
+
+        /** @var \Gedcomx\Conclusion\Person[] $persons */
+        $persons = $newPersonState->getEntity()->getPersons();
+        $names = $persons[0]->getNames();
+        $deletedState = $newPersonState->deleteName($names[1]);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deletedState->getResponse());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Not-a-Match_usecase
+     */
+    public function testDeletePersonNotAMatch()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personData = PersonBuilder::buildPerson(null);
+
+        $one = $this->collectionState()->addPerson($personData)->get();
+        $two = $this->collectionState()->addPerson($personData)->get();
+
+        $nonMatch = $one->addNonMatchPerson($two->getPerson());
+        $rematch = $nonMatch->removeNonMatch($two->getPerson());
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $rematch->getResponse(), "Restore person failed. Returned {$rematch->getResponse()->getStatusCode()}");
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_With_Preconditions_usecase
+     */
+    public function testDeletePersonWithPreconditions()
+    {
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson()->get();
+
+        $mangled = str_replace(array(1,3,5,'a','b','d'), array(8,4,3,'Z','X','W'), $personState->getResponse()->getEtag());
+        $check = new Preconditions();
+        $check->setEtag($mangled);
+        $check->setLastModified(new \DateTime($personState->getResponse()->getLastModified()));
+
+        $dState = $personState->delete($check);
+        $this->assertAttributeEquals(HttpStatus::PRECONDITION_FAILED, "statusCode", $dState->getResponse());
+    }
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
+     */
+    public function testDeleteDiscussionReference()
+    {
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $userState = $this->collectionState()->readCurrentUser();
+        $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
+
+        $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $ref = new DiscussionReference();
+        $ref->setResource($discussionState->getSelfUri());
+
+        $personState = $this->getPerson();
+        $newState = $personState->deleteDiscussionReference($ref);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
+    }
+
+    /**
+     * testDeletePreferredParentRelationship
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Parent_Relationship_usecase
+     * @see this::testPreferredParentRelationship
+     */
+
+    /**
+     * testDeletePreferredSpouseRelationship
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Spouse_Relationship_usecase
+     * @see this::testPreferredSpouseRelationship
+     */
+
+    /**
+     * testUploadPhotoForPerson
+     * @link https://familysearch.org/developers/docs/api/tree/Upload_Photo_for_Person_usecase
+     * @see MemoriesTests::uploadPhoto
+     */
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase

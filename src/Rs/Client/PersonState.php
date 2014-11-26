@@ -59,7 +59,7 @@ class PersonState extends GedcomxApplicationState
     /**
      * Get the Person object off the GedcomX entity
      *
-     * @return Person
+     * @return \Gedcomx\Conclusion\Person
      */
     protected function getScope()
     {
@@ -100,7 +100,7 @@ class PersonState extends GedcomxApplicationState
     /**
      * Get the Person object off the GedcomX entity
      *
-     * @return Person
+     * @return \Gedcomx\Conclusion\Person
      */
     public function getPerson()
     {
