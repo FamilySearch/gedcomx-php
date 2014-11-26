@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Gedcomx\Tests\Functional;
 
@@ -16,35 +16,17 @@ use mPDF;
 
 class MemoriesTests extends ApiTestCase
 {
-
     /**
-     * Clean up generated test images
+     * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Memory_Reference_usecase
      */
-    public function tearDown()
-    {
-        parent::tearDown();
-        foreach (glob('*.jpg') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.pdf') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.txt') as $file) {
-            unlink($file);
-        }
-    }
-
-    /**
-      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Memory_Reference_usecase
-      */
     public function testCreatePersonMemoryReference()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
 
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Create_Memories_Comment_usecase
-      */
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Create_Memories_Comment_usecase
+     */
     public function testCreateMemoriesComment()
     {
         $this->markTestIncomplete("Not yet implemented");
@@ -79,30 +61,30 @@ class MemoriesTests extends ApiTestCase
 
     }
 
-     /**
-      * @link https://familysearch.org/developers/docs/api/sources/Create_User-Uploaded_Source_usecase
-      */
-    public function testCreateUserUploadedSource()
-    {
-        $this->markTestIncomplete("Not yet implemented");
-    }
-     /**
-      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Memory_References_usecase
-      */
+    /**
+     * @link https://familysearch.org/developers/docs/api/sources/Create_User-Uploaded_Source_usecase
+     * @see SourcesTests::testCreateSourceDescription
+     */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Memory_References_usecase
+     */
     public function testReadPersonMemoryReference()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_Comments_usecase
-      */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_Comments_usecase
+     */
     public function testReadMemoriesComments()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_for_a_User_usecase
-      */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_for_a_User_usecase
+     */
     public function testReadMemoriesForAUser()
     {
         $this->markTestIncomplete("Not yet implemented");
@@ -138,7 +120,7 @@ class MemoriesTests extends ApiTestCase
     /**
      * @link https://familysearch.org/developers/docs/api/memories/Read_Memory_Personas_usecase
      */
-    public function testReadMemoryPersona()
+    public function testReadMemoryPersonas()
     {
         $filename = $this->makeImage();
         $artifact = new DataSource();
@@ -164,16 +146,17 @@ class MemoriesTests extends ApiTestCase
 
     }
 
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Read_Memory_Personas_usecase
-      */
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Read_Memory_Personas_usecase
+     */
     public function testReadMemoriesPersonas()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Update_Memories_Comment_usecase
-      */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Update_Memories_Comment_usecase
+     */
     public function testUpdateMemoriesComment()
     {
         $this->markTestIncomplete("Not yet implemented");
@@ -199,7 +182,7 @@ class MemoriesTests extends ApiTestCase
         $gedcom = $upload->getEntity();
         $descriptions = $gedcom->getSourceDescriptions();
         foreach ($descriptions as $source) {
-            foreach($source->getDescriptions() as $d) {
+            foreach ($source->getDescriptions() as $d) {
                 $d->setValue($this->faker->sentence(3));
             }
         }
@@ -213,9 +196,9 @@ class MemoriesTests extends ApiTestCase
         );
     }
 
-     /**
-      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Memory_Reference_usecase
-      */
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Memory_Reference_usecase
+     */
     public function testDeletePersonMemoryReference()
     {
         $this->markTestIncomplete("Not yet implemented");
@@ -247,30 +230,31 @@ class MemoriesTests extends ApiTestCase
     }
 
     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Delete_Memories_Comment_usecase
-      */
+     * @link https://familysearch.org/developers/docs/api/memories/Delete_Memories_Comment_usecase
+     */
     public function testDeleteMemoriesComment()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Delete_Memory_Persona_usecase
-      */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Delete_Memory_Persona_usecase
+     */
     public function testDeleteMemoryPersona()
     {
         $this->markTestIncomplete("Not yet implemented");
     }
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Upload_Multiple_Photo_Memories_usecase
-      */
+
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Upload_Multiple_Photo_Memories_usecase
+     */
     public function testUploadMultiplePhotoMemories()
     {
-        $this->markTestSkipped("Not currently supported by the API.");
+        $this->markTestSkipped("Not currently supported by the SDK.");
     }
 
     /**
      * @link https://familysearch.org/developers/docs/api/memories/Upload_PDF_Document_usecase
-     *
      * SDK only supports uploading via multi-part form uploads.
      */
     public function testUploadPdf()
@@ -297,7 +281,6 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/memories/Upload_Photo_usecase
-     *
      * Use shows uploading a photo with an image content type. SDK only supports uploading
      *       via multi-part form uploads.
      */
@@ -324,7 +307,6 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/memories/Upload_Photo_Via_Multipart_Form_Data_usecase
-     *
      * SDK only supports uploading via multi-part form uploads.
      */
     public function testUploadPhotoViaMultipartFormData()
@@ -340,7 +322,6 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact, $description);
-        $upload->getEntity()->getDescriptions();
 
         $this->assertEquals(
             HttpStatus::CREATED,
@@ -353,7 +334,6 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/memories/Upload_Story_usecase
-     *
      * SDK only supports uploading via multi-part form uploads.
      */
     public function testUploadStory()
@@ -378,29 +358,28 @@ class MemoriesTests extends ApiTestCase
         $upload->delete();
     }
 
-     /**
-      * @link https://familysearch.org/developers/docs/api/memories/Upload_Story_Memories_usecase
-      */
+    /**
+     * @link https://familysearch.org/developers/docs/api/memories/Upload_Story_Memories_usecase
+     */
     public function testUploadStoryMemories()
     {
-        $this->markTestSkipped("Not currently supported by the API.");
+        $this->markTestSkipped("Not currently supported by the SDK.");
     }
 
     /**
      * Generate randomized text files for testing
-     *
      * @return string The generated filename
      */
     private function makeTextFile()
     {
-        $filename = 'test_'.bin2hex(openssl_random_pseudo_bytes(8)).".txt";
+        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".txt";
 
         $text = $this->faker->sentence(4) . "\n" .
             "==========================\n\n" .
-            $this->faker->paragraph() ."\n\n" .
-            $this->faker->paragraph() ."\n\n" .
-            $this->faker->paragraph() ."\n";
-        $fileHandle = fopen($filename,'w');
+            $this->faker->paragraph() . "\n\n" .
+            $this->faker->paragraph() . "\n\n" .
+            $this->faker->paragraph() . "\n";
+        $fileHandle = fopen($filename, 'w');
         fwrite($fileHandle, $text);
         fclose($fileHandle);
 
@@ -409,19 +388,18 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * Generate randomized PDF files for testing
-     *
      * @return string The generated filename
      */
     private function makePDF()
     {
-        $filename = 'test_'.bin2hex(openssl_random_pseudo_bytes(8)).".pdf";
+        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".pdf";
 
         $pdf = new mPDF();
         $pdf->WriteHTML(
-            '<h3>'.$this->faker->sentence(4).'</h3>' .
-            '<p>'.$this->faker->paragraph().'</p>' .
-            '<p>'.$this->faker->paragraph().'</p>' .
-            '<p>'.$this->faker->paragraph().'</p>'
+            '<h3>' . $this->faker->sentence(4) . '</h3>' .
+            '<p>' . $this->faker->paragraph() . '</p>' .
+            '<p>' . $this->faker->paragraph() . '</p>' .
+            '<p>' . $this->faker->paragraph() . '</p>'
         );
         $pdf->Output($filename);
         return $filename;
@@ -429,14 +407,13 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * Generate randomized images for testing
-     *
      * @return string The generated filename
      */
     private function makeImage()
     {
         $height = $width = 5;
         $scale = 100;
-        $filename = 'test_'.bin2hex(openssl_random_pseudo_bytes(8)).".jpg";
+        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".jpg";
 
         $img = Image::canvas($width, $height, '#000');
         for ($x = 0; $x < $width; $x++) {
@@ -445,7 +422,7 @@ class MemoriesTests extends ApiTestCase
                 $img->pixel($color, $x, $y);
             }
         }
-        $img->resize($width*$scale, $width*$scale);
+        $img->resize($width * $scale, $width * $scale);
         $png = $img->encode('jpg');
         $png->save($filename);
 
@@ -454,7 +431,6 @@ class MemoriesTests extends ApiTestCase
 
     /**
      * Generate random rgba color
-     *
      * @return array
      */
     private function randomColor()
@@ -467,4 +443,20 @@ class MemoriesTests extends ApiTestCase
         );
     }
 
+    /**
+     * Clean up generated test images
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        foreach (glob('*.jpg') as $file) {
+            unlink($file);
+        }
+        foreach (glob('*.pdf') as $file) {
+            unlink($file);
+        }
+        foreach (glob('*.txt') as $file) {
+            unlink($file);
+        }
+    }
 }
