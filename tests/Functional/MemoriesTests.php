@@ -36,11 +36,8 @@ class MemoriesTests extends ApiTestCase
     {
         $factory = new FamilySearchStateFactory();
         /** @var FamilySearchMemories $memories */
-        $memories = $factory->newMemoriesState()
-            ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey);
+        $memories = $factory->newMemoriesState();
+        $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
         $ds->setFile($this->makeTextFile());
@@ -108,11 +105,8 @@ class MemoriesTests extends ApiTestCase
     {
         $factory = new FamilySearchStateFactory();
         /** @var FamilySearchMemories $memories */
-        $memories = $factory->newMemoriesState()
-            ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey);
+        $memories = $factory->newMemoriesState();
+        $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
         $ds->setFile($this->makeTextFile());
@@ -249,11 +243,8 @@ class MemoriesTests extends ApiTestCase
     {
         $factory = new FamilySearchStateFactory();
         /** @var FamilySearchMemories $memories */
-        $memories = $factory->newMemoriesState()
-            ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey);
+        $memories = $factory->newMemoriesState();
+        $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
         $ds->setFile($this->makeTextFile());
@@ -385,7 +376,26 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeleteMemoriesComment()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $this->authorize($memories);
+        $file = $this->makeTextFile();
+        $ds = new DataSource();
+        $ds->setFile($file);
+        /** @var FamilySearchSourceDescriptionState $artifact */
+        $artifact = $memories->addArtifact($ds)->get();
+        $comments = $artifact->readComments();
+        $comment = new Comment();
+        $comment->setText("Test comment.");
+        $comments->addComment($comment);
+        $comments = $artifact->readComments();
+        $delete = array_shift($comments->getDiscussion()->getComments());
+        $state = $comments->deleteComment($delete);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+
+        $artifact->delete();
     }
 
     /**
