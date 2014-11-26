@@ -1,21 +1,15 @@
 <?php
 
-namespace Gedcomx\tests\Extensions\FamilySearch\Rs\Client\FamilyTree;
+namespace Gedcomx\Tests\Functional;
 
-use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
-use Gedcomx\Extensions\FamilySearch\Feature;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
-use Gedcomx\Rs\Client\GedcomxApplicationState;
-use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
-use Gedcomx\Tests\PersonBuilder;
-use Guzzle\Http\Message\Header\HeaderInterface;
 
-class FamilyTreePersonStateTest extends ApiTestCase
+class UtilitiesTests extends ApiTestCase
 {
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Multiple_Pending_Modifications_Activated_usecase
+     */
     public function testReadPersonWithMultiplePendingModificationsActivated()
     {
         $factory = new FamilyTreeStateFactory();
@@ -62,6 +56,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $state->delete();
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Pending_Modification_Activated_usecase
+     */
     public function testReadPersonWithPendingModificationActivated()
     {
         // The default client from this factory is assumed to add a single pending feature (if it doesn't, this test will fail)
@@ -84,6 +81,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->assertEquals(1, count($requestedFeatures));
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_usecase
+     */
     public function testRedirectToPerson()
     {
         $factory = new FamilyTreeStateFactory();
@@ -103,6 +103,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $person->delete();
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_memories_usecase
+     */
     public function testRedirectToPersonMemories()
     {
         $factory = new FamilyTreeStateFactory();
@@ -122,6 +125,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $person->delete();
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Source_Linker_usecase
+     */
     public function testRedirectToSourceLinker()
     {
         $factory = new FamilyTreeStateFactory();
@@ -142,6 +148,9 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $person->delete();
     }
 
+    /**
+     * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Uri_usecase
+     */
     public function testRedirectToUri()
     {
         $factory = new FamilyTreeStateFactory();
@@ -156,4 +165,6 @@ class FamilyTreePersonStateTest extends ApiTestCase
         $this->assertEquals(1, $response->getRedirectCount());
         $this->assertNotEquals($uri, $response->getEffectiveUrl());
     }
+
+
 }
