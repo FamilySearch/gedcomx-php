@@ -8,6 +8,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
+use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Util\ImageSource;
@@ -83,6 +84,8 @@ class MemoriesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__, $persona)
         );
 
+        $upload->delete();
+        $persona->delete();
     }
 
     /**
@@ -167,9 +170,9 @@ class MemoriesTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/memories/Read_Memory_Personas_usecase
+     * @link https://familysearch.org/developers/docs/api/memories/Read_Memory_Persona_usecase
      */
-    public function testReadMemoryPersonas()
+    public function testReadMemoryPersona()
     {
         $filename = $this->makeImage();
         $artifact = new DataSource();
@@ -187,12 +190,20 @@ class MemoriesTests extends ApiTestCase
         $person = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person);
+        $persona = $persona->get();
         $this->assertEquals(
-            HttpStatus::CREATED,
+            HttpStatus::OK,
             $persona->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $persona)
+            $this->buildFailMessage(__METHOD__.'(Status:OK)', $persona)
+        );
+        $persons = $persona->getPersons();
+        $this->assertGreaterThan(
+            0,
+            count($persons),
+            $this->buildFailMessage(__METHOD__.'(HasPersons)', $persona)
         );
 
+        $upload->delete();
     }
 
     /**
@@ -200,7 +211,35 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemoriesPersonas()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $person = PersonBuilder::buildPerson('male');
+
+        $upload->addPersonPersona($person);
+        $personas = $upload->readPersonas();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $personas->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(Status:OK)', $personas)
+        );
+        $persons = $personas->getPersons();
+        $this->assertGreaterThan(
+            0,
+            count($persons),
+            $this->buildFailMessage(__METHOD__.'(HasPersons)', $personas)
+        );
     }
 
     /**
@@ -278,6 +317,45 @@ class MemoriesTests extends ApiTestCase
     }
 
     /**
+     * @link https://familysearch.org/developers/docs/api/memories/Update_Memory_Persona_usecase
+     */
+    public function testUpdateMemoryPersona()
+    {
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $person1 = $this->createPerson('male');
+        $person2 = PersonBuilder::buildPerson('male');
+
+        $persona = $upload->addPersonPersona($person2);
+        $person1->addPersona($persona);
+        $personas = $person1->loadPersonaReferences();
+        $personas = $personas->get();
+        $updated = $personas->update($personas->getPerson());
+
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $updated->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $updated)
+        );
+
+        $upload->delete();
+        $person1->delete();
+    }
+
+    /**
      * @link https://familysearch.org/developers/docs/api/memories/Delete_Memory_usecase
      */
     public function testDeleteMemory()
@@ -315,7 +393,31 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeleteMemoryPersona()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $person = PersonBuilder::buildPerson('male');
+
+        $persona = $upload->addPersonPersona($person);
+
+        $persona = $persona->delete();
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $persona->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $persona)
+        );
+
+        $upload->delete();
     }
 
     /**

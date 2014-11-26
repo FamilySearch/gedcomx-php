@@ -5,6 +5,7 @@ namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Conclusion\Person;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Client;
@@ -47,39 +48,50 @@ class PersonsState extends GedcomxApplicationState
     }
 
     /**
-     * @return CollectionState|null
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\CollectionState|null
      */
-    public function readCollection()
+    public function readCollection(StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::COLLECTION);
+        if ($link == null || $link->getHref() == null) {
+           return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            'CollectionState',
+            $this->getClient(),
+            $request,
+            $this->passOptionsTo('invoke', array(), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Person|Gedcomx $person
-     * @return PersonState|null
+     * @param Person                                           $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\PersonState|null
      */
-    public function addPerson($person)
+    public function addPerson(Person $person, StateTransitionOption $option = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
-    }
+        $link = $this->getLink(Rel::SELF);
+        $href = $link == null ? null
+            : $link->getHref() == null ? null
+            : $link->getHref();
+        if ($href == null) {
+            $href = $this->getSelfUri();
+        }
 
-    public function readNextPage()
-    {
-        return parent::readNextPage();
-    }
-
-    public function readPreviousPage()
-    {
-        return parent::readPreviousPage();
-    }
-
-    public function readFirstPage()
-    {
-        return parent::readFirstPage();
-    }
-
-    public function readLastPage()
-    {
-        return parent::readLastPage();
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $href);
+        return $this->stateFactory->createState(
+            'PersonState',
+            $this->client,
+            $this->request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 }
