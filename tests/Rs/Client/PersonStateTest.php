@@ -54,47 +54,6 @@ class PersonStateTest extends ApiTestCase{
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
-     */
-    public function testReadPersonNote()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        self::$personState = $this->getPerson();
-        self::$personState->loadNotes();
-        $person = self::$personState->getPerson();
-        $notes = $person->getNotes();
-        $newState = self::$personState
-            ->readNote($notes[0]);
-
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
-     */
-    public function testDeletePersonNote()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
-
-        $note = NoteBuilder::createNote();
-        $noteState = self::$personState->addNote( $note );
-
-        $note = new Note();
-        $note->addLink($noteState->getLink(Rel::SELF));
-
-        $delState = self::$personState->deleteNote($note);
-
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $delState->getResponse() );
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
      */
     public function testUpdatePersonWithPreconditions()

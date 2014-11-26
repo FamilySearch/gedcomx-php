@@ -79,24 +79,6 @@ class ChildAndParentsRelationshipStateTest extends ApiTestCase
         $this->cleanup();
     }
 
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Note_usecase
-     */
-    public function testCreateChildAndParentsRelationshipNote()
-    {
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilyTreeCollectionState $collection */
-        $this->collectionState($factory);
-
-        $relation = $this->createRelationship();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
-
-        $note = NoteBuilder::createNote();
-        $noteState = $relation->addNote($note);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse(), $this->buildFailMessage(__METHOD__, $noteState));
-
-        $this->cleanup();
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_usecase
@@ -153,50 +135,6 @@ class ChildAndParentsRelationshipStateTest extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Notes_usecase
-     */
-    public function testReadChildAndParentsRelationshipNotes()
-    {
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilyTreeCollectionState $collection */
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-
-        $note = NoteBuilder::createNote();
-        $noteState = $relation->addNote($note);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse(), $this->buildFailMessage(__METHOD__, $noteState));
-
-        $relation = $relation->get();
-        $relation->loadNotes();
-        $this->assertNotEmpty($relation->getRelationship()->getNotes());
-
-        $this->cleanup();
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Note_usecase
-     */
-    public function testReadChildAndParentsRelationshipNote()
-    {
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $note = NoteBuilder::createNote();
-        $relation->addNote($note);
-
-        $relation = $relation->get()->loadNotes();
-        $notes = $relation->getRelationship()->getNotes();
-        $noted = $relation->readNote($notes[0]);
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
-
-        $this->cleanup();
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_usecase
      */
     public function testUpdateChildAndParentRelationship()
@@ -213,28 +151,6 @@ class ChildAndParentsRelationshipStateTest extends ApiTestCase
         $mother = $this->createPerson('female')->get();
         $updated = $relation->updateMotherWithPersonState($mother);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(update)", $updated) );
-
-        $this->cleanup();
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_Note_usecase
-     */
-    public function testUpdateChildAndParentsRelationshipNote()
-    {
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $note = NoteBuilder::createNote();
-        $relation->addNote($note);
-
-        $relation = $relation->get()->loadNotes();
-        $notes = $relation->getRelationship()->getNotes();
-        $notes[0]->setText($this->faker->sentence(12));
-        $noted = $relation->updateNote($notes[0]);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
 
         $this->cleanup();
     }
@@ -283,27 +199,6 @@ class ChildAndParentsRelationshipStateTest extends ApiTestCase
 
         $relation = $relation->get();
         $this->assertEmpty($relation->getRelationship()->getFather(), "Father should have been deleted" );
-
-        $this->cleanup();
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Note_usecase
-     */
-    public function testDeleteChildAndParentRelationshipNote()
-    {
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $note = NoteBuilder::createNote();
-        $relation->addNote($note);
-
-        $relation = $relation->get()->loadNotes();
-        $notes = $relation->getRelationship()->getNotes();
-        $noted = $relation->deleteNote($notes[0]);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__, $noted));
 
         $this->cleanup();
     }
@@ -407,11 +302,5 @@ class ChildAndParentsRelationshipStateTest extends ApiTestCase
         $this->states[] = $rState;
 
         return $rState;
-    }
-
-    private function cleanup(){
-        foreach ($this->states as $s ){
-            $s->delete();
-        }
     }
 }
