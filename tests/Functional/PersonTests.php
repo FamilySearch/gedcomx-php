@@ -280,9 +280,15 @@ class PersonTests extends ApiTestCase
         $person = $this->getPerson();
         $defaultImage = new QueryParameter(true, "default","http://i.imgur.com/d9J0gYA.jpg");
 
+        /** @var \Guzzle\Http\Message\Response $response */
         $response = $person->readPortrait($defaultImage);
 
-        //todo: make some assertions as soon as the service is back up.
+        $this->assertGreaterThan(0, $response->getRedirectCount(), "Redirect does not appear to have worked.");
+        $this->assertEquals(
+            "http://i.imgur.com/d9J0gYA.jpg",
+            $response->getEffectiveUrl(),
+            "Portrait default image URL incorrect: " . $response->getEffectiveUrl()
+        );
     }
 
     /**
