@@ -32,28 +32,8 @@ class ParentsAndChildrenTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Source_Reference_usecase
+     * @see SourcesTests::testCreateChildAndParentsRelationshipSourceReferences
      */
-    public function testCreateChildAndParentsRelationshipSourceReferences()
-    {
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilyTreeCollectionState $collection */
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $sourceState = $this->createSource();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
-                                                     )));
-        $newState = $relation->addSourceReference($reference);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState));
-
-        $sourceState->delete();
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Conclusion_usecase
@@ -126,36 +106,13 @@ class ParentsAndChildrenTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Source_References_usecase
+     * @see SourcesTests::testReadChildAndParentsRelationshipSourceReferences
      */
-    public function testReadChildAndParentsRelationshipSourceReferences()
-    {
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilyTreeCollectionState $collection */
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $sourceState = $this->createSource();
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
-                                                     )));
-        $relation->addSourceReference($reference);
-
-        $relation = $relation->get();
-        $relation->loadSourceReferences();
-        $this->assertNotEmpty($relation->getRelationship()->getSources());
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Sources_usecase
+     * @see SourcesTests::testReadChildAndParentsRelationshipSources
      */
-    public function testReadChildAndParentsRelationshipSources()
-    {
-        $this->assertTrue(false, "Not yet implemented"); //todo
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Note_usecase
@@ -229,30 +186,8 @@ class ParentsAndChildrenTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Source_Reference_usecase
+     * @see SourcesTests::testDeleteChildAndParentsRelationshipSourceReference
      */
-    public function testDeleteChildAndParentsRelationshipSourceReference()
-    {
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilyTreeCollectionState $collection */
-        $this->collectionState($factory);
-
-        /** @var ChildAndParentsRelationshipState $relation */
-        $relation = $this->createRelationship();
-        $sourceState = $this->createSource();
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
-                                                     )));
-        $relation->addSourceReference($reference);
-
-        $relation = $relation->get();
-        $relation->loadSourceReferences();
-        $sources = $relation->getRelationship()->getSources();
-        $deleted = $relation->deleteSourceReference($sources[0]);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__."(updateFact)", $deleted));
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Conclusion_usecase

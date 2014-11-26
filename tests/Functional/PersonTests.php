@@ -46,29 +46,8 @@ class PersonTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
+     * @see SourcesTests::testCreatePersonSourceReference
      */
-    public function testCreatePersonSourceReference()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $personState = $this->createPerson()->get();
-
-        $sourceState = $this->createSource();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-            "changeMessage" => $this->faker->sentence(6)
-        )));
-        /** @var \Gedcomx\Rs\Client\PersonState $newState */
-        $newState = $personState->addSourceReferenceObj($reference);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
-
-        $sourceState->delete();
-        $personState->delete();
-    }
 
     /*
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
@@ -238,24 +217,13 @@ class PersonTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
+     * @see SourcesTests::testReadPersonSourceReferences
      */
-    public function testReadPersonSourceReferences(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $personState = $this->getPerson();
-        $personState->loadSourceReferences();
-
-        $this->assertNotEmpty($personState->getEntity()->getSourceDescriptions());
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
+     * @see SourcesTests::testReadPersonSources
      */
-    public function testReadPersonSources()
-    {
-        $this->assertTrue(false, "Test not yet implemented"); //todo
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Change_Summary_usecase
@@ -596,29 +564,8 @@ class PersonTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
+     * @see SourcesTests::testUpdatePersonSourceReference
      */
-    public function testUpdatePersonSourceReference()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $personState = $this->createPerson()->get();
-
-        $sourceState = $this->createSource();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse());
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-            "changeMessage" => $this->faker->sentence(6)
-        )));
-
-        $personState->addSourceReferenceObj($reference);
-        $newState = $personState->loadSourceReferences();
-        $persons = $newState->getEntity()->getPersons();
-        $newerState = $newState->updateSourceReferences($persons[0]);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Conclusion_usecase
@@ -726,29 +673,8 @@ class PersonTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
+     * @see SourcesTests::testDeletePersonSourceReference
      */
-    public function testDeletePersonSourceReference()
-    {
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $personState = $this->createPerson()->get();
-
-        $sourceState = $this->createSource();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
-
-        $reference = new SourceReference();
-        $reference->setDescriptionRef($sourceState->getSelfUri());
-
-        $personState->addSourceReferenceObj($reference);
-        $newState = $personState->loadSourceReferences();
-
-        /** @var \Gedcomx\Conclusion\Person[] $persons */
-        $persons = $newState->getEntity()->getPersons();
-        $references = $persons[0]->getSources();
-        $newerState = $newState->deleteSourceReference($references[0]);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newerState->getResponse());
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
