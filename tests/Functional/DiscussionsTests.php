@@ -5,7 +5,10 @@ namespace Gedcomx\Tests\Functional;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
@@ -203,7 +206,7 @@ class DiscussionsTests extends ApiTestCase
         $pass = false;
         $comments = $state->getDiscussion()->getComments();
         foreach ($comments as $c) {
-            if ($c->getId() == $comment->getId() & $c->getText() == $newText){
+            if ($c->getId() == $comment->getId() & $c->getText() == $newText) {
                 $pass = true;
             }
         }

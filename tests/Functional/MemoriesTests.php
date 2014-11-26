@@ -2,8 +2,12 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Comment;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Util\ImageSource;
@@ -29,7 +33,27 @@ class MemoriesTests extends ApiTestCase
      */
     public function testCreateMemoriesComment()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchMemories $memories */
+        $memories = $factory->newMemoriesState()
+            ->authenticateViaOAuth2Password(
+                $this->apiCredentials->username,
+                $this->apiCredentials->password,
+                $this->apiCredentials->apiKey);
+        $ds = new DataSource();
+        $ds->setTitle("Sample Memory");
+        $ds->setFile($this->makeTextFile());
+        /** @var FamilySearchSourceDescriptionState $artifact */
+        $artifact = $memories->addArtifact($ds)->get();
+        $comments = $artifact->readComments();
+        $comment = new Comment();
+        $comment->setText("Test comment.");
+        $state = $comments->addComment($comment);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
+
+        $artifact->delete();
     }
 
     /**
@@ -79,7 +103,32 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemoriesComments()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchMemories $memories */
+        $memories = $factory->newMemoriesState()
+            ->authenticateViaOAuth2Password(
+                $this->apiCredentials->username,
+                $this->apiCredentials->password,
+                $this->apiCredentials->apiKey);
+        $ds = new DataSource();
+        $ds->setTitle("Sample Memory");
+        $ds->setFile($this->makeTextFile());
+        /** @var FamilySearchSourceDescriptionState $artifact */
+        $artifact = $memories->addArtifact($ds)->get();
+        /** @var DiscussionState $state */
+        $comments = $artifact->readComments();
+        $comment = new Comment();
+        $comment->setText("Test comment.");
+        $comments->addComment($comment);
+        $state = $artifact->readComments();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getDiscussion());
+        $this->assertNotNull($state->getDiscussion()->getComments());
+        $this->assertGreaterThan(0, count($state->getDiscussion()->getComments()));
+
+        $artifact->delete();
     }
 
     /**
@@ -159,7 +208,31 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUpdateMemoriesComment()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilySearchStateFactory();
+        /** @var FamilySearchMemories $memories */
+        $memories = $factory->newMemoriesState()
+            ->authenticateViaOAuth2Password(
+                $this->apiCredentials->username,
+                $this->apiCredentials->password,
+                $this->apiCredentials->apiKey);
+        $ds = new DataSource();
+        $ds->setTitle("Sample Memory");
+        $ds->setFile($this->makeTextFile());
+        /** @var FamilySearchSourceDescriptionState $artifact */
+        $artifact = $memories->addArtifact($ds)->get();
+        $comments = $artifact->readComments();
+        $comment = new Comment();
+        $comment->setText("Test comment.");
+        $comments->addComment($comment);
+        $comments = $artifact->readComments();
+        $update = array_shift($comments->getDiscussion()->getComments());
+        $update->setText("Updated comment");
+        $state = $comments->updateComment($update);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+
+        $artifact->delete();
     }
 
     /**

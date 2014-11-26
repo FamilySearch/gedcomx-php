@@ -6,6 +6,7 @@ use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Comment;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 use Gedcomx\Links\Link;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
@@ -95,9 +96,9 @@ class DiscussionState extends FamilySearchCollectionState
         return $request;
     }
 
-    public function updateDiscussion(Discussion $discussion, StateTransitionOption $option = null)
+    public function update(Discussion $discussion, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('update', array($discussion, Rel::SELF), func_get_args());
+        return $this->passOptionsTo('updateInternal', array($discussion, Rel::SELF), func_get_args());
     }
 
     /**
@@ -131,7 +132,7 @@ class DiscussionState extends FamilySearchCollectionState
     {
         $discussion = $this->createEmptySelf();
         $discussion->setComments($comments);
-        return $this->passOptionsTo('update', array($discussion, Rel::COMMENTS), func_get_args());
+        return $this->passOptionsTo('updateInternal', array($discussion, Rel::COMMENTS), func_get_args());
     }
 
     /**
@@ -153,7 +154,7 @@ class DiscussionState extends FamilySearchCollectionState
     {
         $discussion = $this->createEmptySelf();
         $discussion->setComments($comments);
-        return $this->passOptionsTo('update', array($discussion,Rel::COMMENTS), func_get_args());
+        return $this->passOptionsTo('updateInternal', array($discussion,Rel::COMMENTS), func_get_args());
     }
 
     /**
@@ -162,7 +163,7 @@ class DiscussionState extends FamilySearchCollectionState
      * @param StateTransitionOption $option
      * @return DiscussionState
      */
-    protected function update(Discussion $discussion, $rel, StateTransitionOption $option = null)
+    protected function updateInternal(Discussion $discussion, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
         $link = $this->getLink($rel);
