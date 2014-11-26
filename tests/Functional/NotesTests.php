@@ -86,8 +86,6 @@ class NotesTests extends ApiTestCase
         $notes = $relation->getRelationship()->getNotes();
         $noted = $relation->readNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
-
-        $this->cleanup();
     }
 
     /**
@@ -109,8 +107,6 @@ class NotesTests extends ApiTestCase
         $relation = $relation->get();
         $relation->loadNotes();
         $this->assertNotEmpty($relation->getRelationship()->getNotes());
-
-        $this->cleanup();
     }
 
     /**
@@ -171,11 +167,11 @@ class NotesTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        self::$personState = $this->getPerson();
-        self::$personState->loadNotes();
-        $person = self::$personState->getPerson();
+        $personState = $this->getPerson();
+        $personState->loadNotes();
+        $person = $personState->getPerson();
         $notes = $person->getNotes();
-        $newState = self::$personState
+        $newState = $personState
             ->readNote($notes[0]);
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
@@ -212,8 +208,6 @@ class NotesTests extends ApiTestCase
         $notes[0]->setText($this->faker->sentence(12));
         $noted = $relation->updateNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
-
-        $this->cleanup();
     }
 
     /**
@@ -242,12 +236,13 @@ class NotesTests extends ApiTestCase
         $noted = $relation->updateNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
     }
+
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Update_Note_usecase
      */
     public function testUpdateNote()
     {
-        $this->assertTrue(false, "Not yet implemented");
+        $this->markTestIncomplete("Not yet implemented");
     }
 
     /**
@@ -267,8 +262,6 @@ class NotesTests extends ApiTestCase
         $notes = $relation->getRelationship()->getNotes();
         $noted = $relation->deleteNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__, $noted));
-
-        $this->cleanup();
     }
 
     /**
@@ -305,17 +298,15 @@ class NotesTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        if( self::$personState == null ){
-            self::$personState = $this->createPerson();
-        }
+        $personState = $this->createPerson();
 
         $note = NoteBuilder::createNote();
-        $noteState = self::$personState->addNote( $note );
+        $noteState = $personState->addNote( $note );
 
         $note = new Note();
         $note->addLink($noteState->getLink(Rel::SELF));
 
-        $delState = self::$personState->deleteNote($note);
+        $delState = $personState->deleteNote($note);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $delState->getResponse() );
     }

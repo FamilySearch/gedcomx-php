@@ -30,9 +30,9 @@ class PlacesTests extends ApiTestCase
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
         $collection = $factory->newPlacesState()
                               ->authenticateViaOAuth2Password(
-                                  $this->apiCredentials->username,
-                                  $this->apiCredentials->password,
-                                  $this->apiCredentials->apiKey);
+                                  SandboxCredentials::USERNAME,
+                                  SandboxCredentials::PASSWORD,
+                                  SandboxCredentials::API_KEY);
         $results = $collection->searchForPlaces($query);
         $places = $results->getResults();
         $description = $results->readPlaceDescription($places[0]);

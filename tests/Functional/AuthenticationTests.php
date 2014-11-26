@@ -7,6 +7,7 @@ use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\SandboxCredentials;
 use Guzzle\Http\Message\Request;
 
 class AuthenticationTests extends ApiTestCase
@@ -22,9 +23,9 @@ class AuthenticationTests extends ApiTestCase
         $collectionState = $factory
             ->newCollectionState()
             ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey
+                SandboxCredentials::USERNAME,
+                SandboxCredentials::PASSWORD,
+                SandboxCredentials::USERNAME
             );
 
         $link = $collectionState->getLink(Rel::OAUTH2_TOKEN);
@@ -140,9 +141,10 @@ class AuthenticationTests extends ApiTestCase
         $collectionState = $factory
             ->newCollectionState()
             ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey);
+                SandboxCredentials::USERNAME,
+                SandboxCredentials::PASSWORD,
+                SandboxCredentials::API_KEY
+            );
 
         $this->assertNotEmpty($collectionState->getAccessToken());
     }

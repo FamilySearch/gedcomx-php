@@ -2,6 +2,11 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
+use Gedcomx\Rs\Client\Rel;
+use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 
 class UserTests extends ApiTestCase
@@ -17,7 +22,7 @@ class UserTests extends ApiTestCase
          * readPersonForCurrentUser will return a 303 redirect by default.
          * assert the URL on the person state is not the original request URL.
          */
-        $this->assertFalse(strpos($personState->getResponse()->getEffectiveUrl(),Rel::CURRENT_USER_PERSON));
+        $this->assertFalse(strpos($personState->getResponse()->getEffectiveUrl(), Rel::CURRENT_USER_PERSON));
     }
 
     /**

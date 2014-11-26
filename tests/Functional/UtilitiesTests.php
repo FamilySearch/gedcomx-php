@@ -2,8 +2,14 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Extensions\FamilySearch\Feature;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Tests\ApiTestCase;
+use Guzzle\Http\Message\Header\HeaderInterface;
 
 class UtilitiesTests extends ApiTestCase
 {
@@ -90,7 +96,7 @@ class UtilitiesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->createPerson();
-        $id = $person->getResponse()->getHeader("X-ENTITY-ID")->__toString();
+        $id = (string)$person->getResponse()->getHeader("X-ENTITY-ID");
         $uri = "https://sandbox.familysearch.org/platform/redirect?person=" . $id;
         $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
         $request->addHeader("Header", "application/json");
@@ -112,7 +118,7 @@ class UtilitiesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->createPerson();
-        $id = $person->getResponse()->getHeader("X-ENTITY-ID")->__toString();
+        $id = (string)$person->getResponse()->getHeader("X-ENTITY-ID");
         $uri = "https://sandbox.familysearch.org/platform/redirect?context=memories&person=" . $id;
         $request = $this->collectionState()->getClient()->createRequest("GET", $uri);
         $request->addHeader("Header", "application/json");

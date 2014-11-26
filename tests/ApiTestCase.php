@@ -47,8 +47,10 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
     public function tearDown()
     {
-        foreach ($this->states as $s ){
-            $s->delete();
+        if ($this->states != null && is_array($this->states)) {
+            foreach ($this->states as $s ){
+                $s->delete();
+            }
         }
     }
 

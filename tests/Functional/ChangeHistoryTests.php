@@ -126,7 +126,8 @@ class ChangeHistoryTests extends ApiTestCase
 
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson('male')->get();
-        $person->deleteFact(array_shift($person->getPerson()->getFacts()));
+        $facts = $person->getPerson()->getFacts();
+        $person->deleteFact(array_shift($facts));
         $changes = $person->readChangeHistory();
         $deleted = null;
         /** @var ChangeEntry $entry */

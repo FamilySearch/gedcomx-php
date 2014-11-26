@@ -2,6 +2,20 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Records\Collection;
+use Gedcomx\Rs\Client\CollectionsState;
+use Gedcomx\Rs\Client\CollectionState;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Rs\Client\Util\HttpStatus;
+use Gedcomx\Source\SourceCitation;
+use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
 
 class SourceBoxTests extends ApiTestCase
@@ -35,7 +49,8 @@ class SourceBoxTests extends ApiTestCase
         /** @var CollectionsState $subcollections */
         $subcollections = $collection->readSubcollections()->get();
 
-        $c = array_shift($subcollections->getCollections());
+        $collectionList = $subcollections->getCollections();
+        $c = array_shift($collectionList);
         $subcollection = $subcollections->readCollection($c);
         $state = $subcollection->readSourceDescriptions();
 

@@ -2,7 +2,14 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\DiscussionBuilder;
 
 class DiscussionsTests extends ApiTestCase
 {
