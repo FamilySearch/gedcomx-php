@@ -2,7 +2,10 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\SandboxCredentials;
 
 class VocabulariesTests extends ApiTestCase
 {
@@ -13,13 +16,13 @@ class VocabulariesTests extends ApiTestCase
     {
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $this->collection = $factory->newPlacesState()
+        $collection = $factory->newPlacesState()
             ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey
+                SandboxCredentials::USERNAME,
+                SandboxCredentials::PASSWORD,
+                SandboxCredentials::API_KEY
             );
-        $listState = $this->collection->readPlaceTypes();
+        $listState = $collection->readPlaceTypes();
         $elements = $listState->getVocabElementList()->getElements();
 
         $this->assertEquals(
@@ -37,15 +40,15 @@ class VocabulariesTests extends ApiTestCase
     {
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $this->collection = $factory->newPlacesState()
+        $collection = $factory->newPlacesState()
             ->authenticateViaOAuth2Password(
-                $this->apiCredentials->username,
-                $this->apiCredentials->password,
-                $this->apiCredentials->apiKey
+                SandboxCredentials::USERNAME,
+                SandboxCredentials::PASSWORD,
+                SandboxCredentials::API_KEY
             );
-        $listState = $this->collection->readPlaceTypes();
+        $listState = $collection->readPlaceTypes();
         $elements = $listState->getVocabElementList()->getElements();
-        $type = $this->collection->readPlaceTypeById($elements->getId());
+        $type = $collection->readPlaceTypeById(array_shift($elements)->getId());
 
         $this->assertEquals(
             HttpStatus::OK,
@@ -53,7 +56,6 @@ class VocabulariesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__,$type)
         );
         $this->assertNotEmpty($type->getVocabElement());
-
     }
 
     /**
@@ -61,6 +63,6 @@ class VocabulariesTests extends ApiTestCase
      */
     public function testReadVocabularyTermAlternateLanguage()
     {
-        $this->assertTrue(false, "This test not yet implemented"); //todo
+        $this->markTestIncomplete("This test not yet implemented"); //todo
     }
 }

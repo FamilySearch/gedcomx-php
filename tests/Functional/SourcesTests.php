@@ -2,7 +2,24 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\Note;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Common\TextValue;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Rs\Client\RelationshipState;
+use Gedcomx\Rs\Client\SourceDescriptionState;
+use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\DataSource;
+use Gedcomx\Rs\Client\Util\HttpStatus;
+use Gedcomx\Source\SourceCitation;
+use Gedcomx\Source\SourceDescription;
+use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\SourceBuilder;
 
 class SourcesTests extends ApiTestCase
 {
@@ -123,7 +140,7 @@ class SourcesTests extends ApiTestCase
         $ds->setTitle("Sample Memory");
         $ds->setFile($this->createTextFile());
         $person->addArtifact($ds);
-        $artifact = array_shift($person->readArtifacts()->getSourceDescriptions());
+        $artifact = $person->readArtifacts()->getSourceDescription();
         $memoryUri = $artifact->getLink("memory")->getHref();
         $source = SourceBuilder::newSource();
         $source->setAbout($memoryUri);
@@ -151,7 +168,7 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadPersonSources()
     {
-        $this->assertTrue(false, "Test not yet implemented"); //todo
+        $this->markTestIncomplete("Test not yet implemented"); //todo
     }
 
     /**
@@ -210,7 +227,7 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadChildAndParentsRelationshipSources()
     {
-        $this->assertTrue(false, "Not yet implemented"); //todo
+        $this->markTestIncomplete("Not yet implemented"); //todo
     }
 
     /**
@@ -380,6 +397,9 @@ class SourcesTests extends ApiTestCase
         $this->markTestIncomplete('Not yet implemented');
     }
 
+    /**
+     * @return \Gedcomx\Source\SourceDescription
+     */
     private function createSourceDescription()
     {
         $sd = new SourceDescription();

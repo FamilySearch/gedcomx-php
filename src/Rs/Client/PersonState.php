@@ -1696,7 +1696,7 @@ class PersonState extends GedcomxApplicationState
 
         $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
         return $this->stateFactory->createState(
-            'SourceDescription',
+            'SourceDescriptionState',
             $this->client,
             $request,
             $this->passOptionsTo('invoke', array($request), func_get_args()),

@@ -11,8 +11,8 @@
 
     <testsuites>
         <testsuite name="Gedcomx">
-            <directory>tests</directory>
-            <exclude>tests/Gedcomx</exclude>
+            <directory suffix="Test.php">tests</directory>
+            <directory suffix="Tests.php">tests/Functional</directory>
         </testsuite>
     </testsuites>
 

@@ -26,7 +26,33 @@ class MemoriesTests extends ApiTestCase
      */
     public function testCreatePersonMemoryReference()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $factory = new StateFactory();
+        $this->collectionState($factory);
+        $person = $this->createPerson('male');
+
+        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'));
+        $newState = $person->addPersona($persona);
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $newState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $newState)
+        );
+
+        $upload->delete();
+        $persona->delete();
     }
 
     /**

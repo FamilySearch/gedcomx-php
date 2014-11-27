@@ -2,8 +2,10 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Common\Note;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;

@@ -8,6 +8,7 @@ use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 use Gedcomx\Links\Link;
+use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
@@ -96,7 +97,7 @@ class DiscussionState extends FamilySearchCollectionState
         return $request;
     }
 
-    public function update(Discussion $discussion, StateTransitionOption $option = null)
+    public function update(Collection $discussion, StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('updateInternal', array($discussion, Rel::SELF), func_get_args());
     }

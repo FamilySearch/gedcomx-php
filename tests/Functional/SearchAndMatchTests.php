@@ -11,6 +11,15 @@ use Gedcomx\Tests\PersonBuilder;
 
 class SearchAndMatchTests extends ApiTestCase
 {
+    private $searchQuery;
+
+    public function setUp(){
+        parent::setUp();
+        $this->searchQuery = new GedcomxPersonSearchQueryBuilder();
+        $this->searchQuery->givenName("George")
+            ->surname("Washington")
+            ->deathPlace( "Mount Vernon, VA" );
+    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Not-A-Match_Declarations_usecase

@@ -73,7 +73,7 @@ class PersonTests extends ApiTestCase
      */
     public function testCreatePersonLifeSketch()
     {
-        $this->assertTrue(false, "Test not yet implemented."); //todo
+        $this->markTestIncomplete("Test not yet implemented."); //todo
     }
 
     /**
@@ -230,7 +230,7 @@ class PersonTests extends ApiTestCase
      */
     public function testPersonChangeSummary()
     {
-        $this->assertTrue(false, "Test not yet implemented"); //todo
+        $this->markTestIncomplete("Test not yet implemented"); //todo
     }
 
     /**
@@ -238,7 +238,7 @@ class PersonTests extends ApiTestCase
      */
     public function testReadPersonMemories()
     {
-        $this->assertTrue(false, "Test not yet implemented"); //todo
+        $this->markTestIncomplete("Test not yet implemented"); //todo
     }
 
     /**
@@ -246,7 +246,7 @@ class PersonTests extends ApiTestCase
      */
     public  function testReadPersonMemoriesByType()
     {
-        $this->assertTrue(false, "Test not yet implemented"); //todo
+        $this->markTestIncomplete("Test not yet implemented"); //todo
 
     }
 
@@ -619,7 +619,7 @@ class PersonTests extends ApiTestCase
      */
     public function testUpdatePersonLifeSketch()
     {
-        $this->assertTrue(false, "Test not yet implemented."); //todo
+        $this->markTestIncomplete("Test not yet implemented."); //todo
     }
 
     /**

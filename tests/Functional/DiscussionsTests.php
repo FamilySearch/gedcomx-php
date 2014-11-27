@@ -165,7 +165,7 @@ class DiscussionsTests extends ApiTestCase
         $discussion = $newState->getDiscussion();
         $discussion->setDetails($this->faker->paragraph());
 
-        $updated = $newState->updateDiscussion($discussion);
+        $updated = $newState->update($discussion);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
 
         $updated->delete();

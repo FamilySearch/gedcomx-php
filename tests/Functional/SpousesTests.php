@@ -2,7 +2,18 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Common\Attribution;
+use Gedcomx\Common\ResourceReference;
+use Gedcomx\Conclusion\DateInfo;
+use Gedcomx\Conclusion\Fact;
+use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
+use Gedcomx\Rs\Client\RelationshipState;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\FactBuilder;
+use Gedcomx\Types\FactType;
 
 class SpousesTests extends ApiTestCase
 {
