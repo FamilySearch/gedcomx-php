@@ -113,6 +113,29 @@ class SourceDescriptionState extends GedcomxApplicationState
         }
     }
 
+    public function readPersonas(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::PERSONS);
+        if ($link == null || $link->getHref() == null) {
+            return $this->stateFactory->createState(
+                'PersonsState',
+                $this->getClient(),
+                $this->getRequest(),
+                $this->getResponse(),
+                $this->accessToken
+            );
+        } else {
+            $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        }
+        return $this->stateFactory->createState(
+            'PersonsState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
     /**
      * @param Person $person
      * @param StateTransitionOption $option,...
