@@ -653,21 +653,4 @@ class MemoriesTests extends ApiTestCase
             1
         );
     }
-
-    /**
-     * Clean up generated test images
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        foreach (glob('*.jpg') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.pdf') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.txt') as $file) {
-            unlink($file);
-        }
-    }
 }

@@ -155,7 +155,7 @@ class RelationshipState extends GedcomxApplicationState
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
-    public function addSourceDescriptionState(SourceDescriptionsState $source, StateTransitionOption $option = null)
+    public function addSourceDescriptionState($source, StateTransitionOption $option = null)
     {
         $reference = new SourceReference();
         $reference->setDescriptionRef($source->getSelfUri());

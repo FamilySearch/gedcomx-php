@@ -17,9 +17,13 @@ use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
-use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\SourceBuilder;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Source\SourceReference;
+use Guzzle\Http\Message\Request;
 
 class SourcesTests extends ApiTestCase
 {
@@ -192,7 +196,29 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadSourceReferences()
     {
-        $this->markTestIncomplete('Not yet implemented.');
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $sd = SourceBuilder::hitchhiker();
+        /** @var SourceDescriptionState $source */
+        $source = $this->collectionState()->addSourceDescription($sd)->get();
+        /** @var FamilyTreePersonState $person */
+        $person = $this->createPerson();
+        $sourceRef = new SourceReference();
+        $sourceRef->setAttribution( new Attribution( array(
+            "changeMessage" => $this->faker->sentence(6)
+        )));
+        $sourceRef->setDescriptionRef($source->getSelfUri());
+        $person->addSourceReferenceObj($sourceRef);
+        $state = $source->queryAttachedReferences();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getEntity());
+        $this->assertNotNull($state->getEntity()->getPersons());
+        $this->assertGreaterThan(0, count($state->getEntity()->getPersons()));
+
+        $source->delete();
+        $person->delete();
     }
 
     /**
@@ -276,7 +302,32 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadCoupleRelationshipSources()
     {
-        $this->markTestIncomplete('Not yet implemented.');
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $client = $this->collectionState()->getClient();
+        $token = $this->collectionState()->getAccessToken();
+        /** @var FamilyTreePersonState $husband */
+        $husband = $this->createPerson('male')->get();
+        $wife = $this->createPerson('female');
+        /** @var RelationshipState $relation */
+        $relation = $husband->addSpouse($wife);
+        $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
+        $relation->addSourceDescriptionState($sds);
+        $relationships = $husband->loadSpouseRelationships();
+        $relationship = array_shift($relationships->getRelationships());
+        $relation = $husband->readRelationship($relationship);
+        $link = $relation->getLink("source-descriptions")->getHref();
+        $request = $client->createRequest(Request::GET, $link);
+        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Authorization', "Bearer {$token}");
+        $response = $client->send($request);
+        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $husband->delete();
+        $wife->delete();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getSourceDescription());
     }
 
     /**

@@ -52,6 +52,15 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
                 $s->delete();
             }
         }
+        foreach (glob('*.jpg') as $file) {
+            unlink($file);
+        }
+        foreach (glob('*.pdf') as $file) {
+            unlink($file);
+        }
+        foreach (glob('*.txt') as $file) {
+            unlink($file);
+        }
     }
 
     /**
