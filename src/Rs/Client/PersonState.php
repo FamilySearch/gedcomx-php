@@ -1668,7 +1668,7 @@ class PersonState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws Exception\GedcomxApplicationException
-     * @return \Gedcomx\Rs\Client\PersonState
+     * @return RelationshipState
      */
     public function addSpouse(PersonState $person, StateTransitionOption $option = null)
     {
