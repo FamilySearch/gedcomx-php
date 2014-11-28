@@ -52,6 +52,7 @@ class MemoriesTests extends ApiTestCase
 
         $upload->delete();
         $persona->delete();
+        $person->delete();
     }
 
     /**
@@ -358,7 +359,38 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeletePersonMemoryReference()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $this->collectionState($factory);
+        $person = $this->createPerson('male')->get();
+
+        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $person->addPersonaPersonState($persona);
+        $person = $person->loadPersonaReferences();
+
+        $evidence = $person->getPerson()->getEvidence();
+        $newState = $person->deleteEvidenceReference($evidence[0]);
+
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $newState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $newState)
+        );
+
+        $upload->delete();
+        $persona->delete();
+        $person->delete();
     }
 
     /**
