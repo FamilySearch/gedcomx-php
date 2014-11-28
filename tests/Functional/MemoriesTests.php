@@ -188,7 +188,17 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemoriesForAUser()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories)->get();
+
+        $results = $memories->readResourcesOfCurrentUser();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $results->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $results)
+        );
     }
 
     /**
