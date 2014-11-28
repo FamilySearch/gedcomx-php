@@ -39,12 +39,11 @@ class MemoriesTests extends ApiTestCase
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
 
-        $factory = new StateFactory();
         $this->collectionState($factory);
-        $person = $this->createPerson('male');
+        $person = $this->createPerson('male')->get();
 
-        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'));
-        $newState = $person->addPersona($persona);
+        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $newState = $person->addPersonaPersonState($persona);
         $this->assertEquals(
             HttpStatus::CREATED,
             $newState->getResponse()->getStatusCode(),
@@ -121,7 +120,36 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadPersonMemoryReference()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $filename = $this->makeImage();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+
+        $description = SourceBuilder::newSource();
+
+        $factory = new FamilyTreeStateFactory();
+        $memories = $factory->newMemoriesState();
+        $memories = $this->authorize($memories);
+
+        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
+        $upload = $memories->addArtifact($artifact, $description)->get();
+
+        $this->collectionState($factory);
+        $person = $this->createPerson('male')->get();
+
+        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $person->addPersonaPersonState($persona);
+        $newState = $person->loadPersonaReferences();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $newState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $newState)
+        );
+        $thePerson = $newState->getPerson();
+        $this->assertNotEmpty($thePerson->getEvidence(), "Evidence reference missing.");
+
+        $upload->delete();
+        $persona->delete();
     }
 
     /**
@@ -357,7 +385,7 @@ class MemoriesTests extends ApiTestCase
         $person2 = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person2);
-        $person1->addPersona($persona);
+        $person1->addPersonaPersonState($persona);
         $personas = $person1->loadPersonaReferences();
         $personas = $personas->get();
         $updated = $personas->update($personas->getPerson());

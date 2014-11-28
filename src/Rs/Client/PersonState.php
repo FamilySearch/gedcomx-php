@@ -440,7 +440,7 @@ class PersonState extends GedcomxApplicationState
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
-    public function addPersona(PersonState $persona, StateTransitionOption $option = null)
+    public function addPersonaPersonState(PersonState $persona, StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('addPersonEvidence', array($persona), func_get_args());
     }

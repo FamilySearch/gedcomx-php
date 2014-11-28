@@ -408,16 +408,14 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
         if ($conclusion->notes != null) {
             if( $this->notes != null ){
                 $this->notes = $conclusion->notes;
-            } else {
-                $this->notes = array_merge($this->notes, $conclusion->notes);
             }
+            $this->notes = array_merge($this->notes, $conclusion->notes);
         }
         if ($conclusion->sources != null) {
             if( $this->sources == null ){
                 $this->sources = $conclusion->sources;
-            } else {
-                $this->sources = array_merge($this->sources, $conclusion->sources);
             }
+            $this->sources = array_merge($this->sources, $conclusion->sources);
         }
         parent::embed($conclusion);
     }

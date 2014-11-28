@@ -549,25 +549,20 @@ class Person extends Subject implements HasFacts, HasFields
         if ($person->names != null) {
             if( $this->names == null ){
                 $this->names = array();
-            } else {
-                $this->names = array_merge($this->names, $person->names);
             }
-
+            $this->names = array_merge($this->names, $person->names);
         }
         if ($person->facts != null) {
             if( $this->facts == null ){
                 $this->facts = array();
-            } else {
-                $this->facts = array_merge($this->facts, $person->facts);
             }
-
+            $this->facts = array_merge($this->facts, $person->facts);
         }
         if ($person->fields != null) {
             if( $this->fields == null ){
                 $this->fields = array();
-            } else {
-                $this->fields = array_merge($this->fields, $person->facts);
             }
+            $this->fields = array_merge($this->fields, $person->facts);
         }
         parent::embed($person);
 

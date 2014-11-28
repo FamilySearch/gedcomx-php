@@ -333,23 +333,20 @@ class Subject extends Conclusion implements Attributable
         if ($subject->identifiers != null) {
             if( $this->identifiers == null ) {
                 $this->identifiers = array();
-            } else {
-                $this->identifiers = array_merge($this->identifiers, $subject->identifiers);
             }
+            $this->identifiers = array_merge($this->identifiers, $subject->identifiers);
         }
         if ($subject->media != null) {
-            if( $this->media == null ){
+            if( $this->media == null ) {
                 $this->media = array();
-            } else {
-                $this->media = array_merge($this->media, $subject->media);
             }
+            $this->media = array_merge($this->media, $subject->media);
         }
         if ($subject->evidence != null) {
-            if( $this->evidence == null ){
+            if( $this->evidence == null ) {
                 $this->evidence = array();
-            } else {
-                $this->evidence = array_merge($this->evidence, $subject->evidence);
             }
+            $this->evidence = array_merge($this->evidence, $subject->evidence);
         }
 
         parent::embed($subject);
