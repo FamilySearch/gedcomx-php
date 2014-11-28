@@ -6,6 +6,8 @@ use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
@@ -253,7 +255,36 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadChildAndParentsRelationshipSources()
     {
-        $this->markTestIncomplete("Not yet implemented"); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $client = $this->collectionState()->getClient();
+        $token = $this->collectionState()->getAccessToken();
+        /** @var FamilyTreePersonState $father */
+        $father = $this->createPerson('male')->get();
+        $child = $this->createPerson();
+        $chapr = new ChildAndParentsRelationship();
+        $chapr->setFather($father->getResourceReference());
+        $chapr->setChild($child->getResourceReference());
+        /** @var ChildAndParentsRelationshipState $relation */
+        $relation = $this->collectionState()->addChildAndParentsRelationship($chapr)->get();
+        /** @var SourceDescriptionState $sds */
+        $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker())->get();
+        $relation->addSourceReferenceState($sds);
+        $relationships = $father->loadChildRelationships()->getChildAndParentsRelationships();
+        $relationship = array_shift($relationships);
+        $relation = $father->readChildAndParentsRelationship($relationship);
+        $link = $relation->getLink("source-descriptions")->getHref();
+        $request = $client->createRequest(Request::GET, $link);
+        $request->setHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
+        $request->setHeader('Authorization', "Bearer {$token}");
+        $response = $client->send($request);
+        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $father->delete();
+        $child->delete();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getSourceDescription());
     }
 
     /**

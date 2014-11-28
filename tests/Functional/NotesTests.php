@@ -4,6 +4,7 @@ namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Common\Note;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\RelationshipState;
@@ -244,7 +245,19 @@ class NotesTests extends ApiTestCase
      */
     public function testUpdateNote()
     {
-        $this->markTestIncomplete("Not yet implemented");
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        /** @var FamilyTreePersonState $person */
+        $person = $this->createPerson()->get();
+        $person->addNote(NoteBuilder::createNote());
+        $notes = $person->loadNotes();
+        $note = $notes->getNote();
+        $state = $person->updateNote($note);
+        $person->delete();
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
     }
 
     /**
