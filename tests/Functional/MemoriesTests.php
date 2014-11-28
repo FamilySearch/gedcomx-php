@@ -14,10 +14,9 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Util\ImageSource;
 use Gedcomx\Rs\Client\Util\MultiPartManager;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
-use Intervention\Image\ImageManagerStatic as Image;
-use mPDF;
 
 class MemoriesTests extends ApiTestCase
 {
@@ -26,7 +25,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testCreatePersonMemoryReference()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -66,7 +65,7 @@ class MemoriesTests extends ApiTestCase
         $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
-        $ds->setFile($this->makeTextFile());
+        $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
         $comments = $artifact->readComments();
@@ -85,7 +84,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testCreateMemoryPersona()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -121,7 +120,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadPersonMemoryReference()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -164,7 +163,7 @@ class MemoriesTests extends ApiTestCase
         $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
-        $ds->setFile($this->makeTextFile());
+        $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
         /** @var DiscussionState $state */
@@ -206,7 +205,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemory()
     {
-        $filename = $this->makeTextFile();
+        $filename = ArtifactBuilder::makeTextFile();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -233,7 +232,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemoryPersona()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -270,7 +269,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testReadMemoriesPersonas()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -312,7 +311,7 @@ class MemoriesTests extends ApiTestCase
         $this->authorize($memories);
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
-        $ds->setFile($this->makeTextFile());
+        $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
         $comments = $artifact->readComments();
@@ -320,7 +319,8 @@ class MemoriesTests extends ApiTestCase
         $comment->setText("Test comment.");
         $comments->addComment($comment);
         $comments = $artifact->readComments();
-        $update = array_shift($comments->getDiscussion()->getComments());
+        $entities = $comments->getDiscussion()->getComments();
+        $update = array_shift($entities);
         $update->setText("Updated comment");
         $state = $comments->updateComment($update);
 
@@ -335,7 +335,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUpdateMemoryDescription()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -369,7 +369,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeletePersonMemoryReference()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -408,7 +408,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUpdateMemoryPersona()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -447,7 +447,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeleteMemory()
     {
-        $filename = $this->makeTextFile();
+        $filename = ArtifactBuilder::makeTextFile();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -475,7 +475,7 @@ class MemoriesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $memories = $factory->newMemoriesState();
         $this->authorize($memories);
-        $file = $this->makeTextFile();
+        $file = ArtifactBuilder::makeTextFile();
         $ds = new DataSource();
         $ds->setFile($file);
         /** @var FamilySearchSourceDescriptionState $artifact */
@@ -485,7 +485,8 @@ class MemoriesTests extends ApiTestCase
         $comment->setText("Test comment.");
         $comments->addComment($comment);
         $comments = $artifact->readComments();
-        $delete = array_shift($comments->getDiscussion()->getComments());
+        $entities = $comments->getDiscussion()->getComments();
+        $delete = array_shift($entities);
         $state = $comments->deleteComment($delete);
 
         $this->assertNotNull($state->ifSuccessful());
@@ -499,7 +500,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testDeleteMemoryPersona()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -540,7 +541,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUploadPdf()
     {
-        $filename = $this->makePDF();
+        $filename = ArtifactBuilder::makePDF();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -567,7 +568,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUploadPhoto()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
         $artifact->setTitle($this->faker->sentence(4));
@@ -592,7 +593,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUploadPhotoViaMultipartFormData()
     {
-        $filename = $this->makeImage();
+        $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -619,7 +620,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUploadStory()
     {
-        $filename = $this->makeTextFile();
+        $filename = ArtifactBuilder::makeTextFile();
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
@@ -645,82 +646,5 @@ class MemoriesTests extends ApiTestCase
     public function testUploadStoryMemories()
     {
         $this->markTestSkipped("Not currently supported by the SDK.");
-    }
-
-    /**
-     * Generate randomized text files for testing
-     * @return string The generated filename
-     */
-    private function makeTextFile()
-    {
-        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".txt";
-
-        $text = $this->faker->sentence(4) . "\n" .
-            "==========================\n\n" .
-            $this->faker->paragraph() . "\n\n" .
-            $this->faker->paragraph() . "\n\n" .
-            $this->faker->paragraph() . "\n";
-        $fileHandle = fopen($filename, 'w');
-        fwrite($fileHandle, $text);
-        fclose($fileHandle);
-
-        return $filename;
-    }
-
-    /**
-     * Generate randomized PDF files for testing
-     * @return string The generated filename
-     */
-    private function makePDF()
-    {
-        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".pdf";
-
-        $pdf = new mPDF();
-        $pdf->WriteHTML(
-            '<h3>' . $this->faker->sentence(4) . '</h3>' .
-            '<p>' . $this->faker->paragraph() . '</p>' .
-            '<p>' . $this->faker->paragraph() . '</p>' .
-            '<p>' . $this->faker->paragraph() . '</p>'
-        );
-        $pdf->Output($filename);
-        return $filename;
-    }
-
-    /**
-     * Generate randomized images for testing
-     * @return string The generated filename
-     */
-    private function makeImage()
-    {
-        $height = $width = 5;
-        $scale = 100;
-        $filename = 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".jpg";
-
-        $img = Image::canvas($width, $height, '#000');
-        for ($x = 0; $x < $width; $x++) {
-            for ($y = 0; $y < $height; $y++) {
-                $color = $this->randomColor();
-                $img->pixel($color, $x, $y);
-            }
-        }
-        $img->resize($width * $scale, $width * $scale);
-        $png = $img->encode('jpg');
-        $png->save($filename);
-
-        return $filename;
-    }
-
-    /**
-     * Generate random rgba color
-     * @return array
-     */
-    private function randomColor()
-    {
-        return array(
-            mt_rand(0, 255),
-            mt_rand(0, 255),
-            mt_rand(0, 255),
-            1
-        );
     }
 }

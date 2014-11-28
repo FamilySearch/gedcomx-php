@@ -2,10 +2,10 @@
 
 namespace Gedcomx\Tests\Functional;
 
-use Gedcomx\Common\Attribution;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Platform\Artifacts\ArtifactType;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
@@ -15,9 +15,10 @@ use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\StateFactory;
+use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\HttpStatus;
-use Gedcomx\Source\SourceReference;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\DiscussionBuilder;
 use Gedcomx\Tests\FactBuilder;
 use Gedcomx\Tests\PersonBuilder;
@@ -238,7 +239,24 @@ class PersonTests extends ApiTestCase
      */
     public function testReadPersonMemories()
     {
-        $this->markTestIncomplete("Test not yet implemented"); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $person = $this->createPerson()->get();
+
+        $filename = ArtifactBuilder::makeTextFile();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+        $person->addArtifact($artifact);
+        $person = $person->get();
+        $memories = $person->readArtifacts();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $memories->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $memories)
+        );
+
+        $person->delete();
     }
 
     /**
@@ -246,8 +264,35 @@ class PersonTests extends ApiTestCase
      */
     public  function testReadPersonMemoriesByType()
     {
-        $this->markTestIncomplete("Test not yet implemented"); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $person = $this->createPerson()->get();
 
+        $filename = ArtifactBuilder::makeTextFile();
+        $artifact = new DataSource();
+        $artifact->setFile($filename);
+        $person->addArtifact($artifact);
+        $person = $person->get();
+
+        $option = new QueryParameter(true, "type", "image");
+        $memories = $person->readArtifacts($option);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $memories->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $memories)
+        );
+        $this->assertEmpty($memories->getEntity()->getSourceDescriptions());
+
+        $option = new QueryParameter(true, "type", "story");
+        $memories = $person->readArtifacts($option);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $memories->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $memories)
+        );
+        $this->assertNotEmpty($memories->getEntity()->getSourceDescriptions());
+
+        $person->delete();
     }
 
     /**
