@@ -176,6 +176,7 @@ class ResourceReference
      * Sets a known child element of ResourceReference from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -186,6 +187,7 @@ class ResourceReference
      * Sets a known attribute of ResourceReference from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -204,8 +206,8 @@ class ResourceReference
     /**
      * Writes this ResourceReference to an XML writer.
      *
-     * @param \XMLWriter $writer The XML writer.
-     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     * @param \XMLWriter $writer            The XML writer.
+     * @param bool       $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)
     {

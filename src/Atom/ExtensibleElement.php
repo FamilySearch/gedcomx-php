@@ -127,6 +127,7 @@ class ExtensibleElement extends CommonAttributes
      * Find the extensions of a specified type.
      *
      * @param string $class The type.
+     *
      * @return array The extensions, possibly empty but not null.
      */
     public function findExtensionsOfType($class)
@@ -169,6 +170,7 @@ class ExtensibleElement extends CommonAttributes
      * Sets a known child element of ExtensibleElement from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -179,6 +181,7 @@ class ExtensibleElement extends CommonAttributes
      * Sets a known attribute of ExtensibleElement from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

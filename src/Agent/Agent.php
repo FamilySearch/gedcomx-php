@@ -11,13 +11,14 @@ namespace Gedcomx\Agent;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
 use Gedcomx\Conclusion\Identifier;
+use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Rt\GedcomxModelVisitor;
 
 /**
  * An agent, e.g. person, organization, or group. In genealogical research, an agent often
      * takes the role of a contributor.
  */
-class Agent extends \Gedcomx\Links\HypermediaEnabledData
+class Agent extends HypermediaEnabledData
 {
     /**
      * The accounts that belong to this person or organization.
@@ -79,6 +80,8 @@ class Agent extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a Agent from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

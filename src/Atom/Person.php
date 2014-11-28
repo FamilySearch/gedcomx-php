@@ -12,7 +12,7 @@ namespace Gedcomx\Atom;
 /**
  * A Person construct is an element that describes a person, corporation, or similar entity
  */
-class Person extends \Gedcomx\Atom\ExtensibleElement
+class Person extends ExtensibleElement
 {
 
     /**
@@ -40,6 +40,8 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
      * Constructs a Person from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -163,6 +165,7 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
      * Sets a known child element of Person from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -201,6 +204,7 @@ class Person extends \Gedcomx\Atom\ExtensibleElement
      * Sets a known attribute of Person from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

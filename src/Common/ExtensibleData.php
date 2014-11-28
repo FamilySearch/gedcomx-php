@@ -312,6 +312,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      * Sets a known child element of ExtensibleData from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -322,6 +323,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      * Sets a known attribute of ExtensibleData from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -382,7 +384,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
     /**
      * Set a transient (non-serialized) property.
      *
-     * @param string name the name of the property.
+     * @param string name  the name of the property.
      * @param mixed  value the property value.
      */
     public function setTransientProperty($name, $value)

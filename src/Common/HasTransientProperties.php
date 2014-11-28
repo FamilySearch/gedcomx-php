@@ -23,7 +23,7 @@
         /**
          * Set a transient (non-serialized) property.
          *
-         * @param string name the name of the property.
+         * @param string name  the name of the property.
          * @param mixed  value the property value.
          */
         public function setTransientProperty($name, $value);

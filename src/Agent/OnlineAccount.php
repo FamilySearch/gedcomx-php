@@ -8,12 +8,13 @@
  */
 
 namespace Gedcomx\Agent;
+use Gedcomx\Common\ExtensibleData;
 use Gedcomx\Common\ResourceReference;
 
 /**
  * An online account for a web application.
  */
-class OnlineAccount extends \Gedcomx\Common\ExtensibleData
+class OnlineAccount extends ExtensibleData
 {
 
     /**
@@ -34,6 +35,8 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
      * Constructs a OnlineAccount from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -91,6 +94,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
     {
         $this->serviceHomepage = $serviceHomepage;
     }
+
     /**
      * Returns the associative array for this OnlineAccount
      *
@@ -107,7 +111,6 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
         }
         return $a;
     }
-
 
     /**
      * Initializes this OnlineAccount from an associative array
@@ -131,6 +134,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
      * Sets a known child element of OnlineAccount from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -158,6 +162,7 @@ class OnlineAccount extends \Gedcomx\Common\ExtensibleData
      * Sets a known attribute of OnlineAccount from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

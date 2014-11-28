@@ -40,6 +40,8 @@ class CommonAttributes
      * Constructs a CommonAttributes from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -225,6 +227,7 @@ class CommonAttributes
      * Sets a known child element of CommonAttributes from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml)
@@ -236,6 +239,7 @@ class CommonAttributes
      * Sets a known attribute of CommonAttributes from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml)

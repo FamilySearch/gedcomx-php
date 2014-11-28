@@ -502,6 +502,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
      * Sets a known child element of Entry from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -609,6 +610,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
      * Sets a known attribute of Entry from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -623,6 +625,7 @@ class Entry extends ExtensibleElement implements SupportsLinks
      * Writes this Entry to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)

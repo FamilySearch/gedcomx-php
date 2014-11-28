@@ -40,6 +40,8 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
      * Constructs a EvidenceReference from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -168,6 +170,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
      * Sets a known child element of EvidenceReference from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -187,6 +190,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
      * Sets a known attribute of EvidenceReference from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -209,6 +213,7 @@ class EvidenceReference extends \Gedcomx\Links\HypermediaEnabledData
      * Writes this EvidenceReference to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)

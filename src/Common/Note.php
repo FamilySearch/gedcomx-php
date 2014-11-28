@@ -209,6 +209,7 @@ class Note extends HypermediaEnabledData
      * Sets a known child element of Note from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -244,6 +245,7 @@ class Note extends HypermediaEnabledData
      * Sets a known attribute of Note from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -261,8 +263,8 @@ class Note extends HypermediaEnabledData
     /**
      * Writes this Note to an XML writer.
      *
-     * @param \XMLWriter $writer The XML writer.
-     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     * @param \XMLWriter $writer            The XML writer.
+     * @param bool       $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)
     {
