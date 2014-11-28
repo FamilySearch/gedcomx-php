@@ -33,6 +33,8 @@ class Content
      * Constructs a Content from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -175,6 +177,7 @@ class Content
      * Sets a known child element of Content from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -191,6 +194,7 @@ class Content
      * Sets a known attribute of Content from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

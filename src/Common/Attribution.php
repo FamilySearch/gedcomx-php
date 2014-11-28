@@ -8,7 +8,6 @@
  */
 
 namespace Gedcomx\Common;
-use Gedcomx\Common\ResourceReference;
 
 /**
  * Attribution for genealogical information. Attribution is used to model <strong>who</strong> is contributing/modifying
@@ -167,6 +166,7 @@ class Attribution extends ExtensibleData
      * Sets a known child element of Attribution from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -202,6 +202,7 @@ class Attribution extends ExtensibleData
      * Sets a known attribute of Attribution from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -215,8 +216,8 @@ class Attribution extends ExtensibleData
     /**
      * Writes this Attribution to an XML writer.
      *
-     * @param \XMLWriter $writer The XML writer.
-     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     * @param \XMLWriter $writer            The XML writer.
+     * @param bool       $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)
     {

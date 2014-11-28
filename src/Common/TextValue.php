@@ -173,6 +173,7 @@ class TextValue
      * Sets a known child element of TextValue from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -183,6 +184,7 @@ class TextValue
      * Sets a known attribute of TextValue from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

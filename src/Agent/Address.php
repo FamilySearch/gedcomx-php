@@ -8,11 +8,12 @@
  */
 
 namespace Gedcomx\Agent;
+use Gedcomx\Common\ExtensibleData;
 
 /**
  * An address.
  */
-class Address extends \Gedcomx\Common\ExtensibleData
+class Address extends ExtensibleData
 {
 
     /**
@@ -96,6 +97,8 @@ class Address extends \Gedcomx\Common\ExtensibleData
      * Constructs a Address from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {
@@ -427,6 +430,7 @@ class Address extends \Gedcomx\Common\ExtensibleData
      * Sets a known child element of Address from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -529,6 +533,7 @@ class Address extends \Gedcomx\Common\ExtensibleData
      * Sets a known attribute of Address from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {

@@ -12,7 +12,7 @@ namespace Gedcomx\Atom;
 /**
  * conveys information about a category associated with an entry or feed.
  */
-class Category extends \Gedcomx\Atom\CommonAttributes
+class Category extends CommonAttributes
 {
 
     /**
@@ -40,6 +40,8 @@ class Category extends \Gedcomx\Atom\CommonAttributes
      * Constructs a Category from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
+     * @throws \Exception
      */
     public function __construct($o = null)
     {

@@ -13,10 +13,10 @@ use Gedcomx\Records\Field;
 
 /**
  * <p>The Atom data formats provide a format for web content and metadata syndication. The XML media type is defined by
-     * <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON data format is specific to GEDCOM X and is a
-     * translation to JSON from the XML.</p>
+ * <a href="http://tools.ietf.org/html/rfc4287#section-4">RFC 4287</a>. The JSON data format is specific to GEDCOM X
+ * and is a translation to JSON from the XML.</p>
  */
-class Feed extends \Gedcomx\Atom\ExtensibleElement
+class Feed extends ExtensibleElement
 {
 
     /**
@@ -603,6 +603,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
      * Sets a known child element of Feed from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -734,6 +735,7 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
      * Sets a known attribute of Feed from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -747,8 +749,8 @@ class Feed extends \Gedcomx\Atom\ExtensibleElement
     /**
      * Writes this Feed to an XML writer.
      *
-     * @param \XMLWriter $writer The XML writer.
-     * @param bool $includeNamespaces Whether to write out the namespaces in the element.
+     * @param \XMLWriter $writer            The XML writer.
+     * @param bool       $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)
     {
