@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\SandboxCredentials;
@@ -63,6 +64,25 @@ class VocabulariesTests extends ApiTestCase
      */
     public function testReadVocabularyTermAlternateLanguage()
     {
-        $this->markTestIncomplete("This test not yet implemented"); //todo
+        $factory = new FamilySearchStateFactory();
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+        $collection = $factory->newPlacesState()
+            ->authenticateViaOAuth2Password(
+                SandboxCredentials::USERNAME,
+                SandboxCredentials::PASSWORD,
+                SandboxCredentials::API_KEY
+            );
+        $listState = $collection->readPlaceTypes();
+        $elements = $listState->getVocabElementList()->getElements();
+
+        $inFrench = new HeaderParameter(true,'Accept-Language','fr');
+        $type = $collection->readPlaceTypeById(array_shift($elements)->getId(), $inFrench);
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $type->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__,$type)
+        );
+        $this->assertNotEmpty($type->getVocabElement());
     }
 }
