@@ -836,7 +836,7 @@ class PersonState extends GedcomxApplicationState
      */
     public function updateFact(Fact $fact, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('updateFacts', array($fact), func_get_args());
+        return $this->passOptionsTo('updateFacts', array(array($fact)), func_get_args());
     }
 
     /**

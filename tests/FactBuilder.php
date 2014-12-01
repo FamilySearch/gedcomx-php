@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Gedcomx\Tests;
-
 
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\PlaceReference;
-use Gedcomx\Types\FactType;
+use Gedcomx\Extensions\FamilySearch\Types\FactType;
 
 class FactBuilder extends TestBuilder {
 
@@ -128,6 +126,14 @@ class FactBuilder extends TestBuilder {
             'date' => new DateInfo(array(
                     "original" => $date->format("F d, Y")
                 ))
+        ));
+    }
+
+    public static function lifeSketch(){
+        return new Fact(array(
+            'primary' => true,
+            'type' => FactType::LIFE_SKETCH,
+            'value' => self::faker()->paragraph(2)
         ));
     }
 

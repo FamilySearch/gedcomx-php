@@ -2,15 +2,16 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Gender;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
-use Gedcomx\Extensions\FamilySearch\Platform\Artifacts\ArtifactType;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Extensions\FamilySearch\Types\FactType;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\Preconditions;
 use Gedcomx\Rs\Client\Options\QueryParameter;
@@ -74,7 +75,18 @@ class PersonTests extends ApiTestCase
      */
     public function testCreatePersonLifeSketch()
     {
-        $this->markTestIncomplete("Test not yet implemented."); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
+        }
+        $fact = FactBuilder::lifeSketch();
+        $newState = $personState->addFact($fact);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse() );
     }
 
     /**
@@ -664,7 +676,25 @@ class PersonTests extends ApiTestCase
      */
     public function testUpdatePersonLifeSketch()
     {
-        $this->markTestIncomplete("Test not yet implemented."); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $personState = $this->createPerson();
+        if( $personState->getPerson() == null ){
+            $uri = $personState->getSelfUri();
+            $personState = $this->collectionState()->readPerson($uri);
+        }
+        $fact = FactBuilder::lifeSketch();
+        $personState = $personState->addFact($fact)->get();
+        $sketch = $personState->getPerson()->getFactsOfType(FactType::LIFE_SKETCH);
+        if (is_array($sketch)) {
+            $sketch = array_shift($sketch);
+        }
+        $sketch->setValue($this->faker->paragraph(3));
+
+        $newState = $personState->updateFact($sketch);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse() );
     }
 
     /**
