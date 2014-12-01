@@ -13,6 +13,7 @@ use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\FactBuilder;
+use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Types\FactType;
 
 class SpousesTests extends ApiTestCase
@@ -152,7 +153,23 @@ class SpousesTests extends ApiTestCase
      */
     public function testUpdatePersonsOfCoupleRelationship()
     {
-        $this->markTestIncomplete('Not yet implemented.');
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $person1 = $this->createPerson('male')->get();
+        $person2 = $this->createPerson('female')->get();
+
+        /* Create Relationship */
+        /** @var $relation RelationshipState */
+        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+
+        $person3 = $this->createPerson('female')->get();
+        $relationship = $relation->getRelationship();
+        $relationship->setPerson2($person3->getResourceReference());
+        $relation = $relation->updateSelf($relationship);
+
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
     }
 
     /**
