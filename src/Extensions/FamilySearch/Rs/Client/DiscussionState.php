@@ -6,19 +6,16 @@ use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Comment;
 use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
 use Gedcomx\Links\Link;
 use Gedcomx\Records\Collection;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
-class DiscussionState extends FamilySearchCollectionState
+class DiscussionState extends GedcomxApplicationState
 {
 
     public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
@@ -70,6 +67,14 @@ class DiscussionState extends FamilySearchCollectionState
         return $me == null ? null : $me->getId();
     }
 
+
+    protected function loadEntity()
+    {
+        $json = json_decode($this->response->getBody(), true);
+
+        return new FamilySearchPlatform($json);
+    }
+
     /**
      * @param StateTransitionOption $option
      * @return DiscussionState
@@ -97,7 +102,7 @@ class DiscussionState extends FamilySearchCollectionState
         return $request;
     }
 
-    public function update(Collection $discussion, StateTransitionOption $option = null)
+    public function update(Discussion $discussion, StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('updateInternal', array($discussion, Rel::SELF), func_get_args());
     }

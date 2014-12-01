@@ -345,7 +345,8 @@ class SourcesTests extends ApiTestCase
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
         $relation->addSourceDescriptionState($sds);
         $relationships = $husband->loadSpouseRelationships();
-        $relationship = array_shift($relationships->getRelationships());
+        $relations = $relationships->getRelationships();
+        $relationship = array_shift($relations);
         $relation = $husband->readRelationship($relationship);
         $link = $relation->getLink("source-descriptions")->getHref();
         $request = $client->createRequest(Request::GET, $link);
