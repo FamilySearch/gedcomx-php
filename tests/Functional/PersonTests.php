@@ -286,7 +286,7 @@ class PersonTests extends ApiTestCase
         $person->addArtifact($artifact);
         $person = $person->get();
 
-        $option = new QueryParameter(true, "type", "image");
+        $option = new QueryParameter(true, "type", "photo");
         $memories = $person->readArtifacts($option);
         $this->assertEquals(
             HttpStatus::OK,
