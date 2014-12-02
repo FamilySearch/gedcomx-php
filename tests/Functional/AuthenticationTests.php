@@ -25,7 +25,7 @@ class AuthenticationTests extends ApiTestCase
             ->authenticateViaOAuth2Password(
                 SandboxCredentials::USERNAME,
                 SandboxCredentials::PASSWORD,
-                SandboxCredentials::USERNAME
+                SandboxCredentials::API_KEY
             );
 
         $link = $collectionState->getLink(Rel::OAUTH2_TOKEN);
@@ -154,13 +154,11 @@ class AuthenticationTests extends ApiTestCase
      */
     public function testObtainAccessTokenWithoutAuthenticating()
     {
-        $ipHtml = file_get_contents('http://checkip.dyndns.com/');
-        preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/',$ipHtml, $ipAddr);
 
         $factory = new StateFactory();
         $collectionState = $factory
             ->newCollectionState()
-            ->authenticateViaOAuth2WithoutCredentials($ipAddr[0], $this->clientId);
+            ->authenticateViaOAuth2WithoutCredentials('0.0.0.0', $this->clientId);
 
         $this->assertNotEmpty($collectionState->getAccessToken());
     }
