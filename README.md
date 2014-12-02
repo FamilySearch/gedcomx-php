@@ -1,4 +1,6 @@
-# Welcome
+#GedcomX - PHP
+
+[![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php)
 
 GEDCOM X PHP is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects.
 
