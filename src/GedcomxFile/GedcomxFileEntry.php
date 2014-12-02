@@ -13,32 +13,14 @@ class GedcomxFileEntry
      */
     private $contents;
     /**
-     * @var string[] Attributes from the METAINF.MF file
+     * @var string[] Associative array of attributes from the METAINF.MF file
      */
     private $attributes;
-    /**
-     * @var string[] Any warning generated during parsing.
-     */
-    private $warnings;
 
     /**
-     * @return mixed
-     */
-    public function getWarnings()
-    {
-        return $this->warnings;
-    }
-
-    /**
-     * @param mixed $warnings
-     */
-    public function setWarnings($warnings)
-    {
-        $this->warnings = $warnings;
-    }
-
-    /**
-     * @return mixed
+     * Return the name in the archive
+     *
+     * @return string
      */
     public function getName()
     {
@@ -46,6 +28,8 @@ class GedcomxFileEntry
     }
 
     /**
+     * Set the name of the entry
+     *
      * @param mixed $name
      */
     public function setName($name)
@@ -54,7 +38,9 @@ class GedcomxFileEntry
     }
 
     /**
-     * @return mixed
+     * Return the contents of this entry
+     *
+     * @return string|null
      */
     public function getContents()
     {
@@ -62,7 +48,9 @@ class GedcomxFileEntry
     }
 
     /**
-     * @param mixed $contents
+     * The contents of the zip file entry
+     *
+     * @param string $contents
      */
     public function setContents($contents)
     {
@@ -70,6 +58,8 @@ class GedcomxFileEntry
     }
 
     /**
+     * Return the attributes of this entry
+     *
      * @return mixed
      */
     public function getAttributes()
@@ -78,7 +68,9 @@ class GedcomxFileEntry
     }
 
     /**
-     * @param mixed $attributes
+     * Set the attributes array
+     *
+     * @param array $attributes
      */
     public function setAttributes($attributes)
     {
@@ -86,10 +78,30 @@ class GedcomxFileEntry
     }
 
     /**
-     * @param string $block A block of data from a MANIFEST.MF file
+     * Add an attribute to the list
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function addAttribute($key, $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
+    /**
+     * Parse the attributes from a data block in the MANIFEST file
+     *
+     * @param string $block
      */
     public function parseEntryData($block)
     {
-
+        $lines = explode("\n",$block);
+        foreach ($lines as $line) {
+            list($key, $value) = explode(": ", $line);
+            $this->addAttribute($key, $value);
+            if ($key == "Name") {
+                $this->setName($value);
+            }
+        }
     }
 }
