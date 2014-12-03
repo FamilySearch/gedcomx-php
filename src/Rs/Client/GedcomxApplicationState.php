@@ -19,14 +19,6 @@ use Guzzle\Http\Message\Response;
 
 abstract class GedcomxApplicationState
 {
-    const JSON_APPLICATION_TYPE = 'application/json';
-    const HTML_TYPE = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
-    const FORM_DATA_TYPE = 'application/x-www-form-urlencoded';
-    const JSON_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
-    const ATOM_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
-    const LD_JSON_TYPE = 'application/ld+json';
-    const PLAIN_TEXT = 'text/plain';
-
     /**
      * @var Client
      */
@@ -434,7 +426,7 @@ abstract class GedcomxApplicationState
         $request->setBody($entity->toJson());
 
         if ($entity instanceof Gedcomx && !$request->getHeader("Content-Type")){
-            $request->addHeader("Content-Type", GedcomxApplicationState::JSON_MEDIA_TYPE);
+            $request->addHeader("Content-Type", Gedcomx::JSON_MEDIA_TYPE);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
     }
@@ -759,7 +751,7 @@ abstract class GedcomxApplicationState
     protected function createAuthenticatedFeedRequest($method, $uri = null)
     {
         $request = $this->createAuthenticatedRequest($method, $uri);
-        $request->setHeader('Accept', GedcomxApplicationState::ATOM_MEDIA_TYPE);
+        $request->setHeader('Accept', Gedcomx::ATOM_JSON_MEDIA_TYPE);
         return $request;
     }
 
@@ -772,8 +764,8 @@ abstract class GedcomxApplicationState
     protected function createAuthenticatedGedcomxRequest($method, $uri = null)
     {
         $request = $this->createAuthenticatedRequest($method, $uri);
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         return $request;
     }
 

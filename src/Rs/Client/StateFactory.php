@@ -3,6 +3,7 @@
 
 namespace Gedcomx\Rs\Client;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
 use Gedcomx\Util\FilterableClient;
 use Guzzle\Http\Client;
@@ -45,7 +46,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -67,7 +68,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -107,7 +108,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 

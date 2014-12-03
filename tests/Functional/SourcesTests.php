@@ -12,6 +12,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelation
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\SourceDescriptionState;
 use Gedcomx\Rs\Client\StateFactory;
@@ -350,7 +351,7 @@ class SourcesTests extends ApiTestCase
         $relation = $husband->readRelationship($relationship);
         $link = $relation->getLink("source-descriptions")->getHref();
         $request = $client->createRequest(Request::GET, $link);
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
         $request->setHeader('Authorization', "Bearer {$token}");
         $response = $client->send($request);
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);

@@ -5,6 +5,7 @@
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Memories\FamilySearchMemories;
+	use Gedcomx\Gedcomx;
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 	use Gedcomx\Rs\Client\PlaceDescriptionsState;
@@ -75,7 +76,7 @@
 
 			/** @var Request $request */
 			$request = $client->createRequest($method, $uri);
-			$request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+			$request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
 
 			return new FamilySearchPlaces($client, $request, $client->send($request), null, $this);
 		}
@@ -101,7 +102,7 @@
 
 			/** @var Request $request */
 			$request = $client->createRequest($method, $uri);
-			$request->setHeader("Accept", GedcomxApplicationState::JSON_MEDIA_TYPE);
+			$request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
 
 			return new FamilySearchMemories($client, $request, $client->send($request), null, $this);
 		}

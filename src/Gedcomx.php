@@ -38,6 +38,15 @@ use Gedcomx\Source\SourceDescription;
  */
 class Gedcomx extends HypermediaEnabledData
 {
+    const JSON_APPLICATION_TYPE = 'application/json';
+    const HTML_TYPE = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+    const FORM_DATA_TYPE = 'application/x-www-form-urlencoded';
+    const XML_MEDIA_TYPE = 'application/x-gedcomx-v1+xml';
+    const ATOM_XML_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
+    const JSON_MEDIA_TYPE = 'application/x-gedcomx-v1+json';
+    const ATOM_JSON_MEDIA_TYPE = 'application/x-gedcomx-atom+json';
+    const LD_JSON_TYPE = 'application/ld+json';
+    const PLAIN_TEXT = 'text/plain';
     /**
      * The language of the genealogical data.
      *

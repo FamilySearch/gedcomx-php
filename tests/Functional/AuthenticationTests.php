@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
@@ -30,7 +31,7 @@ class AuthenticationTests extends ApiTestCase
 
         $link = $collectionState->getLink(Rel::OAUTH2_TOKEN);
         $request = $collectionState->getClient()->createRequest(Request::DELETE, $link->getHref());
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_APPLICATION_TYPE);
+        $request->setHeader('Accept', Gedcomx::JSON_APPLICATION_TYPE);
         $request->setHeader('Authorization', "Bearer {$collectionState->getAccessToken()}");
 
         $query = $request->getQuery();
@@ -53,7 +54,7 @@ class AuthenticationTests extends ApiTestCase
         $collectionState = $factory->newCollectionState();
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
         $request = $collectionState->getClient()->createRequest(Request::GET, $link->getHref());
-        $request->setHeader('Accept', GedcomxApplicationState::HTML_TYPE);
+        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
 
         $query = $request->getQuery();
         $query->add('response_type', 'code');
@@ -75,7 +76,7 @@ class AuthenticationTests extends ApiTestCase
         $collectionState = $factory->newCollectionState();
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
         $request = $collectionState->getClient()->createRequest(Request::GET, $link->getHref());
-        $request->setHeader('Accept', GedcomxApplicationState::HTML_TYPE);
+        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
 
         $query = $request->getQuery();
         $query->add('response_type', 'code');
@@ -98,8 +99,8 @@ class AuthenticationTests extends ApiTestCase
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
         /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
         $request = $collectionState->getClient()->createRequest(Request::POST, $link->getHref());
-        $request->setHeader('Accept', GedcomxApplicationState::HTML_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::FORM_DATA_TYPE);
+        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
+        $request->setHeader('Content-Type', Gedcomx::FORM_DATA_TYPE);
 
         $formData = array(
             'response_type' => 'code',

@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Rs\Functional\Client;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
@@ -22,7 +23,7 @@ class OrdinanceTests extends ApiTestCase
         $this->collectionState(new StateFactory());
         $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->policyUri);
         $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::PLAIN_TEXT);
+        $request->setHeader('Accept', Gedcomx::PLAIN_TEXT);
         $response = $request->send();
         $this->assertEquals(
             HttpStatus::OK,
@@ -44,7 +45,7 @@ class OrdinanceTests extends ApiTestCase
         $this->collectionState(new StateFactory());
         $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->policyUri);
         $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::PLAIN_TEXT);
+        $request->setHeader('Accept', Gedcomx::PLAIN_TEXT);
         $request->setHeader('Accept-Language', "fr");
         $response = $request->send();
         $this->assertEquals(
@@ -67,8 +68,8 @@ class OrdinanceTests extends ApiTestCase
         $this->collectionState(new StateFactory());
         $request = $this->collectionState()->getClient()->createRequest(Request::GET, $this->ordinanceUri);
         $request->addHeader('Authorization', "Bearer " . $this->collectionState()->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         $response = $request->send();
         $this->assertEquals(
             HttpStatus::OK,
@@ -91,8 +92,8 @@ class OrdinanceTests extends ApiTestCase
                 SandboxCredentials::API_KEY);
         $request = $collectionState->getClient()->createRequest(Request::GET, $this->ordinanceUri);
         $request->addHeader('Authorization', "Bearer " . $collectionState->getAccessToken());
-        $request->setHeader('Accept', GedcomxApplicationState::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', GedcomxApplicationState::JSON_MEDIA_TYPE);
+        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
+        $request->setHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         $response = $request->send();
         $this->assertEquals(
             HttpStatus::FORBIDDEN,

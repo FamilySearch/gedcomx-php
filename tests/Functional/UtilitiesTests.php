@@ -7,6 +7,7 @@ use Gedcomx\Extensions\FamilySearch\Feature;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Tests\ApiTestCase;
 use Guzzle\Http\Message\Header\HeaderInterface;
@@ -24,7 +25,7 @@ class UtilitiesTests extends ApiTestCase
         $features = array();
 
         $request = $this->collectionState()->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
-        $request->addHeader("Accept", GedcomxApplicationState::JSON_APPLICATION_TYPE);
+        $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
         // Get all the features that are pending
         $response = $request->send($request);
 
