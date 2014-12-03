@@ -38,7 +38,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
     /**
      * @var \Gedcomx\Rs\Client\GedcomxApplicationState[]
      */
-    protected $states;
+    protected $dustbin;
 
 	public function setUp()
     {
@@ -47,8 +47,8 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 
     public function tearDown()
     {
-        if ($this->states != null && is_array($this->states)) {
-            foreach ($this->states as $s ){
+        if ($this->dustbin != null && is_array($this->dustbin)) {
+            foreach ($this->dustbin as $s ){
                 $s->delete();
             }
         }
@@ -60,6 +60,23 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         }
         foreach (glob('*.txt') as $file) {
             unlink($file);
+        }
+        foreach (glob('*.xml') as $file) {
+            if ($file != 'control.xml') {
+                unlink($file);
+            }
+        }
+    }
+
+    /**
+     * Pass an arbitrary number of state objects to call delete on during tear down.
+     *
+     * @param \Gedcomx\Rs\Client\GedcomxApplicationState $state,...
+     */
+    public function queueForDelete($state){
+        $toQueue = func_get_args();
+        foreach ($toQueue as $state) {
+            $this->dustbin[] = $state;
         }
     }
 
@@ -139,7 +156,10 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
     protected  function createPerson($gender = null)
     {
         $person = PersonBuilder::buildPerson($gender);
-        return $this->collectionState()->addPerson($person);
+        $state = $this->collectionState()->addPerson($person);
+        $this->queueForDelete($state);
+
+        return $state;
     }
 
     protected function getPersonId(){
@@ -172,7 +192,8 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
             return null;
         }
 
-        $this->states[] = $state = $this->collectionState()->addSourceDescription($source);
+        $state = $this->collectionState()->addSourceDescription($source);
+        $this->queueForDelete($state);
 
         return $state;
     }
@@ -195,6 +216,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         $father = $this->createPerson('male')->get();
         $mother = $this->createPerson('female')->get();
         $child = $this->createPerson()->get();
+        $this->queueForDelete($father,$child,$mother);
 
         $rel = new ChildAndParentsRelationship();
         $rel->setChild($child->getResourceReference());
@@ -202,11 +224,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
         $rel->setMother($mother->getResourceReference());
 
         $rState = $this->collectionState()->addChildAndParentsRelationship($rel);
-
-        $this->states[] = $father;
-        $this->states[] = $child;
-        $this->states[] = $mother;
-        $this->states[] = $rState;
+        $this->queueForDelete($rState);
 
         return $rState;
     }
