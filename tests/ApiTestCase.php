@@ -11,9 +11,10 @@ use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 
-abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
-
-
+abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
+{
+    protected $testRootDir;
+    protected $tempDir;
     /**
      * @var string
      */
@@ -34,7 +35,6 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
      * @var string
      */
     private $personId = 'KWW6-H43';
-
     /**
      * @var \Gedcomx\Rs\Client\GedcomxApplicationState[]
      */
@@ -43,6 +43,9 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
 	public function setUp()
     {
         $this->faker = Factory::create();
+        $this->testRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . "tests" . DIRECTORY_SEPARATOR;
+        $this->tempDir = $this->testRootDir . "tmp" . DIRECTORY_SEPARATOR;
+        ArtifactBuilder::setTempDir($this->tempDir);
 	}
 
     public function tearDown()
@@ -52,17 +55,8 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase{
                 $s->delete();
             }
         }
-        foreach (glob('*.jpg') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.pdf') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.txt') as $file) {
-            unlink($file);
-        }
-        foreach (glob('*.xml') as $file) {
-            if ($file != 'control.xml') {
+        foreach (glob($this->tempDir . '*') as $file) {
+            if ($file != '.gitignore') {
                 unlink($file);
             }
         }
