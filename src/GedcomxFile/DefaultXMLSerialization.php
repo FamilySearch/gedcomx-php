@@ -1,10 +1,11 @@
 <?php
 
 namespace Gedcomx\GedcomxFile;
+use Gedcomx\Util\XmlMapper;
 
 /**
  * Class DefaultXMLSerialization
- * @package Gedcomx\src\GedcomxFile
+ * @package Gedcomx\GedcomxFile
  *
  *          A class for for reading and writing GEDCOM X files.
  */
@@ -20,7 +21,19 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
      */
     public function deserialize($incoming)
     {
-        // TODO: Implement deserialize() method.
+        $resources = null;
+
+        $reader = new \XMLReader();
+        $reader->xml($incoming);
+        $reader->read();
+        do {
+            if ($reader->nodeType == \XMLReader::ELEMENT && XmlMapper::isKnownType($reader->name)) {
+                $class = XmlMapper::getClassName($reader->name);
+                $resource = new $class($reader);
+            }
+        } while ($reader->read());
+
+        return $resource;
     }
 
     /**

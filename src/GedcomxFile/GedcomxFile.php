@@ -111,6 +111,7 @@ class GedcomxFile
         return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
     }
 
+
     public function readResource(GedcomxFileEntry $entry)
     {
         return $this->deserializer->deserialize($entry->getContents());

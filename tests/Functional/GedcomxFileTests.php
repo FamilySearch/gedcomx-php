@@ -58,4 +58,20 @@ class GedcomxFileTests extends ApiTestCase
 
         $this->assertEqualXMLStructure($generated->firstChild, $control->firstChild,'XML output does not match test file.');
     }
+
+    public function testXMLDeserialization()
+    {
+        $resources = array();
+
+        $gedcomx = new GedcomxFile($this->testRootDir.'sample.gedx');
+        $entries = $gedcomx->getEntries();
+        foreach($entries as $entry){
+            if (strpos($entry->getContentType(),"xml") !== false) {
+                $resources[] = $gedcomx->readResource($entry);
+            }
+        }
+
+        $this->assertNotEmpty($resources,"No resources found in XML");
+        $this->assertCount(4, $resources[0]->getPersons(), "Expecting four persons.");
+    }
 }
