@@ -28,16 +28,27 @@ class GedcomxFile
      * @var string[] Warning messages generated during parsing.
      */
     private $warnings;
+    /**
+     * @var \Gedcomx\GedcomxFile\GedcomxEntryDeserializer
+     */
+    private $deserializer;
 
     /**
      * Create a new instance of a GedcomxFile
      *
-     * @param string $filepath The path to the .gedx file
+     * @param string                                        $filepath     The path to the .gedx file
+     * @param \Gedcomx\GedcomxFile\GedcomxEntryDeserializer $deserializer The class to use for deserialization.
+     *                                                                    Defaults to DefaultXMLSerialization
      *
      * @throws \Gedcomx\GedcomxFile\GedcomxFileException
      */
-    public function __construct($filepath)
+    public function __construct($filepath, GedcomxEntryDeserializer $deserializer = null)
     {
+        $this->deserializer = $deserializer;
+        if( $this->deserializer == null){
+            $this->deserializer = new DefaultXMLSerialization();
+        }
+
         $this->archive = new ZipArchive();
         $result = $this->archive->open($filepath);
         if ( $result !== true) {
@@ -98,6 +109,21 @@ class GedcomxFile
     public  function getAttribute($key)
     {
         return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+    }
+
+    public function readResource(GedcomxFileEntry $entry)
+    {
+        return $this->deserializer->deserialize($entry->getContents());
+    }
+
+    /**
+     * Close the archive file.
+     */
+    public function close()
+    {
+        if ($this->archive != null) {
+            $this->archive->close();
+        }
     }
 
     /**

@@ -115,4 +115,28 @@ class PersonBuilder extends TestBuilder
             )
         ));
     }
+
+    public static function makeName($firstName, $lastName)
+    {
+        return new Name(array(
+            "type"      => NameType::BIRTHNAME,
+            "preferred" => true,
+            "nameForms" => array(
+                new NameForm(array(
+                    "lang"     => 'en',
+                    "fullText" => $firstName . ' ' . $lastName,
+                    "parts"    => array(
+                        new NamePart(array(
+                            "type"  => NamePartType::GIVEN,
+                            "value" => $firstName
+                        )),
+                        new NamePart(array(
+                            "type"  => NamePartType::SURNAME,
+                            "value" => $lastName
+                        ))
+                    )
+                ))
+            )
+        ));
+    }
 }

@@ -89,6 +89,28 @@ class GedcomxFileEntry
     }
 
     /**
+     * Return the value of a given key
+     *
+     * @param string $key
+     *
+     * @return null|string
+     */
+    public function getAttribute($key)
+    {
+        return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+    }
+
+    /**
+     * Return the content type stored with this entry.
+     *
+     * @return null|string
+     */
+    public function getContentType()
+    {
+        return $this->getAttribute("Content-Type");
+    }
+
+    /**
      * Parse the attributes from a data block in the MANIFEST file
      *
      * @param string $block
