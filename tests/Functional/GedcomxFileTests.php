@@ -46,8 +46,12 @@ class GedcomxFileTests extends ApiTestCase
         $this->queueForDelete($relationship);
 
         $serializer = new DefaultXMLSerialization();
+        $xml = $serializer->serialize($relationship->getEntity());
+
         $outputFile = $this->tempDir . 'relationship.xml';
-        $serializer->serialze($relationship->getEntity(), $outputFile);
+        $fileHandle = fopen($outputFile, 'w');
+        fwrite($fileHandle, $xml);
+        fclose($fileHandle);
 
         $this->assertFileExists($outputFile,'XML file not created.');
 
@@ -65,7 +69,9 @@ class GedcomxFileTests extends ApiTestCase
 
         $gedcomx = new GedcomxFile($this->testRootDir.'sample.gedx');
         $entries = $gedcomx->getEntries();
+
         foreach($entries as $entry){
+
             if (strpos($entry->getContentType(),"xml") !== false) {
                 $resources[] = $gedcomx->readResource($entry);
             }

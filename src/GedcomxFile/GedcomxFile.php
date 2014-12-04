@@ -61,7 +61,7 @@ class GedcomxFile
     /**
      * Return the entries found in the archive
      *
-     * @return array
+     * @return GedcomxFileEntry[]
      */
     public function getEntries()
     {

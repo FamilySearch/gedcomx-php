@@ -40,11 +40,10 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
      * Serialize the resource to the specified output stream.
      *
      * @param mixed  $resource
-     * @param string $filename
      *
      * @return void
      */
-    public function serialze($resource, $filename)
+    public function serialize($resource)
     {
         $xml = new \XMLWriter();
         $xml->openMemory();
@@ -54,8 +53,7 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
         $resource->toXml($xml);
         $xml->endDocument();
 
-        $fOut = fopen($filename,'w');
-        fwrite($fOut, $xml->outputMemory(true));
+        return $xml->outputMemory(true);
     }
 
     /**

@@ -14,11 +14,10 @@ interface GedcomxEntrySerializer
      * Serialize the resource to the specified output stream.
      *
      * @param mixed $resource
-     * @param $outputStream
      *
      * @return void
      */
-    public function serialze($resource, $outputStream);
+    public function serialize($resource);
 
     /**
      * Whether the specified content type is a known content type and therefore
