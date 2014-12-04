@@ -7,17 +7,40 @@ class ManifestAttribute
     private $key;
     private $value;
 
-    function __construct($key, $value)
+    /**
+     * Create a new instance of a ManifestAttribute
+     *
+     * @param string $key
+     * @param string $value
+     */
+    public function __construct($key, $value)
     {
         $this->key = $key;
         $this->value = $value;
     }
 
+    /**
+     * Define what a ManifestAttribute string output
+     *
+     * @return string
+     */
     function __toString(){
         return $this->key . ": " . $this->value;
     }
 
     /**
+     * Convert ManifestAttribute to a string
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->__toString();
+    }
+
+    /**
+     * Get the key value for this attribute
+     *
      * @return string
      */
     public function getKey()
@@ -26,6 +49,8 @@ class ManifestAttribute
     }
 
     /**
+     * Set the key value for this attribute
+     *
      * @param string $key
      */
     public function setKey($key)
@@ -34,6 +59,8 @@ class ManifestAttribute
     }
 
     /**
+     * Get the value for this attribute
+     *
      * @return string
      */
     public function getValue()
@@ -42,6 +69,8 @@ class ManifestAttribute
     }
 
     /**
+     * Set the value for this attribute
+     *
      * @param string $value
      */
     public function setValue($value)

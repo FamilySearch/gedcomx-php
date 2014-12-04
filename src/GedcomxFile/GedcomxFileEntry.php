@@ -18,6 +18,19 @@ class GedcomxFileEntry
     private $attributes;
 
     /**
+     * Create a new GedcomxFileEntry
+     *
+     * @param string $name
+     * @param string $content
+     * @param null   $attributes
+     */
+    public function __construct($name, $content = null, $attributes = null)
+    {
+        $this->name = $name;
+        $this->contents = $content;
+        $this->attributes = $attributes;
+    }
+    /**
      * Return the name in the archive
      *
      * @return string
