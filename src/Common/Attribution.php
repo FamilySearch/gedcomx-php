@@ -145,7 +145,7 @@ class Attribution extends ExtensibleData
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['contributor'])) {
             $this->contributor = $o['contributor'] instanceof ResourceReference ? $o['contributor'] : new ResourceReference($o["contributor"]);
@@ -169,7 +169,7 @@ class Attribution extends ExtensibleData
      *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -205,7 +205,7 @@ class Attribution extends ExtensibleData
      *
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -219,7 +219,7 @@ class Attribution extends ExtensibleData
      * @param \XMLWriter $writer            The XML writer.
      * @param bool       $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'attribution', null);
         if ($includeNamespaces) {
@@ -234,7 +234,7 @@ class Attribution extends ExtensibleData
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         parent::writeXmlContents($writer);
         if ($this->contributor) {

@@ -18,10 +18,10 @@ interface SupportsLinks {
     /**
      * @param array $links
      */
-    public function setLinks( $links );
+    public function setLinks(array $links);
 
     /**
-     * @param Link $link
+     * @param \Gedcomx\Links\Link $link
      */
     public function addLink(Link $link);
 
@@ -31,7 +31,7 @@ interface SupportsLinks {
      * @param string $rel  see Gedcom\Rs\Client\Rel
      * @param string $href The target URI.
      */
-    public function addLinkRelation( $rel, $href);
+    public function addLinkRelation($rel, $href);
 
     /**
      * Add a templated link.
@@ -39,14 +39,14 @@ interface SupportsLinks {
      * @param string $rel      see Gedcom\Rs\Client\Rel
      * @param string $template The link template.
      */
-    public function addTemplatedLink( $rel, $template);
+    public function addTemplatedLink($rel, $template);
 
     /**
      * Get a link by its rel.
      *
      * @param string $rel see Gedcom\Rs\Client\Rel
      *
-     * @return Link
+     * @return \Gedcomx\Links\Link
      */
     public function getLink($rel);
 
@@ -55,7 +55,7 @@ interface SupportsLinks {
      *
      * @param string $rel see Gedcom\Rs\Client\Rel
      *
-     * @return Link[]
+     * @return \Gedcomx\Links\Link[]
      */
-    public function getLinksByRel( $rel);
+    public function getLinksByRel($rel);
 }

@@ -341,7 +341,7 @@ class FamilySearchPlatform extends Gedcomx
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         $this->childAndParentsRelationships = array();
         if (isset($o['childAndParentsRelationships'])) {
@@ -394,7 +394,7 @@ class FamilySearchPlatform extends Gedcomx
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -456,7 +456,7 @@ class FamilySearchPlatform extends Gedcomx
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -470,7 +470,7 @@ class FamilySearchPlatform extends Gedcomx
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('fs', 'familysearch', null);
         if ($includeNamespaces) {
@@ -486,7 +486,7 @@ class FamilySearchPlatform extends Gedcomx
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         parent::writeXmlContents($writer);
         if ($this->childAndParentsRelationships) {

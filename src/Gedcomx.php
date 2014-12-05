@@ -535,7 +535,7 @@ class Gedcomx extends HypermediaEnabledData
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
@@ -626,6 +626,9 @@ class Gedcomx extends HypermediaEnabledData
         parent::initFromArray($o);
     }
 
+    /**
+     * @param \Gedcomx\Rt\GedcomxModelVisitor $visitor
+     */
     public function accept(GedcomxModelVisitor $visitor)
     {
         $visitor->visitGedcomx($this);
@@ -637,7 +640,7 @@ class Gedcomx extends HypermediaEnabledData
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -736,7 +739,7 @@ class Gedcomx extends HypermediaEnabledData
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -762,7 +765,7 @@ class Gedcomx extends HypermediaEnabledData
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'gedcomx', null);
         if ($includeNamespaces) {
@@ -778,7 +781,7 @@ class Gedcomx extends HypermediaEnabledData
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->lang) {
             $writer->writeAttribute('xml:lang', $this->lang);
@@ -870,9 +873,9 @@ class Gedcomx extends HypermediaEnabledData
     /**
      * Add a person to the data set.
      *
-     * @param Person $person The person to be added.
+     * @param \Gedcomx\Conclusion\Person $person The person to be added.
      */
-    public function addPerson( $person ) {
+    public function addPerson(Person $person) {
         if ($person !== null) {
             if ($this->persons === null){
                 $this->persons = array();
@@ -884,7 +887,7 @@ class Gedcomx extends HypermediaEnabledData
     /**
      * Add a source description to the data set.
      *
-     * @param SourceDescription $sourceDescription
+     * @param \Gedcomx\Source\SourceDescription $sourceDescription
      */
     public function addSourceDescription(SourceDescription $sourceDescription) {
         if ($sourceDescription != null) {
@@ -895,7 +898,7 @@ class Gedcomx extends HypermediaEnabledData
     /**
      * Add a relationship to the data set.
      *
-     * @param Relationship $relationship The relationship to be added.
+     * @param \Gedcomx\Conclusion\Relationship $relationship The relationship to be added.
      */
     public function addRelationship( Relationship $relationship ) {
         if ($relationship != null) {

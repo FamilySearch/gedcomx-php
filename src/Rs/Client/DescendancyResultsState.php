@@ -36,5 +36,7 @@ class DescendancyResultsState extends GedcomxApplicationState
         if ($this->getEntity() != null) {
             return new DescendancyTree($this->getEntity());
         }
+
+        return null;
     }
 }

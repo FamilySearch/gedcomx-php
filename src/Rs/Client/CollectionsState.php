@@ -56,6 +56,8 @@ class CollectionsState extends GedcomxApplicationState
         if ($this->entity) {
             return $this->entity->getSourceDescriptions();
         }
+
+        return null;
     }
 
     /**

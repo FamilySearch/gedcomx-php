@@ -218,7 +218,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      *
      * @param Fact[] $facts
      */
-    public function setFacts($facts)
+    public function setFacts(array $facts)
     {
         $this->facts = $facts;
     }
@@ -250,7 +250,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      *
      * @param Field[] $fields
      */
-    public function setFields($fields)
+    public function setFields(array $fields)
     {
         $this->fields = $fields;
     }
@@ -294,7 +294,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['type'])) {
             $this->type = $o["type"];
@@ -325,6 +325,9 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
         parent::initFromArray($o);
     }
 
+    /**
+     * @param \Gedcomx\Rt\GedcomxModelVisitor $visitor
+     */
     public function accept(GedcomxModelVisitor $visitor)
     {
         $visitor->visitRelationship($this);
@@ -336,7 +339,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -376,7 +379,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -394,7 +397,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'relationship', null);
         if ($includeNamespaces) {
@@ -409,7 +412,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->type) {
             $writer->writeAttribute('type', $this->type);

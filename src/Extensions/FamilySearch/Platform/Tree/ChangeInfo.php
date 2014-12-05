@@ -9,6 +9,8 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
+use Gedcomx\Common\ResourceReference;
+
 /**
  * Information about a change.
  */
@@ -45,28 +47,28 @@ class ChangeInfo
     /**
      * The subject representing the original value(s) that existed before the change.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $original;
 
     /**
      * The parent change that triggered, caused, or included this change.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $parent;
 
     /**
      * The subject representing the removed value(s) that existed before the change.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $removed;
 
     /**
      * The subject representing the result of the change.
      *
-     * @var \Gedcomx\Common\ResourceReference
+     * @var ResourceReference
      */
     private $resulting;
 
@@ -172,7 +174,7 @@ class ChangeInfo
     /**
      * The subject representing the original value(s) that existed before the change.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getOriginal()
     {
@@ -182,7 +184,7 @@ class ChangeInfo
     /**
      * The subject representing the original value(s) that existed before the change.
      *
-     * @param \Gedcomx\Common\ResourceReference $original
+     * @param ResourceReference $original
      */
     public function setOriginal($original)
     {
@@ -191,7 +193,7 @@ class ChangeInfo
     /**
      * The parent change that triggered, caused, or included this change.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getParent()
     {
@@ -201,7 +203,7 @@ class ChangeInfo
     /**
      * The parent change that triggered, caused, or included this change.
      *
-     * @param \Gedcomx\Common\ResourceReference $parent
+     * @param ResourceReference $parent
      */
     public function setParent($parent)
     {
@@ -210,7 +212,7 @@ class ChangeInfo
     /**
      * The subject representing the removed value(s) that existed before the change.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getRemoved()
     {
@@ -220,7 +222,7 @@ class ChangeInfo
     /**
      * The subject representing the removed value(s) that existed before the change.
      *
-     * @param \Gedcomx\Common\ResourceReference $removed
+     * @param ResourceReference $removed
      */
     public function setRemoved($removed)
     {
@@ -229,7 +231,7 @@ class ChangeInfo
     /**
      * The subject representing the result of the change.
      *
-     * @return \Gedcomx\Common\ResourceReference
+     * @return ResourceReference
      */
     public function getResulting()
     {
@@ -239,7 +241,7 @@ class ChangeInfo
     /**
      * The subject representing the result of the change.
      *
-     * @param \Gedcomx\Common\ResourceReference $resulting
+     * @param ResourceReference $resulting
      */
     public function setResulting($resulting)
     {
@@ -310,16 +312,16 @@ class ChangeInfo
             $this->objectType = $o["objectType"];
         }
         if (isset($o['original'])) {
-            $this->original = new \Gedcomx\Common\ResourceReference($o["original"]);
+            $this->original = new ResourceReference($o["original"]);
         }
         if (isset($o['parent'])) {
-            $this->parent = new \Gedcomx\Common\ResourceReference($o["parent"]);
+            $this->parent = new ResourceReference($o["parent"]);
         }
         if (isset($o['removed'])) {
-            $this->removed = new \Gedcomx\Common\ResourceReference($o["removed"]);
+            $this->removed = new ResourceReference($o["removed"]);
         }
         if (isset($o['resulting'])) {
-            $this->resulting = new \Gedcomx\Common\ResourceReference($o["resulting"]);
+            $this->resulting = new ResourceReference($o["resulting"]);
         }
     }
 
@@ -371,22 +373,22 @@ class ChangeInfo
     protected function setKnownChildElement($xml) {
         $happened = false;
         if (($xml->localName == 'original') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->original = $child;
             $happened = true;
         }
         else if (($xml->localName == 'parent') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->parent = $child;
             $happened = true;
         }
         else if (($xml->localName == 'removed') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->removed = $child;
             $happened = true;
         }
         else if (($xml->localName == 'resulting') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $child = new ResourceReference($xml);
             $this->resulting = $child;
             $happened = true;
         }

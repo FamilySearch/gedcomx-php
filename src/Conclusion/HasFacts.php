@@ -12,5 +12,5 @@ interface HasFacts {
     /**
      * @param Fact[] $facts an array of Fact objects
      */
-    public function setFacts( $facts );
+    public function setFacts(array $facts);
 } 

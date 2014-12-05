@@ -1,12 +1,12 @@
 <?php
 
 namespace Gedcomx\GedcomxFile;
+
 use Gedcomx\Util\XmlMapper;
 
 /**
  * Class DefaultXMLSerialization
  * @package Gedcomx\GedcomxFile
- *
  *          A class for for reading and writing GEDCOM X files.
  */
 class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer
@@ -39,9 +39,9 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
     /**
      * Serialize the resource to the specified output stream.
      *
-     * @param mixed  $resource
+     * @param mixed $resource
      *
-     * @return void
+     * @return string
      */
     public function serialize($resource)
     {
@@ -49,7 +49,7 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
         $xml->openMemory();
         $xml->setIndent(true);
         $xml->setIndentString("    ");
-        $xml->startDocument('1.0','UTF-8');
+        $xml->startDocument('1.0', 'UTF-8');
         $resource->toXml($xml);
         $xml->endDocument();
 
@@ -67,4 +67,5 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
     public function isKnownContentType($contentType)
     {
         // TODO: Implement isKnownContentType() method.
-}}
+    }
+}
