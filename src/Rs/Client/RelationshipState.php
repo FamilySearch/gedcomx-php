@@ -192,7 +192,6 @@ class RelationshipState extends GedcomxApplicationState
      * @param Options\StateTransitionOption   $option
      *
      * @internal param \Gedcomx\Source\SourceReference $sourceReference
-     *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
     public function updateSourceReference(SourceReference $reference, StateTransitionOption $option = null)
@@ -219,8 +218,6 @@ class RelationshipState extends GedcomxApplicationState
      * @param Options\StateTransitionOption   $option
      *
      * @throws Exception\GedcomxApplicationException
-     * @internal param \Gedcomx\Source\SourceReference $sourceReference
-     *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
     public function deleteSourceReference(SourceReference $reference, StateTransitionOption $option = null)
@@ -431,6 +428,20 @@ class RelationshipState extends GedcomxApplicationState
         return null;
     }
 
+    public function getSourceReference()
+    {
+        $relationship = $this->getRelationship();
+        if ($relationship != null) {
+            if ($relationship->getSources() != null && count($relationship->getSources()) > 0) {
+                $sources = $relationship->getSources();
+
+                return $sources[0];
+            }
+        }
+
+        return null;
+    }
+
     /**
      * @param Note                  $note
      * @param StateTransitionOption $options
@@ -557,7 +568,8 @@ class RelationshipState extends GedcomxApplicationState
         );
     }
 
-    public function updateSelf(Relationship $relationship){
+    public function updateSelf(Relationship $relationship)
+    {
         return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SELF), func_get_args());
     }
 
