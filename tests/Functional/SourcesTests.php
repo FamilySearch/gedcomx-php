@@ -21,6 +21,7 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
@@ -145,7 +146,7 @@ class SourcesTests extends ApiTestCase
         $person = $this->createPerson()->get();
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
-        $ds->setFile($this->createTextFile());
+        $ds->setFile(ArtifactBuilder::makeTextFile());
         $person->addArtifact($ds);
         $artifact = $person->readArtifacts()->getSourceDescription();
         $memoryUri = $artifact->getLink("memory")->getHref();

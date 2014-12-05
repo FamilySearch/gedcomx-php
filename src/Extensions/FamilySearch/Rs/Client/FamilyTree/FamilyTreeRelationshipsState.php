@@ -3,8 +3,12 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Common\ResourceReference;
+use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+use Gedcomx\Rs\Client\Options\StateTransitionOption;
+use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\RelationshipsState;
 use Gedcomx\Types\RelationshipType;
 use Guzzle\Http\Message\Request;
@@ -23,15 +27,15 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
     }
 
     /**
-     * @param Relationship          $relationship
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Conclusion\Relationship                 $relationship
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return RelationshipState
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipsState
      * @throws GedcomxApplicationException
      */
     public function addRelationship(Relationship $relationship, StateTransitionOption $option = null)
     {
-        if ($relationship->getKnownType() == RelationshipType::ParentChild) {
+        if ($relationship->getKnownType() == RelationshipType::PARENTCHILD) {
             throw new GedcomxApplicationException("FamilySearch Family Tree doesn't support adding parent-child relationships. You must instead add a child-and-parents relationship.");
         }
 
@@ -39,12 +43,12 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
     }
 
     /**
-     * @param PersonState           $child
-     * @param PersonState           $father
-     * @param PersonState           $mother
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Rs\Client\PersonState                   $child
+     * @param \Gedcomx\Rs\Client\PersonState                   $father
+     * @param \Gedcomx\Rs\Client\PersonState                   $mother
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
-     * @return ChildAndParentsRelationshipState
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState
      */
     public function addChildAndParents(PersonState $child, PersonState $father = null, PersonState $mother = null, StateTransitionOption $option = null) {
         $chap = new ChildAndParentsRelationship();
@@ -52,8 +56,8 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
         if ($father != null) {
             $chap->setFather(new ResourceReference($father->getSelfUri()));
         }
-        if (mother != null) {
-            chap.setMother(new ResourceReference(new URI(mother.getSelfUri().toString())));
+        if ($mother != null) {
+            $chap->setMother(new ResourceReference($mother->getSelfUri()));
         }
 
         return $this->passOptionsTo('addChildAndParentsRelationship', array($chap), func_get_args());

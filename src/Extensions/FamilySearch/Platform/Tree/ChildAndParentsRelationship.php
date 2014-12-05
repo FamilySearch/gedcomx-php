@@ -370,13 +370,12 @@ class ChildAndParentsRelationship extends Subject
     {
         if ($relationship->motherFacts != null) {
             $this->motherFacts = $this->motherFacts == null ? array() : $this->motherFacts;
-            $this->motherFacts . addAll($relationship->motherFacts);
+            $this->motherFacts->addAll($relationship->motherFacts);
         }
         if ($relationship->fatherFacts != null) {
             $this->fatherFacts = $this->fatherFacts == null ? array() : $this->fatherFacts;
-            $this->fatherFacts . addAll($relationship->fatherFacts);
+            $this->fatherFacts->addAll($relationship->fatherFacts);
         }
         parent::embed($relationship);
-
     }
 }
