@@ -17,20 +17,41 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
 
+/**
+ * The RelationshipState exposes management functions for a relationship.
+ */
 class RelationshipState extends GedcomxApplicationState
 {
-
+    /**
+     * Constructs a relationship state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\RelationshipState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new RelationshipState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
-    /*
+    /**
+     * Instantiates a new relationship and only sets the relationship ID to the current relationship's ID.
+     *
      * @return \Gedcomx\Conclusion\Relationship
      */
     protected function createEmptySelf()
@@ -41,6 +62,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Gets the current relationship ID.
+     *
      * @return null|string
      */
     protected function getLocalSelfId()
@@ -49,6 +72,11 @@ class RelationshipState extends GedcomxApplicationState
         return $me == null ? null : $me->getId();
     }
 
+    /**
+     * Gets the entity represented by this state (if applicable). Not all responses produce entities.
+     *
+     * @return \Gedcomx\Gedcomx
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
@@ -56,12 +84,19 @@ class RelationshipState extends GedcomxApplicationState
         return new Gedcomx($json);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return \Gedcomx\Conclusion\Relationship
+     */
     protected function getScope()
     {
         return $this->getRelationship();
     }
 
     /**
+     * Gets the first relationship of the current relationships.
+     *
      * @return Relationship
      */
     public function getRelationship()
@@ -77,6 +112,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a fact to the current relationship.
+     *
      * @param Fact                          $fact
      * @param Options\StateTransitionOption $option
      *
@@ -88,6 +125,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds facts to the current relationship.
+     *
      * @param Fact[]                        $facts
      * @param Options\StateTransitionOption $option
      *
@@ -101,6 +140,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the fact of the current relationship.
+     *
      * @param Fact                          $fact
      * @param Options\StateTransitionOption $option
      *
@@ -112,6 +153,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the facts of the current relationship.
+     *
      * @param Fact[]                        $facts
      * @param Options\StateTransitionOption $option
      *
@@ -125,6 +168,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the fact of the current relationship.
+     *
      * @param Fact                          $fact
      * @param Options\StateTransitionOption $option
      *
@@ -150,6 +195,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the specified source reference (in the SourceDescriptionState) to the current relationship.
+     *
      * @param \Gedcomx\Rs\Client\SourceDescriptionsState $source
      * @param Options\StateTransitionOption              $option,...
      *
@@ -163,6 +210,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the specified source reference to the current relationship.
+     *
      * @param \Gedcomx\Source\SourceReference $reference
      * @param Options\StateTransitionOption   $option,...
      *
@@ -174,6 +223,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the specified source references to the current relationship.
+     *
      * @param \Gedcomx\Source\SourceReference[] $refs
      * @param Options\StateTransitionOption     $option
      *
@@ -188,6 +239,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified source reference for the current relationship.
+     *
      * @param \Gedcomx\Source\SourceReference $reference
      * @param Options\StateTransitionOption   $option
      *
@@ -200,6 +253,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified source references for the current relationship.
+     *
      * @param array                         $refs
      * @param Options\StateTransitionOption $option
      *
@@ -214,6 +269,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the specified source reference from the current relationship.
+     *
      * @param \Gedcomx\Source\SourceReference $reference
      * @param Options\StateTransitionOption   $option
      *
@@ -239,6 +296,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a media reference to the current relationship.
+     *
      * @param SourceDescriptionState $description
      * @param StateTransitionOption  $option
      *
@@ -252,6 +311,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a media reference to the current relationship.
+     *
      * @param SourceReference       $reference
      * @param StateTransitionOption $option
      *
@@ -263,6 +324,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds media references to the current relationship.
+     *
      * @param array                 $refs
      * @param StateTransitionOption $option
      *
@@ -276,6 +339,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the media reference for the current relationship.
+     *
      * @param SourceReference       $reference
      * @param StateTransitionOption $option
      *
@@ -287,6 +352,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the media references for the current relationship.
+     *
      * @param array                 $refs
      * @param StateTransitionOption $option
      *
@@ -300,6 +367,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the specified media reference from the current relationship.
+     *
      * @param SourceReference       $reference
      * @param StateTransitionOption $option
      *
@@ -326,6 +395,8 @@ class RelationshipState extends GedcomxApplicationState
 
 
     /**
+     * Adds an evidence reference to the current relationship.
+     *
      * @param RelationshipState     $evidence
      * @param StateTransitionOption $option
      *
@@ -339,6 +410,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds an evidence reference to the current relationship.
+     *
      * @param EvidenceReference     $reference
      * @param StateTransitionOption $option
      *
@@ -350,6 +423,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the evidence references to the current relationship.
+     *
      * @param array                 $refs
      * @param StateTransitionOption $option
      *
@@ -363,6 +438,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Update the evidence reference for the current relationship.
+     *
      * @param EvidenceReference     $reference
      * @param StateTransitionOption $option
      *
@@ -374,6 +451,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the evidence references for the current relationship.
+     *
      * @param array                 $refs
      * @param StateTransitionOption $option
      *
@@ -387,6 +466,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the evidence reference from the current relationship.
+     *
      * @param EvidenceReference     $reference
      * @param StateTransitionOption $option
      *
@@ -412,6 +493,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Gets the first note from the current relationship notes.
+     *
      * @return \Gedcomx\Common\Note|null
      */
     public function getNote()
@@ -428,6 +511,11 @@ class RelationshipState extends GedcomxApplicationState
         return null;
     }
 
+    /**
+     * Gets the first source reference from the current relationship sources.
+     *
+     * @return \Gedcomx\Source\SourceReference|null
+     */
     public function getSourceReference()
     {
         $relationship = $this->getRelationship();
@@ -443,6 +531,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the specified note.
+     *
      * @param Note                  $note
      * @param StateTransitionOption $options
      *
@@ -469,6 +559,8 @@ class RelationshipState extends GedcomxApplicationState
 
 
     /**
+     * Adds a note to the current relationship.
+     *
      * @param \Gedcomx\Common\Note                             $note
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -480,6 +572,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Add the notes to the current relationship.
+     *
      * @param \Gedcomx\Common\Note[]                           $notes
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -493,6 +587,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified note for the current relationship.
+     *
      * @param \Gedcomx\Common\Note                             $note
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -504,6 +600,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Update the specified notes for the current relationship.
+     *
      * @param \Gedcomx\Common\Note[]                           $notes
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -517,6 +615,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Update the notes on the specified relationship.
+     *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -545,6 +645,8 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Delete the specified note from the current relationship.
+     *
      * @param \Gedcomx\Common\Note                             $note
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -568,11 +670,27 @@ class RelationshipState extends GedcomxApplicationState
         );
     }
 
+    /**
+     * Updates the specified relationship.
+     *
+     * @param \Gedcomx\Conclusion\Relationship $relationship
+     *
+     * @return mixed
+     */
     public function updateSelf(Relationship $relationship)
     {
         return $this->passOptionsTo('updateRelationship', array($relationship, Rel::SELF), func_get_args());
     }
 
+    /**
+     * Updates the specified relationship.
+     *
+     * @param \Gedcomx\Conclusion\Relationship                 $relationship
+     * @param                                                  $rel
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     protected function updateRelationship(Relationship $relationship, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
@@ -597,31 +715,74 @@ class RelationshipState extends GedcomxApplicationState
         );
     }
 
+    /**
+     * Loads conclusions for the current relationship.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function loadConclusions(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::CONCLUSIONS)), func_get_args());
     }
 
+    /**
+     * Loads source references for the current relationship.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function loadSourceReferences(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::SOURCE_REFERENCES)), func_get_args());
     }
 
+    /**
+     * Loads media references for the current relationship.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function loadMediaReferences(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::MEDIA_REFERENCES)), func_get_args());
     }
 
+    /**
+     * Loads evidence references for the current relationship.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function loadEvidenceReferences(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::EVIDENCE_REFERENCES)), func_get_args());
     }
 
+    /**
+     * Loads notes for the current relationship.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function loadNotes(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::NOTES)), func_get_args());
     }
 
+    /**
+     * Loads the embedded resources for the specified links.
+     * 
+     * @param array                                            $rels
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return $this
+     */
     public function loadEmbeddedResources(array $rels, StateTransitionOption $option = null)
     {
         foreach ($rels as $rel) {

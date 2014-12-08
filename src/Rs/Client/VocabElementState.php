@@ -9,6 +9,9 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use ML\JsonLD\JsonLD;
 
+/**
+ * The VocabElementState exposes management functions for a vocab element.
+ */
 class VocabElementState extends GedcomxApplicationState
 {
     /**
@@ -17,6 +20,8 @@ class VocabElementState extends GedcomxApplicationState
     private $rdfCollection;
 
     /**
+     * Clones the current state instance.
+     *
      * @param \Guzzle\Http\Message\Request  $request
      * @param \Guzzle\Http\Message\Response $response
      *
@@ -27,6 +32,11 @@ class VocabElementState extends GedcomxApplicationState
         return new VocabElementState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Parses the entity from the response.
+     *
+     * @return null
+     */
     protected function loadEntity()
     {
         $input = $this->getResponse()->getBody(true);
@@ -36,16 +46,31 @@ class VocabElementState extends GedcomxApplicationState
         return null;
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return null
+     */
     protected function getScope()
     {
         return null;
     }
 
+    /**
+     * Gets the rel name for the current state instance.
+     *
+     * @return string
+     */
     public function getSelfRel()
     {
         return Rel::DESCRIPTION;
     }
 
+    /**
+     * Gets the vocab element represented by this state instance.
+     *
+     * @return \Gedcomx\Vocab\VocabElement
+     */
     public function getVocabElement(){
         $vocabElement = new VocabElement();
 

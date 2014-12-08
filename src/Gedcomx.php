@@ -627,6 +627,8 @@ class Gedcomx extends HypermediaEnabledData
     }
 
     /**
+     * Accept a visitor.
+     *
      * @param \Gedcomx\Rt\GedcomxModelVisitor $visitor
      */
     public function accept(GedcomxModelVisitor $visitor)
