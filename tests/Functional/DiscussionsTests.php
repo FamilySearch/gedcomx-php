@@ -29,9 +29,9 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $newState = $this->collectionState()->addDiscussion($discussion);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState));
+        $this->queueForDelete($newState);
 
-        $newState->delete();
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState));
     }
 
     /**
@@ -48,6 +48,7 @@ class DiscussionsTests extends ApiTestCase
 
         $personState = $this->getPerson();
         $newState = $personState->addDiscussionState($discussionState);
+        $this->queueForDelete($newState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
     }
@@ -64,13 +65,12 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $state = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($state);
         $state = $state->get();
 
         $comment = DiscussionBuilder::createComment($userState);
         $state = $state->addComment($comment);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $state->getResponse(), $this->buildFailMessage(__METHOD__, $state));
-
-        $state->delete();
     }
 
     /**
@@ -85,12 +85,11 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $newState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($newState);
+
         $newState = $newState->get();
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState));
-
         $this->assertNotEmpty($newState->getDiscussion());
-
-        $newState->delete();
     }
 
     /**
@@ -104,9 +103,11 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($discussionState);
 
         $personState = $this->getPerson();
         $newState = $personState->addDiscussionState($discussionState);
+        $this->queueForDelete($newState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
 
@@ -133,6 +134,7 @@ class DiscussionsTests extends ApiTestCase
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
         $state = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($state);
 
         $state = $state->get();
         $comment = DiscussionBuilder::createComment($userState);
@@ -144,8 +146,6 @@ class DiscussionsTests extends ApiTestCase
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $this->assertEquals(2, count($comments));
-
-        $state->delete();
     }
 
     /**
@@ -160,6 +160,8 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $newState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($newState);
+
         $newState = $newState->get();
         /** @var Discussion $discussion */
         $discussion = $newState->getDiscussion();
@@ -167,8 +169,6 @@ class DiscussionsTests extends ApiTestCase
 
         $updated = $newState->update($discussion);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
-
-        $updated->delete();
     }
 
     /**
@@ -183,6 +183,7 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
         /** @var DiscussionState $state */
         $state = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($state);
 
         $state = $state->get();
         $comment = DiscussionBuilder::createComment($userState);
@@ -211,8 +212,6 @@ class DiscussionsTests extends ApiTestCase
             }
         }
         $this->assertTrue($pass);
-
-        $state->delete();
     }
 
     /**
@@ -248,6 +247,8 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($discussionState);
+
         $ref = new DiscussionReference();
         $ref->setResource($discussionState->getSelfUri());
 
@@ -269,6 +270,7 @@ class DiscussionsTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
         /** @var DiscussionState $state */
         $state = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($state);
 
         $state = $state->get();
         $comment = DiscussionBuilder::createComment($userState);
@@ -288,7 +290,5 @@ class DiscussionsTests extends ApiTestCase
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $this->assertEquals(1, count($comments));
-
-        $state->delete();
     }
 }

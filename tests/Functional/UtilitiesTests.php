@@ -59,8 +59,6 @@ class UtilitiesTests extends ApiTestCase
         foreach ($features as $feature) {
             $this->assertTrue(strpos($requestedFeatures, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
         }
-
-        $state->delete();
     }
 
     /**
@@ -106,8 +104,6 @@ class UtilitiesTests extends ApiTestCase
         $this->assertNotNull($response);
         $this->assertEquals(1, $response->getRedirectCount());
         $this->assertNotEquals($uri, $response->getEffectiveUrl());
-
-        $person->delete();
     }
 
     /**
@@ -128,8 +124,6 @@ class UtilitiesTests extends ApiTestCase
         $this->assertNotNull($response);
         $this->assertEquals(1, $response->getRedirectCount());
         $this->assertNotEquals($uri, $response->getEffectiveUrl());
-
-        $person->delete();
     }
 
     /**
@@ -151,8 +145,6 @@ class UtilitiesTests extends ApiTestCase
         $this->assertNotNull($response);
         $this->assertEquals(1, $response->getRedirectCount());
         $this->assertNotEquals($uri, $response->getEffectiveUrl());
-
-        $person->delete();
     }
 
     /**
@@ -172,6 +164,4 @@ class UtilitiesTests extends ApiTestCase
         $this->assertEquals(1, $response->getRedirectCount());
         $this->assertNotEquals($uri, $response->getEffectiveUrl());
     }
-
-
 }

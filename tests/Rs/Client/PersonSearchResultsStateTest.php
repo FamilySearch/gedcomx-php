@@ -58,6 +58,9 @@ class PersonSearchResultsStateTest extends ApiTestCase{
 
         $searchResults = $this->collectionState()->searchForPersons($this->searchQuery);
         $feed = $searchResults->getEntity();
+        if ($feed == null) {
+            $this->assertTrue(false, "Search results did not return any matches");
+        }
         $entries = $feed->getEntries();
         $persons = $entries[0]->getContent()->getGedcomx()->getPersons();
         $personState = $searchResults->readPersonFromConclusion($persons[0]);
@@ -72,6 +75,9 @@ class PersonSearchResultsStateTest extends ApiTestCase{
 
         $searchResults = $this->collectionState()->searchForPersons($this->searchQuery);
         $feed = $searchResults->getEntity();
+        if( $feed == null) {
+            $this->assertTrue(false, "Search did not return any matches.");
+        }
         $entries = $feed->getEntries();
         $personState = $searchResults->readPersonFromEntry($entries[0]);
 

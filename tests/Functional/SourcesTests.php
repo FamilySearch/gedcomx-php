@@ -147,12 +147,15 @@ class SourcesTests extends ApiTestCase
         $ds = new DataSource();
         $ds->setTitle("Sample Memory");
         $ds->setFile(ArtifactBuilder::makeTextFile());
-        $person->addArtifact($ds);
+        $a1 = $person->addArtifact($ds);
+        $this->queueForDelete($a1);
+
         $artifact = $person->readArtifacts()->getSourceDescription();
         $memoryUri = $artifact->getLink("memory")->getHref();
         $source = SourceBuilder::newSource();
         $source->setAbout($memoryUri);
         $state = $this->collectionState()->addSourceDescription($source);
+        $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
@@ -183,6 +186,8 @@ class SourcesTests extends ApiTestCase
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson()->get();
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
+        $this->queueForDelete($sds);
+
         $person->addSourceReferenceState($sds);
         $link = $person->getLink("source-descriptions")->getHref();
         $request = $client->createRequest(Request::GET, $link);
@@ -190,6 +195,7 @@ class SourcesTests extends ApiTestCase
         $request->setHeader('Authorization', "Bearer {$token}");
         $response = $client->send($request);
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
@@ -222,6 +228,8 @@ class SourcesTests extends ApiTestCase
         $sd = SourceBuilder::hitchhiker();
         /** @var SourceDescriptionState $source */
         $source = $this->collectionState()->addSourceDescription($sd)->get();
+        $this->queueForDelete($source);
+
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson();
         $sourceRef = new SourceReference();
@@ -237,9 +245,6 @@ class SourcesTests extends ApiTestCase
         $this->assertNotNull($state->getEntity());
         $this->assertNotNull($state->getEntity()->getPersons());
         $this->assertGreaterThan(0, count($state->getEntity()->getPersons()));
-
-        $source->delete();
-        $person->delete();
     }
 
     /**
@@ -286,6 +291,8 @@ class SourcesTests extends ApiTestCase
         $chapr->setChild($child->getResourceReference());
         /** @var ChildAndParentsRelationshipState $relation */
         $relation = $this->collectionState()->addChildAndParentsRelationship($chapr)->get();
+        $this->queueForDelete($relation);
+
         /** @var SourceDescriptionState $sds */
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker())->get();
         $relation->addSourceReferenceState($sds);
@@ -298,8 +305,6 @@ class SourcesTests extends ApiTestCase
         $request->setHeader('Authorization', "Bearer {$token}");
         $response = $client->send($request);
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
-        $father->delete();
-        $child->delete();
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
@@ -321,6 +326,7 @@ class SourcesTests extends ApiTestCase
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->queueForDelete($relation);
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         /* Create source */
@@ -340,11 +346,6 @@ class SourcesTests extends ApiTestCase
         /* READ the source references back */
         $relation->loadSourceReferences();
         $this->assertNotEmpty($relation->getRelationship()->getSources(), "loadForRead");
-
-        $sourceState->delete();
-        $relation->delete();
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -361,7 +362,11 @@ class SourcesTests extends ApiTestCase
         $wife = $this->createPerson('female');
         /** @var RelationshipState $relation */
         $relation = $husband->addSpouse($wife);
+        $this->queueForDelete($relation);
+
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
+        $this->queueForDelete($sds);
+
         $relation->addSourceDescriptionState($sds);
         $relationships = $husband->loadSpouseRelationships();
         $relations = $relationships->getRelationships();
@@ -373,8 +378,6 @@ class SourcesTests extends ApiTestCase
         $request->setHeader('Authorization', "Bearer {$token}");
         $response = $client->send($request);
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
-        $husband->delete();
-        $wife->delete();
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
@@ -417,6 +420,8 @@ class SourcesTests extends ApiTestCase
         $sd = $this->createSourceDescription();
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd)->get();
+        $this->queueForDelete($description);
+
         $state = $description->update($description->getSourceDescription());
 
         $this->assertNotNull($state->ifSuccessful());
@@ -504,6 +509,8 @@ class SourcesTests extends ApiTestCase
         $wife = $this->createPerson('female');
         /** @var RelationshipState $relationship */
         $relationship = $husband->addSpouse($wife)->get();
+        $this->queueForDelete($relationship);
+
         $sourceState = $this->createSource();
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());

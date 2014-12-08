@@ -37,13 +37,12 @@ class PersonTests extends ApiTestCase
 
         $person = PersonBuilder::buildPerson($this->faker);
         $personState = $this->collectionState()->addPerson( $person );
+        $this->queueForDelete($personState);
 
         $this->assertEquals(
             HttpStatus::CREATED,
             $personState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $personState));
-
-        $personState->delete();
     }
 
     /**
@@ -100,6 +99,7 @@ class PersonTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($discussionState);
 
         $personState = $this->getPerson();
         /** @var \Gedcomx\Rs\Client\PersonState $newState */
@@ -165,6 +165,7 @@ class PersonTests extends ApiTestCase
         $person = PersonBuilder::buildPerson('male');
         $stateOne = $collection->addPerson($person)->get();
         $stateTwo = $collection->addPerson($person)->get();
+        $this->queueForDelete($stateTwo, $stateOne);
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $analysis */
         $analysis = $stateOne->readMergeAnalysis($stateTwo);
@@ -174,9 +175,6 @@ class PersonTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__, $analysis)
         );
         $this->assertNotEmpty($analysis->getAnalysis());
-
-        $stateTwo->delete();
-        $stateOne->delete();
     }
 
     /**
@@ -190,6 +188,7 @@ class PersonTests extends ApiTestCase
         $person = PersonBuilder::buildPerson('male');
         $person1 = $collection->addPerson($person)->get();
         $person2 = $collection->addPerson($person)->get();
+        $this->queueForDelete($person1, $person2);
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $state */
         $state = $person1->readMergeOptions($person2);
@@ -213,6 +212,7 @@ class PersonTests extends ApiTestCase
         $female = PersonBuilder::buildPerson('female');
         $person1 = $collection->addPerson($male)->get();
         $person2 = $collection->addPerson($female)->get();
+        $this->queueForDelete($person1, $person2);
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $state */
         $state = $person1->readMergeOptions($person2);
@@ -222,9 +222,6 @@ class PersonTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__, $state)
         );
         $this->assertFalse($state->isAllowed(), $this->buildFailMessage(__METHOD__, $state));
-
-        $person1->delete();
-        $person2->delete();
     }
 
 
@@ -258,7 +255,9 @@ class PersonTests extends ApiTestCase
         $filename = ArtifactBuilder::makeTextFile();
         $artifact = new DataSource();
         $artifact->setFile($filename);
-        $person->addArtifact($artifact);
+        $a1 = $person->addArtifact($artifact);
+        $this->queueForDelete($a1);
+
         $person = $person->get();
         $memories = $person->readArtifacts();
 
@@ -267,8 +266,6 @@ class PersonTests extends ApiTestCase
             $memories->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $memories)
         );
-
-        $person->delete();
     }
 
     /**
@@ -283,7 +280,9 @@ class PersonTests extends ApiTestCase
         $filename = ArtifactBuilder::makeTextFile();
         $artifact = new DataSource();
         $artifact->setFile($filename);
-        $person->addArtifact($artifact);
+        $a1 = $person->addArtifact($artifact);
+        $this->queueForDelete($a1);
+
         $person = $person->get();
 
         $option = new QueryParameter(true, "type", "photo");
@@ -576,6 +575,7 @@ class PersonTests extends ApiTestCase
         $person = PersonBuilder::buildPerson('male');
         $person1 = $this->collectionState()->addPerson($person)->get();
         $person2 = $this->collectionState()->addPerson($person)->get();
+        $this->queueForDelete($person2, $person1);
 
         /** @var  \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $result */
         $result = $person1->readMergeAnalysis($person2);
@@ -606,9 +606,6 @@ class PersonTests extends ApiTestCase
             $person2->getSelfUri(),
             "Person URIs don't match."
         );
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -709,6 +706,7 @@ class PersonTests extends ApiTestCase
 
         $one = $this->collectionState()->addPerson($personData)->get();
         $two = $this->collectionState()->addPerson($personData)->get();
+        $this->queueForDelete($one, $two);
 
         $nonMatch = $one->addNonMatchPerson($two->getPerson());
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $nonMatch->getResponse(), "Restore person failed. Returned {$nonMatch->getResponse()->getStatusCode()}");
@@ -796,11 +794,17 @@ class PersonTests extends ApiTestCase
 
         $one = $this->collectionState()->addPerson($personData)->get();
         $two = $this->collectionState()->addPerson($personData)->get();
+        $this->queueForDelete($one, $two);
 
         $nonMatch = $one->addNonMatchPerson($two->getPerson());
         $rematch = $nonMatch->removeNonMatch($two->getPerson());
 
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $rematch->getResponse(), "Restore person failed. Returned {$rematch->getResponse()->getStatusCode()}");
+        $this->assertAttributeEquals(
+            HttpStatus::NO_CONTENT,
+            "statusCode",
+            $rematch->getResponse(),
+            "Restore person failed. Returned {$rematch->getResponse()->getStatusCode()}"
+        );
     }
 
     /**
@@ -834,6 +838,8 @@ class PersonTests extends ApiTestCase
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
+        $this->queueForDelete($discussionState);
+
         $ref = new DiscussionReference();
         $ref->setResource($discussionState->getSelfUri());
 
@@ -872,20 +878,37 @@ class PersonTests extends ApiTestCase
         $this->collectionState($factory);
 
         $personState = $this->createPerson()->get();
+        $this->queueForDelete($personState);
+
         $newState = $personState->delete();
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse(), "Delete person failed. Returned {$newState->getResponse()->getStatusCode()}");
+        $this->assertAttributeEquals(
+            HttpStatus::NO_CONTENT,
+            "statusCode",
+            $newState->getResponse(),
+            "Delete person failed. Returned {$newState->getResponse()->getStatusCode()}"
+        );
 
         /** @var \Gedcomx\Conclusion\Person[] $persons */
         $persons = $personState->getEntity()->getPersons();
         $id = $persons[0]->getId();
         $newState = $this->getPerson($id);
-        $this->assertAttributeEquals(HttpStatus::GONE, "statusCode", $newState->getResponse(), "Read deleted person failed. Returned {$newState->getResponse()->getStatusCode()}");
+        $this->assertAttributeEquals(
+            HttpStatus::GONE,
+            "statusCode",
+            $newState->getResponse(),
+            "Read deleted person failed. Returned {$newState->getResponse()->getStatusCode()}"
+        );
 
         $factory = new FamilyTreeStateFactory();
         $ftOne = $this->collectionState($factory);
         $ftTwo = $ftOne->readPersonById($id);
         $ftThree = $ftTwo->restore();
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $ftThree->getResponse(), "Restore person failed. Returned {$ftThree->getResponse()->getStatusCode()}");
+        $this->assertAttributeEquals(
+            HttpStatus::NO_CONTENT,
+            "statusCode",
+            $ftThree->getResponse(),
+            "Restore person failed. Returned {$ftThree->getResponse()->getStatusCode()}"
+        );
     }
 
     /**
@@ -904,7 +927,14 @@ class PersonTests extends ApiTestCase
         $person1 = $this->createPerson('male')->get();
         $person2 = $this->createPerson('male')->get();
         $relation = $this->collectionState()->addChildAndParents($person1, $person2);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        $this->queueForDelete($relation);
+
+        $this->assertAttributeEquals(
+            HttpStatus::CREATED,
+            "statusCode",
+            $relation->getResponse(),
+            $this->buildFailMessage(__METHOD__, $relation)
+        );
 
         /* Set the preferred relationship */
         $updated = $this->collectionState()->updatePreferredParentRelationship(
@@ -912,7 +942,12 @@ class PersonTests extends ApiTestCase
             $person1->getPerson()->getId(),
             $relation
         );
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+        $this->assertAttributeEquals(
+            HttpStatus::NO_CONTENT,
+            "statusCode",
+            $updated->getResponse(),
+            $this->buildFailMessage(__METHOD__, $updated)
+        );
 
         /* Read the preferred state */
         $preferred = $this->collectionState()->readPreferredParentRelationship(
@@ -933,10 +968,6 @@ class PersonTests extends ApiTestCase
             $person1->getPerson()->getId()
         );
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
-
-        $relation->delete();
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -955,7 +986,13 @@ class PersonTests extends ApiTestCase
         $person1 = $this->createPerson('male')->get();
         $person2 = $this->createPerson('female')->get();
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        $this->queueForDelete($relation);
+        $this->assertAttributeEquals(
+            HttpStatus::CREATED,
+            "statusCode",
+            $relation->getResponse(),
+            $this->buildFailMessage(__METHOD__, $relation)
+        );
 
         /* Set the preferred relationship */
         $updated = $this->collectionState()->updatePreferredSpouseRelationship(
@@ -963,7 +1000,12 @@ class PersonTests extends ApiTestCase
             $person1->getPerson()->getId(),
             $relation
         );
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+        $this->assertAttributeEquals(
+            HttpStatus::NO_CONTENT,
+            "statusCode",
+            $updated->getResponse(),
+            $this->buildFailMessage(__METHOD__, $updated)
+        );
 
         /* Read the preferred state */
         $preferred = $this->collectionState()->readPreferredSpouseRelationship(
@@ -984,9 +1026,5 @@ class PersonTests extends ApiTestCase
             $person1->getPerson()->getId()
         );
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
-
-        $relation->delete();
-        $person1->delete();
-        $person2->delete();
     }
 }

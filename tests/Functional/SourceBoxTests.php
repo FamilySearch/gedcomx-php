@@ -31,11 +31,10 @@ class SourceBoxTests extends ApiTestCase
         $c = new Collection();
         $c->setTitle($this->faker->sha1);
         $state = $collection->addCollection($c);
+        $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
-
-        $state->delete();
     }
 
     /**
@@ -114,11 +113,10 @@ class SourceBoxTests extends ApiTestCase
         $c = new Collection();
         $c->setTitle($this->faker->sha1);
         $state = $collection->addCollection($c)->get();
+        $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
-
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
-        $state->delete();
     }
 
     /**
@@ -134,12 +132,11 @@ class SourceBoxTests extends ApiTestCase
         /** @var CollectionState $subcollection */
         $subcollection = $collection->addCollection($c)->get();
         $subcollection->getCollection()->setTitle($this->faker->sha1);
+        $this->queueForDelete($subcollection);
         $state = $subcollection->update($subcollection->getCollection());
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
-
-        $state->delete();
     }
 
     /**
@@ -225,17 +222,18 @@ class SourceBoxTests extends ApiTestCase
 
         /** @var FamilySearchSourceDescriptionState $description */
         $description = $collection->addSourceDescription($sd)->get();
+        $this->queueForDelete($description);
+
         /** @var CollectionState $subcollection */
         $c = new Collection();
         $c->setTitle($this->faker->sha1);
         $subcollection = $collection->addCollection($c)->get();
+        $this->queueForDelete($subcollection);
+
         /** @var FamilySearchSourceDescriptionState $state */
         $state = $description->moveToCollection($subcollection);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
-
-        $description->delete();
-        $subcollection->delete();
     }
 }

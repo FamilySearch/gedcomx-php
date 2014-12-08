@@ -69,6 +69,7 @@ class ParentsAndChildrenTests extends ApiTestCase
         $person2 = $this->createPerson('female')->get();
 
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->queueForDelete($relation);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 
