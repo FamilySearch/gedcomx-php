@@ -6,7 +6,9 @@ use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\GedcomxFile\DefaultXMLSerialization;
 use Gedcomx\GedcomxFile\GedcomxFile;
+use Gedcomx\GedcomxFile\GedcomxOutput;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\XMLBuilder;
 
 class GedcomxFileTests extends ApiTestCase
@@ -71,13 +73,48 @@ class GedcomxFileTests extends ApiTestCase
         $entries = $gedcomx->getEntries();
 
         foreach($entries as $entry){
-
             if (strpos($entry->getContentType(),"xml") !== false) {
-                $resources[] = $gedcomx->readResource($entry);
+                $resources = $gedcomx->readResource($entry);
             }
         }
 
         $this->assertNotEmpty($resources,"No resources found in XML");
         $this->assertCount(4, $resources[0]->getPersons(), "Expecting four persons.");
+    }
+
+    public function testCreateGedxFile()
+    {
+        $people = XMLBuilder::XMLRelationshipData();
+
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+
+        $father = $this->collectionState()->addPerson($people['father']);
+        $mother = $this->collectionState()->addPerson($people['mother']);
+        $child = $this->collectionState()->addPerson($people['child']);
+        $this->queueForDelete($father,$mother,$child);
+
+        $family = new ChildAndParentsRelationship();
+        $family->setChild($child->getResourceReference());
+        $family->setFather($father->getResourceReference());
+        $family->setMother($mother->getResourceReference());
+
+        $relationship = $this->collectionState()->addChildAndParentsRelationship($family)->get();
+        $this->queueForDelete($relationship);
+
+        $image1 = ArtifactBuilder::makeImage();
+        $image2 = ArtifactBuilder::makeImage();
+
+        $testfile = $this->tempDir . "test.gedx";
+        $writeIt = new GedcomxOutput();
+        $writeIt->addFamilySearchResource($relationship->getEntity());
+        $writeIt->addFileResource($image1);
+        $writeIt->addFileResource($image2);
+        $writeIt->writeToFile($testfile);
+
+        $this->assertFileExists($testfile, "test.gedx not written.");
+
+        $readIt = new GedcomxFile($testfile);
+        $this->assertEmpty($readIt->getWarnings(), "No warnings should have been generated.");
     }
 }

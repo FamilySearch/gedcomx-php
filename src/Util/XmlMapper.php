@@ -2,10 +2,20 @@
 
 namespace Gedcomx\Util;
 
+/**
+ * Class XmlMapper
+ *
+ * @package Gedcomx\Util
+ *
+ *          Store the mapping between XML tag names and class names.
+ */
 class XmlMapper
 {
     private static $collection;
 
+    /**
+     * Initialize the collection with the map data
+     */
     private static function init(){
         self::$collection = new Collection(array(
             'Gedcomx\Gedcomx' => 'gedcomx',
@@ -51,6 +61,8 @@ class XmlMapper
     }
 
     /**
+     * Return the collection, initializing if necessary
+     *
      * @return Collection
      */
     private static function collection(){
@@ -61,15 +73,36 @@ class XmlMapper
         return self::$collection;
     }
 
+    /**
+     * Return whether or not we recognize the tag name
+     *
+     * @param string $tagName
+     *
+     * @return bool
+     */
     public static function isKnownType($tagName){
         return self::collection()->contains($tagName);
     }
 
+    /**
+     * Return the tag name for a given class
+     *
+     * @param string $class
+     *
+     * @return string | null
+     */
     public static function getTagName($class)
     {
         return self::collection()->get($class);
     }
 
+    /**
+     * Return the class for a given tag name
+     *
+     * @param $tagName
+     *
+     * @return string | null
+     */
     public static function getClassName($tagName)
     {
         return self::collection()->getKey($tagName);

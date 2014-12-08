@@ -30,8 +30,6 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
-
-        $person->delete();
     }
 
     public function testReadPersonChangeHistoryFirstPage()
@@ -47,8 +45,6 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
-
-        $person->delete();
     }
 
     public function testReadCoupleRelationshipChangeHistory()
@@ -61,6 +57,7 @@ class ChangeHistoryTests extends ApiTestCase
         $wife = $this->createPerson('female');
         /** @var FamilyTreeRelationshipState $relationship */
         $relationship = $husband->addSpouse($wife)->get();
+        $this->queueForDelete($relationship);
 
         $fact = new Fact();
         $attribution = new Attribution();
@@ -83,9 +80,6 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThan(0, count($state->getPage()->getEntries()));
-
-        $husband->delete();
-        $wife->delete();
     }
 
     public function testReadChildAndParentsRelationshipChangeHistory()
@@ -105,6 +99,8 @@ class ChangeHistoryTests extends ApiTestCase
         $chap->setChild($son->getResourceReference());
         /** @var ChildAndParentsRelationshipState $relationship */
         $relationship = $collection->addChildAndParentsRelationship($chap)->get();
+        $this->queueForDelete($relationship);
+
         /** @var ChangeHistoryState $state */
         $state = $relationship->readChangeHistory();
 
@@ -113,10 +109,6 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertNotNull($state->getEntity());
         $this->assertNotNull($state->getEntity()->getEntries());
         $this->assertGreaterThan(0, $state->getEntity()->getEntries());
-
-        $father->delete();
-        $mother->delete();
-        $son->delete();
     }
 
     public function testRestoreChangeAction()
@@ -149,7 +141,5 @@ class ChangeHistoryTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 204);
-
-        $person->delete();
     }
 }

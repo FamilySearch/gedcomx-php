@@ -43,6 +43,7 @@ class SpousesTests extends ApiTestCase
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->queueForDelete($relation);
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         /* Create Marriage Fact */
@@ -51,10 +52,6 @@ class SpousesTests extends ApiTestCase
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
         $relation = $relation->addFact($marriage);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
-
-        $relation->delete();
-        $person2->delete();
-        $person1->delete();
     }
 
     /**
@@ -81,6 +78,8 @@ class SpousesTests extends ApiTestCase
 
         //$relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
         $relation = $person1->addSpouse($person2);
+        $this->queueForDelete($relation);
+
         $relation = $relation->get();
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 
@@ -142,6 +141,8 @@ class SpousesTests extends ApiTestCase
         $person2 = $this->createPerson('female')->get();
 
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->queueForDelete($relation);
+
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 
         $headers = $relation->head();
@@ -162,6 +163,8 @@ class SpousesTests extends ApiTestCase
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->queueForDelete($relation);
+
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $person3 = $this->createPerson('female')->get();
@@ -186,6 +189,7 @@ class SpousesTests extends ApiTestCase
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->queueForDelete($relation);
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         /* Create Marriage Fact */
@@ -206,10 +210,6 @@ class SpousesTests extends ApiTestCase
                                         )));
         $relation = $relation->addFact($marriage);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
-
-        $relation->delete();
-        $person2->delete();
-        $person1->delete();
     }
 
     /**
@@ -225,6 +225,7 @@ class SpousesTests extends ApiTestCase
 
         /* CREATE */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->queueForDelete($relation);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
 
         /* READ */
@@ -242,13 +243,6 @@ class SpousesTests extends ApiTestCase
 
         $warnings = $updated->getHeader('warning');
         $this->assertNotEmpty($warnings, "No warnings found in headers.");
-
-        /* Clean up */
-        $relation->delete();
-        $person1->delete();
-        $person2->delete();
-        $person3->delete();
-
     }
 
     /**
@@ -271,6 +265,8 @@ class SpousesTests extends ApiTestCase
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
+        $this->queueForDelete($relation);
+
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         /* Create Marriage Fact */
@@ -286,10 +282,6 @@ class SpousesTests extends ApiTestCase
         $marriage = $relation->getRelationship()->getFactsOfType(FactType::MARRIAGE);
         $deleted = $relation->deleteFact($marriage);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $deleted));
-
-        $relation->delete();
-        $person2->delete();
-        $person1->delete();
     }
 
     /**
@@ -305,6 +297,8 @@ class SpousesTests extends ApiTestCase
 
         /* CREATE */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
+        $this->queueForDelete($relation);
+
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
         $relation = $relation->get();
 
@@ -327,10 +321,6 @@ class SpousesTests extends ApiTestCase
         /* RESTORE */
         $restored = $missing->restore();
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $restored->getResponse(), "Restore person failed. Returned {$restored->getResponse()->getStatusCode()}");
-
-        $relation->delete();
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -370,10 +360,5 @@ class SpousesTests extends ApiTestCase
         /* DELETE */
         $deleted = $relation->delete();
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
-
-        $person1->delete();
-        $person2->delete();
-        $person3->delete();
-
     }
 }

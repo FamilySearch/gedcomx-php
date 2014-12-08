@@ -153,7 +153,7 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         parent::initFromArray($o);
         if (isset($o['description'])) {
@@ -181,7 +181,7 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -208,7 +208,7 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -226,7 +226,7 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'sourceReference', null);
         if ($includeNamespaces) {
@@ -241,7 +241,7 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->descriptionRef) {
             $writer->writeAttribute('description', $this->descriptionRef);

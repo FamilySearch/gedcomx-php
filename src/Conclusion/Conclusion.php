@@ -250,7 +250,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['confidence'])) {
             $this->confidence = $o["confidence"];
@@ -291,7 +291,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -331,7 +331,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -352,7 +352,7 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->confidence) {
             $writer->writeAttribute('confidence', $this->confidence);

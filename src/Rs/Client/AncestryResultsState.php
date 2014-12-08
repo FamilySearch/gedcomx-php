@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
@@ -30,6 +29,7 @@ class AncestryResultsState extends GedcomxApplicationState
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
+
         return new Gedcomx($json);
     }
 
@@ -43,6 +43,8 @@ class AncestryResultsState extends GedcomxApplicationState
         if ($this->getEntity()) {
             return new AncestryTree($this->getEntity());
         }
+
+        return null;
     }
 
     public function readPerson($ancestorNumber, StateTransitionOption $option = null)

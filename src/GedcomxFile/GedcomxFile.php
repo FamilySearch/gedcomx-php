@@ -13,25 +13,37 @@ use \ZipArchive;
 class GedcomxFile
 {
     /**
-     * @var ZipArchive The handle to the .gedx archive
+     * The handle to the .gedx archive
+     *
+     * @var ZipArchive
      */
     private $archive;
     /**
-     * @var \Gedcomx\GedcomxFile\GedcomxFileEntry[] The file attributes based on the manifest file.
+     * The file attributes based on the manifest file.
+     *
+     * @var \Gedcomx\GedcomxFile\GedcomxFileEntry[]
      */
     private $entries;
     /**
-     * @var array Attributes from the manifest file
+     * Attributes from the manifest file
+     *
+     * @var array
      */
     private $attributes;
     /**
-     * @var string[] Warning messages generated during parsing.
+     * Warning messages generated during parsing.
+     *
+     * @var string[]
      */
     private $warnings;
     /**
      * @var \Gedcomx\GedcomxFile\GedcomxEntryDeserializer
      */
     private $deserializer;
+    /**
+     * @var Manifest
+     */
+    private $manifest;
 
     /**
      * Create a new instance of a GedcomxFile
@@ -55,7 +67,7 @@ class GedcomxFile
             throw new GedcomxFileException($result);
         }
 
-        $this->parseManifest();
+        $this->loadEntries();
     }
 
     /**
@@ -108,10 +120,20 @@ class GedcomxFile
      */
     public  function getAttribute($key)
     {
-        return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+        if( $this->manifest != null) {
+            return $this->manifest->getAttribute($key);
+        }
+
+        return null;
     }
 
-
+    /**
+     * Deserialize a GedcomX resource
+     *
+     * @param \Gedcomx\GedcomxFile\GedcomxFileEntry $entry
+     *
+     * @return mixed
+     */
     public function readResource(GedcomxFileEntry $entry)
     {
         return $this->deserializer->deserialize($entry->getContents());
@@ -128,115 +150,57 @@ class GedcomxFile
     }
 
     /**
-     * Begin parsing by looking manifest file
+     * Read the archive contents
      */
-    private function parseManifest()
+    private function loadEntries()
     {
-        $index = $this->archive->locateName("manifest.mf", ZipArchive::FL_NOCASE|ZipArchive::FL_NODIR);
-        $this->parseEntries($index);
-    }
+        $this->readManifest();
 
-    /**
-     * Call the correct parsing function based on whether or not a manifest file was found.
-     *
-     * @param integer $index
-     */
-    private function parseEntries($index)
-    {
-        if ($index === false) {
-            $this->warnings[] = "No MANIFEST.MF file was found.";
-            $this->parseEntriesFromArchive();
-            return;
-        }
-
-        $manifest = $this->archive->getFromIndex($index);
-        $manifest = $this->normalizeLineEndings($manifest);
-
-        $this->parseEntriesFromManifest($manifest);
-    }
-
-    /**
-     * Parse the contents of the manifest file
-     *
-     * @param string $incoming The contents of the manifest file
-     */
-    private function parseEntriesFromManifest($incoming){
-        $blocks = explode("\n\n", $incoming);
-        /*
-         *  The first block should be the attributes of the gedx file itself.
-         *  Parse and remove those before parsing attributes of the archive entries.
-         */
-        $lines = explode("\n",$blocks[0]);
-        foreach ($lines as $line) {
-            list($key, $value) = explode(": ", $line);
-            $this->addAttribute($key, $value);
-        }
-        array_shift($blocks);
-        /*
-         *  Parse the entry attributes
-         */
-        $this->entries = $this->createEntries($blocks);
-    }
-
-    /**
-     * Create a list of entries without a manifest file
-     */
-    private function parseEntriesFromArchive()
-    {
         $i = 0;
         do {
             $name = $this->archive->getNameIndex($i);
-            if ($name !== false){
-                $entry = new GedcomxFileEntry();
-                $entry->setName($name);
-                $entry->setContents($this->archive->getFromIndex($i));
-                $this->entries[] = $entry;
+            if ($name !== false && $name != 'META-INF/MANIFEST.MF') {
+                $this->entries[] = $this->readEntry($name);
             }
             $i++;
         } while ($name !== false);
     }
 
     /**
-     * Create the GedcomxFileEntry
-     *
-     * @param string[] $blocks
-     *
-     * @return \Gedcomx\GedcomxFile\GedcomxFileEntry[]
+     * Look for the manifest file and parse it if found.
      */
-    private function createEntries($blocks)
+    private function readManifest()
     {
-        $entries = array();
-
-        foreach ($blocks as $block) {
-            if (strlen($block) == 0) {
-                continue;
-            }
-
-            $entry = new GedcomxFileEntry();
-            $entry->parseEntryData($block);
-            $contents = $this->archive->getFromName($entry->getName());
-            $entry->setContents($contents);
-            if ($contents === false) {
-                $this->warnings[] = "Manifest entry ".$entry->getName()." not found in the archive.";
-            }
-            $entries[] = $entry;
+        $index = $this->archive->locateName("manifest.mf", ZipArchive::FL_NOCASE|ZipArchive::FL_NODIR);
+        if ($index === false) {
+            $this->warnings[] = "No MANIFEST.MF file was found.";
+            return;
         }
 
-        return $entries;
+        $this->manifest = new Manifest();
+        $this->manifest->parse($this->archive->getFromIndex($index));
     }
 
     /**
-     * Normalize line endings to LF
+     * Read an entry from the archive and look for manifest properties.
      *
-     * @param $stringData
+     * @param string $name
      *
-     * @return string
+     * @return \Gedcomx\GedcomxFile\GedcomxFileEntry
      */
-    private function normalizeLineEndings($stringData)
+    public function readEntry($name)
     {
-        $stringData = str_replace("\r\n", "\n", $stringData);
-        $stringData = str_replace("\r", "\n", $stringData);
+        $entry = new GedcomxFileEntry($name);
+        $entry->setContents($this->archive->getFromName($name));
+        $manifestAttrs = $this->manifest->getEntryAttributes($name);
+        if ($manifestAttrs != null) {
+            foreach ($manifestAttrs as $attr) {
+                $entry->addAttribute($attr->getKey(), $attr->getValue());
+            }
+        } else {
+            $this->warnings[] = 'No manifest attributes found for ' . $name;
+        }
 
-        return $stringData;
+        return $entry;
     }
 }

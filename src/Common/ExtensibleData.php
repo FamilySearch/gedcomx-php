@@ -220,7 +220,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['id'])) {
             $this->id = $o["id"];
@@ -241,7 +241,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      *
      * @param \XMLReader $xml The reader to use to initialize this object.
      */
-    public function initFromReader($xml)
+    public function initFromReader(\XMLReader $xml)
     {
         $empty = $xml->isEmptyElement;
 
@@ -315,7 +315,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         return false;
     }
 
@@ -326,7 +326,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      *
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (($xml->localName == 'id') && (empty($xml->namespaceURI))) {
             $this->id = $xml->value;
             return true;
@@ -340,7 +340,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->id) {
             $writer->writeAttribute('id', $this->id);

@@ -6,6 +6,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
+use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 
@@ -32,8 +33,15 @@ class SearchAndMatchTests extends ApiTestCase
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p);
         $person2 = $this->collectionState()->addPerson($p)->get();
+        $this->queueForDelete($person1, $person2);
+
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $matches = $person2->readMatches();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $matches->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $matches)
+        );
         $entries = $matches->getResults()->getEntries();
         $entry = array_shift($entries);
         $id = $entry->getId();
@@ -43,9 +51,6 @@ class SearchAndMatchTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -59,15 +64,14 @@ class SearchAndMatchTests extends ApiTestCase
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p);
         $person2 = $this->collectionState()->addPerson($p)->get();
+        $this->queueForDelete($person1, $person2);
+
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $state = $person2->readMatches();
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -85,8 +89,6 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 204);
         $this->assertNull($state->getResults());
-
-        $person->delete();
     }
 
     /**
@@ -100,6 +102,8 @@ class SearchAndMatchTests extends ApiTestCase
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p);
         $person2 = $this->collectionState()->addPerson($p)->get();
+        $this->queueForDelete($person1, $person2);
+
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $statuses = new QueryParameter(true, "status", array("pending", "accepted", "rejected"));
         $state = $person2->readMatches($statuses);
@@ -107,9 +111,6 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -123,6 +124,8 @@ class SearchAndMatchTests extends ApiTestCase
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p);
         $person2 = $this->collectionState()->addPerson($p)->get();
+        $this->queueForDelete($person1, $person2);
+
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $statuses = new QueryParameter(true, "status", "accepted");
         $confidence = new QueryParameter(true, "confidence", "4");
@@ -131,9 +134,6 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**
@@ -190,8 +190,16 @@ class SearchAndMatchTests extends ApiTestCase
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p);
         $person2 = $this->collectionState()->addPerson($p)->get();
+        $this->queueForDelete($person1, $person2);
+
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $matches = $person2->readMatches();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $matches->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $matches)
+        );
+
         $accepted = new QueryParameter(true, "status", "accepted");
 
         $entries = $matches->getResults()->getEntries();
@@ -199,9 +207,6 @@ class SearchAndMatchTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals((int)$state->getResponse()->getStatusCode(), 204);
-
-        $person1->delete();
-        $person2->delete();
     }
 
     /**

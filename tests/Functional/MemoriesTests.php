@@ -37,21 +37,21 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $this->collectionState($factory);
         $person = $this->createPerson('male')->get();
+        $this->queueForDelete($person);
 
         $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $this->queueForDelete($persona);
+
         $newState = $person->addPersonaPersonState($persona);
         $this->assertEquals(
             HttpStatus::CREATED,
             $newState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $newState)
         );
-
-        $upload->delete();
-        $persona->delete();
-        $person->delete();
     }
 
     /**
@@ -68,6 +68,8 @@ class MemoriesTests extends ApiTestCase
         $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
+        $this->queueForDelete($artifact);
+
         $comments = $artifact->readComments();
         $comment = new Comment();
         $comment->setText("Test comment.");
@@ -75,8 +77,6 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
-
-        $artifact->delete();
     }
 
     /**
@@ -96,18 +96,18 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $person = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person);
+        $this->queueForDelete($persona);
+
         $this->assertEquals(
             HttpStatus::CREATED,
             $persona->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $persona)
         );
-
-        $upload->delete();
-        $persona->delete();
     }
 
     /**
@@ -132,11 +132,14 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $this->collectionState($factory);
         $person = $this->createPerson('male')->get();
 
         $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $this->queueForDelete($persona);
+
         $person->addPersonaPersonState($persona);
         $newState = $person->loadPersonaReferences();
 
@@ -147,9 +150,6 @@ class MemoriesTests extends ApiTestCase
         );
         $thePerson = $newState->getPerson();
         $this->assertNotEmpty($thePerson->getEvidence(), "Evidence reference missing.");
-
-        $upload->delete();
-        $persona->delete();
     }
 
     /**
@@ -166,6 +166,8 @@ class MemoriesTests extends ApiTestCase
         $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
+        $this->queueForDelete($artifact);
+
         /** @var DiscussionState $state */
         $comments = $artifact->readComments();
         $comment = new Comment();
@@ -178,8 +180,6 @@ class MemoriesTests extends ApiTestCase
         $this->assertNotNull($state->getDiscussion());
         $this->assertNotNull($state->getDiscussion()->getComments());
         $this->assertGreaterThan(0, count($state->getDiscussion()->getComments()));
-
-        $artifact->delete();
     }
 
     /**
@@ -216,6 +216,8 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact, $description);
+        $this->queueForDelete($upload);
+
         $upload = $upload->get();
 
         $this->assertEquals(
@@ -223,8 +225,6 @@ class MemoriesTests extends ApiTestCase
             $upload->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
-
-        $upload->delete();
     }
 
     /**
@@ -244,10 +244,13 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $person = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person);
+        $this->queueForDelete($persona);
+
         $persona = $persona->get();
         $this->assertEquals(
             HttpStatus::OK,
@@ -260,8 +263,6 @@ class MemoriesTests extends ApiTestCase
             count($persons),
             $this->buildFailMessage(__METHOD__.'(HasPersons)', $persona)
         );
-
-        $upload->delete();
     }
 
     /**
@@ -281,10 +282,13 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $person = PersonBuilder::buildPerson('male');
 
-        $upload->addPersonPersona($person);
+        $persona = $upload->addPersonPersona($person);
+        $this->queueForDelete($persona);
+
         $personas = $upload->readPersonas();
 
         $this->assertEquals(
@@ -314,6 +318,8 @@ class MemoriesTests extends ApiTestCase
         $ds->setFile(ArtifactBuilder::makeTextFile());
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
+        $this->queueForDelete($artifact);
+
         $comments = $artifact->readComments();
         $comment = new Comment();
         $comment->setText("Test comment.");
@@ -326,8 +332,6 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
-
-        $artifact->delete();
     }
 
     /**
@@ -346,6 +350,7 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $gedcom = $upload->getEntity();
         $descriptions = $gedcom->getSourceDescriptions();
@@ -381,11 +386,14 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $this->collectionState($factory);
         $person = $this->createPerson('male')->get();
 
         $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'))->get();
+        $this->queueForDelete($persona);
+
         $person->addPersonaPersonState($persona);
         $person = $person->loadPersonaReferences();
 
@@ -397,10 +405,6 @@ class MemoriesTests extends ApiTestCase
             $newState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $newState)
         );
-
-        $upload->delete();
-        $persona->delete();
-        $person->delete();
     }
 
     /**
@@ -480,6 +484,8 @@ class MemoriesTests extends ApiTestCase
         $ds->setFile($file);
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds)->get();
+        $this->queueForDelete($artifact);
+
         $comments = $artifact->readComments();
         $comment = new Comment();
         $comment->setText("Test comment.");
@@ -491,8 +497,6 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
-
-        $artifact->delete();
     }
 
     /**
@@ -512,19 +516,17 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description)->get();
+        $this->queueForDelete($upload);
 
         $person = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person);
-
         $persona = $persona->delete();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
             $persona->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $persona)
         );
-
-        $upload->delete();
     }
 
     /**
@@ -578,13 +580,13 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact);
+        $this->queueForDelete($upload);
+
         $this->assertEquals(
             HttpStatus::CREATED,
             $upload->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
-
-        $upload->delete();
     }
 
     /**
@@ -604,14 +606,13 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact, $description);
+        $this->queueForDelete($upload);
 
         $this->assertEquals(
             HttpStatus::CREATED,
             $upload->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
-
-        $upload->delete();
     }
 
     /**
@@ -631,13 +632,13 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
 
         $upload = $memories->addArtifact($artifact, $description);
+        $this->queueForDelete($upload);
+
         $this->assertEquals(
             HttpStatus::CREATED,
             $upload->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
-
-        $upload->delete();
     }
 
     /**

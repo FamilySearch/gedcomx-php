@@ -271,7 +271,7 @@ class Fact extends Conclusion
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['primary'])) {
             $this->primary = $o["primary"];
@@ -321,7 +321,7 @@ class Fact extends Conclusion
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -369,7 +369,7 @@ class Fact extends Conclusion
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -391,7 +391,7 @@ class Fact extends Conclusion
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'fact', null);
         if ($includeNamespaces) {
@@ -406,7 +406,7 @@ class Fact extends Conclusion
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->primary) {
             $writer->writeAttribute('primary', $this->primary);

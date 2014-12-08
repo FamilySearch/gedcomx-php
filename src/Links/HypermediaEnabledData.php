@@ -64,7 +64,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      *
      * @param Link[] $links
      */
-    public function setLinks($links)
+    public function setLinks(array $links)
     {
         $this->links = $links;
     }
@@ -92,7 +92,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         $this->links = array();
         if (isset($o['links'])) {
@@ -113,7 +113,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -135,7 +135,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -148,7 +148,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         parent::writeXmlContents($writer);
         if ($this->links) {
@@ -161,7 +161,7 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
     }
 
     /**
-     * @param Link $link
+     * @param \Gedcomx\Links\Link $link
      */
     public function addLink(Link $link)
     {

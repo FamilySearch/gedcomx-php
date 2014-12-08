@@ -14,5 +14,5 @@ interface HasFields {
     /**
      * @param Field[] $fields
      */
-    public function setFields( $fields );
+    public function setFields(array $fields);
 } 

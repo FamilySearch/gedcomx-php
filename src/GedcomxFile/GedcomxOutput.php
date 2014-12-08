@@ -6,12 +6,12 @@ use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Gedcomx;
 
 /**
- * Class GedcomxOutputStream
+ * Class GedcomxOutput
  * @package Gedcomx\GedcomxFile
  *
  *          Create a .gedx file
  */
-class GedcomxOutputStream
+class GedcomxOutput
 {
     /**
      * @var GedcomEntrySerializer
@@ -29,6 +29,10 @@ class GedcomxOutputStream
      * @var int
      */
     private $entryCount;
+    /**
+     * @var GedcomxFileEntry[]
+     */
+    private $entries;
 
     /**
      * Create a new instance of the .gedx file creator
@@ -117,21 +121,45 @@ class GedcomxOutputStream
     /**
      * Add a file resource to the archive
      *
-     * @param string    $contentType
      * @param string    $filename
+     * @param string    $contentType
      * @param \DateTime $lastModified
      */
-    public function addFileResource($contentType, $filename, \DateTime $lastModified = null)
+    public function addFileResource($filename, $contentType = null, \DateTime $lastModified = null)
     {
-        if($lastModified == null) {
+        if ($lastModified == null) {
             $lastModified = new \DateTime();
         }
+        if ($contentType == null) {
+            $mimeType = finfo_open(FILEINFO_MIME_TYPE);
+           $contentType = finfo_file($mimeType, $filename);
+        }
         $attributes['Content-Type'] = $contentType;
-        $attributes['X-DC-modified'] = $lastModified->format("c");
+        $attributes['X-DC-modified'] = $lastModified->format("c") . "Z";
 
         $content = file_get_contents($filename);
 
         $this->addEntry(basename($filename), $attributes, $content);
+    }
+
+    /**
+     * Write the archive to disk with the given filepath
+     *
+     * @param $filepath
+     *
+     * @throws \Gedcomx\GedcomxFile\GedcomxFileException
+     */
+    public function writeToFile($filepath)
+    {
+        $success = $this->archive->open($filepath, \ZipArchive::CREATE);
+        if ($success !== true) {
+            throw new GedcomxFileException($filepath, $success);
+        }
+        $this->archive->addFromString('META-INF/MANIFEST.MF', $this->manifest->toString());
+        foreach ($this->entries as $entry) {
+            $this->archive->addFromString($entry->getName(), $entry->getContents());
+        }
+        $this->archive->close();
     }
 
     /**
@@ -141,15 +169,15 @@ class GedcomxOutputStream
      * @param string    $resource
      * @param \DateTime $lastModified
      */
-    protected function addResource($contentType, $resource, \DateTime $lastModified)
+    protected function addResource($contentType, $resource, \DateTime $lastModified = null)
     {
         if($lastModified == null) {
             $lastModified = new \DateTime();
         }
         $attributes['Content-Type'] = $contentType;
-        $attributes['X-DC-modified'] = $lastModified->format("c");
+        $attributes['X-DC-modified'] = $lastModified->format("c") . "Z";
 
-        $content = $this->serializer->serialze($resource);
+        $content = $this->serializer->serialize($resource);
 
         $name = "tree" . ($this->entryCount > 0 ? $this->entryCount : '') . ".xml";
         $this->addEntry($name, $attributes, $content);
@@ -168,7 +196,7 @@ class GedcomxOutputStream
         foreach ($attributes as $key => $value) {
             $this->manifest->addAttributeToEntry($name, $key, $value);
         }
-
-        $this->archive->addFromString($name, $content);
+        $entry = new GedcomxFileEntry($name, $content, $attributes);
+        $this->entries[] = $entry;
     }
 }

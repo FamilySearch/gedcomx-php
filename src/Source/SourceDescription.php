@@ -8,10 +8,12 @@
  */
 
 namespace Gedcomx\Source;
+
 use Gedcomx\Common\Attribution;
 use Gedcomx\Common\Note;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Common\TextValue;
+use Gedcomx\Conclusion\Identifier;
 use Gedcomx\Links\HypermediaEnabledData;
 use Gedcomx\Records\Field;
 use Gedcomx\Rt\GedcomxModelVisitor;
@@ -122,7 +124,7 @@ class SourceDescription extends HypermediaEnabledData
     /**
      * The list of identifiers for the source.
      *
-     * @var \Gedcomx\Conclusion\Identifier[]
+     * @var Identifier[]
      */
     private $identifiers;
 
@@ -469,7 +471,7 @@ class SourceDescription extends HypermediaEnabledData
     /**
      * The list of identifiers for the source.
      *
-     * @return \Gedcomx\Conclusion\Identifier[]
+     * @return Identifier[]
      */
     public function getIdentifiers()
     {
@@ -479,7 +481,7 @@ class SourceDescription extends HypermediaEnabledData
     /**
      * The list of identifiers for the source.
      *
-     * @param \Gedcomx\Conclusion\Identifier[] $identifiers
+     * @param Identifier[] $identifiers
      */
     public function setIdentifiers($identifiers)
     {
@@ -740,7 +742,7 @@ class SourceDescription extends HypermediaEnabledData
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         parent::initFromArray($o);
         if (isset($o['about'])) {
@@ -806,12 +808,12 @@ class SourceDescription extends HypermediaEnabledData
                 if (is_array($x)) {
                     $this->identifiers[$i] = array();
                     foreach ($x as $j => $y) {
-                        $this->identifiers[$i][$j] = new \Gedcomx\Conclusion\Identifier();
+                        $this->identifiers[$i][$j] = new Identifier();
                         $this->identifiers[$i][$j]->setValue($y);
                     }
                 }
                 else {
-                    $this->identifiers[$i] = new \Gedcomx\Conclusion\Identifier($x);
+                    $this->identifiers[$i] = new Identifier($x);
                 }
             }
         }
@@ -858,7 +860,7 @@ class SourceDescription extends HypermediaEnabledData
      * @param \XMLReader $xml The reader.
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml) {
+    protected function setKnownChildElement(\XMLReader $xml) {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -937,7 +939,7 @@ class SourceDescription extends HypermediaEnabledData
             $happened = true;
         }
         else if (($xml->localName == 'identifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-            $child = new \Gedcomx\Conclusion\Identifier($xml);
+            $child = new Identifier($xml);
             if (!isset($this->identifiers)) {
                 $this->identifiers = array();
             }
@@ -1006,7 +1008,7 @@ class SourceDescription extends HypermediaEnabledData
      * @param \XMLReader $xml The reader.
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml) {
+    protected function setKnownAttribute(\XMLReader $xml) {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -1032,7 +1034,7 @@ class SourceDescription extends HypermediaEnabledData
      * @param \XMLWriter $writer The XML writer.
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
-    public function toXml($writer, $includeNamespaces = true)
+    public function toXml(\XMLWriter $writer, $includeNamespaces = true)
     {
         $writer->startElementNS('gx', 'sourceDescription', null);
         if ($includeNamespaces) {
@@ -1047,7 +1049,7 @@ class SourceDescription extends HypermediaEnabledData
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->about) {
             $writer->writeAttribute('about', $this->about);
