@@ -221,7 +221,7 @@ class Name extends Conclusion
      *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElemen(\XMLReader $xml)
+    protected function setKnownChildElement(\XMLReader $xml)
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {

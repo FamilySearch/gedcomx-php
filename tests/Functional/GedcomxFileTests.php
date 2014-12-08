@@ -73,9 +73,8 @@ class GedcomxFileTests extends ApiTestCase
         $entries = $gedcomx->getEntries();
 
         foreach($entries as $entry){
-
             if (strpos($entry->getContentType(),"xml") !== false) {
-                $resources[] = $gedcomx->readResource($entry);
+                $resources = $gedcomx->readResource($entry);
             }
         }
 

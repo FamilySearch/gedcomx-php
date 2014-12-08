@@ -86,7 +86,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      * @return bool
      */
     public function contains($value){
-        return in_array($value, $this->items);
+        return in_array($value, $this->items, true);
     }
 
     /**

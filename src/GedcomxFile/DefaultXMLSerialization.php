@@ -2,6 +2,8 @@
 
 namespace Gedcomx\GedcomxFile;
 
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Gedcomx;
 use Gedcomx\Util\XmlMapper;
 
 /**
@@ -29,11 +31,11 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
         do {
             if ($reader->nodeType == \XMLReader::ELEMENT && XmlMapper::isKnownType($reader->name)) {
                 $class = XmlMapper::getClassName($reader->name);
-                $resource = new $class($reader);
+                $resources[] = new $class($reader);
             }
         } while ($reader->read());
 
-        return $resource;
+        return $resources;
     }
 
     /**
@@ -66,6 +68,9 @@ class DefaultXMLSerialization implements GedcomxEntrySerializer, GedcomxEntryDes
      */
     public function isKnownContentType($contentType)
     {
-        // TODO: Implement isKnownContentType() method.
+        return in_array($contentType, array(
+            Gedcomx::XML_MEDIA_TYPE,
+            FamilySearchPlatform::XML_MEDIA_TYPE
+        ));
     }
 }
