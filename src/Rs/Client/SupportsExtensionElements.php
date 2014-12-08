@@ -3,7 +3,9 @@
 
 namespace Gedcomx\Rs\Client;
 
-
+/**
+ * An interface allowing a type to explicitly declare support for extension elements.
+ */
 interface SupportsExtensionElements {
     /**
      * Custom extension elements for a resource.

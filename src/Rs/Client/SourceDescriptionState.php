@@ -13,36 +13,72 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
 
+/**
+ * The SourceDescriptionState exposes management functions for a source description.
+ */
 class SourceDescriptionState extends GedcomxApplicationState
 {
-
+    /**
+     * Constructs a source description state using the specified client, request, response, access token and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new SourceDescriptionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return \Gedcomx\Gedcomx
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
         return new Gedcomx($json);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return \Gedcomx\Source\SourceDescription|null
+     */
     protected function getScope()
     {
         return $this->getSourceDescription();
     }
 
+    /**
+     * Gets the rel name for the current state instance.
+     *
+     * @return string
+     */
     public function getSelfRel()
     {
         return Rel::DESCRIPTION;
     }
 
     /**
+     * Gets the source description represented by this state instance.
+     *
      * @return SourceDescription|null
      */
     public function getSourceDescription()
@@ -58,6 +94,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified source description.
+     *
      * @param Gedcomx|SourceDescription $description
      * @param StateTransitionOption $option,...
      *
@@ -86,6 +124,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Read persons associated with the current source description.
+     *
      * @param StateTransitionOption $option,...
      *
      * @return PersonsState
@@ -113,6 +153,13 @@ class SourceDescriptionState extends GedcomxApplicationState
         }
     }
 
+    /**
+     * Read personas associated with the current source description.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     public function readPersonas(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::PERSONS);
@@ -137,6 +184,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a persona to the current source description using a person object.
+     *
      * @param Person $person
      * @param StateTransitionOption $option,...
      *
@@ -150,6 +199,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a persona to the current source description using a GEDCOM X object.
+     *
      * @param Gedcomx $persona
      * @param StateTransitionOption $option,...
      *
@@ -175,6 +226,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Queries for attached references to this source description.
+     *
      * @param StateTransitionOption $option,...
      *
      * @return SourceDescriptionState
@@ -197,6 +250,8 @@ class SourceDescriptionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the collection specified by this state instance.
+     *
      * @param StateTransitionOption $option,...
      *
      * @return CollectionState

@@ -83,6 +83,7 @@ class FormalDate
     private static $FORMAL_DATE_PATTERN = "/(A|R([0-9]*)\/)?([^\/]*)(\/([^\/]*))?/";
 
     /**
+     * Parses a formal date string.
      * @param $formalDateString
      * @throws \Exception
      */
@@ -194,6 +195,7 @@ class FormalDate
     }
 
     /**
+     * Set the duration of a FormalDate.
      * @param \Gedcomx\Util\Duration $duration
      */
     public function setDuration($duration)
@@ -202,6 +204,10 @@ class FormalDate
     }
 
     /**
+     * Get the Duration portion of a FormalDate, or null if there is no duration.
+     * If the duration is non-null, then the starting date must be non-null.
+     * A duration is used in a range or in a recurring date.
+     * Must be null if the end is non-null.
      * @return \Gedcomx\Util\Duration
      */
     public function getDuration()
@@ -210,6 +216,11 @@ class FormalDate
     }
 
     /**
+     * Set the ending date of this FormalDate range.  If the starting date is null, then the date
+     *   is interpreted as "any time up to this ending time".
+     * If the date is a range, and the end is null, then it means "any time from the starting date or later".
+     * If the date is not a range, the end must be null.
+     * If the date is a range, then either the start or end must be non-null.
      * @param \Gedcomx\Util\SimpleDate $end
      */
     public function setEnd($end)
@@ -218,6 +229,10 @@ class FormalDate
     }
 
     /**
+     * Get the ending date for this FormalDate range.  If the starting date is null, then the FormalDate
+     *   is interpreted as "any time up to this ending date".
+     * If the date is a range, and the end is null, then it means "any time from the starting date or later."
+     * If the date is not a range, the end must be null.
      * @return \Gedcomx\Util\SimpleDate
      */
     public function getEnd()
@@ -226,6 +241,7 @@ class FormalDate
     }
 
     /**
+     * Set the flag for whether this date is approximate.  Note that it is illegal to have an approximate repeating date.
      * @param mixed $isApproximate
      */
     public function setIsApproximate($isApproximate)
@@ -234,6 +250,7 @@ class FormalDate
     }
 
     /**
+     * Tell whether this FormalDate is approximate.
      * @return mixed
      */
     public function getIsApproximate()
@@ -242,6 +259,7 @@ class FormalDate
     }
 
     /**
+     * Set the flag for whether this FormalDate is a range.
      * @param mixed $isRange
      */
     public function setIsRange($isRange)
@@ -250,6 +268,7 @@ class FormalDate
     }
 
     /**
+     * Tell whether this date is a range.
      * @return mixed
      */
     public function getIsRange()
@@ -258,6 +277,8 @@ class FormalDate
     }
 
     /**
+     * Set the flag for whether this is a recurring date, in which case there must be
+     *   a start date and either an end date or a duration (but not both).
      * @param mixed $isRecurring
      */
     public function setIsRecurring($isRecurring)
@@ -266,6 +287,8 @@ class FormalDate
     }
 
     /**
+     * Get the flag for whether this date is a repeating date.  If so, then there must be
+     *   a start date, and either an end date or a duration (but not both).
      * @return mixed
      */
     public function getIsRecurring()
@@ -274,6 +297,8 @@ class FormalDate
     }
 
     /**
+     * Set the number of repetitions for a recurring date.  Ignored if the date is not recurring.
+     * If null, a recurring date is assumed to have no limit on the number of repetitions.
      * @param mixed $numRepetitions
      */
     public function setNumRepetitions($numRepetitions)
@@ -282,6 +307,7 @@ class FormalDate
     }
 
     /**
+     * Get the number of repetitions for a recurring date, or null if none.
      * @return mixed
      */
     public function getNumRepetitions()
@@ -290,6 +316,7 @@ class FormalDate
     }
 
     /**
+     * Set the starting date.  (If the date is not a range, this is the whole date).
      * @param \Gedcomx\Util\SimpleDate $start
      */
     public function setStart($start)
@@ -298,6 +325,10 @@ class FormalDate
     }
 
     /**
+     * Get the starting date for this FormalDate.
+     * If the date is not a range, this is the whole date.
+     * If the date is a range, and this is null, then it implies "any time before the ending date".
+     * Must not be null if this FormalDate is not a range.
      * @return \Gedcomx\Util\SimpleDate
      */
     public function getStart()

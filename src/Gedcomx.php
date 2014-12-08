@@ -626,6 +626,11 @@ class Gedcomx extends HypermediaEnabledData
         parent::initFromArray($o);
     }
 
+    /**
+     * Accept a visitor.
+     *
+     * @param \Gedcomx\Rt\GedcomxModelVisitor $visitor
+     */
     public function accept(GedcomxModelVisitor $visitor)
     {
         $visitor->visitGedcomx($this);

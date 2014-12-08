@@ -128,6 +128,8 @@ class SimpleDate
     }
 
     /**
+     * Parses the date of the specified formal date string and loads the results into the current instance.
+     *
      * @param $simpleDateString
      * @throws \Exception
      */
@@ -206,7 +208,8 @@ class SimpleDate
     }
 
     /**
-     * @param int $day
+     * Get the day of the month as an integer from 1..31.
+     * @param day - Day number (1..31), or null if there is no day.
      */
     public function setDay($day)
     {
@@ -223,7 +226,9 @@ class SimpleDate
     }
 
     /**
-     * @param int $hour
+     * Set the hour of the day as an Integer from 0 (=midnight) to 23 (=11 p.m.).
+     * Must be null if there is no day.
+     * @param hour - Hour of the day (0..23) or null if there is no hour.
      */
     public function setHour($hour)
     {
@@ -241,6 +246,8 @@ class SimpleDate
     }
 
     /**
+     * Set the flag for whether this SimpleDate uses a time in Universal Time Code (UTC),
+     *   in which case "Z" is used in the string, and the time zone hours and minutes are ignored.
      * @param boolean $isUTC
      */
     public function setIsUTC($isUTC)
@@ -259,6 +266,8 @@ class SimpleDate
     }
 
     /**
+     * Set the minute of the hour as an Integer (0..59)
+     * Must be null if there is no hour.
      * @param int $minute
      */
     public function setMinute($minute)
@@ -276,6 +285,7 @@ class SimpleDate
     }
 
     /**
+     * Set the month number as an integer, where 1=January and 12=December.
      * @param int $month
      */
     public function setMonth($month)
@@ -294,6 +304,8 @@ class SimpleDate
     }
 
     /**
+     * Set the second of the minute as an Integer (0..59)
+     * Must be null if there is no minute.
      * @param int $second
      */
     public function setSecond($second)
@@ -311,6 +323,7 @@ class SimpleDate
     }
 
     /**
+     * Set the hour offset from GMT of the time zone.  Ignored if isUTC or if the hours is null.
      * @param int $timeZoneHours
      */
     public function setTimeZoneHours($timeZoneHours)
@@ -328,6 +341,7 @@ class SimpleDate
     }
 
     /**
+     * Set the minute offset of the time zone.  Ignored if isUTC or if the timeZoneHours is null.
      * @param int $timeZoneMinutes
      */
     public function setTimeZoneMinutes($timeZoneMinutes)
@@ -347,6 +361,9 @@ class SimpleDate
     }
 
     /**
+     * Set the year as an integer.  Positive years are treated as C.E. (A.D.);
+     * Negative years are one less than the B.C.E. (B.C.) year.
+     * For example, -9999 = 10000 B.C.; -1 = 2 B.C.; 0 = 1 B.C.; 1 = 1 A.D.; 2000 = 2000 A.D.; 9999 = 9999 A.D.
      * @param int $year
      */
     public function setYear($year)

@@ -11,6 +11,9 @@ use Guzzle\Http\Message\Response;
 use ML\JsonLD\JsonLD;
 use ML\JsonLD\RdfConstants;
 
+/**
+ * The VocabElementListState exposes management functions for a vocab element list.
+ */
 class VocabElementListState extends GedcomxApplicationState
 {
     /**
@@ -18,11 +21,24 @@ class VocabElementListState extends GedcomxApplicationState
      */
     private $rdfCollection;
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\VocabElementListState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new VocabElementListState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Parses an RDF collection from the response data.
+     *
+     * @return null
+     */
     protected function loadEntity()
     {
         $input = $this->getResponse()->getBody(true);
@@ -32,16 +48,31 @@ class VocabElementListState extends GedcomxApplicationState
         return null;
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return null
+     */
     protected function getScope()
     {
         return null;
     }
 
+    /**
+     * Gets the rel name for the current state instance.
+     *
+     * @return string
+     */
     public function getSelfRel()
     {
         return Rel::DESCRIPTION;
     }
 
+    /**
+     * Gets the vocab element list associated with this state instance.
+     *
+     * @return \Gedcomx\Vocab\VocabElementList
+     */
     public function getVocabElementList()
     {
         /** @var \Gedcomx\Rs\Client\Util\RdfCollection $rootQuads */
@@ -73,6 +104,8 @@ class VocabElementListState extends GedcomxApplicationState
     }
 
     /**
+     * Map a RDF resource that represents a vocabulary element to a GedcomX vocabulary element.
+     *
      * @param \Gedcomx\Rs\Client\Util\RdfCollection $quads
      *
      * @return \Gedcomx\Vocab\VocabElement

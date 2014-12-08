@@ -51,6 +51,7 @@ class Duration
 
 
     /**
+     * A parsing method that takes a valid duration string and parses it into a Duration object.
      * @param string $durationString of the form "P[yyyyY][mmM][ddD][T[hhH][mmM][ssS]]" that specifies a duration.
      * @throws \Exception
      */
@@ -146,6 +147,7 @@ class Duration
     }
 
     /**
+     * Set the duration day.
      * @param int $day
      */
     public function setDay($day)
@@ -154,6 +156,7 @@ class Duration
     }
 
     /**
+     * Get the duration day, or null if not specified.
      * @return int
      */
     public function getDay()
@@ -162,6 +165,7 @@ class Duration
     }
 
     /**
+     * Set the duration hour.
      * @param int $hour
      */
     public function setHour($hour)
@@ -170,6 +174,7 @@ class Duration
     }
 
     /**
+     * Get the duration hour, or null if not specified.
      * @return int
      */
     public function getHour()
@@ -178,6 +183,7 @@ class Duration
     }
 
     /**
+     * Set the duration minute.
      * @param int $minute
      */
     public function setMinute($minute)
@@ -186,6 +192,7 @@ class Duration
     }
 
     /**
+     * Get the duration minute, or null if not specified.
      * @return int
      */
     public function getMinute()
@@ -194,6 +201,7 @@ class Duration
     }
 
     /**
+     * Set the duration month.
      * @param int $month
      */
     public function setMonth($month)
@@ -202,6 +210,7 @@ class Duration
     }
 
     /**
+     * Get the duration month, or null if not specified.
      * @return int
      */
     public function getMonth()
@@ -210,6 +219,7 @@ class Duration
     }
 
     /**
+     * Set the duration second.
      * @param int $second
      */
     public function setSecond($second)
@@ -218,6 +228,7 @@ class Duration
     }
 
     /**
+     * Get the duration second, or null if not specified.
      * @return int
      */
     public function getSecond()
@@ -226,6 +237,7 @@ class Duration
     }
 
     /**
+     * Set the duration year.
      * @param int $year
      */
     public function setYear($year)
@@ -234,6 +246,7 @@ class Duration
     }
 
     /**
+     * Get the duration year, or null if not specified.
      * @return int
      */
     public function getYear()

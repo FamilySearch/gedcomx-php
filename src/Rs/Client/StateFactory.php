@@ -10,12 +10,30 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The state factory is responsible for instantiating state classes from REST API responses.
+ */
 class StateFactory
 {
+    /**
+     * The default production environment URI for the family tree.
+     */
     const PRODUCTION_URI = "https://familysearch.org/platform/collections/tree";
+    /**
+     * The default sandbox environment URI for the family tree.
+     */
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/tree";
+    /**
+     * The default production environment URI for the discovery endpoint.
+     */
     const PRODUCTION_DISCOVERY_URI = "https://familysearch.org/platform/collection";
+    /**
+     * The default sandbox environment URI for the discovery endpoint.
+     */
     const SANDBOX_DISCOVERY_URI = "https://sandbox.familysearch.org/platform/collection";
+    /**
+     * This is the environment variable to use at runtime to determine if REST API request logging will occur.
+     */
     const ENABLE_LOG4PHP_LOGGING_ENV_NAME = "enableLog4PhpLogging";        // env variable/property to set
 
     /**
@@ -23,12 +41,19 @@ class StateFactory
      */
     protected $production;
 
+    /**
+     * Constructs a new instance of this state factory, using the environment specified (defaults to sandbox).
+     *
+     * @param bool $production
+     */
     public function __construct($production = false)
     {
         $this->production = $production;
     }
 
     /**
+     * Returns a new collection state by invoking the specified URI and method, using the specified client.
+     *
      * @param string              $uri    Optional URI
      * @param \Guzzle\Http\Client $client The client to use.
      * @param string $method The method.
@@ -51,6 +76,8 @@ class StateFactory
     }
 
     /**
+     * Returns a new discovery state by invoking the specified URI and method, using the specified client.
+     *
      * @param string              $uri    Optional URI
      * @param \Guzzle\Http\Client $client The client to use.
      * @param string              $method The method.
@@ -72,6 +99,11 @@ class StateFactory
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
+    /**
+     * Loads the default client for executing REST API requests.
+     *
+     * @return \Gedcomx\Util\FilterableClient
+     */
     protected function defaultClient()
     {
         $opts = array(
@@ -94,6 +126,8 @@ class StateFactory
     }
 
     /**
+     * Returns a new person state by invoking the specified URI and method, using the specified client.
+     *
      * @param string $uri The URI to the person.
      * @param \Guzzle\Http\Client $client The client to use.
      * @param string $method The method.
@@ -113,6 +147,8 @@ class StateFactory
     }
 
     /**
+     * Dynamically creates and returns a state instance for the specified class, if a state builder is defined.
+     *
      * @param string $class The name of the state class to create
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
@@ -128,6 +164,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new collection state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -141,6 +179,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new collections state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -153,6 +193,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new source descriptions state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client           $client
      * @param \Guzzle\Http\Message\Request  $request
      * @param \Guzzle\Http\Message\Response $response
@@ -166,6 +208,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new source description state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -179,6 +223,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new persons state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -192,6 +238,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new person children state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -205,6 +253,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new person state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -218,6 +268,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new person parents state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -231,6 +283,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new person spouses state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -244,6 +298,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new ancestry results state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -257,6 +313,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new descendancy results state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -270,6 +328,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new person search results state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -283,6 +343,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new record state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -296,6 +358,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new relationship state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -309,6 +373,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new agent state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -322,6 +388,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new place search state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -335,6 +403,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new place description state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -348,6 +418,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new vocab element list state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
@@ -361,6 +433,8 @@ class StateFactory
     }
 
     /**
+     * Builds a new vocab element state from the specified client, request, response, and access token.
+     *
      * @param \Guzzle\Http\Client $client
      * @param \Guzzle\Http\Message\Request $request
      * @param \Guzzle\Http\Message\Response $response
