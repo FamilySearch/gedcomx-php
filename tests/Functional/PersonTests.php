@@ -243,7 +243,7 @@ class PersonTests extends ApiTestCase
      */
     public function testPersonChangeSummary()
     {
-        $this->markTestIncomplete("Test not yet implemented"); //todo
+        $this->markTestSkipped("Change summary will not be tested.");
     }
 
     /**

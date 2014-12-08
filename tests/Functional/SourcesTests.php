@@ -176,7 +176,24 @@ class SourcesTests extends ApiTestCase
      */
     public function testReadPersonSources()
     {
-        $this->markTestIncomplete("Test not yet implemented"); //todo
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        $client = $this->collectionState()->getClient();
+        $token = $this->collectionState()->getAccessToken();
+        /** @var FamilyTreePersonState $person */
+        $person = $this->createPerson()->get();
+        $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
+        $person->addSourceReferenceState($sds);
+        $link = $person->getLink("source-descriptions")->getHref();
+        $request = $client->createRequest(Request::GET, $link);
+        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
+        $request->setHeader('Authorization', "Bearer {$token}");
+        $response = $client->send($request);
+        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+
+        $this->assertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertNotNull($state->getSourceDescription());
     }
 
     /**
@@ -479,7 +496,26 @@ class SourcesTests extends ApiTestCase
      */
     public function testDeleteCoupleRelationshipSourceReference()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $factory = new FamilyTreeStateFactory();
+        $this->collectionState($factory);
+        /** @var FamilyTreePersonState $husband */
+        $husband = $this->createPerson('male')->get();
+        /** @var FamilyTreePersonState $wife */
+        $wife = $this->createPerson('female');
+        /** @var RelationshipState $relationship */
+        $relationship = $husband->addSpouse($wife)->get();
+        $sourceState = $this->createSource();
+        $reference = new SourceReference();
+        $reference->setDescriptionRef($sourceState->getSelfUri());
+        $reference->setAttribution( new Attribution( array(
+            "changeMessage" => $this->faker->sentence(6)
+        )));
+        $relationship->addSourceReference($reference);
+        $relationship->loadSourceReferences();
+        $state = $relationship->deleteSourceReference($relationship->getSourceReference());
+
+        $this->AssertNotNull($state->ifSuccessful());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
     }
 
     /**
