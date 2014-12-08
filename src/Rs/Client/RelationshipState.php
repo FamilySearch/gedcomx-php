@@ -51,7 +51,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Instantiates a new relationship and only sets the relationship ID to the current relationship's ID.
-     *
      * @return \Gedcomx\Conclusion\Relationship
      */
     protected function createEmptySelf()
@@ -63,7 +62,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the current relationship ID.
-     *
      * @return null|string
      */
     protected function getLocalSelfId()
@@ -74,7 +72,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the entity represented by this state (if applicable). Not all responses produce entities.
-     *
      * @return \Gedcomx\Gedcomx
      */
     protected function loadEntity()
@@ -86,7 +83,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the main data element represented by this state instance.
-     *
      * @return \Gedcomx\Conclusion\Relationship
      */
     protected function getScope()
@@ -96,7 +92,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the first relationship of the current relationships.
-     *
      * @return Relationship
      */
     public function getRelationship()
@@ -494,7 +489,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the first note from the current relationship notes.
-     *
      * @return \Gedcomx\Common\Note|null
      */
     public function getNote()
@@ -513,7 +507,6 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the first source reference from the current relationship sources.
-     *
      * @return \Gedcomx\Source\SourceReference|null
      */
     public function getSourceReference()
@@ -777,7 +770,7 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Loads the embedded resources for the specified links.
-     * 
+     *
      * @param array                                            $rels
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -792,5 +785,14 @@ class RelationshipState extends GedcomxApplicationState
             }
         }
         return $this;
+    }
+
+    /**
+     * Gets the rel name for the current state instance.
+     * @return string
+     */
+    public function getSelfRel()
+    {
+        return Rel::RELATIONSHIP;
     }
 }
