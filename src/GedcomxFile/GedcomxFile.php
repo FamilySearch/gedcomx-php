@@ -150,7 +150,7 @@ class GedcomxFile
     }
 
     /**
-     * Begin parsing by looking manifest file
+     * Read the archive contents
      */
     private function loadEntries()
     {
@@ -167,7 +167,7 @@ class GedcomxFile
     }
 
     /**
-     * Create a list of entries without a manifest file
+     * Look for the manifest file and parse it if found.
      */
     private function readManifest()
     {

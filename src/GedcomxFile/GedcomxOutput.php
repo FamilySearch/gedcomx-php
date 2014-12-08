@@ -6,7 +6,7 @@ use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Gedcomx;
 
 /**
- * Class GedcomxOutputStream
+ * Class GedcomxOutput
  * @package Gedcomx\GedcomxFile
  *
  *          Create a .gedx file

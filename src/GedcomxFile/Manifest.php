@@ -2,6 +2,13 @@
 
 namespace Gedcomx\GedcomxFile;
 
+/**
+ * Class Manifest
+ *
+ * @package Gedcomx\GedcomxFile
+ *
+ *          An object representing the MANIFEST.MF file of a .gedx archive
+ */
 class Manifest
 {
     const MANIFEST_FOLDER = 'META-INF';
