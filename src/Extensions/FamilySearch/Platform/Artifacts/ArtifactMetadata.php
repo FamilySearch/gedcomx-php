@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Artifacts;
 
 /**
- * FamilySearch-specific metadata about an artifact.
+ * Class ArtifactMetadata
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Artifacts
+ *
+ *          FamilySearch-specific metadata about an artifact.
  */
 class ArtifactMetadata
 {
@@ -238,6 +242,7 @@ class ArtifactMetadata
      * Sets a known child element of ArtifactMetadata from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -273,6 +278,7 @@ class ArtifactMetadata
      * Sets a known attribute of ArtifactMetadata from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -288,6 +294,7 @@ class ArtifactMetadata
      * Writes this ArtifactMetadata to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)

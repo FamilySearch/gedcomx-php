@@ -12,9 +12,10 @@ use Gedcomx\Types\RelationshipType;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
-use RuntimeException;
 
 /**
+ * Class RelationshipsState
+ * @package Gedcomx\Rs\Client
  * The RelationshipsState exposes management functions for a relationships collection.
  */
 class RelationshipsState extends GedcomxApplicationState
@@ -68,6 +69,14 @@ class RelationshipsState extends GedcomxApplicationState
     }
 
     /**
+     * Define the rel name for this state as a fall back if it cannot be determined from state data.
+     * @return null|string
+     */
+    public function getSelfRel(){
+        return Rel::RELATIONSHIP;
+    }
+
+    /**
      * Gets the relationships represented by the current entity collection Gedcomx->getRelationships().
      *
      * @return Relationship[]|null
@@ -110,7 +119,7 @@ class RelationshipsState extends GedcomxApplicationState
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $options,...
      *
-     * @return mixed
+     * @return RelationshipState
      */
     public function addRelationship(Relationship $relationship, StateTransitionOption $options = null)
     {
@@ -129,6 +138,9 @@ class RelationshipsState extends GedcomxApplicationState
 
     /**
      * Creates a spouse relationship between the two specified persons.
+     * The person1 parameter does not have to be the husband, it could be the wife; however, person2 must be the opposite. So if you
+     * specify a husband for person1 then person2 must be the wife. Conversely, if you specify a wife for person1
+     * then person2 must be the husband.
      *
      * @param Person $person1
      * @param Person $person2
@@ -146,7 +158,7 @@ class RelationshipsState extends GedcomxApplicationState
     }
 
     /**
-     * Creates a parent child relationship for the specified persons.
+     * Creates a parent child relationship for the specified persons.     *
      *
      * @param \Gedcomx\Conclusion\Person                       $parent
      * @param \Gedcomx\Conclusion\Person                       $child

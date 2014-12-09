@@ -13,6 +13,7 @@ use Gedcomx\Common\ResourceReference;
 use Gedcomx\Records\Field;
 use Gedcomx\Records\HasFields;
 use Gedcomx\Rt\GedcomxModelVisitor;
+use Gedcomx\Types\FactType;
 
 /**
  * A relationship between two or more persons.
@@ -94,7 +95,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     }
 
     /**
-     * @return RelationshipType|null
+     * @return \Gedcomx\Types\RelationshipType|null
      */
     public function getKnownType() {
         return $this->getType();
@@ -160,7 +161,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
        * the other person in this relationship and implies neither order nor role. When the relationship type
        * implies direction, it goes from &quot;person1&quot; to &quot;person2&quot;.
      *
-     * @param ResourceReference $person2
+     * @param \Gedcomx\Common\ResourceReference $person2
      */
     public function setPerson2($person2)
     {
@@ -168,7 +169,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     }
 
     /**
-     * @param Fact $fact
+     * @param \Gedcomx\Conclusion\Fact $fact
      */
     public function addFact(Fact $fact)
     {
@@ -181,9 +182,10 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
 
     /**
      * Return a fact of a specific type.
-     * @param string Fact type
      *
-     * @return Fact[]|Fact|null
+     * @param string FactType
+     *
+     * @return \Gedcomx\Conclusion\Fact[]|\Gedcomx\Conclusion\Fact|null
      */
     public function getFactsOfType($type)
     {
@@ -206,7 +208,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     /**
      * The fact conclusions for the relationship.
      *
-     * @return Fact[]
+     * @return \Gedcomx\Conclusion\Fact[]
      */
     public function getFacts()
     {
@@ -216,7 +218,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     /**
      * The fact conclusions for the relationship.
      *
-     * @param Fact[] $facts
+     * @param \Gedcomx\Conclusion\Fact[] $facts
      */
     public function setFacts(array $facts)
     {
@@ -224,7 +226,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     }
 
     /**
-     * @param Field $field
+     * @param \Gedcomx\Records\Field $field
      */
     public function addField(Field $field)
     {
@@ -238,7 +240,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     /**
      * The references to the record fields being used as evidence.
      *
-     * @return Field[]
+     * @return \Gedcomx\Records\Field[]
      */
     public function getFields()
     {
@@ -248,7 +250,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
     /**
      * The references to the record fields being used as evidence.
      *
-     * @param Field[] $fields
+     * @param \Gedcomx\Records\Field[] $fields
      */
     public function setFields(array $fields)
     {
@@ -337,9 +339,11 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * Sets a known child element of Relationship from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement(\XMLReader $xml) {
+    protected function setKnownChildElement(\XMLReader $xml) 
+    {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -377,9 +381,11 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * Sets a known attribute of Relationship from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *                        
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute(\XMLReader $xml) {
+    protected function setKnownAttribute(\XMLReader $xml) 
+    {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }
@@ -395,6 +401,7 @@ class Relationship extends Subject implements HasFacts, HasNotes, HasFields
      * Writes this Relationship to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml(\XMLWriter $writer, $includeNamespaces = true)

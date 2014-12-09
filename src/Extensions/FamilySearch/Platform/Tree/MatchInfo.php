@@ -10,7 +10,10 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
- * Information about a match.
+ * Class MatchInfo
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *          Information about a match.
  */
 class MatchInfo
 {
@@ -176,6 +179,7 @@ class MatchInfo
      * Sets a known child element of MatchInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -186,6 +190,7 @@ class MatchInfo
      * Sets a known attribute of MatchInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -205,6 +210,7 @@ class MatchInfo
      * Writes this MatchInfo to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)

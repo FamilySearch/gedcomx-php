@@ -52,18 +52,17 @@ class Document extends Conclusion
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -213,16 +212,15 @@ class Document extends Conclusion
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'text') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = '';
-                while ($xml->read() && $xml->hasValue) {
-                    $child = $child . $xml->value;
-                }
-                $this->text = $child;
-                $happened = true;
+          return true;
+        }
+        else if (($xml->localName == 'text') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
             }
+            $this->text = $child;
+            $happened = true;
         }
 
         return $happened;
@@ -239,24 +237,18 @@ class Document extends Conclusion
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
-        } else {
-            if (($xml->localName == 'textType') && (empty($xml->namespaceURI))) {
-                $this->textType = $xml->value;
-
-                return true;
-            } else {
-                if (($xml->localName == 'extracted') && (empty($xml->namespaceURI))) {
-                    $this->extracted = $xml->value;
-
-                    return true;
-                } else {
-                    if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
-                        $this->type = $xml->value;
-
-                        return true;
-                    }
-                }
-            }
+        }
+        else if (($xml->localName == 'textType') && (empty($xml->namespaceURI))) {
+            $this->textType = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'extracted') && (empty($xml->namespaceURI))) {
+            $this->extracted = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
         }
 
         return false;

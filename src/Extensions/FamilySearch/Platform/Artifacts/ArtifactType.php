@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Artifacts;
 
 /**
- * Enumeration of known artifact types.
+ * Class ArtifactType
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Artifacts
+ *
+ *          Enumeration of known artifact types.
  */
 class ArtifactType
 {

@@ -54,18 +54,17 @@ class NamePart extends ExtensibleData
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -232,27 +231,24 @@ class NamePart extends ExtensibleData
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = new Field($xml);
-                if (!isset($this->fields)) {
-                    $this->fields = array();
-                }
-                array_push($this->fields, $child);
-                $happened = true;
-            } else {
-                if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                    $child = new Qualifier($xml);
-                    if (!isset($this->qualifiers)) {
-                        $this->qualifiers = array();
-                    }
-                    array_push($this->qualifiers, $child);
-                    $happened = true;
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'field') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new Field($xml);
+            if (!isset($this->fields)) {
+                $this->fields = array();
+            }
+            array_push($this->fields, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'qualifier') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new Qualifier($xml);
+            if (!isset($this->qualifiers)) {
+                $this->qualifiers = array();
+            }
+            array_push($this->qualifiers, $child);
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -267,18 +263,14 @@ class NamePart extends ExtensibleData
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
-        } else {
-            if (($xml->localName == 'value') && (empty($xml->namespaceURI))) {
-                $this->value = $xml->value;
-
-                return true;
-            } else {
-                if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
-                    $this->type = $xml->value;
-
-                    return true;
-                }
-            }
+        }
+        else if (($xml->localName == 'value') && (empty($xml->namespaceURI))) {
+            $this->value = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
         }
 
         return false;

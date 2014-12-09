@@ -14,6 +14,13 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * Class ChangeHistoryState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+ *
+ *         The ChangeHistoryState exposes management functions for a change history
+ */
 class ChangeHistoryState extends GedcomxApplicationState
 {
 

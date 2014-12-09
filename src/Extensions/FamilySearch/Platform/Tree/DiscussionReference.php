@@ -8,6 +8,14 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 use Gedcomx\Common\Attribution;
 use Gedcomx\Links\HypermediaEnabledData;
 
+/**
+ * Class DiscussionReference
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          Manages the discussion object.
+ *
+ */
 class DiscussionReference extends HypermediaEnabledData
 {
     /**
@@ -42,18 +50,17 @@ class DiscussionReference extends HypermediaEnabledData
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -171,15 +178,13 @@ class DiscussionReference extends HypermediaEnabledData
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                $child = new Attribution($xml);
-                $this->attribution = $child;
-                $happened = true;
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'attribution') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new \Gedcomx\Common\Attribution($xml);
+            $this->attribution = $child;
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -194,18 +199,14 @@ class DiscussionReference extends HypermediaEnabledData
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
-        } else {
-            if (($xml->localName == 'resourceId') && (empty($xml->namespaceURI))) {
-                $this->resourceId = $xml->value;
-
-                return true;
-            } else {
-                if (($xml->localName == 'resource') && (empty($xml->namespaceURI))) {
-                    $this->resource = $xml->value;
-
-                    return true;
-                }
-            }
+        }
+        else if (($xml->localName == 'resourceId') && (empty($xml->namespaceURI))) {
+            $this->resourceId = $xml->value;
+            return true;
+        }
+        else if (($xml->localName == 'resource') && (empty($xml->namespaceURI))) {
+            $this->resource = $xml->value;
+            return true;
         }
 
         return false;

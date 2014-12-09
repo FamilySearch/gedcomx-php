@@ -9,21 +9,27 @@ use Gedcomx\Common\ResourceReference;
 use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
 /**
+ * Class Merge
  *
+ *  * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *             Manage Merge Object
  */
 class Merge
 {
     /**
      * List of resources to remove from the survivor person.
-     *
-     * @var \Gedcomx\Common\ResourceReference[]
+     
+     * 
+*@var ResourceReference[]
      */
     private $resourcesToDelete;
 
     /**
      * List of resources to copy from the duplicate person to survivor person.
-     *
-     * @var \Gedcomx\Common\ResourceReference[]
+     
+     * 
+*@var ResourceReference[]
      */
     private $resourcesToCopy;
 
@@ -38,25 +44,25 @@ class Merge
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
     /**
      * List of resources to remove from the survivor person.
-     *
-     * @return \Gedcomx\Common\ResourceReference[]
+     
+     * 
+*@return ResourceReference[]
      */
     public function getResourcesToDelete()
     {
@@ -65,8 +71,9 @@ class Merge
 
     /**
      * List of resources to remove from the survivor person.
-     *
-     * @param \Gedcomx\Common\ResourceReference[] $resourcesToDelete
+     
+     * 
+*@param ResourceReference[] $resourcesToDelete
      */
     public function setResourcesToDelete($resourcesToDelete)
     {
@@ -75,8 +82,9 @@ class Merge
 
     /**
      * Add a resource to the list of resources to delete from the survivor.
-     *
-     * @param \Gedcomx\Common\ResourceReference $resource
+     
+     * 
+*@param ResourceReference $resource
      */
     public function addResourceToDelete(ResourceReference $resource)
     {
@@ -85,8 +93,9 @@ class Merge
 
     /**
      * List of resources to copy from the duplicate person to survivor person.
-     *
-     * @return \Gedcomx\Common\ResourceReference[]
+     
+     * 
+*@return ResourceReference[]
      */
     public function getResourcesToCopy()
     {
@@ -95,8 +104,9 @@ class Merge
 
     /**
      * List of resources to copy from the duplicate person to survivor person.
-     *
-     * @param \Gedcomx\Common\ResourceReference[] $resourcesToCopy
+     
+     * 
+* @param ResourceReference[] $resourcesToCopy
      */
     public function setResourcesToCopy($resourcesToCopy)
     {
@@ -105,8 +115,9 @@ class Merge
 
     /**
      * Add a resource to the list of resources to copy to the survivor.
+     
      *
-     * @param \Gedcomx\Common\ResourceReference $resource
+     * @param ResourceReference $resource
      */
     public function addResourceToCopy(ResourceReference $resource)
     {
@@ -194,14 +205,13 @@ class Merge
             while ($xml->nodeType != \XMLReader::END_ELEMENT) {
                 if ($xml->nodeType != \XMLReader::ELEMENT) {
                     //no-op: skip any insignificant whitespace, comments, etc.
-                } else {
-                    if (!$this->setKnownChildElement($xml)) {
-                        $n = $xml->localName;
-                        $ns = $xml->namespaceURI;
-                        //skip the unknown element
-                        while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
-                            $xml->read();
-                        }
+                }
+                else if (!$this->setKnownChildElement($xml)) {
+                    $n = $xml->localName;
+                    $ns = $xml->namespaceURI;
+                    //skip the unknown element
+                    while ($xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
+                        $xml->read();
                     }
                 }
                 $xml->read(); //advance the reader.
@@ -226,17 +236,15 @@ class Merge
             }
             array_push($this->resourcesToDelete, $child);
             $happened = true;
-        } else {
-            if (($xml->localName == 'resourceToCopy') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                $child = new ResourceReference($xml);
-                if (!isset($this->resourcesToCopy)) {
-                    $this->resourcesToCopy = array();
-                }
-                array_push($this->resourcesToCopy, $child);
-                $happened = true;
-            }
         }
-
+        else if (($xml->localName == 'resourceToCopy') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new ResourceReference($xml);
+            if (!isset($this->resourcesToCopy)) {
+                $this->resourcesToCopy = array();
+            }
+            array_push($this->resourcesToCopy, $child);
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -293,6 +301,8 @@ class Merge
     }
 
     /**
+     * Accept a visitor.
+     *
      * @param \Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor $visitor
      */
     public function accept(FamilySearchPlatformModelVisitor $visitor)

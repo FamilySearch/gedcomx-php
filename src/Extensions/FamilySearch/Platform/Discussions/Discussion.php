@@ -11,7 +11,11 @@ use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
- * A discussion.
+ * Class Discussion
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Discussions
+ *
+ *          Manages Discussion Object
  */
 class Discussion extends HypermediaEnabledData
 {
@@ -75,18 +79,17 @@ class Discussion extends HypermediaEnabledData
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -337,69 +340,61 @@ class Discussion extends HypermediaEnabledData
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                $child = '';
-                while ($xml->read() && $xml->hasValue) {
-                    $child = $child . $xml->value;
-                }
-                $this->title = $child;
-                $happened = true;
-            } else {
-                if (($xml->localName == 'details') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                    $child = '';
-                    while ($xml->read() && $xml->hasValue) {
-                        $child = $child . $xml->value;
-                    }
-                    $this->details = $child;
-                    $happened = true;
-                } else {
-                    if (($xml->localName == 'created') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                        $child = '';
-                        while ($xml->read() && $xml->hasValue) {
-                            $child = $child . $xml->value;
-                        }
-                        $this->created = $child;
-                        $happened = true;
-                    } else {
-                        if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                            $child = new ResourceReference($xml);
-                            $this->contributor = $child;
-                            $happened = true;
-                        } else {
-                            if (($xml->localName == 'modified') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                                $child = '';
-                                while ($xml->read() && $xml->hasValue) {
-                                    $child = $child . $xml->value;
-                                }
-                                $this->modified = $child;
-                                $happened = true;
-                            } else {
-                                if (($xml->localName == 'numberOfComments') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                                    $child = '';
-                                    while ($xml->read() && $xml->hasValue) {
-                                        $child = $child . $xml->value;
-                                    }
-                                    $this->numberOfComments = $child;
-                                    $happened = true;
-                                } else {
-                                    if (($xml->localName == 'comment') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
-                                        $child = new Comment($xml);
-                                        if (!isset($this->comments)) {
-                                            $this->comments = array();
-                                        }
-                                        array_push($this->comments, $child);
-                                        $happened = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'title') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->title = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'details') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->details = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'created') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->created = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'contributor') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new ResourceReference($xml);
+            $this->contributor = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'modified') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->modified = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'numberOfComments') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->numberOfComments = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'comment') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new Comment($xml);
+            if (!isset($this->comments)) {
+                $this->comments = array();
+            }
+            array_push($this->comments, $child);
+            $happened = true;
+        }
         return $happened;
     }
 

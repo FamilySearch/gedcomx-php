@@ -22,6 +22,14 @@ use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * Class ChildAndParentsRelationshipState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+ *
+ *          The ChildAndParentsRelationshipState exposes management and other FamilySearch specific functions for a children and parents.
+ *
+ */
 class ChildAndParentsRelationshipState extends FamilySearchCollectionState implements PreferredRelationshipState
 {
 
@@ -75,9 +83,9 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * Return a conclusion object associated with this relationship.
+     * Gets the first conclusion for this relationship. FatherFact is returned first if it is not null; otherwise, MotherFact is returned.
      *
-     * @return \Gedcomx\Conclusion\Conclusion
+     * @return Conclusion
      */
     public function getConclusion()
     {
@@ -123,7 +131,9 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * @return \Gedcomx\Common\Note|null
+     * Gets the first Note from the current Relationship.
+     *
+     * @return Note|null
      */
     public function getNote()
     {
@@ -362,7 +372,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Add a list of facts to the father in this relationship
      *
-     * @param array                                            $facts
+     * @param \Gedcomx\Conclusion\Fact[]                                            $facts
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @return ChildAndParentsRelationshipState
@@ -375,7 +385,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     }
 
     /**
-     * Update a fact on the father.
+     * Update the specified father fact on the current relationship.
      *
      * @param \Gedcomx\Conclusion\Fact                         $fact
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
@@ -390,7 +400,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Update a list of facts on the father.
      *
-     * @param array                                            $facts
+     * @param \Gedcomx\Conclusion\Fact[]                                            $facts
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
@@ -418,7 +428,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Add a list of facts to the mother in this relationship
      *
-     * @param array                                            $facts
+     * @param \Gedcomx\Conclusion\Fact[]                                            $facts
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
@@ -446,7 +456,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Update a list of facts on the mother in this relationship
      *
-     * @param array                                            $facts
+     * @param \Gedcomx\Conclusion\Fact[]                                            $facts
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState

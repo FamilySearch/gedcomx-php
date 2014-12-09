@@ -14,7 +14,11 @@ use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
- * 
+ * Class Comment
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Discussions
+ *
+ *          Manages Comment Object
  */
 class Comment extends HypermediaEnabledData
 {
@@ -44,6 +48,7 @@ class Comment extends HypermediaEnabledData
      * Constructs a Comment from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
+     *
      * @throws \Exception
      */
     public function __construct($o = null)
@@ -173,9 +178,11 @@ class Comment extends HypermediaEnabledData
      * Sets a known child element of Comment from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement(\XMLReader $xml) {
+    protected function setKnownChildElement(\XMLReader $xml)
+    {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -208,9 +215,11 @@ class Comment extends HypermediaEnabledData
      * Sets a known attribute of Comment from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *                        
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute(\XMLReader $xml) {
+    protected function setKnownAttribute(\XMLReader $xml) 
+    {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }

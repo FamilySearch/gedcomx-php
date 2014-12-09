@@ -52,18 +52,17 @@ class Name extends Conclusion
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -225,33 +224,29 @@ class Name extends Conclusion
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'preferred') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = '';
-                while ($xml->read() && $xml->hasValue) {
-                    $child = $child . $xml->value;
-                }
-                $this->preferred = $child;
-                $happened = true;
-            } else {
-                if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                    $child = new DateInfo($xml);
-                    $this->date = $child;
-                    $happened = true;
-                } else {
-                    if (($xml->localName == 'nameForm') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                        $child = new NameForm($xml);
-                        if (!isset($this->nameForms)) {
-                            $this->nameForms = array();
-                        }
-                        array_push($this->nameForms, $child);
-                        $happened = true;
-                    }
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'preferred') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->preferred = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'date') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\DateInfo($xml);
+            $this->date = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'nameForm') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\NameForm($xml);
+            if (!isset($this->nameForms)) {
+                $this->nameForms = array();
+            }
+            array_push($this->nameForms, $child);
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -266,12 +261,10 @@ class Name extends Conclusion
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
-        } else {
-            if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
-                $this->type = $xml->value;
-
-                return true;
-            }
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
         }
 
         return false;

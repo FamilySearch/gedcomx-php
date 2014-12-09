@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
- * The set of operations applicable to FamilySearch data.
+ * Class ChangeOperation
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          The set of operations applicable to FamilySearch data.
  */
 class ChangeOperation
 {

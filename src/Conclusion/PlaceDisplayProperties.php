@@ -47,18 +47,17 @@ class PlaceDisplayProperties extends ExtensibleData
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -176,36 +175,32 @@ class PlaceDisplayProperties extends ExtensibleData
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'fullName') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = '';
-                while ($xml->read() && $xml->hasValue) {
-                    $child = $child . $xml->value;
-                }
-                $this->fullName = $child;
-                $happened = true;
-            } else {
-                if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                    $child = '';
-                    while ($xml->read() && $xml->hasValue) {
-                        $child = $child . $xml->value;
-                    }
-                    $this->name = $child;
-                    $happened = true;
-                } else {
-                    if (($xml->localName == 'type') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                        $child = '';
-                        while ($xml->read() && $xml->hasValue) {
-                            $child = $child . $xml->value;
-                        }
-                        $this->type = $child;
-                        $happened = true;
-                    }
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'fullName') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->fullName = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'type') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->type = $child;
+            $happened = true;
+        }
         return $happened;
     }
 
