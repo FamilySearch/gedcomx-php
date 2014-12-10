@@ -17,46 +17,72 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
 
+/**
+ * This is the base class for all state instances.
+ *
+ * Class GedcomxApplicationState
+ *
+ * @package Gedcomx\Rs\Client
+ */
 abstract class GedcomxApplicationState
 {
     /**
+     * The REST API client to use with all API calls.
+     *
      * @var Client
      */
     protected $client;
     /**
+     * Gets or sets the REST API request.
+     *
      * @var Request
      */
     protected $request;
     /**
+     * Gets or sets the REST API response.
+     *
      * @var Response
      */
     protected $response;
     /**
+     * Gets or sets the current access token (the OAuth2 token), see {@link https://familysearch.org/developers/docs/api/authentication/Access_Token_resource}.
+     *
      * @var string
      */
     protected $accessToken;
     /**
+     * The factory responsible for creating new state instances from REST API response data.
+     *
      * @var StateFactory
      */
     protected $stateFactory;
     /**
+     * The list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
      * @var array
      */
     protected $links;
     /**
+     * Gets the entity represented by this state (if applicable). Not all responses produce entities.
+     *
      * @var object
      */
     protected $entity;
     /**
+     * The last embedded request (from a previous call to GedcomxApplicationState embed()).
+     *
      * @var \Guzzle\Http\Message\Request
      */
     private $lastEmbeddedRequest;
     /**
+     * Gets or sets the last embedded response (from a previous call to GedcomxApplicationState embed()).
+     *
      * @var \Guzzle\Http\Message\Response
      */
     private $lastEmbeddedResponse;
 
     /**
+     * Constructs a new GedcomxApplicationState using the specified client, request, response, access token, and state factory.
      * @param Client       $client
      * @param Request      $request
      * @param Response     $response
@@ -74,6 +100,11 @@ abstract class GedcomxApplicationState
         $this->links = $this->loadLinks();
     }
 
+    /**
+     * Loads the entity from the REST API response if the response should have data.
+     *
+     * @return null
+     */
     protected function loadEntityConditionally()
     {
         if (   ($this->request->getMethod() != Request::HEAD && $this->request->getMethod() != Request::OPTIONS)
@@ -87,13 +118,33 @@ abstract class GedcomxApplicationState
         }
     }
 
+    /**
+     * Clonse the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return mixed
+     */
     protected abstract function reconstruct(Request $request, Response $response);
 
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return mixed
+     */
     protected abstract function loadEntity();
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return mixed
+     */
     protected abstract function getScope();
 
     /**
+     * Invokes the specified REST API request and returns a state instance of the REST API response.
+     *
      * @param \Guzzle\Http\Message\Request $request
      *
      * @return mixed
@@ -104,6 +155,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Loads all links from a REST API response and entity object, whether from the header, response body, or any other properties available to extract useful links for this state instance.
+     *
      * @return array
      */
     protected function loadLinks()
@@ -141,6 +194,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets sets the main REST API client to use with all API calls.
+     *
      * @return \Gedcomx\Util\FilterableClient
      */
     public function getClient()
@@ -149,6 +204,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the current access token (the OAuth2 token), see https://familysearch.org/developers/docs/api/authentication/Access_Token_resource.
+     *
      * @return string
      */
     public function getAccessToken()
@@ -157,6 +214,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the REST API request.
+     *
      * @return \Guzzle\Http\Message\Request
      */
     public function getRequest()
@@ -165,6 +224,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the REST API response.
+     *
      * @return \Guzzle\Http\Message\Response
      */
     public function getResponse()
@@ -173,6 +234,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the last embedded request (from a previous call to GedcomxApplicationState embed()).
+     *
      * @return \Guzzle\Http\Message\Request
      */
     public function getLastEmbeddedRequest()
@@ -181,6 +244,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the last embedded response (from a previous call to GedcomxApplicationState embed()).
+     *
      * @return \Guzzle\Http\Message\Response
      */
     public function getLastEmbeddedResponse()
@@ -189,6 +254,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the entity represented by this state (if applicable). Not all responses produce entities.
+     *
      * @return object
      */
     public function getEntity()
@@ -197,6 +264,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets a value indicating whether this instance is authenticated.
+     *
      * @return boolean whether this state is authenticated.
      */
     public function isAuthenticated()
@@ -205,6 +274,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the URI of the REST API request associated to this state instance.
+     *
      * @return string The URI for this application state.
      */
     public function getUri()
@@ -213,6 +284,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Determines whether the server response status code indicates a client side error (status code >= 400 and < 500).
+     *
      * @return bool Whether this state is a client-side error.
      */
     public function hasClientError()
@@ -222,6 +295,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Determines whether the server response status code indicates a server side error (status code >= 500 and < 600).
+     *
      * @return bool Whether this state is a server-side error.
      */
     public function hasServerError()
@@ -231,6 +306,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Determines whether this instance has error (server [code >= 500 and < 600] or client [code >= 400 and < 500]).
+     *
      * @return bool Whether this state has an error.
      */
     public function hasError()
@@ -239,6 +316,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Determines whether the current REST API response has the specified status.
+     *
      * @param int $status
      *
      * @return bool
@@ -249,6 +328,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the collection of REST API response headers.
+     *
      * @return array The headers for this state.
      */
     public function getHeaders()
@@ -257,6 +338,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the REST API response header (by name) if present.
+     *
      * @param string $name The name of the header to retrieve.
      *
      * @return array return a specific header for this state.
@@ -267,6 +350,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the URI representing this current state instance.
+     *
      * @return string The self-URI for this state.
      */
     public function getSelfUri()
@@ -292,11 +377,18 @@ abstract class GedcomxApplicationState
         }
     }
 
+    /**
+     * Gets the rel name for the current state instance. This is expected to be overridden.
+     *
+     * @return null
+     */
     public function getSelfRel(){
         return null;
     }
 
     /**
+     * Gets the entity tag of the entity represented by this instance.
+     *
      * @return \Guzzle\Http\Message\Header|null
      */
     public function getETag() {
@@ -304,6 +396,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the last modified date of the entity represented by this instance.
+     *
      * @return \Guzzle\Http\Message\Header|null
      */
     public function getLastModified() {
@@ -311,6 +405,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the resource reference represented by this instance.
+     *
      * @return ResourceReference
      */
     public function getResourceReference(){
@@ -325,6 +421,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes a HEAD verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState
@@ -340,6 +438,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes a GET verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
@@ -355,6 +455,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes an DELETE verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState
@@ -370,6 +472,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes an OPTIONS verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState
@@ -385,6 +489,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes a PUT verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param                                                  $entity
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -407,6 +513,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Executes a POST verb request against the current REST API request and returns a state instance with the response.
+     *
      * @param \Gedcomx\Gedcomx                                 $entity
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -432,6 +540,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Get a link by its rel. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
      * @param string $rel The link rel.
      *
      * @return \Gedcomx\Links\Link
@@ -445,12 +555,19 @@ abstract class GedcomxApplicationState
         return null;
     }
 
+    /**
+     * Gets the list of hypermedia links. Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
+     *
+     * @return array
+     */
     public function getLinks()
     {
         return $this->links == null ? array() : $this->links;
     }
 
     /**
+     * Returns the current state instance if there are no errors in the current REST API response; otherwise, it throws an exception with the response details.
+     *
      * @throws GedcomxApplicationException If this state captures an error.
      * @return GedcomxApplicationState $this
      */
@@ -463,12 +580,21 @@ abstract class GedcomxApplicationState
         return $this;
     }
 
+    /**
+     * Sets the current access token to the one specified. The server is not contacted during this operation.
+     *
+     * @param $accessToken
+     *
+     * @return $this
+     */
     protected function authenticateWithAccessToken($accessToken) {
         $this->accessToken = $accessToken;
         return $this;
     }
 
     /**
+     * Authenticates this session via OAuth2.
+     *
      * @param array $formData The form parameters.
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState $this
@@ -520,6 +646,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Authenticates this session via OAuth2 password.
+     *
      * @param string $username     The username.
      * @param string $password     The password.
      * @param string $clientId     The client id.
@@ -543,6 +671,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Authenticates this session via OAuth2 authentication code.
+     *
      * @param string $authCode The auth code.
      * @param string $redirect The redirect URI.
      * @param string $clientId The client id.
@@ -566,6 +696,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Authenticates this session via OAuth2 client credentials.
+     *
      * @param string $clientId The client id.
      * @param string $clientSecret The client secret.
      * @return GedcomxApplicationState $this
@@ -582,6 +714,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Creates a state instance without authentication. It will produce an access token, but only good for requests that do not need authentication.
+     *
      * @param string $clientId The client id.
      * @param string $ipAddress The client's ipaddress.
      * @return GedcomxApplicationState $this
@@ -598,6 +732,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Gets the collection of "Link" headers found in the REST API response, if any; otherwise, returns an empty array.
+     *
      * @return Link[] links if Link headers found
      */
     private function getLinkHeaders()
@@ -613,6 +749,8 @@ abstract class GedcomxApplicationState
 
 
     /**
+     * Gets the warning headers from the current REST API response.
+     *
      * @param array $headers optional: if not present current state object's headers
      *                       will be used.
      * @return string[] warning messages if Warning Headers are found
@@ -634,9 +772,10 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Builds a pretty failure message from the specified response's warning headers, using the specified request for
+     * additional information.
      * @param \Guzzle\Http\Message\Request   $request   HTTP request object
      * @param \Guzzle\Http\Message\Response  $response  HTTP response object
-     *
      * @return string
      */
     protected function buildFailureMessage( Request $request, Response $response ) {
@@ -651,6 +790,8 @@ abstract class GedcomxApplicationState
 
 
     /**
+     * Reads a page of results, usually of type \Gedcomx\Atom\Feed.
+     *
      * @param string                                           $rel        The rel
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
@@ -677,6 +818,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the next page of results, usually of type \Gedcomx\Atom\Feed.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
@@ -687,6 +830,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the previous page of results, usually of type \Gedcomx\Atom\Feed.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
@@ -697,6 +842,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the first page of results, usually of type \Gedcomx\Atom\Feed.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
@@ -707,6 +854,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the last page of results, usually of type \Gedcomx\Atom\Feed.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... zero or more StateTransitionOption objects
      *
      * @return \Gedcomx\Rs\Client\GedcomxApplicationState The requested page.
@@ -728,6 +877,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Creates a request object (with authorization when present) for use with REST API requests.
+     *
      * @param string       $method  The http method.
      * @param string|array $uri     optional: string with an href, or an array with template info
      *
@@ -743,6 +894,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Creates a request object that expects a "application/x-gedcomx-atom+json" response (with authorization when present) for use with REST API requests.
+     *
      * @param string       $method  The http method.
      * @param string|array $uri     optional: string with an href, or an array with template info
      *
@@ -756,6 +909,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Creates a request object that will send and expect "application/x-gedcomx-v1+json" data (with authorization when present) for use with REST API requests.
+     *
      * @param string       $method  The http method.
      * @param string|array $uri    optional: string with an href, or an array with template info
      *
@@ -769,11 +924,21 @@ abstract class GedcomxApplicationState
         return $request;
     }
 
+    /**
+     * Creates a REST API request (with appropriate authentication headers).
+     *
+     * @param                     $method
+     * @param \Gedcomx\Links\Link $link
+     *
+     * @return \Guzzle\Http\Message\Request
+     */
     protected function createRequestForEmbeddedResource($method, Link $link) {
         return $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
     }
 
     /**
+     * Executes the specified link and embeds the response in the current instance entity.
+     *
      * @param \Gedcomx\Links\Link                              $link
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -816,7 +981,11 @@ abstract class GedcomxApplicationState
         return $this;
     }
 
-
+    /**
+     * Extracts embedded links from the current instance entity, calls each one, and embeds the response into the current instance entity.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $options
+     */
     protected function includeEmbeddedResources(StateTransitionOption $options = null) {
         $this->passOptionsTo('loadAllEmbeddedResources', array(), func_get_args());
     }
@@ -837,6 +1006,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * This function emulates optional parameters present in other languages.
+     *
      * @param string $functionName The function to call. Assumed to be in $this scope
      * @param array  $args         New arguments to pass to the function
      * @param array  $passed_args  Possible optional arguments from the calling function
@@ -860,6 +1031,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the contributor for the current state instance.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\AgentState|null
@@ -875,6 +1048,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the contributor for the specified attributable.
+     *
      * @param \Gedcomx\Common\Attributable                     $attributable
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -892,6 +1067,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Reads the contributor for the specified resource reference.
+     *
      * @param \Gedcomx\Common\ResourceReference                $contributor
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -914,6 +1091,8 @@ abstract class GedcomxApplicationState
     }
 
     /**
+     * Applies the specified options before calling IFilterableRestClient.Handle() which applies any filters before executing the request.
+     *
      * @param \Guzzle\Http\Message\Request                     $request    the request to send.
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... StateTransitionOptions to be applied before sending
      *

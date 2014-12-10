@@ -17,6 +17,7 @@ class RdfNode
     const LANG = 'ML\JsonLD\LanguageTaggedString';
 
     /**
+     * Gets the value for the specified node.
      * @param mixed $node
      *
      * @return string|null
@@ -36,6 +37,8 @@ class RdfNode
     }
 
     /**
+     * Gets the language value for the specified node.
+     *
      * @param mixed $node
      *
      * @return null|string

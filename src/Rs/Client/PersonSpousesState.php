@@ -12,9 +12,15 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The PersonSpousesState exposes management functions for person spouses.
+ *
+ * Class PersonSpousesState
+ *
+ * @package Gedcomx\Rs\Client
+ */
 class PersonSpousesState extends GedcomxApplicationState
 {
-
     /**
      * Create a new PersonSpousesState
      *

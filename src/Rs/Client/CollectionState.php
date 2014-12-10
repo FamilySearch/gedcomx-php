@@ -22,30 +22,66 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
 
+/**
+ * The CollectionState is a collection of resources and exposes management of those resources.
+ *
+ * Class CollectionState
+ *
+ * @package Gedcomx\Rs\Client
+ */
 class CollectionState extends GedcomxApplicationState
 {
+    /**
+     * Constructs a new collection state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\CollectionState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new CollectionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return \Gedcomx\Gedcomx
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
         return new Gedcomx($json);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return \Gedcomx\Records\Collection|null
+     */
     protected function getScope()
     {
         return $this->getCollection();
     }
 
     /**
+     * Gets the first collection from the current list of collections (in the entity).
+     *
      * @return Collection|null
      */
     public function getCollection()
@@ -61,6 +97,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified collection.
+     *
      * @param Collection $collection
      * @param StateTransitionOption $options,...
      * @return CollectionState|null
@@ -73,23 +111,61 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-     * @return RecordsState|null
+     * Reads records from this collection.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $options,...
+     *
+     * @return \Gedcomx\Rs\Client\RecordsState|null
      */
-    public function readRecords()
+    public function readRecords(StateTransitionOption $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::RECORDS);
+        if ($link == null || $link->getHref() == null)
+        {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        return $this->stateFactory->createState(
+            "RecordsState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
-     * @param Gedcomx $record
-     * @return RecordState|null
+     * Adds a record to this collection.
+     *
+     * @param Gedcomx                                          $record
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $options
+     *
+     * @return \Gedcomx\Rs\Client\RecordState|null
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
-    public function addRecord($record)
+    public function addRecord($record, StateTransitionOption $options = null)
     {
-        throw new RuntimeException("function currently not implemented."); //todo: implement
+        $link = $this->getLink(Rel::RECORDS);
+        if ($link == null || $link->getHref() == null)
+        {
+            throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding records.", $this->getUri()));
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        $request->setBody($record->toJson());
+        return $this->stateFactory->createState(
+            "RecordState",
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
     }
 
     /**
+     * Reads the person record for the current user.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonState|null
@@ -112,6 +188,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Creates a persons collection from the current collection.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonsState|null
@@ -122,6 +200,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the person specified by the URI.
+     *
      * @param string $uri href from a Link object
      * @param StateTransitionOption $option,...
      *
@@ -144,6 +224,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Searches for persons based off the specified query.
+     *
      * @param GedcomxSearchQuery|string $query
      * @param StateTransitionOption $option,...
      *
@@ -180,6 +262,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a person to the current collection.
+     *
      * @param Person|Gedcomx $person
      * @param StateTransitionOption $option,...
      *
@@ -211,6 +295,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the array of relationships to the collection.
+     *
      * @param array $relationships
      * @param StateTransitionOption $option
      * @return RelationshipState
@@ -236,9 +322,13 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
-     * @return RelationshipsState|null
+     * Reads relationships from the current collection.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\RelationshipsState|null
      */
-    public function readRelationships()
+    public function readRelationships(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::RELATIONSHIPS);
         if ($link == null || $link->getHref() == null) {
@@ -256,6 +346,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds relationship to the collection.
+     *
      * @param Relationship|Gedcomx $relationship
      * @param StateTransitionOption $option,...
      *
@@ -284,6 +376,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a spouse relationship between the two persons and applies the specified fact.
+     *
      * @param PersonState $person1
      * @param PersonState $person2
      * @param Fact $fact
@@ -305,6 +399,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a parent child relationship between the two persons and applies the specified fact.
+     *
      * @param PersonState $parent
      * @param PersonState $child
      * @param Fact $fact
@@ -312,7 +408,7 @@ class CollectionState extends GedcomxApplicationState
      *
      * @return RelationshipState|null
      */
-    public function addParentRelationship(PersonState $parent, PersonState $child, Fact $fact = null, StateTransitionOption $option = null)
+    public function AddParentChildRelationship(PersonState $parent, PersonState $child, Fact $fact = null, StateTransitionOption $option = null)
     {
         $relationship = new Relationship();
         $relationship->setPerson1(new ResourceReference($parent->getSelfUri()));
@@ -326,6 +422,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds an artifact to the collection.
+     *
      * @param \Gedcomx\Rs\Client\Util\DataSource               $artifact
      * @param \Gedcomx\Source\SourceDescription                $description
      * @param \Gedcomx\Rs\Client\GedcomxApplicationState       $state
@@ -384,6 +482,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the source descriptions for the current collection.
+     *
      * @param StateTransitionOption $option,...
      *
      * @return SourceDescriptionsState|null
@@ -406,6 +506,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a source description to the current collection.
+     *
      * @param SourceDescription $source
      * @param StateTransitionOption $option,...
      *
@@ -433,6 +535,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the collection specified by this state instance.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\CollectionState|null
@@ -455,6 +559,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the subcollections specified by this state instance.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\CollectionsState|null
@@ -477,6 +583,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a collection to the subcollection resource specified by this state instance.
+     *
      * @param Collection $collection
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -504,6 +612,8 @@ class CollectionState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the resources (a collection source descriptions) of the current user.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState|null
