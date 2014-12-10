@@ -4,9 +4,18 @@ namespace Gedcomx\Rs\Client\Util;
 
 use Gedcomx\Util\Collection;
 
+/**
+ * Represents an RDF specific collection.
+ *
+ * Class RdfCollection
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class RdfCollection extends Collection
 {
     /**
+     * Returns an array of quads with subjects matching the specified URI.
+     *
      * @param string $uri
      *
      * @return RdfCollection
@@ -24,6 +33,8 @@ class RdfCollection extends Collection
     }
 
     /**
+     * Returns an array of quads with properties matching the specified URI.
+     *
      * @param string $uri
      *
      * @return RdfCollection
@@ -41,6 +52,8 @@ class RdfCollection extends Collection
     }
 
     /**
+     * Returns the first quad with a subject matching the specified URI.
+     *
      * @param string $uri
      *
      * @return \ML\JsonLD\Quad
@@ -57,6 +70,8 @@ class RdfCollection extends Collection
     }
 
     /**
+     * Returns the first quad with a property matching the specified URI.
+     *
      * @param string $uri
      *
      * @return \ML\JsonLD\Quad
