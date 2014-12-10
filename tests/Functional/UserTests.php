@@ -48,10 +48,12 @@ class UserTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User's_History_usecase
      */
     public function testReadCurrentUserHistory()
     {
+        $this->markTestSkipped('Skipping for now.');
+
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
         $historyState = $this->collectionState()->readCurrentUserHistory();
@@ -83,10 +85,12 @@ class UserTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
+     * @link https://familysearch.org/developers/docs/api/tree/Update_Current_User's_History_usecase
      */
     public function testUpdateCurrentUserHistory()
     {
+        $this->markTestSkipped('Skipping for now.');
+
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
         $historyState = $this->collectionState()->readCurrentUserHistory();

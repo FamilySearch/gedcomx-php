@@ -71,7 +71,7 @@ class FamilyTreePersonState extends PersonState
     /**
      * @return ChildAndParentsRelationship[]|null
      */
-    public function getChildAndParentsRelationshipsToChildren()
+    public function getRelationshipsToChildren()
     {
         $relationships = $this->getChildAndParentsRelationships();
         if ($relationships == null) {
@@ -91,7 +91,7 @@ class FamilyTreePersonState extends PersonState
     /*
      * @return ChildAndParentsRelationship[]|null
      */
-    public function getChildAndParentsRelationshipsToParents()
+    public function getRelationshipsToParents()
     {
         $relationships = $this->getChildAndParentsRelationships();
         if ($relationships == null) {

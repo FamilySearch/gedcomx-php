@@ -191,13 +191,13 @@ class PersonState extends GedcomxApplicationState
     /**
      * Check a resource reference to see if its URI is the same as this person.
      *
-     * @param ResourceReference $ref
+     * @param ResourceReference|null $ref
      *
      * @return bool
      */
-    protected function refersToMe(ResourceReference $ref)
+    protected function refersToMe(ResourceReference $ref = null)
     {
-        return $ref != null && $ref->getResource() != null && $ref->getResource() == "#" . $this->getLocalSelfId();
+        return $ref != null && $ref->getResourceId() != null && $ref->getResourceId() == $this->getLocalSelfId();
     }
 
     /**
