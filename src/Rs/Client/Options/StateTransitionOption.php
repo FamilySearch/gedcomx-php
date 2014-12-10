@@ -4,6 +4,13 @@
 
 	use Guzzle\Http\Message\Request;
 
+	/**
+	 * Defines a method to manipulate and apply options to a REST API request before execution.
+	 *
+	 * Interface StateTransitionOption
+	 *
+	 * @package Gedcomx\Rs\Client\Options
+	 */
 	interface StateTransitionOption {
 
         /**

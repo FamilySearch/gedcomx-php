@@ -11,7 +11,13 @@ namespace Gedcomx\GedcomxFile;
  */
 class Manifest
 {
+    /**
+     * The folder (within a JAR file) under which the manifest meta file resides.
+     */
     const MANIFEST_FOLDER = 'META-INF';
+    /**
+     * The name of the manifest meta file.
+     */
     const MANIFEST_FILE = 'MANIFEST.MF';
 
     /**

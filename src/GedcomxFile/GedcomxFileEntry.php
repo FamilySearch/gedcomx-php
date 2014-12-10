@@ -2,6 +2,13 @@
 
 namespace Gedcomx\GedcomxFile;
 
+/**
+ * Represents a GEDCOM X file entry within a zip file.
+ *
+ * Class GedcomxFileEntry
+ *
+ * @package Gedcomx\GedcomxFile
+ */
 class GedcomxFileEntry
 {
     /**

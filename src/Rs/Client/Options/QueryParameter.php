@@ -5,12 +5,34 @@
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 
+    /**
+     * Represents a generic query string parameter to use in REST API requests.
+     *
+     * Class QueryParameter
+     *
+     * @package Gedcomx\Rs\Client\Options
+     */
     class QueryParameter implements StateTransitionOption
     {
+        /**
+         * The access token query parameter.
+         */
         const ACCESS_TOKEN = "access_token";
+        /**
+         * The count query parameter.
+         */
         const COUNT = "count";
+        /**
+         * The generations query parameter.
+         */
         const GENERATIONS = "generations";
+        /**
+         * The search query parameter.
+         */
         const SEARCH_QUERY = "q";
+        /**
+         * The start query parameter.
+         */
         const START = "start";
 
         private $replace;
@@ -18,6 +40,8 @@
         private $value;
 
         /**
+         * Constructs a new generic query parameter using the specified values.
+         *
          * @param boolean $replace
          * @param string  $name
          * @param string  $value,...
@@ -35,6 +59,11 @@
             }
         }
 
+        /**
+         * This method adds the current parameter to the specified REST API request.
+         *
+         * @param \Guzzle\Http\Message\Request $request
+         */
         public function apply(Request $request)
         {
             $query = $request->getQuery(false);
@@ -43,6 +72,8 @@
         }
 
         /**
+         * Creates an access token query string parameter.
+         *
          * @param string $value
          *
          * @return QueryParameter
@@ -53,6 +84,8 @@
         }
 
         /**
+         * Creates a count query string parameter.
+         *
          * @param string $value
          *
          * @return QueryParameter
@@ -63,6 +96,8 @@
         }
 
         /**
+         * Creates a generations query string parameter.
+         *
          * @param string $value
          *
          * @return QueryParameter
@@ -73,6 +108,8 @@
         }
 
         /**
+         * Creates a search query string parameter.
+         *
          * @param string $value
          *
          * @return QueryParameter
@@ -83,6 +120,8 @@
         }
 
         /**
+         * Creates a start query string parameter.
+         *
          * @param string $value
          *
          * @return QueryParameter
@@ -91,5 +130,4 @@
         {
             return new QueryParameter(true, self::START, $value);
         }
-
     }

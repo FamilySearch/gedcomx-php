@@ -4,6 +4,13 @@ namespace Gedcomx\Rs\Client\Util;
 
 use Guzzle\Http\Message\PostFile;
 
+/**
+ * A basic class for using various data sources with the artifacts and memories API.
+ *
+ * Class DataSource
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class DataSource
 {
     private $filepath;
@@ -12,6 +19,8 @@ class DataSource
     private $isFile;
 
     /**
+     * Sets the file that will be uploaded.
+     *
      * @param string $filepath Path to the file to upload
      */
     public function setFile($filepath)
@@ -31,6 +40,8 @@ class DataSource
     }
 
     /**
+     * Sets the title of the file to be uploaded.
+     *
      * @param string $title A human readable name to associate with the data file
      */
     public function setTitle($title)
