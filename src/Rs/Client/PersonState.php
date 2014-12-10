@@ -25,8 +25,20 @@ use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The PersonState exposes management functions for a person.
+ */
 class PersonState extends GedcomxApplicationState
 {
+    /**
+     * Constructs a new person state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
@@ -412,6 +424,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the descendancy of the current person.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return DescendancyResultsState|null
@@ -435,6 +449,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a persona reference to the current person.
+     *
      * @param \Gedcomx\Rs\Client\PersonState                   $persona
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -446,6 +462,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a persona reference to the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -457,6 +475,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the persona references to the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference[]              $refs
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -468,6 +488,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the persona reference for the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -479,6 +501,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the persona references for the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference[]              $refs
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -490,6 +514,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the specified persona reference for the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -561,6 +587,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Loads persona references for the current person.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
@@ -1048,6 +1076,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a media reference to the current person.
+     *
      * @param \Gedcomx\Rs\Client\SourceDescriptionState        $description
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -1061,6 +1091,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a media reference to the current person.
+     *
      * @param \Gedcomx\Source\SourceReference                  $mediaReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1072,6 +1104,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds media references to the current person.
+     *
      * @param \Gedcomx\Source\SourceReference[]                $mediaReferences
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1085,6 +1119,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the media reference for the current person.
+     *
      * @param \Gedcomx\Source\SourceReference                  $mediaReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1096,6 +1132,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the media references for the current person.
+     *
      * @param \Gedcomx\Source\SourceReference[]                $mediaReferences
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1109,6 +1147,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the specified media reference from the current person.
+     *
      * @param \Gedcomx\Source\SourceReference                  $mediaReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1134,6 +1174,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds an evidence reference to the current person.
+     *
      * @param \Gedcomx\Rs\Client\PersonState                   $person
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1149,6 +1191,8 @@ class PersonState extends GedcomxApplicationState
 
 
     /**
+     * Adds an evidence reference to the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1160,6 +1204,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the evidence references to the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference[]              $evidenceReferences
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1173,6 +1219,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Update the evidence reference for the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $evidenceReference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1184,6 +1232,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the evidence references for the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference[]              $evidenceReferences
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1197,6 +1247,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the evidence reference from the current person.
+     *
      * @param \Gedcomx\Common\EvidenceReference                $reference
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -1222,6 +1274,15 @@ class PersonState extends GedcomxApplicationState
 
     }
 
+    /**
+     * Updates the references of the specified person.
+     *
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param                                                  $rel
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed
+     */
     protected function updateReferences(Person $person, $rel, StateTransitionOption $option = null)
     {
         $target = $this->getSelfUri();
@@ -1574,6 +1635,8 @@ class PersonState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the specified person as a parent to the current person.
+     * 
      * @param \Gedcomx\Conclusion\Person                       $person
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *

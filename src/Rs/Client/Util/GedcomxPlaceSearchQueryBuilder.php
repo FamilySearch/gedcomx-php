@@ -2,18 +2,51 @@
 
 namespace Gedcomx\Rs\Client\Util;
 
+/**
+ * This is a helper utility for building syntactically correct place search query strings.
+ *
+ * Class GedcomxPlaceSearchQueryBuilder
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilder
 {
+    /**
+     * The name parameter in place search queries.
+     */
     const NAME          = "name";
+    /**
+     * The date parameter in place search queries.
+     */
     const DATE          = "date";
+    /**
+     * The parent parameter in place search queries.
+     */
     const PARENT_ID     = "parentId";
+    /**
+     * The type parameter in place search queries.
+     */
     const TYPE_ID       = "typeId";
+    /**
+     * The type group parameter in place search queries.
+     */
     const TYPE_GROUP_ID = "typeGroupId";
+    /**
+     * The latitude parameter in place search queries.
+     */
     const LATITUDE      = "latitude";
+    /**
+     * The longitude parameter in place search queries.
+     */
     const LONGITUDE     = "longitude";
+    /**
+     * The distance parameter in place search queries.
+     */
     const DISTANCE      = "distance";
 
     /**
+     * Creates a generic search parameter with the specified name and value.
+     *
      * @param string $name
      * @param string $value
      * @param string $prefix
@@ -234,5 +267,4 @@ class GedcomxPlaceSearchQueryBuilder extends GedcomxBaseSearchQueryBuilder
     {
         return $this->param("-", self::DISTANCE, $value, false);
     }
-
 }

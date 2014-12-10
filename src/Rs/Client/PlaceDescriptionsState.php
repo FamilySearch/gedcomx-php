@@ -8,15 +8,27 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The PlaceDescriptionsState exposes management functions for place descriptions.
+ */
 class PlaceDescriptionsState extends GedcomxApplicationState
 {
-
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\PlaceDescriptionsState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new PlaceDescriptionsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     /**
+     * Returns the entity from the REST API response.
+     *
      * @return \Gedcomx\Gedcomx
      */
     protected function loadEntity()
@@ -25,6 +37,11 @@ class PlaceDescriptionsState extends GedcomxApplicationState
         return new Gedcomx($json);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return object
+     */
     protected function getScope()
     {
         return $this->getEntity();
@@ -40,6 +57,8 @@ class PlaceDescriptionsState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a place description to the current collection of place descriptions.
+     *
      * @param \Gedcomx\Conclusion\PlaceDescription             $place
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -60,6 +79,13 @@ class PlaceDescriptionsState extends GedcomxApplicationState
         );
     }
 
+    /**
+     * Reads the collection specified by this state instance.
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed|null
+     */
     public function readCollection(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::COLLECTION);

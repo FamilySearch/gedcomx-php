@@ -13,9 +13,17 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use RuntimeException;
 
+/**
+ * The PersonParentsState exposes management functions for person parents.
+ *
+ * Class PersonParentsState
+ *
+ * @package Gedcomx\Rs\Client
+ */
 class PersonParentsState extends GedcomxApplicationState
 {
     /**
+     * Constructs a new person parents state using the specified client, request, response, access token, and state factory.
      * @param Client       $client
      * @param Request      $request
      * @param Response     $response
@@ -27,23 +35,42 @@ class PersonParentsState extends GedcomxApplicationState
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Rs\Client\PersonParentsState
+     */
     protected function reconstruct( Request $request, Response $response)
     {
         return new PersonParentsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return \Gedcomx\Gedcomx
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
         return new Gedcomx($json);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return object
+     */
     protected function getScope()
     {
         return $this->getEntity();
     }
 
     /**
+     * Gets the list of parents for the person represented by this state instance.
+     *
      * @return Person[]|null
      */
     public function getPersons()
@@ -56,6 +83,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Gets the list of relationships for the person's parents.
+     *
      * @return Relationship[]|null
      */
     public function getRelationships()
@@ -68,6 +97,11 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Finds the relationship to the specified parent.
+     * This method iterates over the current person's relationships, and each item is examined
+     * to determine if the parent ID in the relationship matches the parent ID for the specified parent. If one is found,
+     * that relationship object containing that parent ID is returned, and no other relationships are examined further.
+     *
      * @param Person $parent
      * @return Relationship|null
      */
@@ -86,6 +120,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the current person represented by this state instance.
+     *
      * @param Options\StateTransitionOption $option,...
      *
      * @return PersonState
@@ -108,6 +144,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the specified person, which is a parent to the current person. This person could come the array of persons for the current person.
+     *
      * @param Person                        $parent
      * @param Options\StateTransitionOption $option,...
      *
@@ -134,6 +172,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Reads the specified relationship, which is a relationship between the current person and a parent. This relationship could come from the array of relationships for the current person.
+     *
      * @param Relationship                  $relationship
      * @param Options\StateTransitionOption $option,...
      *
@@ -160,6 +200,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Removes the specified relationship, which is a relationship between the current person and a parent.
+     *
      * @param Relationship                  $relationship
      * @param Options\StateTransitionOption $option,...
      *
@@ -187,6 +229,8 @@ class PersonParentsState extends GedcomxApplicationState
     }
 
     /**
+     * Removes the relationship from the current person to the specified person.
+     *
      * @param Person                        $parent
      * @param Options\StateTransitionOption $option,...
      *
