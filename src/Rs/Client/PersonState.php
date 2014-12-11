@@ -452,7 +452,7 @@ class PersonState extends GedcomxApplicationState
      * Adds a persona reference to the current person.
      *
      * @param \Gedcomx\Rs\Client\PersonState                   $persona
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -465,7 +465,7 @@ class PersonState extends GedcomxApplicationState
      * Adds a persona reference to the current person.
      *
      * @param \Gedcomx\Common\EvidenceReference                $reference
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -478,7 +478,7 @@ class PersonState extends GedcomxApplicationState
      * Adds the persona references to the current person.
      *
      * @param \Gedcomx\Common\EvidenceReference[]              $refs
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -491,7 +491,7 @@ class PersonState extends GedcomxApplicationState
      * Updates the persona reference for the current person.
      *
      * @param \Gedcomx\Common\EvidenceReference                $reference
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -504,7 +504,7 @@ class PersonState extends GedcomxApplicationState
      * Updates the persona references for the current person.
      *
      * @param \Gedcomx\Common\EvidenceReference[]              $refs
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -517,7 +517,7 @@ class PersonState extends GedcomxApplicationState
      * Deletes the specified persona reference for the current person.
      *
      * @param \Gedcomx\Common\EvidenceReference                $reference
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -1079,7 +1079,7 @@ class PersonState extends GedcomxApplicationState
      * Adds a media reference to the current person.
      *
      * @param \Gedcomx\Rs\Client\SourceDescriptionState        $description
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState
      */
@@ -1279,7 +1279,7 @@ class PersonState extends GedcomxApplicationState
      *
      * @param \Gedcomx\Conclusion\Person                       $person
      * @param                                                  $rel
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -1425,7 +1425,7 @@ class PersonState extends GedcomxApplicationState
      * Get a RelationshipState associated with the relationship object.
      *
      * @param Relationship          $relationship
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return RelationshipState|null
      */
@@ -1452,7 +1452,7 @@ class PersonState extends GedcomxApplicationState
      * Read the relative given by a specific relationship definition
      *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1532,7 +1532,7 @@ class PersonState extends GedcomxApplicationState
     /**
      * Read the first child associated with this person
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1545,7 +1545,7 @@ class PersonState extends GedcomxApplicationState
      * Read the child at a given position
      *
      * @param int                                              $index
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1563,7 +1563,7 @@ class PersonState extends GedcomxApplicationState
      * Read the child defined by this relationship
      *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1594,7 +1594,7 @@ class PersonState extends GedcomxApplicationState
     /**
      * Read the first parent associated with this person
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1607,7 +1607,7 @@ class PersonState extends GedcomxApplicationState
      * Read the parent at a given position
      *
      * @param int                                              $index
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1625,7 +1625,7 @@ class PersonState extends GedcomxApplicationState
      * Read the parent defined by this relationship
      *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -1691,7 +1691,7 @@ class PersonState extends GedcomxApplicationState
      * Read the spouse based on a Relationship object
      *
      * @param Relationship          $relationship
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -1773,7 +1773,7 @@ class PersonState extends GedcomxApplicationState
      *
      * @param \Gedcomx\Rs\Client\Util\DataSource               $data
      * @param \Gedcomx\Source\SourceDescription                $description
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionState|null
      */
@@ -1807,7 +1807,7 @@ class PersonState extends GedcomxApplicationState
      * Remove a conclusion from this person.
      *
      * @param Conclusion            $conclusion
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return PersonState
      * @throws Exception\GedcomxApplicationException

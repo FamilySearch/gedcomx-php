@@ -91,7 +91,7 @@
          * Add a list of relationships to the collection
          *
          * @param \Gedcomx\Conclusion\Relationship[]               $relationships
-         * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+         * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
          *
          * @return RelationshipState
          * @throws GedcomxApplicationException

@@ -99,7 +99,7 @@ class PersonNonMatchesState extends PersonState
      * Removes the declared non match person from this collection.
      *
      * @param \Gedcomx\Conclusion\Person                       $nonMatch
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

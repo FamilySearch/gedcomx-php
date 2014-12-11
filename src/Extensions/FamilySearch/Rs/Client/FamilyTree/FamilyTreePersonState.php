@@ -25,17 +25,39 @@ use Guzzle\Http\Message\Response;
 
 class FamilyTreePersonState extends PersonState
 {
+    /**
+     * Create new instance of FamilyTreePersonState
+     *
+     * @param \Guzzle\Http\Client                                                          $client
+     * @param \Guzzle\Http\Message\Request                                                 $request
+     * @param \Guzzle\Http\Message\Response                                                $response
+     * @param string                                                                       $accessToken
+     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory $stateFactory
+     */
     public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilyTreeStateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clone this instance of FamilyTreePersonState
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState
+     */
     protected function  reconstruct(Request $request, Response $response)
     {
         /** @var \Gedcomx\Rs\Client\StateFactory $stateFactory */
         return new FamilyTreePersonState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Parse the response body if we have an HTTP status that indicates one should be present.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform|null
+     */
     protected function loadEntityConditionally()
     {
         if ($this->request->getMethod() == Request::GET
@@ -48,6 +70,11 @@ class FamilyTreePersonState extends PersonState
         }
     }
 
+    /**
+     * Parse the response body.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
@@ -55,12 +82,19 @@ class FamilyTreePersonState extends PersonState
         return new FamilySearchPlatform($json);
     }
 
+    /**
+     * Return the Person conclusion objects on this state
+     *
+     * @return Person[]|null
+     */
     public function getPersons()
     {
         return $this->getEntity() == null ? null : $this->getEntity()->getPersons();
     }
 
     /**
+     * Return the ChildAndParentsRelationship objects on this state
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getChildAndParentsRelationships()
@@ -69,6 +103,8 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
+     * Return the ChildAndParentsRelationship objects where this person is the child
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getRelationshipsToChildren()
@@ -89,6 +125,8 @@ class FamilyTreePersonState extends PersonState
     }
 
     /*
+     * Return the ChildAndParentsRelationship objects where this person is the parent
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getRelationshipsToParents()
@@ -109,7 +147,9 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param string $method
+     * Create a request object to pull in resource data
+     *
+     * @param string              $method
      * @param \Gedcomx\Links\Link $link
      *
      * @return Request
@@ -124,15 +164,24 @@ class FamilyTreePersonState extends PersonState
         return $request;
     }
 
+    /**
+     * Load discussion references for this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return mixed
+     */
     public function loadDiscussionReferences(StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('loadEmbeddedResources', array(array(Rel::DISCUSSION_REFERENCES)), func_get_args());
     }
 
     /**
-     * @param StateTransitionOption $option,...
+     * Load portraits associated with this person
      *
-     * @return SourceDescriptionsState
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionsState
      */
     public function readPortraits(StateTransitionOption $option = null)
     {
@@ -153,9 +202,11 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param StateTransitionOption $option
+     * Read the portrait for this person
      *
-     * @return Response
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Guzzle\Http\Message\Response
      */
     public function readPortrait(StateTransitionOption $option = null)
     {
@@ -170,8 +221,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionState $discussion
-     * @param StateTransitionOption $option
+     * Add a discussion reference to this person using a state object
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState $discussion
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -184,8 +237,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionReference $reference
-     * @param StateTransitionOption $option
+     * Add a discussion reference to this person using a DiscussionReference object
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                   $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -195,8 +250,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionReference[] $refs
-     * @param StateTransitionOption $option
+     * Add a list of discussion references to this person
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference[] $refs
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                     $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -206,8 +263,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionReference $reference
-     * @param StateTransitionOption $option
+     * Update a discussion reference on this person
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                   $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -217,8 +276,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionReference[] $refs
-     * @param StateTransitionOption $option
+     * Update a list of discussion references on this person
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference[] $refs
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                     $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -233,8 +294,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param Person $person
-     * @param StateTransitionOption $option
+     * Update the discussion references on a Person object
+     *
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -263,10 +326,12 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param DiscussionReference $reference
-     * @param StateTransitionOption $option
+     * Delete a discussion reference
      *
-     * @throws GedcomxApplicationException
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\DiscussionReference $reference
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      * @return FamilyTreePersonState
      */
     public function  deleteDiscussionReference(DiscussionReference $reference, StateTransitionOption $option = null)
@@ -298,8 +363,10 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
+     * Read the child and parent relationships for this person
+     *
      * @param ChildAndParentsRelationship $relationship
-     * @param StateTransitionOption $option,...
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -326,7 +393,9 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param StateTransitionOption $option
+     * Read the change history for this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChangeHistoryState
      */
@@ -349,7 +418,9 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param StateTransitionOption $option,...
+     * Get the person records flagged as possible matches to this record
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMatchResultsState
      */
@@ -372,8 +443,11 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param StateTransitionOption $options
-     * @return PersonNonMatchesState
+     * Read persons that have been marked as not a match for this person
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $options
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState
      */
     public function readNonMatches(StateTransitionOption $options = null)
     {
@@ -395,7 +469,9 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param StateTransitionOption $option,...
+     * Restore this person if it has been deleted
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return FamilyTreePersonState
      */
@@ -419,10 +495,12 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param FamilyTreePersonState $candidate
-     * @param StateTransitionOption $option
+     * Reads merge options for merging the candidate with the current person
      *
-     * @return PersonMergeState
+     * @param FamilyTreePersonState                            $candidate
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
      */
     public function readMergeOptions(FamilyTreePersonState $candidate, StateTransitionOption $option = null)
     {
@@ -430,10 +508,12 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param FamilyTreePersonState $candidate
-     * @param StateTransitionOption $option,...
+     * Reads the merge analysis resulting from comparing the current person with the candidate
      *
-     * @return PersonMergeState
+     * @param FamilyTreePersonState                            $candidate
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
      */
     public function readMergeAnalysis(FamilyTreePersonState $candidate, StateTransitionOption $option = null)
     {
@@ -441,12 +521,14 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param string $method
-     * @param FamilyTreePersonState $candidate
-     * @param StateTransitionOption $option
+     * Processes the request for merge analysis
+     *
+     * @param string                                           $method
+     * @param FamilyTreePersonState                            $candidate
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws \InvalidArgumentException
-     * @return PersonMergeState
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
      */
     protected function transitionToPersonMerge($method, FamilyTreePersonState $candidate, StateTransitionOption $option = null)
     {
@@ -488,10 +570,12 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param FamilyTreePersonState $person
-     * @param StateTransitionOption $option ,..
+     * Flag the Person passed as not a match to the current person using a state object
      *
-     * @return PersonNonMatchesState
+     * @param FamilyTreePersonState                            $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option ,..
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState
      */
     public function addNonMatchState(FamilyTreePersonState $person, StateTransitionOption $option = null)
     {
@@ -499,10 +583,12 @@ class FamilyTreePersonState extends PersonState
     }
 
     /**
-     * @param Person $person
-     * @param StateTransitionOption $option
+     * Flag the Person passed as not a match to the current person using a Person conclusion object
      *
-     * @return PersonNonMatchesState|null
+     * @param \Gedcomx\Conclusion\Person                       $person
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState|null
      */
     public function addNonMatchPerson(Person $person, StateTransitionOption $option = null)
     {

@@ -75,7 +75,7 @@ class ChangeHistoryState extends GedcomxApplicationState
      * Restores the specified change if it had been reverted.
      *
      * @param \Gedcomx\Atom\Entry                              $change
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      * @return ChangeHistoryState | null

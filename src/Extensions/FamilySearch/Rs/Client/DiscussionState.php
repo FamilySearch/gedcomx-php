@@ -116,7 +116,8 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Loads the comments for the current discussion.
      *
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      */
     public function loadComments(StateTransitionOption $option = null)
@@ -148,7 +149,7 @@ class DiscussionState extends GedcomxApplicationState
      * Updates the specified discussion.
      *
      * @param \Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion $discussion
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                 $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                 $option,...
      *
      * @return mixed
      */
@@ -160,8 +161,8 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Adds a comment to the current discussion.
      *
-     * @param String $comment
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param String                                           $comment
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return DiscussionState
      */
@@ -173,8 +174,8 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Adds a comment to the current discussion.
      *
-     * @param Comment $comment
-     * @param StateTransitionOption $option
+     * @param Comment               $comment
+     * @param StateTransitionOption $option,...
      *
      * @return DiscussionState
      */
@@ -186,8 +187,9 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Adds the specified comments to the current discussion.
      *
-     * @param array $comments
-     * @param StateTransitionOption $option
+     * @param Comment[]             $comments
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      */
     public function addComments(array $comments, StateTransitionOption $option = null)
@@ -200,8 +202,9 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Updates the specified comment on the current discussion.
      *
-     * @param Comment $comment
-     * @param StateTransitionOption $option
+     * @param Comment               $comment
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      */
     public function updateComment(Comment $comment, StateTransitionOption $option = null)
@@ -212,8 +215,9 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Updates the specified comments on the current discussion.
      *
-     * @param array $comments
-     * @param StateTransitionOption $option
+     * @param Comment[]             $comments
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      */
     public function updateComments(array $comments, StateTransitionOption $option = null)
@@ -226,9 +230,10 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Updates the specified discussion.
      *
-     * @param Discussion $discussion
-     * @param string $rel
-     * @param StateTransitionOption $option
+     * @param Discussion            $discussion
+     * @param string                $rel
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      */
     protected function updateInternal(Discussion $discussion, $rel, StateTransitionOption $option = null)
@@ -256,8 +261,9 @@ class DiscussionState extends GedcomxApplicationState
     /**
      * Deletes the specified comment from the current discussion.
      *
-     * @param Comment $comment
-     * @param StateTransitionOption $option
+     * @param Comment               $comment
+     * @param StateTransitionOption $option,...
+     *
      * @return DiscussionState
      * @throws GedcomxApplicationException
      */

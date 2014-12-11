@@ -60,7 +60,7 @@ class PlaceDescriptionsState extends GedcomxApplicationState
      * Adds a place description to the current collection of place descriptions.
      *
      * @param \Gedcomx\Conclusion\PlaceDescription             $place
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PlaceDescriptionState
      */
@@ -82,7 +82,7 @@ class PlaceDescriptionsState extends GedcomxApplicationState
     /**
      * Reads the collection specified by this state instance.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

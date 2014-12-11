@@ -92,7 +92,7 @@ class AncestryResultsState extends GedcomxApplicationState
      * Reads the person at the specified one-based index number.
      *
      * @param                                          $ancestorNumber
-     * @param \Gedcomx\Rs\Client\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

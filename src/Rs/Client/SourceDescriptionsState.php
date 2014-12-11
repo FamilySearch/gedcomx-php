@@ -91,7 +91,7 @@ class SourceDescriptionsState extends GedcomxApplicationState
      * Adds a source description the current collection of source descriptions.
      *
      * @param \Gedcomx\Source\SourceDescription $source
-     * @param Options\StateTransitionOption     $option
+     * @param Options\StateTransitionOption     $option,...
      *
      * @return SourceDescriptionState|null
      */

@@ -77,7 +77,7 @@ class PlaceDescriptionState extends GedcomxApplicationState
     /**
      * Reads the children of the current place description.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

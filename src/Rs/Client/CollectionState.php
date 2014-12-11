@@ -297,8 +297,9 @@ class CollectionState extends GedcomxApplicationState
     /**
      * Adds the array of relationships to the collection.
      *
-     * @param array $relationships
-     * @param StateTransitionOption $option
+     * @param array                 $relationships
+     * @param StateTransitionOption $option,...
+     *
      * @return RelationshipState
      * @throws GedcomxApplicationException
      */
@@ -427,7 +428,7 @@ class CollectionState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Util\DataSource               $artifact
      * @param \Gedcomx\Source\SourceDescription                $description
      * @param \Gedcomx\Rs\Client\GedcomxApplicationState       $state
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption 1,...
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
       * @return \Gedcomx\Rs\Client\SourceDescriptionState
@@ -614,7 +615,7 @@ class CollectionState extends GedcomxApplicationState
     /**
      * Reads the resources (a collection source descriptions) of the current user.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState|null
      */

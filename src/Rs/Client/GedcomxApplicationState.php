@@ -516,7 +516,7 @@ abstract class GedcomxApplicationState
      * Executes a POST verb request against the current REST API request and returns a state instance with the response.
      *
      * @param \Gedcomx\Gedcomx                                 $entity
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */

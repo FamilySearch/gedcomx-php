@@ -61,7 +61,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
      * Read the VocabElementList from the given path
      *
      * @param string                                           $path
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\VocabElementListState|null
      */
@@ -93,7 +93,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
      * Read the place type group with the given id
      *
      * @param string                                           $id
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\VocabElementListState|null the place type group with the given id
      */
@@ -127,7 +127,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
      * Read the place type with the given id
      *
      * @param string                                           $id
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\VocabElementState|null the place type group with the given id
      */
@@ -161,7 +161,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
      * Return the PlaceGroup with the given id
      *
      * @param string                                           $id
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PlaceGroupState|null
      */

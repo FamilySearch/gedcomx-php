@@ -152,7 +152,7 @@
 		/**
 		 * Reads the current tree user data.
 		 *
-		 * @param StateTransitionOption $option
+		 * @param StateTransitionOption $option,...
 		 *
 		 * @return UserState|null
 		 */
@@ -178,7 +178,7 @@
 		/**
 		 * Reads the current user's history.
 		 *
-		 * @param StateTransitionOption $option
+		 * @param StateTransitionOption $option,...
 		 *
 		 * @return UserHistoryState|null
 		 */
@@ -205,7 +205,7 @@
 		 * Searches for person matches based off the specified query.
 		 *
 		 * @param GedcomxPersonSearchQueryBuilder|string $query
-		 * @param StateTransitionOption                  $option
+		 * @param StateTransitionOption                  $option,...
 		 *
 		 * @return PersonMatchResultsState
 		 */
@@ -267,7 +267,7 @@
 		 * Adds a discussion to the current collection.
 		 *
 		 * @param Discussion            $discussion
-		 * @param StateTransitionOption $option
+		 * @param StateTransitionOption $option,...
 		 *
 		 * @return DiscussionState
 		 * @throws GedcomxApplicationException

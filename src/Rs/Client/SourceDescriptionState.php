@@ -156,7 +156,7 @@ class SourceDescriptionState extends GedcomxApplicationState
     /**
      * Read personas associated with the current source description.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */

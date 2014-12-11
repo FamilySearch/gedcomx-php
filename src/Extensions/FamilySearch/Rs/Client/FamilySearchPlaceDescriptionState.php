@@ -17,7 +17,7 @@ class FamilySearchPlaceDescriptionState extends PlaceDescriptionState
     /**
      * Reads the place described by the current place description.
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\StateTransitionOption $option
+     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

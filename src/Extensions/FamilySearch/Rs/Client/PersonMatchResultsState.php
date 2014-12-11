@@ -55,7 +55,8 @@ class PersonMatchResultsState extends PersonSearchResultsState
     /**
      * Reads the current person for these potential match results.
      *
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
+     *
      * @return PersonState
      */
     public function readPerson(StateTransitionOption $option = null)

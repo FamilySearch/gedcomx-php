@@ -59,7 +59,7 @@ class PlaceSearchResultsState extends GedcomxApplicationState
      * Reads the place description described by a single entry from the results.
      *
      * @param \Gedcomx\Atom\Entry                              $place
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState|null
      */

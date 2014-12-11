@@ -2,7 +2,9 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
+use Gedcomx\Conclusion\Person;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
+use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Rs\Client\PersonParentsState;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
@@ -10,8 +12,10 @@ use Guzzle\Http\Message\Response;
 class FamilyTreePersonParentsState extends PersonParentsState
 {
     /**
-     * @param Request $request
-     * @param Response $response
+     * Clone this instance of FamilyTreePersonParentsState
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
      *
      * @return FamilyTreePersonChildrenState
      */
@@ -21,6 +25,8 @@ class FamilyTreePersonParentsState extends PersonParentsState
     }
 
     /**
+     * Parse the JSON data in the response body
+     *
      * @return FamilySearchPlatform
      */
     protected function loadEntity()
@@ -31,6 +37,8 @@ class FamilyTreePersonParentsState extends PersonParentsState
     }
 
     /**
+     * Return the ChildAndParentsRelationship objects on this state object
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getChildAndParentsRelationships()
@@ -39,7 +47,9 @@ class FamilyTreePersonParentsState extends PersonParentsState
     }
 
     /**
-     * @param Person $spouse
+     * Return the
+     * @param \Gedcomx\Conclusion\Person $spouse
+     *
      * @return ChildAndParentsRelationship|null
      */
     public function findChildAndParentsRelationshipTo(Person $spouse)

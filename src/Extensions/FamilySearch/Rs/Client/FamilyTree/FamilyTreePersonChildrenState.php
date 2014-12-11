@@ -10,8 +10,10 @@ use Guzzle\Http\Message\Response;
 class FamilyTreePersonChildrenState extends PersonChildrenState
 {
     /**
-     * @param Request $request
-     * @param Response $response
+     * Clone this instance of FamilyTreePersonChildrenState
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
      *
      * @return FamilyTreePersonChildrenState
      */
@@ -21,6 +23,8 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
     }
 
     /**
+     * Parse the JSON data from the response body
+     *
      * @return FamilySearchPlatform
      */
     protected function loadEntity()
@@ -31,6 +35,8 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
     }
 
     /**
+     * Return the ChildAndParentsRelationship objects from the response
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getChildAndParentsRelationships()
@@ -38,6 +44,13 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
         return $this->getEntity() == null ? null : $this->getEntity()->getChildAndParentsRelationships();
     }
 
+    /**
+     * Find the relationships in which the given person is a child
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\Person $child
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationship|null
+     */
     public function findChildAndParentsRelationshipTo(Person $child)
     {
         $relationships = $this->getChildAndParentsRelationships();
@@ -45,8 +58,8 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
             foreach ($relationships as $relation) {
                 $personReference = $relation->getChild();
                 if ($personReference != null) {
-                    $reference = $personReference->getResource()->toString();
-                    if ($reference == "#" . child . getId()) {
+                    $reference = $personReference->getResource();
+                    if ($reference == "#" . $child->getId()) {
                         return $relation;
                     }
                 }

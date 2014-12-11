@@ -85,7 +85,7 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
     /**
      * Restore the current relationship (if it is currently deleted).
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed|null
      */

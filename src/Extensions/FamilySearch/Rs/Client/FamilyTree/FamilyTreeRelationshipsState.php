@@ -81,7 +81,7 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
      * Adds a child and parents relationship to the current relationships collection.
      *
      * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship $chap
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option,...
      *
      * @return mixed
      */

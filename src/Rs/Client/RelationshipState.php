@@ -72,6 +72,7 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the entity represented by this state (if applicable). Not all responses produce entities.
+     *
      * @return \Gedcomx\Gedcomx
      */
     protected function loadEntity()
@@ -83,6 +84,7 @@ class RelationshipState extends GedcomxApplicationState
 
     /**
      * Gets the main data element represented by this state instance.
+     *
      * @return \Gedcomx\Conclusion\Relationship
      */
     protected function getScope()
@@ -110,7 +112,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds a fact to the current relationship.
      *
      * @param Fact                          $fact
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -123,7 +125,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds facts to the current relationship.
      *
      * @param Fact[]                        $facts
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -138,7 +140,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the fact of the current relationship.
      *
      * @param Fact                          $fact
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -151,7 +153,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the facts of the current relationship.
      *
      * @param Fact[]                        $facts
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -166,7 +168,7 @@ class RelationshipState extends GedcomxApplicationState
      * Deletes the fact of the current relationship.
      *
      * @param Fact                          $fact
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @throws GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\RelationshipState
@@ -221,7 +223,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds the specified source references to the current relationship.
      *
      * @param \Gedcomx\Source\SourceReference[] $refs
-     * @param Options\StateTransitionOption     $option
+     * @param Options\StateTransitionOption     $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -237,7 +239,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the specified source reference for the current relationship.
      *
      * @param \Gedcomx\Source\SourceReference $reference
-     * @param Options\StateTransitionOption   $option
+     * @param Options\StateTransitionOption   $option,...
      *
      * @internal param \Gedcomx\Source\SourceReference $sourceReference
      * @return \Gedcomx\Rs\Client\RelationshipState
@@ -251,7 +253,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the specified source references for the current relationship.
      *
      * @param array                         $refs
-     * @param Options\StateTransitionOption $option
+     * @param Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -267,7 +269,7 @@ class RelationshipState extends GedcomxApplicationState
      * Deletes the specified source reference from the current relationship.
      *
      * @param \Gedcomx\Source\SourceReference $reference
-     * @param Options\StateTransitionOption   $option
+     * @param Options\StateTransitionOption   $option,...
      *
      * @throws Exception\GedcomxApplicationException
      * @return \Gedcomx\Rs\Client\RelationshipState
@@ -294,7 +296,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds a media reference to the current relationship.
      *
      * @param SourceDescriptionState $description
-     * @param StateTransitionOption  $option
+     * @param StateTransitionOption  $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -309,7 +311,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds a media reference to the current relationship.
      *
      * @param SourceReference       $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -322,7 +324,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds media references to the current relationship.
      *
      * @param array                 $refs
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -337,7 +339,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the media reference for the current relationship.
      *
      * @param SourceReference       $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -350,7 +352,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the media references for the current relationship.
      *
      * @param array                 $refs
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -365,7 +367,7 @@ class RelationshipState extends GedcomxApplicationState
      * Deletes the specified media reference from the current relationship.
      *
      * @param SourceReference       $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      * @throws Exception\GedcomxApplicationException
@@ -393,7 +395,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds an evidence reference to the current relationship.
      *
      * @param RelationshipState     $evidence
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -408,7 +410,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds an evidence reference to the current relationship.
      *
      * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -421,7 +423,7 @@ class RelationshipState extends GedcomxApplicationState
      * Adds the evidence references to the current relationship.
      *
      * @param array                 $refs
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -436,7 +438,7 @@ class RelationshipState extends GedcomxApplicationState
      * Update the evidence reference for the current relationship.
      *
      * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -449,7 +451,7 @@ class RelationshipState extends GedcomxApplicationState
      * Updates the evidence references for the current relationship.
      *
      * @param array                 $refs
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
@@ -464,7 +466,7 @@ class RelationshipState extends GedcomxApplicationState
      * Deletes the evidence reference from the current relationship.
      *
      * @param EvidenceReference     $reference
-     * @param StateTransitionOption $option
+     * @param StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      * @throws Exception\GedcomxApplicationException
@@ -680,7 +682,7 @@ class RelationshipState extends GedcomxApplicationState
      *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
      * @param                                                  $rel
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -711,7 +713,7 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Loads conclusions for the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -723,7 +725,7 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Loads source references for the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -735,7 +737,7 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Loads media references for the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -747,7 +749,7 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Loads evidence references for the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -759,7 +761,7 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Loads notes for the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return mixed
      */
@@ -772,7 +774,7 @@ class RelationshipState extends GedcomxApplicationState
      * Loads the embedded resources for the specified links.
      *
      * @param array                                            $rels
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return $this
      */

@@ -256,7 +256,7 @@ class PersonSpousesState extends GedcomxApplicationState
      * Read the Ancestry based on this spouse
      *
      * @param \Gedcomx\Conclusion\Person                       $person
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */
@@ -281,7 +281,7 @@ class PersonSpousesState extends GedcomxApplicationState
      * Read the Decendancy based on this spouse
      *
      * @param \Gedcomx\Conclusion\Person                       $person
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
      */

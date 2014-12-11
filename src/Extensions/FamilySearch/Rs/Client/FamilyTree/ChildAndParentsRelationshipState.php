@@ -372,8 +372,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Add a list of facts to the father in this relationship
      *
-     * @param \Gedcomx\Conclusion\Fact[]                                            $facts
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Conclusion\Fact[]                       $facts
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -388,7 +388,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
      * Update the specified father fact on the current relationship.
      *
      * @param \Gedcomx\Conclusion\Fact                         $fact
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
@@ -1137,7 +1137,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
      *
      * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship $relationship
      * @param string                                                                     $rel
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option,...
      *
      * @return ChildAndParentsRelationshipState
      */
