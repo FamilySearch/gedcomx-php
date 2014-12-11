@@ -16,19 +16,45 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use Gedcomx\Types\IdentifierType;
 
+/**
+ * The PersonMatchResultsState exposes management functions for a person match results.
+ *
+ * Class PersonMatchResultsState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class PersonMatchResultsState extends PersonSearchResultsState
 {
+    /**
+     * Constructs a new person match results state using the specified client, request, response, access token, and
+     * state factory.
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMatchResultsState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new PersonMatchResultsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     /**
+     * Reads the current person for these potential match results.
+     *
      * @param StateTransitionOption $option
      * @return PersonState
      */
@@ -50,6 +76,8 @@ class PersonMatchResultsState extends PersonSearchResultsState
     }
 
     /**
+     * Reads merge options for the specified search result entry.
+     *
      * @param Entry $entry
      * @param StateTransitionOption $options
      * @return PersonMergeState
@@ -73,6 +101,9 @@ class PersonMatchResultsState extends PersonSearchResultsState
     }
 
     /**
+     * Creates a merge analysis for the current person and the potential duplicate person specified by the search result
+     * entry.
+     *
      * @param Entry $entry
      * @param StateTransitionOption $options
      * @return PersonMergeState
@@ -96,6 +127,8 @@ class PersonMatchResultsState extends PersonSearchResultsState
     }
 
     /**
+     * Declares the specified search result entry as not a match for the current person.
+     *
      * @param Entry $entry
      * @param StateTransitionOption $options
      * @return PersonNonMatchesState
@@ -124,6 +157,8 @@ class PersonMatchResultsState extends PersonSearchResultsState
     }
 
     /**
+     * Declares the match status for the current person the specified search result entry.
+     *
      * @param Entry $entry
      * @param string $status
      * @param StateTransitionOption $options

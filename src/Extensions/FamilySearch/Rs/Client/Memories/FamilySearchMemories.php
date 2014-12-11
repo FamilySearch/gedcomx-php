@@ -6,12 +6,27 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The FamilySearchMemories is a collection of FamilySearch memories and exposes management of those memories.
+ *
+ * Class FamilySearchMemories
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\Memories
+ */
 class FamilySearchMemories extends FamilySearchCollectionState
 {
+    /**
+     * The default production environment URI for this collection.
+     */
     const URI = "https://familysearch.org/platform/collections/memories";
+    /**
+     * The default sandbox environment URI for this collection.
+     */
     const SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/memories";
 
     /**
+     * Clones the current state instance.
+     *
      * @param Request  $request
      * @param Response $response
      *

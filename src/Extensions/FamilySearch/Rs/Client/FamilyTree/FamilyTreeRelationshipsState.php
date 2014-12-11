@@ -13,9 +13,18 @@ use Gedcomx\Rs\Client\RelationshipsState;
 use Gedcomx\Types\RelationshipType;
 use Guzzle\Http\Message\Request;
 
+/**
+ * The FamilyTreeRelationshipsState exposes management functions for family tree relationships.
+ *
+ * Class FamilyTreeRelationshipsState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+ */
 class FamilyTreeRelationshipsState extends RelationshipsState {
 
     /**
+     * Gets the child and parents relationships of the current state instance.
+     *
      * @return ChildAndParentsRelationship[]|null
      */
     public function getChildAndParentsRelationships() {
@@ -27,6 +36,9 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
     }
 
     /**
+     * Adds the specified relationship to this collection of relationships. To add a RelationshipType::PARENTCHILD
+     * relationship, use addChildAndParents() or addChildAndParentsRelationship() instead.
+     *
      * @param \Gedcomx\Conclusion\Relationship                 $relationship
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -43,6 +55,8 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
     }
 
     /**
+     * Adds a child and parents relationship to the current relationships collection.
+     *
      * @param \Gedcomx\Rs\Client\PersonState                   $child
      * @param \Gedcomx\Rs\Client\PersonState                   $father
      * @param \Gedcomx\Rs\Client\PersonState                   $mother
@@ -63,6 +77,14 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
         return $this->passOptionsTo('addChildAndParentsRelationship', array($chap), func_get_args());
     }
 
+    /**
+     * Adds a child and parents relationship to the current relationships collection.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship $chap
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                           $option
+     *
+     * @return mixed
+     */
     public function addChildAndParentsRelationship(ChildAndParentsRelationship $chap, StateTransitionOption $option = null) {
         $entity = new FamilySearchPlatform();
         $entity->setChildAndParentsRelationships(array($chap));

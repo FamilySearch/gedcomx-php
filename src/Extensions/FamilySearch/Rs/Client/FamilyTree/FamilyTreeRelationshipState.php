@@ -11,19 +11,45 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The FamilyTreeRelationshipState exposes management and other FamilySearch specific functions for a relationship.
+ *
+ * Class FamilyTreeRelationshipState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+ */
 class FamilyTreeRelationshipState extends RelationshipState implements PreferredRelationshipState
 {
+    /**
+     * Constructs a new fmaily tree relationship state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     public function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new FamilyTreeRelationshipState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     /**
+     * Loads all discussion references for the current relationship.
+     *
      * @param StateTransitionOption $options
      * @return FamilyTreeRelationshipState
      */
@@ -33,6 +59,8 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
     }
 
     /**
+     * Reads the change history of the current relationship.
+     *
      * @param StateTransitionOption $option ,..
      *
      * @return ChangeHistoryState|null
@@ -54,7 +82,13 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
         );
     }
 
-
+    /**
+     * Restore the current relationship (if it is currently deleted).
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @return mixed|null
+     */
     public function restore(StateTransitionOption $option = null)
     {
         $link = $this->getLink(Rel::RESTORE);

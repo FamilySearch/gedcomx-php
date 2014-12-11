@@ -14,19 +14,45 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The FamilySearchSourceDescriptionState exposes management functions for a FamilySearch source description.
+ *
+ * Class FamilySearchSourceDescriptionState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class FamilySearchSourceDescriptionState extends SourceDescriptionState
 {
+    /**
+     * Constructs a new FamilySearch source description state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client             $client
+     * @param \Guzzle\Http\Message\Request    $request
+     * @param \Guzzle\Http\Message\Response   $response
+     * @param string                          $accessToken
+     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
+     */
     function __construct(Client $client, Request $request, Response $response, $accessToken, StateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new FamilySearchSourceDescriptionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
     /**
+     * Reads the comments on the current source description.
+     *
      * @param StateTransitionOption $options,...
      * @return DiscussionState|null
      */
@@ -74,6 +100,8 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
     } */
 
     /**
+     * Moves the current source description to the specified collection.
+     *
      * @param CollectionState $collection
      * @param StateTransitionOption $options,...
      * @return FamilySearchSourceDescriptionState|null

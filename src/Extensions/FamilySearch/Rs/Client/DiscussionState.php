@@ -15,25 +15,55 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The DiscussionState exposes management functions for a discussion.
+ *
+ * Class DiscussionState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class DiscussionState extends GedcomxApplicationState
 {
-
+    /**
+     * Constructs a new discussion state using the specified client, request, response, access token, and state factory.
+     *
+     * @param \Guzzle\Http\Client                                                 $client
+     * @param \Guzzle\Http\Message\Request                                        $request
+     * @param \Guzzle\Http\Message\Response                                       $response
+     * @param string                                                              $accessToken
+     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory $stateFactory
+     */
     public function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
     {
         parent::__construct($client, $request, $response, $accessToken, $stateFactory);
     }
 
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new DiscussionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion
+     */
     protected function getScope()
     {
         return $this->getDiscussion();
     }
 
     /**
+     * Gets the first discussion from the current entity (FamilySearchPlatform::getDiscussions()).
+     *
      * @return Discussion
      */
     public function getDiscussion()
@@ -49,6 +79,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Creates a new discussion and only sets the discussion ID to the current discussion's ID.
+     *
      * @return Discussion
      */
     protected function createEmptySelf()
@@ -59,6 +91,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Gets the current discussion ID.
+     *
      * @return string|null
      */
     protected function getLocalSelfId()
@@ -67,7 +101,11 @@ class DiscussionState extends GedcomxApplicationState
         return $me == null ? null : $me->getId();
     }
 
-
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
@@ -76,6 +114,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Loads the comments for the current discussion.
+     *
      * @param StateTransitionOption $option
      * @return DiscussionState
      */
@@ -90,6 +130,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Creates a REST API request (with appropriate authentication headers).
+     *
      * @param string $method
      * @param Link $link
      * @return Request
@@ -102,12 +144,22 @@ class DiscussionState extends GedcomxApplicationState
         return $request;
     }
 
+    /**
+     * Updates the specified discussion.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion $discussion
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption                 $option
+     *
+     * @return mixed
+     */
     public function update(Discussion $discussion, StateTransitionOption $option = null)
     {
         return $this->passOptionsTo('updateInternal', array($discussion, Rel::SELF), func_get_args());
     }
 
     /**
+     * Adds a comment to the current discussion.
+     *
      * @param String $comment
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
      *
@@ -119,6 +171,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds a comment to the current discussion.
+     *
      * @param Comment $comment
      * @param StateTransitionOption $option
      *
@@ -130,6 +184,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Adds the specified comments to the current discussion.
+     *
      * @param array $comments
      * @param StateTransitionOption $option
      * @return DiscussionState
@@ -142,6 +198,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified comment on the current discussion.
+     *
      * @param Comment $comment
      * @param StateTransitionOption $option
      * @return DiscussionState
@@ -152,6 +210,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified comments on the current discussion.
+     *
      * @param array $comments
      * @param StateTransitionOption $option
      * @return DiscussionState
@@ -164,6 +224,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Updates the specified discussion.
+     *
      * @param Discussion $discussion
      * @param string $rel
      * @param StateTransitionOption $option
@@ -192,6 +254,8 @@ class DiscussionState extends GedcomxApplicationState
     }
 
     /**
+     * Deletes the specified comment from the current discussion.
+     *
      * @param Comment $comment
      * @param StateTransitionOption $option
      * @return DiscussionState

@@ -16,14 +16,35 @@
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;
 
+	/**
+	 * The state factory is responsible for instantiating state classes from REST API responses.
+	 *
+	 * Class FamilySearchStateFactory
+	 *
+	 * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+	 */
 	class FamilySearchStateFactory extends StateFactory
 	{
+		/**
+		 * The default production environment URI for the places collection.
+		 */
 		const PLACES_URI = "https://familysearch.org/platform/collections/places";
+		/**
+		 * The default sandbox environment URI for the places collection.
+		 */
 		const PLACES_SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/places";
+		/**
+		 * The default production environment URI for the memories collection.
+		 */
 		const MEMORIES_URI = "https://familysearch.org/platform/collections/memories";
+		/**
+		 * The default sandbox environment URI for the memories collection.
+		 */
 		const MEMORIES_SANDBOX_URI = "https://sandbox.familysearch.org/platform/collections/memories";
 
 		/**
+		 * Creates a new FamilySearch collection state from the specified parameters. Since a response is provided as a parameter, a REST API request will not be invoked.
+		 *
 		 * @param string              $uri
 		 * @param string              $method The method.
 		 * @param \Guzzle\Http\Client $client The client to use.
@@ -45,6 +66,11 @@
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
 
+		/**
+		 * Loads the default client for executing REST API requests.
+		 *
+		 * @return \Gedcomx\Util\FilterableClient
+		 */
         protected function defaultClient()
         {
             $client = parent::defaultClient();
@@ -108,6 +134,8 @@
 		}
 
 		/**
+		 * Builds a new person state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -121,6 +149,8 @@
 		}
 
 		/**
+		 * Builds a new discussions state from the specified paramters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -134,6 +164,8 @@
 		}
 
 		/**
+		 * Builds a new discussion state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -147,6 +179,8 @@
 		}
 
 		/**
+		 * Builds a new user state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -160,6 +194,8 @@
 		}
 
 		/**
+		 * Builds a new user history state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -173,6 +209,8 @@
 		}
 
 		/**
+		 * Builds a new person merge state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -186,6 +224,8 @@
 		}
 
 		/**
+		 * Builds a new person match results state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -199,6 +239,8 @@
 		}
 
 		/**
+		 * Builds a new source description state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -212,6 +254,8 @@
 		}
 
 		/**
+		 * Builds a new person non-matches state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -225,6 +269,8 @@
 		}
 
 		/**
+		 * Builds a new place search results state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -238,6 +284,8 @@
 		}
 
 		/**
+		 * Builds a new place state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -251,6 +299,8 @@
 		}
 
 		/**
+		 * Builds a new place description state from the specified parameters.
+		 *
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -264,6 +314,7 @@
 		}
 
 		/**
+		 * Builds a new place descriptions state from the specified parameters.
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
@@ -277,6 +328,7 @@
 		}
 
 		/**
+		 * Builds a new place group state from the specified parameters.
 		 * @param \Guzzle\Http\Client           $client
 		 * @param \Guzzle\Http\Message\Request  $request
 		 * @param \Guzzle\Http\Message\Response $response
