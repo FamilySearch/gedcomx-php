@@ -9,14 +9,33 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The DiscussionsState exposes management functions for discussions.
+ *
+ * Class DiscussionsState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class DiscussionsState extends GedcomxApplicationState {
-
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         /** @var \Gedcomx\Rs\Client\StateFactory $stateFactory */
         return new DiscussionsState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Returns the entity from the REST API response.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform|null
+     */
     protected function loadEntity()
     {
         $entity = null;
@@ -28,16 +47,28 @@ class DiscussionsState extends GedcomxApplicationState {
         return $entity;
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return object
+     */
     protected function getScope()
     {
         return $this->getEntity();
     }
 
+    /**
+     * Gets the current discussions represented by the current instance.
+     *
+     * @return mixed
+     */
     public function getDiscussions(){
         return $this->getEntity()->getDiscussions();
     }
 
     /**
+     * Reads the collection specified by this state instance.
+     *
      * @param StateTransitionOption $option,...
      *
      * @return CollectionState|null
@@ -60,6 +91,8 @@ class DiscussionsState extends GedcomxApplicationState {
     }
 
     /**
+     * Adds a discussion to this discussions state instance.
+     *
      * @param Discussion            $discussion
      * @param StateTransitionOption $option,...
      *
@@ -80,6 +113,5 @@ class DiscussionsState extends GedcomxApplicationState {
             $this->passOptionsTo('invoke', array($request), func_get_args()),
             $this->accessToken
         );
-  }
-
+    }
 }

@@ -9,11 +9,23 @@ use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation;
 use ReflectionClass;
 
+/**
+ * Represents a page of change histories.
+ *
+ * Class ChangeHistoryPage
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\Util
+ */
 class ChangeHistoryPage extends Entry
 {
     private $feed;
     private $entries;
 
+    /**
+     * Constructs a new change history page using the specified atom feed.
+     *
+     * @param \Gedcomx\Atom\Feed $feed
+     */
     public function __construct(Feed $feed)
     {
         $this->feed = $feed;
@@ -30,27 +42,62 @@ class ChangeHistoryPage extends Entry
         $this->entries = $changes;
     }
 
+    /**
+     * Gets the feed associated with this page.
+     *
+     * @return \Gedcomx\Atom\Feed
+     */
     public function getFeed()
     {
         return $this->feed;
     }
 
+    /**
+     * Gets the collection of change entries associated with this page.
+     *
+     * @return array
+     */
     public function getEntries()
     {
         return $this->entries;
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation  $operation
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType $objectType
+     *
+     * @return null
+     */
     public function findChange(ChangeOperation $operation, ChangeObjectType $objectType)
     {
         return $this->findChangeWithModifier($operation, $objectType, null);
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed and the modifier involved.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation      $operation
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType     $objectType
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectModifier $modifier
+     *
+     * @return null
+     */
     public function findChangeWithModifier(ChangeOperation $operation, ChangeObjectType $objectType, ChangeObjectModifier $modifier)
     {
         $changes = $this->findChangesBySingleWithModifier($operation, $objectType, $modifier);
         return count($changes) > 0 ? $changes[0] : null;
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation  $operation
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType $objectType
+     *
+     * @return array
+     */
     public function findChangesBySingle(ChangeOperation $operation, ChangeObjectType $objectType)
     {
         $ops = array();
@@ -60,6 +107,15 @@ class ChangeHistoryPage extends Entry
         return $this->findChangesByMany($ops, $types);
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed and the modifier involved.
+     *
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeOperation      $operation
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectType     $objectType
+     * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\ChangeObjectModifier $modifier
+     *
+     * @return array
+     */
     public function findChangesBySingleWithModifier(ChangeOperation $operation, ChangeObjectType $objectType, ChangeObjectModifier $modifier)
     {
         $modClass = new ReflectionClass('ChangeObjectModifier');
@@ -72,12 +128,29 @@ class ChangeHistoryPage extends Entry
         return $this->findChangesByManyWithModifiers($ops, $types, $modifier != null ? $mods : $modClass->getConstants());
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed.
+     *
+     * @param array $operations
+     * @param array $types
+     *
+     * @return array
+     */
     public function findChangesByMany(array $operations, array $types)
     {
         $modClass = new ReflectionClass('ChangeObjectModifier');
         return $this->findChangesByManyWithModifiers($operations, $types, $modClass->getConstants());
     }
 
+    /**
+     * Searches the current page of change entries for the type of object and operation changed.
+     *
+     * @param array $operations
+     * @param array $types
+     * @param array $modifiers
+     *
+     * @return array
+     */
     public function findChangesByManyWithModifiers(array $operations, array $types, array $modifiers)
     {
         $changes = array();

@@ -12,8 +12,23 @@ use Gedcomx\Rs\Client\Util\GedcomxPlaceSearchQueryBuilder;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The FamilySearchPlaces is a collection of FamilySearch places and exposes management of those places.
+ *
+ * Class FamilySearchPlaces
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class FamilySearchPlaces extends FamilySearchCollectionState
 {
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new FamilySearchPlaces($this->client, $request, $response, $this->accessToken, $this->stateFactory);
@@ -177,6 +192,8 @@ class FamilySearchPlaces extends FamilySearchCollectionState
     }
 
     /**
+     * Searches for places based off the specified query.
+     *
      * @param GedcomxSearchQuery|string $query
      * @param StateTransitionOption     $option,...
      *

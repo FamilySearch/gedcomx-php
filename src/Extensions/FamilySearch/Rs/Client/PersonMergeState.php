@@ -9,20 +9,41 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The PersonMergeState exposes management functions for a person merge.
+ *
+ * Class PersonMergeState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class PersonMergeState extends FamilySearchCollectionState{
-
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         /** @var \Gedcomx\Rs\Client\StateFactory $stateFactory */
         return new PersonMergeState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return object
+     */
     protected function getScope()
     {
         return $this->getEntity();
     }
 
     /**
+     * Gets the analysis of the current person merge.
+     *
      * @return \Gedcomx\Extensions\FamilySearch\Platform\Tree\MergeAnalysis|null
      */
     public function getAnalysis()
@@ -54,6 +75,8 @@ class PersonMergeState extends FamilySearchCollectionState{
     }
 
     /**
+     * Reads the merge mirror for the current merge.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return PersonMergeState|null
@@ -78,6 +101,8 @@ class PersonMergeState extends FamilySearchCollectionState{
     }
 
     /**
+     * Reads the survivor of the current merge.
+     *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @return \Gedcomx\Rs\Client\PersonState|null
@@ -101,6 +126,8 @@ class PersonMergeState extends FamilySearchCollectionState{
     }
 
     /**
+     * Performs the specified merge operation.
+     *
      * @param \Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge $merge
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption     $option,...
      *
@@ -115,6 +142,8 @@ class PersonMergeState extends FamilySearchCollectionState{
     }
 
     /**
+     * Performs the specified merges from FamilySearchPlatform::getMerges().
+     *
      * @param \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform $entity
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption      $option,...
      *
@@ -124,5 +153,4 @@ class PersonMergeState extends FamilySearchCollectionState{
     {
         return $this->passOptionsTo('post', array($entity), func_get_args());
     }
-
 }

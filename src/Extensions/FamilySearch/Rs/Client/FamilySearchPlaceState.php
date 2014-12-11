@@ -5,23 +5,53 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * The FamilySearchPlaceState exposes management functions for a FamilySearch place.
+ *
+ * Class FamilySearchPlaceState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+ */
 class FamilySearchPlaceState extends FamilySearchCollectionState
 {
+    /**
+     * Clones the current state instance.
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new FamilySearchPlaceState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Gets the rel name for the current state instance.
+     *
+     * @return string
+     */
     public function getSelfRel()
     {
         return Rel::PLACE;
     }
 
+    /**
+     * Gets the main data element represented by this state instance.
+     *
+     * @return null
+     */
     public function getScope()
     {
         return $this->getPlace();
     }
 
+    /**
+     * Gets the first place from Gedcomx::getPlaces() represented by the current state instance.
+     *
+     * @return null
+     */
     public function getPlace()
     {
         if ($this->getEntity() != null ) {

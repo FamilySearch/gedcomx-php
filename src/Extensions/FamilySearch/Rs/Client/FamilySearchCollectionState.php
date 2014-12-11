@@ -16,14 +16,32 @@
 	use Guzzle\Http\Message\Request;
 	use Guzzle\Http\Message\Response;
 
+	/**
+	 * The FamilySearchCollectionState is a collection of FamilySearch resources and exposes management of those resources.
+	 *
+	 * Class FamilySearchCollectionState
+	 *
+	 * @package Gedcomx\Extensions\FamilySearch\Rs\Client
+	 */
 	class FamilySearchCollectionState extends CollectionState
 	{
+		/**
+		 * Constructs a new FamilySearch collection state using the specified client, request, response, access token, and state factory.
+		 *
+		 * @param \Guzzle\Http\Client                                                 $client
+		 * @param \Guzzle\Http\Message\Request                                        $request
+		 * @param \Guzzle\Http\Message\Response                                       $response
+		 * @param string                                                              $accessToken
+		 * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory $stateFactory
+		 */
 		function __construct(Client $client, Request $request, Response $response, $accessToken, FamilySearchStateFactory $stateFactory)
 		{
 			parent::__construct($client, $request, $response, $accessToken, $stateFactory);
 		}
 
 		/**
+		 * Clones the current state instance.
+		 *
 		 * @param Request  $request
 		 * @param Response $response
 		 *
@@ -34,6 +52,11 @@
 			return new FamilySearchCollectionState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
 		}
 
+		/**
+		 * Returns the entity from the REST API response.
+		 *
+		 * @return \Gedcomx\Extensions\FamilySearch\FamilySearchPlatform
+		 */
 		protected function loadEntity()
 		{
 			$json = json_decode($this->response->getBody(), true);
@@ -41,11 +64,21 @@
 			return new FamilySearchPlatform($json);
 		}
 
+		/**
+		 * Gets the main data element represented by this state instance.
+		 *
+		 * @return null
+		 */
 		protected function getScope()
 		{
 			return $this->getCollection();
 		}
 
+		/**
+		 * Gets the first collection from $this->entity->getCollections().
+		 *
+		 * @return null
+		 */
 		public function getCollection()
 		{
 			if ($this->entity) {
@@ -59,6 +92,8 @@
 		}
 
 		/**
+		 * Normalizes the specified date to a DateInfo.
+		 *
 		 * @param string                $date
 		 * @param StateTransitionOption $option,...
 		 *
@@ -91,10 +126,12 @@
 		}
 
 		/**
+		 * Reads the person specified by the URI.
+		 *
 		 * @param string                $uri      href from a Link object
 		 * @param StateTransitionOption $option,...
 		 *
-		 * @returns FamilyTreePersonState|null
+		 * @returns \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState|null
 		 */
 		public function readPerson( $uri, StateTransitionOption $option = null ){
 			if( $uri == null ){
@@ -113,6 +150,8 @@
 		}
 
 		/**
+		 * Reads the current tree user data.
+		 *
 		 * @param StateTransitionOption $option
 		 *
 		 * @return UserState|null
@@ -137,6 +176,8 @@
 		}
 
 		/**
+		 * Reads the current user's history.
+		 *
 		 * @param StateTransitionOption $option
 		 *
 		 * @return UserHistoryState|null
@@ -161,6 +202,8 @@
 		}
 
 		/**
+		 * Searches for person matches based off the specified query.
+		 *
 		 * @param GedcomxPersonSearchQueryBuilder|string $query
 		 * @param StateTransitionOption                  $option
 		 *
@@ -195,6 +238,8 @@
 		}
 
 		/**
+		 * Reads the discussions on the current collection.
+		 *
 		 * @param StateTransitionOption $option,...
 		 *
 		 * @return Discussion|null
@@ -219,6 +264,8 @@
 		}
 
 		/**
+		 * Adds a discussion to the current collection.
+		 *
 		 * @param Discussion            $discussion
 		 * @param StateTransitionOption $option
 		 *
@@ -248,26 +295,28 @@
 		}
 
         /**
+		 * Executes the specified link and embeds the response in the current Gedcomx entity.
+		 *
          * @param \Gedcomx\Links\Link                              $link
          * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
          *
          * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
          */
-        protected function embed(Link $link, StateTransitionOption $option = null ){
-            if ($link->getHref() != null) {
-                $lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
-                $lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
-                if ($lastEmbeddedResponse->getStatusCode() == 200) {
-                    $json = json_decode($lastEmbeddedResponse->getBody(),true);
-                    $this->entity->embed(new FamilySearchPlatform($json));
-                }
-                else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
-                    throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse->getStatusCode(), $lastEmbeddedRequest->getUrl()), $lastEmbeddedResponse);
-                }
-                else {
-                    //todo: log a warning? throw an error?
-                }
-            }
+		protected function embed(Link $link, StateTransitionOption $option = null ){
+			if ($link->getHref() != null) {
+				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+				$lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
+				if ($lastEmbeddedResponse->getStatusCode() == 200) {
+					$json = json_decode($lastEmbeddedResponse->getBody(),true);
+					$this->entity->embed(new FamilySearchPlatform($json));
+				}
+				else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
+					throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse->getStatusCode(), $lastEmbeddedRequest->getUrl()), $lastEmbeddedResponse);
+				}
+				else {
+					//todo: log a warning? throw an error?
+				}
+			}
 
-        }
+		}
 	}

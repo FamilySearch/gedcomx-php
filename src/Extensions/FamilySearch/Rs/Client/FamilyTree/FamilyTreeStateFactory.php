@@ -9,9 +9,18 @@
     use Guzzle\Http\Message\Request;
     use Guzzle\Http\Message\Response;
 
+    /**
+     * The state factory is responsible for instantiating state classes from REST API responses.
+     *
+     * Class FamilyTreeStateFactory
+     *
+     * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+     */
     class FamilyTreeStateFactory extends FamilySearchStateFactory
     {
         /**
+         * Creates a new collection state from the specified parameters. Since a response is provided as a parameter, a REST API request will not be invoked.
+         *
          * @param null                $uri
          * @param string              $method The method.
          * @param \Guzzle\Http\Client $client The client to use.
@@ -35,6 +44,8 @@
         }
 
         /**
+         * Builds a new child and parents relationship state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -48,6 +59,8 @@
         }
 
         /**
+         * Builds a new relationships state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -61,6 +74,8 @@
         }
 
         /**
+         * Builds a new person state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -74,6 +89,8 @@
         }
 
         /**
+         * Builds a new relationship state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -87,6 +104,8 @@
         }
 
         /**
+         * Builds a new person parents state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -100,6 +119,8 @@
         }
 
         /**
+         * Builds a new person children state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
@@ -113,6 +134,8 @@
         }
 
         /**
+         * Builds a new change history state from the specified parameters.
+         *
          * @param \Guzzle\Http\Client           $client
          * @param \Guzzle\Http\Message\Request  $request
          * @param \Guzzle\Http\Message\Response $response
