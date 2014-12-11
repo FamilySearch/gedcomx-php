@@ -209,7 +209,7 @@ class PersonState extends GedcomxApplicationState
      */
     protected function refersToMe(ResourceReference $ref = null)
     {
-        return $ref != null && $ref->getResourceId() != null && $ref->getResourceId() == $this->getLocalSelfId();
+        return $ref != null && $ref->getResource() != null && $ref->getResource() == "#" . $this->getLocalSelfId();
     }
 
     /**

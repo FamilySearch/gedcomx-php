@@ -563,13 +563,14 @@ class PersonTests extends ApiTestCase
         $husband = $this->createPerson('male')->get();
         $wife = $this->createPerson('female')->get();
 
-        $family = $husband->addSpouse($wife);
-        $this->queueForDelete($family);
-        $family = $family->get();
+        $husband->addSpouse($wife);
+        $husband = $husband->get();
 
-        $spouse = $husband->readSpouse($family->getRelationship());
+        $spouse = $husband->readSpouses();
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $spouse->getResponse());
+        $this->assertGreaterThan(0, count($spouse->getPersons()), "No spouse persons found.");
+        $this->assertGreaterThan(0, count($spouse->getRelationships()), "No relationships found.");
     }
 
     /**
