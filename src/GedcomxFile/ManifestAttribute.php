@@ -2,6 +2,13 @@
 
 namespace Gedcomx\GedcomxFile;
 
+/**
+ * Represents a single attribute that can be used in a manifest file.
+ *
+ * Class ManifestAttribute
+ *
+ * @package Gedcomx\GedcomxFile
+ */
 class ManifestAttribute
 {
     private $key;

@@ -5,6 +5,13 @@ namespace Gedcomx\GedcomxFile;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Gedcomx;
 
+/**
+ * A class for performing JSON serialization and deserialization.
+ *
+ * Class DefaultJsonSerialization
+ *
+ * @package Gedcomx\GedcomxFile
+ */
 class DefaultJsonSerialization implements GedcomxEntrySerializer, GedcomxEntryDeserializer
 {
     /**

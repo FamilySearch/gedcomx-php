@@ -2,6 +2,13 @@
 
 namespace Gedcomx\GedcomxFile;
 
+/**
+ * Represents an exception that could occur while working with a GEDCOM X file.
+ *
+ * Class GedcomxFileException
+ *
+ * @package Gedcomx\GedcomxFile
+ */
 class GedcomxFileException extends \Exception
 {
     /**

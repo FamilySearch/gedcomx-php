@@ -4,23 +4,31 @@
 namespace Gedcomx\Links;
 
 /**
- * Links are not specified by GEDCOM X core, but as extension elements by GEDCOM X RS.
- *
+ * An interface declaring support for managing hypermedia links. Links are not specified by GEDCOM X core, but as
+ * extension elements by GEDCOM X RS.
  * Interface SupportsLinks
+ *
  * @package Gedcomx\Links
  */
-interface SupportsLinks {
+interface SupportsLinks
+{
     /**
+     * Gets the array of hypermedia links.
+     *
      * @return array
      */
     public function getLinks();
 
     /**
+     * Sets the array of hypermedia links.
+     *
      * @param array $links
      */
     public function setLinks(array $links);
 
     /**
+     * Adds a hypermedia link to the current array of links.
+     *
      * @param \Gedcomx\Links\Link $link
      */
     public function addLink(Link $link);

@@ -5,15 +5,34 @@ namespace Gedcomx\Rs\Client\Util;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Gedcomx;
 
+/**
+ * A model representation of descendancy.
+ *
+ * Class DescendancyTree
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class DescendancyTree
 {
     private $root = null;
 
+    /**
+     * Constructs a new descendancy tree using the specified model.
+     *
+     * @param \Gedcomx\Gedcomx $gx
+     */
     function __construct(Gedcomx $gx)
     {
         $this->root = $this->buildTree($gx);
     }
 
+    /**
+     * Builds an array of persons to be placed in the descendancy tree.
+     *
+     * @param \Gedcomx\Gedcomx $gx
+     *
+     * @return \Gedcomx\Rs\Client\Util\DescendancyNode|null
+     */
     protected function buildTree(Gedcomx $gx)
     {
         $root = null;
@@ -71,11 +90,24 @@ class DescendancyTree
         return $root;
     }
 
+    /**
+     * Gets the root person of the descendancy tree.
+     *
+     * @return \Gedcomx\Rs\Client\Util\DescendancyNode|null
+     */
     function getRoot()
     {
         return $this->root;
     }
 
+    /**
+     * Parses the coordinates of the specified d'Aboville number. See remarks.
+     * More information on a d'Aboville number can be found here: {@link http://en.wikipedia.org/wiki/Genealogical_numbering_system#d.27Aboville_System}.
+     *
+     * @param $number
+     *
+     * @return array
+     */
     protected function parseCoordinates($number)
     {
         $coords = array();
@@ -100,37 +132,73 @@ class DescendancyTree
     }
 }
 
+/**
+ * Represents a person, spouse, and descendancy in a tree.
+ *
+ * Class DescendancyNode
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class DescendancyNode
 {
     public $Person;
     public $Spouse;
     public $Children;
 
+    /**
+     * Gets the main person of a tree.
+     * @return mixed
+     */
     public function getPerson()
     {
         return $this->Person;
     }
 
+    /**
+     * Sets the main person of a tree.
+     *
+     * @param \Gedcomx\Conclusion\Person $person
+     */
     public function setPerson(Person $person)
     {
         $this->Person = $person;
     }
 
+    /**
+     * Gets the spouse of the main person.
+     *
+     * @return mixed
+     */
     public function getSpouse()
     {
         return $this->Spouse;
     }
 
+    /**
+     * Sets the spouse of the main person.
+     *
+     * @param \Gedcomx\Conclusion\Person $spouse
+     */
     public function setSpouse(Person $spouse)
     {
         $this->Spouse = $spouse;
     }
 
+    /**
+     * Gets the children of the main person
+     *
+     * @return mixed
+     */
     public function getChildren()
     {
         return $this->Children;
     }
 
+    /**
+     * Sets the children of the main person
+     *
+     * @param array $children
+     */
     public function setChildren(array $children)
     {
         $this->Children = $children;

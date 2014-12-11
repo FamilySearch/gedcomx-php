@@ -4,15 +4,46 @@
 
 	use Guzzle\Http\Message\Request;
 
+	/**
+	 * This is a helper class for managing headers in REST API requests.
+	 *
+	 * Class HeaderParameter
+	 *
+	 * @package Gedcomx\Rs\Client\Options
+	 */
 	class HeaderParameter implements StateTransitionOption
 	{
+		/**
+		 * The accept language header
+		 */
 		const LANG = "Accept-Language";
+		/**
+		 * The locale header
+		 */
 		const LOCALE = self::LANG;
+		/**
+		 * The if-none-match header
+		 */
 		const IF_NONE_MATCH = "If-None-Match";
+		/**
+		 * The if-modified-since header
+		 */
 		const IF_MODIFIED_SINCE = "If-Modified-Since";
+		/**
+		 * The if-match header
+		 */
 		const IF_MATCH = "If-Match";
+		/**
+		 * The if-unmodified-since header
+		 */
 		const IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
+		/**
+		 * The ETag (entity tag) header
+		 */
 		const ETAG = "ETag";
+		/**
+		 * The last-modified header
+		 */
 		const LAST_MODIFIED = "Last-Modified";
 
 		private $replace;
@@ -20,6 +51,8 @@
 		private $value;
 
 		/**
+		 * Constructs a header parameter with the specified values.
+		 *
 		 * @param boolean $replace
 		 * @param string $name
 		 * @param string $value,...
@@ -38,6 +71,8 @@
 		}
 
         /**
+		 * This method adds the current header parameters to the REST API request.
+		 *
          * @param Request $request
          */
 		public function apply(Request $request)
@@ -50,6 +85,8 @@
 		}
 
         /**
+		 * Creates an accept-language header parameter.
+		 *
          * @param string $value
          *
          * @return HeaderParameter
@@ -60,6 +97,8 @@
 		}
 
         /**
+		 * Creates an accept-language header parameter.
+		 *
          * @param string $value
          *
          * @return HeaderParameter
@@ -68,5 +107,4 @@
 		{
 			return new HeaderParameter(true, self::LOCALE, $value);
 		}
-
 	}

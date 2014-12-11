@@ -5,15 +5,25 @@ namespace Gedcomx\Rs\Client\Exception;
 
 use Guzzle\Http\Message\Response;
 
-
+/**
+ * Represents an exception within the FamilySearch GEDCOM X application.
+ *
+ * Class GedcomxApplicationException
+ *
+ * @package Gedcomx\Rs\Client\Exception
+ */
 class GedcomxApplicationException extends \Exception
 {
     /**
+     * The response associated with the exception if applicable.
+     *
      * @var Response
      */
     protected $response;
 
     /**
+     * Constructs a new GEDCOM X application exception.
+     *
 	 * @param string $message [optional]
 	 * @param Response $response [optional]
 	 * @param null $previous
@@ -26,6 +36,8 @@ class GedcomxApplicationException extends \Exception
     }
 
     /**
+     * Gets the response associated with the exception if applicable.
+     *
      * @return \Guzzle\Http\Message\Response
      */
     public function getResponse()

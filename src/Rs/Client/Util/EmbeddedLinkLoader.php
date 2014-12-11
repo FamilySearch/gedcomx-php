@@ -5,10 +5,30 @@ namespace Gedcomx\Rs\Client\Util;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Rel;
 
+/**
+ * This class extracts specific links from Gedcomx::getPersons() and Gedcomx::getRelationships(). Each of these are lists of instances
+ * that derive from SupportsLinks, thus the links are pulled directly from SupportsLinks getLinks().
+ * It is important to note that not all links will be extracted. Only the following will be extracted by default:
+ * * CHILD_RELATIONSHIPS
+ * * CONCLUSIONS
+ * * EVIDENCE_REFERENCES
+ * * MEDIA_REFERENCES
+ * * NOTES
+ * * PARENT_RELATIONSHIPS
+ * * SOURCE_REFERENCES
+ * * SPOUSE_RELATIONSHIPS
+ *
+ * Class EmbeddedLinkLoader
+ *
+ * @package Gedcomx\Rs\Client\Util
+ */
 class EmbeddedLinkLoader
 {
     private $defaultEmbeddedLinkRels;
 
+    /**
+     * Constructs a new instance of EmbeddedLinkLoader with default links.
+     */
     public function __construct()
     {
         $this->defaultEmbeddedLinkRels = array(
@@ -24,6 +44,8 @@ class EmbeddedLinkLoader
     }
 
     /**
+     * Gets the list of embedded links that will be extracted when loadEmbeddedLinks() is called.
+     *
      * @return array
      */
     protected function getEmbeddedLinkRels()
@@ -69,5 +91,4 @@ class EmbeddedLinkLoader
 
         return $embeddedLinks;
     }
-
-} 
+}
