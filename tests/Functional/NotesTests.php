@@ -171,13 +171,16 @@ class NotesTests extends ApiTestCase
     {
         $factory = new StateFactory();
         $this->collectionState($factory);
+        //  Set up the data we need
+        $testSubject = $this->createPerson()->get();
+        $note = NoteBuilder::createNote();
+        $testSubject->addNote( $note );
 
-        $personState = $this->getPerson();
-        $personState->loadNotes();
-        $person = $personState->getPerson();
+        //  Now test it
+        $testSubject->loadNotes();
+        $person = $testSubject->getPerson();
         $notes = $person->getNotes();
-        $newState = $personState
-            ->readNote($notes[0]);
+        $newState = $testSubject->readNote($notes[0]);
 
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $newState->getResponse() );
     }
@@ -188,11 +191,15 @@ class NotesTests extends ApiTestCase
     public function testReadNotes(){
         $factory = new StateFactory();
         $this->collectionState($factory);
+        //  Set up the data we need
+        $testSubject = $this->createPerson()->get();
+        $note = NoteBuilder::createNote();
+        $testSubject->addNote( $note );
 
-        $personState = $this->getPerson();
-        $personState->loadNotes();
+        //  Now test it
+        $testSubject->loadNotes();
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $personState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $testSubject->getResponse() );
     }
 
     /**

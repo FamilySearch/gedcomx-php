@@ -248,6 +248,7 @@ class DateInfo extends ExtensibleData
      * Sets a known child element of DateInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement(\XMLReader $xml) {
@@ -294,6 +295,7 @@ class DateInfo extends ExtensibleData
      * Sets a known attribute of DateInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute(\XMLReader $xml) {

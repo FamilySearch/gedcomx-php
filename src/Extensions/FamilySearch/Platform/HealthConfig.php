@@ -1,7 +1,13 @@
 <?php
 
     namespace Gedcomx\Extensions\FamilySearch\Platform;
-
+    /**
+     * Class HealthConfig
+     *
+     * @package Gedcomx\Extensions\FamilySearch\Platform
+     *
+     *          Manages the HealthConfig object.
+     */
     class HealthConfig
     {
 

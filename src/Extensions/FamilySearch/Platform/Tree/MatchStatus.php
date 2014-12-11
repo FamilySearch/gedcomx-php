@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
- * The way a match was resolved.
+ * Class MatchStatus
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          The way a match was resolved.
  */
 class MatchStatus
 {

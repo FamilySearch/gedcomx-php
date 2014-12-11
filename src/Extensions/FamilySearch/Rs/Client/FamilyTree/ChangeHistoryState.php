@@ -7,20 +7,41 @@ use Gedcomx\Atom\Feed;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeHistoryPage;
+use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 
+/**
+ * Class ChangeHistoryState
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree
+ *
+ *         The ChangeHistoryState exposes management functions for a change history
+ */
 class ChangeHistoryState extends GedcomxApplicationState
 {
 
+    /**
+     * Clones the current instance of ChangeHistoryState
+     *
+     * @param \Guzzle\Http\Message\Request  $request
+     * @param \Guzzle\Http\Message\Response $response
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChangeHistoryState
+     */
     protected function reconstruct(Request $request, Response $response)
     {
         return new ChangeHistoryState($this->client, $request, $response, $this->accessToken, $this->stateFactory);
     }
 
+    /**
+     * Deserialize the returned data
+     *
+     * @return \Gedcomx\Atom\Feed
+     */
     protected function loadEntity()
     {
         $json = json_decode($this->response->getBody(), true);
@@ -28,12 +49,19 @@ class ChangeHistoryState extends GedcomxApplicationState
         return new Feed($json);
     }
 
+    /**
+     * Return the parsed entity
+     *
+     * @return \Gedcomx\Atom\Feed
+     */
     protected function getScope()
     {
         return $this->getEntity();
     }
 
     /**
+     * Gets the change history page represented by the current state instance.
+     *
      * @return ChangeHistoryPage|null
      */
     public function getPage()
@@ -44,10 +72,13 @@ class ChangeHistoryState extends GedcomxApplicationState
     }
 
     /**
-     * @param Entry $change
-     * @param StateTransitionOption $option
-     * @return ChangeHistoryState
-     * @throws GedcomxApplicationException
+     * Restores the specified change if it had been reverted.
+     *
+     * @param \Gedcomx\Atom\Entry                              $change
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     * @return ChangeHistoryState | null
      */
     public function restoreChange(Entry $change, StateTransitionOption $option = null)
     {

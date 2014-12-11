@@ -12,8 +12,13 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 use Gedcomx\Common\ResourceReference;
 use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
+
 /**
- * 
+ * Class MergeAnalysis
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          Manages the MergeAnalysis Object.
  */
 class MergeAnalysis
 {
@@ -405,6 +410,11 @@ class MergeAnalysis
         }
     }
 
+    /**
+     * ??
+     * @param \Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor $visitor
+     *
+     */
     public function accept(FamilySearchPlatformModelVisitor $visitor)
     {
         $visitor->visitMergeAnalysis($this);

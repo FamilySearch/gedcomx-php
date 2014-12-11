@@ -13,16 +13,16 @@ use Guzzle\Http\Message\Response;
 use Symfony\Component\Yaml\Exception\RuntimeException;
 
 /**
- * The CollectionsState exposes management functions for collections.
- *
  * Class CollectionsState
- *
  * @package Gedcomx\Rs\Client
+ * The CollectionState is a collection of resources and exposes management of those resources.
  */
+
 class CollectionsState extends GedcomxApplicationState
 {
     /**
      * Constructs a new collections state using the specified client, request, response, access token, and state factory.
+     * 
      * @param \Guzzle\Http\Client             $client
      * @param \Guzzle\Http\Message\Request    $request
      * @param \Guzzle\Http\Message\Response   $response

@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
- * Enumeration of the possible change object modifiers.
+ * Class ChangeObjectModifier
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          Enumeration of the possible change object modifiers.
  */
 class ChangeObjectModifier
 {

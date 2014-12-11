@@ -13,6 +13,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionSta
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Gedcomx;
+use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\SourceDescriptionState;
 use Gedcomx\Rs\Client\StateFactory;
@@ -42,13 +43,11 @@ class SourcesTests extends ApiTestCase
         $personState = $this->createPerson()->get();
 
         $sourceState = $this->createSource();
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse());
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
-                                                     )));
+        $reference->setAttribution( new Attribution( array("changeMessage" => $this->faker->sentence(6))));
         /** @var \Gedcomx\Rs\Client\PersonState $newState */
         $newState = $personState->addSourceReferenceObj($reference);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse() );
@@ -66,9 +65,7 @@ class SourcesTests extends ApiTestCase
         /** @var SourceDescription $source */
         $source = SourceBuilder::newSource();
         $link = $this->collectionState()->getLink(Rel::SOURCE_DESCRIPTIONS);
-        if ($link === null || $link->getHref() === null) {
-            return null;
-        }
+        $this->assertNotNull($link, "SOURCE_DESCRIPTION rel not found on this collection.");
 
         $sourceState = $this->collectionState()->addSourceDescription($source);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $sourceState->getResponse(), $this->buildFailMessage(__METHOD__ . "(CREATE)", $sourceState));
@@ -168,10 +165,18 @@ class SourcesTests extends ApiTestCase
         $factory = new StateFactory();
         $this->collectionState($factory);
 
-        $personState = $this->getPerson();
-        $personState->loadSourceReferences();
+        //  Set up the data we need
+        /** @var PersonState $testSubject */
+        $testSubject = $this->createPerson()->get();
+        $source = SourceBuilder::hitchhiker();
+        $sourceState = $this->collectionState()->addSourceDescription($source);
+        $this->queueForDelete($sourceState);
+        $testSubject->addSourceReferenceState($sourceState);
 
-        $this->assertNotEmpty($personState->getEntity()->getSourceDescriptions());
+        //  Now test it
+        $testSubject->loadSourceReferences();
+
+        $this->assertNotEmpty($testSubject->getEntity()->getSourceDescriptions());
     }
 
     /**

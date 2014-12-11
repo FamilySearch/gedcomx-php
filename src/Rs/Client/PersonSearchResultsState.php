@@ -160,4 +160,45 @@ class PersonSearchResultsState extends GedcomxApplicationState
             $this->accessToken
         );
     }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return GedcomxApplicationState The next page.
+     */
+    public function readNextPage(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readPage', array(Rel::NEXT), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return GedcomxApplicationState The previous page.
+     */
+    public function readPreviousPage(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readPage', array(Rel::PREVIOUS), func_get_args());
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return GedcomxApplicationState The first page.
+     */
+    public function readFirstPage(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readPage', array(Rel::FIRST), func_get_args());
+
+    }
+
+    /**
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return GedcomxApplicationState the last page.
+     */
+    public function readLastPage(StateTransitionOption $option = null)
+    {
+        return $this->passOptionsTo('readPage', array(Rel::LAST), func_get_args());
+    }
 }

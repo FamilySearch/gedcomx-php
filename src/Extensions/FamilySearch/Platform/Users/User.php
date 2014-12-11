@@ -13,7 +13,11 @@ use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 use Gedcomx\Links\HypermediaEnabledData;
 
 /**
- * Family Tree User Service User
+ * Class User
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Users
+ *
+ *          Family Tree User Service User
  */
 class User extends HypermediaEnabledData
 {
@@ -634,9 +638,11 @@ class User extends HypermediaEnabledData
      * Sets a known child element of User from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement(\XMLReader $xml) {
+    protected function setKnownChildElement(\XMLReader $xml) 
+    {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
           return true;
@@ -784,9 +790,11 @@ class User extends HypermediaEnabledData
      * Sets a known attribute of User from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute(\XMLReader $xml) {
+    protected function setKnownAttribute(\XMLReader $xml)
+    {
         if (parent::setKnownAttribute($xml)) {
             return true;
         }

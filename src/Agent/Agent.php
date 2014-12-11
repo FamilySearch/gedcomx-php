@@ -394,6 +394,7 @@ class Agent extends HypermediaEnabledData
      * Sets a known child element of Agent from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement(\XMLReader $xml) {
@@ -466,6 +467,7 @@ class Agent extends HypermediaEnabledData
      * Sets a known attribute of Agent from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute(\XMLReader $xml) {
@@ -480,6 +482,7 @@ class Agent extends HypermediaEnabledData
      * Writes this Agent to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml(\XMLWriter $writer, $includeNamespaces = true)

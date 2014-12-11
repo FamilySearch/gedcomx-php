@@ -62,7 +62,7 @@ class SearchAndMatchTests extends ApiTestCase
         $this->collectionState($factory);
 
         $p = PersonBuilder::buildPerson(null);
-        $person1 = $this->collectionState()->addPerson($p);
+        $person1 = $this->collectionState()->addPerson($p)->get();
         $person2 = $this->collectionState()->addPerson($p)->get();
         $this->queueForDelete($person1, $person2);
 

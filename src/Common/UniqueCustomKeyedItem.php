@@ -5,6 +5,13 @@
 
     use Gedcomx\Support\HasJsonKey;
 
+    /**
+     * Class UniqueCustomKeyedItem
+     * @package Gedcomx\Common
+     *
+     *            A class to support custom keyed item
+     */
+
     class UniqueCustomKeyedItem implements HasJsonKey
     {
 

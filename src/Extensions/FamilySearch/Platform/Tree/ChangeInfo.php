@@ -12,7 +12,12 @@ namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 use Gedcomx\Common\ResourceReference;
 
 /**
- * Information about a change.
+ * Class ChangeInfo
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          Manages ChangeInfo object
+ *
  */
 class ChangeInfo
 {
@@ -174,7 +179,7 @@ class ChangeInfo
     /**
      * The subject representing the original value(s) that existed before the change.
      *
-     * @return ResourceReference
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getOriginal()
     {
@@ -184,7 +189,7 @@ class ChangeInfo
     /**
      * The subject representing the original value(s) that existed before the change.
      *
-     * @param ResourceReference $original
+     * @param \Gedcomx\Common\ResourceReference $original
      */
     public function setOriginal($original)
     {
@@ -193,7 +198,7 @@ class ChangeInfo
     /**
      * The parent change that triggered, caused, or included this change.
      *
-     * @return ResourceReference
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getParent()
     {
@@ -203,7 +208,7 @@ class ChangeInfo
     /**
      * The parent change that triggered, caused, or included this change.
      *
-     * @param ResourceReference $parent
+     * @param \Gedcomx\Common\ResourceReference $parent
      */
     public function setParent($parent)
     {
@@ -212,7 +217,7 @@ class ChangeInfo
     /**
      * The subject representing the removed value(s) that existed before the change.
      *
-     * @return ResourceReference
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getRemoved()
     {
@@ -222,7 +227,7 @@ class ChangeInfo
     /**
      * The subject representing the removed value(s) that existed before the change.
      *
-     * @param ResourceReference $removed
+     * @param \Gedcomx\Common\ResourceReference $removed
      */
     public function setRemoved($removed)
     {
@@ -231,7 +236,7 @@ class ChangeInfo
     /**
      * The subject representing the result of the change.
      *
-     * @return ResourceReference
+     * @return \Gedcomx\Common\ResourceReference
      */
     public function getResulting()
     {
@@ -241,7 +246,7 @@ class ChangeInfo
     /**
      * The subject representing the result of the change.
      *
-     * @param ResourceReference $resulting
+     * @param \Gedcomx\Common\ResourceReference $resulting
      */
     public function setResulting($resulting)
     {
@@ -368,6 +373,7 @@ class ChangeInfo
      * Sets a known child element of ChangeInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement($xml) {
@@ -399,6 +405,7 @@ class ChangeInfo
      * Sets a known attribute of ChangeInfo from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute($xml) {
@@ -426,6 +433,7 @@ class ChangeInfo
      * Writes this ChangeInfo to an XML writer.
      *
      * @param \XMLWriter $writer The XML writer.
+     *
      * @param bool $includeNamespaces Whether to write out the namespaces in the element.
      */
     public function toXml($writer, $includeNamespaces = true)

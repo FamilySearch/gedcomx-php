@@ -105,18 +105,17 @@ class DisplayProperties extends ExtensibleData
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -454,108 +453,97 @@ class DisplayProperties extends ExtensibleData
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'ascendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = '';
-                while ($xml->read() && $xml->hasValue) {
-                    $child = $child . $xml->value;
-                }
-                $this->ascendancyNumber = $child;
-                $happened = true;
-            } else {
-                if (($xml->localName == 'birthDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                    $child = '';
-                    while ($xml->read() && $xml->hasValue) {
-                        $child = $child . $xml->value;
-                    }
-                    $this->birthDate = $child;
-                    $happened = true;
-                } else {
-                    if (($xml->localName == 'birthPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                        $child = '';
-                        while ($xml->read() && $xml->hasValue) {
-                            $child = $child . $xml->value;
-                        }
-                        $this->birthPlace = $child;
-                        $happened = true;
-                    } else {
-                        if (($xml->localName == 'deathDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                            $child = '';
-                            while ($xml->read() && $xml->hasValue) {
-                                $child = $child . $xml->value;
-                            }
-                            $this->deathDate = $child;
-                            $happened = true;
-                        } else {
-                            if (($xml->localName == 'deathPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                $child = '';
-                                while ($xml->read() && $xml->hasValue) {
-                                    $child = $child . $xml->value;
-                                }
-                                $this->deathPlace = $child;
-                                $happened = true;
-                            } else {
-                                if (($xml->localName == 'descendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                    $child = '';
-                                    while ($xml->read() && $xml->hasValue) {
-                                        $child = $child . $xml->value;
-                                    }
-                                    $this->descendancyNumber = $child;
-                                    $happened = true;
-                                } else {
-                                    if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                        $child = '';
-                                        while ($xml->read() && $xml->hasValue) {
-                                            $child = $child . $xml->value;
-                                        }
-                                        $this->gender = $child;
-                                        $happened = true;
-                                    } else {
-                                        if (($xml->localName == 'lifespan') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                            $child = '';
-                                            while ($xml->read() && $xml->hasValue) {
-                                                $child = $child . $xml->value;
-                                            }
-                                            $this->lifespan = $child;
-                                            $happened = true;
-                                        } else {
-                                            if (($xml->localName == 'marriageDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                                $child = '';
-                                                while ($xml->read() && $xml->hasValue) {
-                                                    $child = $child . $xml->value;
-                                                }
-                                                $this->marriageDate = $child;
-                                                $happened = true;
-                                            } else {
-                                                if (($xml->localName == 'marriagePlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                                    $child = '';
-                                                    while ($xml->read() && $xml->hasValue) {
-                                                        $child = $child . $xml->value;
-                                                    }
-                                                    $this->marriagePlace = $child;
-                                                    $happened = true;
-                                                } else {
-                                                    if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                                        $child = '';
-                                                        while ($xml->read() && $xml->hasValue) {
-                                                            $child = $child . $xml->value;
-                                                        }
-                                                        $this->name = $child;
-                                                        $happened = true;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'ascendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->ascendancyNumber = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'birthDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->birthDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'birthPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->birthPlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'deathDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->deathDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'deathPlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->deathPlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'descendancyNumber') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->descendancyNumber = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'gender') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->gender = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'lifespan') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->lifespan = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'marriageDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->marriageDate = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'marriagePlace') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->marriagePlace = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->name = $child;
+            $happened = true;
+        }
+        
         return $happened;
     }
 

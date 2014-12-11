@@ -87,18 +87,17 @@ class PlaceDescription extends Subject
     {
         if (is_array($o)) {
             $this->initFromArray($o);
-        } else {
-            if ($o instanceof \XMLReader) {
-                $success = true;
-                while ($success && $o->nodeType != \XMLReader::ELEMENT) {
-                    $success = $o->read();
-                }
-                if ($o->nodeType != \XMLReader::ELEMENT) {
-                    throw new \Exception("Unable to read XML: no start element found.");
-                }
-
-                $this->initFromReader($o);
+        }
+        else if ($o instanceof \XMLReader) {
+            $success = true;
+            while ($success && $o->nodeType != \XMLReader::ELEMENT) {
+                $success = $o->read();
             }
+            if ($o->nodeType != \XMLReader::ELEMENT) {
+                throw new \Exception("Unable to read XML: no start element found.");
+            }
+
+            $this->initFromReader($o);
         }
     }
 
@@ -250,7 +249,7 @@ class PlaceDescription extends Subject
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension
      * elements by GEDCOM X RS.
      *
-     * @return PlaceDisplayProperties
+     * @return \Gedcomx\Conclusion\PlaceDisplayProperties
      */
     public function getDisplayExtension()
     {
@@ -261,7 +260,7 @@ class PlaceDescription extends Subject
      * Display properties for the place. Display properties are not specified by GEDCOM X core, but as extension
      * elements by GEDCOM X RS.
      *
-     * @param PlaceDisplayProperties $displayExtension
+     * @param \Gedcomx\Conclusion\PlaceDisplayProperties $displayExtension
      */
     public function setDisplayExtension(PlaceDisplayProperties $displayExtension)
     {
@@ -369,60 +368,52 @@ class PlaceDescription extends Subject
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
-            return true;
-        } else {
-            if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                $child = new TextValue($xml);
-                if (!isset($this->names)) {
-                    $this->names = array();
-                }
-                array_push($this->names, $child);
-                $happened = true;
-            } else {
-                if (($xml->localName == 'temporalDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                    $child = new DateInfo($xml);
-                    $this->temporalDescription = $child;
-                    $happened = true;
-                } else {
-                    if (($xml->localName == 'latitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                        $child = '';
-                        while ($xml->read() && $xml->hasValue) {
-                            $child = $child . $xml->value;
-                        }
-                        $this->latitude = $child;
-                        $happened = true;
-                    } else {
-                        if (($xml->localName == 'longitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                            $child = '';
-                            while ($xml->read() && $xml->hasValue) {
-                                $child = $child . $xml->value;
-                            }
-                            $this->longitude = $child;
-                            $happened = true;
-                        } else {
-                            if (($xml->localName == 'spatialDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                $child = new ResourceReference($xml);
-                                $this->spatialDescription = $child;
-                                $happened = true;
-                            } else {
-                                if (($xml->localName == 'jurisdiction') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                    $child = new ResourceReference($xml);
-                                    $this->jurisdiction = $child;
-                                    $happened = true;
-                                } else {
-                                    if (($xml->localName == 'display') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
-                                        $child = new PlaceDisplayProperties($xml);
-                                        $this->displayExtension = $child;
-                                        $happened = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          return true;
         }
-
+        else if (($xml->localName == 'name') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new TextValue($xml);
+            if (!isset($this->names)) {
+                $this->names = array();
+            }
+            array_push($this->names, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'temporalDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new DateInfo($xml);
+            $this->temporalDescription = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'latitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->latitude = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'longitude') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->longitude = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'spatialDescription') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->spatialDescription = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'jurisdiction') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Common\ResourceReference($xml);
+            $this->jurisdiction = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'display') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new \Gedcomx\Conclusion\PlaceDisplayProperties($xml);
+            $this->displayExtension = $child;
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -437,12 +428,10 @@ class PlaceDescription extends Subject
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
-        } else {
-            if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
-                $this->type = $xml->value;
-
-                return true;
-            }
+        }
+        else if (($xml->localName == 'type') && (empty($xml->namespaceURI))) {
+            $this->type = $xml->value;
+            return true;
         }
 
         return false;

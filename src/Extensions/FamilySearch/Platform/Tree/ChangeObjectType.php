@@ -10,7 +10,11 @@
 namespace Gedcomx\Extensions\FamilySearch\Platform\Tree;
 
 /**
- * Enumeration of the possible change object types.
+ * Class ChangeObjectType
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          Enumeration of the possible change object types.
  */
 class ChangeObjectType
 {

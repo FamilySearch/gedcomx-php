@@ -19,7 +19,8 @@ use Guzzle\Http\Message\Response;
 class AgentState extends GedcomxApplicationState
 {
     /**
-     * Constructs a new agent state using the specified client, request, response, access token, and state factory.
+     *Initializes a new instance of the AgentState class.
+     *
      * @param \Guzzle\Http\Client             $client
      * @param \Guzzle\Http\Message\Request    $request
      * @param \Guzzle\Http\Message\Response   $response

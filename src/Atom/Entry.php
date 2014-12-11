@@ -745,8 +745,11 @@ class Entry extends ExtensibleElement implements SupportsLinks
     }
 
     /**
+     * Add a link.
+     *
      * @param Link $link
-     */
+     *
+      */
     public function addLink(Link $link)
     {
         $this->links[] = $link;

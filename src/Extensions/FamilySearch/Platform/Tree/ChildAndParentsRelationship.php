@@ -16,7 +16,11 @@ use Gedcomx\Conclusion\Subject;
 use Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitor;
 
 /**
- * The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
+ * Class ChildAndParentsRelationship
+ *
+ * @package Gedcomx\Extensions\FamilySearch\Platform\Tree
+ *
+ *          The FamilySearch-proprietary model for a relationship between a child and a pair of parents.
  */
 class ChildAndParentsRelationship extends Subject
 {
@@ -255,6 +259,7 @@ class ChildAndParentsRelationship extends Subject
      * Sets a known child element of ChildAndParentsRelationship from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether a child element was set.
      */
     protected function setKnownChildElement(\XMLReader $xml) {
@@ -300,6 +305,7 @@ class ChildAndParentsRelationship extends Subject
      * Sets a known attribute of ChildAndParentsRelationship from an XML reader.
      *
      * @param \XMLReader $xml The reader.
+     *
      * @return bool Whether an attribute was set.
      */
     protected function setKnownAttribute(\XMLReader $xml) {
@@ -366,6 +372,11 @@ class ChildAndParentsRelationship extends Subject
         }
     }
 
+    /**
+     * Merge facts from one relationship to the current object
+     *
+     * @param \Gedcomx\Common\ExtensibleData $relationship
+     */
     public function embed(ExtensibleData $relationship)
     {
         if ($relationship->motherFacts != null) {

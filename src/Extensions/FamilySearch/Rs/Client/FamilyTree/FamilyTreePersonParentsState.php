@@ -2,6 +2,7 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Rs\Client\PersonParentsState;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;

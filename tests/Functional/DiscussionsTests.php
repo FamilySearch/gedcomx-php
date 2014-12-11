@@ -40,14 +40,14 @@ class DiscussionsTests extends ApiTestCase
     public function testCreateDiscussionReference(){
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
+        $testSubject = $this->createPerson();
 
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
 
         $discussionState = $this->collectionState()->addDiscussion($discussion);
 
-        $personState = $this->getPerson();
-        $newState = $personState->addDiscussionState($discussionState);
+        $newState = $testSubject->addDiscussionState($discussionState);
         $this->queueForDelete($newState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
@@ -98,6 +98,7 @@ class DiscussionsTests extends ApiTestCase
     public function testReadDiscussionReference(){
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
+        $testSubject = $this->createPerson()->get();
 
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
@@ -105,16 +106,15 @@ class DiscussionsTests extends ApiTestCase
         $discussionState = $this->collectionState()->addDiscussion($discussion);
         $this->queueForDelete($discussionState);
 
-        $personState = $this->getPerson();
-        $newState = $personState->addDiscussionState($discussionState);
+        $newState = $testSubject->addDiscussionState($discussionState);
         $this->queueForDelete($newState);
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
 
-        $personState->loadDiscussionReferences();
+        $testSubject->loadDiscussionReferences();
 
         $found = false;
-        foreach ($personState->getPerson()->getExtensionElements() as $ext) {
+        foreach ($testSubject->getPerson()->getExtensionElements() as $ext) {
             if ($ext instanceof DiscussionReference) {
                 $found = true;
                 break;
@@ -242,6 +242,7 @@ class DiscussionsTests extends ApiTestCase
     {
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
+        $testSubject = $this->createPerson();
 
         $userState = $this->collectionState()->readCurrentUser();
         $discussion = DiscussionBuilder::createDiscussion($userState->getUser()->getTreeUserId());
@@ -252,8 +253,7 @@ class DiscussionsTests extends ApiTestCase
         $ref = new DiscussionReference();
         $ref->setResource($discussionState->getSelfUri());
 
-        $personState = $this->getPerson();
-        $newState = $personState->deleteDiscussionReference($ref);
+        $newState = $testSubject->deleteDiscussionReference($ref);
 
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
     }
