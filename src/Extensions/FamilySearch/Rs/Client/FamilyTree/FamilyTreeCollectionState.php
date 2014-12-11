@@ -461,7 +461,7 @@
 
         /**
          * Remove the preferred parent relationship for a person
-         *\Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+         *
          * @param string                                           $treeUserId
          * @param string                                           $personId
          * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
