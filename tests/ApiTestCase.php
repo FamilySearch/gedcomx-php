@@ -4,9 +4,11 @@ namespace Gedcomx\Tests;
 
 use Faker\Factory;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Guzzle\Http\Message\EntityEnclosingRequest;
@@ -192,11 +194,35 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $state;
     }
 
+    /**
+     * Initialize a ChildAndParentRelationship for tests requiring one.
+     *
+     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     */
     protected  function createRelationship()
     {
-        $father = $this->createPerson('male')->get();
-        $mother = $this->createPerson('female')->get();
-        $child = $this->createPerson()->get();
+        /** @var PersonState $father */
+        $father = $this->createPerson('male');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $father->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(createFather)', $father)
+        );
+        /** @var PersonState $mother */
+        $mother = $this->createPerson('female');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $mother->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(createMother)', $mother)
+        );
+        /** @var PersonState $child */
+        $child = $this->createPerson();
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $child->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(createChild)', $child)
+        );
         $this->queueForDelete($father,$child,$mother);
 
         $rel = new ChildAndParentsRelationship();
@@ -204,7 +230,13 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $rel->setFather($father->getResourceReference());
         $rel->setMother($mother->getResourceReference());
 
+        /** @var ChildAndParentsRelationshipState $rState */
         $rState = $this->collectionState()->addChildAndParentsRelationship($rel);
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $rState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(createFamily)', $rState)
+        );
         $this->queueForDelete($rState);
 
         return $rState;
