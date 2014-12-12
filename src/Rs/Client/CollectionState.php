@@ -15,7 +15,6 @@ use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Types\RelationshipType;
-use Gedcomx\Util\MediaType;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
@@ -441,7 +440,7 @@ class CollectionState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Util\DataSource               $artifact
      * @param \Gedcomx\Source\SourceDescription                $description
      * @param \Gedcomx\Rs\Client\GedcomxApplicationState       $state
-     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption 1,...
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
       * @return \Gedcomx\Rs\Client\SourceDescriptionState
