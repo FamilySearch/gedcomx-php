@@ -380,12 +380,16 @@ class ChildAndParentsRelationship extends Subject
     public function embed(ExtensibleData $relationship)
     {
         if ($relationship->motherFacts != null) {
-            $this->motherFacts = $this->motherFacts == null ? array() : $this->motherFacts;
-            $this->motherFacts->addAll($relationship->motherFacts);
+            if ($this->motherFacts == null) {
+                $this->motherFacts = array();
+            }
+            $this->motherFacts = array_merge($this->motherFacts, $relationship->motherFacts);
         }
         if ($relationship->fatherFacts != null) {
-            $this->fatherFacts = $this->fatherFacts == null ? array() : $this->fatherFacts;
-            $this->fatherFacts->addAll($relationship->fatherFacts);
+            if ($this->fatherFacts == null) {
+                $this->fatherFacts = array();
+            }
+            $this->fatherFacts = array_merge($this->fatherFacts, $relationship->fatherFacts);
         }
         parent::embed($relationship);
     }

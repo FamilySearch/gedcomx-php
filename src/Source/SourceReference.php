@@ -155,19 +155,22 @@ class SourceReference extends HypermediaEnabledData implements Attributable
      */
     public function initFromArray(array $o)
     {
-        parent::initFromArray($o);
         if (isset($o['description'])) {
             $this->descriptionRef = $o["description"];
+            unset($o['description']);
         }
         if (isset($o['attribution'])) {
             $this->attribution = $o['attribution'] instanceof Attribution ? $o['attribution'] :  new Attribution($o["attribution"]);
+            unset($o['attribution']);
         }
         $this->qualifiers = array();
         if (isset($o['qualifiers'])) {
             foreach ($o['qualifiers'] as $i => $x) {
                 $this->qualifiers[$i] = $x instanceof Qualifier ? $x : new Qualifier($x);
             }
+            unset($o['qualifiers']);
         }
+        parent::initFromArray($o);
     }
 
     public function accept(GedcomxModelVisitor $visitor)
