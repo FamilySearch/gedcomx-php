@@ -3,6 +3,8 @@
 namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMatchResultsState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
@@ -40,6 +42,7 @@ class SearchAndMatchTests extends ApiTestCase
         $this->queueForDelete($person1, $person2);
 
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        /** @var PersonMatchResultsState $matches */
         $matches = $person2->readMatches();
         $this->assertEquals(
             HttpStatus::OK,
@@ -54,6 +57,7 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertNotEmpty($id);
         $match = $collection->readPersonById($id);
         $person2->addNonMatchState($match);
+        /** @var PersonNonMatchesState $state */
         $state = $person2->readNonMatches();
 
         $this->assertNotNull($state->ifSuccessful());
@@ -84,6 +88,7 @@ class SearchAndMatchTests extends ApiTestCase
         $this->queueForDelete($person1, $person2);
 
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        /** @var PersonMatchResultsState $state */
         $state = $person2->readMatches();
 
         $this->assertNotNull($state->ifSuccessful());
@@ -105,6 +110,7 @@ class SearchAndMatchTests extends ApiTestCase
         $person = $person->get();
         $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
         $query = new QueryParameter(true, "collection", "https://familysearch.org/platform/collections/records");
+        /** @var PersonMatchResultsState $state */
         $state = $person->readMatches($query);
 
         $this->assertNotNull($state->ifSuccessful());
@@ -131,11 +137,13 @@ class SearchAndMatchTests extends ApiTestCase
 
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $statuses = new QueryParameter(true, "status", array("pending", "accepted", "rejected"));
+        /** @var PersonMatchResultsState $state */
+
         $state = $person2->readMatches($statuses);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
-        $this->assertNotEmpty(0, $state->getResults()->getEntries());
+        $this->assertNotEmpty($state->getResults()->getEntries());
     }
 
     /**
@@ -158,11 +166,12 @@ class SearchAndMatchTests extends ApiTestCase
         sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
         $statuses = new QueryParameter(true, "status", "accepted");
         $confidence = new QueryParameter(true, "confidence", "4");
+        /** @var PersonMatchResultsState $state */
         $state = $person2->readMatches($statuses, $confidence);
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
-        $this->assertNotEmpty(0, $state->getResults()->getEntries());
+        $this->assertNotEmpty($state->getResults()->getEntries());
     }
 
     /**
