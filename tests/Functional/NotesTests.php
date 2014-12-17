@@ -41,18 +41,22 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person1 = $this->createPerson('male')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person1->getResponse());
         $person2 = $this->createPerson('female')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person2->getResponse());
 
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $note = NoteBuilder::createNote();
         $updated = $relation->addNote($note);
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $updated));
+
+        $relation->delete();
+        $person2->delete();
+        $person1->delete();
     }
 
     /**
@@ -63,11 +67,13 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $personState = $this->createPerson();
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $personState->getResponse() );
 
         $note = NoteBuilder::createNote();
         $noteState = $personState->addNote( $note );
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse() );
+        $personState->delete();
     }
 
     /**
@@ -119,13 +125,13 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person1 = $this->createPerson('male')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person1->getResponse());
         $person2 = $this->createPerson('female')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person2->getResponse());
 
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $note = NoteBuilder::createNote();
@@ -136,6 +142,10 @@ class NotesTests extends ApiTestCase
         $notes = $relation->getRelationship()->getNotes();
         $noted = $relation->readNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
+
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
     }
 
     /**
@@ -147,13 +157,13 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person1 = $this->createPerson('male')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person1->getResponse());
         $person2 = $this->createPerson('female')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person2->getResponse());
 
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $note = NoteBuilder::createNote();
@@ -162,6 +172,10 @@ class NotesTests extends ApiTestCase
 
         $relation->loadNotes();
         $this->assertNotEmpty($relation->getRelationship()->getNotes());
+
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
     }
 
     /**
@@ -231,13 +245,13 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person1 = $this->createPerson('male')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person1->getResponse());
         $person2 = $this->createPerson('female')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person2->getResponse());
 
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $note = NoteBuilder::createNote();
@@ -249,6 +263,10 @@ class NotesTests extends ApiTestCase
         $notes[0]->setText($this->faker->sentence(12));
         $noted = $relation->updateNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
+
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
     }
 
     /**
@@ -299,13 +317,13 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person1 = $this->createPerson('male')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person1->getResponse());
         $person2 = $this->createPerson('female')->get();
+        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $person2->getResponse());
 
         /* Create Relationship */
         /** @var $relation RelationshipState */
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
         $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
 
         $note = NoteBuilder::createNote();
@@ -316,6 +334,10 @@ class NotesTests extends ApiTestCase
         $notes = $relation->getRelationship()->getNotes();
         $noted = $relation->deleteNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
+
+        $relation->delete();
+        $person1->delete();
+        $person2->delete();
     }
 
     /**
@@ -327,9 +349,11 @@ class NotesTests extends ApiTestCase
         $this->collectionState($factory);
 
         $personState = $this->createPerson();
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $personState->getResponse() );
 
         $note = NoteBuilder::createNote();
         $noteState = $personState->addNote( $note );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $noteState->getResponse() );
 
         $note = new Note();
         $note->addLink($noteState->getLink(Rel::SELF));

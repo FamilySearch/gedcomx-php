@@ -64,6 +64,7 @@ class VocabulariesTests extends ApiTestCase
      */
     public function testReadVocabularyTermAlternateLanguage()
     {
+        $lang = "fr";
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
         $collection = $factory->newPlacesState()
@@ -73,16 +74,34 @@ class VocabulariesTests extends ApiTestCase
                 SandboxCredentials::API_KEY
             );
         $listState = $collection->readPlaceTypes();
+        $this->assertNotnull($listState);
+        $this->assertNotNull($listState->ifSuccessful());
+        $this->assertNotNull($listState->getVocabElementList());
         $elements = $listState->getVocabElementList()->getElements();
+        $this->assertnotnull($elements);
 
-        $inFrench = new HeaderParameter(true,'Accept-Language','fr');
+        $inFrench = new HeaderParameter(true,'Accept-Language',$lang);
         $type = $collection->readPlaceTypeById(array_shift($elements)->getId(), $inFrench);
+        $this->assertNotNull($type);
 
         $this->assertEquals(
             HttpStatus::OK,
             $type->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__,$type)
         );
-        $this->assertNotEmpty($type->getVocabElement());
+        $element = $type->getVocabElement();
+        $this->assertNotEmpty($element);
+        $descriptions = $element->getDescriptions();
+        $labels = $element->getLabels();
+        $this->assertNotNull($descriptions);
+        $this->assertNotNull($labels);
+        $this->assertGreaterThan(0, count($descriptions));
+        $this->assertGreaterThan(0, count($labels));
+        /** @var \Gedcomx\Common\TextValue $desc */
+        $desc = array_shift($descriptions);
+        /** @var \Gedcomx\Common\TextValue $label */
+        $label = array_shift($labels);
+        $this->assertEquals($lang, $desc->getLang());
+        $this->assertEquals($lang, $label->getLang());
     }
 }

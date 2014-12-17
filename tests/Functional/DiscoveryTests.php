@@ -2,6 +2,8 @@
 
 namespace Gedcomx\Tests\Functional;
 
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
@@ -89,9 +91,10 @@ class DiscoveryTests extends ApiTestCase
      */
     public function testReadDateAuthority()
     {
-        $factory = new StateFactory();
+        $factory = new FamilyTreeStateFactory();
         $collection = $factory->newDiscoveryState();
         $subsState = $collection->readSubcollections();
+        $this->assertNotNull($subsState);
         $collections = $subsState->getCollections();
         $link = null;
         foreach ($collections as $record) {
@@ -101,11 +104,24 @@ class DiscoveryTests extends ApiTestCase
             }
         }
         $this->assertNotEmpty($link, 'Date Authority link not found');
+        /** @var FamilySearchCollectionState $dateState */
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
             $dateState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
+        );
+        $normalized = $dateState->normalizeDate("26 Nov 1934");
+        $this->assertEquals(
+            'gedcomx-date:+1934-11-26',
+            $normalized->getFormal(),
+            "Formalized date format incorrect: " . $normalized->getFormal()
+        );
+        $extensions = $normalized->getNormalizedExtensions();
+        $this->assertEquals(
+            '26 November 1934',
+            $extensions[0]->getValue(),
+            "Normalized date format incorrect: " . $extensions[0]->getValue()
         );
     }
 
@@ -117,7 +133,9 @@ class DiscoveryTests extends ApiTestCase
         $factory = new StateFactory();
         $collection = $factory->newDiscoveryState();
         $subsState = $collection->readSubcollections();
+        $this->assertNotNull($subsState);
         $collections = $subsState->getCollections();
+        $this->assertNotEmpty($collections);
         $link = null;
         foreach ($collections as $record) {
             if ($record->getId() == "FSDF") {
@@ -130,7 +148,7 @@ class DiscoveryTests extends ApiTestCase
         $this->assertEquals(
             HttpStatus::OK,
             $dateState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
+            $this->buildFailMessage(__METHOD__."(Read discussions collection)", $dateState)
         );
     }
 

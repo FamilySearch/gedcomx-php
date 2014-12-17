@@ -23,6 +23,8 @@ class UserTests extends ApiTestCase
          * assert the URL on the person state is not the original request URL.
          */
         $this->assertFalse(strpos($personState->getResponse()->getEffectiveUrl(), Rel::CURRENT_USER_PERSON));
+        $this->assertNotNull($personState->getEntity(), "Person entity is null.");
+        $this->assertNotEmpty($personState->getPerson(), "No person returned.");
     }
 
     /**
@@ -33,7 +35,13 @@ class UserTests extends ApiTestCase
         $collection = $this->collectionState(new StateFactory());
         $expect200 = new HeaderParameter(true,"Expect",200);
         $personState = $collection->readPersonForCurrentUser($expect200);
-        $this->assertEquals(HttpStatus::OK, $personState->getResponse()->getStatusCode());
+        $this->assertEquals(
+            HttpStatus::OK,
+            $personState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $personState)
+        );
+        $this->assertNotNull($personState->getEntity(), "Person entity is null.");
+        $this->assertNotEmpty($personState->getPerson(), "No person returned.");
     }
 
     /**
@@ -44,7 +52,13 @@ class UserTests extends ApiTestCase
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
         $userState = $this->collectionState()->readCurrentUser();
-        $this->assertEquals(HttpStatus::OK, $userState->getResponse()->getStatusCode());
+        $this->assertEquals(
+            HttpStatus::OK,
+            $userState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $userState)
+        );
+        $this->assertNotNull($userState->getEntity(), "User entity is null.");
+        $this->assertNotEmpty($userState->getUser(), "No user object returned.");
     }
 
     /**
@@ -52,7 +66,7 @@ class UserTests extends ApiTestCase
      */
     public function testReadCurrentUserHistory()
     {
-        $this->markTestSkipped('Skipping for now.');
+        $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
 
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
@@ -74,6 +88,7 @@ class UserTests extends ApiTestCase
         $this->collectionState($factory);
         $personState = $this->createPerson()->get();
         $names = $personState->getPerson()->getNames();
+        /** @var \Gedcomx\Rs\Client\AgentState $agentState */
         $agentState = $personState->readAttributableContributor($names[0]);
 
         $this->assertEquals(
@@ -81,7 +96,8 @@ class UserTests extends ApiTestCase
             $agentState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $agentState)
         );
-        $this->assertNotEmpty($agentState->getAgent());
+        $this->assertNotNull($agentState->getEntity(), "Agent entity is null.");
+        $this->assertNotEmpty($agentState->getAgent(), "Agent object not found.");
     }
 
     /**
@@ -89,7 +105,7 @@ class UserTests extends ApiTestCase
      */
     public function testUpdateCurrentUserHistory()
     {
-        $this->markTestSkipped('Skipping for now.');
+        $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
 
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);

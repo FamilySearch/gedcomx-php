@@ -1,6 +1,6 @@
 <?php 
 
-namespace Gedcomx\Rs\Functional\Client;
+namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
@@ -75,6 +75,13 @@ class OrdinanceTests extends ApiTestCase
             HttpStatus::OK,
             $response->getStatusCode(),
             'Error with valid Ordinance test. Returned: ' . HttpStatus::getText($response->getStatusCode()) . "(".$response->getStatusCode().")"
+        );
+
+        $returnedData = json_decode($response->getBody(true));
+        $this->assertObjectHasAttribute(
+            'collections',
+            $returnedData,
+            'No collection information found.'
         );
     }
 

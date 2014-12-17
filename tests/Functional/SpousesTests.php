@@ -7,13 +7,15 @@ use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\DateInfo;
 use Gedcomx\Conclusion\Fact;
 use Gedcomx\Conclusion\Relationship;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\RelationshipState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\FactBuilder;
-use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Types\FactType;
 
 class SpousesTests extends ApiTestCase
@@ -37,21 +39,37 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        list($husband, $family) = $this->initializeRelationship(array('husband','family'));
 
-        /* Create Relationship */
-        /** @var $relation RelationshipState */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+        /** @var FamilyTreePersonState $husband */
+        $husband = $husband->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $husband->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
+        );
+        $this->assertNotNull($husband->getEntity(), "Get failed. Entity is null.");
 
-        /* Create Marriage Fact */
+        /** @var RelationshipState $family */
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Get failed. Entity is null.");
+
+        //  Create Marriage Fact
+
         /** @var Fact $birth */
-        $birth = $person1->getPerson()->getFactsOfType(FactType::BIRTH);
+        $birth = $husband->getPerson()->getFactsOfType(FactType::BIRTH);
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
-        $relation = $relation->addFact($marriage);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
+        $family = $family->addFact($marriage);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(createSource)", $family)
+        );
     }
 
     /**
@@ -73,23 +91,27 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        list($family) = $this->initializeRelationship(array('family'));
 
-        //$relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $relation = $person1->addSpouse($person2);
-        $this->queueForDelete($relation);
+        /** @var RelationshipState $family */
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $family)
+        );
 
-        $relation = $relation->get();
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
-
-        $etagHeader = $relation->getEtag()->toArray();
+        $etagHeader = $family->getEtag()->toArray();
         $noneMatch = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, $etagHeader[0]);
         $eTag = new HeaderParameter(true, HeaderParameter::ETAG, $etagHeader[0]);
 
-        $secondState = $relation->get($noneMatch, $eTag);
+        $secondState = $family->get($noneMatch, $eTag);
 
-        $this->assertAttributeEquals(HttpStatus::NOT_MODIFIED, "statusCode", $secondState->getResponse() );
+        $this->assertEquals(
+            HttpStatus::NOT_MODIFIED,
+            $secondState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $secondState)
+        );
     }
 
     /**
@@ -124,9 +146,19 @@ class SpousesTests extends ApiTestCase
              )
          ));
 
-        $person1 = $this->createPerson();
-        $relation = $person1->readRelationship($relationship);
-        $this->assertAttributeEquals(HttpStatus::NOT_FOUND, "statusCode", $relation->getResponse());
+        $person = $this->createPerson();
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $person->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(person)", $person)
+        );
+
+        $relation = $person->readRelationship($relationship);
+        $this->assertEquals(
+            HttpStatus::NOT_FOUND,
+            $relation->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $relation)
+        );
     }
 
     /**
@@ -137,16 +169,16 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        /** @var RelationshipState $family */
+        list($family) = $this->initializeRelationship(array('family'));
 
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $this->queueForDelete($relation);
-
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
-
-        $headers = $relation->head();
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $headers->getResponse(), $this->buildFailMessage(__METHOD__, $headers));
+        /** @var GedcomxApplicationState $headers */
+        $headers = $family->head();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $headers->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $headers)
+        );
     }
 
     /**
@@ -157,22 +189,53 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        /** @var RelationshipState $family */
+        list($family) = $this->initializeRelationship(array('family'));
 
-        /* Create Relationship */
-        /** @var $relation RelationshipState */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getFamily1)", $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Family entity is null.");
 
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+        $person3 = $this->createPerson('female');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $person3->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(person3)", $person3)
+        );
+        $person3 = $person3->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $person3->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getPerson3)", $person3)
+        );
+        $this->assertNotNull($person3->getEntity(), "Person3 entity is null.");
 
-        $person3 = $this->createPerson('female')->get();
-        $relationship = $relation->getRelationship();
+        $relationship = $family->getRelationship();
         $relationship->setPerson2($person3->getResourceReference());
-        $relation = $relation->updateSelf($relationship);
 
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+        $family = $family->updateSelf($relationship);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(updateRelationship)", $family)
+        );
+
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getFamily2)", $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Family entity is null.");
+        $this->assertEquals(
+            $family->getRelationship()->getPerson2()->getResourceId(),
+            $person3->getPerson()->getId(),
+            "Person3 is not person2 on the relationship object."
+        );
     }
 
     /**
@@ -183,23 +246,40 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        list($husband, $family) = $this->initializeRelationship(array('husband','family'));
 
-        /* Create Relationship */
-        /** @var $relation RelationshipState */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+        /** @var FamilyTreePersonState $husband */
+        $husband = $husband->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $husband->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
+        );
+        $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
 
-        /* Create Marriage Fact */
+        /** @var RelationshipState $family */
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Get failed. Family entity is null.");
+
+        //  Create Marriage Fact
+
         /** @var Fact $birth */
-        $birth = $person1->getPerson()->getFactsOfType(FactType::BIRTH);
+        $birth = $husband->getPerson()->getFactsOfType(FactType::BIRTH);
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
-        $relation = $relation->addFact($marriage);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
+        $family = $family->addFact($marriage);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(createSource)", $family)
+        );
 
-        /* Alter Marriage Fact */
+        //  Alter Marriage Fact
+
         $marriage->setAttribution(new Attribution(array(
                                                       "changeMessage" => $this->faker->sentence(6)
                                                   )));
@@ -208,8 +288,12 @@ class SpousesTests extends ApiTestCase
         $marriage->setDate(new DateInfo(array(
                                             "original" => $newDate->format('F m, Y')
                                         )));
-        $relation = $relation->addFact($marriage);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
+        $family = $family->addFact($marriage);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(addFact)", $family)
+        );
     }
 
     /**
@@ -220,26 +304,36 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        list($family) = $this->initializeRelationship(array('family'));
 
-        /* CREATE */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $this->queueForDelete($relation);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
-
-        /* READ */
-        $relation = $relation->get();
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        /** @var RelationshipState $family */
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Family entity is null.");
 
         /** @var $entity Relationship */
-        $entity = $relation->getRelationship();
+        $entity = $family->getRelationship();
 
         /* Person1 must be male. Person2 must be female. */
         $person3 = $this->createPerson('male');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $person3->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $person3)
+        );
+
         $entity->setPerson2($person3->getResourceReference());
-        $updated = $relation->updateSelf($entity);
-        $this->assertAttributeEquals(HttpStatus::BAD_REQUEST, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+        /** @var RelationshipState $updated */
+        $updated = $family->updateSelf($entity);
+        $this->assertEquals(
+            HttpStatus::BAD_REQUEST,
+            $updated->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $updated)
+        );
 
         $warnings = $updated->getHeader('warning');
         $this->assertNotEmpty($warnings, "No warnings found in headers.");
@@ -259,29 +353,64 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        /** @var FamilyTreePersonState $husband */
+        /** @var RelationshipState     $family */
+        list($husband, $family) = $this->initializeRelationship(array('husband','family'));
 
-        /* Create Relationship */
-        /** @var $relation RelationshipState */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2)->get();
-        $this->queueForDelete($relation);
-
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $relation));
+        $husband = $husband->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $husband->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
+        );
+        $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
 
         /* Create Marriage Fact */
         /** @var Fact $birth */
-        $birth = $person1->getPerson()->getFactsofType(FactType::BIRTH);
+        $birth = $husband->getPerson()->getFactsofType(FactType::BIRTH);
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
-        $relation = $relation->addFact($marriage);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $relation));
+        $family = $family->addFact($marriage);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(createSource)", $family)
+        );
 
-        $relation = $relation->get()->loadConclusions();
+        /** @var RelationshipState $family */
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
+        $family->loadConclusions();
+        $this->assertNotNull($family->getEntity(), "Family entity is null.");
+        $this->assertGreaterThan(
+            0,
+            count($family->getRelationship()->getFacts()),
+            "Fact count should be greater than zero."
+        );
 
-        /** @var Fact $birth */
-        $marriage = $relation->getRelationship()->getFactsOfType(FactType::MARRIAGE);
-        $deleted = $relation->deleteFact($marriage);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__."(createSource)", $deleted));
+        $marriage = $family->getRelationship()->getFactsOfType(FactType::MARRIAGE);
+        /** @var RelationshipState $deleted */
+        $deleted = $family->deleteFact($marriage);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $deleted->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(deleteSource)", $deleted)
+        );
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
+        $this->assertNotNull($family->getEntity(), "Family entity is null.");
+        $this->assertEquals(
+            0,
+            count($family->getRelationship()->getFacts()),
+            "Fact count should be zero."
+        );
     }
 
     /**
@@ -292,35 +421,67 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        /** @var FamilyTreePersonState $husband */
+        /** @var RelationshipState     $family */
+        list($husband, $family) = $this->initializeRelationship(array('husband','family'));
 
-        /* CREATE */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $this->queueForDelete($relation);
+        $husband = $husband->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $husband->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
+        );
+        $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
 
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
-        $relation = $relation->get();
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
 
         $relationship = new Relationship(array(
                                              "links" => array(
                                                  array(
                                                      "rel" => 'relationship',
-                                                     'href' => "https://sandbox.familysearch.org/platform/tree/couple-relationships/" . $relation->getRelationship()->getId()
+                                                     'href' => "https://sandbox.familysearch.org/platform/tree/couple-relationships/" . $family->getRelationship()->getId()
                                                  )
                                              )
                                          ));
 
         /* DELETE */
-        $deleted = $relation->delete();
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), "Check deleted success. Returned {$deleted->getResponse()->getStatusCode()}");
+        $deleted = $family->delete();
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $deleted->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(delete)',$deleted)
+        );
 
-        $missing = $person1->readRelationship($relationship);
-        $this->assertAttributeEquals(HttpStatus::GONE, "statusCode", $missing->getResponse(), "Read deleted person failed. Returned {$missing->getResponse()->getStatusCode()}");
+        /** @var FamilyTreeRelationshipState $missing */
+        $missing = $husband->readRelationship($relationship);
+        $this->assertEquals(
+            HttpStatus::GONE,
+            $missing->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(readDeleted)',$missing)
+        );
 
-        /* RESTORE */
+        //  RESTORE
+
+        /** @var FamilyTreeRelationshipState $restored */
         $restored = $missing->restore();
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $restored->getResponse(), "Restore person failed. Returned {$restored->getResponse()->getStatusCode()}");
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $restored->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(restore)', $restored)
+        );
+        $restored = $husband->readRelationship($relationship);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $restored->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(readDeleted)',$restored)
+        );
+        $this->assertNotNull($restored->getEntity(), "Relationship entity is null.");
+        $this->assertNotEmpty($restored->getRelationship(), "Relationship not found after restore.");
     }
 
     /**
@@ -334,31 +495,83 @@ class SpousesTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person1 = $this->createPerson('male')->get();
-        $person2 = $this->createPerson('female')->get();
+        // CREATE
 
-        /* CREATE */
-        $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
-        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        /** @var RelationshipState $family */
+        list($family) = $this->initializeRelationship(array('family'));
 
-        /* READ */
-        $relation = $relation->get();
-        $this->assertAttributeEquals(HttpStatus::OK, "statusCode", $relation->getResponse(), $this->buildFailMessage(__METHOD__, $relation));
+        //  READ
+
+        $family = $family->get();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
+        );
 
         /** @var $entity Relationship */
-        $entity = $relation->getRelationship();
-        $data_check = $entity->getPerson1() instanceof ResourceReference
-            && $entity->getPerson2() instanceof ResourceReference;
+        $entity = $family->getRelationship();
+        $data_check =
+            $entity->getPerson1() instanceof ResourceReference &&
+            $entity->getPerson2() instanceof ResourceReference;
         $this->assertTrue( $data_check );
 
-        /* UPDATE */
-        $person3 = $this->createPerson('female');
-        $entity->setPerson2($person3->getResourceReference());
-        $updated = $relation->updateSelf($entity);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
+        // UPDATE
 
-        /* DELETE */
-        $deleted = $relation->delete();
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+        $person3 = $this->createPerson('female');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $person3->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(person3)", $person3)
+        );
+        $entity->setPerson2($person3->getResourceReference());
+        $updated = $family->updateSelf($entity);
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $updated->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(update)', $updated)
+        );
+
+        //  DELETE
+
+        $deleted = $family->delete();
+        $this->assertEquals(
+            HttpStatus::NO_CONTENT,
+            $deleted->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(delete)', $deleted)
+        );
+    }
+
+    private function initializeRelationship($returnList)
+    {
+        $husband = $this->createPerson('male');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $husband->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(husband)", $husband)
+        );
+        $wife = $this->createPerson('female');
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $wife->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(wife)", $wife)
+        );
+
+        //  Create Relationship
+
+        /** @var RelationshipState $family */
+        $family = $this->collectionState()->addSpouseRelationship($husband, $wife);
+        $this->assertEquals(
+            HttpStatus::CREATED,
+            $family->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(family)", $family)
+        );
+        $this->queueForDelete($family);
+
+        $return = array();
+        foreach ($returnList as $var) {
+            $return[] = $$var;
+        }
+        return $return;
     }
 }

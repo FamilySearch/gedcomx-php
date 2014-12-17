@@ -281,8 +281,9 @@ class DiscussionsTests extends ApiTestCase
 
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
-        $comment = $comments[0];
+        $this->assertEquals(2, count($comments));
 
+        $comment = $comments[0];
         $deleted = $state->deleteComment($comment);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
 

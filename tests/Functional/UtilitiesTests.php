@@ -9,6 +9,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
 use Gedcomx\Tests\ApiTestCase;
 use Guzzle\Http\Message\Header\HeaderInterface;
 
@@ -53,7 +54,7 @@ class UtilitiesTests extends ApiTestCase
             }
         }
 
-        /** @var string[] $requestedFeatures */
+        /** @var string $requestedFeatures */
         $requestedFeatures = join(",", $check);
         // Ensure each requested feature was found in the request headers
         foreach ($features as $feature) {
@@ -62,29 +63,10 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
+     * testReadPersonWithPendingModificationActivated
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Pending_Modification_Activated_usecase
+     * @see testReadPersonWithMultiplePendingModificationsActivated
      */
-    public function testReadPersonWithPendingModificationActivated()
-    {
-        // The default client from this factory is assumed to add a single pending feature (if it doesn't, this test will fail)
-        $factory = new FamilySearchStateFactory();
-        $state = $this->collectionState($factory);
-
-        $this->assertNotNull($state);
-        $check = array();
-        /** @var HeaderInterface $header */
-        foreach ($state->getRequest()->getHeaders() as $header) {
-            if ($header->getName() == "X-FS-Feature-Tag") {
-                $check[] = $header;
-            }
-        }
-
-        /** @var string[] $requestedFeatures */
-        $requestedFeatures = join(",", $check);
-        $this->assertNotNull($requestedFeatures);
-        $this->assertEquals(false, strpos($requestedFeatures, ","));
-        $this->assertEquals(1, count($requestedFeatures));
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_usecase
@@ -101,9 +83,9 @@ class UtilitiesTests extends ApiTestCase
         $request->addHeader("Header", "application/json");
         $response = $this->collectionState()->getClient()->send($request);
 
-        $this->assertNotNull($response);
-        $this->assertEquals(1, $response->getRedirectCount());
-        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+        $this->assertNotNull($response, "Response is null.");
+        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
+        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original.");
     }
 
     /**
@@ -121,9 +103,9 @@ class UtilitiesTests extends ApiTestCase
         $request->addHeader("Header", "application/json");
         $response = $this->collectionState()->getClient()->send($request);
 
-        $this->assertNotNull($response);
-        $this->assertEquals(1, $response->getRedirectCount());
-        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+        $this->assertNotNull($response, "Response is null.");
+        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
+        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original.");
     }
 
     /**
@@ -142,9 +124,9 @@ class UtilitiesTests extends ApiTestCase
         $request->addHeader("Header", "application/json");
         $response = $this->collectionState()->getClient()->send($request);
 
-        $this->assertNotNull($response);
-        $this->assertEquals(1, $response->getRedirectCount());
-        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+        $this->assertNotNull($response, "Response is empty.");
+        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
+        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original request.");
     }
 
     /**
@@ -160,8 +142,8 @@ class UtilitiesTests extends ApiTestCase
         $request->addHeader("Header", "application/json");
         $response = $this->collectionState()->getClient()->send($request);
 
-        $this->assertNotNull($response);
-        $this->assertEquals(1, $response->getRedirectCount());
-        $this->assertNotEquals($uri, $response->getEffectiveUrl());
+        $this->assertNotNull($response, "Response is empty.");
+        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
+        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URLs should not match");
     }
 }

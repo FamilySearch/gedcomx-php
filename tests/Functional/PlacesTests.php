@@ -10,7 +10,13 @@ use Gedcomx\Tests\SandboxCredentials;
 
 class PlacesTests extends ApiTestCase
 {
+    /**
+     * @var \Gedcomx\Rs\Client\VocabElementListState
+     */
     private $vocabListState;
+    /**
+     * @var \Gedcomx\Vocab\VocabElement[]
+     */
     private $vocabElements;
     /**
      * @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces
@@ -34,14 +40,29 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
         $results = $collection->searchForPlaces($query);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $results->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(search results)", $results)
+        );
         $places = $results->getResults();
+
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceDescriptionState $description */
         $description = $results->readPlaceDescription($places[0]);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $description->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__."(place description)", $description)
+        );
+
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $place */
         $place = $description->readPlace();
         $this->assertEquals(
             HttpStatus::OK,
             $place->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $place)
+            $this->buildFailMessage(__METHOD__."(read place)", $place)
         );
+        $this->assertNotNull($place->getEntity());
         $this->assertNotEmpty($description->getPlaceDescription());
     }
 
@@ -62,14 +83,22 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
         $results = $collection->searchForPlaces($query);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $results->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(search results)', $results)
+        );
+
         $places = $results->getResults();
+
         $description = $results->readPlaceDescription($places[0]);
         $this->assertEquals(
             HttpStatus::OK,
             $description->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $description)
         );
-        $this->assertNotEmpty($description->getPlaceDescription());
+        $this->assertNotNull($description->getEntity(), "Description entity is null.");
+        $this->assertNotEmpty($description->getPlaceDescription(), "Place description not found.");
     }
 
     /**
@@ -87,18 +116,37 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::USERNAME,
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceDescriptionState $results */
-        $results = $collection->searchForPlaces($query);
-        $places = $results->getResults();
-        $description = $results->readPlaceDescription($places[0]);
-        $children = $description->readChildren();
 
+        /** @var \Gedcomx\Rs\Client\PlaceSearchResultsState $results */
+        $results = $collection->searchForPlaces($query);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $results->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(search results)', $results)
+        );
+        $this->assertNotNull($results->getEntity(), "Search results entity is null.");
+        /** @var \Gedcomx\Atom\Entry[] $places */
+        $places = $results->getResults();
+
+
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceDescriptionState $description */
+        $description = $results->readPlaceDescription($places[0]);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $description->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(read description)', $description)
+        );
+        $this->assertNotNull($description->getEntity(), "Place description entity is null.");
+
+        /** @var \Gedcomx\Rs\Client\PlaceDescriptionsState $children */
+        $children = $description->readChildren();
         $this->assertEquals(
             HttpStatus::OK,
             $children->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $children)
         );
-        $this->assertNotEmpty($children->getPlaceDescriptions());
+        $this->assertNotNull($children->getEntity(), "Children entity is null.");
+        $this->assertNotEmpty($children->getPlaceDescriptions(), "Source description children not returned.");
     }
 
     /**
@@ -121,7 +169,10 @@ class PlacesTests extends ApiTestCase
             $type->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__,$type)
         );
-        $this->assertNotEmpty($type->getVocabElement());
+
+        $element = $type->getVocabElement();
+        $this->assertNotNull($element, "Vocabulary element should not be null.");
+        $this->assertNotEmpty($element->getDescriptions(), "Vocabulary descriptions should not be empty.");
     }
 
     /**
@@ -193,7 +244,12 @@ class PlacesTests extends ApiTestCase
             $this->vocabListState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__,$this->vocabListState)
         );
-        $this->assertNotEmpty($this->vocabElements);
+        $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
+        $this->assertInstanceOf(
+            '\Gedcomx\Vocab\VocabElement',
+            $this->vocabElements[0],
+            'Vocab list does not appear to have parsed correctly.'
+        );
     }
 
     /**
@@ -211,9 +267,17 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::USERNAME,
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
-        $results = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $results->getResponse()->getStatusCode());
-        $this->assertNotEmpty($results->getResults());
+        $response = $collection->searchForPlaces($query);
+        $this->assertEquals(HttpStatus::OK, $response->getResponse()->getStatusCode());
+        $this->assertNotNull($response->getEntity(), "Search results entity is null.");
+
+        /** @var \Gedcomx\Atom\Entry[] $results */
+        $results = $response->getResults();
+        $this->assertNotEmpty($results, "Search should have returned results.");
+
+        /** @var \Gedcomx\Gedcomx $gx */
+        $gx = $results[0]->getContent()->getGedcomx();
+        $this->assertNotEmpty($gx->getPlaces(), "Places information missing.");
     }
 
     /**
@@ -221,10 +285,12 @@ class PlacesTests extends ApiTestCase
      */
     public function testSearchForPlacesDirectlyUnderAJurisdiction()
     {
+        $factory = new FamilySearchStateFactory();
+
+        //  First do a broad search
+
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('442102', true, true);
-        $factory = new FamilySearchStateFactory();
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
         $collection = $factory->newPlacesState()
@@ -232,9 +298,33 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::USERNAME,
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
-        $results = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $results->getResponse()->getStatusCode());
-        $this->assertNotEmpty($results->getResults());
+        $generalResults = $collection->searchForPlaces($query);
+        $this->assertEquals(HttpStatus::OK, $generalResults->getResponse()->getStatusCode());
+        $this->assertNotNull($generalResults->getEntity(), "General search entity is null.");
+        $this->assertNotEmpty($generalResults->getResults());
+
+        //  Now narrow the search
+
+        $query->parentId('442102', true, true);
+
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+        $collection = $factory->newPlacesState()
+                              ->authenticateViaOAuth2Password(
+                                  SandboxCredentials::USERNAME,
+                                  SandboxCredentials::PASSWORD,
+                                  SandboxCredentials::API_KEY);
+        $specificResults = $collection->searchForPlaces($query);
+        $this->assertEquals(HttpStatus::OK, $specificResults->getResponse()->getStatusCode());
+        $this->assertNotNull($specificResults->getEntity(), "Specific entity is null.");
+        $this->assertNotEmpty($specificResults->getResults());
+
+        //  And assert we have fewer results
+
+        $this->assertLessThan(
+            count($generalResults->getResults()),
+            count($specificResults->getResults()),
+            "Specific result count not less than general result count."
+        );
     }
 
     /**
@@ -242,10 +332,12 @@ class PlacesTests extends ApiTestCase
      */
     public function testSearchForPlacesUnderAJurisdiction()
     {
+        $factory = new FamilySearchStateFactory();
+
+        //  First do a broad search
+
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('329', false, true);
-        $factory = new FamilySearchStateFactory();
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
         $collection = $factory->newPlacesState()
@@ -253,9 +345,34 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::USERNAME,
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
-        $results = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $results->getResponse()->getStatusCode());
-        $this->assertNotEmpty($results->getResults());
+        $generalResults = $collection->searchForPlaces($query);
+        $this->assertEquals(HttpStatus::OK, $generalResults->getResponse()->getStatusCode());
+        $this->assertNotNull($generalResults->getEntity(), "General search entity is null.");
+        $this->assertNotEmpty($generalResults->getResults());
+
+        //  Now narrow the search. Note the second parameter is the difference between this test
+        //  and testSearchForPlacesDirectlyUnderAJurisdiction.
+
+        $query->parentId('329', false, true);
+
+        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
+        $collection = $factory->newPlacesState()
+                              ->authenticateViaOAuth2Password(
+                                  SandboxCredentials::USERNAME,
+                                  SandboxCredentials::PASSWORD,
+                                  SandboxCredentials::API_KEY);
+        $specificResults = $collection->searchForPlaces($query);
+        $this->assertEquals(HttpStatus::OK, $specificResults->getResponse()->getStatusCode());
+        $this->assertNotNull($specificResults->getEntity(), "Specific entity is null.");
+        $this->assertNotEmpty($specificResults->getResults());
+
+        //  And assert we have fewer results
+
+        $this->assertLessThan(
+            count($generalResults->getResults()),
+            count($specificResults->getResults()),
+            "Specific result count not less than general result count."
+        );
     }
 
     private function fetchVocabElements(){
