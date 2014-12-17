@@ -15,7 +15,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
-use RuntimeException;
 
 /**
  * The RelationshipState exposes management functions for a relationship.
@@ -194,12 +193,12 @@ class RelationshipState extends GedcomxApplicationState
     /**
      * Adds the specified source reference (in the SourceDescriptionState) to the current relationship.
      *
-     * @param \Gedcomx\Rs\Client\SourceDescriptionsState $source
-     * @param Options\StateTransitionOption              $option,...
+     * @param \Gedcomx\Rs\Client\SourceDescriptionState $source
+     * @param Options\StateTransitionOption             $option,...
      *
      * @return \Gedcomx\Rs\Client\RelationshipState
      */
-    public function addSourceDescriptionState($source, StateTransitionOption $option = null)
+    public function addSourceDescriptionState(SourceDescriptionState $source, StateTransitionOption $option = null)
     {
         $reference = new SourceReference();
         $reference->setDescriptionRef($source->getSelfUri());
