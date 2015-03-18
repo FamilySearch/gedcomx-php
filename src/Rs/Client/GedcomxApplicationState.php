@@ -587,7 +587,7 @@ abstract class GedcomxApplicationState
      *
      * @return $this
      */
-    protected function authenticateWithAccessToken($accessToken) {
+    public function authenticateWithAccessToken($accessToken) {
         $this->accessToken = $accessToken;
         return $this;
     }
