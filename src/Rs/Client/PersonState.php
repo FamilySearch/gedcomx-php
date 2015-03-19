@@ -192,7 +192,7 @@ class PersonState extends GedcomxApplicationState
             $relationships = array();
         }
         foreach( $relationships as $idx => $r ){
-            if ($r->getKnownType() != RelationshipType::COUPLE) {
+            if ($r->getKnownType() != RelationshipType::PARENTCHILD || !$this->refersToMe($r->getPerson2())) {
                 unset($relationships[$idx]);
             }
         }
