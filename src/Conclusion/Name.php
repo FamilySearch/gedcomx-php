@@ -94,7 +94,7 @@ class Name extends Conclusion
      */
     public function getPreferred()
     {
-        return $this->preferred;
+        return (bool)($this->preferred == "true");
     }
 
     /**
