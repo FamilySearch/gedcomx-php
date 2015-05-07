@@ -17,7 +17,7 @@ class GedcomxFileException extends \Exception
      * @param string $filepath
      * @param int    $error_code
      */
-    public function __construct($filepath, $error_code)
+    public function __construct($filepath, $error_code = 0)
     {
         $errorMessage = $filepath . ": ";
         switch($error_code){
