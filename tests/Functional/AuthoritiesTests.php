@@ -8,6 +8,9 @@ use Gedcomx\Tests\ApiTestCase;
 
 class AuthoritiesTests extends ApiTestCase
 {
+    /**
+     * @vcr Authorities/testDateAuthority
+     */
     public function testDateAuthority()
     {
         $factory = new FamilySearchStateFactory();

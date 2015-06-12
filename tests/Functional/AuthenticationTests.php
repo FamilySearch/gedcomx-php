@@ -16,6 +16,7 @@ class AuthenticationTests extends ApiTestCase
     private $clientId = 'ABCD-EFGH-JKLM-NOPQ-RSTU-VWXY-0123-4567';
 
     /**
+     * @vcr Authentication/testDeleteAccessToken
      * @link https://familysearch.org/developers/docs/api/authentication/Delete_Access_Token_usecase
      */
     public function testDeleteAccessToken()
@@ -46,6 +47,7 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
+     * @vcr Authentication/testInitiateAuthorizationGet
      * @link https://familysearch.org/developers/docs/api/authentication/Initiate_Authorization_(GET)_usecase
      */
     public function testInitiateAuthorizationGet()
@@ -68,6 +70,7 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
+     * @vcr Authentication/testInitiateAuthorizationInvalid
      * @link https://familysearch.org/developers/docs/api/authentication/Initiate_Authorization_(Invalid_Parameter)_usecase
      */
     public function testInitiateAuthorizationInvalid()
@@ -90,7 +93,14 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
+     * @vcr Authentication/testInitiateAuthorizationPost
      * @link https://familysearch.org/developers/docs/api/authentication/Initiate_Authorization_(POST)_usecase
+     * 
+     * TODO: vcr breaks this test for some reason. The API returns an error that occurs
+     * when the Content-Type parameter is missing but you can see in the recorded
+     * request that it's not missing. I don't know what to do about it other than
+     * turn off vcr for this one because the test works without it. I turned off
+     * vcr by breaking the annotation.
      */
     public function testInitiateAuthorizationPost()
     {
@@ -115,6 +125,7 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
+     * @vcr Authentication/testBadAuthenticationRequest
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_(Bad_Parameters)_usecase
      *
      * @expectedException \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
@@ -134,6 +145,7 @@ class AuthenticationTests extends ApiTestCase
      */
 
     /**
+     * @vcr Authentication/testObtainAccessTokenWithUsernameAndPassword
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_with_Username_and_Password_usecase
      */
     public function testObtainAccessTokenWithUsernameAndPassword()
@@ -151,6 +163,7 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
+     * @vcr Authentication/testObtainAccessTokenWithoutAuthenticating
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_without_Authenticating_usecase
      */
     public function testObtainAccessTokenWithoutAuthenticating()

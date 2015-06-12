@@ -19,6 +19,10 @@
     <logging>
         <log type="junit" target="build/artifacts/logs/junit.xml" logIncompleteSkipped="true" />
     </logging>
+    
+   <listeners>
+        <listener class="PHPUnit_Util_Log_VCR" file="vendor/php-vcr/phpunit-testlistener-vcr/PHPUnit/Util/Log/VCR.php" />
+    </listeners>    
 
     <filter>
         <whitelist>
