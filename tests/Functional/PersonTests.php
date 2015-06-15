@@ -289,11 +289,11 @@ class PersonTests extends ApiTestCase
         $option = new QueryParameter(true, "type", "photo");
         $memories = $person->readArtifacts($option);
         $this->assertEquals(
-            HttpStatus::OK,
+            HttpStatus::NO_CONTENT,
             $memories->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $memories)
         );
-        $this->assertEmpty($memories->getEntity()->getSourceDescriptions());
+        $this->assertEmpty($memories->getEntity());
 
         $option = new QueryParameter(true, "type", "story");
         $memories = $person->readArtifacts($option);

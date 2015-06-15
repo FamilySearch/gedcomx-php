@@ -28,23 +28,6 @@ class UserTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Current_Tree_Person_Expecting_200_Response_usecase
-     */
-    public function testReadCurrentTreePersonExpecting200()
-    {
-        $collection = $this->collectionState(new StateFactory());
-        $expect200 = new HeaderParameter(true,"Expect",200);
-        $personState = $collection->readPersonForCurrentUser($expect200);
-        $this->assertEquals(
-            HttpStatus::OK,
-            $personState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $personState)
-        );
-        $this->assertNotNull($personState->getEntity(), "Person entity is null.");
-        $this->assertNotEmpty($personState->getPerson(), "No person returned.");
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
      */
     public function testReadCurrentUser()
