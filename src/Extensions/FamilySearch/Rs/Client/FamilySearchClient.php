@@ -48,14 +48,6 @@ class FamilySearchClient {
     private $clientSecret;
     
     /**
-     * URI for the Discovery resource.
-     * This is not used yet.
-     * 
-     * @var string
-     */
-    private $discoveryURI;
-    
-    /**
      * URI for the Collections resource.
      * 
      * @var string
@@ -70,7 +62,12 @@ class FamilySearchClient {
     /**
      * @var \Gedcomx\Rs\Client\CollectionState
      */
-    private $collectionState;
+    private $treeState;
+    
+    /**
+     * @var \Gedcomx\Rs\Client\CollectionsState
+     */
+    private $collectionsState;
     
     /**
      * Construct a FamilySearch Client
@@ -86,34 +83,22 @@ class FamilySearchClient {
             $this->clientId = $options['clientId'];
         }
         
-        // environment option trumps
+        // Set the proper collectionsURI based on the environment.
+        // Default to sandbox.
+        $environment = '';
         if(isset($options['environment'])){
-            switch($options['environment']){
-                case 'production':
-                    $this->discoveryURI = 'https://familysearch.org/platform/collections';
-                    $this->collectionsURI = 'https://familysearch.org/platform/collections/tree';
-                    break;
-                case 'beta':
-                    $this->discoveryURI = 'https://beta.familysearch.org/platform/collections';
-                    $this->collectionsURI = 'https://beta.familysearch.org/platform/collections/tree';
-                    break;
-                case 'sandbox':
-                    $this->discoveryURI = 'https://sandbox.familysearch.org/platform/collections';
-                    $this->collectionsURI = 'https://sandbox.familysearch.org/platform/collections/tree';
-                    break;
-            }
+            $environment = $options['environment'];
         }
-        
-        // If the environment option is not set, look for the collectionsURI
-        if(!$this->collectionsURI){
-            if(isset($options['collectionsURI'])){
-                $this->collectionsURI = $options['collectionsURI'];
-            }
-            
-            // Otherwise default to production
-            else {
+        switch($environment){
+            case 'production':
                 $this->collectionsURI = 'https://familysearch.org/platform/collections';
-            }
+                break;
+            case 'beta':
+                $this->collectionsURI = 'https://beta.familysearch.org/platform/collections';
+                break;
+            default:
+                $this->collectionsURI = 'https://sandbox.familysearch.org/platform/collections';
+                break;
         }
         
         $this->client = new FilterableClient('', array(
@@ -127,10 +112,12 @@ class FamilySearchClient {
         }
         
         $this->stateFactory = new FamilyTreeStateFactory();
-        $this->createCollectionState();
+        
+        $this->createCollectionsState();
+        $this->createTreeState();
         
         if(isset($options['accessToken'])){
-            $this->collectionState->authenticateWithAccessToken($options['accessToken']);
+            $this->treeState->authenticateWithAccessToken($options['accessToken']);
         }
     }
     
@@ -139,7 +126,7 @@ class FamilySearchClient {
      */
     public function familytree()
     {
-        return $this->collectionState;
+        return $this->treeState;
     }
     
     /**
@@ -153,7 +140,7 @@ class FamilySearchClient {
     public function authenticateViaOAuth2Password($username, $password)
     {
         $this->requireClientIdAndRedirectURI();
-        $this->collectionState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
+        $this->treeState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
         return $this;
     }
     
@@ -167,7 +154,7 @@ class FamilySearchClient {
     public function authenticateViaOAuth2AuthCode($code)
     {
         $this->requireClientIdAndRedirectURI();
-        $this->collectionState->authenticateViaOAuth2AuthCode($code, $this->redirectURI, $this->clientId);
+        $this->treeState->authenticateViaOAuth2AuthCode($code, $this->redirectURI, $this->clientId);
         return $this;
     }
     
@@ -181,7 +168,7 @@ class FamilySearchClient {
     {
         $this->requireClientIdAndRedirectURI();
         
-        $url = $this->collectionState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
+        $url = $this->treeState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
         $params = array(
             'response_type' => 'code',
             'redirect_uri' => $this->redirectURI,
@@ -197,8 +184,7 @@ class FamilySearchClient {
      */
     public function getAccessToken()
     {
-        $this->createCollectionState();
-        return $this->collectionState->getAccessToken();
+        return $this->treeState->getAccessToken();
     }
     
     /**
@@ -208,7 +194,7 @@ class FamilySearchClient {
      */
     public function getAvailablePendingModifications()
     {
-        $request = $this->collectionState->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
+        $request = $this->treeState->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
         $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
         $response = $request->send($request);
 
@@ -224,16 +210,29 @@ class FamilySearchClient {
     }
     
     /**
-     * Ensure the collectionState propery exists
+     * Ensure the collectionsState propery exists
      */
-    private function createCollectionState()
+    private function createCollectionsState()
     {
-        if($this->collectionState == null){
-            $this->collectionState = $this->stateFactory->newCollectionState(
+        if($this->collectionsState == null){
+            $this->collectionsState = $this->stateFactory->newCollectionsState(
                 $this->collectionsURI,
                 'GET',
                 $this->client
             );
+        }
+    }
+    
+    /**
+     * Ensure the treeState propery exists
+     */
+    private function createTreeState()
+    {
+        $this->createCollectionsState();
+        foreach($this->collectionsState->getCollections() as $collection){
+            if($collection->getId() == 'FSFT'){
+                $this->treeState = $this->collectionsState->readCollection($collection);
+            }
         }
     }
     
