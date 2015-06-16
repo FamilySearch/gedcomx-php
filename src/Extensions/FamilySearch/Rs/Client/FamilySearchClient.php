@@ -31,7 +31,7 @@ class FamilySearchClient {
      *
      * @var string
      */
-    private $redirectUri;
+    private $redirectURI;
     
     /**
      * The client ID used for authentication via OAuth2
@@ -53,14 +53,14 @@ class FamilySearchClient {
      * 
      * @var string
      */
-    private $discoveryUri;
+    private $discoveryURI;
     
     /**
      * URI for the Collections resource.
      * 
      * @var string
      */
-    private $collectionsUri;
+    private $collectionsURI;
     
     /**
      * @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory
@@ -79,8 +79,8 @@ class FamilySearchClient {
      */
     public function __construct($options = array())
     {
-        if(isset($options['redirectUri'])){
-            $this->redirectUri = $options['redirectUri'];
+        if(isset($options['redirectURI'])){
+            $this->redirectURI = $options['redirectURI'];
         }
         if(isset($options['clientId'])){
             $this->clientId = $options['clientId'];
@@ -90,29 +90,29 @@ class FamilySearchClient {
         if(isset($options['environment'])){
             switch($options['environment']){
                 case 'production':
-                    $this->discoveryUri = 'https://familysearch.org/platform/collections';
-                    $this->collectionsUri = 'https://familysearch.org/platform/collections/tree';
+                    $this->discoveryURI = 'https://familysearch.org/platform/collections';
+                    $this->collectionsURI = 'https://familysearch.org/platform/collections/tree';
                     break;
                 case 'beta':
-                    $this->discoveryUri = 'https://beta.familysearch.org/platform/collections';
-                    $this->collectionsUri = 'https://beta.familysearch.org/platform/collections/tree';
+                    $this->discoveryURI = 'https://beta.familysearch.org/platform/collections';
+                    $this->collectionsURI = 'https://beta.familysearch.org/platform/collections/tree';
                     break;
                 case 'sandbox':
-                    $this->discoveryUri = 'https://sandbox.familysearch.org/platform/collections';
-                    $this->collectionsUri = 'https://sandbox.familysearch.org/platform/collections/tree';
+                    $this->discoveryURI = 'https://sandbox.familysearch.org/platform/collections';
+                    $this->collectionsURI = 'https://sandbox.familysearch.org/platform/collections/tree';
                     break;
             }
         }
         
-        // If the environment option is not set, look for the collectionsUri
-        if(!$this->collectionsUri){
-            if(isset($options['collectionsUri'])){
-                $this->collectionsUri = $options['collectionsUri'];
+        // If the environment option is not set, look for the collectionsURI
+        if(!$this->collectionsURI){
+            if(isset($options['collectionsURI'])){
+                $this->collectionsURI = $options['collectionsURI'];
             }
             
             // Otherwise default to production
             else {
-                $this->collectionsUri = 'https://familysearch.org/platform/collections';
+                $this->collectionsURI = 'https://familysearch.org/platform/collections';
             }
         }
         
@@ -152,7 +152,7 @@ class FamilySearchClient {
      */
     public function authenticateViaOAuth2Password($username, $password)
     {
-        $this->requireClientIdAndRedirectUri();
+        $this->requireClientIdAndRedirectURI();
         $this->collectionState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
         return $this;
     }
@@ -166,8 +166,8 @@ class FamilySearchClient {
      */
     public function authenticateViaOAuth2AuthCode($code)
     {
-        $this->requireClientIdAndRedirectUri();
-        $this->collectionState->authenticateViaOAuth2AuthCode($code, $this->redirectUri, $this->clientId);
+        $this->requireClientIdAndRedirectURI();
+        $this->collectionState->authenticateViaOAuth2AuthCode($code, $this->redirectURI, $this->clientId);
         return $this;
     }
     
@@ -177,14 +177,14 @@ class FamilySearchClient {
      * 
      * @return string $url
      */
-    public function getOAuth2AuthorizationURL()
+    public function getOAuth2AuthorizationURI()
     {
-        $this->requireClientIdAndRedirectUri();
+        $this->requireClientIdAndRedirectURI();
         
         $url = $this->collectionState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
         $params = array(
             'response_type' => 'code',
-            'redirect_uri' => $this->redirectUri,
+            'redirect_uri' => $this->redirectURI,
             'client_id' => $this->clientId
         );
         return $url . '?' . http_build_query($params);
@@ -230,7 +230,7 @@ class FamilySearchClient {
     {
         if($this->collectionState == null){
             $this->collectionState = $this->stateFactory->newCollectionState(
-                $this->collectionsUri,
+                $this->collectionsURI,
                 'GET',
                 $this->client
             );
@@ -238,19 +238,19 @@ class FamilySearchClient {
     }
     
     /**
-     * Throw an exception if the clientId or redirectUri are not set.
+     * Throw an exception if the clientId or redirectURI are not set.
      * 
      * @throw GedcomxApplicationException
      */
-    private function requireClientIdAndRedirectUri()
+    private function requireClientIdAndRedirectURI()
     {
         if(!$this->clientId)
         {
             throw new GedcomxApplicationException('No clientId has been set. Unable to begin authentication.');
         }
-        if(!$this->redirectUri)
+        if(!$this->redirectURI)
         {
-            throw new GedcomxApplicationException('No redirectUri has been set. Unable to begin authentication.');
+            throw new GedcomxApplicationException('No redirectURI has been set. Unable to begin authentication.');
         }
     }
     

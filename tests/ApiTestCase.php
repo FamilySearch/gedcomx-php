@@ -155,7 +155,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         return new FamilySearchClient(array(
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,
-            'redirectUri' => SandboxCredentials::REDIRECT_URI,
+            'redirectURI' => SandboxCredentials::REDIRECT_URI,
             'pendingModifications' => $mods
         ));
     }

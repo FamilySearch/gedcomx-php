@@ -32,10 +32,10 @@ class FamilySearchClientTests extends ApiTestCase
         );
     }
     
-    public function testGetOAuth2AuthorizationURL()
+    public function testGetOAuth2AuthorizationURI()
     {
         $client = $this->createFamilySearchClient();
-        $url = $client->getOAuth2AuthorizationURL();
+        $url = $client->getOAuth2AuthorizationURI();
         $this->assertEquals('https://integration.familysearch.org/cis-web/oauth2/v3/authorization?response_type=code&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK', $url);
     }
     
