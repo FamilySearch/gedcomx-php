@@ -48,13 +48,6 @@ class FamilySearchClient {
     private $clientSecret;
     
     /**
-     * An access token for the current session
-     * 
-     * @var string
-     */
-    private $accessToken;
-    
-    /**
      * URI for the Discovery resource.
      * This is not used yet.
      * 
@@ -91,9 +84,6 @@ class FamilySearchClient {
         }
         if(isset($options['clientId'])){
             $this->clientId = $options['clientId'];
-        }
-        if(isset($options['accessToken'])){
-            $this->accessToken = $options['accessToken'];
         }
         
         // environment option trumps
@@ -138,6 +128,10 @@ class FamilySearchClient {
         
         $this->stateFactory = new FamilyTreeStateFactory();
         $this->createCollectionState();
+        
+        if(isset($options['accessToken'])){
+            $this->collectionState->authenticateWithAccessToken($options['accessToken']);
+        }
     }
     
     /**
