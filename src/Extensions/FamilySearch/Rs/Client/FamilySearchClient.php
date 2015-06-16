@@ -2,9 +2,11 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
+use Gedcomx\Gedcomx;
 use Gedcomx\Util\FilterableClient;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 
@@ -130,7 +132,7 @@ class FamilySearchClient {
             )
         ));
         
-        if(isset($options['pendingModifications']) && is_array($options['pendingModifications'])){
+        if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
             $this->client->addFilter(new ExperimentsFilter($options['pendingModifications']));
         }
         
@@ -195,6 +197,28 @@ class FamilySearchClient {
     {
         $this->createCollectionState();
         return $this->collectionState->getAccessToken();
+    }
+    
+    /**
+     * Get a list of valid pending modifications
+     * 
+     * @return array Array of \Gedcomx\Extensions\FamilySearch\Feature
+     */
+    public function getAvailablePendingModifications()
+    {
+        $request = $this->collectionState->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
+        $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
+        $response = $request->send($request);
+
+        // Get each pending features
+        $json = json_decode($response->getBody(true), true);
+        $fsp = new FamilySearchPlatform($json);
+        $features = [];
+        foreach ($fsp->getFeatures() as $feature) {
+            $features[] = $feature;
+        }
+        
+        return $features;
     }
     
     /**
