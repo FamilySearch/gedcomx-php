@@ -37,6 +37,13 @@ class FamilySearchClient {
     private $clientId;
     
     /**
+     * The client secret used for authentication via OAuth2
+     * 
+     * @var string
+     */
+    private $clientSecret;
+    
+    /**
      * An access token for the current session
      * 
      * @var string
@@ -45,6 +52,7 @@ class FamilySearchClient {
     
     /**
      * URI for the Discovery resource.
+     * This is not used yet.
      * 
      * @var string
      */
@@ -86,8 +94,7 @@ class FamilySearchClient {
         
         // environment option trumps
         if(isset($options['environment'])){
-            $environment = $options['environment'];
-            switch($environment){
+            switch($options['environment']){
                 case 'production':
                     $this->discoveryUri = 'https://familysearch.org/platform/collections';
                     $this->collectionsUri = 'https://familysearch.org/platform/collections/tree';
@@ -104,13 +111,15 @@ class FamilySearchClient {
         }
         
         // If the environment option is not set, look for the collectionsUri
-        if(!$this->collectionsUri && isset($options['collectionsUri'])){
-            $this->collectionsUri = $options['collectionsUri'];
-        }
-        
-        // Otherwise default to production
-        else {
-            $this->collectionsUri = 'https://familysearch.org/platform/collections';
+        if(!$this->collectionsUri){
+            if(isset($options['collectionsUri'])){
+                $this->collectionsUri = $options['collectionsUri'];
+            }
+            
+            // Otherwise default to production
+            else {
+                $this->collectionsUri = 'https://familysearch.org/platform/collections';
+            }
         }
         
         $this->client = new FilterableClient('', array(
@@ -129,7 +138,43 @@ class FamilySearchClient {
     /**
      * @return Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
      */
-    public function familytree(){
+    public function familytree()
+    {
+        $this->createCollectionState();
+        return $this->collectionState;
+    }
+    
+    /**
+     * Authenticate via the OAuth2 password flow
+     * 
+     * @param string $username
+     * @param string $password
+     * 
+     * @return FamilySearchClient
+     */
+    public function authenticateViaOAuth2Password($username, $password)
+    {
+        $this->createCollectionState();
+        $this->collectionState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
+        return $this;
+    }
+    
+    /**
+     * Get the access token for this session
+     * 
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        $this->createCollectionState();
+        return $this->collectionState->getAccessToken();
+    }
+    
+    /**
+     * Ensure the collectionState propery exists
+     */
+    private function createCollectionState()
+    {
         if($this->collectionState == null){
             $this->collectionState = $this->stateFactory->newCollectionState(
                 $this->collectionsUri,
@@ -137,7 +182,6 @@ class FamilySearchClient {
                 $this->client
             );
         }
-        return $this->collectionState;
     }
     
 }
