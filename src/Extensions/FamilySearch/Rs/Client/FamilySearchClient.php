@@ -3,6 +3,8 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Util\FilterableClient;
+use Gedcomx\Rs\Client\Rel;
+use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 
@@ -133,6 +135,7 @@ class FamilySearchClient {
         }
         
         $this->stateFactory = new FamilyTreeStateFactory();
+        $this->createCollectionState();
     }
     
     /**
@@ -140,7 +143,6 @@ class FamilySearchClient {
      */
     public function familytree()
     {
-        $this->createCollectionState();
         return $this->collectionState;
     }
     
@@ -154,9 +156,34 @@ class FamilySearchClient {
      */
     public function authenticateViaOAuth2Password($username, $password)
     {
-        $this->createCollectionState();
         $this->collectionState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
         return $this;
+    }
+    
+    /**
+     * Get the URL that the user should be sent to in order to
+     * begin the OAuth2 redirect flow.
+     * 
+     * @return string $url
+     */
+    public function getOAuth2AuthorizationURL()
+    {
+        if(!$this->clientId)
+        {
+            throw new GedcomxApplicationException('No clientId has been set. Unable to begin authentication.');
+        }
+        if(!$this->redirectUri)
+        {
+            throw new GedcomxApplicationException('No redirectUri has been set. Unable to begin authentication.');
+        }
+        
+        $url = $this->collectionState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
+        $params = array(
+            'response_type' => 'code',
+            'redirect_uri' => $this->redirectUri,
+            'client_id' => $this->clientId
+        );
+        return $url . '?' . http_build_query($params);
     }
     
     /**
