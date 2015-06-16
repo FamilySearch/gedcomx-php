@@ -22,9 +22,9 @@ class FamilySearchClientTests extends ApiTestCase
         
         $person = PersonBuilder::buildPerson('');
         $responseState = $client->familytree()->addPerson($person);
+        $this->queueForDelete($responseState);
         
         $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
-        $this->queueForDelete($responseState);
         $this->assertEquals(
             HttpStatus::CREATED,
             $responseState->getResponse()->getStatusCode(),
@@ -62,6 +62,7 @@ class FamilySearchClientTests extends ApiTestCase
         
         $person = PersonBuilder::buildPerson('');
         $responseState = $client->familytree()->addPerson($person);
+        $this->queueForDelete($responseState);
 
         // Ensure a response came back
         $this->assertNotNull($responseState);

@@ -158,7 +158,22 @@ class FamilySearchClient {
      */
     public function authenticateViaOAuth2Password($username, $password)
     {
+        $this->requireClientIdAndRedirectUri();
         $this->collectionState->authenticateViaOAuth2Password($username, $password, $this->clientId, $this->clientSecret);
+        return $this;
+    }
+    
+    /**
+     * Authenticate with an OAuth2 code
+     * 
+     * @param string $code
+     * 
+     * @return FamilySearchClient
+     */
+    public function authenticateViaOAuth2AuthCode($code)
+    {
+        $this->requireClientIdAndRedirectUri();
+        $this->collectionState->authenticateViaOAuth2AuthCode($code, $this->redirectUri, $this->clientId);
         return $this;
     }
     
@@ -170,14 +185,7 @@ class FamilySearchClient {
      */
     public function getOAuth2AuthorizationURL()
     {
-        if(!$this->clientId)
-        {
-            throw new GedcomxApplicationException('No clientId has been set. Unable to begin authentication.');
-        }
-        if(!$this->redirectUri)
-        {
-            throw new GedcomxApplicationException('No redirectUri has been set. Unable to begin authentication.');
-        }
+        $this->requireClientIdAndRedirectUri();
         
         $url = $this->collectionState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
         $params = array(
@@ -232,6 +240,23 @@ class FamilySearchClient {
                 'GET',
                 $this->client
             );
+        }
+    }
+    
+    /**
+     * Throw an exception if the clientId or redirectUri are not set.
+     * 
+     * @throw GedcomxApplicationException
+     */
+    private function requireClientIdAndRedirectUri()
+    {
+        if(!$this->clientId)
+        {
+            throw new GedcomxApplicationException('No clientId has been set. Unable to begin authentication.');
+        }
+        if(!$this->redirectUri)
+        {
+            throw new GedcomxApplicationException('No redirectUri has been set. Unable to begin authentication.');
         }
     }
     
