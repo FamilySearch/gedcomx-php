@@ -76,6 +76,30 @@ class StateFactory
     }
 
     /**
+     * Returns a new collections state by invoking the specified URI and method, using the specified client.
+     *
+     * @param string              $uri    Optional URI
+     * @param \Guzzle\Http\Client $client The client to use.
+     * @param string              $method The method.
+     *
+     * @return CollectionsState The collections state.
+     */
+    public function newCollectionsState($uri = null, $method = "GET", Client $client = null)
+    {
+        if (!$client) {
+            $client = $this->defaultClient();
+        }
+        if ($uri == null) {
+            $uri = $this->production ? self::PRODUCTION_DISCOVERY_URI : self::SANDBOX_DISCOVERY_URI;
+        }
+
+        /** @var Request $request */
+        $request = $client->createRequest($method, $uri);
+        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        return new CollectionsState($client, $request, $client->send($request), null, $this);
+    }
+
+    /**
      * Returns a new discovery state by invoking the specified URI and method, using the specified client.
      *
      * @param string              $uri    Optional URI

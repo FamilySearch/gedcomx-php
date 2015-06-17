@@ -6,6 +6,7 @@ use Faker\Factory;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\PersonState;
@@ -147,6 +148,25 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         }
 
         return $message;
+    }
+    
+    protected function createFamilySearchClient($mods = array())
+    {
+        return new FamilySearchClient(array(
+            'environment' => 'sandbox',
+            'clientId' => SandboxCredentials::API_KEY,
+            'redirectURI' => SandboxCredentials::REDIRECT_URI,
+            'pendingModifications' => $mods
+        ));
+    }
+    
+    protected function createAuthenticatedFamilySearchClient($mods = array())
+    {
+        return $this->createFamilySearchClient($mods)
+            ->authenticateViaOAuth2Password(
+                SandboxCredentials::USERNAME, 
+                SandboxCredentials::PASSWORD
+            );
     }
 
     protected  function createPerson($gender = null)
