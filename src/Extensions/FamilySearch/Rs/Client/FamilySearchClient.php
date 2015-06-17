@@ -201,7 +201,7 @@ class FamilySearchClient {
         // Get each pending features
         $json = json_decode($response->getBody(true), true);
         $fsp = new FamilySearchPlatform($json);
-        $features = [];
+        $features = array();
         foreach ($fsp->getFeatures() as $feature) {
             $features[] = $feature;
         }
