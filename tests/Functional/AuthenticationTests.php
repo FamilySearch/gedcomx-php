@@ -117,7 +117,7 @@ class AuthenticationTests extends ApiTestCase
             'client_id' => $this->clientId,
             'redirect_uri' => 'https://familysearch.org/developers/sandbox-oauth2-redirect'
         );
-        $request->setBody(http_build_query($formData));
+        $request->addPostFields($formData);
         $response = $collectionState->getClient()->send($request);
         $doc = $response->getBody(true);
         $hasInput = strpos($doc,'id="userName"') !== false ? true : false;
