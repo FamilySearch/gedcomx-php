@@ -9,7 +9,6 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
-use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
 use Gedcomx\Tests\ApiTestCase;
 use Guzzle\Http\Message\Header\HeaderInterface;
 
