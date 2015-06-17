@@ -4,7 +4,7 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Util\FilterableClient;
-use Gedcomx\Rs\Client\Rel;
+use Gedcomx\Rs\Client\Rel as GedcomxRel;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
@@ -168,7 +168,7 @@ class FamilySearchClient {
     {
         $this->requireClientIdAndRedirectURI();
         
-        $url = $this->treeState->getLink(Rel::OAUTH2_AUTHORIZE)->getHref();
+        $url = $this->treeState->getLink(GedcomxRel::OAUTH2_AUTHORIZE)->getHref();
         $params = array(
             'response_type' => 'code',
             'redirect_uri' => $this->redirectURI,
