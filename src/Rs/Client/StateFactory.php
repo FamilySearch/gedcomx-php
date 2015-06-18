@@ -4,7 +4,6 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Gedcomx\Rs\Client\Util\Log4PhpLoggingFilter;
 use Gedcomx\Util\FilterableClient;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
@@ -31,10 +30,6 @@ class StateFactory
      * The default sandbox environment URI for the discovery endpoint.
      */
     const SANDBOX_DISCOVERY_URI = "https://sandbox.familysearch.org/platform/collection";
-    /**
-     * This is the environment variable to use at runtime to determine if REST API request logging will occur.
-     */
-    const ENABLE_LOG4PHP_LOGGING_ENV_NAME = "enableLog4PhpLogging";        // env variable/property to set
 
     /**
      * @var boolean Are we in a production environment
@@ -141,11 +136,6 @@ class StateFactory
             $opts['request.options']['verify'] = false;
         }
         $client = new FilterableClient('', $opts);
-
-        $enableLogging = getenv($this::ENABLE_LOG4PHP_LOGGING_ENV_NAME);
-        if ($enableLogging) {
-            $client->addFilter(new Log4PhpLoggingFilter());
-        }
         return $client;
     }
 
