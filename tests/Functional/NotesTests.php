@@ -12,9 +12,16 @@ use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\NoteBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class NotesTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(957156);
+        TestBuilder::seed(957156);
+    }
+    
     /**
      * @vcr NotesTests/testCreateChildAndParentsRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Note_usecase
