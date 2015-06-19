@@ -17,6 +17,7 @@ use Gedcomx\Tests\DiscussionBuilder;
 class DiscussionsTests extends ApiTestCase
 {
     /**
+     * @vcr DiscussionsTests/testCreateDiscussion
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Discussion_usecase
      */
     public function testCreateDiscussion()
@@ -35,6 +36,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testCreateDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
@@ -54,6 +56,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testCreateComment
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Comment_usecase
      */
     public function testCreateComment()
@@ -74,6 +77,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadDiscussion
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Discussion_usecase
      */
     public function testReadDiscussion()
@@ -93,6 +97,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
     public function testReadDiscussionReference(){
@@ -124,6 +129,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadComments
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Comments_usecase
      */
     public function testReadComments()
@@ -149,6 +155,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testUpdateDiscussion
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Discussion_usecase
      */
     public function testUpdateDiscussion()
@@ -172,6 +179,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testUpdateComment
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Comment_usecase
      */
     public function testUpdateComment()
@@ -215,6 +223,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteDiscussion
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Discussion_usecase
      */
     public function testDeleteDiscussion()
@@ -236,6 +245,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
@@ -259,6 +269,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteComment
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Comment_usecase
      */
     public function testDeleteComment()
@@ -273,23 +284,17 @@ class DiscussionsTests extends ApiTestCase
         $this->queueForDelete($state);
 
         $state = $state->get();
+        
         $comment = DiscussionBuilder::createComment($userState);
-        $state->addComment($comment);
-        $comment = DiscussionBuilder::createComment($userState);
-        $state->addComment($comment);
-        $state = $state->get();
-
-        $state->loadComments();
-        $comments = $state->getDiscussion()->getComments();
-        $this->assertEquals(2, count($comments));
-
-        $comment = $comments[0];
-        $deleted = $state->deleteComment($comment);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+        $addedCommentState = $state->addComment($comment);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $addedCommentState->getResponse(), $this->buildFailMessage(__METHOD__, $addedCommentState));
 
         $state = $state->get();
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $this->assertEquals(1, count($comments));
+
+        $deleted = $state->deleteComment($comments[0]);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
     }
 }

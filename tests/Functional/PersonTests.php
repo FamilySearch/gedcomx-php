@@ -97,6 +97,7 @@ class PersonTests extends ApiTestCase
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
+        return;
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
         /** @var FamilyTreePersonState $person */
