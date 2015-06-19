@@ -16,6 +16,7 @@ use Gedcomx\Tests\NoteBuilder;
 class NotesTests extends ApiTestCase
 {
     /**
+     * @vcr NotesTests/testCreateChildAndParentsRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Note_usecase
      */
     public function testCreateChildAndParentsRelationshipNote()
@@ -33,6 +34,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testCreateCoupleRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Note_usecase
      */
     public function testCreateCoupleRelationshipNote()
@@ -60,6 +62,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testCreateNote
      * @link https://familysearch.org/developers/docs/api/tree/Create_Note_usecase
      */
     public function testCreateNote(){
@@ -77,6 +80,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadChildAndParentsRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Note_usecase
      */
     public function testReadChildAndParentsRelationshipNote()
@@ -96,6 +100,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadChildAndParentsRelationshipNotes
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Notes_usecase
      */
     public function testReadChildAndParentsRelationshipNotes()
@@ -117,6 +122,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadCoupleRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Couple_Relationship_Note_resource
      */
     public function testReadCoupleRelationshipNote()
@@ -149,6 +155,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadCoupleRelationshipNotes
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Notes_usecase
      */
     public function testReadCoupleRelationshipNotes()
@@ -179,6 +186,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadNote
      * @link https://familysearch.org/developers/docs/api/tree/Read_Note_usecase
      */
     public function testReadNote()
@@ -200,6 +208,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testReadNotes
      * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
      */
     public function testReadNotes(){
@@ -217,6 +226,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testUpdateChildAndParentsRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_Note_usecase
      */
     public function testUpdateChildAndParentsRelationshipNote()
@@ -237,6 +247,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testUpdateCoupleRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Update_Couple_Relationship_Note_usecase
      */
     public function testUpdateCoupleRelationshipNote()
@@ -270,6 +281,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testUpdateNote
      * @link https://familysearch.org/developers/docs/api/tree/Update_Note_usecase
      */
     public function testUpdateNote()
@@ -290,6 +302,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testDeleteChildAndParentRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Note_usecase
      */
     public function testDeleteChildAndParentRelationshipNote()
@@ -309,6 +322,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testDeleteCoupleRelationshipNote
      * @link https://familysearch.org/developers/docs/api/tree/Update_Couple_Relationship_Note_usecase
      */
     public function testDeleteCoupleRelationshipNote()
@@ -341,6 +355,7 @@ class NotesTests extends ApiTestCase
     }
 
     /**
+     * @vcr NotesTests/testDeleteNote
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Note_usecase
      */
     public function testDeleteNote()

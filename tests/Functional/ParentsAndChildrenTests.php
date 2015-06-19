@@ -19,6 +19,7 @@ use Gedcomx\Tests\FactBuilder;
 class ParentsAndChildrenTests extends ApiTestCase
 {
     /**
+     * @vcr ParentsAndChildrenTests/testCreateChildAndParentsRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_usecase
      */
     public function testCreateChildAndParentsRelationship()
@@ -50,6 +51,7 @@ class ParentsAndChildrenTests extends ApiTestCase
      */
 
     /**
+     * @vcr ParentsAndChildrenTests/testCreateChildAndParentsRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Conclusion_usecase
      */
     public function testCreateChildAndParentsRelationshipConclusion()
@@ -85,6 +87,7 @@ class ParentsAndChildrenTests extends ApiTestCase
      */
 
     /**
+     * @vcr ParentsAndChildrenTests/testCreateCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
      */
     public function testCreateCoupleRelationship()
@@ -132,6 +135,7 @@ class ParentsAndChildrenTests extends ApiTestCase
     }
 
     /**
+     * @vcr ParentsAndChildrenTests/testReadChildAndParentsRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_usecase
      */
     public function testReadChildAndParentsRelationship()
@@ -179,6 +183,7 @@ class ParentsAndChildrenTests extends ApiTestCase
      */
 
     /**
+     * @vcr ParentsAndChildrenTests/testUpdateChildAndParentRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_usecase
      */
     public function testUpdateChildAndParentRelationship()
@@ -235,6 +240,7 @@ class ParentsAndChildrenTests extends ApiTestCase
     }
 
     /**
+     * @vcr ParentsAndChildrenTests/testUpdateChildAndParentsRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_Conclusion_usecase
      */
     public function testUpdateChildAndParentsRelationshipConclusion()
@@ -287,6 +293,7 @@ class ParentsAndChildrenTests extends ApiTestCase
     }
 
     /**
+     * @vcr ParentsAndChildrenTests/testDeleteAndRestoreChildAndParentsRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Child-and-Parents_Relationship_Conclusion_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Child-and-Parents_Relationship_usecase
      */
@@ -330,6 +337,7 @@ class ParentsAndChildrenTests extends ApiTestCase
      */
 
     /**
+     * @vcr ParentsAndChildrenTests/testDeleteChildAndParentsRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Conclusion_usecase
      */
     public function testDeleteChildAndParentsRelationshipConclusion(){
@@ -375,6 +383,7 @@ class ParentsAndChildrenTests extends ApiTestCase
     }
 
     /**
+     * @vcr ParentsAndChildrenTests/testDeleteParentFromRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Parent_usecase
      */
     public function testDeleteParentFromRelationship()
