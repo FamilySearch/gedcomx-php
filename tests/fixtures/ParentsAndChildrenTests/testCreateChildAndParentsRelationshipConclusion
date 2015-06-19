@@ -17,7 +17,7 @@
             Cache-Control: 'no-transform, max-age=604800'
             Content-Location: /collections/tree
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 19:46:11 GMT'
+            Date: 'Fri, 19 Jun 2015 20:59:20 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
@@ -55,14 +55,14 @@
             Content-Type: application/json;charset=ISO-8859-1
             Content-Language: en-US
             Content-Length: '185'
-            Date: 'Fri, 19 Jun 2015 19:46:10 GMT'
+            Date: 'Fri, 19 Jun 2015 20:59:20 GMT'
             Connection: close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
             Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
             Access-Control-Allow-Origin: '*'
             Access-Control-Max-Age: '604800'
-        body: '{"token":"USYSFFC35771D505F75BE1EB1D8E9FA605D8_idses-int01.a.fsglobal.net","access_token":"USYSFFC35771D505F75BE1EB1D8E9FA605D8_idses-int01.a.fsglobal.net","token_type":"family_search"}'
+        body: '{"token":"USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net","access_token":"USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net","token_type":"family_search"}'
 -
     request:
         method: POST
@@ -72,10 +72,10 @@
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYSFFC35771D505F75BE1EB1D8E9FA605D8_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
             Content-Type: application/x-gedcomx-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Retha Prohaska","parts":[{"value":"Retha","type":"http:\/\/gedcomx.org\/Given"},{"value":"Prohaska","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1847"},"place":{"description":"possibly, maybe, don''t know","original":"North Ilene, Ohio, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2108"},"place":{"description":"possibly, maybe, don''t know","original":"Port Nolaburgh, Arkansas, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"North Ilene, Ohio, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Retha Prohaska"}}]}'
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Pete Marquardt","parts":[{"value":"Pete","type":"http:\/\/gedcomx.org\/Given"},{"value":"Marquardt","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1824"},"place":{"description":"possibly, maybe, don''t know","original":"North Fredy, Michigan, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2040"},"place":{"description":"possibly, maybe, don''t know","original":"Gaylordfurt, Minnesota, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"North Fredy, Michigan, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Pete Marquardt"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -84,17 +84,89 @@
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 19:46:13 GMT'
-            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHC-B2V>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHC-B2V>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHC-B2V>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V/spouse-relationships>; rel="spouse-relationships"'
-            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V'
+            Date: 'Fri, 19 Jun 2015 20:59:23 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SN8>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SN8>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SN8>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-ENTITY-ID: KWHC-B2V
-            X-PROCESSING-TIME: '1879'
-            X-THROTTLE-MILLIS-LEFT: '1743705'
-            X-THROTTLE-MILLIS-USED: '56295'
+            X-ENTITY-ID: KWHZ-SN8
+            X-PROCESSING-TIME: '1884'
+            X-THROTTLE-MILLIS-LEFT: '1796168'
+            X-THROTTLE-MILLIS-USED: '3832'
             X-THROTTLE-WINDOW-SIZE: '1800000'
+            Content-Length: '0'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+-
+    request:
+        method: POST
+        url: 'https://sandbox.familysearch.org/platform/tree/persons'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-gedcomx-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            Content-Type: application/x-gedcomx-v1+json
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Female"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Dillon Bayer","parts":[{"value":"Dillon","type":"http:\/\/gedcomx.org\/Given"},{"value":"Bayer","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1884"},"place":{"description":"possibly, maybe, don''t know","original":"Paucekchester, Minnesota, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2081"},"place":{"description":"possibly, maybe, don''t know","original":"North Demond, Michigan, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"Paucekchester, Minnesota, United States","gender":"http:\/\/gedcomx.org\/Female","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Dillon Bayer"}}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
+            Content-Type: application/x-gedcomx-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:25 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SND>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SND>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SND>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-ENTITY-ID: KWHZ-SND
+            X-PROCESSING-TIME: '1115'
+            Content-Length: '0'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+-
+    request:
+        method: POST
+        url: 'https://sandbox.familysearch.org/platform/tree/persons'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-gedcomx-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            Content-Type: application/x-gedcomx-v1+json
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Hadley Williamson","parts":[{"value":"Hadley","type":"http:\/\/gedcomx.org\/Given"},{"value":"Williamson","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1866"},"place":{"description":"possibly, maybe, don''t know","original":"Mabellestad, Tennessee, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2059"},"place":{"description":"possibly, maybe, don''t know","original":"Port Samsonborough, Oregon, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"Mabellestad, Tennessee, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Hadley Williamson"}}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
+            Content-Type: application/x-gedcomx-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:26 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SN6>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SN6>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SN6>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-ENTITY-ID: KWHZ-SN6
+            X-PROCESSING-TIME: '1114'
             Content-Length: '0'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
@@ -111,40 +183,109 @@
             Expect: null
             Accept: application/x-fs-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYSFFC35771D505F75BE1EB1D8E9FA605D8_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
             Content-Type: application/x-fs-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"childAndParentsRelationships":[{"father":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHC-B2V"},"mother":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHC-B2V"},"child":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHC-B2V"}}]}'
+        body: '{"childAndParentsRelationships":[{"father":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SN8"},"mother":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SND"},"child":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SN6"}}]}'
     response:
         status:
             http_version: '1.1'
-            code: '400'
-            message: 'Bad Request'
+            code: '201'
+            message: Created
         headers:
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 19:46:15 GMT'
+            Date: 'Fri, 19 Jun 2015 20:59:29 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/source-references>; rel="source-references"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
-            Warning: '400 FamilySearch "Unable to create child-and-parents relationship.", 401 ct "org.familysearch.domain.api.assertion.CreateAssertionException, 400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '722'
-            Content-Length: '18920'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-ENTITY-ID: MM9Z-BD1
+            X-PROCESSING-TIME: '2183'
+            Content-Length: '0'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
             Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
             Access-Control-Allow-Origin: '*'
             Access-Control-Max-Age: '604800'
-        body: "{\n  \"errors\" : [ {\n    \"code\" : 400,\n    \"message\" : \"Unable to create child-and-parents relationship.\",\n    \"stacktrace\" : \"POST http://integration.familysearch.org/ct/parent-child returned a response status of 400 Bad Request:\\n<html><head><title>Error Status Report</title><style><!-- body, p, h1, h2, th, td { font-family: \\\"Palatino Linotype\\\", \\\"Book Antiqua\\\", Palatino, serif; font-weight: normal; } body, table, tr, th, td, pre { color: black; background-color: white; font-size: medium; } h1 { color: #467276; font-size: large; } h2 { color: #467276; font-size: small; } hr { background-color: #E8E8E5; color: #E8E8E5; border: 0 none; height: 1px; clear: both; } table { border: 0 none; } th { text-align: right; vertical-align: top; padding-right: 1em; font-weight: bold; } pre { font-family: Andale Mono, monospace; } --> </style></head><body><h1>Error Status Report</h1><hr/> <table> <tr><th>status</th><td>400 Bad Request</td></tr><tr> <tr><th>code</th><td>400</td></tr><tr> <th>message</th><td>CreateAssertionException: Endpoints in a relationship cannot be the same inner person: parentChild_p.KWHC-B2V|p.KWHC-B2V</td></tr> <tr><th>description</th><td><pre>\\n\\norg.familysearch.domain.api.assertion.CreateAssertionException: Endpoints in a relationship cannot be the same inner person: parentChild_p.KWHC-B2V|p.KWHC-B2V\\n\\tat org.familysearch.domain.impl.RelationshipAssertionHandlerImpl$1.findException(RelationshipAssertionHandlerImpl.java:40)\\n\\tat org.familysearch.domain.impl.util.CreateAssertionSideEffectUtil.findAnyException(CreateAssertionSideEffectUtil.java:15)\\n\\tat org.familysearch.domain.impl.AssertionHandlerImpl.findExceptionForInsertionOrUnrecant(AssertionHandlerImpl.java:74)\\n\\tat org.familysearch.domain.impl.AssertionHandlerImpl.verifyForInsertionOrUnrecant(AssertionHandlerImpl.java:106)\\n\\tat org.familysearch.domain.impl.AssertionImpl.verifyForInsertionOrUnrecant(AssertionImpl.java:177)\\n\\tat org.familysearch.domain.impl.AssertionSetImpl.addAssertion(AssertionSetImpl.java:112)\\n\\tat org.familysearch.domain.impl.AssertionSetImpl.createAssertion(AssertionSetImpl.java:202)\\n\\tat org.familysearch.domain.impl.AssertionSetImpl.createAssertion(AssertionSetImpl.java:173)\\n\\tat org.familysearch.ft.impl.relationship.FtRelationshipImpl.doAddAssertionValue(FtRelationshipImpl.java:263)\\n\\tat org.familysearch.ft.impl.relationship.FtRelationshipImpl.access$000(FtRelationshipImpl.java:48)\\n\\tat org.familysearch.ft.impl.relationship.FtRelationshipImpl$2.run(FtRelationshipImpl.java:250)\\n\\tat org.familysearch.ft.impl.relationship.FtRelationshipImpl$2.run(FtRelationshipImpl.java:248)\\n\\tat org.familysearch.domain.impl.changelog.ChangeLogTrackingServiceImpl.doWithChangeTracking(ChangeLogTrackingServiceImpl.java:55)\\n\\tat org.familysearch.ft.impl.relationship.FtRelationshipImpl.addAssertionValue(FtRelationshipImpl.java:248)\\n\\tat org.familysearch.ft.api.AbstractFamilyTreeFactory$2.run(AbstractFamilyTreeFactory.java:297)\\n\\tat org.familysearch.ft.api.AbstractFamilyTreeFactory$2.run(AbstractFamilyTreeFactory.java:287)\\n\\tat org.familysearch.domain.impl.changelog.ChangeLogTrackingServiceImpl.doWithChangeTracking(ChangeLogTrackingServiceImpl.java:55)\\n\\tat org.familysearch.ft.api.AbstractFamilyTreeFactory.createParentChildRelationship(AbstractFamilyTreeFactory.java:287)\\n\\tat org.familysearch.ft.api.AbstractFamilyTreeFactory.createParentChildRelationship(AbstractFamilyTreeFactory.java:255)\\n\\tat org.familysearch.ft.api.AbstractFamilyTreeFactory.createParentChildRelationship(AbstractFamilyTreeFactory.java:214)\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipImpl$4.run(CTParentChildRelationshipImpl.java:558)\\n [wrapped] org.familysearch.fs.api.RelationshipDuplicatePersonException: org.familysearch.domain.api.assertion.CreateAssertionException: Endpoints in a relationship cannot be the same inner person: parentChild_p.KWHC-B2V|p.KWHC-B2V\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipImpl$4.run(CTParentChildRelationshipImpl.java:564)\\n\\tat org.familysearch.ct.shim.person.UpdatesInhibitor.doWithUpdatesInhibited(UpdatesInhibitor.java:20)\\n\\tat org.familysearch.ct.shim.person.ShimUpdatesCoordinator.updateFtWithCtUpdatesInhibited(ShimUpdatesCoordinator.java:42)\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipImpl.syncParentChildRelationshipsExistenceToCp(CTParentChildRelationshipImpl.java:550)\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipImpl.syncChangeMotherToCP(CTParentChildRelationshipImpl.java:406)\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipImpl.setMotherIdWithoutChangeTracking(CTParentChildRelationshipImpl.java:382)\\n\\tat org.familysearch.ct.impl.change.EditMotherIdChangeImpl.applyChangeInsideChangeTracking(EditMotherIdChangeImpl.java:45)\\n\\tat org.familysearch.ct.impl.changemanager.ChangeManagerImpl.doWithChangeTracking(ChangeManagerImpl.java:47)\\n\\tat org.familysearch.ct.impl.change.ChangeImpl.applyChange_Internal(ChangeImpl.java:322)\\n\\tat org.familysearch.ct.impl.change.ChangeImpl.applyChange(ChangeImpl.java:297)\\n\\tat org.familysearch.ct.impl.relationship.CTParentChildRelationshipStore.create(CTParentChildRelationshipStore.java:74)\\n\\tat org.familysearch.ct.impl.relationship.FsParentChildRelationshipServiceImpl.create(FsParentChildRelationshipServiceImpl.java:101)\\n\\tat org.familysearch.ct.impl.relationship.FsParentChildRelationshipServiceImpl.create(FsParentChildRelationshipServiceImpl.java:43)\\n\\tat org.familysearch.ctrest.impl.ParentChildRelationshipFsAdapterImpl.createFromTemplate(ParentChildRelationshipFsAdapterImpl.java:86)\\n\\tat org.familysearch.ctrest.impl.ParentChildRelationshipFsAdapterImpl.createParentChildRelationship(ParentChildRelationshipFsAdapterImpl.java:70)\\n\\tat org.familysearch.ctrest.ws.api.ParentChildRelationshipEndpoint.createParentChildRelationship(ParentChildRelationshipEndpoint.java:208)\\n\\tat sun.reflect.GeneratedMethodAccessor432.invoke(Unknown Source)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:606)\\n\\tat com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$ResponseOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:205)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75)\\n\\tat com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:288)\\n\\tat com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108)\\n\\tat com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)\\n\\tat com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)\\n\\tat com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:416)\\n\\tat com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:537)\\n\\tat org.codehaus.enunciate.modules.jersey.EnunciateJerseyServletContainer.service(EnunciateJerseyServletContainer.java:250)\\n\\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:723)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PlaceCallLoggingFilter.doFilter(PlaceCallLoggingFilter.java:41)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter$1.run(JVMProtectorFilter.java:68)\\n\\tat org.familysearch.runner.JVMProtector.execute(JVMProtector.java:40)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter.doFilter(JVMProtectorFilter.java:63)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.RequestContextFilter.doFilter(RequestContextFilter.java:64)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ReadOnlyAccessFilter.doFilter(ReadOnlyAccessFilter.java:43)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.persistence.servlet.PersistenceFilter.doFilter(PersistenceFilter.java:87)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.CtContextFilter.doFilter(CtContextFilter.java:42)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter$1.run(FtContextFilter.java:133)\\n\\tat org.familysearch.components.api.identitymanagement.IdentityComponentFactory.doAs(IdentityComponentFactory.java:231)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestWithIdentity(FtContextFilter.java:127)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestAsContributor(FtContextFilter.java:369)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doFilter(FtContextFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleIdentity(IdentityContextFilter.java:197)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleSessionId(IdentityContextFilter.java:139)\\n\\tat org.familysearch.ciscas.integration.SessionFilterBase.doFilter(SessionFilterBase.java:77)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.doFilter(IdentityContextFilter.java:93)\\n\\tat org.familysearch.ctrest.aop.CtIdentityContextFilter.doFilter(CtIdentityContextFilter.java:30)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.TimingFilter.doFilter(TimingFilter.java:48)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.NoCacheFilter.doFilter(NoCacheFilter.java:24)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.LastModifiedDateFixerFilter.doFilter(LastModifiedDateFixerFilter.java:46)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ContextFilter.doFilter(ContextFilter.java:37)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:78)\\n [wrapped] org.familysearch.ctrest.aop.exceptionfilter.WebServiceExceptionWithHeaders: org.familysearch.domain.api.assertion.CreateAssertionException: Endpoints in a relationship cannot be the same inner person: parentChild_p.KWHC-B2V|p.KWHC-B2V\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.mapAndLogException(ExceptionFilter.java:115)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.populateHttpResponseFromException(ExceptionFilter.java:325)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PersistenceOptionsFilter.doFilter(PersistenceOptionsFilter.java:22)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.engage.foundation.services.HttpRequestContextFilter.doFilter(HttpRequestContextFilter.java:51)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.NoHttpErrorServletFilter.doFilter(NoHttpErrorServletFilter.java:24)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.MediaTypeServletFilter.doFilter(MediaTypeServletFilter.java:60)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.codehaus.enunciate.webapp.HTTPRequestContextFilter.doFilter(HTTPRequestContextFilter.java:36)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)\\n\\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)\\n\\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)\\n\\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)\\n\\tat org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:615)\\n\\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)\\n\\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)\\n\\tat org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:861)\\n\\tat org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:606)\\n\\tat org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\n\\n</pre></td></tr> </table> <hr/><h2>Family Tree Web Service</h2></body></html>\"\n  } ]\n}"
+-
+    request:
+        method: POST
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-fs-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            Content-Type: application/x-fs-v1+json
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+        body: '{"childAndParentsRelationships":[{"fatherFacts":[{"primary":true,"type":"http:\/\/gedcomx.org\/AdoptiveParent","date":{"original":"June 19, 2015"},"value":"Deserunt est quas atque quas ea dolor."}]}]}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Cache-Control: 'no-transform, must-revalidate, max-age=0'
+            Content-Location: /tree/child-and-parents-relationships/MM9Z-BD1
+            Content-Type: application/x-fs-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:29 GMT'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-PROCESSING-TIME: '704'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+-
+    request:
+        method: GET
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1'
+        headers:
+            Host: sandbox.familysearch.org
+            Accept: application/x-fs-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'no-transform, must-revalidate, max-age=0'
+            Content-Location: /tree/child-and-parents-relationships/MM9Z-BD1
+            Content-Type: application/x-fs-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:31 GMT'
+            ETag: '"87a026166dd9122ce9544d51ae9235c783587042"'
+            Last-Modified: 'Fri, 19 Jun 2015 20:59:29 GMT'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-PROCESSING-TIME: '250'
+            Content-Length: '2611'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+        body: "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM9Z-BD1\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1\"\n      },\n      \"child\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6\"\n      },\n      \"mother\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/collections/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/sources\"\n      },\n      \"mother-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/mother\"\n      },\n      \"father\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8\",\n      \"resourceId\" : \"KWHZ-SN8\"\n    },\n    \"mother\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND\",\n      \"resourceId\" : \"KWHZ-SND\"\n    },\n    \"child\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6\",\n      \"resourceId\" : \"KWHZ-SN6\"\n    },\n    \"fatherFacts\" : [ {\n      \"id\" : \"R.777-777P\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1/father/conclusions/R.777-777P\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https://sandbox.familysearch.org/platform/users/agents/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1434747569044\n      },\n      \"type\" : \"http://gedcomx.org/AdoptiveParent\",\n      \"date\" : {\n        \"original\" : \"June 19, 2015\"\n      }\n    } ]\n  } ]\n}"
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHC-B2V'
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN8'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYSFFC35771D505F75BE1EB1D8E9FA605D8_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -154,16 +295,114 @@
             message: 'No Content'
         headers:
             Cache-Control: 'no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/persons/KWHC-B2V
+            Content-Location: /tree/persons/KWHZ-SN8
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 19:46:16 GMT'
+            Date: 'Fri, 19 Jun 2015 20:59:32 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '635'
+            X-PROCESSING-TIME: '1104'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
             Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
             Access-Control-Allow-Origin: '*'
             Access-Control-Max-Age: '604800'
+-
+    request:
+        method: DELETE
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SND'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-gedcomx-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+            Content-Length: '0'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Cache-Control: 'no-transform, must-revalidate, max-age=0'
+            Content-Location: /tree/persons/KWHZ-SND
+            Content-Type: application/x-gedcomx-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:34 GMT'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-PROCESSING-TIME: '977'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+-
+    request:
+        method: DELETE
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SN6'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-gedcomx-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+            Content-Length: '0'
+    response:
+        status:
+            http_version: '1.1'
+            code: '204'
+            message: 'No Content'
+        headers:
+            Cache-Control: 'no-transform, must-revalidate, max-age=0'
+            Content-Location: /tree/persons/KWHZ-SN6
+            Content-Type: application/x-gedcomx-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:35 GMT'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-PROCESSING-TIME: '757'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+-
+    request:
+        method: DELETE
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-BD1'
+        headers:
+            Host: sandbox.familysearch.org
+            Expect: null
+            Accept: application/x-fs-v1+json
+            User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
+            Authorization: 'Bearer USYSD727DD135877C3D187D170A55E539350_idses-int01.a.fsglobal.net'
+            X-FS-Feature-Tag: birth-date-not-considered-death-declaration
+            Content-Length: '0'
+    response:
+        status:
+            http_version: '1.1'
+            code: '410'
+            message: Gone
+        headers:
+            Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
+            Content-Location: /tree/child-and-parents-relationships/MM9Z-BD1
+            Content-Type: application/x-fs-v1+json
+            Date: 'Fri, 19 Jun 2015 20:59:37 GMT'
+            Server: Apache-Coyote/1.1
+            Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
+            Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
+            X-PROCESSING-TIME: '360'
+            Content-Length: '89'
+            Connection: Close
+            Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
+            Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
+            Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Max-Age: '604800'
+        body: "{\n  \"errors\" : [ {\n    \"code\" : 410,\n    \"label\" : \"Gone\",\n    \"message\" : \"Gone\"\n  } ]\n}"

@@ -16,4 +16,8 @@ class TestBuilder
 
         return self::$faker;
     }
+    
+    public static function seed($seed){
+        self::faker()->seed($seed);
+    }
 }

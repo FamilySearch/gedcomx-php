@@ -10,7 +10,7 @@ use Gedcomx\Extensions\FamilySearch\Types\FactType;
 class FactBuilder extends TestBuilder {
 
     public static function birth(){
-        $rnd = rand(50,200);
+        $rnd = self::faker()->numberBetween(50, 200);
         $birthDate = new \DateTime("-{$rnd} years");
         $birthPlace = self::faker()->city() . ", " . self::faker()->state() . ", United States";
 
@@ -28,7 +28,7 @@ class FactBuilder extends TestBuilder {
     }
 
     public static function death(Fact $birth){
-        $rnd = rand(5,95);
+        $rnd = self::faker()->numberBetween(5, 95);
         $deathDate = new \DateTime($birth->getDate()->getDateTime()->format("F d, Y") . "+{$rnd}years");
 
         return new Fact(
@@ -48,8 +48,7 @@ class FactBuilder extends TestBuilder {
 
     public static function militaryService()
     {
-        $rnd = rand(50,125);
-
+        $rnd = self::faker()->numberBetween(50, 125);
         $date = new \DateTime("-{$rnd} years");
         return new Fact(array(
             'primary' => true,
@@ -63,7 +62,7 @@ class FactBuilder extends TestBuilder {
 
     public static function eagleScout()
     {
-        $rnd = rand(50,125);
+        $rnd = self::faker()->numberBetween(50, 125);
 
         $date = new \DateTime("-{$rnd} years");
         return new Fact(array(
@@ -83,7 +82,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function adoption(\DateTime $birthdate)
     {
-        $rnd = rand(0,18);
+        $rnd = self::faker()->numberBetween(0, 18);
         $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
 
         return new Fact(array(
@@ -117,7 +116,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function marriage(\DateTime $birthdate)
     {
-        $rnd = rand(18,40);
+        $rnd = self::faker()->numberBetween(18, 40);
         $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
 
         return new Fact(array(

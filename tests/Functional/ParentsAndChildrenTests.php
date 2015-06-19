@@ -15,9 +15,16 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\FactBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class ParentsAndChildrenTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(278945);
+        TestBuilder::seed(278945);
+    }
+    
     /**
      * @vcr ParentsAndChildrenTests/testCreateChildAndParentsRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_usecase
