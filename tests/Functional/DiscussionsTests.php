@@ -13,9 +13,16 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\DiscussionBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class DiscussionsTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(875126);
+        TestBuilder::seed(875126);
+    }
+    
     /**
      * @vcr DiscussionsTests/testCreateDiscussion
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Discussion_usecase
