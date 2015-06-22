@@ -31,10 +31,18 @@ use Gedcomx\Tests\DiscussionBuilder;
 use Gedcomx\Tests\FactBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Types\GenderType;
+use Gedcomx\Tests\TestBuilder;
 
 class PersonTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(68412357);
+        TestBuilder::seed(68412357);
+    }
+    
     /**
+     * @vcr PersonTests/testCreatePerson
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_usecase
      */
     public function testCreatePerson()
@@ -55,7 +63,8 @@ class PersonTests extends ApiTestCase
      * @see SourcesTests::testCreatePersonSourceReference
      */
 
-    /*
+    /**
+     * @vcr PersonTests/testCreatePersonConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
      */
     public function testCreatePersonConclusion()
@@ -75,6 +84,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testCreatePersonLifeSketch
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Life_Sketch_usecase
      */
     public function testCreatePersonLifeSketch()
@@ -94,6 +104,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testCreateDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
@@ -130,6 +141,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testReadPerson
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
      */
     public function testReadPerson(){
@@ -147,6 +159,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadMergeAnalysis
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Analysis_usecase
      */
     public function testReadMergeAnalysis()
@@ -170,6 +183,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadPersonMergeConstraintAnyOrder
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Constraint_(Can_Merge_Any_Order)_usecase
      */
     public function testReadPersonMergeConstraintAnyOrder()
@@ -177,9 +191,8 @@ class PersonTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $collection = $this->collectionState($factory);
 
-        $person = PersonBuilder::buildPerson('male');
-        $person1 = $collection->addPerson($person)->get();
-        $person2 = $collection->addPerson($person)->get();
+        $person1 = $collection->addPerson(PersonBuilder::buildPerson('male'))->get();
+        $person2 = $collection->addPerson(PersonBuilder::buildPerson('male'))->get();
         $this->queueForDelete($person1, $person2);
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $state */
@@ -193,6 +206,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadPersonMergeConstraintOtherOrder
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Constraint_(Can_Merge_Other_Order_Only)_usecase
      */
     public function testReadPersonMergeConstraintOtherOrder()
@@ -230,10 +244,6 @@ class PersonTests extends ApiTestCase
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Change_Summary_usecase
      */
-    public function testPersonChangeSummary()
-    {
-        $this->markTestSkipped("Change summary will not be tested.");
-    }
 
     /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Memories_usecase
@@ -347,6 +357,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadPortraitWithDefault
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Portrait_With_Default_usecase
      */
     public function testReadPortraitWithDefault()
@@ -415,6 +426,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadPersonWithRelationships
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Relationships_usecase
      */
     public function testReadPersonWithRelationships()
@@ -480,6 +492,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadRelationshipsToChildren
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
      */
     public function testReadRelationshipsToChildren()
@@ -533,6 +546,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadRelationshipsToParents
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
      */
     public function testReadRelationshipsToParents()
@@ -580,6 +594,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadRelationshipsToSpouses
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
      */
     public function testReadRelationshipsToSpouses()
@@ -625,6 +640,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadRelationshipsToSpousesWithPersons
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
      */
     public function testReadRelationshipsToSpousesWithPersons(){
@@ -670,6 +686,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
@@ -702,6 +719,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadPersonChildren
      * @link https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
      */
     public function testReadPersonChildren(){
@@ -765,6 +783,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testReadNotFoundPerson
      * @link https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
      */
     public function testReadNotFoundPerson(){
@@ -780,33 +799,12 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Read_Not-Modified_Person_usecase
-     */
-    public function testReadNotModifiedPerson(){
-        $factory = new StateFactory();
-        $this->collectionState($factory);
-
-        $person = $this->createPerson('male')->get();
-
-        $options = array();
-        $options[] = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, $person->getResponse()->getEtag());
-        $options[] = new HeaderParameter(true, HeaderParameter::ETAG, $person->getResponse()->getEtag());
-
-        $secondState = $this->getPerson($person->getPerson()->getId(), $options);
-
-        $this->assertEquals(
-            HttpStatus::NOT_MODIFIED,
-            $secondState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__, $secondState)
-        );
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/tree/Read_Notes_usecase
      * @see NotesTests::testReadNotes
      */
 
     /**
+     * @vcr PersonTests/testReadParentsOfPerson
      * @link https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
      */
     public function testReadParentsOfPerson()
@@ -876,6 +874,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testReadSpousesOfPerson
      * @link https://familysearch.org/developers/docs/api/tree/Read_Spouses_of_a_Person_usecase
      */
     public function testReadSpousesOfPerson()
@@ -926,6 +925,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testMergePerson
      * @link https://familysearch.org/developers/docs/api/tree/Merge_Person_usecase
      */
     public function testMergePerson()
@@ -933,11 +933,10 @@ class PersonTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $person = PersonBuilder::buildPerson('male');
         /** @var FamilyTreePersonState $person1 */
-        $person1 = $this->collectionState()->addPerson($person)->get();
+        $person1 = $this->collectionState()->addPerson(PersonBuilder::buildPerson('male'))->get();
         /** @var FamilyTreePersonState $person2 */
-        $person2 = $this->collectionState()->addPerson($person)->get();
+        $person2 = $this->collectionState()->addPerson(PersonBuilder::buildPerson('male'))->get();
         $this->queueForDelete($person2, $person1);
 
         /** @var  \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $result */
@@ -961,24 +960,6 @@ class PersonTests extends ApiTestCase
             $state->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__,$state)
         );
-
-        //  Read the results of the merge
-
-        $person1 = $person1->get();
-        $person2 = $person2->get();
-
-        //  HttpStatus::MOVED_PERMANENTLY is the correct response for a person that has been merged.
-        //  However, asserting that response assumes that the HTTP client does not automatically
-        //  follow redirects, which Guzzle does.
-        //
-        //  Rather than disabling the redirect feature, we'll assert that both person states have the
-        //  same URI now.
-
-        $this->assertEquals(
-            $person1->getSelfUri(),
-            $person2->getSelfUri(),
-            "Person URIs don't match."
-        );
     }
 
     /**
@@ -987,6 +968,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testHeadPerson
      * @link https://familysearch.org/developers/docs/api/tree/Head_Person_usecase
      */
     public function testHeadPerson()
@@ -1015,6 +997,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testUpdatePersonConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Conclusion_usecase
      */
     public function testUpdatePersonConclusion()
@@ -1037,6 +1020,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testUpdatePersonCustomNonEventFact
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Custom_Non-Event_Fact_usecase
      */
     public function testUpdatePersonCustomNonEventFact()
@@ -1057,6 +1041,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testUpdatePersonLifeSketch
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Life_Sketch_usecase
      */
     public function testUpdatePersonLifeSketch()
@@ -1066,10 +1051,6 @@ class PersonTests extends ApiTestCase
 
         /** @var FamilyTreePersonState $personState */
         $personState = $this->createPerson();
-        if( $personState->getPerson() == null ){
-            $uri = $personState->getSelfUri();
-            $personState = $this->collectionState()->readPerson($uri);
-        }
         $fact = FactBuilder::lifeSketch();
         $personState = $personState->addFact($fact)->get();
         $sketch = $personState->getPerson()->getFactsOfType(FactType::LIFE_SKETCH);
@@ -1088,6 +1069,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testUpdatePersonNotAMatchDeclarations
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Not-a-Match_Declarations_usecase
      */
     public function testUpdatePersonNotAMatchDeclarations()
@@ -1095,11 +1077,9 @@ class PersonTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
-        $personData = PersonBuilder::buildPerson(null);
-
         /** @var FamilyTreePersonState $one */
-        $one = $this->collectionState()->addPerson($personData)->get();
-        $two = $this->collectionState()->addPerson($personData)->get();
+        $one = $this->collectionState()->addPerson(PersonBuilder::buildPerson(null))->get();
+        $two = $this->collectionState()->addPerson(PersonBuilder::buildPerson(null))->get();
         $this->queueForDelete($one, $two);
 
         $nonMatch = $one->addNonMatchPerson($two->getPerson());
@@ -1111,6 +1091,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testUpdatePersonWithPreconditions
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
      */
     public function testUpdatePersonWithPreconditions()
@@ -1159,6 +1140,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testDeletePersonConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
      */
     public function testDeletePersonConclusion()
@@ -1167,7 +1149,7 @@ class PersonTests extends ApiTestCase
         $this->collectionState($factory);
 
         /** @var PersonState $personState */
-        $personState = $this->createPerson()->get();
+        $personState = $this->createPerson();
         $name = PersonBuilder::nickName();
         $newPersonState = $personState->addName($name);
 
@@ -1188,6 +1170,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testDeletePersonNotAMatch
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Not-a-Match_usecase
      */
     public function testDeletePersonNotAMatch()
@@ -1213,6 +1196,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testDeletePersonWithPreconditions
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_With_Preconditions_usecase
      */
     public function testDeletePersonWithPreconditions()
@@ -1237,6 +1221,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testDeleteDiscussionReference
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
@@ -1284,17 +1269,18 @@ class PersonTests extends ApiTestCase
      */
 
     /**
+     * @vcr PersonTests/testDeleteAndRestorePerson
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
      */
     public function testDeleteAndRestorePerson()
     {
-        $factory = new StateFactory();
+        $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
         /** @var PersonState $personState */
-        $personState = $this->createPerson()->get();
+        $personState = $this->createPerson();
 
         $newState = $personState->delete();
         $this->assertEquals(
@@ -1304,27 +1290,23 @@ class PersonTests extends ApiTestCase
         );
 
         /** @var \Gedcomx\Conclusion\Person[] $persons */
-        $persons = $personState->getEntity()->getPersons();
-        $id = $persons[0]->getId();
-        $newState = $this->getPerson($id);
+        $newState = $personState->get();
         $this->assertEquals(
             HttpStatus::GONE,
             $newState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__.'(read)', $newState)
         );
 
-        $factory = new FamilyTreeStateFactory();
-        $ftOne = $this->collectionState($factory);
-        $ftTwo = $ftOne->readPersonById($id);
-        $ftThree = $ftTwo->restore();
+        $newState = $newState->restore();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $ftThree->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__.'(restore)', $ftThree)
+            $newState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__.'(restore)', $newState)
         );
     }
 
     /**
+     * @vcr PersonTests/testPreferredParentRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Parent_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Preferred_Parent_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Parent_Relationship_usecase
@@ -1413,6 +1395,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
+     * @vcr PersonTests/testPreferredSpouseRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Spouse_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Preferred_Spouse_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Spouse_Relationship_usecase
