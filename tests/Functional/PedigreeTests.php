@@ -11,10 +11,18 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Rs\Client\Options\QueryParameter;
+use Gedcomx\Tests\TestBuilder;
 
 class PedigreeTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(58641336547);
+        TestBuilder::seed(58641336547);
+    }
+    
     /**
+     * @vcr PedigreeTests/testReadPersonAncestry
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Ancestry_usecase
      */
     public function testReadPersonAncestry()
@@ -67,6 +75,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonAncestryAndAdditionalPersonDetails
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Ancestry_and_additional_person_details_usecase
      */
     public function testReadPersonAncestryAndAdditionalPersonDetails()
@@ -117,6 +126,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonAncestryWithSpecifiedSpouse
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Ancestry_with_Specified_Spouse_usecase
      */
     public function testReadPersonAncestryWithSpecifiedSpouse()
@@ -173,6 +183,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonAncestryWithSpecifiedSpouseAndAdditionalPersonAndMarriageDetails
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Ancestry_with_Specified_Spouse_and_additional_person_and_marriage_details_usecase
      */
     public function testReadPersonAncestryWithSpecifiedSpouseAndAdditionalPersonAndMarriageDetails()
@@ -250,6 +261,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonDescendancy
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Descendancy_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
@@ -285,6 +297,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonDescendancyAndAdditionalPersonAndMarriageDetails
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Descendancy_and_additional_person_and_marriage_details_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
@@ -347,6 +360,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonDescendancyWithSpecifiedSpouse
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Descendancy_with_Specified_Spouse_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
@@ -402,6 +416,7 @@ class PedigreeTests extends ApiTestCase
     }
 
     /**
+     * @vcr PedigreeTests/testReadPersonDescendancyWithSpecifiedSpouseAndAdditionalPersonAndMarriageDetails
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Descendancy_with_Specified_Spouse_and_additional_person_and_marriage_details_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
