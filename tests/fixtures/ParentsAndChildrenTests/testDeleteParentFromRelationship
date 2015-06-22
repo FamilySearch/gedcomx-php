@@ -17,12 +17,12 @@
             Cache-Control: 'no-transform, max-age=604800'
             Content-Location: /collections/tree
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:14 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:35 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '1'
-            Content-Length: '6107'
+            X-PROCESSING-TIME: '0'
+            transfer-encoding: chunked
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
@@ -55,14 +55,14 @@
             Content-Type: application/json;charset=ISO-8859-1
             Content-Language: en-US
             Content-Length: '185'
-            Date: 'Fri, 19 Jun 2015 21:01:15 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:36 GMT'
             Connection: close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
             Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
             Access-Control-Allow-Origin: '*'
             Access-Control-Max-Age: '604800'
-        body: '{"token":"USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net","access_token":"USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net","token_type":"family_search"}'
+        body: '{"token":"USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net","access_token":"USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net","token_type":"family_search"}'
 -
     request:
         method: POST
@@ -72,10 +72,10 @@
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             Content-Type: application/x-gedcomx-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Pete Marquardt","parts":[{"value":"Pete","type":"http:\/\/gedcomx.org\/Given"},{"value":"Marquardt","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1824"},"place":{"description":"possibly, maybe, don''t know","original":"North Fredy, Michigan, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2040"},"place":{"description":"possibly, maybe, don''t know","original":"Gaylordfurt, Minnesota, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"North Fredy, Michigan, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Pete Marquardt"}}]}'
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Pete Marquardt","parts":[{"value":"Pete","type":"http:\/\/gedcomx.org\/Given"},{"value":"Marquardt","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 22, 1824"},"place":{"description":"possibly, maybe, don''t know","original":"North Fredy, Michigan, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 22, 2040"},"place":{"description":"possibly, maybe, don''t know","original":"Gaylordfurt, Minnesota, United States"}}],"display":{"birthDate":"22 Jun 2015","birthPlace":"North Fredy, Michigan, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"22 Jun 2015 - 22 Jun 2015","name":"Pete Marquardt"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -84,16 +84,16 @@
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:17 GMT'
-            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SKX>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SKX>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SKX>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX/spouse-relationships>; rel="spouse-relationships"'
-            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX'
+            Date: 'Mon, 22 Jun 2015 14:08:38 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-8VR>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-8VR>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-8VR>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-ENTITY-ID: KWHZ-SKX
-            X-PROCESSING-TIME: '1839'
-            X-THROTTLE-MILLIS-LEFT: '1781313'
-            X-THROTTLE-MILLIS-USED: '18687'
+            X-ENTITY-ID: KWHZ-8VR
+            X-PROCESSING-TIME: '1900'
+            X-THROTTLE-MILLIS-LEFT: '1782888'
+            X-THROTTLE-MILLIS-USED: '17112'
             X-THROTTLE-WINDOW-SIZE: '1800000'
             Content-Length: '0'
             Connection: Close
@@ -111,10 +111,10 @@
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             Content-Type: application/x-gedcomx-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Female"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Dillon Bayer","parts":[{"value":"Dillon","type":"http:\/\/gedcomx.org\/Given"},{"value":"Bayer","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1884"},"place":{"description":"possibly, maybe, don''t know","original":"Paucekchester, Minnesota, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2081"},"place":{"description":"possibly, maybe, don''t know","original":"North Demond, Michigan, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"Paucekchester, Minnesota, United States","gender":"http:\/\/gedcomx.org\/Female","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Dillon Bayer"}}]}'
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Female"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Dillon Bayer","parts":[{"value":"Dillon","type":"http:\/\/gedcomx.org\/Given"},{"value":"Bayer","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 22, 1884"},"place":{"description":"possibly, maybe, don''t know","original":"Paucekchester, Minnesota, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 22, 2081"},"place":{"description":"possibly, maybe, don''t know","original":"North Demond, Michigan, United States"}}],"display":{"birthDate":"22 Jun 2015","birthPlace":"Paucekchester, Minnesota, United States","gender":"http:\/\/gedcomx.org\/Female","lifespan":"22 Jun 2015 - 22 Jun 2015","name":"Dillon Bayer"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -123,14 +123,14 @@
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:18 GMT'
-            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SKL>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SKL>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SKL>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL/spouse-relationships>; rel="spouse-relationships"'
-            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL'
+            Date: 'Mon, 22 Jun 2015 14:08:40 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-8VT>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-8VT>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-8VT>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-ENTITY-ID: KWHZ-SKL
-            X-PROCESSING-TIME: '944'
+            X-ENTITY-ID: KWHZ-8VT
+            X-PROCESSING-TIME: '2708'
             Content-Length: '0'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
@@ -147,10 +147,10 @@
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             Content-Type: application/x-gedcomx-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Hadley Williamson","parts":[{"value":"Hadley","type":"http:\/\/gedcomx.org\/Given"},{"value":"Williamson","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 19, 1866"},"place":{"description":"possibly, maybe, don''t know","original":"Mabellestad, Tennessee, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 19, 2059"},"place":{"description":"possibly, maybe, don''t know","original":"Port Samsonborough, Oregon, United States"}}],"display":{"birthDate":"19 Jun 2015","birthPlace":"Mabellestad, Tennessee, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"19 Jun 2015 - 19 Jun 2015","name":"Hadley Williamson"}}]}'
+        body: '{"persons":[{"gender":{"type":"http:\/\/gedcomx.org\/Male"},"names":[{"type":"http:\/\/gedcomx.org\/BirthName","preferred":true,"nameForms":[{"lang":"en","fullText":"Hadley Williamson","parts":[{"value":"Hadley","type":"http:\/\/gedcomx.org\/Given"},{"value":"Williamson","type":"http:\/\/gedcomx.org\/Surname"}]}]}],"facts":[{"type":"http:\/\/gedcomx.org\/Birth","date":{"original":"June 22, 1866"},"place":{"description":"possibly, maybe, don''t know","original":"Mabellestad, Tennessee, United States"}},{"type":"http:\/\/gedcomx.org\/Death","date":{"original":"June 22, 2059"},"place":{"description":"possibly, maybe, don''t know","original":"Port Samsonborough, Oregon, United States"}}],"display":{"birthDate":"22 Jun 2015","birthPlace":"Mabellestad, Tennessee, United States","gender":"http:\/\/gedcomx.org\/Male","lifespan":"22 Jun 2015 - 22 Jun 2015","name":"Hadley Williamson"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -159,14 +159,14 @@
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:19 GMT'
-            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-SK5>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-SK5>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-SK5>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5/spouse-relationships>; rel="spouse-relationships"'
-            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5'
+            Date: 'Mon, 22 Jun 2015 14:08:43 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/ancestry?person=KWHZ-8VY>; rel="ancestry", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/child-relationships>; rel="child-relationships", <https://sandbox.familysearch.org/platform/tree/descendancy?person=KWHZ-8VY>; rel="descendancy", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/discussion-references>; rel="discussion-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/matches>; rel="matches", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/parent-relationships>; rel="parent-relationships", <https://sandbox.familysearch.org/platform/tree/persons-with-relationships?person=KWHZ-8VY>; rel="person-with-relationships", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/source-references>; rel="source-references", <https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY/spouse-relationships>; rel="spouse-relationships"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-ENTITY-ID: KWHZ-SK5
-            X-PROCESSING-TIME: '897'
+            X-ENTITY-ID: KWHZ-8VY
+            X-PROCESSING-TIME: '1151'
             Content-Length: '0'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
@@ -183,10 +183,10 @@
             Expect: null
             Accept: application/x-fs-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             Content-Type: application/x-fs-v1+json
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
-        body: '{"childAndParentsRelationships":[{"father":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SKX"},"mother":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SKL"},"child":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-SK5"}}]}'
+        body: '{"childAndParentsRelationships":[{"father":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-8VR"},"mother":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-8VT"},"child":{"resource":"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHZ-8VY"}}]}'
     response:
         status:
             http_version: '1.1'
@@ -194,14 +194,14 @@
             message: Created
         headers:
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:20 GMT'
-            Link: '<https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/source-references>; rel="source-references"'
-            Location: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B'
+            Date: 'Mon, 22 Jun 2015 14:08:44 GMT'
+            Link: '<https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/notes>; rel="notes", <https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/source-references>; rel="source-references"'
+            Location: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-ENTITY-ID: MM9Z-B6B
-            X-PROCESSING-TIME: '890'
+            X-ENTITY-ID: MM98-MWN
+            X-PROCESSING-TIME: '939'
             Content-Length: '0'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
@@ -212,12 +212,12 @@
 -
     request:
         method: GET
-        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B'
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN'
         headers:
             Host: sandbox.familysearch.org
             Accept: application/x-fs-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
     response:
         status:
@@ -226,15 +226,15 @@
             message: OK
         headers:
             Cache-Control: 'no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/child-and-parents-relationships/MM9Z-B6B
+            Content-Location: /tree/child-and-parents-relationships/MM98-MWN
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:21 GMT'
-            ETag: '"3f65ae2aaa7b0f1c649344b718f32dc63a69032f"'
-            Last-Modified: 'Fri, 19 Jun 2015 21:01:19 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:44 GMT'
+            ETag: '"368de6f79ac31bca820c0b367637de074ac8cf2a"'
+            Last-Modified: 'Mon, 22 Jun 2015 14:08:41 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '243'
+            X-PROCESSING-TIME: '237'
             Content-Length: '2005'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
@@ -242,17 +242,17 @@
             Access-Control-Expose-Headers: 'location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow'
             Access-Control-Allow-Origin: '*'
             Access-Control-Max-Age: '604800'
-        body: "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM9Z-B6B\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B\"\n      },\n      \"child\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5\"\n      },\n      \"mother\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/collections/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/sources\"\n      },\n      \"mother-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/mother\"\n      },\n      \"father\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX\",\n      \"resourceId\" : \"KWHZ-SKX\"\n    },\n    \"mother\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL\",\n      \"resourceId\" : \"KWHZ-SKL\"\n    },\n    \"child\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5\",\n      \"resourceId\" : \"KWHZ-SK5\"\n    }\n  } ]\n}"
+        body: "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM98-MWN\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN\"\n      },\n      \"child\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY\"\n      },\n      \"mother\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/collections/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/sources\"\n      },\n      \"mother-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/mother\"\n      },\n      \"father\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR\",\n      \"resourceId\" : \"KWHZ-8VR\"\n    },\n    \"mother\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT\",\n      \"resourceId\" : \"KWHZ-8VT\"\n    },\n    \"child\" : {\n      \"resource\" : \"https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY\",\n      \"resourceId\" : \"KWHZ-8VY\"\n    }\n  } ]\n}"
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B/father'
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN/father'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: null
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -262,13 +262,13 @@
             message: 'No Content'
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/child-and-parents-relationships/MM9Z-B6B
+            Content-Location: /tree/child-and-parents-relationships/MM98-MWN
             Content-Type: application/xml
-            Date: 'Fri, 19 Jun 2015 21:01:23 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:45 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '900'
+            X-PROCESSING-TIME: '882'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
@@ -278,13 +278,13 @@
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKX'
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VR'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -294,13 +294,13 @@
             message: 'No Content'
         headers:
             Cache-Control: 'no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/persons/KWHZ-SKX
+            Content-Location: /tree/persons/KWHZ-8VR
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:24 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:47 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '659'
+            X-PROCESSING-TIME: '686'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
@@ -310,13 +310,13 @@
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SKL'
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VT'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -326,13 +326,13 @@
             message: 'No Content'
         headers:
             Cache-Control: 'no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/persons/KWHZ-SKL
+            Content-Location: /tree/persons/KWHZ-8VT
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:26 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:49 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '2227'
+            X-PROCESSING-TIME: '2327'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
@@ -342,13 +342,13 @@
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-SK5'
+        url: 'https://sandbox.familysearch.org/platform/tree/persons/KWHZ-8VY'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: application/x-gedcomx-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -358,13 +358,13 @@
             message: 'No Content'
         headers:
             Cache-Control: 'no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/persons/KWHZ-SK5
+            Content-Location: /tree/persons/KWHZ-8VY
             Content-Type: application/x-gedcomx-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:28 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:50 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '671'
+            X-PROCESSING-TIME: '709'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'
             Access-Control-Allow-Headers: 'accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag'
@@ -374,13 +374,13 @@
 -
     request:
         method: DELETE
-        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM9Z-B6B'
+        url: 'https://sandbox.familysearch.org/platform/tree/child-and-parents-relationships/MM98-MWN'
         headers:
             Host: sandbox.familysearch.org
             Expect: null
             Accept: application/x-fs-v1+json
             User-Agent: 'Guzzle/3.9.2 curl/7.35.0 PHP/5.5.9-1ubuntu4.9'
-            Authorization: 'Bearer USYS65DDD11F8FDB4147F3E638102B3BBF47_idses-int01.a.fsglobal.net'
+            Authorization: 'Bearer USYS5C705DC88755065F47B15F538BB405A4_idses-int01.a.fsglobal.net'
             X-FS-Feature-Tag: birth-date-not-considered-death-declaration
             Content-Length: '0'
     response:
@@ -390,13 +390,13 @@
             message: Gone
         headers:
             Cache-Control: 'no-cache, no-store, no-transform, must-revalidate, max-age=0'
-            Content-Location: /tree/child-and-parents-relationships/MM9Z-B6B
+            Content-Location: /tree/child-and-parents-relationships/MM98-MWN
             Content-Type: application/x-fs-v1+json
-            Date: 'Fri, 19 Jun 2015 21:01:29 GMT'
+            Date: 'Mon, 22 Jun 2015 14:08:53 GMT'
             Server: Apache-Coyote/1.1
             Vary: 'Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding'
             Warning: '400 FamilySearch "Requested feature ''birth-date-not-considered-death-declaration'' is not defined."'
-            X-PROCESSING-TIME: '357'
+            X-PROCESSING-TIME: '429'
             Content-Length: '89'
             Connection: Close
             Access-Control-Allow-Methods: 'OPTIONS, HEAD, GET, PUT, POST, DELETE'

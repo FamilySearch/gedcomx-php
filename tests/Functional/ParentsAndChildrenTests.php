@@ -201,13 +201,6 @@ class ParentsAndChildrenTests extends ApiTestCase
         /** @var ChildAndParentsRelationshipState $relation */
         $relation = $this->createRelationship();
 
-        $relation = $relation->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $relation->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__."(readRelationship)", $relation)
-        );
-
         /** @var FamilyTreePersonState $mother */
         $mother = $this->createPerson('female');
         $this->assertEquals(
@@ -230,6 +223,7 @@ class ParentsAndChildrenTests extends ApiTestCase
             $updated->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(update)", $updated)
         );
+        
         $relation = $relation->get();
         $this->assertEquals(
             HttpStatus::OK,
@@ -282,20 +276,6 @@ class ParentsAndChildrenTests extends ApiTestCase
             HttpStatus::NO_CONTENT,
             $factState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(updateFact)", $factState)
-        );
-        $factState = $factState->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $factState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__."(updateFact)", $factState)
-        );
-        $this->assertNotNull($factState->getEntity(), 'FactState entity is null.');
-        /** @var Fact[] $facts */
-        $facts = $factState->getRelationship()->getFatherFacts();
-        $this->assertEquals(
-            $facts[0]->getDate()->getOriginal(),
-            'January 1, 1901',
-            "Updated value does not match."
         );
     }
 
@@ -378,15 +358,6 @@ class ParentsAndChildrenTests extends ApiTestCase
             $factState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(deleteFact)", $factState)
         );
-        $factState = $relation->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $factState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__."(readRelationship2)", $factState)
-        );
-        $this->assertNotNull($factState->getEntity(), "Relationship entity is null.");
-        $facts = $factState->getRelationship()->getFatherFacts();
-        $this->assertEmpty($facts, "FatherFacts are not empty.");
     }
 
     /**
@@ -413,15 +384,6 @@ class ParentsAndChildrenTests extends ApiTestCase
             $updated->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(update)", $updated)
         );
-
-        $relation = $relation->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $relation->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__."(readRelationship2)", $relation)
-        );
-        $this->assertNotNull($relation->getEntity(), "Relationship entity is null.");
-        $this->assertEmpty($relation->getRelationship()->getFather(), "Father should have been deleted" );
     }
 
 }
