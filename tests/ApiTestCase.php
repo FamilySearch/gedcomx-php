@@ -12,6 +12,7 @@ use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
+use Gedcomx\Rs\Client\Options\QueryParameter;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
@@ -212,6 +213,11 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->queueForDelete($state);
 
         return $state;
+    }
+    
+    protected function createCacheBreakerQueryParam()
+    {
+        return new QueryParameter(true, '_', $this->faker->randomNumber);
     }
 
     /**
