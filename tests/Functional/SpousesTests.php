@@ -17,9 +17,16 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\FactBuilder;
 use Gedcomx\Types\FactType;
+use Gedcomx\Tests\TestBuilder;
 
 class SpousesTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(77588236);
+        TestBuilder::seed(77588236);
+    }
+    
     /**
      * testCreateCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
@@ -32,6 +39,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
+     * @vcr SpousesTests/testCreateCoupleRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Conclusion_usecase
      */
     public function testCreateCoupleRelationshipConclusion()
@@ -84,6 +92,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
+     * @vcr SpousesTests/testReadCoupleRelationshipConditional
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_(Conditional)_usecase
      */
     public function testReadCoupleRelationshipConditional()
@@ -105,7 +114,7 @@ class SpousesTests extends ApiTestCase
         $noneMatch = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, $etagHeader[0]);
         $eTag = new HeaderParameter(true, HeaderParameter::ETAG, $etagHeader[0]);
 
-        $secondState = $family->get($noneMatch, $eTag);
+        $secondState = $family->get($noneMatch, $eTag, $this->createCacheBreakerQueryParam());
 
         $this->assertEquals(
             HttpStatus::NOT_MODIFIED,
@@ -130,6 +139,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
+     * @vcr SpousesTests/testReadNonExistentCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Read_Non-Existent_Couple_Relationship_usecase
      */
     public function testReadNonExistentCoupleRelationship()
@@ -162,6 +172,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testHeadCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Head_Couple_Relationship_usecase
      */
     public function testHeadCoupleRelationship()
@@ -182,6 +193,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testUpdatePersonsOfCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Persons_of_a_Couple_Relationship_usecase
      */
     public function testUpdatePersonsOfCoupleRelationship()
@@ -224,7 +236,7 @@ class SpousesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__."(updateRelationship)", $family)
         );
 
-        $family = $family->get();
+        $family = $family->get($this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
             $family->getResponse()->getStatusCode(),
@@ -239,6 +251,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testUpdateCoupleRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Update_Couple_Relationship_Conclusion_usecase
      */
     public function testUpdateCoupleRelationshipConclusion()
@@ -297,6 +310,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testUpdateIllegalCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Update_Illegal_Couple_Relationship_usecase
      */
     public function testUpdateIllegalCoupleRelationship()
@@ -346,6 +360,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
+     * @vcr SpousesTests/testDeleteCoupleRelationshipConclusion
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Couple_Relationship_Conclusion_usecase
      */
     public function testDeleteCoupleRelationshipConclusion()
@@ -399,7 +414,7 @@ class SpousesTests extends ApiTestCase
             $deleted->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__."(deleteSource)", $deleted)
         );
-        $family = $family->get();
+        $family = $family->get($this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
             $family->getResponse()->getStatusCode(),
@@ -414,6 +429,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testRestoreCoupleRelationship
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Couple_Relationship_usecase
      */
     public function testRestoreCoupleRelationship()
@@ -458,7 +474,7 @@ class SpousesTests extends ApiTestCase
         );
 
         /** @var FamilyTreeRelationshipState $missing */
-        $missing = $husband->readRelationship($relationship);
+        $missing = $husband->readRelationship($relationship, $this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::GONE,
             $missing->getResponse()->getStatusCode(),
@@ -474,7 +490,7 @@ class SpousesTests extends ApiTestCase
             $restored->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__.'(restore)', $restored)
         );
-        $restored = $husband->readRelationship($relationship);
+        $restored = $husband->readRelationship($relationship, $this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
             $restored->getResponse()->getStatusCode(),
@@ -485,6 +501,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SpousesTests/testCoupleRelationshipCRUD
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Update_Persons_of_a_Couple_Relationship_usecase
