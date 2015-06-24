@@ -24,7 +24,7 @@ class DiscussionsTests extends ApiTestCase
     }
     
     /**
-     * @vcr DiscussionsTests/testCreateDiscussion
+     * @vcr DiscussionsTests/testCreateDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Discussion_usecase
      */
     public function testCreateDiscussion()
@@ -43,7 +43,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testCreateDiscussionReference
+     * @vcr DiscussionsTests/testCreateDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
@@ -63,7 +63,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testCreateComment
+     * @vcr DiscussionsTests/testCreateComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Comment_usecase
      */
     public function testCreateComment()
@@ -84,7 +84,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testReadDiscussion
+     * @vcr DiscussionsTests/testReadDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Discussion_usecase
      */
     public function testReadDiscussion()
@@ -104,7 +104,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testReadDiscussionReference
+     * @vcr DiscussionsTests/testReadDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
     public function testReadDiscussionReference(){
@@ -136,7 +136,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testReadComments
+     * @vcr DiscussionsTests/testReadComments.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Comments_usecase
      */
     public function testReadComments()
@@ -162,7 +162,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testUpdateDiscussion
+     * @vcr DiscussionsTests/testUpdateDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Discussion_usecase
      */
     public function testUpdateDiscussion()
@@ -186,7 +186,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testUpdateComment
+     * @vcr DiscussionsTests/testUpdateComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Comment_usecase
      */
     public function testUpdateComment()
@@ -230,7 +230,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testDeleteDiscussion
+     * @vcr DiscussionsTests/testDeleteDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Discussion_usecase
      */
     public function testDeleteDiscussion()
@@ -252,7 +252,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testDeleteDiscussionReference
+     * @vcr DiscussionsTests/testDeleteDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
@@ -276,7 +276,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscussionsTests/testDeleteComment
+     * @vcr DiscussionsTests/testDeleteComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Comment_usecase
      */
     public function testDeleteComment()

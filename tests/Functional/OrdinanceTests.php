@@ -16,7 +16,7 @@ class OrdinanceTests extends ApiTestCase
     private $policyUri = "https://sandbox.familysearch.org/platform/ordinances/policy";
 
     /**
-     * @vcr OrdinanceTests/testReadOrdinancePolicy
+     * @vcr OrdinanceTests/testReadOrdinancePolicy.json
      * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinance_Policy_usecase
      */
     public function testReadOrdinancePolicy()
@@ -39,7 +39,7 @@ class OrdinanceTests extends ApiTestCase
     }
 
     /**
-     * @vcr OrdinanceTests/testReadOrdinancePolicyInFrench
+     * @vcr OrdinanceTests/testReadOrdinancePolicyInFrench.json
      * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinance_Policy_in_French_usecase
      */
     public function testReadOrdinancePolicyInFrench()
@@ -63,7 +63,7 @@ class OrdinanceTests extends ApiTestCase
     }
 
     /**
-     * @vcr OrdinanceTests/testReadOrdinances
+     * @vcr OrdinanceTests/testReadOrdinances.json
      * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_usecase
      */
     public function testReadOrdinances()
@@ -89,7 +89,7 @@ class OrdinanceTests extends ApiTestCase
     }
 
     /**
-     * @vcr OrdinanceTests/testReadOrdinancesForbidden
+     * @vcr OrdinanceTests/testReadOrdinancesForbidden.json
      * @link https://familysearch.org/developers/docs/api/ordinances/Read_Ordinances_%28Access_Forbidden%29_usecase
      */
     public function testReadOrdinancesForbidden()

@@ -27,7 +27,7 @@ class ChangeHistoryTests extends ApiTestCase
     }
     
     /**
-     * @vcr ChangeHistory/testReadPersonChangeHistory
+     * @vcr ChangeHistory/testReadPersonChangeHistory.json
      */
     public function testReadPersonChangeHistory()
     {
@@ -48,7 +48,7 @@ class ChangeHistoryTests extends ApiTestCase
     }
 
     /**
-     * @vcr ChangeHistory/testReadPersonChangeHistoryFirstPage
+     * @vcr ChangeHistory/testReadPersonChangeHistoryFirstPage.json
      */
     public function testReadPersonChangeHistoryFirstPage()
     {
@@ -69,7 +69,7 @@ class ChangeHistoryTests extends ApiTestCase
     }
 
     /**
-     * @vcr ChangeHistory/testReadCoupleRelationshipChangeHistory
+     * @vcr ChangeHistory/testReadCoupleRelationshipChangeHistory.json
      */
     public function testReadCoupleRelationshipChangeHistory()
     {
@@ -107,7 +107,7 @@ class ChangeHistoryTests extends ApiTestCase
     }
 
     /**
-     * @vcr ChangeHistory/testReadChildAndParentsRelationshipChangeHistory
+     * @vcr ChangeHistory/testReadChildAndParentsRelationshipChangeHistory.json
      */
     public function testReadChildAndParentsRelationshipChangeHistory()
     {
@@ -139,7 +139,7 @@ class ChangeHistoryTests extends ApiTestCase
     }
 
     /**
-     * @vcr ChangeHistory/testRestoreChangeAction
+     * @vcr ChangeHistory/testRestoreChangeAction.json
      */
     public function testRestoreChangeAction()
     {

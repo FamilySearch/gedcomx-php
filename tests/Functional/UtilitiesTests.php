@@ -22,7 +22,7 @@ class UtilitiesTests extends ApiTestCase
     }
     
     /**
-     * @vcr UtilitiesTests/testReadPersonWithMultiplePendingModificationsActivated
+     * @vcr UtilitiesTests/testReadPersonWithMultiplePendingModificationsActivated.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Multiple_Pending_Modifications_Activated_usecase
      */
     public function testReadPersonWithMultiplePendingModificationsActivated()
@@ -76,7 +76,7 @@ class UtilitiesTests extends ApiTestCase
      */
 
     /**
-     * @vcr UtilitiesTests/testRedirectToPerson
+     * @vcr UtilitiesTests/testRedirectToPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_usecase
      */
     public function testRedirectToPerson()
@@ -97,7 +97,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
-     * @vcr UtilitiesTests/testRedirectToPersonMemories
+     * @vcr UtilitiesTests/testRedirectToPersonMemories.json
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_memories_usecase
      */
     public function testRedirectToPersonMemories()
@@ -118,7 +118,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
-     * @vcr UtilitiesTests/testRedirectToSourceLinker
+     * @vcr UtilitiesTests/testRedirectToSourceLinker.json
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Source_Linker_usecase
      */
     public function testRedirectToSourceLinker()
@@ -140,7 +140,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
-     * @vcr UtilitiesTests/testRedirectToUri
+     * @vcr UtilitiesTests/testRedirectToUri.json
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Uri_usecase
      */
     public function testRedirectToUri()

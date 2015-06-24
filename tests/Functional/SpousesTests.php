@@ -39,7 +39,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
-     * @vcr SpousesTests/testCreateCoupleRelationshipConclusion
+     * @vcr SpousesTests/testCreateCoupleRelationshipConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Conclusion_usecase
      */
     public function testCreateCoupleRelationshipConclusion()
@@ -92,7 +92,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
-     * @vcr SpousesTests/testReadCoupleRelationshipConditional
+     * @vcr SpousesTests/testReadCoupleRelationshipConditional.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_(Conditional)_usecase
      */
     public function testReadCoupleRelationshipConditional()
@@ -139,7 +139,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
-     * @vcr SpousesTests/testReadNonExistentCoupleRelationship
+     * @vcr SpousesTests/testReadNonExistentCoupleRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Non-Existent_Couple_Relationship_usecase
      */
     public function testReadNonExistentCoupleRelationship()
@@ -172,7 +172,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testHeadCoupleRelationship
+     * @vcr SpousesTests/testHeadCoupleRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Head_Couple_Relationship_usecase
      */
     public function testHeadCoupleRelationship()
@@ -193,7 +193,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testUpdatePersonsOfCoupleRelationship
+     * @vcr SpousesTests/testUpdatePersonsOfCoupleRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Persons_of_a_Couple_Relationship_usecase
      */
     public function testUpdatePersonsOfCoupleRelationship()
@@ -251,7 +251,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testUpdateCoupleRelationshipConclusion
+     * @vcr SpousesTests/testUpdateCoupleRelationshipConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Couple_Relationship_Conclusion_usecase
      */
     public function testUpdateCoupleRelationshipConclusion()
@@ -310,7 +310,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testUpdateIllegalCoupleRelationship
+     * @vcr SpousesTests/testUpdateIllegalCoupleRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Illegal_Couple_Relationship_usecase
      */
     public function testUpdateIllegalCoupleRelationship()
@@ -360,7 +360,7 @@ class SpousesTests extends ApiTestCase
      */
 
     /**
-     * @vcr SpousesTests/testDeleteCoupleRelationshipConclusion
+     * @vcr SpousesTests/testDeleteCoupleRelationshipConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Couple_Relationship_Conclusion_usecase
      */
     public function testDeleteCoupleRelationshipConclusion()
@@ -429,7 +429,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testRestoreCoupleRelationship
+     * @vcr SpousesTests/testRestoreCoupleRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Couple_Relationship_usecase
      */
     public function testRestoreCoupleRelationship()
@@ -501,7 +501,7 @@ class SpousesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SpousesTests/testCoupleRelationshipCRUD
+     * @vcr SpousesTests/testCoupleRelationshipCRUD.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Update_Persons_of_a_Couple_Relationship_usecase

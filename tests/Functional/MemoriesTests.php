@@ -744,14 +744,6 @@ class MemoriesTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/memories/Upload_Multiple_Photo_Memories_usecase
-     */
-    public function testUploadMultiplePhotoMemories()
-    {
-        $this->markTestSkipped("Not currently supported by the SDK.");
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/memories/Upload_PDF_Document_usecase
      * SDK only supports uploading via multi-part form uploads.
      */
@@ -867,13 +859,5 @@ class MemoriesTests extends ApiTestCase
         );
         $upload = $upload->get();
         $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/memories/Upload_Story_Memories_usecase
-     */
-    public function testUploadStoryMemories()
-    {
-        $this->markTestSkipped("Not currently supported by the SDK.");
     }
 }

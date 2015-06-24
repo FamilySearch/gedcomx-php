@@ -9,7 +9,7 @@ use Gedcomx\Tests\ApiTestCase;
 class AuthoritiesTests extends ApiTestCase
 {
     /**
-     * @vcr Authorities/testDateAuthority
+     * @vcr Authorities/testDateAuthority.json
      */
     public function testDateAuthority()
     {

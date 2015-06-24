@@ -29,7 +29,7 @@ class SourceBoxTests extends ApiTestCase
     }
     
     /**
-     * @vcr SourceBoxTests/testCreateUserDefinedCollection
+     * @vcr SourceBoxTests/testCreateUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Create_User-Defined_Collection_usecase
      */
     public function testCreateUserDefinedCollection()
@@ -59,7 +59,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testReadAPageOfTheSourcesInAUserDefinedCollection
+     * @vcr SourceBoxTests/testReadAPageOfTheSourcesInAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_A_Page_of_the_Sources_in_a_User-Defined_Collection_usecase
      */
     public function testReadAPageOfTheSourcesInAUserDefinedCollection()
@@ -87,7 +87,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testReadASpecificUsersSetOfUserDefinedCollections
+     * @vcr SourceBoxTests/testReadASpecificUsersSetOfUserDefinedCollections.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_A_Specific_User%27s_Set_of_User-Defined_Collections_usecase
      */
     public function testReadASpecificUsersSetOfUserDefinedCollections()
@@ -105,7 +105,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser
+     * @vcr SourceBoxTests/testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_All_Sources_of_All_User-Defined_Collections_of_a_Specific_User_usecase
      */
     public function testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser()
@@ -154,7 +154,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testReadUserDefinedCollection
+     * @vcr SourceBoxTests/testReadUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_User-Defined_Collection_usecase
      */
     public function testReadUserDefinedCollection()
@@ -175,7 +175,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testUpdateUserDefinedCollection
+     * @vcr SourceBoxTests/testUpdateUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Update_User-Defined_Collection_usecase
      */
     public function testUpdateUserDefinedCollection()
@@ -205,7 +205,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testDeleteSourceDescriptionsFromAUserDefinedCollection
+     * @vcr SourceBoxTests/testDeleteSourceDescriptionsFromAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Delete_Source_Descriptions_from_a_User-Defined_Collection_usecase
      */
     public function testDeleteSourceDescriptionsFromAUserDefinedCollection()
@@ -226,7 +226,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testDeleteUserDefinedCollection
+     * @vcr SourceBoxTests/testDeleteUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Delete_User-Defined_Collection_usecase
      */
     public function testDeleteUserDefinedCollection()
@@ -250,7 +250,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourceBoxTests/testMoveSourcesToAUserDefinedCollection
+     * @vcr SourceBoxTests/testMoveSourcesToAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Move_Sources_to_a_User-Defined_Collection_usecase
      */
     public function testMoveSourcesToAUserDefinedCollection()

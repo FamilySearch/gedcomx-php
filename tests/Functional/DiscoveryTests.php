@@ -12,7 +12,7 @@ use Gedcomx\Tests\ApiTestCase;
 class DiscoveryTests extends ApiTestCase
 {
     /**
-     * @vcr DiscoveryTests/testReadRootCollection
+     * @vcr DiscoveryTests/testReadRootCollection.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Root_Collection_usecase
      */
     public function testReadRootCollection()
@@ -27,7 +27,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadFamilySearchCollections
+     * @vcr DiscoveryTests/testReadFamilySearchCollections.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_FamilySearch_Collections_usecase
      */
     public function testReadFamilySearchCollections()
@@ -39,7 +39,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadControlledVocabulary
+     * @vcr DiscoveryTests/testReadControlledVocabulary.json
      * @link https://familysearch.org/developers/docs/api/cv/Read_Controlled_Vocabulary_usecase
      */
     public function testReadControlledVocabulary()
@@ -65,7 +65,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testFamilySearchFamilyTree
+     * @vcr DiscoveryTests/testFamilySearchFamilyTree.json
      * @link https://familysearch.org/developers/docs/api/cv/Read_Controlled_Vocabulary_usecase
      */
     public function testFamilySearchFamilyTree()
@@ -91,7 +91,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadDateAuthority
+     * @vcr DiscoveryTests/testReadDateAuthority.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Date_Authority_usecase
      */
     public function testReadDateAuthority()
@@ -131,7 +131,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadDiscussionsCollection
+     * @vcr DiscoveryTests/testReadDiscussionsCollection.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Discussions_Collection_usecase
      */
     public function testReadDiscussionsCollection()
@@ -159,7 +159,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadMemoriesCollection
+     * @vcr DiscoveryTests/testReadMemoriesCollection.json
      * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_Collection_usecase
      */
     public function testReadMemoriesCollection()
@@ -185,7 +185,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadUserDefinedSourcesCollection
+     * @vcr DiscoveryTests/testReadUserDefinedSourcesCollection.json
      * @link https://familysearch.org/developers/docs/api/memories/Read_User-Defined_Sources_Collection_usecase
      */
     public function testReadUserDefinedSourcesCollection()
@@ -211,7 +211,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadPlaceAuthority
+     * @vcr DiscoveryTests/testReadPlaceAuthority.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Place_Authority_usecase
      */
     public function testReadPlaceAuthority()
@@ -237,7 +237,7 @@ class DiscoveryTests extends ApiTestCase
     }
 
     /**
-     * @vcr DiscoveryTests/testReadFamilySearchHistoricalRecordsArchive
+     * @vcr DiscoveryTests/testReadFamilySearchHistoricalRecordsArchive.json
      * @link https://familysearch.org/developers/docs/api/memories/Read_FamilySearch_Historical_Records_Archive_usecase
      */
     public function testReadFamilySearchHistoricalRecordsArchive()

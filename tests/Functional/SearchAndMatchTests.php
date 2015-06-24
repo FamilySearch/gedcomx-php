@@ -28,7 +28,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadPersonNotAMatchDeclarations
+     * @vcr SearchAndMatchTests/testReadPersonNotAMatchDeclarations.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Not-A-Match_Declarations_usecase
      */
     public function testReadPersonNotAMatchDeclarations()
@@ -73,7 +73,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadPersonPossibleDuplicates
+     * @vcr SearchAndMatchTests/testReadPersonPossibleDuplicates.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Possible_Duplicates_usecase
      */
     public function testReadPersonPossibleDuplicates()
@@ -102,7 +102,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadPersonRecordMatches
+     * @vcr SearchAndMatchTests/testReadPersonRecordMatches.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Record_Matches_usecase
      */
     public function testReadPersonRecordMatches()
@@ -125,7 +125,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadAllMatchStatusTypesPersonRecordMatches
+     * @vcr SearchAndMatchTests/testReadAllMatchStatusTypesPersonRecordMatches.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_All_Match_Status_Types_Person_Record_Matches_usecase
      */
     public function testReadAllMatchStatusTypesPersonRecordMatches()
@@ -154,7 +154,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadHigherConfidencePersonAcceptedRecordMatches
+     * @vcr SearchAndMatchTests/testReadHigherConfidencePersonAcceptedRecordMatches.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Higher_Confidence_Person_Accepted_Record_Matches_usecase
      */
     public function testReadHigherConfidencePersonAcceptedRecordMatches()
@@ -183,7 +183,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadMatchScoresForPersons
+     * @vcr SearchAndMatchTests/testReadMatchScoresForPersons.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Match_Scores_for_Persons_usecase
      */
     public function testReadMatchScoresForPersons()
@@ -213,7 +213,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testReadNextPageOfSearchResults
+     * @vcr SearchAndMatchTests/testReadNextPageOfSearchResults.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Next_Page_of_Search_Results_usecase
      */
     public function testReadNextPageOfSearchResults(){
@@ -235,7 +235,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testUpdateMatchStatusForPersonRecordMatches
+     * @vcr SearchAndMatchTests/testUpdateMatchStatusForPersonRecordMatches.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Match_Status_for_Person_Record_Matches_usecase
      */
     public function testUpdateMatchStatusForPersonRecordMatches()
@@ -287,7 +287,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testSearchPersons
+     * @vcr SearchAndMatchTests/testSearchPersons.json
      * @link https://familysearch.org/developers/docs/api/tree/Search_Persons_usecase
      */
     public function testSearchPersons(){
@@ -304,7 +304,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testSearchForPersonMatches
+     * @vcr SearchAndMatchTests/testSearchForPersonMatches.json
      * @link https://familysearch.org/developers/docs/api/tree/Search_Persons_With_Warnings_and_Errors_usecase
      */
     public function testSearchForPersonMatches()
@@ -336,7 +336,7 @@ class SearchAndMatchTests extends ApiTestCase
     }
 
     /**
-     * @vcr SearchAndMatchTests/testSearchPersonsWithWarningsAndErrors
+     * @vcr SearchAndMatchTests/testSearchPersonsWithWarningsAndErrors.json
      * @link https://familysearch.org/developers/docs/api/tree/Search_Persons_With_Warnings_and_Errors_usecase
      */
     public function testSearchPersonsWithWarningsAndErrors(){

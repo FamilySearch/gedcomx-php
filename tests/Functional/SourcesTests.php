@@ -40,7 +40,7 @@ class SourcesTests extends ApiTestCase
     }
     
     /**
-     * @vcr SourcesTests/testCreatePersonSourceReference
+     * @vcr SourcesTests/testCreatePersonSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
      */
     public function testCreatePersonSourceReference()
@@ -70,7 +70,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testCreateSourceDescription
+     * @vcr SourcesTests/testCreateSourceDescription.json
      * @link https://familysearch.org/developers/docs/api/sources/Create_Source_Description_usecase
      */
     public function testCreateSourceDescription()
@@ -95,7 +95,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testCreateChildAndParentsRelationshipSourceReferences
+     * @vcr SourcesTests/testCreateChildAndParentsRelationshipSourceReferences.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Source_Reference_usecase
      */
     public function testCreateChildAndParentsRelationshipSourceReferences()
@@ -137,7 +137,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testCreateCoupleRelationshipSourceReference
+     * @vcr SourcesTests/testCreateCoupleRelationshipSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Source_Reference_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Source_References_usecase
@@ -275,7 +275,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadPersonSourceReferences
+     * @vcr SourcesTests/testReadPersonSourceReferences.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
      */
     public function testReadPersonSourceReferences(){
@@ -305,7 +305,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadPersonSources
+     * @vcr SourcesTests/testReadPersonSources.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
      */
     public function testReadPersonSources()
@@ -346,7 +346,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadSourceDescription
+     * @vcr SourcesTests/testReadSourceDescription.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_Source_Description_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
@@ -366,7 +366,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadSourceReferences
+     * @vcr SourcesTests/testReadSourceReferences.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Source_References_usecase
      */
     public function testReadSourceReferences()
@@ -402,7 +402,7 @@ class SourcesTests extends ApiTestCase
      */
 
     /**
-     * @vcr SourcesTests/testReadChildAndParentsRelationshipSources
+     * @vcr SourcesTests/testReadChildAndParentsRelationshipSources.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Sources_usecase
      * @see SourcesTests::testReadChildAndParentsRelationshipSources
      */
@@ -466,7 +466,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadCoupleRelationshipSourceReferences
+     * @vcr SourcesTests/testReadCoupleRelationshipSourceReferences.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Source_References_usecase
      */
@@ -504,7 +504,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testReadCoupleRelationshipSources
+     * @vcr SourcesTests/testReadCoupleRelationshipSources.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      */
     public function testReadCoupleRelationshipSources()
@@ -557,7 +557,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testUpdatePersonSourceReference
+     * @vcr SourcesTests/testUpdatePersonSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
      */
     public function testUpdatePersonSourceReference()
@@ -612,7 +612,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testUpdateSourceDescription
+     * @vcr SourcesTests/testUpdateSourceDescription.json
      * @link https://familysearch.org/developers/docs/api/sources/Update_Source_Description_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
@@ -634,7 +634,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testDeletePersonSourceReference
+     * @vcr SourcesTests/testDeletePersonSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
      */
     public function testDeletePersonSourceReference()
@@ -686,7 +686,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testDeleteSourceDescription
+     * @vcr SourcesTests/testDeleteSourceDescription.json
      * @link https://familysearch.org/developers/docs/api/sources/Delete_Source_Description_usecase
      */
     public function testDeleteSourceDescription()
@@ -708,7 +708,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testDeleteChildAndParentsRelationshipSourceReference
+     * @vcr SourcesTests/testDeleteChildAndParentsRelationshipSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Source_Reference_usecase
      */
     public function testDeleteChildAndParentsRelationshipSourceReference()
@@ -762,7 +762,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
-     * @vcr SourcesTests/testDeleteCoupleRelationshipSourceReference
+     * @vcr SourcesTests/testDeleteCoupleRelationshipSourceReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Couple_Relationship_Source_Reference_usecase
      */
     public function testDeleteCoupleRelationshipSourceReference()

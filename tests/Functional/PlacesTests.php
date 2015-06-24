@@ -25,7 +25,7 @@ class PlacesTests extends ApiTestCase
     private $collection;
 
     /**
-     * @vcr PlacesTests/testReadPlace
+     * @vcr PlacesTests/testReadPlace.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_usecase
      */
     public function testReadPlace()
@@ -69,7 +69,7 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
-     * @vcr PlacesTests/testReadPlaceDescription
+     * @vcr PlacesTests/testReadPlaceDescription.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Description_usecase
      */
     public function testReadPlaceDescription()
@@ -105,7 +105,7 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
-     * @vcr PlacesTests/testReadPlaceDescriptionChildren
+     * @vcr PlacesTests/testReadPlaceDescriptionChildren.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Description_Children_usecase
      */
     public function testReadPlaceDescriptionChildren()
@@ -191,7 +191,7 @@ class PlacesTests extends ApiTestCase
      */
 
     /**
-     * @vcr PlacesTests/testPlaceTypeGroups
+     * @vcr PlacesTests/testPlaceTypeGroups.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_Groups_usecase
      */
     public function testPlaceTypeGroups()
@@ -265,7 +265,7 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
-     * @vcr PlacesTests/testSearchForPlaces
+     * @vcr PlacesTests/testSearchForPlaces.json
      * @link https://familysearch.org/developers/docs/api/places/Search_For_Places_usecase
      */
     public function testSearchForPlaces()

@@ -42,7 +42,7 @@ class PersonTests extends ApiTestCase
     }
     
     /**
-     * @vcr PersonTests/testCreatePerson
+     * @vcr PersonTests/testCreatePerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_usecase
      */
     public function testCreatePerson()
@@ -64,7 +64,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testCreatePersonConclusion
+     * @vcr PersonTests/testCreatePersonConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Conclusion_usecase
      */
     public function testCreatePersonConclusion()
@@ -84,7 +84,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testCreatePersonLifeSketch
+     * @vcr PersonTests/testCreatePersonLifeSketch.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Life_Sketch_usecase
      */
     public function testCreatePersonLifeSketch()
@@ -104,7 +104,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testCreateDiscussionReference
+     * @vcr PersonTests/testCreateDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
@@ -141,7 +141,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testReadPerson
+     * @vcr PersonTests/testReadPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_usecase
      */
     public function testReadPerson(){
@@ -159,7 +159,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadMergeAnalysis
+     * @vcr PersonTests/testReadMergeAnalysis.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Analysis_usecase
      */
     public function testReadMergeAnalysis()
@@ -183,7 +183,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadPersonMergeConstraintAnyOrder
+     * @vcr PersonTests/testReadPersonMergeConstraintAnyOrder.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Constraint_(Can_Merge_Any_Order)_usecase
      */
     public function testReadPersonMergeConstraintAnyOrder()
@@ -206,7 +206,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadPersonMergeConstraintOtherOrder
+     * @vcr PersonTests/testReadPersonMergeConstraintOtherOrder.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Merge_Constraint_(Can_Merge_Other_Order_Only)_usecase
      */
     public function testReadPersonMergeConstraintOtherOrder()
@@ -357,7 +357,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadPortraitWithDefault
+     * @vcr PersonTests/testReadPortraitWithDefault.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Portrait_With_Default_usecase
      */
     public function testReadPortraitWithDefault()
@@ -426,7 +426,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadPersonWithRelationships
+     * @vcr PersonTests/testReadPersonWithRelationships.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Relationships_usecase
      */
     public function testReadPersonWithRelationships()
@@ -492,7 +492,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadRelationshipsToChildren
+     * @vcr PersonTests/testReadRelationshipsToChildren.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Children_usecase
      */
     public function testReadRelationshipsToChildren()
@@ -546,7 +546,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadRelationshipsToParents
+     * @vcr PersonTests/testReadRelationshipsToParents.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_to_Parents_usecase
      */
     public function testReadRelationshipsToParents()
@@ -594,7 +594,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadRelationshipsToSpouses
+     * @vcr PersonTests/testReadRelationshipsToSpouses.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_usecase
      */
     public function testReadRelationshipsToSpouses()
@@ -640,7 +640,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadRelationshipsToSpousesWithPersons
+     * @vcr PersonTests/testReadRelationshipsToSpousesWithPersons.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Relationships_To_Spouses_with_Persons_usecase
      */
     public function testReadRelationshipsToSpousesWithPersons(){
@@ -686,7 +686,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadDiscussionReference
+     * @vcr PersonTests/testReadDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
@@ -719,7 +719,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadPersonChildren
+     * @vcr PersonTests/testReadPersonChildren.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Children_of_a_Person_usecase
      */
     public function testReadPersonChildren(){
@@ -783,7 +783,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testReadNotFoundPerson
+     * @vcr PersonTests/testReadNotFoundPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Not_Found_Person_usecase
      */
     public function testReadNotFoundPerson(){
@@ -804,7 +804,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testReadParentsOfPerson
+     * @vcr PersonTests/testReadParentsOfPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Parents_of_a_Person_usecase
      */
     public function testReadParentsOfPerson()
@@ -874,7 +874,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testReadSpousesOfPerson
+     * @vcr PersonTests/testReadSpousesOfPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Spouses_of_a_Person_usecase
      */
     public function testReadSpousesOfPerson()
@@ -925,7 +925,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testMergePerson
+     * @vcr PersonTests/testMergePerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Merge_Person_usecase
      */
     public function testMergePerson()
@@ -968,7 +968,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testHeadPerson
+     * @vcr PersonTests/testHeadPerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Head_Person_usecase
      */
     public function testHeadPerson()
@@ -997,7 +997,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testUpdatePersonConclusion
+     * @vcr PersonTests/testUpdatePersonConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Conclusion_usecase
      */
     public function testUpdatePersonConclusion()
@@ -1020,7 +1020,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testUpdatePersonCustomNonEventFact
+     * @vcr PersonTests/testUpdatePersonCustomNonEventFact.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Custom_Non-Event_Fact_usecase
      */
     public function testUpdatePersonCustomNonEventFact()
@@ -1041,7 +1041,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testUpdatePersonLifeSketch
+     * @vcr PersonTests/testUpdatePersonLifeSketch.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Life_Sketch_usecase
      */
     public function testUpdatePersonLifeSketch()
@@ -1069,7 +1069,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testUpdatePersonNotAMatchDeclarations
+     * @vcr PersonTests/testUpdatePersonNotAMatchDeclarations.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Not-a-Match_Declarations_usecase
      */
     public function testUpdatePersonNotAMatchDeclarations()
@@ -1091,7 +1091,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testUpdatePersonWithPreconditions
+     * @vcr PersonTests/testUpdatePersonWithPreconditions.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_With_Preconditions_usecase
      */
     public function testUpdatePersonWithPreconditions()
@@ -1140,7 +1140,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testDeletePersonConclusion
+     * @vcr PersonTests/testDeletePersonConclusion.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Conclusion_usecase
      */
     public function testDeletePersonConclusion()
@@ -1170,7 +1170,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testDeletePersonNotAMatch
+     * @vcr PersonTests/testDeletePersonNotAMatch.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Not-a-Match_usecase
      */
     public function testDeletePersonNotAMatch()
@@ -1196,7 +1196,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testDeletePersonWithPreconditions
+     * @vcr PersonTests/testDeletePersonWithPreconditions.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_With_Preconditions_usecase
      */
     public function testDeletePersonWithPreconditions()
@@ -1221,7 +1221,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testDeleteDiscussionReference
+     * @vcr PersonTests/testDeleteDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
@@ -1269,7 +1269,7 @@ class PersonTests extends ApiTestCase
      */
 
     /**
-     * @vcr PersonTests/testDeleteAndRestorePerson
+     * @vcr PersonTests/testDeleteAndRestorePerson.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Deleted_Person_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Restore_Person_usecase
@@ -1306,7 +1306,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testPreferredParentRelationship
+     * @vcr PersonTests/testPreferredParentRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Parent_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Preferred_Parent_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Parent_Relationship_usecase
@@ -1395,7 +1395,7 @@ class PersonTests extends ApiTestCase
     }
 
     /**
-     * @vcr PersonTests/testPreferredSpouseRelationship
+     * @vcr PersonTests/testPreferredSpouseRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Update_Preferred_Spouse_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Preferred_Spouse_Relationship_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Preferred_Spouse_Relationship_usecase

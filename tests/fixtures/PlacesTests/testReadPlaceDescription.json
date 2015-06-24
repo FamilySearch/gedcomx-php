@@ -1,0 +1,140 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/places",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-gedcomx-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, max-age=604800",
+            "Content-Location": "\/collections\/places",
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Date": "Wed, 24 Jun 2015 20:25:19 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "0",
+            "Content-Length": "2986",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSPA\",\n    \"about\" : \"#FSPA\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Place Authority\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSPA\",\n    \"links\" : {\n      \"place-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/search{?count,start,q,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Places Search\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"record-collection-regions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/groups\/30\"\n      },\n      \"place-type\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/types\/{ptid}{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Place Type\"\n      },\n      \"place-type-groups\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/type-groups{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Place Type Groups\"\n      },\n      \"place-types\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/types{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Place Types\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      },\n      \"place-type-group\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/type-groups\/{ptgid}{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Place Type Group\"\n      },\n      \"place-group\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/groups\/{pgid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Place Group\"\n      }\n    },\n    \"title\" : \"FamilySearch Place Authority\"\n  } ],\n  \"description\" : \"#SD-FSPA\"\n}"
+    }
+},{
+    "request": {
+        "method": "POST",
+        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
+        "headers": {
+            "Host": "integration.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Server": "Apache-Coyote\/1.1",
+            "Pragma": "no-cache",
+            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+            "Cache-Control": "no-cache, no-store",
+            "Content-Type": "application\/json;charset=ISO-8859-1",
+            "Content-Language": "en-US",
+            "Content-Length": "185",
+            "Date": "Wed, 24 Jun 2015 20:25:20 GMT",
+            "Connection": "close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\"token\":\"USYS23032C5F9A795757094C37823353ADE9_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS23032C5F9A795757094C37823353ADE9_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/places\/search?q=name%3AParis%20%2BparentId%3A442102~",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-gedcomx-atom+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS23032C5F9A795757094C37823353ADE9_idses-int02.a.fsglobal.net"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Content-Type": "application\/x-gedcomx-atom+json",
+            "Date": "Wed, 24 Jun 2015 20:25:20 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "407",
+            "Content-Length": "5461",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"subtitle\" : \"Results of searching for places.\",\n  \"title\" : \"Place Search Results\",\n  \"entries\" : [ {\n    \"content\" : {\n      \"gedcomx\" : {\n        \"places\" : [ {\n          \"id\" : \"7344697\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/7344697\"\n            }\n          },\n          \"lang\" : \"fr\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/5061509\" ]\n          },\n          \"type\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/types\/140\",\n          \"temporalDescription\" : {\n            \"formal\" : \"+1968\/\"\n          },\n          \"latitude\" : 48.86024,\n          \"longitude\" : 2.341109,\n          \"jurisdiction\" : {\n            \"resource\" : \"#442102\"\n          },\n          \"display\" : {\n            \"name\" : \"Paris\",\n            \"fullName\" : \"Paris, Ville-de-Paris, District of the Paris Region, France\",\n            \"type\" : \"Populated Place\"\n          }\n        }, {\n          \"id\" : \"442102\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/442102\"\n            }\n          },\n          \"lang\" : \"fr\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"Ville-de-Paris\"\n          } ],\n          \"jurisdiction\" : {\n            \"resource\" : \"#2746\"\n          }\n        }, {\n          \"id\" : \"2746\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/2746\"\n            }\n          },\n          \"lang\" : \"en\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1928971\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"District of the Paris Region\"\n          } ],\n          \"jurisdiction\" : {\n            \"resource\" : \"#204\"\n          }\n        }, {\n          \"id\" : \"204\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/204\"\n            }\n          },\n          \"lang\" : \"en\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1927089\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"France\"\n          } ]\n        } ]\n      }\n    },\n    \"id\" : \"7344697\",\n    \"score\" : 75.0,\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/7344697\"\n      }\n    }\n  }, {\n    \"content\" : {\n      \"gedcomx\" : {\n        \"places\" : [ {\n          \"id\" : \"5953651\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/5953651\"\n            }\n          },\n          \"lang\" : \"fr\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1948811\" ]\n          },\n          \"type\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/types\/221\",\n          \"temporalDescription\" : {\n            \"formal\" : \"+1968\/\"\n          },\n          \"latitude\" : 48.8333333,\n          \"longitude\" : 2.3333333,\n          \"jurisdiction\" : {\n            \"resource\" : \"#442102\"\n          },\n          \"display\" : {\n            \"name\" : \"Paris\",\n            \"fullName\" : \"Paris, Ville-de-Paris, District of the Paris Region, France\",\n            \"type\" : \"District\"\n          }\n        }, {\n          \"id\" : \"442102\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/442102\"\n            }\n          },\n          \"lang\" : \"fr\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"Ville-de-Paris\"\n          } ],\n          \"jurisdiction\" : {\n            \"resource\" : \"#2746\"\n          }\n        }, {\n          \"id\" : \"2746\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/2746\"\n            }\n          },\n          \"lang\" : \"en\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1928971\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"District of the Paris Region\"\n          } ],\n          \"jurisdiction\" : {\n            \"resource\" : \"#204\"\n          }\n        }, {\n          \"id\" : \"204\",\n          \"links\" : {\n            \"description\" : {\n              \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/204\"\n            }\n          },\n          \"lang\" : \"en\",\n          \"identifiers\" : {\n            \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1927089\" ]\n          },\n          \"names\" : [ {\n            \"value\" : \"France\"\n          } ]\n        } ]\n      }\n    },\n    \"id\" : \"5953651\",\n    \"score\" : 52.0,\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/5953651\"\n      }\n    }\n  } ]\n}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/places\/description\/7344697",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-gedcomx-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS23032C5F9A795757094C37823353ADE9_idses-int02.a.fsglobal.net",
+            "Content-Type": "application\/x-gedcomx-v1+json"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, must-revalidate, max-age=86400",
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Date": "Wed, 24 Jun 2015 20:25:23 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "1496",
+            "Content-Length": "2978",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"places\" : [ {\n    \"id\" : \"7344697\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/7344697\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/7344697\/children\"\n      },\n      \"place\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/5061509\"\n      }\n    },\n    \"lang\" : \"fr\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/5061509\" ]\n    },\n    \"names\" : [ {\n      \"lang\" : \"fr\",\n      \"value\" : \"Paris\"\n    } ],\n    \"type\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/types\/140\",\n    \"temporalDescription\" : {\n      \"formal\" : \"+1968\/\"\n    },\n    \"latitude\" : 48.86024,\n    \"longitude\" : 2.341109,\n    \"jurisdiction\" : {\n      \"resource\" : \"#442102\"\n    },\n    \"display\" : {\n      \"name\" : \"Paris\",\n      \"fullName\" : \"Paris, Ville-de-Paris, District of the Paris Region, France\",\n      \"type\" : \"Populated Place\"\n    }\n  }, {\n    \"id\" : \"442102\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/442102\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/442102\/children\"\n      },\n      \"place\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\"\n      }\n    },\n    \"lang\" : \"fr\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\" ]\n    },\n    \"names\" : [ {\n      \"value\" : \"Ville-de-Paris\"\n    } ],\n    \"jurisdiction\" : {\n      \"resource\" : \"#2746\"\n    }\n  }, {\n    \"id\" : \"2746\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/2746\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/2746\/children\"\n      },\n      \"place\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\"\n      }\n    },\n    \"lang\" : \"en\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1928971\" ]\n    },\n    \"names\" : [ {\n      \"value\" : \"District of the Paris Region\"\n    } ],\n    \"jurisdiction\" : {\n      \"resource\" : \"#204\"\n    }\n  }, {\n    \"id\" : \"204\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/204\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/description\/204\/children\"\n      },\n      \"place\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/places\/1937541\"\n      }\n    },\n    \"lang\" : \"en\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Primary\" : [ \"https:\/\/sandbox.familysearch.org\/platform\/places\/1927089\" ]\n    },\n    \"names\" : [ {\n      \"value\" : \"France\"\n    } ]\n  } ]\n}"
+    }
+}]
