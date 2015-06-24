@@ -8,10 +8,18 @@ use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\TestBuilder;
 
 class UserTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(20125032);
+        TestBuilder::seed(20125032);
+    }
+    
     /**
+     * @vcr UserTests/testReadCurrentTreePerson
      * @link https://familysearch.org/developers/docs/api/tree/Read_Current_Tree_Person_usecase
      */
     public function testReadCurrentTreePerson()
@@ -28,6 +36,7 @@ class UserTests extends ApiTestCase
     }
 
     /**
+     * @vcr UserTests/testReadCurrentUser
      * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User_usecase
      */
     public function testReadCurrentUser()
@@ -45,11 +54,12 @@ class UserTests extends ApiTestCase
     }
 
     /**
+     * @vcr UserTests/testReadCurrentUserHistory
      * @link https://familysearch.org/developers/docs/api/tree/Read_Current_User's_History_usecase
      */
     public function testReadCurrentUserHistory()
     {
-        $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
+        // $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
 
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
@@ -63,6 +73,7 @@ class UserTests extends ApiTestCase
     }
 
     /**
+     * @vcr UserTests/testReadUser
      * @link https://familysearch.org/developers/docs/api/tree/Read_User_usecase
      */
     public function testReadUser()
@@ -84,11 +95,12 @@ class UserTests extends ApiTestCase
     }
 
     /**
+     * @vcr UserTests/testUpdateCurrentUserHistory
      * @link https://familysearch.org/developers/docs/api/tree/Update_Current_User's_History_usecase
      */
     public function testUpdateCurrentUserHistory()
     {
-        $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
+        // $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
 
         $factory = new FamilySearchStateFactory();
         $this->collectionState($factory);
