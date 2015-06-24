@@ -29,10 +29,18 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 use Gedcomx\Source\SourceReference;
 use Guzzle\Http\Message\Request;
+use Gedcomx\Tests\TestBuilder;
 
 class SourcesTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(9451872);
+        TestBuilder::seed(9451872);
+    }
+    
     /**
+     * @vcr SourcesTests/testCreatePersonSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Create_Person_Source_Reference_usecase
      */
     public function testCreatePersonSourceReference()
@@ -62,6 +70,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testCreateSourceDescription
      * @link https://familysearch.org/developers/docs/api/sources/Create_Source_Description_usecase
      */
     public function testCreateSourceDescription()
@@ -86,6 +95,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testCreateChildAndParentsRelationshipSourceReferences
      * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Source_Reference_usecase
      */
     public function testCreateChildAndParentsRelationshipSourceReferences()
@@ -127,6 +137,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testCreateCoupleRelationshipSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_Source_Reference_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Source_References_usecase
@@ -264,6 +275,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadPersonSourceReferences
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Source_References_usecase
      */
     public function testReadPersonSourceReferences(){
@@ -293,6 +305,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadPersonSources
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Sources_usecase
      */
     public function testReadPersonSources()
@@ -333,13 +346,14 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadSourceDescription
      * @link https://familysearch.org/developers/docs/api/sources/Read_Source_Description_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
     public function testReadSourceDescription()
     {
         $this->collectionState(new FamilyTreeStateFactory());
-        $sd = $this->createSourceDescription();
+        $sd = SourceBuilder::newSource();
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
         $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
@@ -352,6 +366,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadSourceReferences
      * @link https://familysearch.org/developers/docs/api/tree/Read_Source_References_usecase
      */
     public function testReadSourceReferences()
@@ -387,6 +402,7 @@ class SourcesTests extends ApiTestCase
      */
 
     /**
+     * @vcr SourcesTests/testReadChildAndParentsRelationshipSources
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_Sources_usecase
      * @see SourcesTests::testReadChildAndParentsRelationshipSources
      */
@@ -450,6 +466,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadCoupleRelationshipSourceReferences
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Source_References_usecase
      */
@@ -487,6 +504,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testReadCoupleRelationshipSources
      * @link https://familysearch.org/developers/docs/api/tree/Read_Couple_Relationship_Sources_usecase
      */
     public function testReadCoupleRelationshipSources()
@@ -539,6 +557,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testUpdatePersonSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Update_Person_Source_Reference_usecase
      */
     public function testUpdatePersonSourceReference()
@@ -593,13 +612,14 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testUpdateSourceDescription
      * @link https://familysearch.org/developers/docs/api/sources/Update_Source_Description_usecase
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
     public function testUpdateSourceDescription()
     {
         $this->collectionState(new FamilyTreeStateFactory());
-        $sd = $this->createSourceDescription();
+        $sd = SourceBuilder::newSource();
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
         $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
@@ -614,6 +634,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testDeletePersonSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Source_Reference_usecase
      */
     public function testDeletePersonSourceReference()
@@ -664,13 +685,14 @@ class SourcesTests extends ApiTestCase
         );
     }
 
-    /*
+    /**
+     * @vcr SourcesTests/testDeleteSourceDescription
      * @link https://familysearch.org/developers/docs/api/sources/Delete_Source_Description_usecase
      */
     public function testDeleteSourceDescription()
     {
         $this->collectionState(new FamilyTreeStateFactory());
-        $sd = $this->createSourceDescription();
+        $sd = SourceBuilder::newSource();
 
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
@@ -686,6 +708,7 @@ class SourcesTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourcesTests/testDeleteChildAndParentsRelationshipSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Child-and-Parents_Relationship_Source_Reference_usecase
      */
     public function testDeleteChildAndParentsRelationshipSourceReference()
@@ -734,11 +757,12 @@ class SourcesTests extends ApiTestCase
         );
 
         $relation = $relation->get();
-        $relation->loadSourceReferences();
+        $relation->loadSourceReferences($this->createCacheBreakerQueryParam());
         $this->assertEmpty($relation->getRelationship()->getSources());
     }
 
     /**
+     * @vcr SourcesTests/testDeleteCoupleRelationshipSourceReference
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Couple_Relationship_Source_Reference_usecase
      */
     public function testDeleteCoupleRelationshipSourceReference()
@@ -804,35 +828,8 @@ class SourcesTests extends ApiTestCase
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
 
         $relationship = $relationship->get();
-        $relationship->loadSourceReferences();
+        $relationship->loadSourceReferences($this->createCacheBreakerQueryParam());
         $this->assertEmpty($relationship->getRelationship()->getSources());
-    }
-
-    /**
-     * @return \Gedcomx\Source\SourceDescription
-     */
-    private function createSourceDescription()
-    {
-        $sd = new SourceDescription();
-        $citation = new SourceCitation();
-        $citation->setValue("\"United States Census, 1900.\" database and digital images, FamilySearch (https://familysearch.org/: accessed 17 Mar 2012), Ethel Hollivet, 1900; citing United States Census Office, Washington, D.C., 1900 Population Census Schedules, Los Angeles, California, population schedule, Los Angeles Ward 6, Enumeration District 58, p. 20B, dwelling 470, family 501, FHL microfilm 1,240,090; citing NARA microfilm publication T623, roll 90.");
-        $sd->setCitations(array($citation));
-        $title = new TextValue();
-        $title->setValue("1900 US Census, Ethel Hollivet");
-        $sd->setTitles(array($title));
-        $note = new Note();
-        $note->setText("Ethel Hollivet (line 75) with husband Albert Hollivet (line 74); also in the dwelling: step-father Joseph E Watkins (line 72), mother Lina Watkins (line 73), and grandmother -- Lina's mother -- Mary Sasnett (line 76).  Albert's mother and brother also appear on this page -- Emma Hollivet (line 68), and Eddie (line 69).");
-        $sd->setNotes(array($note));
-        $attribution = new Attribution();
-        $rr = new ResourceReference();
-        $rr->setResource("https://familysearch.org/platform/users/agents/MM6M-8QJ");
-        $rr->setResourceId("MM6M-8QJ");
-        $attribution->setContributor($rr);
-        $attribution->setModified(time());
-        $attribution->setChangeMessage("This is the change message");
-        $sd->setAttribution($attribution);
-
-        return $sd;
     }
 
 
