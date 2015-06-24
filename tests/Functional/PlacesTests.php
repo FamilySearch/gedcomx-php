@@ -166,9 +166,6 @@ class PlacesTests extends ApiTestCase
      */
     public function testReadPlaceType()
     {
-        ob_end_flush();
-        ob_flush();
-        
         $this->fetchVocabElements();
 
         $type = $this->collection->readPlaceTypeById($this->vocabElements[0]->getId(), QueryParameter::count('5'));
