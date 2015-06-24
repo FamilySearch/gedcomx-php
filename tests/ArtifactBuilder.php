@@ -3,7 +3,6 @@
 namespace Gedcomx\Tests;
 
 use Intervention\Image\ImageManagerStatic as Image;
-use mPDF;
 
 class ArtifactBuilder extends TestBuilder
 {
@@ -30,25 +29,6 @@ class ArtifactBuilder extends TestBuilder
         fwrite($fileHandle, $text);
         fclose($fileHandle);
 
-        return $filename;
-    }
-
-    /**
-     * Generate randomized PDF files for testing
-     * @return string The generated filename
-     */
-    public static function makePDF()
-    {
-        $filename = self::$tempDir . 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".pdf";
-
-        $pdf = new mPDF();
-        $pdf->WriteHTML(
-            '<h3>' . self::faker()->sentence(4) . '</h3>' .
-            '<p>' . self::faker()->paragraph() . '</p>' .
-            '<p>' . self::faker()->paragraph() . '</p>' .
-            '<p>' . self::faker()->paragraph() . '</p>'
-        );
-        $pdf->Output($filename);
         return $filename;
     }
 

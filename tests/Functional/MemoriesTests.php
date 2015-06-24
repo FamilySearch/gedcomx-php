@@ -749,7 +749,7 @@ class MemoriesTests extends ApiTestCase
      */
     public function testUploadPdf()
     {
-        $filename = ArtifactBuilder::makePDF();
+        $filename = __DIR__ . '/../artifact.pdf';
         $artifact = new DataSource();
         $artifact->setFile($filename);
 
