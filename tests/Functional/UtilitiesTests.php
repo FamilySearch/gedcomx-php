@@ -10,11 +10,19 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\TestBuilder;
 use Guzzle\Http\Message\Header\HeaderInterface;
 
 class UtilitiesTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(6018509);
+        TestBuilder::seed(6018509);
+    }
+    
     /**
+     * @vcr UtilitiesTests/testReadPersonWithMultiplePendingModificationsActivated
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_With_Multiple_Pending_Modifications_Activated_usecase
      */
     public function testReadPersonWithMultiplePendingModificationsActivated()
@@ -68,6 +76,7 @@ class UtilitiesTests extends ApiTestCase
      */
 
     /**
+     * @vcr UtilitiesTests/testRedirectToPerson
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_usecase
      */
     public function testRedirectToPerson()
@@ -88,6 +97,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
+     * @vcr UtilitiesTests/testRedirectToPersonMemories
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Person_memories_usecase
      */
     public function testRedirectToPersonMemories()
@@ -108,6 +118,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
+     * @vcr UtilitiesTests/testRedirectToSourceLinker
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Source_Linker_usecase
      */
     public function testRedirectToSourceLinker()
@@ -129,6 +140,7 @@ class UtilitiesTests extends ApiTestCase
     }
 
     /**
+     * @vcr UtilitiesTests/testRedirectToUri
      * @link https://familysearch.org/developers/docs/api/tree/Redirect_to_Uri_usecase
      */
     public function testRedirectToUri()
