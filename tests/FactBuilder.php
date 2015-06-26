@@ -10,8 +10,7 @@ use Gedcomx\Extensions\FamilySearch\Types\FactType;
 class FactBuilder extends TestBuilder {
 
     public static function birth(){
-        $rnd = self::faker()->numberBetween(50, 200);
-        $birthDate = new \DateTime("-{$rnd} years");
+        $birthDate = self::faker()->dateTimeBetween('-200 years', '-50 years');
         $birthPlace = self::faker()->city() . ", " . self::faker()->state() . ", United States";
 
         return new Fact(
@@ -48,8 +47,7 @@ class FactBuilder extends TestBuilder {
 
     public static function militaryService()
     {
-        $rnd = self::faker()->numberBetween(50, 125);
-        $date = new \DateTime("-{$rnd} years");
+        $date = self::faker()->dateTimeBetween('-125 years', '-50 years');
         return new Fact(array(
             'primary' => true,
             'type' => FactType::MILITARYSERVICE,
@@ -62,9 +60,7 @@ class FactBuilder extends TestBuilder {
 
     public static function eagleScout()
     {
-        $rnd = self::faker()->numberBetween(50, 125);
-
-        $date = new \DateTime("-{$rnd} years");
+        $date = self::faker()->dateTimeBetween('-125 years', '-50 years');
         return new Fact(array(
             'primary' => true,
             'type' => "data:,Eagle%20Scout",
@@ -82,9 +78,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function adoption(\DateTime $birthdate)
     {
-        $rnd = self::faker()->numberBetween(0, 18);
-        $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
-
+        $date = self::faker()->dateTimeBetween('-18 years');
         return new Fact(array(
             'primary' => true,
             'type' => FactType::ADOPTION,
@@ -97,8 +91,7 @@ class FactBuilder extends TestBuilder {
 
     public static function adoptiveParent()
     {
-        $date = new \DateTime();
-
+        $date = self::faker()->dateTime();
         return new Fact(array(
             'primary' => true,
             'type' => FactType::ADOPTIVEPARENT,
@@ -116,9 +109,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function marriage(\DateTime $birthdate)
     {
-        $rnd = self::faker()->numberBetween(18, 40);
-        $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
-
+        $date = self::faker()->dateTimeBetween('-40 years', '-18 years');
         return new Fact(array(
             'primary' => true,
             'type' => FactType::MARRIAGE,

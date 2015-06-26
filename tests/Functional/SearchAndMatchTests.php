@@ -17,6 +17,11 @@ class SearchAndMatchTests extends ApiTestCase
 {
     private $searchQuery;
     
+    // Change to true to enable a 30 sec wait time during
+    // tests to allow the match server times to update after
+    // persons are created
+    private $isRecording = true;
+    
     public function setUp(){
         parent::setUp();
         $this->faker->seed(157896245);
@@ -44,8 +49,8 @@ class SearchAndMatchTests extends ApiTestCase
         $person2 = $person2->get();
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
-
-        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $this->waitForServerUpdates();
+        
         /** @var PersonMatchResultsState $matches */
         $matches = $person2->readMatches();
         $this->assertEquals(
@@ -92,7 +97,8 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
 
-        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $this->waitForServerUpdates();
+        
         /** @var PersonMatchResultsState $state */
         $state = $person2->readMatches();
 
@@ -142,7 +148,8 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
 
-        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $this->waitForServerUpdates();
+        
         $statuses = new QueryParameter(true, "status", array("pending", "accepted", "rejected"));
         /** @var PersonMatchResultsState $state */
 
@@ -171,7 +178,8 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
 
-        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $this->waitForServerUpdates();
+        
         $statuses = new QueryParameter(true, "status", "accepted");
         $confidence = new QueryParameter(true, "confidence", "4");
         /** @var PersonMatchResultsState $state */
@@ -253,7 +261,8 @@ class SearchAndMatchTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
 
-        sleep(30); // This is to ensure the matching system on the server has time to recognize the two new duplicates
+        $this->waitForServerUpdates();
+        
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMatchResultsState $matches */
         $matches = $person2->readMatches();
         $this->assertEquals(
@@ -346,5 +355,12 @@ class SearchAndMatchTests extends ApiTestCase
         $searchResults = $this->collectionState()->searchForPersons("firsstName:Ruby");
 
         $this->assertArrayHasKey( "warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
+    }
+    
+    private function waitForServerUpdates()
+    {
+        if($this->isRecording){
+            sleep(30);
+        }
     }
 }
