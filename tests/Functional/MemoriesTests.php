@@ -26,6 +26,7 @@ class MemoriesTests extends ApiTestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->markTestSkipped("Memories tests are slow and unreliable.");
     }
     
