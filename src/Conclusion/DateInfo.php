@@ -173,7 +173,7 @@ class DateInfo extends ExtensibleData
      */
     public function getDateTime()
     {
-        return new \DateTime($this->getFormal());
+        return new \DateTime($this->getFormal() ? $this->getFormal() : $this->getOriginal());
     }
     /**
      * Returns the associative array for this DateInfo

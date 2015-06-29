@@ -20,7 +20,7 @@ class SearchAndMatchTests extends ApiTestCase
     // Change to true to enable a 30 sec wait time during
     // tests to allow the match server times to update after
     // persons are created
-    private $isRecording = true;
+    private $isRecording = false;
     
     public function setUp(){
         parent::setUp();
@@ -49,6 +49,7 @@ class SearchAndMatchTests extends ApiTestCase
         $person2 = $person2->get();
         $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
         $this->queueForDelete($person1, $person2);
+        
         $this->waitForServerUpdates();
         
         /** @var PersonMatchResultsState $matches */
@@ -360,7 +361,7 @@ class SearchAndMatchTests extends ApiTestCase
     private function waitForServerUpdates()
     {
         if($this->isRecording){
-            sleep(30);
+            sleep(60);
         }
     }
 }
