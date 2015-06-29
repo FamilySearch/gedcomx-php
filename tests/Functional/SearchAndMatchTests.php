@@ -19,7 +19,7 @@ class SearchAndMatchTests extends ApiTestCase
     // Change to true to enable a 30 sec wait time during
     // tests to allow the match server times to update after
     // persons are created
-    private $isRecording = true;
+    private $isRecording = false;
     
     public function setUp(){
         parent::setUp();
