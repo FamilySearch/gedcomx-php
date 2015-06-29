@@ -47,7 +47,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
     {
-        $this->faker = Factory::create();
+        TestBuilder::seed(1123546);
         $this->testRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . "tests" . DIRECTORY_SEPARATOR;
         $this->tempDir = $this->testRootDir . "tmp" . DIRECTORY_SEPARATOR;
         ArtifactBuilder::setTempDir($this->tempDir);

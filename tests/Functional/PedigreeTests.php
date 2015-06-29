@@ -11,14 +11,9 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Rs\Client\Options\QueryParameter;
-use Gedcomx\Tests\TestBuilder;
 
 class PedigreeTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(58641336547);
-    }
     
     /**
      * @vcr PedigreeTests/testReadPersonAncestry.json

@@ -16,14 +16,9 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
-use Gedcomx\Tests\TestBuilder;
 
 class ChangeHistoryTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(1123546);
-    }
     
     /**
      * @vcr ChangeHistory/testReadPersonChangeHistory.json

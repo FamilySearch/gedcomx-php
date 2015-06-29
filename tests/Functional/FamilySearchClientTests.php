@@ -6,15 +6,9 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Extensions\FamilySearch\Feature;
-use Gedcomx\Tests\TestBuilder;
 
 class FamilySearchClientTests extends ApiTestCase
 {
-    
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(55887744);
-    }
     
     /**
      * @vcr FamilySearchClientTests/testAuthenticate.json

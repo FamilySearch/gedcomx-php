@@ -10,15 +10,10 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Tests\ApiTestCase;
-use Gedcomx\Tests\TestBuilder;
 use Guzzle\Http\Message\Header\HeaderInterface;
 
 class UtilitiesTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(6018509);
-    }
     
     /**
      * @vcr UtilitiesTests/testReadPersonWithMultiplePendingModificationsActivated.json

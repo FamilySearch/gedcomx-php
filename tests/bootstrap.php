@@ -8,3 +8,4 @@ gc_disable();
 
 \VCR\VCR::configure()->enableRequestMatchers(array('method','url','query_string','body'));
 \VCR\VCR::configure()->setMode('once');
+\VCR\VCR::configure()->setWhiteList(array('vendor/guzzle'));

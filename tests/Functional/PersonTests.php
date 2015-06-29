@@ -35,10 +35,6 @@ use Gedcomx\Tests\TestBuilder;
 
 class PersonTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(68412357);
-    }
     
     /**
      * @vcr PersonTests/testCreatePerson.json

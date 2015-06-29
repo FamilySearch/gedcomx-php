@@ -21,10 +21,6 @@ use Gedcomx\Tests\TestBuilder;
 
 class SpousesTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(77588236);
-    }
     
     /**
      * testCreateCoupleRelationship

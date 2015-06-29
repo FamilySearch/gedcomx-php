@@ -11,7 +11,6 @@ use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
-use Gedcomx\Tests\TestBuilder;
 
 class SearchAndMatchTests extends ApiTestCase
 {
@@ -20,11 +19,10 @@ class SearchAndMatchTests extends ApiTestCase
     // Change to true to enable a 30 sec wait time during
     // tests to allow the match server times to update after
     // persons are created
-    private $isRecording = false;
+    private $isRecording = true;
     
     public function setUp(){
         parent::setUp();
-        TestBuilder::seed(157896245);
         $this->searchQuery = new GedcomxPersonSearchQueryBuilder();
         $this->searchQuery->givenName("George")
             ->surname("Washington")

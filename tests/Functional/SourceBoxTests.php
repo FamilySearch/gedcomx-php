@@ -17,16 +17,11 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
-use Gedcomx\Tests\TestBuilder;
 use Gedcomx\Tests\SourceBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class SourceBoxTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(6521785);
-    }
-    
     /**
      * @vcr SourceBoxTests/testCreateUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Create_User-Defined_Collection_usecase

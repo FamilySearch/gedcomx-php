@@ -16,10 +16,6 @@ use Gedcomx\Tests\TestBuilder;
 
 class NotesTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(957156);
-    }
     
     /**
      * @vcr NotesTests/testCreateChildAndParentsRelationshipNote.json

@@ -33,10 +33,6 @@ use Gedcomx\Tests\TestBuilder;
 
 class SourcesTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(9451872);
-    }
     
     /**
      * @vcr SourcesTests/testCreatePersonSourceReference.json

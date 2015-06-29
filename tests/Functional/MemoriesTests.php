@@ -21,6 +21,7 @@ use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Types\ResourceType;
+use Gedcomx\Tests\TestBuilder;
 
 class MemoriesTests extends ApiTestCase
 {

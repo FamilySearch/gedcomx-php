@@ -10,14 +10,9 @@ use Gedcomx\GedcomxFile\GedcomxOutput;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\XMLBuilder;
-use Gedcomx\Tests\TestBuilder;
 
 class GedcomxFileTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(621354785);
-    }
     
     public function testReadGedcomxFile()
     {

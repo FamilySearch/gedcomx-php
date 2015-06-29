@@ -17,10 +17,6 @@ use Gedcomx\Tests\TestBuilder;
 
 class DiscussionsTests extends ApiTestCase
 {
-    public function setUp(){
-        parent::setUp();
-        TestBuilder::seed(875126);
-    }
     
     /**
      * @vcr DiscussionsTests/testCreateDiscussion.json
