@@ -161,12 +161,23 @@ class PlacesTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_usecase
-     * 
-     * We don't record this because the list of place types is large.
+     * @vcr PlacesTests/testReadPlaceType.json
      */
     public function testReadPlaceType()
     {
         $this->fetchVocabElements();
+
+        $this->assertEquals(
+            HttpStatus::OK,
+            $this->vocabListState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__,$this->vocabListState)
+        );
+        $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
+        $this->assertInstanceOf(
+            '\Gedcomx\Vocab\VocabElement',
+            $this->vocabElements[0],
+            'Vocab list does not appear to have parsed correctly.'
+        );
 
         $type = $this->collection->readPlaceTypeById($this->vocabElements[0]->getId(), QueryParameter::count('5'));
 
@@ -237,28 +248,6 @@ class PlacesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__."(Get group)",$groupState)
         );
         $this->assertNotEmpty($groupState->getPlaceGroup());
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/places/Place_Types_resource
-     * 
-     * We don't record this because the list of place types is large.
-     */
-    public function testReadPlaceTypes()
-    {
-        $this->fetchVocabElements();
-
-        $this->assertEquals(
-            HttpStatus::OK,
-            $this->vocabListState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__,$this->vocabListState)
-        );
-        $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
-        $this->assertInstanceOf(
-            '\Gedcomx\Vocab\VocabElement',
-            $this->vocabElements[0],
-            'Vocab list does not appear to have parsed correctly.'
-        );
     }
 
     /**

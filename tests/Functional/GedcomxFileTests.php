@@ -10,9 +10,16 @@ use Gedcomx\GedcomxFile\GedcomxOutput;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\ArtifactBuilder;
 use Gedcomx\Tests\XMLBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class GedcomxFileTests extends ApiTestCase
 {
+    public function setUp(){
+        parent::setUp();
+        $this->faker->seed(621354785);
+        TestBuilder::seed(621354785);
+    }
+    
     public function testReadGedcomxFile()
     {
         $gedcomx = new GedcomxFile($this->testRootDir.'sample.gedx');
@@ -25,6 +32,7 @@ class GedcomxFileTests extends ApiTestCase
     }
 
     /**
+     * @vcr GedcomxFileTests/testXMLSerialization.json
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
      */
     public function testXMLSerialization()
@@ -82,6 +90,9 @@ class GedcomxFileTests extends ApiTestCase
         $this->assertCount(4, $resources[0]->getPersons(), "Expecting four persons.");
     }
 
+    /**
+     * @vcr GedcomxFileTests/testCreateGedxFile.json
+     */
     public function testCreateGedxFile()
     {
         $people = XMLBuilder::XMLRelationshipData();

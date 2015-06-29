@@ -250,6 +250,8 @@ class PersonTests extends ApiTestCase
      */
     public function testReadPersonMemories()
     {
+        $this->markTestSkipped("Memories tests are slow and unreliable.");
+        
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
         /** @var FamilyTreePersonState $person */
@@ -282,6 +284,8 @@ class PersonTests extends ApiTestCase
      */
     public  function testReadPersonMemoriesByType()
     {
+        $this->markTestSkipped("Memories tests are slow and unreliable.");
+        
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
         /** @var FamilyTreePersonState $person */
@@ -323,6 +327,8 @@ class PersonTests extends ApiTestCase
      */
     public function testReadPersonPortrait()
     {
+        $this->markTestSkipped("Memories tests are slow and unreliable.");
+        
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
         $memories = $factory->newMemoriesState();
@@ -387,6 +393,8 @@ class PersonTests extends ApiTestCase
      */
     public function testReadPersonPortraits()
     {
+        $this->markTestSkipped("Memories tests are slow and unreliable.");
+        
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
         $memories = $factory->newMemoriesState();
