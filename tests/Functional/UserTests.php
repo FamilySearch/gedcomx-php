@@ -14,7 +14,6 @@ class UserTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(20125032);
         TestBuilder::seed(20125032);
     }
     

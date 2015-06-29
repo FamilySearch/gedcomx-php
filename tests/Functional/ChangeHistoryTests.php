@@ -22,7 +22,6 @@ class ChangeHistoryTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(1123546);
         TestBuilder::seed(1123546);
     }
     

@@ -9,7 +9,7 @@ class TestBuilder
 {
     protected static $faker;
 
-    protected static function faker(){
+    public static function faker(){
         if( self::$faker == null ){
             self::$faker = Factory::create();
         }

@@ -23,7 +23,6 @@ class SpousesTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(77588236);
         TestBuilder::seed(77588236);
     }
     
@@ -294,7 +293,7 @@ class SpousesTests extends ApiTestCase
         //  Alter Marriage Fact
 
         $marriage->setAttribution(new Attribution(array(
-                                                      "changeMessage" => $this->faker->sentence(6)
+                                                      "changeMessage" => TestBuilder::faker()->sentence(6)
                                                   )));
         $currentDate = $marriage->getDate()->getDateTime();
         $newDate = new \DateTime($currentDate->format('Y-m-d')." +5 days");

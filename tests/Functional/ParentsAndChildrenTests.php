@@ -21,7 +21,6 @@ class ParentsAndChildrenTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(278945);
         TestBuilder::seed(278945);
     }
     

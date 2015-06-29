@@ -14,6 +14,7 @@ use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Options\QueryParameter;
 use Guzzle\Http\Message\EntityEnclosingRequest;
+use Gedcomx\Tests\TestBuilder;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -217,7 +218,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     
     protected function createCacheBreakerQueryParam()
     {
-        return new QueryParameter(true, '_', $this->faker->randomNumber);
+        return new QueryParameter(true, '_', TestBuilder::faker()->randomNumber);
     }
 
     /**

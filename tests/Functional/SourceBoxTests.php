@@ -24,7 +24,6 @@ class SourceBoxTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(6521785);
         TestBuilder::seed(6521785);
     }
     
@@ -38,7 +37,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $state = $collection->addCollection($c);
         $this->queueForDelete($state);
 
@@ -129,7 +128,7 @@ class SourceBoxTests extends ApiTestCase
 
         /** @var FamilySearchSourceDescriptionState $sd */
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
@@ -163,7 +162,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $state = $collection->addCollection($c);
         $this->queueForDelete($state);
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
@@ -184,14 +183,14 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         /** @var CollectionState $subcollection */
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
         $subcollection = $subcollection->get();
         $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
-        $newTitle = $this->faker->sha1;
+        $newTitle = TestBuilder::faker()->sha1;
         $subcollection->getCollection()->setTitle($newTitle);
         $state = $subcollection->update($subcollection->getCollection());
 
@@ -235,7 +234,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
         $subcollection = $subcollection->get();
@@ -270,7 +269,7 @@ class SourceBoxTests extends ApiTestCase
 
         /** @var CollectionState $subcollection */
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c)->get();
         $this->queueForDelete($subcollection);
 

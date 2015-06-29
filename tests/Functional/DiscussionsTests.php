@@ -19,7 +19,6 @@ class DiscussionsTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(875126);
         TestBuilder::seed(875126);
     }
     
@@ -179,7 +178,7 @@ class DiscussionsTests extends ApiTestCase
         $newState = $newState->get();
         /** @var Discussion $discussion */
         $discussion = $newState->getDiscussion();
-        $discussion->setDetails($this->faker->paragraph());
+        $discussion->setDetails(TestBuilder::faker()->paragraph());
 
         $updated = $newState->update($discussion);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
@@ -210,7 +209,7 @@ class DiscussionsTests extends ApiTestCase
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $comment = $comments[0];
-        $newText = $this->faker->paragraph();
+        $newText = TestBuilder::faker()->paragraph();
         $comment->setText($newText);
 
         $updated = $state->updateComment($comment);

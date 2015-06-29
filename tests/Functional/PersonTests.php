@@ -37,7 +37,6 @@ class PersonTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(68412357);
         TestBuilder::seed(68412357);
     }
     
@@ -1065,7 +1064,7 @@ class PersonTests extends ApiTestCase
         if (is_array($sketch)) {
             $sketch = array_shift($sketch);
         }
-        $sketch->setValue($this->faker->paragraph(3));
+        $sketch->setValue(TestBuilder::faker()->paragraph(3));
 
         $newState = $personState->updateFact($sketch);
 

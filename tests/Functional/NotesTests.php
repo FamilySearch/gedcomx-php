@@ -18,7 +18,6 @@ class NotesTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(957156);
         TestBuilder::seed(957156);
     }
     
@@ -248,7 +247,7 @@ class NotesTests extends ApiTestCase
 
         $relation = $relation->get()->loadNotes();
         $notes = $relation->getRelationship()->getNotes();
-        $notes[0]->setText($this->faker->sentence(12));
+        $notes[0]->setText(TestBuilder::faker()->sentence(12));
         $noted = $relation->updateNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
     }
@@ -278,7 +277,7 @@ class NotesTests extends ApiTestCase
 
         $relation->loadNotes();
         $notes = $relation->getRelationship()->getNotes();
-        $notes[0]->setText($this->faker->sentence(12));
+        $notes[0]->setText(TestBuilder::faker()->sentence(12));
         $noted = $relation->updateNote($notes[0]);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $noted->getResponse(), $this->buildFailMessage(__METHOD__."(addSpouse)", $noted));
 

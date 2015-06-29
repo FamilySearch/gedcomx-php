@@ -13,7 +13,6 @@ class FamilySearchClientTests extends ApiTestCase
     
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(55887744);
         TestBuilder::seed(55887744);
     }
     

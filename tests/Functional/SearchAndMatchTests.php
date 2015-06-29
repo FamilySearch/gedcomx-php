@@ -24,7 +24,6 @@ class SearchAndMatchTests extends ApiTestCase
     
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(157896245);
         TestBuilder::seed(157896245);
         $this->searchQuery = new GedcomxPersonSearchQueryBuilder();
         $this->searchQuery->givenName("George")

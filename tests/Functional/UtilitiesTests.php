@@ -17,7 +17,6 @@ class UtilitiesTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(6018509);
         TestBuilder::seed(6018509);
     }
     

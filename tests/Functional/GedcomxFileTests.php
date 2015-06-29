@@ -16,7 +16,6 @@ class GedcomxFileTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(621354785);
         TestBuilder::seed(621354785);
     }
     

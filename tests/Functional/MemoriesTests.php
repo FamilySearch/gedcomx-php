@@ -281,7 +281,7 @@ class MemoriesTests extends ApiTestCase
         $filename = ArtifactBuilder::makeImage();
         $artifact = new DataSource();
         $artifact->setFile($filename);
-        $artifact->setTitle($this->faker->sentence(4));
+        $artifact->setTitle(TestBuilder::faker()->sentence(4));
 
         $factory = new FamilySearchStateFactory();
         /** @var FamilySearchMemories $memories */

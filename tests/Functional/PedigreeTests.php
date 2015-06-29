@@ -17,7 +17,6 @@ class PedigreeTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(58641336547);
         TestBuilder::seed(58641336547);
     }
     

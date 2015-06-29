@@ -35,7 +35,6 @@ class SourcesTests extends ApiTestCase
 {
     public function setUp(){
         parent::setUp();
-        $this->faker->seed(9451872);
         TestBuilder::seed(9451872);
     }
     
@@ -58,7 +57,7 @@ class SourcesTests extends ApiTestCase
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
-        $reference->setAttribution( new Attribution( array("changeMessage" => $this->faker->sentence(6))));
+        $reference->setAttribution( new Attribution( array("changeMessage" => TestBuilder::faker()->sentence(6))));
         /** @var \Gedcomx\Rs\Client\PersonState $newState */
         $newState = $personState->addSourceReferenceObj($reference);
         $this->assertEquals(HttpStatus::CREATED, $newState->getResponse()->getStatusCode() );
@@ -123,7 +122,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
+                                                         "changeMessage" => TestBuilder::faker()->sentence(6)
                                                      )));
         $newState = $relation->addSourceReference($reference);
         $this->assertEquals(
@@ -201,7 +200,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
+                                                         "changeMessage" => TestBuilder::faker()->sentence(6)
                                                      )));
 
         /* CREATE the source reference on the relationship */
@@ -384,7 +383,7 @@ class SourcesTests extends ApiTestCase
         $person = $this->createPerson();
         $sourceRef = new SourceReference();
         $sourceRef->setAttribution( new Attribution( array(
-            "changeMessage" => $this->faker->sentence(6)
+            "changeMessage" => TestBuilder::faker()->sentence(6)
         )));
         $sourceRef->setDescriptionRef($source->getSelfUri());
         $person->addSourceReferenceObj($sourceRef);
@@ -493,7 +492,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
+                                                         "changeMessage" => TestBuilder::faker()->sentence(6)
                                                      )));
 
         /* CREATE the source reference on the relationship */
@@ -591,7 +590,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
+                                                         "changeMessage" => TestBuilder::faker()->sentence(6)
                                                      )));
 
         $newState = $personState->addSourceReferenceObj($reference);
@@ -738,7 +737,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-                                                         "changeMessage" => $this->faker->sentence(6)
+                                                         "changeMessage" => TestBuilder::faker()->sentence(6)
                                                      )));
         $newState = $relation->addSourceReference($reference);
         $this->assertEquals(
@@ -813,7 +812,7 @@ class SourcesTests extends ApiTestCase
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array(
-            "changeMessage" => $this->faker->sentence(6)
+            "changeMessage" => TestBuilder::faker()->sentence(6)
         )));
         $sourceRef = $relationship->addSourceReference($reference);
         $this->assertEquals(
