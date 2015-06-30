@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./vendor/autoload.php"
+<phpunit bootstrap="./tests/bootstrap.php"
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
@@ -19,6 +19,11 @@
     <logging>
         <log type="junit" target="build/artifacts/logs/junit.xml" logIncompleteSkipped="true" />
     </logging>
+    
+   <listeners>
+        <listener class="PHPUnit_Util_Log_VCR" file="vendor/php-vcr/phpunit-testlistener-vcr/PHPUnit/Util/Log/VCR.php" />
+        <listener class="TestDurationListener" file="tests/TestDurationListener.php" />
+    </listeners>    
 
     <filter>
         <whitelist>

@@ -1,0 +1,107 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-gedcomx-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, max-age=604800",
+            "Content-Location": "\/collections\/tree",
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:57:07 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "0",
+            "transfer-encoding": "chunked",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+    }
+},{
+    "request": {
+        "method": "POST",
+        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
+        "headers": {
+            "Host": "integration.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Server": "Apache-Coyote\/1.1",
+            "Pragma": "no-cache",
+            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+            "Cache-Control": "no-cache, no-store",
+            "Content-Type": "application\/json;charset=ISO-8859-1",
+            "Content-Language": "en-US",
+            "Content-Length": "185",
+            "Date": "Mon, 29 Jun 2015 21:57:07 GMT",
+            "Connection": "close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\"token\":\"USYS96D42219825FDA91A9859BCDE2F28060_idses-int01.a.fsglobal.net\",\"access_token\":\"USYS96D42219825FDA91A9859BCDE2F28060_idses-int01.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/ordinances\/policy",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "text\/plain",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS96D42219825FDA91A9859BCDE2F28060_idses-int01.a.fsglobal.net",
+            "Accept-Language": "fr"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
+            "Content-Type": "text\/plain;charset=utf-8",
+            "Date": "Mon, 29 Jun 2015 21:57:07 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "163",
+            "Content-Length": "3022",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "\nPersonnes pour lesquelles vous pouvez accomplir des ordonnances\n=============================\n\nVous avez la responsabilit\u00e9 de transmettre le nom des personnes suivantes :\n\n* Des membres de votre famille proche\n* Vos anc\u00eatres en ligne directe (parents, grands-parents, arri\u00e8re-grands-parents, etc. et leur famille).\n\nVous pouvez aussi transmettre les noms des personnes suivantes\u00a0:\n\n* Les lign\u00e9es reli\u00e9es \u00e0 leur famille par le sang, par adoption ou par des parents nourriciers.\n* Les lign\u00e9es collat\u00e9rales (oncles, tantes, cousins et leurs familles).\n* Les descendants de vos anc\u00eatres.\n* Vos propres descendants.\n* Les anc\u00eatres possibles, c\u2019est-\u00e0-dire les personnes qui ont un lien de parent\u00e9 probable qui ne peut pas \u00eatre v\u00e9rifi\u00e9 parce que les documents sont insuffisants, par exemple les personnes qui ont le m\u00eame nom de famille et qui ont r\u00e9sid\u00e9 dans la m\u00eame r\u00e9gion que vos anc\u00eatres.\n\nNe transmettez pas le nom des personnes suivantes \u00e0 moins d\u2019avoir un lien de parent\u00e9 avec elles.\n\n* C\u00e9l\u00e9brit\u00e9s.\n* Noms collect\u00e9s dans le cadre de projets d\u2019extraction non approuv\u00e9s.\n* Victimes de l\u2019Holocauste juif Les membres peuvent accomplir les ordonnances pour ces personnes seulement aux conditions suivantes\u00a0:\n\n  - Ils sont membres de la famille imm\u00e9diate de la personne d\u00e9c\u00e9d\u00e9e (parents, conjoint ou enfants).\n  - Ou ils ont la permission de tous les membres vivants de la famille imm\u00e9diate.\n  - Ou ils ont la permission du plus proche parent en vie si aucun membre de la famille imm\u00e9diate n\u2019est en vie\n\n\nPersonnes n\u00e9es au cours des 110 derni\u00e8res ann\u00e9es\n======================================\n\nPour accomplir les ordonnances pour une personne d\u00e9c\u00e9d\u00e9e, qui est n\u00e9e au cours des 110 derni\u00e8res ann\u00e9es, les conditions suivantes doivent \u00eatre remplies\u00a0:\n\n* La personne doit \u00eatre d\u00e9c\u00e9d\u00e9e depuis au moins un an.\n* Vous devez \u00eatre l\u2019un des plus proches parents, ou vous devez obtenir l\u2019autorisation de l\u2019un des plus proches parents. Si vous n\u2019\u00eates pas le conjoint, l\u2019enfant, le p\u00e8re ou la m\u00e8re ou le fr\u00e8re ou la s\u0153ur du d\u00e9funt, veuillez obtenir l\u2019autorisation du parent le plus proche avant d\u2019accomplir les ordonnances. Les parents les plus proches sont\u00a0: un conjoint non divorc\u00e9 (le conjoint auquel la personne \u00e9tait mari\u00e9e lors de son d\u00e9c\u00e8s), un enfant adulte, un parent ou un fr\u00e8re ou une s\u0153ur.\n\nUne autorisation orale est acceptable. Les membres de la famille doivent travailler ensemble pour d\u00e9terminer le moment o\u00f9 les ordonnances vont \u00eatre accomplies et par qui.\n\nPour plus de renseignements, veuillez lire\u00a0:\n==================================\n\n* le chapitre 7 du http:\/\/www.lds.org\/manual\/members-guide-to-temple-and-family-history-work\/chapter-7-providing-temple-ordinances?lang=eng\n* les conditions d\u2019utilisation: https:\/\/familysearch.org\/terms\n* Le Message de la Premi\u00e8re Pr\u00e9sidence sur les noms transmis pour les ordonnances du temple: http:\/\/broadcast.lds.org\/eLearning\/fhd\/Community\/en\/FamilySearch\/FamilyTree\/pdf\/10281.pdf\n\n"
+    }
+}]

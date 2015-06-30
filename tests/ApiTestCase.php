@@ -12,7 +12,9 @@ use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
+use Gedcomx\Rs\Client\Options\QueryParameter;
 use Guzzle\Http\Message\EntityEnclosingRequest;
+use Gedcomx\Tests\TestBuilder;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -45,7 +47,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
     {
-        $this->faker = Factory::create();
+        TestBuilder::seed(1123546);
         $this->testRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . "tests" . DIRECTORY_SEPARATOR;
         $this->tempDir = $this->testRootDir . "tmp" . DIRECTORY_SEPARATOR;
         ArtifactBuilder::setTempDir($this->tempDir);
@@ -212,6 +214,11 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $this->queueForDelete($state);
 
         return $state;
+    }
+    
+    protected function createCacheBreakerQueryParam()
+    {
+        return new QueryParameter(true, '_', TestBuilder::faker()->randomNumber);
     }
 
     /**

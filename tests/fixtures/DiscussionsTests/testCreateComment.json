@@ -1,0 +1,255 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, max-age=604800",
+            "Content-Location": "\/collections\/tree",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:03 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "0",
+            "Content-Length": "6107",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+    }
+},{
+    "request": {
+        "method": "POST",
+        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
+        "headers": {
+            "Host": "integration.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Server": "Apache-Coyote\/1.1",
+            "Pragma": "no-cache",
+            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+            "Cache-Control": "no-cache, no-store",
+            "Content-Type": "application\/json;charset=ISO-8859-1",
+            "Content-Language": "en-US",
+            "Content-Length": "185",
+            "Date": "Mon, 29 Jun 2015 21:49:04 GMT",
+            "Connection": "close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\"token\":\"USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/users\/current",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net",
+            "Content-Type": "application\/x-fs-v1+json"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:05 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "1308",
+            "transfer-encoding": "chunked",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"users\" : [ {\n    \"id\" : \"cis.user.MMMM-DT62\",\n    \"links\" : {\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KW7G-28J\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      }\n    },\n    \"contactName\" : \"sdk tester\",\n    \"givenName\" : \"Tester\",\n    \"familyName\" : \"SDK\",\n    \"email\" : \"heatonra@familysearch.org\",\n    \"country\" : \"USA\",\n    \"gender\" : \"MALE\",\n    \"birthDate\" : \"30 Dec 1977\",\n    \"preferredLanguage\" : \"en\",\n    \"displayName\" : \"SDK Tester\",\n    \"personId\" : \"KW7G-28J\",\n    \"treeUserId\" : \"MM6M-8QJ\"\n  } ]\n}"
+    }
+},{
+    "request": {
+        "method": "POST",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net",
+            "Content-Type": "application\/x-fs-v1+json"
+        },
+        "body": "{\"discussions\":[{\"title\":\"Est debitis ea distinctio sunt.\",\"details\":\"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"}}]}"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "201",
+            "message": "Created"
+        },
+        "headers": {
+            "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:05 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-ENTITY-ID": "ds.disc.MMMM-MVR6",
+            "X-PROCESSING-TIME": "266",
+            "Content-Length": "0",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        }
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, must-revalidate, max-age=0",
+            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MVR6",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:06 GMT",
+            "Last-Modified": "Mon, 29 Jun 2015 21:49:06 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "248",
+            "transfer-encoding": "chunked",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"discussions\" : [ {\n    \"id\" : \"ds.disc.MMMM-MVR6\",\n    \"links\" : {\n      \"discussion\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6\"\n      },\n      \"comments\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6\/comments\"\n      }\n    },\n    \"title\" : \"Est debitis ea distinctio sunt.\",\n    \"details\" : \"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\n    \"contributor\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n      \"resourceId\" : \"cis.user.MMMM-DT62\"\n    },\n    \"created\" : 1435614546529,\n    \"modified\" : 1435614546529,\n    \"numberOfComments\" : 0\n  } ]\n}"
+    }
+},{
+    "request": {
+        "method": "POST",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6\/comments",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net",
+            "Content-Type": "application\/x-fs-v1+json"
+        },
+        "body": "{\"discussions\":[{\"id\":\"ds.disc.MMMM-MVR6\",\"comments\":[{\"text\":\"Et cupiditate nulla sint nulla deserunt ea facilis odio voluptas.\",\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/current\"}}]}]}"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "201",
+            "message": "Created"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, must-revalidate, max-age=0",
+            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MVR6\/comments",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:07 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6\/comments\/ds.comment.MMMM-MY6K",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-ENTITY-ID": "ds.comment.MMMM-MY6K",
+            "X-PROCESSING-TIME": "359",
+            "Content-Length": "0",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        }
+    }
+},{
+    "request": {
+        "method": "DELETE",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR6",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Expect": null,
+            "Accept": "application\/x-fs-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Authorization": "Bearer USYS9C4D4A0D895E542A9B611FEBD270DB05_idses-int02.a.fsglobal.net",
+            "Content-Length": "0"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "204",
+            "message": "No Content"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, must-revalidate, max-age=0",
+            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MVR6",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:49:07 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "330",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        }
+    }
+}]

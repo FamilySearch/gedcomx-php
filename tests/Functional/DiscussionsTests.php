@@ -13,10 +13,13 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\DiscussionBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class DiscussionsTests extends ApiTestCase
 {
+    
     /**
+     * @vcr DiscussionsTests/testCreateDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Discussion_usecase
      */
     public function testCreateDiscussion()
@@ -35,6 +38,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testCreateDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Create_Discussion_Reference_usecase
      */
     public function testCreateDiscussionReference(){
@@ -54,6 +58,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testCreateComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Create_Comment_usecase
      */
     public function testCreateComment()
@@ -74,6 +79,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Discussion_usecase
      */
     public function testReadDiscussion()
@@ -93,6 +99,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Discussion_References_usecase
      */
     public function testReadDiscussionReference(){
@@ -124,6 +131,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testReadComments.json
      * @link https://familysearch.org/developers/docs/api/discussions/Read_Comments_usecase
      */
     public function testReadComments()
@@ -149,6 +157,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testUpdateDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Discussion_usecase
      */
     public function testUpdateDiscussion()
@@ -165,13 +174,14 @@ class DiscussionsTests extends ApiTestCase
         $newState = $newState->get();
         /** @var Discussion $discussion */
         $discussion = $newState->getDiscussion();
-        $discussion->setDetails($this->faker->paragraph());
+        $discussion->setDetails(TestBuilder::faker()->paragraph());
 
         $updated = $newState->update($discussion);
         $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__, $updated));
     }
 
     /**
+     * @vcr DiscussionsTests/testUpdateComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Update_Comment_usecase
      */
     public function testUpdateComment()
@@ -195,7 +205,7 @@ class DiscussionsTests extends ApiTestCase
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $comment = $comments[0];
-        $newText = $this->faker->paragraph();
+        $newText = TestBuilder::faker()->paragraph();
         $comment->setText($newText);
 
         $updated = $state->updateComment($comment);
@@ -215,6 +225,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteDiscussion.json
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Discussion_usecase
      */
     public function testDeleteDiscussion()
@@ -236,6 +247,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteDiscussionReference.json
      * @link https://familysearch.org/developers/docs/api/tree/Delete_Discussion_Reference_usecase
      */
     public function testDeleteDiscussionReference()
@@ -259,6 +271,7 @@ class DiscussionsTests extends ApiTestCase
     }
 
     /**
+     * @vcr DiscussionsTests/testDeleteComment.json
      * @link https://familysearch.org/developers/docs/api/discussions/Delete_Comment_usecase
      */
     public function testDeleteComment()
@@ -273,23 +286,17 @@ class DiscussionsTests extends ApiTestCase
         $this->queueForDelete($state);
 
         $state = $state->get();
+        
         $comment = DiscussionBuilder::createComment($userState);
-        $state->addComment($comment);
-        $comment = DiscussionBuilder::createComment($userState);
-        $state->addComment($comment);
-        $state = $state->get();
-
-        $state->loadComments();
-        $comments = $state->getDiscussion()->getComments();
-        $this->assertEquals(2, count($comments));
-
-        $comment = $comments[0];
-        $deleted = $state->deleteComment($comment);
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
+        $addedCommentState = $state->addComment($comment);
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $addedCommentState->getResponse(), $this->buildFailMessage(__METHOD__, $addedCommentState));
 
         $state = $state->get();
         $state->loadComments();
         $comments = $state->getDiscussion()->getComments();
         $this->assertEquals(1, count($comments));
+
+        $deleted = $state->deleteComment($comments[0]);
+        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $deleted->getResponse(), $this->buildFailMessage(__METHOD__, $deleted));
     }
 }

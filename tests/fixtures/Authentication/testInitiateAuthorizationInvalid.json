@@ -1,0 +1,70 @@
+[{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept": "application\/x-gedcomx-v1+json",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, max-age=604800",
+            "Content-Location": "\/collections\/tree",
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Date": "Mon, 29 Jun 2015 21:46:54 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "0",
+            "Content-Length": "6107",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization?response_type=code&client_id=ABCD-EFGH-JKLM-NOPQ-RSTU-VWXY-0123-4567&redirect_uri=https%3A%2F%2Fhrpufnstuf.org%2Fwitchiepoo",
+        "headers": {
+            "Host": "integration.familysearch.org",
+            "Accept": "text\/html,application\/xhtml+xml,application\/xml;q=0.9,*\/*;q=0.8",
+            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Server": "Apache-Coyote\/1.1",
+            "Pragma": "no-cache",
+            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+            "Cache-Control": "no-cache, no-store",
+            "Set-Cookie": "familysearch-sessionid=USYS3DB035CC3623AAB668D4D419FD846DAA_idses-int01.a.fsglobal.net; Path=\/",
+            "Content-Type": "text\/html;charset=UTF-8",
+            "Content-Language": "en-US",
+            "Content-Length": "2216",
+            "Date": "Mon, 29 Jun 2015 21:46:54 GMT",
+            "Connection": "close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!doctype html>\n<html class=\"locale-en\">\n<head>\n  <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\">\n  <title>FamilySearch: Oauth2 Request Error<\/title>\n  <meta name=\"pageID\" content=\"oauth2Failure\">\n\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\n  <!-- styles:css -->\n\n  <link rel=\"stylesheet\" href=\"\/cis-web\/css\/build\/sign-in.min-374b9c94.css\">\n\n  <!-- endinject -->\n\n  <link rel=\"shortcut icon\" href=\"..\/..\/images\/fs_logo_favicon.ico\">\n<\/head>\n<body id=\"page1\">\n  <div id=\"main\">\n    \n\n\n<header class=\"header\" layout horizontal center>\n  <h1 class=\"logo-container\">\n    <a class=\"logo\" href=\"URL not found in configuration\">FamilySearch<\/a>\n  <\/h1>\n  <span flex><\/span>\n  \n    <div class=\"account-wrapper\" layout horizontal center>\n      <a class=\"helplink\" href=\"https:\/\/familysearch.org\/ask\">Get help &dtrif;<\/a>\n      <a href=\"\" class=\"new_account btn\">Free Account<\/a>\n    <\/div>\n  \n  \n\n<\/header>\n\n    <article layout horizontal center-justified>\n      <div class=\"error-wrapper\">\n        <h1 class=\"error-label serif\">Invalid Oauth2 Request<\/h1>\n        <div class=\"error-body\">\n          \n            <h3>\n              <strong>Oauth2 error:<\/strong>\n            <\/h3>\n            <p class=\"error\">redirect URI not configured correctly<\/p>\n          \n        <\/div>\n      <\/div>\n    <\/article>\n    \n<footer id=\"page-footer\" layout horizontal center>\n  <div class=\"clearfix\" id=\"page-footer-nav\">\n    <div class=\"copyright_notice\">\n      <p>\n        <span class=\"privacy_usage\"><a href=\"URL not found in configuration\/terms\">Rights and Use Information <\/a>(Updated 2\/3\/2015) | <a href=\"URL not found in configuration\/privacy\">Privacy Policy<\/a> (Updated 3\/18\/2014)<\/span>\n        &copy; <fmt:formatDate value=\"\" pattern=\"yyyy\" \/> by Intellectual Reserve, Inc. All rights reserved.  <span class=\"service-by-link\">A service provided by <a href=\"http:\/\/mormon.org\">The Church of Jesus Christ of Latter-day Saints<\/a><\/span>\n      <\/p>\n    <\/div>\n  <\/div>\n  <span flex><\/span>\n  <span class=\"church-logo-container\">\n    <a title=\"A service provided by...\" href=\"http:\/\/mormon.org\" class=\"church-logo\"><\/a>\n  <\/span>\n<\/footer>\n\n  <\/div>\n<\/body>\n<\/html>\n"
+    }
+}]

@@ -66,21 +66,6 @@
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
 
-		/**
-		 * Loads the default client for executing REST API requests.
-		 *
-		 * @return \Gedcomx\Util\FilterableClient
-		 */
-        protected function defaultClient()
-        {
-            $client = parent::defaultClient();
-
-            //how to add an experiment:
-            $client->addFilter(new ExperimentsFilter(array("birth-date-not-considered-death-declaration")));
-
-            return $client;
-        }
-
         /**
 		 * Create a new places state with the given URI
 		 *

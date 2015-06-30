@@ -7,6 +7,7 @@ use Gedcomx\Rs\Client\Util\GedcomxPlaceSearchQueryBuilder;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\SandboxCredentials;
+use Gedcomx\Rs\Client\Options\QueryParameter;
 
 class PlacesTests extends ApiTestCase
 {
@@ -24,13 +25,14 @@ class PlacesTests extends ApiTestCase
     private $collection;
 
     /**
+     * @vcr PlacesTests/testReadPlace.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_usecase
      */
     public function testReadPlace()
     {
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('442102', true, true);
+        $query->parentId('442102', false, true);
 
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
@@ -67,13 +69,14 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
+     * @vcr PlacesTests/testReadPlaceDescription.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Description_usecase
      */
     public function testReadPlaceDescription()
     {
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('442102', true, true);
+        $query->parentId('442102', false, true);
 
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
@@ -102,6 +105,7 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
+     * @vcr PlacesTests/testReadPlaceDescriptionChildren.json
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Description_Children_usecase
      */
     public function testReadPlaceDescriptionChildren()
@@ -157,12 +161,25 @@ class PlacesTests extends ApiTestCase
 
     /**
      * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_usecase
+     * @vcr PlacesTests/testReadPlaceType.json
      */
     public function testReadPlaceType()
     {
         $this->fetchVocabElements();
 
-        $type = $this->collection->readPlaceTypeById($this->vocabElements[0]->getId());
+        $this->assertEquals(
+            HttpStatus::OK,
+            $this->vocabListState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__,$this->vocabListState)
+        );
+        $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
+        $this->assertInstanceOf(
+            '\Gedcomx\Vocab\VocabElement',
+            $this->vocabElements[0],
+            'Vocab list does not appear to have parsed correctly.'
+        );
+
+        $type = $this->collection->readPlaceTypeById($this->vocabElements[0]->getId(), QueryParameter::count('5'));
 
         $this->assertEquals(
             HttpStatus::OK,
@@ -182,7 +199,8 @@ class PlacesTests extends ApiTestCase
      */
 
     /**
-     * https://familysearch.org/developers/docs/api/places/Read_Place_Type_Groups_usecase
+     * @vcr PlacesTests/testPlaceTypeGroups.json
+     * @link https://familysearch.org/developers/docs/api/places/Read_Place_Type_Groups_usecase
      */
     public function testPlaceTypeGroups()
     {
@@ -233,26 +251,7 @@ class PlacesTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/places/Place_Types_resource
-     */
-    public function testReadPlaceTypes()
-    {
-        $this->fetchVocabElements();
-
-        $this->assertEquals(
-            HttpStatus::OK,
-            $this->vocabListState->getResponse()->getStatusCode(),
-            $this->buildFailMessage(__METHOD__,$this->vocabListState)
-        );
-        $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
-        $this->assertInstanceOf(
-            '\Gedcomx\Vocab\VocabElement',
-            $this->vocabElements[0],
-            'Vocab list does not appear to have parsed correctly.'
-        );
-    }
-
-    /**
+     * @vcr PlacesTests/testSearchForPlaces.json
      * @link https://familysearch.org/developers/docs/api/places/Search_For_Places_usecase
      */
     public function testSearchForPlaces()
@@ -267,7 +266,9 @@ class PlacesTests extends ApiTestCase
                                   SandboxCredentials::USERNAME,
                                   SandboxCredentials::PASSWORD,
                                   SandboxCredentials::API_KEY);
-        $response = $collection->searchForPlaces($query);
+        
+        // Only ask for 5 results so that we don't record a ton of data
+        $response = $collection->searchForPlaces($query, QueryParameter::count(5));
         $this->assertEquals(HttpStatus::OK, $response->getResponse()->getStatusCode());
         $this->assertNotNull($response->getEntity(), "Search results entity is null.");
 
@@ -278,101 +279,6 @@ class PlacesTests extends ApiTestCase
         /** @var \Gedcomx\Gedcomx $gx */
         $gx = $results[0]->getContent()->getGedcomx();
         $this->assertNotEmpty($gx->getPlaces(), "Places information missing.");
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/places/Search_For_Places_usecase
-     */
-    public function testSearchForPlacesDirectlyUnderAJurisdiction()
-    {
-        $factory = new FamilySearchStateFactory();
-
-        //  First do a broad search
-
-        $query = new GedcomxPlaceSearchQueryBuilder();
-        $query->name("Paris");
-
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $collection = $factory->newPlacesState()
-                              ->authenticateViaOAuth2Password(
-                                  SandboxCredentials::USERNAME,
-                                  SandboxCredentials::PASSWORD,
-                                  SandboxCredentials::API_KEY);
-        $generalResults = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $generalResults->getResponse()->getStatusCode());
-        $this->assertNotNull($generalResults->getEntity(), "General search entity is null.");
-        $this->assertNotEmpty($generalResults->getResults());
-
-        //  Now narrow the search
-
-        $query->parentId('442102', true, true);
-
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $collection = $factory->newPlacesState()
-                              ->authenticateViaOAuth2Password(
-                                  SandboxCredentials::USERNAME,
-                                  SandboxCredentials::PASSWORD,
-                                  SandboxCredentials::API_KEY);
-        $specificResults = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $specificResults->getResponse()->getStatusCode());
-        $this->assertNotNull($specificResults->getEntity(), "Specific entity is null.");
-        $this->assertNotEmpty($specificResults->getResults());
-
-        //  And assert we have fewer results
-
-        $this->assertLessThan(
-            count($generalResults->getResults()),
-            count($specificResults->getResults()),
-            "Specific result count not less than general result count."
-        );
-    }
-
-    /**
-     * @link https://familysearch.org/developers/docs/api/places/Search_For_Places_Under_a_Jurisdiction_usecase
-     */
-    public function testSearchForPlacesUnderAJurisdiction()
-    {
-        $factory = new FamilySearchStateFactory();
-
-        //  First do a broad search
-
-        $query = new GedcomxPlaceSearchQueryBuilder();
-        $query->name("Paris");
-
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $collection = $factory->newPlacesState()
-                              ->authenticateViaOAuth2Password(
-                                  SandboxCredentials::USERNAME,
-                                  SandboxCredentials::PASSWORD,
-                                  SandboxCredentials::API_KEY);
-        $generalResults = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $generalResults->getResponse()->getStatusCode());
-        $this->assertNotNull($generalResults->getEntity(), "General search entity is null.");
-        $this->assertNotEmpty($generalResults->getResults());
-
-        //  Now narrow the search. Note the second parameter is the difference between this test
-        //  and testSearchForPlacesDirectlyUnderAJurisdiction.
-
-        $query->parentId('329', false, true);
-
-        /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
-        $collection = $factory->newPlacesState()
-                              ->authenticateViaOAuth2Password(
-                                  SandboxCredentials::USERNAME,
-                                  SandboxCredentials::PASSWORD,
-                                  SandboxCredentials::API_KEY);
-        $specificResults = $collection->searchForPlaces($query);
-        $this->assertEquals(HttpStatus::OK, $specificResults->getResponse()->getStatusCode());
-        $this->assertNotNull($specificResults->getEntity(), "Specific entity is null.");
-        $this->assertNotEmpty($specificResults->getResults());
-
-        //  And assert we have fewer results
-
-        $this->assertLessThan(
-            count($generalResults->getResults()),
-            count($specificResults->getResults()),
-            "Specific result count not less than general result count."
-        );
     }
 
     private function fetchVocabElements(){

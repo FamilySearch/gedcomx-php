@@ -17,10 +17,13 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Source\SourceCitation;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Tests\ApiTestCase;
+use Gedcomx\Tests\SourceBuilder;
+use Gedcomx\Tests\TestBuilder;
 
 class SourceBoxTests extends ApiTestCase
 {
     /**
+     * @vcr SourceBoxTests/testCreateUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Create_User-Defined_Collection_usecase
      */
     public function testCreateUserDefinedCollection()
@@ -29,7 +32,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $state = $collection->addCollection($c);
         $this->queueForDelete($state);
 
@@ -50,6 +53,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testReadAPageOfTheSourcesInAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_A_Page_of_the_Sources_in_a_User-Defined_Collection_usecase
      */
     public function testReadAPageOfTheSourcesInAUserDefinedCollection()
@@ -66,7 +70,7 @@ class SourceBoxTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
 
         $collectionList = $subcollections->getCollections();
-        $c = array_shift($collectionList);
+        $c = array_pop($collectionList);
         $subcollection = $subcollections->readCollection($c);
         $state = $subcollection->readSourceDescriptions();
 
@@ -77,6 +81,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testReadASpecificUsersSetOfUserDefinedCollections.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_A_Specific_User%27s_Set_of_User-Defined_Collections_usecase
      */
     public function testReadASpecificUsersSetOfUserDefinedCollections()
@@ -94,6 +99,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_All_Sources_of_All_User-Defined_Collections_of_a_Specific_User_usecase
      */
     public function testReadAllSourcesOfAllUserDefinedCollectionsOfASpecificUser()
@@ -117,7 +123,7 @@ class SourceBoxTests extends ApiTestCase
 
         /** @var FamilySearchSourceDescriptionState $sd */
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
@@ -142,6 +148,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testReadUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Read_User-Defined_Collection_usecase
      */
     public function testReadUserDefinedCollection()
@@ -150,7 +157,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $state = $collection->addCollection($c);
         $this->queueForDelete($state);
         $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
@@ -162,6 +169,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testUpdateUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Update_User-Defined_Collection_usecase
      */
     public function testUpdateUserDefinedCollection()
@@ -170,14 +178,14 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         /** @var CollectionState $subcollection */
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
         $subcollection = $subcollection->get();
         $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
-        $newTitle = $this->faker->sha1;
+        $newTitle = TestBuilder::faker()->sha1;
         $subcollection->getCollection()->setTitle($newTitle);
         $state = $subcollection->update($subcollection->getCollection());
 
@@ -186,11 +194,12 @@ class SourceBoxTests extends ApiTestCase
         $collectionTest = $subcollection->getCollection();
         $this->assertNotNull($collectionTest);
         // Read the subcollection based off the ID (title change has no impact on reloading this)
-        $subcollection = $collection->readSubcollections()->get()->readCollection($collectionTest);
+        $subcollection = $collection->readSubcollections()->get()->readCollection($collectionTest, $this->createCacheBreakerQueryParam());
         $this->assertEquals($newTitle, $subcollection->getCollection()->getTitle());
     }
 
     /**
+     * @vcr SourceBoxTests/testDeleteSourceDescriptionsFromAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Delete_Source_Descriptions_from_a_User-Defined_Collection_usecase
      */
     public function testDeleteSourceDescriptionsFromAUserDefinedCollection()
@@ -199,25 +208,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
 
-        $sd = new SourceDescription();
-        $citation = new SourceCitation();
-        $citation->setValue("\"United States Census, 1900.\" database and digital images, FamilySearch (https://familysearch.org/: accessed 17 Mar 2012), Ethel Hollivet, 1900; citing United States Census Office, Washington, D.C., 1900 Population Census Schedules, Los Angeles, California, population schedule, Los Angeles Ward 6, Enumeration District 58, p. 20B, dwelling 470, family 501, FHL microfilm 1,240,090; citing NARA microfilm publication T623, roll 90.");
-        $sd->setCitations(array($citation));
-        $title = new TextValue();
-        $title->setValue("1900 US Census, Ethel Hollivet");
-        $sd->setTitles(array($title));
-        $note = new Note();
-        $note->setText("Ethel Hollivet (line 75) with husband Albert Hollivet (line 74); also in the dwelling: step-father Joseph E Watkins (line 72), mother Lina Watkins (line 73), and grandmother -- Lina's mother -- Mary Sasnett (line 76).  Albert's mother and brother also appear on this page -- Emma Hollivet (line 68), and Eddie (line 69).");
-        $sd->setNotes(array($note));
-        $attribution = new Attribution();
-        $contributor = new ResourceReference();
-        $contributor->setResource("https://familysearch.org/platform/users/agents/MM6M-8QJ");
-        $contributor->setResourceId("MM6M-8QJ");
-        $attribution->setContributor($contributor);
-        $attribution->setModified(time());
-        $attribution->setChangeMessage("This is the change message");
-        $sd->SetAttribution($attribution);
-
+        $sd = SourceBuilder::newSource();
         $description = $collection->addSourceDescription($sd);
         $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
         $state = $description->delete();
@@ -229,6 +220,7 @@ class SourceBoxTests extends ApiTestCase
     }
 
     /**
+     * @vcr SourceBoxTests/testDeleteUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Delete_User-Defined_Collection_usecase
      */
     public function testDeleteUserDefinedCollection()
@@ -237,7 +229,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
         $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
         $subcollection = $subcollection->get();
@@ -247,11 +239,12 @@ class SourceBoxTests extends ApiTestCase
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
-        $subcollection = $subcollection->get();
+        $subcollection = $subcollection->get($this->createCacheBreakerQueryParam());
         $this->assertEquals(HttpStatus::NOT_FOUND, $subcollection->getResponse()->getStatusCode());
     }
 
     /**
+     * @vcr SourceBoxTests/testMoveSourcesToAUserDefinedCollection.json
      * @link https://familysearch.org/developers/docs/api/sources/Move_Sources_to_a_User-Defined_Collection_usecase
      */
     public function testMoveSourcesToAUserDefinedCollection()
@@ -260,24 +253,7 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
 
-        $sd = new SourceDescription();
-        $citation = new SourceCitation();
-        $citation->setValue("\"United States Census, 1900.\" database and digital images, FamilySearch (https://familysearch.org/: accessed 17 Mar 2012), Ethel Hollivet, 1900; citing United States Census Office, Washington, D.C., 1900 Population Census Schedules, Los Angeles, California, population schedule, Los Angeles Ward 6, Enumeration District 58, p. 20B, dwelling 470, family 501, FHL microfilm 1,240,090; citing NARA microfilm publication T623, roll 90.");
-        $sd->setCitations(array($citation));
-        $title = new TextValue();
-        $title->setValue("1900 US Census, Ethel Hollivet");
-        $sd->setTitles(array($title));
-        $note = new Note();
-        $note->setText("Ethel Hollivet (line 75) with husband Albert Hollivet (line 74); also in the dwelling: step-father Joseph E Watkins (line 72), mother Lina Watkins (line 73), and grandmother -- Lina's mother -- Mary Sasnett (line 76).  Albert's mother and brother also appear on this page -- Emma Hollivet (line 68), and Eddie (line 69).");
-        $sd->setNotes(array($note));
-        $attribution = new Attribution();
-        $contributor = new ResourceReference();
-        $contributor->setResource("https://familysearch.org/platform/users/agents/MM6M-8QJ");
-        $contributor->setResourceId("MM6M-8QJ");
-        $attribution->setContributor($contributor);
-        $attribution->setModified(time());
-        $attribution->setChangeMessage("This is the change message");
-        $sd->SetAttribution($attribution);
+        $sd = SourceBuilder::newSource();
 
         /** @var FamilySearchSourceDescriptionState $description */
         $description = $collection->addSourceDescription($sd);
@@ -288,7 +264,7 @@ class SourceBoxTests extends ApiTestCase
 
         /** @var CollectionState $subcollection */
         $c = new Collection();
-        $c->setTitle($this->faker->sha1);
+        $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c)->get();
         $this->queueForDelete($subcollection);
 

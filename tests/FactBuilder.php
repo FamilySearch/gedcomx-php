@@ -10,8 +10,7 @@ use Gedcomx\Extensions\FamilySearch\Types\FactType;
 class FactBuilder extends TestBuilder {
 
     public static function birth(){
-        $rnd = rand(50,200);
-        $birthDate = new \DateTime("-{$rnd} years");
+        $birthDate = self::dateBetween(200, 50);
         $birthPlace = self::faker()->city() . ", " . self::faker()->state() . ", United States";
 
         return new Fact(
@@ -28,7 +27,7 @@ class FactBuilder extends TestBuilder {
     }
 
     public static function death(Fact $birth){
-        $rnd = rand(5,95);
+        $rnd = self::faker()->numberBetween(5, 95);
         $deathDate = new \DateTime($birth->getDate()->getDateTime()->format("F d, Y") . "+{$rnd}years");
 
         return new Fact(
@@ -48,9 +47,7 @@ class FactBuilder extends TestBuilder {
 
     public static function militaryService()
     {
-        $rnd = rand(50,125);
-
-        $date = new \DateTime("-{$rnd} years");
+        $date = self::dateBetween(125, 50);
         return new Fact(array(
             'primary' => true,
             'type' => FactType::MILITARYSERVICE,
@@ -63,9 +60,7 @@ class FactBuilder extends TestBuilder {
 
     public static function eagleScout()
     {
-        $rnd = rand(50,125);
-
-        $date = new \DateTime("-{$rnd} years");
+        $date = self::dateBetween(125, 50);
         return new Fact(array(
             'primary' => true,
             'type' => "data:,Eagle%20Scout",
@@ -83,9 +78,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function adoption(\DateTime $birthdate)
     {
-        $rnd = rand(0,18);
-        $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
-
+        $date = self::dateBetween(18);
         return new Fact(array(
             'primary' => true,
             'type' => FactType::ADOPTION,
@@ -98,8 +91,7 @@ class FactBuilder extends TestBuilder {
 
     public static function adoptiveParent()
     {
-        $date = new \DateTime();
-
+        $date = self::dateBetween(18);
         return new Fact(array(
             'primary' => true,
             'type' => FactType::ADOPTIVEPARENT,
@@ -117,9 +109,7 @@ class FactBuilder extends TestBuilder {
      */
     public static function marriage(\DateTime $birthdate)
     {
-        $rnd = rand(18,40);
-        $date = new \DateTime($birthdate->format('Y-m-d') . " +{$rnd} years");
-
+        $date = self::dateBetween(40, 18);
         return new Fact(array(
             'primary' => true,
             'type' => FactType::MARRIAGE,
@@ -135,6 +125,16 @@ class FactBuilder extends TestBuilder {
             'type' => FactType::LIFE_SKETCH,
             'value' => self::faker()->paragraph(2)
         ));
+    }
+    
+    /**
+     * Return a random date between the given range.
+     */
+    private static function dateBetween($startYear, $endYear = 0)
+    {
+        $startYear = 2010 - intval($startYear) . '-01-01';
+        $endYear = 2010 - intval($endYear) . '-01-01';
+        return self::faker()->dateTimeBetween($startYear, $endYear);
     }
 
 }

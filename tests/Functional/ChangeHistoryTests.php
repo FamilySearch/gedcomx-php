@@ -19,6 +19,10 @@ use Gedcomx\Tests\ApiTestCase;
 
 class ChangeHistoryTests extends ApiTestCase
 {
+    
+    /**
+     * @vcr ChangeHistory/testReadPersonChangeHistory.json
+     */
     public function testReadPersonChangeHistory()
     {
         $factory = new FamilyTreeStateFactory();
@@ -37,6 +41,9 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
     }
 
+    /**
+     * @vcr ChangeHistory/testReadPersonChangeHistoryFirstPage.json
+     */
     public function testReadPersonChangeHistoryFirstPage()
     {
         $factory = new FamilyTreeStateFactory();
@@ -55,6 +62,9 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
     }
 
+    /**
+     * @vcr ChangeHistory/testReadCoupleRelationshipChangeHistory.json
+     */
     public function testReadCoupleRelationshipChangeHistory()
     {
         $factory = new FamilyTreeStateFactory();
@@ -90,6 +100,9 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertGreaterThan(0, count($state->getPage()->getEntries()));
     }
 
+    /**
+     * @vcr ChangeHistory/testReadChildAndParentsRelationshipChangeHistory.json
+     */
     public function testReadChildAndParentsRelationshipChangeHistory()
     {
         $factory = new FamilyTreeStateFactory();
@@ -119,6 +132,9 @@ class ChangeHistoryTests extends ApiTestCase
         $this->assertGreaterThan(0, $state->getEntity()->getEntries());
     }
 
+    /**
+     * @vcr ChangeHistory/testRestoreChangeAction.json
+     */
     public function testRestoreChangeAction()
     {
         $factory = new FamilyTreeStateFactory();
