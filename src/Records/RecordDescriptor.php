@@ -121,7 +121,7 @@ class RecordDescriptor extends HypermediaEnabledData
      *
      * @param array $o
      */
-    public function initFromArray($o)
+    public function initFromArray(array $o)
     {
         if (isset($o['lang'])) {
             $this->lang = $o["lang"];
@@ -149,7 +149,7 @@ class RecordDescriptor extends HypermediaEnabledData
      *
      * @return bool Whether a child element was set.
      */
-    protected function setKnownChildElement($xml)
+    protected function setKnownChildElement(\XMLReader $xml)
     {
         $happened = parent::setKnownChildElement($xml);
         if ($happened) {
@@ -175,7 +175,7 @@ class RecordDescriptor extends HypermediaEnabledData
      *
      * @return bool Whether an attribute was set.
      */
-    protected function setKnownAttribute($xml)
+    protected function setKnownAttribute(\XMLReader $xml)
     {
         if (parent::setKnownAttribute($xml)) {
             return true;
@@ -196,7 +196,7 @@ class RecordDescriptor extends HypermediaEnabledData
      *
      * @param \XMLWriter $writer The XML writer.
      */
-    public function writeXmlContents($writer)
+    public function writeXmlContents(\XMLWriter $writer)
     {
         if ($this->lang) {
             $writer->writeAttribute('xml:lang', $this->lang);
