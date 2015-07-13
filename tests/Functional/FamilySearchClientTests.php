@@ -20,6 +20,15 @@ class FamilySearchClientTests extends ApiTestCase
     }
     
     /**
+     * @vcr FamilySearchClientTests/testFamilyTreeState.json
+     */
+    public function testFamilyTreeState()
+    {
+        $client = $this->createAuthenticatedFamilySearchClient();
+        $this->assertInstanceOf('Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState', $client->familytree());
+    }
+    
+    /**
      * @vcr FamilySearchClientTests/testCreatePerson.json
      */
     public function testCreatePerson()
@@ -33,6 +42,22 @@ class FamilySearchClientTests extends ApiTestCase
         $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
         $this->assertEquals(
             HttpStatus::CREATED,
+            $responseState->getResponse()->getStatusCode(),
+            $this->buildFailMessage(__METHOD__, $responseState)
+        );
+    }
+    
+    /**
+     * @vcr FamilySearchClientTests/testReadCurrentUser.json
+     */
+    public function testReadCurrentUser()
+    {
+        $client = $this->createAuthenticatedFamilySearchClient();
+        $responseState = $client->familytree()->readCurrentUser();
+        
+        $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
+        $this->assertEquals(
+            HttpStatus::OK,
             $responseState->getResponse()->getStatusCode(),
             $this->buildFailMessage(__METHOD__, $responseState)
         );

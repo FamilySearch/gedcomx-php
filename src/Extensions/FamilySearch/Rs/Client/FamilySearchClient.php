@@ -231,7 +231,11 @@ class FamilySearchClient {
         $this->createCollectionsState();
         foreach($this->collectionsState->getCollections() as $collection){
             if($collection->getId() == 'FSFT'){
-                $this->treeState = $this->collectionsState->readCollection($collection);
+                $this->treeState = $this->stateFactory->newCollectionState(
+                    $collection->getLink('self')->getHref(),
+                    'GET',
+                    $this->client
+                );
             }
         }
     }
