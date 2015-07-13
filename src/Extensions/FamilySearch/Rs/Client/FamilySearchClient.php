@@ -48,11 +48,11 @@ class FamilySearchClient {
     private $clientSecret;
     
     /**
-     * URI for the Collections resource.
+     * URI for the Home Collection resource.
      * 
      * @var string
      */
-    private $collectionsURI;
+    private $homeURI;
     
     /**
      * @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory
@@ -65,9 +65,9 @@ class FamilySearchClient {
     private $treeState;
     
     /**
-     * @var \Gedcomx\Rs\Client\CollectionsState
+     * @var \Gedcomx\Rs\Client\CollectionState
      */
-    private $collectionsState;
+    private $homeState;
     
     /**
      * Construct a FamilySearch Client
@@ -91,13 +91,13 @@ class FamilySearchClient {
         }
         switch($environment){
             case 'production':
-                $this->collectionsURI = 'https://familysearch.org/platform/collections';
+                $this->homeURI = 'https://familysearch.org/platform/collection';
                 break;
             case 'beta':
-                $this->collectionsURI = 'https://beta.familysearch.org/platform/collections';
+                $this->homeURI = 'https://beta.familysearch.org/platform/collection';
                 break;
             default:
-                $this->collectionsURI = 'https://sandbox.familysearch.org/platform/collections';
+                $this->homeURI = 'https://sandbox.familysearch.org/platform/collection';
                 break;
         }
         
@@ -113,7 +113,7 @@ class FamilySearchClient {
         
         $this->stateFactory = new FamilyTreeStateFactory();
         
-        $this->createCollectionsState();
+        $this->createHomeState();
         $this->createTreeState();
         
         if(isset($options['accessToken'])){
@@ -194,11 +194,14 @@ class FamilySearchClient {
      */
     public function getAvailablePendingModifications()
     {
-        $request = $this->treeState->getClient()->createRequest("GET", "https://sandbox.familysearch.org/platform/pending-modifications");
+        $request = $this->client->createRequest(
+            "GET", 
+            $this->homeState->getCollection()->getLink('pending-modifications')->getHref()
+        );
         $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
         $response = $request->send($request);
 
-        // Get each pending features
+        // Get each pending feature
         $json = json_decode($response->getBody(true), true);
         $fsp = new FamilySearchPlatform($json);
         $features = array();
@@ -210,13 +213,13 @@ class FamilySearchClient {
     }
     
     /**
-     * Ensure the collectionsState propery exists
+     * Ensure the homeState propery exists
      */
-    private function createCollectionsState()
+    private function createHomeState()
     {
-        if($this->collectionsState == null){
-            $this->collectionsState = $this->stateFactory->newCollectionsState(
-                $this->collectionsURI,
+        if($this->homeState == null){
+            $this->homeState = $this->stateFactory->newCollectionState(
+                $this->homeURI,
                 'GET',
                 $this->client
             );
@@ -228,16 +231,12 @@ class FamilySearchClient {
      */
     private function createTreeState()
     {
-        $this->createCollectionsState();
-        foreach($this->collectionsState->getCollections() as $collection){
-            if($collection->getId() == 'FSFT'){
-                $this->treeState = $this->stateFactory->newCollectionState(
-                    $collection->getLink('self')->getHref(),
-                    'GET',
-                    $this->client
-                );
-            }
-        }
+        $this->createHomeState();
+        $this->treeState = $this->stateFactory->newCollectionState(
+            $this->homeState->getCollection()->getLink('family-tree')->getHref(),
+            'GET',
+            $this->client
+        );
     }
     
     /**
