@@ -2,33 +2,61 @@
 
 [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
 
-#Getting Started
+#Installing the gedcomx-php SDK
+## Prerequisites
 
-GEDCOM X PHP uses [composer](https://getcomposer.org) to manage dependencies.
+Prior to installing the gedcomx-php SDK you must install the following components.
 
-1.  To install, run the following command from the root of your project:
-  
-  ```
-  composer require gedcomx/gedcomx-php
-  ```
+* [PHP 5.4+](http://php.net/manual/en/install.php) (The language of this SDK)
+  * *You can install PHP using pre-built environments such as [WAMP Server](http://www.wampserver.com/) (Windows), [XAMPP](https://www.apachefriends.org/) (Windows), [MAMP](https://www.mamp.info/) (OS X), or [Vagrant](http://vagrantup.com/) (Any OS).*
 
-  More detailed installation instructions are found [here](https://github.com/FamilySearch/gedcomx-php/wiki/Detailed-Installation-Instructions).
+* [Git](http://git-scm.com/downloads) (Versioning system for coding)
+* [Composer](https://getcomposer.org/doc/00-intro.md) (PHP Packages Manager)
 
-2. If you are not already using other Composer managed libraries, you will need to add the [Composer Autoloader](https://getcomposer.org/doc/01-basic-usage.md#autoloading) to your project.
+**Note:** Mac developers might need to install the Xcode developer tools as part of this process.
 
-  ```php
-  require 'vendor/autoload.php';
-  ```
+You can verify that each of the required components is installed by running the following commands one line at a time, at your command line or command prompt:
+```
+php -v
+composer --version
+git --version
+```
+
+## Installation Steps
+
+Gedcomx-php uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally). 
+
+1.  To activate Composer, run the following command from the root of your project:
+
+    ```
+    composer require gedcomx/gedcomx-php
+    ```
+
+    Alternatively, you can add the following configuration to an existing composer.json file then run the `composer install` command from your command prompt.
+
+    ```json
+    {
+        "require": {
+        "gedcomx/gedcomx-php": "^1.1"
+        }
+    }
+    ```
+
+2. If you are not already using other Composer managed libraries, add the [Composer Autoloader](https://getcomposer.org/doc/01-basic-usage.md#autoloading) to your project.
+
+    ```php
+    require 'vendor/autoload.php';
+    ```
 
 3. Import desired classes by using the `use` operator:
 
-  ```php
-  use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
-  ```
+    ```php
+    use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
+    ```
 
 # Overview
 
-Gedcomx-php is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php library has the following features:
+The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php SDK library has the following features:
 
 * **GEDCOM X Conceptual Model**
   
