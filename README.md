@@ -75,7 +75,7 @@ The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependenc
     ```php
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
     ```
-    **Note:** You must first instantiate a FamilySearch client with an access token before initiating any FamilySearch API access. See the [session setup code](https://github.com/FamilySearch/gedcomx-php-sample-app/blob/master/src/includes/setup.php)
+    **Note:** You must first instantiate a FamilySearch client with an access token before initiating any FamilySearch API access. See the [session setup code](https://github.com/FamilySearch/gedcomx-php-sample-app/blob/master/src/includes/setup.php).
 
 # Documentation
 
