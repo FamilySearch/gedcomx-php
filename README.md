@@ -1,6 +1,30 @@
-#GedcomX - PHP
 
-[![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
+
+#GedcomX - PHP  [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
+
+# Overview
+
+The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php SDK has the following features:
+
+* **Sample App**
+
+  The [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project includes basic functionality and usage of the gedcomx-php SDK. You can clone the project or you can [run the app](http://gedcomx-php-sample-app.herokuapp.com) to see it in action.
+
+* **GEDCOM X Conceptual Model**
+
+  Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
+
+* **GEDCOM X Serialization**
+
+  XML and JSON serialization and deserialization of GEDCOM X. For more information, check out the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
+
+* **GEDCOM X RS Client**
+  
+  Functionality to interact with a [GEDCOM X RS](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md) compliant web service. GEDCOM X RS is a RESTful specification that defines a set of [application states](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md#4-application-states) for a genealogical data application. This allows you to read the state of a Person, Relationship, Source Description, and more. Take a look as some [examples](https://github.com/FamilySearch/gedcomx-php/wiki/Accessing-a-GEDCOM-X-RS-API).
+
+* **FamilySearch API Interface**
+  
+  A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/). The FamilySearchClient class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
 #Installing the gedcomx-php SDK
 ## Prerequisites
@@ -24,7 +48,7 @@ git --version
 
 ## Installation Steps
 
-Gedcomx-php uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally). 
+The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally). 
 
 1.  To activate Composer, run the following command from the root of your project:
 
@@ -53,38 +77,15 @@ Gedcomx-php uses [composer](https://getcomposer.org) to manage dependencies. The
     ```php
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
     ```
-
-# Overview
-
-The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php SDK library has the following features:
-
-* **GEDCOM X Conceptual Model**
-  
-  The gedcomx-php library implements the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. A visual graph of the GEDCOM X Conceptual Model is [found here](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf).
-
-* **GEDCOM X Serialization**
-
-  This library supports XML and JSON serialization and deserialization of GEDCOM X. For more information, check out the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
-
-* **GEDCOM X RS Client**
-  
-  The gedcomx-php library provides functionality to interact with a [GEDCOM X RS](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md) compliant web service. GEDCOM X RS is a RESTful specification that defines a set of [application states](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md#4-application-states) for a genealogical data application. This allows you to read the state of a Person, Relationship, Source Description, etc. For more information, check out the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/Accessing-a-GEDCOM-X-RS-API).
-
-* **FamilySearch SDK**
-  
-  This library provides a robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/). The FamilySearchClient class provides a nice mechanism to easily set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
-
-* **Sample App**
-
-  The [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) project demonstrates basic functionality and usage of the FamilySearch SDK. You can clone the [project from Github](https://github.com/FamilySearch/gedcomx-php-sample-app) and see the app in action [here](http://gedcomx-php-sample-app.herokuapp.com).
+    **Note:** You must first instantiate a FamilySearch client with an access token before initiating any FamilySearch API access. See the [session setup code](https://github.com/FamilySearch/gedcomx-php-sample-app/blob/master/src/includes/setup.php)
 
 # Documentation
 
-Documentation for the gedcomx-php library is provided in the following forms:
+Documentation for the gedcomx-php SDK is provided in the following forms:
 
-* [Wiki](https://github.com/FamilySearch/gedcomx-php/wiki): the wiki provides guides on how to use the gedcomx-php library.
-* [API Doc](http://familysearch.github.io/gedcomx-php/docs/index.html): the API Doc contains documentation for all of the namespaces, classes, and methods contained in the SDK.
-* [Sample App](https://github.com/FamilySearch/gedcomx-php-sample-app): the sample app provides running code examples for basic operations of the FamilySearch API.
+* [Wiki](https://github.com/FamilySearch/gedcomx-php/wiki): the wiki provides instruction on how to use the gedcomx-php SDK in a production environment.
+* [SDK Doc](http://familysearch.github.io/gedcomx-php/docs/index.html): the SDK Doc contains documentation for all of the namespaces, classes, and methods contained in the SDK.
+
 
 # Changelog
 
