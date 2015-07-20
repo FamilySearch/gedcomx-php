@@ -2,13 +2,11 @@
 
 #GedcomX - PHP  [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
 
-# Overview
-
 The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php SDK has the following features:
 
 * **Sample App**
 
-  The [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project includes basic functionality and usage of the gedcomx-php SDK. You can clone the project or you can [run the app](http://gedcomx-php-sample-app.herokuapp.com) to see it in action.
+  The [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project. This project is a sample app that demonstrates basic functionality and usage of the gedcomx-php SDK. You can [run the app](http://gedcomx-php-sample-app.herokuapp.com) to see it in action.
 
 * **GEDCOM X Conceptual Model**
 
@@ -16,7 +14,7 @@ The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.o
 
 * **GEDCOM X Serialization**
 
-  XML and JSON serialization and deserialization of GEDCOM X. For more information, check out the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
+  XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
 
 * **GEDCOM X RS Client**
   
