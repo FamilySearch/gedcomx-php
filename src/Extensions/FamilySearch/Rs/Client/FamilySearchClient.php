@@ -101,12 +101,21 @@ class FamilySearchClient {
                 break;
         }
         
+        // Create client
         $this->client = new FilterableClient('', array(
             "request.options" => array(
                 "exceptions" => false
             )
         ));
         
+        // Set user agent string
+        $userAgent = 'gedcomx-php/1.1.1';
+        if(isset($options['userAgent'])){
+            $userAgent = $options['userAgent'] . ' ' . $userAgent;
+        }
+        $this->client->setUserAgent($userAgent, true);
+        
+        // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
             $this->client->addFilter(new ExperimentsFilter($options['pendingModifications']));
         }

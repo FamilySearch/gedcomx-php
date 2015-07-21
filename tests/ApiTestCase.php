@@ -152,19 +152,19 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $message;
     }
     
-    protected function createFamilySearchClient($mods = array())
+    protected function createFamilySearchClient($options = array())
     {
-        return new FamilySearchClient(array(
+        return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,
             'redirectURI' => SandboxCredentials::REDIRECT_URI,
             'pendingModifications' => $mods
-        ));
+        )));
     }
     
-    protected function createAuthenticatedFamilySearchClient($mods = array())
+    protected function createAuthenticatedFamilySearchClient($options = array())
     {
-        return $this->createFamilySearchClient($mods)
+        return $this->createFamilySearchClient($options)
             ->authenticateViaOAuth2Password(
                 SandboxCredentials::USERNAME, 
                 SandboxCredentials::PASSWORD

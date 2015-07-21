@@ -9,6 +9,28 @@ use Gedcomx\Extensions\FamilySearch\Feature;
 
 class FamilySearchClientTests extends ApiTestCase
 {
+    /**
+     * @vcr FamilySearchClientTests/testDefaultUserAgent
+     */
+    public function testUserAgent()
+    {
+        $client = $this->createFamilySearchClient();
+        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent'));
+        $firstProductName = explode('/', $agentPieces[0])[0];
+        $this->assertEquals('gedcomx-php', $firstProductName);
+    }
+    
+    /**
+     * @vcr FamilySearchClientTests/testCustomUserAgent
+     */
+    public function testCustomUserAgent()
+    {
+        $client = $this->createFamilySearchClient(array(
+            'userAgent' => 'tester/123'
+        ));
+        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent'));
+        $this->assertEquals('tester/123', $agentPieces[0]);
+    }
     
     /**
      * @vcr FamilySearchClientTests/testAuthenticate.json
@@ -98,7 +120,7 @@ class FamilySearchClientTests extends ApiTestCase
             return $feature->getName();
         }, $features);
         
-        $client = $this->createAuthenticatedFamilySearchClient($modifications);
+        $client = $this->createAuthenticatedFamilySearchClient(array('pendingModifications' => $modifications));
         
         $person = PersonBuilder::buildPerson('');
         $responseState = $client->familytree()->addPerson($person);
