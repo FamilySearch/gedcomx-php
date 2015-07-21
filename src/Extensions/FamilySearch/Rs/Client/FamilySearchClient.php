@@ -197,6 +197,17 @@ class FamilySearchClient {
     }
     
     /**
+     * Set the access token for this session
+     * 
+     * @return FamilySearchClient
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->treeState->authenticateWithAccessToken($accessToken);
+        return $this;
+    }
+    
+    /**
      * Get a list of valid pending modifications
      * 
      * @return array Array of \Gedcomx\Extensions\FamilySearch\Feature

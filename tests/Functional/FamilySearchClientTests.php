@@ -42,6 +42,19 @@ class FamilySearchClientTests extends ApiTestCase
     }
     
     /**
+     * @vcr FamilySearchClientTests/testSetAccessToken.json
+     */
+    public function testSetAccessToken()
+    {
+        $client1 = $this->createAuthenticatedFamilySearchClient();
+        $this->assertNotNull($client1->getAccessToken());
+        
+        $client2 = $this->createFamilySearchClient();
+        $client2->setAccessToken($client1->getAccessToken());
+        $this->assertEquals($client1->getAccessToken(), $client2->getAccessToken());
+    }
+    
+    /**
      * @vcr FamilySearchClientTests/testFamilyTreeState.json
      */
     public function testFamilyTreeState()
