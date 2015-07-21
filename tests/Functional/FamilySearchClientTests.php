@@ -16,7 +16,7 @@ class FamilySearchClientTests extends ApiTestCase
     {
         $client = $this->createFamilySearchClient();
         $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent'));
-        $firstProductName = explode('/', $agentPieces[0])[0];
+        list($firstProductName, $firstProductVersion) = explode('/', $agentPieces[0]);
         $this->assertEquals('gedcomx-php', $firstProductName);
     }
     
