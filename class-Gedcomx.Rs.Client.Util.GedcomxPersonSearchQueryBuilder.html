@@ -1,0 +1,3621 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder | gedcomx-php</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?a2b5efb503881470385230f40f9bcc3c94d665e7">
+
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">gedcomx-php</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-Gedcomx.Rs.Client.Util.html" title="Summary of Gedcomx\Rs\Client\Util"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-Gedcomx.html">
+							Gedcomx<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Agent.html">
+							Agent						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Atom.html">
+							Atom						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Common.html">
+							Common						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Conclusion.html">
+							Conclusion						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.html">
+							Extensions<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.html">
+							FamilySearch<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Platform.html">
+							Platform<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Platform.Artifacts.html">
+							Artifacts						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Platform.Discussions.html">
+							Discussions						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Platform.Tree.html">
+							Tree						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Platform.Users.html">
+							Users						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.html">
+							Rs<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.html">
+							FamilyTree						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Helpers.html">
+							Helpers						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Memories.html">
+							Memories						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.html">
+							Util						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rt.html">
+							Rt						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Types.html">
+							Types						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Gedcomx.GedcomxFile.html">
+							GedcomxFile						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Links.html">
+							Links						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Records.html">
+							Records						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-Gedcomx.Rs.html">
+							Rs<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-Gedcomx.Rs.Client.html">
+							Client<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Gedcomx.Rs.Client.Exception.html">
+							Exception						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Rs.Client.Options.html">
+							Options						</a>
+							</li>
+					<li class="active">
+						<a href="namespace-Gedcomx.Rs.Client.Util.html">
+							Util						</a>
+							</li>
+								</ul></li></ul></li>
+					<li>
+						<a href="namespace-Gedcomx.Rt.html">
+							Rt						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Search.html">
+							Search						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Source.html">
+							Source						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Support.html">
+							Support						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Types.html">
+							Types						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Util.html">
+							Util						</a>
+							</li>
+					<li>
+						<a href="namespace-Gedcomx.Vocab.html">
+							Vocab						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Gedcomx.Rs.Client.Util.AncestryNode.html">AncestryNode</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.AncestryTree.html">AncestryTree</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.DataSource.html">DataSource</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.DescendancyNode.html">DescendancyNode</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.DescendancyTree.html">DescendancyTree</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.EmbeddedLinkLoader.html">EmbeddedLinkLoader</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.GedcomxBaseSearchQueryBuilder.html">GedcomxBaseSearchQueryBuilder</a></li>
+				<li class="active"><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">GedcomxPersonSearchQueryBuilder</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.GedcomxPlaceSearchQueryBuilder.html">GedcomxPlaceSearchQueryBuilder</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.HttpStatus.html">HttpStatus</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.RdfCollection.html">RdfCollection</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.RdfNode.html">RdfNode</a></li>
+				<li><a href="class-Gedcomx.Rs.Client.Util.SearchParameter.html">SearchParameter</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class GedcomxPersonSearchQueryBuilder</h1>
+
+
+	<div class="description">
+	<p>This is a helper utility for building syntactically correct person search query strings.</p>
+
+<p>Class GedcomxPersonSearchQueryBuilder</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-Gedcomx.Rs.Client.Util.GedcomxBaseSearchQueryBuilder.html"><span>Gedcomx\Rs\Client\Util\GedcomxBaseSearchQueryBuilder</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Rs.Client.html">Client</a>\<a href="namespace-Gedcomx.Rs.Client.Util.html">Util</a><br>
+		<b>Package:</b> Gedcomx\Rs\Client\Util<br>
+
+			<b>Located at</b> <a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#7-884" title="Go to source code">Rs/Client/Util/GedcomxPersonSearchQueryBuilder.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="name" id="_name">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_name">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#235-246" title="Go to source code">name</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="givenName" id="_givenName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_givenName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#248-259" title="Go to source code">givenName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a given name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a given name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="surname" id="_surname">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_surname">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#261-272" title="Go to source code">surname</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a surname search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a surname search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="gender" id="_gender">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_gender">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#274-285" title="Go to source code">gender</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a gender search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a gender search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="birthDate" id="_birthDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_birthDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#287-298" title="Go to source code">birthDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a birth date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a birth date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="birthPlace" id="_birthPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_birthPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#300-311" title="Go to source code">birthPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a birth place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a birth place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="deathDate" id="_deathDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_deathDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#313-324" title="Go to source code">deathDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a death date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a death date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="deathPlace" id="_deathPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_deathPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#326-337" title="Go to source code">deathPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a death place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a death place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="marriageDate" id="_marriageDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_marriageDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#339-350" title="Go to source code">marriageDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a marriage date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a marriage date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="marriagePlace" id="_marriagePlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_marriagePlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#352-363" title="Go to source code">marriagePlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a marriage place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a marriage place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherName" id="_fatherName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#365-376" title="Go to source code">fatherName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherGivenName" id="_fatherGivenName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherGivenName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#378-389" title="Go to source code">fatherGivenName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father given name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father given name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherSurname" id="_fatherSurname">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherSurname">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#391-402" title="Go to source code">fatherSurname</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father surname search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father surname search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherGender" id="_fatherGender">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherGender">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#404-415" title="Go to source code">fatherGender</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father gender search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father gender search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherBirthDate" id="_fatherBirthDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherBirthDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#417-428" title="Go to source code">fatherBirthDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father birth date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father birth date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherBirthPlace" id="_fatherBirthPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherBirthPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#430-441" title="Go to source code">fatherBirthPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father birth place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father birth place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherDeathDate" id="_fatherDeathDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherDeathDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#443-454" title="Go to source code">fatherDeathDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father death date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father death date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherDeathPlace" id="_fatherDeathPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherDeathPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#456-467" title="Go to source code">fatherDeathPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father death place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father death place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherMarriageDate" id="_fatherMarriageDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherMarriageDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#469-480" title="Go to source code">fatherMarriageDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father marriage date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father marriage date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="fatherMarriagePlace" id="_fatherMarriagePlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_fatherMarriagePlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#482-493" title="Go to source code">fatherMarriagePlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a father marriage place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a father marriage place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherName" id="_motherName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#495-506" title="Go to source code">motherName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherGivenName" id="_motherGivenName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherGivenName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#508-519" title="Go to source code">motherGivenName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother given name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother given name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherSurname" id="_motherSurname">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherSurname">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#521-532" title="Go to source code">motherSurname</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother surname search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother surname search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherGender" id="_motherGender">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherGender">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#534-545" title="Go to source code">motherGender</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother gender search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother gender search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherBirthDate" id="_motherBirthDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherBirthDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#547-558" title="Go to source code">motherBirthDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother birth date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother birth date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherBirthPlace" id="_motherBirthPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherBirthPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#560-571" title="Go to source code">motherBirthPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother birth place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother birth place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherDeathDate" id="_motherDeathDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherDeathDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#573-584" title="Go to source code">motherDeathDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother death date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother death date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherDeathPlace" id="_motherDeathPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherDeathPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#586-597" title="Go to source code">motherDeathPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother death place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother death place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherMarriageDate" id="_motherMarriageDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherMarriageDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#599-610" title="Go to source code">motherMarriageDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother marriage date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother marriage date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="motherMarriagePlace" id="_motherMarriagePlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_motherMarriagePlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#612-623" title="Go to source code">motherMarriagePlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a mother marriage place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a mother marriage place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseName" id="_spouseName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#625-636" title="Go to source code">spouseName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseGivenName" id="_spouseGivenName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseGivenName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#638-649" title="Go to source code">spouseGivenName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse given name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse given name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseSurname" id="_spouseSurname">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseSurname">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#651-662" title="Go to source code">spouseSurname</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse surname search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse surname search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseGender" id="_spouseGender">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseGender">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#664-675" title="Go to source code">spouseGender</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse gender search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse gender search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseBirthDate" id="_spouseBirthDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseBirthDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#677-688" title="Go to source code">spouseBirthDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse birth date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse birth date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseBirthPlace" id="_spouseBirthPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseBirthPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#690-701" title="Go to source code">spouseBirthPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse birth place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse birth place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseDeathDate" id="_spouseDeathDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseDeathDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#703-714" title="Go to source code">spouseDeathDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse death date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse death date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseDeathPlace" id="_spouseDeathPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseDeathPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#716-727" title="Go to source code">spouseDeathPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse death place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse death place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseMarriageDate" id="_spouseMarriageDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseMarriageDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#729-740" title="Go to source code">spouseMarriageDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse marriage date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse marriage date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="spouseMarriagePlace" id="_spouseMarriagePlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_spouseMarriagePlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#742-753" title="Go to source code">spouseMarriagePlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a spouse marriage place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a spouse marriage place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentName" id="_parentName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#755-766" title="Go to source code">parentName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentGivenName" id="_parentGivenName">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentGivenName">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#768-779" title="Go to source code">parentGivenName</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent given name search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent given name search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentSurname" id="_parentSurname">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentSurname">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#781-792" title="Go to source code">parentSurname</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent surname search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent surname search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentGender" id="_parentGender">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentGender">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#794-805" title="Go to source code">parentGender</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent gender search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent gender search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentBirthDate" id="_parentBirthDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentBirthDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#807-818" title="Go to source code">parentBirthDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent birth date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent birth date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentBirthPlace" id="_parentBirthPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentBirthPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#820-831" title="Go to source code">parentBirthPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent birth place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent birth place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentDeathDate" id="_parentDeathDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentDeathDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#833-844" title="Go to source code">parentDeathDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent death date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent death date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentDeathPlace" id="_parentDeathPlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentDeathPlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#846-857" title="Go to source code">parentDeathPlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent death place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent death place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentMarriageDate" id="_parentMarriageDate">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentMarriageDate">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#859-870" title="Go to source code">parentMarriageDate</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent marriage date search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent marriage date search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="parentMarriagePlace" id="_parentMarriagePlace">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_parentMarriagePlace">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#872-883" title="Go to source code">parentMarriagePlace</a>( <span> <var>$value</var></span>, <span>boolean <var>$exact</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$required</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				<p>Creates a parent marriage place search parameter with the search value.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Creates a parent marriage place search parameter with the search value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$value</var></dt>
+						<dd></dd>
+						<dt><var>$exact</var></dt>
+						<dd></dd>
+						<dt><var>$required</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html">Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-Gedcomx.Rs.Client.Util.GedcomxBaseSearchQueryBuilder.html#methods">Gedcomx\Rs\Client\Util\GedcomxBaseSearchQueryBuilder</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxBaseSearchQueryBuilder.html#___construct">__construct()</a></code>, 
+				<code><a href="class-Gedcomx.Rs.Client.Util.GedcomxBaseSearchQueryBuilder.html#_build">build()</a></code>
+			</p>
+		</div>
+
+
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Constants summary</h2></div>
+			<table class="summary table table-bordered table-striped constants" id="constants">
+			<tr data-order="NAME" id="NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#15-18" title="Go to source code"><b>NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;name&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="GIVEN_NAME" id="GIVEN_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#19-22" title="Go to source code"><b>GIVEN_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The given name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The given name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#GIVEN_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;givenName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SURNAME" id="SURNAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#23-26" title="Go to source code"><b>SURNAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The surname parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The surname parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SURNAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;surname&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="GENDER" id="GENDER">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#27-30" title="Go to source code"><b>GENDER</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The gender parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The gender parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#GENDER" class="anchor">#</a>
+						<code><span class="php-quote">&quot;gender&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="BIRTH_DATE" id="BIRTH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#31-34" title="Go to source code"><b>BIRTH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The birth date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The birth date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#BIRTH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;birthDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="BIRTH_PLACE" id="BIRTH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#35-38" title="Go to source code"><b>BIRTH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The birth place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The birth place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#BIRTH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;birthPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="DEATH_DATE" id="DEATH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#39-42" title="Go to source code"><b>DEATH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The death date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The death date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#DEATH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;deathDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="DEATH_PLACE" id="DEATH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#43-46" title="Go to source code"><b>DEATH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The death place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The death place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#DEATH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;deathPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MARRIAGE_DATE" id="MARRIAGE_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#47-50" title="Go to source code"><b>MARRIAGE_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The marriage date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The marriage date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MARRIAGE_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;marriageDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MARRIAGE_PLACE" id="MARRIAGE_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#51-54" title="Go to source code"><b>MARRIAGE_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The marriage place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The marriage place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MARRIAGE_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;marriagePlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_NAME" id="FATHER_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#55-58" title="Go to source code"><b>FATHER_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_GIVEN_NAME" id="FATHER_GIVEN_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#59-62" title="Go to source code"><b>FATHER_GIVEN_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father given name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father given name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_GIVEN_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherGivenName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_SURNAME" id="FATHER_SURNAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#63-66" title="Go to source code"><b>FATHER_SURNAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father surname parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father surname parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_SURNAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherSurname&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_GENDER" id="FATHER_GENDER">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#67-70" title="Go to source code"><b>FATHER_GENDER</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father gender parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father gender parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_GENDER" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherGender&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_BIRTH_DATE" id="FATHER_BIRTH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#71-74" title="Go to source code"><b>FATHER_BIRTH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father birth date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father birth date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_BIRTH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherBirthDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_BIRTH_PLACE" id="FATHER_BIRTH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#75-78" title="Go to source code"><b>FATHER_BIRTH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father birth place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father birth place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_BIRTH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherBirthPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_DEATH_DATE" id="FATHER_DEATH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#79-82" title="Go to source code"><b>FATHER_DEATH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father death date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father death date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_DEATH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherDeathDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_DEATH_PLACE" id="FATHER_DEATH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#83-86" title="Go to source code"><b>FATHER_DEATH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father death place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father death place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_DEATH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherDeathPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_MARRIAGE_DATE" id="FATHER_MARRIAGE_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#87-90" title="Go to source code"><b>FATHER_MARRIAGE_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father marriage date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father marriage date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_MARRIAGE_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherMarriageDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="FATHER_MARRIAGE_PLACE" id="FATHER_MARRIAGE_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#91-94" title="Go to source code"><b>FATHER_MARRIAGE_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The father marriage place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The father marriage place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#FATHER_MARRIAGE_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;fatherMarriagePlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_NAME" id="MOTHER_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#95-98" title="Go to source code"><b>MOTHER_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_GIVEN_NAME" id="MOTHER_GIVEN_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#99-102" title="Go to source code"><b>MOTHER_GIVEN_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother given name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother given name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_GIVEN_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherGivenName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_SURNAME" id="MOTHER_SURNAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#103-106" title="Go to source code"><b>MOTHER_SURNAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother surname parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother surname parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_SURNAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherSurname&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_GENDER" id="MOTHER_GENDER">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#107-110" title="Go to source code"><b>MOTHER_GENDER</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother gender parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother gender parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_GENDER" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherGender&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_BIRTH_DATE" id="MOTHER_BIRTH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#111-114" title="Go to source code"><b>MOTHER_BIRTH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother birth date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother birth date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_BIRTH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherBirthDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_BIRTH_PLACE" id="MOTHER_BIRTH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#115-118" title="Go to source code"><b>MOTHER_BIRTH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother birth place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother birth place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_BIRTH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherBirthPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_DEATH_DATE" id="MOTHER_DEATH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#119-122" title="Go to source code"><b>MOTHER_DEATH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother death date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother death date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_DEATH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherDeathDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_DEATH_PLACE" id="MOTHER_DEATH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#123-126" title="Go to source code"><b>MOTHER_DEATH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother death place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother death place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_DEATH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherDeathPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_MARRIAGE_DATE" id="MOTHER_MARRIAGE_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#127-130" title="Go to source code"><b>MOTHER_MARRIAGE_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother marriage date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother marriage date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_MARRIAGE_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherMarriageDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="MOTHER_MARRIAGE_PLACE" id="MOTHER_MARRIAGE_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#131-134" title="Go to source code"><b>MOTHER_MARRIAGE_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The mother marriage place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The mother marriage place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#MOTHER_MARRIAGE_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;motherMarriagePlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_NAME" id="SPOUSE_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#135-138" title="Go to source code"><b>SPOUSE_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_GIVEN_NAME" id="SPOUSE_GIVEN_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#139-142" title="Go to source code"><b>SPOUSE_GIVEN_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse given name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse given name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_GIVEN_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseGivenName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_SURNAME" id="SPOUSE_SURNAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#143-146" title="Go to source code"><b>SPOUSE_SURNAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse surname parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse surname parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_SURNAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseSurname&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_GENDER" id="SPOUSE_GENDER">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#147-150" title="Go to source code"><b>SPOUSE_GENDER</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse gender parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse gender parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_GENDER" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseGender&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_BIRTH_DATE" id="SPOUSE_BIRTH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#151-154" title="Go to source code"><b>SPOUSE_BIRTH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse birth date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse birth date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_BIRTH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseBirthDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_BIRTH_PLACE" id="SPOUSE_BIRTH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#155-158" title="Go to source code"><b>SPOUSE_BIRTH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse birth place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse birth place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_BIRTH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseBirthPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_DEATH_DATE" id="SPOUSE_DEATH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#159-162" title="Go to source code"><b>SPOUSE_DEATH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse death date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse death date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_DEATH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseDeathDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_DEATH_PLACE" id="SPOUSE_DEATH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#163-166" title="Go to source code"><b>SPOUSE_DEATH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse death place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse death place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_DEATH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseDeathPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_MARRIAGE_DATE" id="SPOUSE_MARRIAGE_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#167-170" title="Go to source code"><b>SPOUSE_MARRIAGE_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse marriage date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse marriage date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_MARRIAGE_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseMarriageDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="SPOUSE_MARRIAGE_PLACE" id="SPOUSE_MARRIAGE_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#171-174" title="Go to source code"><b>SPOUSE_MARRIAGE_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The spouse marriage place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The spouse marriage place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#SPOUSE_MARRIAGE_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;spouseMarriagePlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_NAME" id="PARENT_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#175-178" title="Go to source code"><b>PARENT_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_GIVEN_NAME" id="PARENT_GIVEN_NAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#179-182" title="Go to source code"><b>PARENT_GIVEN_NAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent given name parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent given name parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_GIVEN_NAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentGivenName&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_SURNAME" id="PARENT_SURNAME">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#183-186" title="Go to source code"><b>PARENT_SURNAME</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent surname parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent surname parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_SURNAME" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentSurname&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_GENDER" id="PARENT_GENDER">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#187-190" title="Go to source code"><b>PARENT_GENDER</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent gender parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent gender parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_GENDER" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentGender&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_BIRTH_DATE" id="PARENT_BIRTH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#191-194" title="Go to source code"><b>PARENT_BIRTH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent birth date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent birth date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_BIRTH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentBirthDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_BIRTH_PLACE" id="PARENT_BIRTH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#195-198" title="Go to source code"><b>PARENT_BIRTH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent birth place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent birth place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_BIRTH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentBirthPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_DEATH_DATE" id="PARENT_DEATH_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#199-202" title="Go to source code"><b>PARENT_DEATH_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent death date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent death date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_DEATH_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentDeathDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_DEATH_PLACE" id="PARENT_DEATH_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#203-206" title="Go to source code"><b>PARENT_DEATH_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent death place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent death place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_DEATH_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentDeathPlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_MARRIAGE_DATE" id="PARENT_MARRIAGE_DATE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#207-210" title="Go to source code"><b>PARENT_MARRIAGE_DATE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent marriage date parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent marriage date parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_MARRIAGE_DATE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentMarriageDate&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			<tr data-order="PARENT_MARRIAGE_PLACE" id="PARENT_MARRIAGE_PLACE">
+
+				<td class="attributes"><code>string</code></td>
+				<td class="name">
+					<code>
+						<a href="source-class-Gedcomx.Rs.Client.Util.GedcomxPersonSearchQueryBuilder.html#211-214" title="Go to source code"><b>PARENT_MARRIAGE_PLACE</b></a>
+					</code>
+
+					<div class="description short">
+						<p>The parent marriage place parameter in person search queries</p>
+					</div>
+
+					<div class="description detailed hidden">
+						<p>The parent marriage place parameter in person search queries</p>
+
+					</div>
+				</td>
+				<td class="value">
+					<div>
+						<a href="#PARENT_MARRIAGE_PLACE" class="anchor">#</a>
+						<code><span class="php-quote">&quot;parentMarriagePlace&quot;</span></code>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		gedcomx-php API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
