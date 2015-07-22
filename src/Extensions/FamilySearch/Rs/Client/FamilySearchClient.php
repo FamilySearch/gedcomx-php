@@ -71,8 +71,8 @@ class FamilySearchClient {
     
     /**
      * Construct a FamilySearch Client.
-     * 
-     * Available options:
+     *
+     * @param array $options A keyed array of configuration options for the client. Available options:
      * 
      * * `clientId` - Required for authentication.
      * * `redirectURI` - Required for authentication.
@@ -80,8 +80,6 @@ class FamilySearchClient {
      * * `environment` - `production`, `beta`, or `sandbox`; defaults to `sandbox`.
      * * `userAgent` - A string which will be prepended to the default user agent string.
      * * `pendingModifications` - An array of pending modifications that should be enabled.
-     *
-     * @param array $options A keyed array of configuration options for the client.
      */
     public function __construct($options = array())
     {
