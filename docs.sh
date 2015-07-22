@@ -12,14 +12,11 @@ git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis"
 
 # Switch to gh-pages
-git checkout gh-pages
-
-# Clear the current directory so that we don't accidentally
-# commit any leftover files from the build or test process
-# such as the vendor folder
-rm -rf ./*
+git clone --branch gh-pages https://${GH_TOKEN}@github.com/FamilySearch/gedcomx-php.git ../gh-pages > /dev/null
+cd ../gh-pages
 
 # Delete old docs and copy in new docs
+rm -rf ./*
 cp -R ../docs/* ./
 
 # Push generated files
