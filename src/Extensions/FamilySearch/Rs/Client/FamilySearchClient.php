@@ -70,9 +70,18 @@ class FamilySearchClient {
     private $homeState;
     
     /**
-     * Construct a FamilySearch Client
+     * Construct a FamilySearch Client.
+     * 
+     * Available options:
+     * 
+     * * `clientId` - Required for authentication.
+     * * `redirectURI` - Required for authentication.
+     * * `accessToken` - If the access token is set then the `clientId` and `redirectURI` are not needed.
+     * * `environment` - `production`, `beta`, or `sandbox`; defaults to `sandbox`.
+     * * `userAgent` - A string which will be prepended to the default user agent string.
+     * * `pendingModifications` - An array of pending modifications that should be enabled.
      *
-     * @param array $options A keyed of configuration options for the client.
+     * @param array $options A keyed array of configuration options for the client.
      */
     public function __construct($options = array())
     {
