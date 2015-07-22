@@ -10,7 +10,7 @@ use Gedcomx\Extensions\FamilySearch\Feature;
 class FamilySearchClientTests extends ApiTestCase
 {
     /**
-     * @vcr FamilySearchClientTests/testDefaultUserAgent
+     * @vcr FamilySearchClientTests/testDefaultUserAgent.json
      */
     public function testUserAgent()
     {
@@ -21,7 +21,7 @@ class FamilySearchClientTests extends ApiTestCase
     }
     
     /**
-     * @vcr FamilySearchClientTests/testCustomUserAgent
+     * @vcr FamilySearchClientTests/testCustomUserAgent.json
      */
     public function testCustomUserAgent()
     {
