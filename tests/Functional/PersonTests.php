@@ -777,12 +777,13 @@ class PersonTests extends ApiTestCase
             $childrenState->getStatus(),
             $this->buildFailMessage(__METHOD__."(childrenState)", $childrenState)
         );
-
-        $this->assertEquals(
-            HttpStatus::OK,
-            $childrenState->getStatus(),
-            $this->buildFailMessage(__METHOD__,$childrenState)
-        );
+        
+        foreach($childrenState->getChildAndParentsRelationships() as $relationship){
+            $this->assertEquals(
+                $relationship->getChild()->getResourceId(),
+                $childrenState->getPerson($relationship->getChild())->getId()
+            );
+        }
     }
 
     /**
@@ -861,6 +862,13 @@ class PersonTests extends ApiTestCase
         $this->assertNotNull($parentState->getEntity(), "Read parents failed. Entity is null.");
         $this->assertEquals(2, count($parentState->getRelationships()), "Should have two relationship objects on Entity.");
         $this->assertEquals(2, count($parentState->getPersons()), "Should have two person objects on Entity.");
+        
+        foreach($parentState->getChildAndParentsRelationships() as $relationship){
+            $this->assertEquals(
+                $relationship->getFather()->getResourceId(),
+                $parentState->getPerson($relationship->getFather())->getId()
+            );
+        }
 
     }
 
@@ -925,6 +933,13 @@ class PersonTests extends ApiTestCase
         $this->assertNotNull($spouse->getEntity(), "Read spouses failed. Entity is null.");
         $this->assertGreaterThan(0, count($spouse->getPersons()), "No spouse persons found.");
         $this->assertGreaterThan(0, count($spouse->getRelationships()), "No relationships found.");
+        
+        foreach($spouse->getRelationships() as $relationship){
+            $this->assertEquals(
+                $relationship->getPerson2()->getResourceId(),
+                $spouse->getPerson($relationship->getPerson2()->getResourceId())->getId()
+            );
+        }
     }
 
     /**

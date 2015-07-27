@@ -19,7 +19,7 @@ use Guzzle\Http\Message\Response;
  *
  * @package Gedcomx\Rs\Client
  */
-class PersonSpousesState extends GedcomxApplicationState
+class PersonSpousesState extends PersonsState
 {
     /**
      * Create a new PersonSpousesState

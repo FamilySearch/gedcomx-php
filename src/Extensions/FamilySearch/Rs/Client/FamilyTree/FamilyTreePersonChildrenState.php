@@ -37,7 +37,7 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
     /**
      * Return the ChildAndParentsRelationship objects from the response
      *
-     * @return ChildAndParentsRelationship[]|null
+     * @return Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship[]|null
      */
     public function getChildAndParentsRelationships()
     {
@@ -47,9 +47,9 @@ class FamilyTreePersonChildrenState extends PersonChildrenState
     /**
      * Find the relationships in which the given person is a child
      *
-     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\Person $child
+     * @param Gedcomx\Conclusion\Person\Person $child
      *
-     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationship|null
+     * @return Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship|null
      */
     public function findChildAndParentsRelationshipTo(Person $child)
     {

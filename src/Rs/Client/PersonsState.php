@@ -4,6 +4,7 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
+use Gedcomx\Common\ResourceReference;
 use Gedcomx\Conclusion\Person;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Guzzle\Http\Message\Request;
@@ -70,7 +71,7 @@ class PersonsState extends GedcomxApplicationState
     /**
      * Gets the array of persons represented by this current instance.
      *
-     * @return Person[]|null
+     * @return Gedcomx\Conclusion\Person[]|null
      */
     public function getPersons()
     {
@@ -78,6 +79,31 @@ class PersonsState extends GedcomxApplicationState
             return $this->entity->getPersons();
         }
 
+        return null;
+    }
+    
+    /**
+     * Get the specified person if it's available in the response
+     * 
+     * @param Gedcomx\Common\ResourceReference|string $personReference
+     * 
+     * @return Gedcomx\Conclusion\Person|null
+     */
+    public function getPerson($personReference)
+    {
+        $personId = $personReference;
+        if($personReference instanceof ResourceReference){
+            $personId = $personReference->getResourceId();
+        }
+        
+        if($this->entity && $this->entity->getPersons()){
+            foreach($this->entity->getPersons() as $person){
+                if($person->getId() == $personId){
+                    return $person;
+                }
+            }
+        }
+        
         return null;
     }
 

@@ -18,7 +18,7 @@ use Gedcomx\Conclusion\Person;
 use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
-use Gedcomx\Rs\Client\GedcomxApplicationState;
+use Gedcomx\Rs\Client\PersonsState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
@@ -33,7 +33,7 @@ use Guzzle\Http\Message\Response;
  *
  * @package Gedcomx\Rs\Client
  */
-class PersonChildrenState extends GedcomxApplicationState
+class PersonChildrenState extends PersonsState
 {
     /**
      * Constructs a new person children state using the specified client, request, respons, access token, and state

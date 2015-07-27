@@ -20,7 +20,7 @@ use RuntimeException;
  *
  * @package Gedcomx\Rs\Client
  */
-class PersonParentsState extends GedcomxApplicationState
+class PersonParentsState extends PersonsState
 {
     /**
      * Constructs a new person parents state using the specified client, request, response, access token, and state factory.
