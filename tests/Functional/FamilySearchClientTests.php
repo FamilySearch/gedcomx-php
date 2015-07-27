@@ -77,7 +77,7 @@ class FamilySearchClientTests extends ApiTestCase
         $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $responseState->getResponse()->getStatusCode(),
+            $responseState->getStatus(),
             $this->buildFailMessage(__METHOD__, $responseState)
         );
     }
@@ -93,7 +93,7 @@ class FamilySearchClientTests extends ApiTestCase
         $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
         $this->assertEquals(
             HttpStatus::OK,
-            $responseState->getResponse()->getStatusCode(),
+            $responseState->getStatus(),
             $this->buildFailMessage(__METHOD__, $responseState)
         );
     }

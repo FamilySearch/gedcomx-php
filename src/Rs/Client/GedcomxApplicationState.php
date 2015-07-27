@@ -290,7 +290,7 @@ abstract class GedcomxApplicationState
      */
     public function hasClientError()
     {
-        $statusCode = intval($this->response->getStatusCode());
+        $statusCode = intval($this->getStatus());
         return $statusCode >= 400 && $statusCode < 500;
     }
 
@@ -301,7 +301,7 @@ abstract class GedcomxApplicationState
      */
     public function hasServerError()
     {
-        $statusCode = intval($this->response->getStatusCode());
+        $statusCode = intval($this->getStatus());
         return $statusCode >= 500 && $statusCode < 600;
     }
 
@@ -324,7 +324,17 @@ abstract class GedcomxApplicationState
      */
     public function hasStatus($status)
     {
-        return $status == $this->getResponse()->getStatusCode() ? true : false;
+        return $status == $this->getStatus() ? true : false;
+    }
+
+    /**
+     * Get the HTTP status code of the response.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return intval($this->getResponse()->getStatusCode());
     }
 
     /**
