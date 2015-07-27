@@ -480,7 +480,7 @@
 </span><span id="37" class="l">    <span class="php-comment">/**
 </span></span><span id="38" class="l"><span class="php-comment">     * Return the ChildAndParentsRelationship objects from the response
 </span></span><span id="39" class="l"><span class="php-comment">     *
-</span></span><span id="40" class="l"><span class="php-comment">     * @return ChildAndParentsRelationship[]|null
+</span></span><span id="40" class="l"><span class="php-comment">     * @return Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship[]|null
 </span></span><span id="41" class="l"><span class="php-comment">     */</span>
 </span><span id="42" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getChildAndParentsRelationships()
 </span><span id="43" class="l">    {
@@ -490,9 +490,9 @@
 </span><span id="47" class="l">    <span class="php-comment">/**
 </span></span><span id="48" class="l"><span class="php-comment">     * Find the relationships in which the given person is a child
 </span></span><span id="49" class="l"><span class="php-comment">     *
-</span></span><span id="50" class="l"><span class="php-comment">     * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\Person $child
+</span></span><span id="50" class="l"><span class="php-comment">     * @param Gedcomx\Conclusion\Person\Person $child
 </span></span><span id="51" class="l"><span class="php-comment">     *
-</span></span><span id="52" class="l"><span class="php-comment">     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationship|null
+</span></span><span id="52" class="l"><span class="php-comment">     * @return Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship|null
 </span></span><span id="53" class="l"><span class="php-comment">     */</span>
 </span><span id="54" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> findChildAndParentsRelationshipTo(Person <span class="php-var">$child</span>)
 </span><span id="55" class="l">    {
