@@ -44,7 +44,7 @@ class PlacesTests extends ApiTestCase
         $results = $collection->searchForPlaces($query);
         $this->assertEquals(
             HttpStatus::OK,
-            $results->getResponse()->getStatusCode(),
+            $results->getStatus(),
             $this->buildFailMessage(__METHOD__."(search results)", $results)
         );
         $places = $results->getResults();
@@ -53,7 +53,7 @@ class PlacesTests extends ApiTestCase
         $description = $results->readPlaceDescription($places[0]);
         $this->assertEquals(
             HttpStatus::OK,
-            $description->getResponse()->getStatusCode(),
+            $description->getStatus(),
             $this->buildFailMessage(__METHOD__."(place description)", $description)
         );
 
@@ -61,7 +61,7 @@ class PlacesTests extends ApiTestCase
         $place = $description->readPlace();
         $this->assertEquals(
             HttpStatus::OK,
-            $place->getResponse()->getStatusCode(),
+            $place->getStatus(),
             $this->buildFailMessage(__METHOD__."(read place)", $place)
         );
         $this->assertNotNull($place->getEntity());
@@ -88,7 +88,7 @@ class PlacesTests extends ApiTestCase
         $results = $collection->searchForPlaces($query);
         $this->assertEquals(
             HttpStatus::OK,
-            $results->getResponse()->getStatusCode(),
+            $results->getStatus(),
             $this->buildFailMessage(__METHOD__.'(search results)', $results)
         );
 
@@ -97,7 +97,7 @@ class PlacesTests extends ApiTestCase
         $description = $results->readPlaceDescription($places[0]);
         $this->assertEquals(
             HttpStatus::OK,
-            $description->getResponse()->getStatusCode(),
+            $description->getStatus(),
             $this->buildFailMessage(__METHOD__, $description)
         );
         $this->assertNotNull($description->getEntity(), "Description entity is null.");
@@ -125,7 +125,7 @@ class PlacesTests extends ApiTestCase
         $results = $collection->searchForPlaces($query);
         $this->assertEquals(
             HttpStatus::OK,
-            $results->getResponse()->getStatusCode(),
+            $results->getStatus(),
             $this->buildFailMessage(__METHOD__.'(search results)', $results)
         );
         $this->assertNotNull($results->getEntity(), "Search results entity is null.");
@@ -137,7 +137,7 @@ class PlacesTests extends ApiTestCase
         $description = $results->readPlaceDescription($places[0]);
         $this->assertEquals(
             HttpStatus::OK,
-            $description->getResponse()->getStatusCode(),
+            $description->getStatus(),
             $this->buildFailMessage(__METHOD__.'(read description)', $description)
         );
         $this->assertNotNull($description->getEntity(), "Place description entity is null.");
@@ -146,7 +146,7 @@ class PlacesTests extends ApiTestCase
         $children = $description->readChildren();
         $this->assertEquals(
             HttpStatus::OK,
-            $children->getResponse()->getStatusCode(),
+            $children->getStatus(),
             $this->buildFailMessage(__METHOD__, $children)
         );
         $this->assertNotNull($children->getEntity(), "Children entity is null.");
@@ -169,7 +169,7 @@ class PlacesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::OK,
-            $this->vocabListState->getResponse()->getStatusCode(),
+            $this->vocabListState->getStatus(),
             $this->buildFailMessage(__METHOD__,$this->vocabListState)
         );
         $this->assertNotEmpty($this->vocabElements, "Vocabulary list is empty.");
@@ -183,7 +183,7 @@ class PlacesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::OK,
-            $type->getResponse()->getStatusCode(),
+            $type->getStatus(),
             $this->buildFailMessage(__METHOD__,$type)
         );
 
@@ -220,7 +220,7 @@ class PlacesTests extends ApiTestCase
         $groupTypesState = $collection->readPlaceTypeGroups();
         $this->assertEquals(
             HttpStatus::OK,
-            $groupTypesState->getResponse()->getStatusCode(),
+            $groupTypesState->getStatus(),
             $this->buildFailMessage(__METHOD__."(List group types)",$groupTypesState)
         );
         $groupTypes = $groupTypesState->getVocabElementList()->getElements();
@@ -232,7 +232,7 @@ class PlacesTests extends ApiTestCase
         $groupTypeState = $collection->readPlaceTypeGroupById($groupTypes[0]->getId());
         $this->assertEquals(
             HttpStatus::OK,
-            $groupTypeState->getResponse()->getStatusCode(),
+            $groupTypeState->getStatus(),
             $this->buildFailMessage(__METHOD__."(List groups in type)",$groupTypeState)
         );
         $groups = $groupTypeState->getVocabElementList()->getElements();
@@ -244,7 +244,7 @@ class PlacesTests extends ApiTestCase
         $groupState = $collection->readPlaceGroupById(30);
         $this->assertEquals(
             HttpStatus::OK,
-            $groupState->getResponse()->getStatusCode(),
+            $groupState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Get group)",$groupState)
         );
         $this->assertNotEmpty($groupState->getPlaceGroup());
@@ -269,7 +269,7 @@ class PlacesTests extends ApiTestCase
         
         // Only ask for 5 results so that we don't record a ton of data
         $response = $collection->searchForPlaces($query, QueryParameter::count(5));
-        $this->assertEquals(HttpStatus::OK, $response->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $response->getStatus());
         $this->assertNotNull($response->getEntity(), "Search results entity is null.");
 
         /** @var \Gedcomx\Atom\Entry[] $results */

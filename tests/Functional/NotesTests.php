@@ -300,7 +300,7 @@ class NotesTests extends ApiTestCase
         $person->delete();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
     }
 
     /**

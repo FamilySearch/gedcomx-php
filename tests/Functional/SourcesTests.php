@@ -45,21 +45,21 @@ class SourcesTests extends ApiTestCase
 
         /** @var PersonState $personState */
         $personState = $this->createPerson();
-        $this->assertEquals(HttpStatus::CREATED, $personState->getResponse()->getStatusCode() );
+        $this->assertEquals(HttpStatus::CREATED, $personState->getStatus() );
         $personState = $personState->get();
-        $this->assertEquals(HttpStatus::OK, $personState->getResponse()->getStatusCode() );
+        $this->assertEquals(HttpStatus::OK, $personState->getStatus() );
         $sourceState = $this->createSource();
-        $this->assertEquals(HttpStatus::CREATED, $sourceState->getResponse()->getStatusCode() );
+        $this->assertEquals(HttpStatus::CREATED, $sourceState->getStatus() );
 
         $reference = new SourceReference();
         $reference->setDescriptionRef($sourceState->getSelfUri());
         $reference->setAttribution( new Attribution( array("changeMessage" => TestBuilder::faker()->sentence(6))));
         /** @var \Gedcomx\Rs\Client\PersonState $newState */
         $newState = $personState->addSourceReferenceObj($reference);
-        $this->assertEquals(HttpStatus::CREATED, $newState->getResponse()->getStatusCode() );
+        $this->assertEquals(HttpStatus::CREATED, $newState->getStatus() );
 
         $personState = $personState->get();
-        $this->assertEquals(HttpStatus::OK, $personState->getResponse()->getStatusCode() );
+        $this->assertEquals(HttpStatus::OK, $personState->getStatus() );
         $this->assertNotNull($personState->getEntity());
         $this->assertNotEmpty($personState->getEntity()->getSourceDescriptions());
     }
@@ -79,7 +79,7 @@ class SourcesTests extends ApiTestCase
         $sourceState = $this->collectionState()->addSourceDescription($source);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__ . "(CREATE)", $sourceState)
         );
 
@@ -104,13 +104,13 @@ class SourcesTests extends ApiTestCase
         $relation = $relation->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $relation->getResponse()->getStatusCode(),
+            $relation->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relation)
         );
         $sourceState = $this->createSource();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceState)
         );
         $this->queueForDelete($sourceState);
@@ -123,7 +123,7 @@ class SourcesTests extends ApiTestCase
         $newState = $relation->addSourceReference($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $newState->getResponse()->getStatusCode(),
+            $newState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newState)
         );
 
@@ -145,25 +145,25 @@ class SourcesTests extends ApiTestCase
         $person1 = $this->createPerson('male');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person1->getResponse()->getStatusCode(),
+            $person1->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $person1)
         );
         $person1 = $person1->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $person1->getResponse()->getStatusCode(),
+            $person1->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $person1)
         );
         $person2 = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person2->getResponse()->getStatusCode(),
+            $person2->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $person2)
         );
         $person2 = $person2->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $person2->getResponse()->getStatusCode(),
+            $person2->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $person2)
         );
 
@@ -172,7 +172,7 @@ class SourcesTests extends ApiTestCase
         $relation = $this->collectionState()->addSpouseRelationship($person1, $person2);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $relation->getResponse()->getStatusCode(),
+            $relation->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relation)
         );
         $this->queueForDelete($relation);
@@ -180,7 +180,7 @@ class SourcesTests extends ApiTestCase
         $relation = $relation->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $relation->getResponse()->getStatusCode(),
+            $relation->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relation)
         );
 
@@ -188,7 +188,7 @@ class SourcesTests extends ApiTestCase
         $sourceState = $this->createSource();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceState)
         );
         $this->queueForDelete($sourceState);
@@ -203,7 +203,7 @@ class SourcesTests extends ApiTestCase
         $sourceRef = $relation->addSourceReference($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceRef->getResponse()->getStatusCode(),
+            $sourceRef->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceRef)
         );
         $relation->loadSourceReferences();
@@ -222,14 +222,14 @@ class SourcesTests extends ApiTestCase
         $person = $this->createPerson();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person->getResponse()->getStatusCode(),
+            $person->getStatus(),
             $this->buildFailMessage(__METHOD__.'(create person)', $person)
         );
 
         $person = $person->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $person->getResponse()->getStatusCode(),
+            $person->getStatus(),
             $this->buildFailMessage(__METHOD__.'(read person)', $person)
         );
 
@@ -239,20 +239,20 @@ class SourcesTests extends ApiTestCase
         $a1 = $person->addArtifact($ds);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $a1->getResponse()->getStatusCode(),
+            $a1->getStatus(),
             $this->buildFailMessage(__METHOD__.'(add artifact)', $a1)
         );
         $this->queueForDelete($a1);
-        $this->assertEquals(HttpStatus::CREATED, $a1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $a1->getStatus());
 
         $artifacts = $person->readArtifacts();
-        $this->assertEquals(HttpStatus::OK, $artifacts->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $artifacts->getStatus());
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $artifact */
         $artifact = $person->readArtifacts();
         $this->assertEquals(
             HttpStatus::OK,
-            $artifact->getResponse()->getStatusCode(),
+            $artifact->getStatus(),
             $this->buildFailMessage(__METHOD__.'(read artifact)', $artifact)
         );
         $artifact = $artifact->getSourceDescription();
@@ -266,7 +266,7 @@ class SourcesTests extends ApiTestCase
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(
             HttpStatus::CREATED,
-            $state->getResponse()->getStatusCode(),
+            $state->getStatus(),
             $this->buildFailMessage(__METHOD__.'(source description)', $state)
         );
     }
@@ -317,9 +317,9 @@ class SourcesTests extends ApiTestCase
         $token = $this->collectionState()->getAccessToken();
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson();
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
         $this->queueForDelete($sds);
 
@@ -336,7 +336,7 @@ class SourcesTests extends ApiTestCase
         $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getSourceDescription());
         $this->assertNotNull($state->getEntity());
         $this->assertNotNull($state->getEntity()->getPersons());
@@ -353,12 +353,12 @@ class SourcesTests extends ApiTestCase
         $sd = SourceBuilder::newSource();
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
-        $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $description->getStatus());
         $this->queueForDelete($description);
 
         $description = $description->get();
         $this->assertNotNull($description->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $description->getStatus());
         $this->assertNotNull($description->getSourceDescription());
     }
 
@@ -386,7 +386,7 @@ class SourcesTests extends ApiTestCase
         $state = $source->queryAttachedReferences();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getEntity());
         $this->assertNotNull($state->getEntity()->getPersons());
         $this->assertGreaterThan(0, count($state->getEntity()->getPersons()));
@@ -415,11 +415,11 @@ class SourcesTests extends ApiTestCase
         $token = $this->collectionState()->getAccessToken();
         /** @var FamilyTreePersonState $father */
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $child = $this->createPerson();
-        $this->assertEquals(HttpStatus::CREATED, $child->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $child->getStatus());
         $chapr = new ChildAndParentsRelationship();
         $this->assertNotEmpty($father->getResourceReference());
         $chapr->setFather($father->getResourceReference());
@@ -428,16 +428,16 @@ class SourcesTests extends ApiTestCase
         /** @var ChildAndParentsRelationshipState $relation */
         $relation = $this->collectionState()->addChildAndParentsRelationship($chapr);
         $this->queueForDelete($relation);
-        $this->assertEquals(HttpStatus::CREATED, $relation->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $relation->getStatus());
         $relation = $relation->get();
-        $this->assertEquals(HttpStatus::OK, $relation->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $relation->getStatus());
 
         /** @var SourceDescriptionState $sds */
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
         $this->queueForDelete($sds);
-        $this->assertEquals(HttpStatus::CREATED, $sds->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $sds->getStatus());
         $sds = $sds->get();
-        $this->assertEquals(HttpStatus::OK, $sds->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $sds->getStatus());
         $relation->addSourceReferenceState($sds);
         $this->assertNotNull($father->getLink(Rel::CHILD_RELATIONSHIPS));
         $relationships = $father->loadChildRelationships()->getChildAndParentsRelationships();
@@ -458,7 +458,7 @@ class SourcesTests extends ApiTestCase
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getSourceDescription());
     }
 
@@ -515,28 +515,28 @@ class SourcesTests extends ApiTestCase
         $token = $this->collectionState()->getAccessToken();
         /** @var FamilyTreePersonState $husband */
         $husband = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $husband->getStatus());
         $husband = $husband->get();
-        $this->assertEquals(HttpStatus::OK, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $husband->getStatus());
         $wife = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $wife->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $wife->getStatus());
         /** @var RelationshipState $relation */
         $relation = $husband->addSpouse($wife);
         $this->queueForDelete($relation);
-        $this->assertEquals(HttpStatus::CREATED, $relation->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $relation->getStatus());
 
         $sds = $this->collectionState()->addSourceDescription(SourceBuilder::hitchhiker());
         $this->queueForDelete($sds);
-        $this->assertEquals(HttpStatus::CREATED, $sds->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $sds->getStatus());
 
         $relation->addSourceDescriptionState($sds);
         $relationships = $husband->loadSpouseRelationships();
-        $this->assertEquals(HttpStatus::OK, $relationships->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $relationships->getStatus());
         $relations = $relationships->getRelationships();
         $this->assertNotEmpty($relations);
         $relationship = array_shift($relations);
         $relation = $husband->readRelationship($relationship);
-        $this->assertEquals(HttpStatus::OK, $relation->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $relation->getStatus());
         $linkObj = $relation->getLink(Rel::SOURCE_DESCRIPTIONS);
         $this->assertNotNull($linkObj);
         $link = $linkObj->getHref();
@@ -548,7 +548,7 @@ class SourcesTests extends ApiTestCase
         $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getSourceDescription());
         $this->assertNotEmpty($state->getEntity()->getRelationships());
     }
@@ -566,20 +566,20 @@ class SourcesTests extends ApiTestCase
         $personState = $this->createPerson();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $personState->getResponse()->getStatusCode(),
+            $personState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $personState)
         );
         $personState = $personState->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $personState->getResponse()->getStatusCode(),
+            $personState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $personState)
         );
 
         $sourceState = $this->createSource();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceState)
         );
 
@@ -592,7 +592,7 @@ class SourcesTests extends ApiTestCase
         $newState = $personState->addSourceReferenceObj($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $newState->getResponse()->getStatusCode(),
+            $newState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newState)
         );
 
@@ -603,7 +603,7 @@ class SourcesTests extends ApiTestCase
         $newerState = $personState->updateSourceReferences($persons[0]);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $newerState->getResponse()->getStatusCode(),
+            $newerState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newerState)
         );
     }
@@ -619,15 +619,15 @@ class SourcesTests extends ApiTestCase
         $sd = SourceBuilder::newSource();
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
-        $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $description->getStatus());
         $this->queueForDelete($description);
 
         $description = $description->get();
-        $this->assertEquals(HttpStatus::OK, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $description->getStatus());
 
         $state = $description->update($description->getSourceDescription());
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
     }
 
     /**
@@ -643,20 +643,20 @@ class SourcesTests extends ApiTestCase
         $personState = $this->createPerson();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $personState->getResponse()->getStatusCode(),
+            $personState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $personState)
         );
         $personState = $personState->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $personState->getResponse()->getStatusCode(),
+            $personState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $personState)
         );
 
         $sourceState = $this->createSource();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $personState)
         );
 
@@ -666,7 +666,7 @@ class SourcesTests extends ApiTestCase
         $added = $personState->addSourceReferenceObj($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $added->getResponse()->getStatusCode(),
+            $added->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $added)
         );
         $personState->loadSourceReferences();
@@ -677,7 +677,7 @@ class SourcesTests extends ApiTestCase
         $newerState = $personState->deleteSourceReference($references[0]);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $newerState->getResponse()->getStatusCode(),
+            $newerState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newerState)
         );
     }
@@ -693,15 +693,15 @@ class SourcesTests extends ApiTestCase
 
         /** @var SourceDescriptionState $description */
         $description = $this->collectionState()->addSourceDescription($sd);
-        $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $description->getStatus());
         $this->queueForDelete($description);
 
         $description = $description->get();
-        $this->assertEquals(HttpStatus::OK, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $description->getStatus());
 
         $state = $description->delete();
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
     }
 
     /**
@@ -719,13 +719,13 @@ class SourcesTests extends ApiTestCase
         $relation = $relation->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $relation->getResponse()->getStatusCode(),
+            $relation->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relation)
         );
         $sourceState = $this->createSource();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceState->getResponse()->getStatusCode(),
+            $sourceState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceState)
         );
         $this->queueForDelete($sourceState);
@@ -738,7 +738,7 @@ class SourcesTests extends ApiTestCase
         $newState = $relation->addSourceReference($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $newState->getResponse()->getStatusCode(),
+            $newState->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newState)
         );
 
@@ -749,7 +749,7 @@ class SourcesTests extends ApiTestCase
         $deleted = $relation->deleteSourceReference($sources[0]);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $deleted->getResponse()->getStatusCode(),
+            $deleted->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $deleted)
         );
 
@@ -771,13 +771,13 @@ class SourcesTests extends ApiTestCase
         $husband = $this->createPerson('male');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $husband)
         );
         $husband = $husband->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $husband)
         );
 
@@ -785,7 +785,7 @@ class SourcesTests extends ApiTestCase
         $wife = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $wife->getResponse()->getStatusCode(),
+            $wife->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $wife)
         );
 
@@ -793,14 +793,14 @@ class SourcesTests extends ApiTestCase
         $relationship = $husband->addSpouse($wife);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $relationship->getResponse()->getStatusCode(),
+            $relationship->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relationship)
         );
         $this->queueForDelete($relationship);
         $relationship = $relationship->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $relationship->getResponse()->getStatusCode(),
+            $relationship->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $relationship)
         );
 
@@ -813,7 +813,7 @@ class SourcesTests extends ApiTestCase
         $sourceRef = $relationship->addSourceReference($reference);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $sourceRef->getResponse()->getStatusCode(),
+            $sourceRef->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceRef)
         );
 
@@ -822,7 +822,7 @@ class SourcesTests extends ApiTestCase
 
         $state = $relationship->deleteSourceReference($relationship->getSourceReference());
         $this->AssertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
         $relationship = $relationship->get();
         $relationship->loadSourceReferences($this->createCacheBreakerQueryParam());

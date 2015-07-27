@@ -40,11 +40,11 @@ class SearchAndMatchTests extends ApiTestCase
 
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person2 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person2->getStatus());
         $person2 = $person2->get();
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->queueForDelete($person1, $person2);
         
         $this->waitForServerUpdates();
@@ -53,7 +53,7 @@ class SearchAndMatchTests extends ApiTestCase
         $matches = $person2->readMatches();
         $this->assertEquals(
             HttpStatus::OK,
-            $matches->getResponse()->getStatusCode(),
+            $matches->getStatus(),
             $this->buildFailMessage(__METHOD__, $matches)
         );
         $this->assertNotNull($matches->getResults());
@@ -68,7 +68,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $person2->readNonMatches();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getEntity());
         $this->assertNotEmpty($state->getEntity()->getPersons());
         $this->assertEquals(1, count($state->getEntity()->getPersons()));
@@ -86,13 +86,13 @@ class SearchAndMatchTests extends ApiTestCase
 
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person1 = $person1->get();
-        $this->assertEquals(HttpStatus::OK, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person1->getStatus());
         $person2 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person2->getStatus());
         $person2 = $person2->get();
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->queueForDelete($person1, $person2);
 
         $this->waitForServerUpdates();
@@ -101,7 +101,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $person2->readMatches();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotEmpty($state->getResults()->getEntries());
     }
 
@@ -116,15 +116,15 @@ class SearchAndMatchTests extends ApiTestCase
 
         $person = $this->createPerson();
         $this->queueForDelete($person);
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $query = new QueryParameter(true, "collection", "https://familysearch.org/platform/collections/records");
         /** @var PersonMatchResultsState $state */
         $state = $person->readMatches($query);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
         $this->assertNull($state->getResults());
     }
 
@@ -139,11 +139,11 @@ class SearchAndMatchTests extends ApiTestCase
 
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person2 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person2->getStatus());
         $person2 = $person2->get();
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->queueForDelete($person1, $person2);
 
         $this->waitForServerUpdates();
@@ -154,7 +154,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $person2->readMatches($statuses);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotEmpty($state->getResults()->getEntries());
     }
 
@@ -169,11 +169,11 @@ class SearchAndMatchTests extends ApiTestCase
 
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person2 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person2->getStatus());
         $person2 = $person2->get();
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->queueForDelete($person1, $person2);
 
         $this->waitForServerUpdates();
@@ -184,7 +184,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $person2->readMatches($statuses, $confidence);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotEmpty($state->getResults()->getEntries());
     }
 
@@ -210,7 +210,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $collection->searchForPersonMatches($query, QueryParameter::count(2));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getResults());
         $this->assertNotNull($state->getResults()->getEntries());
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));
@@ -227,9 +227,9 @@ class SearchAndMatchTests extends ApiTestCase
         $this->collectionState($factory);
 
         $searchResults = $this->collectionState()->searchForPersons($this->searchQuery, QueryParameter::count(2));
-        $this->assertEquals(HttpStatus::OK, $searchResults->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $searchResults->getStatus());
         $nextPage = $searchResults->readNextPage();
-        $this->assertEquals(HttpStatus::OK, $nextPage->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $nextPage->getStatus());
         $this->assertNotNull($searchResults->getEntity());
         $first = $searchResults->getEntity()->getEntries();
         $this->assertNotNull($nextPage->getEntity());
@@ -252,11 +252,11 @@ class SearchAndMatchTests extends ApiTestCase
         $collection = new QueryParameter(true, "collection", "https://familysearch.org/platform/collections/records");
         $p = PersonBuilder::buildPerson(null);
         $person1 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person2 = $this->collectionState()->addPerson($p, $this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::CREATED, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person2->getStatus());
         $person2 = $person2->get();
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->queueForDelete($person1, $person2);
 
         $this->waitForServerUpdates();
@@ -265,7 +265,7 @@ class SearchAndMatchTests extends ApiTestCase
         $matches = $person2->readMatches();
         $this->assertEquals(
             HttpStatus::OK,
-            $matches->getResponse()->getStatusCode(),
+            $matches->getStatus(),
             $this->buildFailMessage(__METHOD__, $matches)
         );
 
@@ -280,11 +280,11 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $matches->updateMatchStatus($entry, $accepted, $collection);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
         $statuses = new QueryParameter(true, "status", "accepted");
         $matches = $person2->readMatches($statuses);
-        $this->assertEquals(HttpStatus::OK, $person2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person2->getStatus());
         $this->assertNotNull($matches->getResults());
         $this->assertNotEmpty($matches->getResults()->getEntries());
         $entries = $matches->getResults()->getEntries();
@@ -304,7 +304,7 @@ class SearchAndMatchTests extends ApiTestCase
         $query = "givenName:Richard Henry~ surname:Washington~";
         $searchResults = $this->collectionState()->searchForPersons($query, QueryParameter::count(2));
 
-        $this->assertEquals(HttpStatus::OK, $searchResults->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $searchResults->getStatus());
         $this->assertNotNull($searchResults);
         $this->assertNotNull($searchResults->getResults());
         $this->assertNotEmpty($searchResults->getResults()->getEntries());
@@ -336,7 +336,7 @@ class SearchAndMatchTests extends ApiTestCase
         $state = $collection->searchForPersonMatches($query, QueryParameter::count(2));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getResults());
         $this->assertNotNull($state->getResults()->getEntries());
         $this->assertGreaterThan(0, count($state->getResults()->getEntries()));

@@ -37,10 +37,10 @@ class SourceBoxTests extends ApiTestCase
         $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $state->getStatus());
 
         $subcollections = $collection->readSubcollections();
-        $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollections->getStatus());
         $collectionList = $subcollections->getCollections();
         $this->assertNotEmpty($collectionList);
         $found = false;
@@ -62,12 +62,12 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $sds = $this->createSource();
-        $this->assertEquals(HttpStatus::CREATED, $sds->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $sds->getStatus());
         $sub = $collection->readSubcollections();
-        $this->assertEquals(HttpStatus::OK, $sub->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $sub->getStatus());
         /** @var CollectionsState $subcollections */
         $subcollections = $sub->get();
-        $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollections->getStatus());
 
         $collectionList = $subcollections->getCollections();
         $c = array_pop($collectionList);
@@ -75,7 +75,7 @@ class SourceBoxTests extends ApiTestCase
         $state = $subcollection->readSourceDescriptions();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getEntity());
         $this->assertNotEmpty($state->getEntity()->getSourceDescriptions());
     }
@@ -93,7 +93,7 @@ class SourceBoxTests extends ApiTestCase
         $subcollections = $collection->readSubcollections();
 
         $this->assertNotNull($subcollections->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollections->getStatus());
         $this->assertNotNull($subcollections->getCollections());
         $this->assertGreaterThan(0, count($subcollections->getCollections()));
     }
@@ -108,16 +108,16 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchCollectionState $collection */
         $collection = $this->collectionState($factory, "https://sandbox.familysearch.org/platform/collections/sources");
         $subcollections = $collection->readSubcollections();
-        $this->assertEquals(HttpStatus::OK, $subcollections->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollections->getStatus());
 
         // Get the root collection
         $rootUserCollection = $this->getRootCollection($collection);
         $this->assertNotNull($rootUserCollection);
-        $this->assertEquals(HttpStatus::OK, $rootUserCollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $rootUserCollection->getStatus());
         $state = $rootUserCollection->readSourceDescriptions();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
         $this->assertNotNull($state->getEntity()->getCollections());
         $this->assertGreaterThan(0, count($rootUserCollection->getEntity()->getCollections()));
 
@@ -126,16 +126,16 @@ class SourceBoxTests extends ApiTestCase
         $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
-        $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $subcollection->getStatus());
         $subcollection = $subcollection->get();
-        $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollection->getStatus());
 
         $sd = $this->createSource();
-        $this->assertEquals(HttpStatus::CREATED, $sd->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $sd->getStatus());
         $sd = $sd->get();
-        $this->assertEquals(HttpStatus::OK, $sd->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $sd->getStatus());
         $test = $sd->moveToCollection($subcollection);
-        $this->assertEquals(HttpStatus::NO_CONTENT, $test->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $test->getStatus());
 
         $allSDs = $collection->readSourceDescriptions()->getEntity()->getSourceDescriptions();
         $found = $this->findInCollection($sd->getSourceDescription(), $rootUserCollection->readSourceDescriptions()->getEntity()->getSourceDescriptions());
@@ -160,12 +160,12 @@ class SourceBoxTests extends ApiTestCase
         $c->setTitle(TestBuilder::faker()->sha1);
         $state = $collection->addCollection($c);
         $this->queueForDelete($state);
-        $this->assertEquals(HttpStatus::CREATED, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $state->getStatus());
         $state = $state->get();
         $this->assertEquals(HttpStatus::OK, $state->getResponse()->getSTatusCode());
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::OK, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
     }
 
     /**
@@ -182,15 +182,15 @@ class SourceBoxTests extends ApiTestCase
         /** @var CollectionState $subcollection */
         $subcollection = $collection->addCollection($c);
         $this->queueForDelete($subcollection);
-        $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $subcollection->getStatus());
         $subcollection = $subcollection->get();
-        $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollection->getStatus());
         $newTitle = TestBuilder::faker()->sha1;
         $subcollection->getCollection()->setTitle($newTitle);
         $state = $subcollection->update($subcollection->getCollection());
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
         $collectionTest = $subcollection->getCollection();
         $this->assertNotNull($collectionTest);
         // Read the subcollection based off the ID (title change has no impact on reloading this)
@@ -210,13 +210,13 @@ class SourceBoxTests extends ApiTestCase
 
         $sd = SourceBuilder::newSource();
         $description = $collection->addSourceDescription($sd);
-        $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $description->getStatus());
         $state = $description->delete();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
         $description = $description->get();
-        $this->assertEquals(HttpStatus::NOT_FOUND, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NOT_FOUND, $description->getStatus());
     }
 
     /**
@@ -231,16 +231,16 @@ class SourceBoxTests extends ApiTestCase
         $c = new Collection();
         $c->setTitle(TestBuilder::faker()->sha1);
         $subcollection = $collection->addCollection($c);
-        $this->assertEquals(HttpStatus::CREATED, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $subcollection->getStatus());
         $subcollection = $subcollection->get();
-        $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollection->getStatus());
         /** @var GedcomxApplicationState $state */
         $state = $subcollection->delete();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
         $subcollection = $subcollection->get($this->createCacheBreakerQueryParam());
-        $this->assertEquals(HttpStatus::NOT_FOUND, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NOT_FOUND, $subcollection->getStatus());
     }
 
     /**
@@ -258,9 +258,9 @@ class SourceBoxTests extends ApiTestCase
         /** @var FamilySearchSourceDescriptionState $description */
         $description = $collection->addSourceDescription($sd);
         $this->queueForDelete($description);
-        $this->assertEquals(HttpStatus::CREATED, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $description->getStatus());
         $description = $description->get();
-        $this->assertEquals(HttpStatus::OK, $description->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $description->getStatus());
 
         /** @var CollectionState $subcollection */
         $c = new Collection();
@@ -272,7 +272,7 @@ class SourceBoxTests extends ApiTestCase
         $state = $description->moveToCollection($subcollection);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
         // Ensure it doesn't exist in the old collection
         $rootCollection = $this->getRootCollection($collection);
@@ -298,7 +298,7 @@ class SourceBoxTests extends ApiTestCase
         $this->assertNotNull($rootUserCollection);
         // Get the root collection
         $subcollection = $subcollections->readCollection($rootUserCollection);
-        $this->assertEquals(HttpStatus::OK, $subcollection->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $subcollection->getStatus());
         return $subcollection;
     }
 

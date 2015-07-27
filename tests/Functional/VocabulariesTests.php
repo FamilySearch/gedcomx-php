@@ -39,7 +39,7 @@ class VocabulariesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::OK,
-            $type->getResponse()->getStatusCode(),
+            $type->getStatus(),
             $this->buildFailMessage(__METHOD__,$type)
         );
         $element = $type->getVocabElement();

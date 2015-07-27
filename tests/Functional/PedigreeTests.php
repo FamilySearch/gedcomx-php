@@ -25,37 +25,37 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $grandfather = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $grandfather->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $grandfather->getStatus());
         $grandfather = $grandfather->get();
-        $this->assertEquals(HttpStatus::OK, $grandfather->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $grandfather->getStatus());
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
         $son = $son->get();
-        $this->assertEquals(HttpStatus::OK, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $son->getStatus());
         $relationship1 = new ChildAndParentsRelationship();
         $relationship1->setFather($grandfather->getResourceReference());
         $relationship1->setChild($father->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship1);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $relationship2 = new ChildAndParentsRelationship();
         $relationship2->setFather($father->getResourceReference());
         $relationship2->setChild($son->getResourceReference());
         $r2 = $collection->addChildAndParentsRelationship($relationship2);
         $this->queueForDelete($r2);
-        $this->assertEquals(HttpStatus::CREATED, $r2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r2->getStatus());
 
         $son = $collection->readPersonById($son->getPerson()->getId());
-        $this->assertEquals(HttpStatus::OK, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $son->getStatus());
         $state = $son->readAncestry();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());
@@ -78,32 +78,32 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $grandfather = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $grandfather->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $grandfather->getStatus());
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
         $son = $son->get();
-        $this->assertEquals(HttpStatus::OK, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $son->getStatus());
         $relationship1 = new ChildAndParentsRelationship();
         $relationship1->setFather($grandfather->getResourceReference());
         $relationship1->setChild($father->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship1);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $relationship2 = new ChildAndParentsRelationship();
         $relationship2->setFather($father->getResourceReference());
         $relationship2->setChild($son->getResourceReference());
         $r2 = $collection->addChildAndParentsRelationship($relationship2);
         $this->queueForDelete($r2);
-        $this->assertEquals(HttpStatus::CREATED, $r2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r2->getStatus());
 
         $son = $collection->readPersonById($son->getPerson()->getId());
         $state = $son->readAncestry(new QueryParameter(true, "personDetails", "true"));
 
         $this->assertNotNull($state->IfSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());
@@ -129,37 +129,37 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $grandfather = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $grandfather->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $grandfather->getStatus());
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $husband = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $husband->getStatus());
         $husband = $husband->get();
-        $this->assertEquals(HttpStatus::OK, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $husband->getStatus());
         $wife = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $wife->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $wife->getStatus());
         $wife = $wife->get();
-        $this->assertEquals(HttpStatus::OK, $wife->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $wife->getStatus());
         $husband->addSpouse($wife);
         $relationship1 = new ChildAndParentsRelationship();
         $relationship1->setFather($grandfather->getResourceReference());
         $relationship1->setChild($father->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship1);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $relationship2 = new ChildAndParentsRelationship();
         $relationship2->setFather($father->getResourceReference());
         $relationship2->setChild($husband->getResourceReference());
         $r2 = $collection->addChildAndParentsRelationship($relationship2);
         $this->queueForDelete($r2);
-        $this->assertEquals(HttpStatus::CREATED, $r2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r2->getStatus());
 
         $husband = $collection->readPersonById($husband->getPerson()->getId());
         $state = $husband->readAncestry(new QueryParameter(true, "spouse", $wife->getPerson()->getId()));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getMother());
@@ -186,17 +186,17 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $grandfather = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $grandfather->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $grandfather->getStatus());
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $husband = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $husband->getStatus());
         $husband = $husband->get();
-        $this->assertEquals(HttpStatus::OK, $husband->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $husband->getStatus());
         $wife = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $wife->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $wife->getStatus());
         $wife = $wife->get();
-        $this->assertEquals(HttpStatus::OK, $wife->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $wife->getStatus());
 
         $fact = new Fact();
         $attribution = new Attribution();
@@ -217,14 +217,14 @@ class PedigreeTests extends ApiTestCase
         $relationship1->setChild($father->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship1);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $relationship2 = new ChildAndParentsRelationship();
         $relationship2->setFather($father->getResourceReference());
         $relationship2->setChild($husband->getResourceReference());
         $r2 = $collection->addChildAndParentsRelationship($relationship2);
         $this->queueForDelete($r2);
-        $this->assertEquals(HttpStatus::CREATED, $r2->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r2->getStatus());
 
         $husband = $collection->readPersonById($husband->getPerson()->getId());
         $state = $husband->readAncestry(
@@ -233,7 +233,7 @@ class PedigreeTests extends ApiTestCase
             new QueryParameter(true, "marriageDetails", "true"));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getMother());
@@ -265,21 +265,21 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
         $relationship1 = new ChildAndParentsRelationship();
         $relationship1->setFather($father->getResourceReference());
         $relationship1->setChild($son->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship1);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
         $state = $father->readDescendancy();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());
@@ -301,13 +301,13 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $mother = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $mother->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $mother->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
 
         $fact = new Fact();
         $attribution = new Attribution();
@@ -329,14 +329,14 @@ class PedigreeTests extends ApiTestCase
         $relationship->setChild($son->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $state = $father->readDescendancy(
             new QueryParameter(true, "personDetails", "true"),
             new QueryParameter(true, "marriageDetails", "true"));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());
@@ -364,13 +364,13 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $mother = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $mother->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $mother->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
 
         $fact = new Fact();
         $attribution = new Attribution();
@@ -392,11 +392,11 @@ class PedigreeTests extends ApiTestCase
         $relationship->setChild($son->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
         $state = $father->readDescendancy(new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")->__toString()));
 
         $this->assertNotNull($state->IfSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());
@@ -420,13 +420,13 @@ class PedigreeTests extends ApiTestCase
         $collection = $this->collectionState($factory);
 
         $father = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $father->getStatus());
         $father = $father->get();
-        $this->assertEquals(HttpStatus::OK, $father->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $father->getStatus());
         $mother = $this->createPerson('female');
-        $this->assertEquals(HttpStatus::CREATED, $mother->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $mother->getStatus());
         $son = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $son->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $son->getStatus());
 
         $fact = new Fact();
         $attribution = new Attribution();
@@ -448,7 +448,7 @@ class PedigreeTests extends ApiTestCase
         $relationship->setChild($son->getResourceReference());
         $r1 = $collection->addChildAndParentsRelationship($relationship);
         $this->queueForDelete($r1);
-        $this->assertEquals(HttpStatus::CREATED, $r1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $state = $father->readDescendancy(
             new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")->__toString()),
@@ -456,7 +456,7 @@ class PedigreeTests extends ApiTestCase
             new QueryParameter(true, "marriageDetails", "true"));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getTree());
         $this->assertNotNull($state->getTree()->getRoot());
         $this->assertNotNull($state->getTree()->getRoot()->getPerson());

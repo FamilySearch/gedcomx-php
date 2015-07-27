@@ -47,13 +47,13 @@ class MemoriesTests extends ApiTestCase
         $memories = $this->authorize($memories);
         $this->assertNotEmpty($memories->getAccessToken());
         $memories = $memories->get();
-        $this->assertEquals(HttpStatus::OK, $memories->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $memories->getStatus());
 
         $results = $memories->readResourcesOfCurrentUser();
 
         $this->assertEquals(
             HttpStatus::OK,
-            $results->getResponse()->getStatusCode(),
+            $results->getStatus(),
             $this->buildFailMessage(__METHOD__, $results)
         );
         $this->assertNotNull($results->getEntity());
@@ -79,16 +79,16 @@ class MemoriesTests extends ApiTestCase
         /** @var FamilySearchSourceDescriptionState $artifact */
         $artifact = $memories->addArtifact($ds);
         $this->queueForDelete($artifact);
-        $this->assertEquals(HttpStatus::CREATED, $artifact->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $artifact->getStatus());
         $artifact = $artifact->get();
-        $this->assertEquals(HttpStatus::OK, $artifact->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $artifact->getStatus());
 
         $comments = $artifact->readComments();
         $comment = new Comment();
         $comment->setText("Test comment.");
         $comments->addComment($comment);
         $comments = $artifact->readComments();
-        $this->assertEquals(HttpStatus::OK, $comments->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $comments->getStatus());
         $this->assertNotNull($comments->getDiscussion());
         
         // UPDATE
@@ -101,10 +101,10 @@ class MemoriesTests extends ApiTestCase
         $state = $comments->updateComment($update);
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
         $comments = $artifact->readComments();
-        $this->assertEquals(HttpStatus::OK, $comments->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $comments->getStatus());
         $this->assertNotNull($comments->getDiscussion());
         $entities = $comments->getDiscussion()->getComments();
         $this->assertNotEmpty($entities);
@@ -115,10 +115,10 @@ class MemoriesTests extends ApiTestCase
         
         $state = $comments->deleteComment($update);
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
         $comments = $artifact->readComments();
-        $this->assertEquals(HttpStatus::OK, $comments->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $comments->getStatus());
         $this->assertNotNull($comments->getDiscussion());
         $entities = $comments->getDiscussion()->getComments();
         $this->assertEmpty($entities);
@@ -144,26 +144,26 @@ class MemoriesTests extends ApiTestCase
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description);
         $this->queueForDelete($upload);
-        $this->assertEquals(HttpStatus::CREATED, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $upload->getStatus());
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
 
         $this->collectionState($factory);
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
 
         $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'));
         $this->queueForDelete($persona);
-        $this->assertEquals(HttpStatus::CREATED, $persona->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $persona->getStatus());
         $persona = $persona->get();
-        $this->assertEquals(HttpStatus::OK, $persona->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $persona->getStatus());
 
         $person->addPersonaPersonState($persona);
         $person = $person->loadPersonaReferences();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $this->assertNotNull($person->getPerson());
 
         $evidence = $person->getPerson()->getEvidence();
@@ -172,12 +172,12 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $newState->getResponse()->getStatusCode(),
+            $newState->getStatus(),
             $this->buildFailMessage(__METHOD__, $newState)
         );
 
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $this->assertNotNull($person->getPerson());
         $this->assertEmpty($person->getPerson()->getEvidence());
     }
@@ -201,43 +201,43 @@ class MemoriesTests extends ApiTestCase
 
         /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
         $upload = $memories->addArtifact($artifact, $description);
-        $this->assertEquals(HttpStatus::CREATED, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $upload->getStatus());
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
 
         $factory = new StateFactory();
         $this->collectionState($factory);
         /** @var FamilyTreePersonState $person1 */
         $person1 = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person1->getStatus());
         $person1 = $person1->get();
-        $this->assertEquals(HttpStatus::OK, $person1->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person1->getStatus());
         $person2 = PersonBuilder::buildPerson('male');
 
         $persona = $upload->addPersonPersona($person2);
-        $this->assertEquals(HttpStatus::CREATED, $persona->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $persona->getStatus());
         $person1->addPersonaPersonState($persona);
         $personas = $person1->loadPersonaReferences();
-        $this->assertEquals(HttpStatus::OK, $personas->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $personas->getStatus());
         $personas = $personas->get();
-        $this->assertEquals(HttpStatus::OK, $personas->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $personas->getStatus());
 
         /** @var PersonState $updated */
         $updated = $personas->update($personas->getPerson());
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $updated->getResponse()->getStatusCode(),
+            $updated->getStatus(),
             $this->buildFailMessage(__METHOD__, $updated)
         );
         
         $persona = $persona->delete();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $persona->getResponse()->getStatusCode(),
+            $persona->getStatus(),
             $this->buildFailMessage(__METHOD__, $persona)
         );
         $personas = $upload->readPersonas();
-        $this->assertEquals(HttpStatus::NO_CONTENT, $personas->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $personas->getStatus());
         $this->assertNull($personas->getPersons());
 
         $upload->delete();
@@ -265,11 +265,11 @@ class MemoriesTests extends ApiTestCase
         $this->queueForDelete($upload);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $upload->getResponse()->getStatusCode(),
+            $upload->getStatus(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
     }
 
     /**
@@ -295,11 +295,11 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::CREATED,
-            $upload->getResponse()->getStatusCode(),
+            $upload->getStatus(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
     }
 
     /**
@@ -325,11 +325,11 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::CREATED,
-            $upload->getResponse()->getStatusCode(),
+            $upload->getStatus(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
     }
 
     /**
@@ -355,10 +355,10 @@ class MemoriesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::CREATED,
-            $upload->getResponse()->getStatusCode(),
+            $upload->getStatus(),
             $this->buildFailMessage(__METHOD__, $upload)
         );
         $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
     }
 }

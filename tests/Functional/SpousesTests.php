@@ -48,7 +48,7 @@ class SpousesTests extends ApiTestCase
         $husband = $husband->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
         );
         $this->assertNotNull($husband->getEntity(), "Get failed. Entity is null.");
@@ -57,7 +57,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
         $this->assertNotNull($family->getEntity(), "Get failed. Entity is null.");
@@ -70,7 +70,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->addFact($marriage);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(createSource)", $family)
         );
     }
@@ -101,7 +101,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__, $family)
         );
 
@@ -113,7 +113,7 @@ class SpousesTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::NOT_MODIFIED,
-            $secondState->getResponse()->getStatusCode(),
+            $secondState->getStatus(),
             $this->buildFailMessage(__METHOD__, $secondState)
         );
     }
@@ -154,14 +154,14 @@ class SpousesTests extends ApiTestCase
         $person = $this->createPerson();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person->getResponse()->getStatusCode(),
+            $person->getStatus(),
             $this->buildFailMessage(__METHOD__."(person)", $person)
         );
 
         $relation = $person->readRelationship($relationship);
         $this->assertEquals(
             HttpStatus::NOT_FOUND,
-            $relation->getResponse()->getStatusCode(),
+            $relation->getStatus(),
             $this->buildFailMessage(__METHOD__, $relation)
         );
     }
@@ -182,7 +182,7 @@ class SpousesTests extends ApiTestCase
         $headers = $family->head();
         $this->assertEquals(
             HttpStatus::OK,
-            $headers->getResponse()->getStatusCode(),
+            $headers->getStatus(),
             $this->buildFailMessage(__METHOD__, $headers)
         );
     }
@@ -202,7 +202,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getFamily1)", $family)
         );
         $this->assertNotNull($family->getEntity(), "Family entity is null.");
@@ -210,13 +210,13 @@ class SpousesTests extends ApiTestCase
         $person3 = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person3->getResponse()->getStatusCode(),
+            $person3->getStatus(),
             $this->buildFailMessage(__METHOD__."(person3)", $person3)
         );
         $person3 = $person3->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $person3->getResponse()->getStatusCode(),
+            $person3->getStatus(),
             $this->buildFailMessage(__METHOD__."(getPerson3)", $person3)
         );
         $this->assertNotNull($person3->getEntity(), "Person3 entity is null.");
@@ -227,14 +227,14 @@ class SpousesTests extends ApiTestCase
         $family = $family->updateSelf($relationship);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(updateRelationship)", $family)
         );
 
         $family = $family->get($this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getFamily2)", $family)
         );
         $this->assertNotNull($family->getEntity(), "Family entity is null.");
@@ -260,7 +260,7 @@ class SpousesTests extends ApiTestCase
         $husband = $husband->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
         );
         $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
@@ -269,7 +269,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
         $this->assertNotNull($family->getEntity(), "Get failed. Family entity is null.");
@@ -282,7 +282,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->addFact($marriage);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(createSource)", $family)
         );
 
@@ -299,7 +299,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->addFact($marriage);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(addFact)", $family)
         );
     }
@@ -319,7 +319,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__, $family)
         );
         $this->assertNotNull($family->getEntity(), "Family entity is null.");
@@ -331,7 +331,7 @@ class SpousesTests extends ApiTestCase
         $person3 = $this->createPerson('male');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person3->getResponse()->getStatusCode(),
+            $person3->getStatus(),
             $this->buildFailMessage(__METHOD__, $person3)
         );
 
@@ -340,7 +340,7 @@ class SpousesTests extends ApiTestCase
         $updated = $family->updateSelf($entity);
         $this->assertEquals(
             HttpStatus::BAD_REQUEST,
-            $updated->getResponse()->getStatusCode(),
+            $updated->getStatus(),
             $this->buildFailMessage(__METHOD__, $updated)
         );
 
@@ -370,7 +370,7 @@ class SpousesTests extends ApiTestCase
         $husband = $husband->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
         );
         $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
@@ -382,7 +382,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->addFact($marriage);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(createSource)", $family)
         );
 
@@ -390,7 +390,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
         $family->loadConclusions();
@@ -406,13 +406,13 @@ class SpousesTests extends ApiTestCase
         $deleted = $family->deleteFact($marriage);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $deleted->getResponse()->getStatusCode(),
+            $deleted->getStatus(),
             $this->buildFailMessage(__METHOD__."(deleteSource)", $deleted)
         );
         $family = $family->get($this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
         $this->assertNotNull($family->getEntity(), "Family entity is null.");
@@ -439,7 +439,7 @@ class SpousesTests extends ApiTestCase
         $husband = $husband->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__."(getHusband)", $husband)
         );
         $this->assertNotNull($husband->getEntity(), "Get failed. Husband entity is null.");
@@ -447,7 +447,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
 
@@ -464,7 +464,7 @@ class SpousesTests extends ApiTestCase
         $deleted = $family->delete();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $deleted->getResponse()->getStatusCode(),
+            $deleted->getStatus(),
             $this->buildFailMessage(__METHOD__.'(delete)',$deleted)
         );
 
@@ -472,7 +472,7 @@ class SpousesTests extends ApiTestCase
         $missing = $husband->readRelationship($relationship, $this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::GONE,
-            $missing->getResponse()->getStatusCode(),
+            $missing->getStatus(),
             $this->buildFailMessage(__METHOD__.'(readDeleted)',$missing)
         );
 
@@ -482,13 +482,13 @@ class SpousesTests extends ApiTestCase
         $restored = $missing->restore();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $restored->getResponse()->getStatusCode(),
+            $restored->getStatus(),
             $this->buildFailMessage(__METHOD__.'(restore)', $restored)
         );
         $restored = $husband->readRelationship($relationship, $this->createCacheBreakerQueryParam());
         $this->assertEquals(
             HttpStatus::OK,
-            $restored->getResponse()->getStatusCode(),
+            $restored->getStatus(),
             $this->buildFailMessage(__METHOD__.'(readDeleted)',$restored)
         );
         $this->assertNotNull($restored->getEntity(), "Relationship entity is null.");
@@ -517,7 +517,7 @@ class SpousesTests extends ApiTestCase
         $family = $family->get();
         $this->assertEquals(
             HttpStatus::OK,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(getRelationship)", $family)
         );
 
@@ -533,14 +533,14 @@ class SpousesTests extends ApiTestCase
         $person3 = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $person3->getResponse()->getStatusCode(),
+            $person3->getStatus(),
             $this->buildFailMessage(__METHOD__."(person3)", $person3)
         );
         $entity->setPerson2($person3->getResourceReference());
         $updated = $family->updateSelf($entity);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $updated->getResponse()->getStatusCode(),
+            $updated->getStatus(),
             $this->buildFailMessage(__METHOD__.'(update)', $updated)
         );
 
@@ -549,7 +549,7 @@ class SpousesTests extends ApiTestCase
         $deleted = $family->delete();
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $deleted->getResponse()->getStatusCode(),
+            $deleted->getStatus(),
             $this->buildFailMessage(__METHOD__.'(delete)', $deleted)
         );
     }
@@ -559,13 +559,13 @@ class SpousesTests extends ApiTestCase
         $husband = $this->createPerson('male');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $husband->getResponse()->getStatusCode(),
+            $husband->getStatus(),
             $this->buildFailMessage(__METHOD__."(husband)", $husband)
         );
         $wife = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $wife->getResponse()->getStatusCode(),
+            $wife->getStatus(),
             $this->buildFailMessage(__METHOD__."(wife)", $wife)
         );
 
@@ -575,7 +575,7 @@ class SpousesTests extends ApiTestCase
         $family = $this->collectionState()->addSpouseRelationship($husband, $wife);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $family->getResponse()->getStatusCode(),
+            $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(family)", $family)
         );
         $this->queueForDelete($family);

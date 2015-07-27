@@ -21,7 +21,7 @@ class DiscoveryTests extends ApiTestCase
         $collection = $factory->newDiscoveryState();
         $this->assertEquals(
             HttpStatus::OK,
-            $collection->getResponse()->getStatusCode(),
+            $collection->getStatus(),
             $this->buildFailMessage(__METHOD__, $collection)
         );
     }
@@ -59,7 +59,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
         );
     }
@@ -85,7 +85,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
         );
     }
@@ -113,7 +113,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
         );
         $normalized = $dateState->normalizeDate("26 Nov 1934");
@@ -153,7 +153,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read discussions collection)", $dateState)
         );
     }
@@ -179,7 +179,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
         );
     }
@@ -205,7 +205,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read date collection)", $dateState)
         );
     }
@@ -231,7 +231,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read place collection)", $dateState)
         );
     }
@@ -257,7 +257,7 @@ class DiscoveryTests extends ApiTestCase
         $dateState = $factory->newCollectionState($link->getHref());
         $this->assertEquals(
             HttpStatus::OK,
-            $dateState->getResponse()->getStatusCode(),
+            $dateState->getStatus(),
             $this->buildFailMessage(__METHOD__."(Read place collection)", $dateState)
         );
     }

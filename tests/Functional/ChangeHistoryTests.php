@@ -29,13 +29,13 @@ class ChangeHistoryTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->createPerson();
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $state = $person->readChangeHistory();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
@@ -50,13 +50,13 @@ class ChangeHistoryTests extends ApiTestCase
         $this->collectionState($factory);
 
         $person = $this->createPerson();
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $state = $person->readChangeHistory(QueryParameter::count(10));
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThanOrEqual(1, count($state->getPage()->getEntries()));
@@ -94,7 +94,7 @@ class ChangeHistoryTests extends ApiTestCase
         $state = $relationship->readChangeHistory();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getPage());
         $this->assertNotNull($state->getPage()->getEntries());
         $this->assertGreaterThan(0, count($state->getPage()->getEntries()));
@@ -126,7 +126,7 @@ class ChangeHistoryTests extends ApiTestCase
         $state = $relationship->readChangeHistory();
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals((int)$state->getResponse()->getStatusCode(), 200);
+        $this->assertEquals((int)$state->getStatus(), 200);
         $this->assertNotNull($state->getEntity());
         $this->assertNotNull($state->getEntity()->getEntries());
         $this->assertGreaterThan(0, $state->getEntity()->getEntries());
@@ -142,16 +142,16 @@ class ChangeHistoryTests extends ApiTestCase
 
         /** @var FamilyTreePersonState $person */
         $person = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $this->assertNotNull($person->getPerson());
         $this->assertNotNull($person->getPerson()->getFacts());
         $this->assertGreaterThan(0, $person->getPerson()->getFacts());
         $facts = $person->getPerson()->getFacts();
         $person->deleteFact(array_shift($facts));
         $changes = $person->readChangeHistory();
-        $this->assertEquals(HttpStatus::OK, $changes->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::OK, $changes->getStatus());
         $deleted = null;
         /** @var ChangeEntry $entry */
         foreach ($changes->getPage()->getEntries() as $entry) {
@@ -174,6 +174,6 @@ class ChangeHistoryTests extends ApiTestCase
         $state = $changes->restoreChange($restore->getEntry());
 
         $this->assertNotNull($state->ifSuccessful());
-        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getResponse()->getStatusCode());
+        $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
     }
 }

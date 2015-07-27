@@ -45,7 +45,7 @@ class UserTests extends ApiTestCase
         $userState = $this->collectionState()->readCurrentUser();
         $this->assertEquals(
             HttpStatus::OK,
-            $userState->getResponse()->getStatusCode(),
+            $userState->getStatus(),
             $this->buildFailMessage(__METHOD__, $userState)
         );
         $this->assertNotNull($userState->getEntity(), "User entity is null.");
@@ -65,7 +65,7 @@ class UserTests extends ApiTestCase
         $historyState = $this->collectionState()->readCurrentUserHistory();
         $this->assertEquals(
             HttpStatus::OK,
-            $historyState->getResponse()->getStatusCode(),
+            $historyState->getStatus(),
             $this->buildFailMessage(__METHOD__, $historyState)
         );
         $this->assertNotEmpty($historyState->getUserHistory());
@@ -86,7 +86,7 @@ class UserTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::OK,
-            $agentState->getResponse()->getStatusCode(),
+            $agentState->getStatus(),
             $this->buildFailMessage(__METHOD__, $agentState)
         );
         $this->assertNotNull($agentState->getEntity(), "Agent entity is null.");
@@ -108,7 +108,7 @@ class UserTests extends ApiTestCase
 
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $stateTwo->getResponse()->getStatusCode(),
+            $stateTwo->getStatus(),
             $this->buildFailMessage(__METHOD__, $stateTwo)
         );
     }

@@ -129,7 +129,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         $method = explode("\\",$methodName );
         $methodName = array_pop($method);
-        $code = $stateObj->getResponse()->getStatusCode();
+        $code = $stateObj->getStatus();
         $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
         $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->getEffectiveUrl();
         $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
@@ -232,21 +232,21 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $father = $this->createPerson('male');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $father->getResponse()->getStatusCode(),
+            $father->getStatus(),
             $this->buildFailMessage(__METHOD__.'(createFather)', $father)
         );
         /** @var PersonState $mother */
         $mother = $this->createPerson('female');
         $this->assertEquals(
             HttpStatus::CREATED,
-            $mother->getResponse()->getStatusCode(),
+            $mother->getStatus(),
             $this->buildFailMessage(__METHOD__.'(createMother)', $mother)
         );
         /** @var PersonState $child */
         $child = $this->createPerson();
         $this->assertEquals(
             HttpStatus::CREATED,
-            $child->getResponse()->getStatusCode(),
+            $child->getStatus(),
             $this->buildFailMessage(__METHOD__.'(createChild)', $child)
         );
         $this->queueForDelete($father,$child,$mother);
@@ -260,7 +260,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $rState = $this->collectionState()->addChildAndParentsRelationship($rel);
         $this->assertEquals(
             HttpStatus::CREATED,
-            $rState->getResponse()->getStatusCode(),
+            $rState->getStatus(),
             $this->buildFailMessage(__METHOD__.'(createFamily)', $rState)
         );
         $this->queueForDelete($rState);
