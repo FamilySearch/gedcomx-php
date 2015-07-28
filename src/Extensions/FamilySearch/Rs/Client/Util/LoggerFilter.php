@@ -50,39 +50,37 @@ class LoggerFilter implements Filter
             $this->logger->info($requests->getUrl());
             $this->logger->debug($requests->getRawHeaders());
             
-            $requests->getEventDispatcher()->addListener('request.complete', function(Event $e){
+            $logger = $this->logger;
+            
+            $requests->getEventDispatcher()->addListener('request.complete', function(Event $e) use($logger) {
                 
                 $response = $e['response'];
                 
                 // Log response headers
-                $this->logger->debug($response->getRawHeaders());
+                $logger->debug($response->getRawHeaders());
                 
                 // Log warning header
                 if($e['response']->getHeader('warning')){
-                    $this->logger->warning($response->getHeader('warning'));
+                    $logger->warning($response->getHeader('warning'));
                 }
                 
                 // Log 400 errors
                 if($response->isClientError()){
-                    $this->logger->error($response->getStatusCode() . ' ' . $response->getReasonPhrase());
+                    $logger->error($response->getStatusCode() . ' ' . $response->getReasonPhrase());
                 }
                 
                 // Log 500 errors
                 if($response->isServerError()){
-                    $this->logger->critical($response->getStatusCode() . ' ' . $response->getReasonPhrase() . "\n" . $response->getBody());
+                    $logger->critical($response->getStatusCode() . ' ' . $response->getReasonPhrase() . "\n" . $response->getBody());
                 }
                 
                 // Log 503s
                 if($response->getStatusCode() == 503){
-                    $this->logger->alert($response->getStatusCode() . ' ' . $response->getReasonPhrase());
+                    $logger->alert($response->getStatusCode() . ' ' . $response->getReasonPhrase());
                 }
             });
         }
         
         return $requests;
     }
-    
-    /**
-     * Print a HeaderCollection
-     */
 }

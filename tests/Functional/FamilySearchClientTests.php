@@ -161,7 +161,7 @@ class FamilySearchClientTests extends ApiTestCase
     }
     
     /**
-     * @ vcr FamilySearchClientTests/testLogger.json
+     * @vcr FamilySearchClientTests/testLogger.json
      */
     public function testLogger()
     {
