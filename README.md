@@ -87,6 +87,13 @@ Documentation for the gedcomx-php SDK is provided in the following forms:
 
 # Changelog
 
+* v1.2.0
+  * Add a custom user agent string when using the FamilySearchClient.
+  * Register a [PSR-3](http://www.php-fig.org/psr/psr-3/) logger when using the FamilySearchClient.
+  * Add a `setAccessToken()` method to the FamilySearchClient class.
+  * Add `getPerson()` method to the PersonsState. Change PersonParentsState, PersonSpousesState, and PersonChildrenState to extend PersonsState.
+  * Add `getStatus()` method to the FamilySearchClient class.
+
 * v1.1.1: 
   * Fix bugs in the FamilySearchClient class
 
