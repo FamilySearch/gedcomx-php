@@ -7,6 +7,9 @@ use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\PersonBuilder;
 use Gedcomx\Extensions\FamilySearch\Feature;
 
+use Monolog\Logger;
+use Monolog\Handler\TestHandler;
+
 class FamilySearchClientTests extends ApiTestCase
 {
     /**
@@ -155,5 +158,27 @@ class FamilySearchClientTests extends ApiTestCase
         foreach ($features as $feature) {
             $this->assertTrue(strpos($requestedFeatures, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
         }
+    }
+    
+    /**
+     * @ vcr FamilySearchClientTests/testLogger.json
+     */
+    public function testLogger()
+    {
+        $logger = new Logger('testLogger');
+        $handler = new TestHandler();
+        $logger->pushHandler($handler);
+        
+        $client = $this->createAuthenticatedFamilySearchClient(array(
+            'logger' => $logger  
+        ));
+        
+        $this->assertTrue($handler->hasInfoThatContains('/cis-web/oauth2/v3/token'));
+        
+        $persons = $client->familytree()->readPersons();
+        
+        $this->assertTrue($handler->hasInfoThatContains('/platform/tree/persons'));
+        $this->assertTrue($handler->hasErrorThatContains('405'));
+        
     }
 }

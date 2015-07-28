@@ -8,7 +8,11 @@ use Gedcomx\Rs\Client\Rel as GedcomxRel;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
+
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * API Client for the FamilySearch API
@@ -17,7 +21,7 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
  *
  * @package Gedcomx\Extensions\FamilySearch\Rs\Client
  */
-class FamilySearchClient {
+class FamilySearchClient implements LoggerAwareInterface{
     
     /**
      * Guzzle client object
@@ -80,6 +84,7 @@ class FamilySearchClient {
      * * `environment` - `production`, `beta`, or `sandbox`; defaults to `sandbox`.
      * * `userAgent` - A string which will be prepended to the default user agent string.
      * * `pendingModifications` - An array of pending modifications that should be enabled.
+     * * `logger` - A Psr\Log\LoggerInterface. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
      */
     public function __construct($options = array())
     {
@@ -125,6 +130,10 @@ class FamilySearchClient {
         // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
             $this->client->addFilter(new ExperimentsFilter($options['pendingModifications']));
+        }
+        
+        if(isset($options['logger'])){
+            $this->setLogger($options['logger']);
         }
         
         $this->stateFactory = new FamilyTreeStateFactory();
@@ -237,6 +246,17 @@ class FamilySearchClient {
         }
         
         return $features;
+    }
+    
+    /**
+     * Sets a logger instance on the object
+     *
+     * @param Psr\Log\LoggerInterface $logger
+     * @return null
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->client->addFilter(new LoggerFilter($logger));
     }
     
     /**
