@@ -20,10 +20,10 @@ use Gedcomx\Source\SourceDescription;
 use Gedcomx\Source\SourceReference;
 use Gedcomx\Types;
 use Gedcomx\Types\RelationshipType;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PersonState exposes management functions for a person.
@@ -33,9 +33,9 @@ class PersonState extends GedcomxApplicationState
     /**
      * Constructs a new person state using the specified client, request, response, access token, and state factory.
      *
-     * @param \Guzzle\Http\Client             $client
-     * @param \Guzzle\Http\Message\Request    $request
-     * @param \Guzzle\Http\Message\Response   $response
+     * @param \GuzzleHttp\Client             $client
+     * @param \GuzzleHttp\Psr7\Request    $request
+     * @param \GuzzleHttp\Psr7\Response   $response
      * @param string                          $accessToken
      * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
      */

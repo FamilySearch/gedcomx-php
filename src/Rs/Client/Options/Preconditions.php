@@ -3,7 +3,7 @@
 	namespace Gedcomx\Rs\Client\Options;
 
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
-	use Guzzle\Http\Message\Request;
+	use GuzzleHttp\Psr7\Request;
 
 	/**
 	 * A REST API request options helper providing precondition features. This is similar to the CacheDirectives class, but applies inverse logic.

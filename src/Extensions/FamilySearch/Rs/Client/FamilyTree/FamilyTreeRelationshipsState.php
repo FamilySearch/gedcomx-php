@@ -11,7 +11,7 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\RelationshipsState;
 use Gedcomx\Types\RelationshipType;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * The FamilyTreeRelationshipsState exposes management functions for family tree relationships.

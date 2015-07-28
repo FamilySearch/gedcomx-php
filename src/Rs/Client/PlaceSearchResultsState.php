@@ -5,8 +5,8 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Atom\Entry;
 use Gedcomx\Atom\Feed;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PlaceSearchResultsState exposes management functions for place search results.

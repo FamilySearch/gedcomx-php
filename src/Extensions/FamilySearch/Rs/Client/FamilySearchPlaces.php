@@ -9,8 +9,8 @@ use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\GedcomxSearchQuery;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\GedcomxPlaceSearchQueryBuilder;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The FamilySearchPlaces is a collection of FamilySearch places and exposes management of those places.
@@ -24,8 +24,8 @@ class FamilySearchPlaces extends FamilySearchCollectionState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces
      */

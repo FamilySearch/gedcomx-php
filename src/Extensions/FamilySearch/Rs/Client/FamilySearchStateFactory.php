@@ -12,9 +12,9 @@
 	use Gedcomx\Rs\Client\PlaceGroupState;
 	use Gedcomx\Rs\Client\PlaceSearchResultsState;
 	use Gedcomx\Rs\Client\StateFactory;
-	use Guzzle\Http\Client;
-	use Guzzle\Http\Message\Request;
-	use Guzzle\Http\Message\Response;
+	use GuzzleHttp\Client;
+	use GuzzleHttp\Psr7\Request;
+	use GuzzleHttp\Psr7\Response;
 
 	/**
 	 * The state factory is responsible for instantiating state classes from REST API responses.
@@ -47,7 +47,7 @@
 		 *
 		 * @param string              $uri
 		 * @param string              $method The method.
-		 * @param \Guzzle\Http\Client $client The client to use.
+		 * @param \GuzzleHttp\Client $client The client to use.
 		 *
 		 * @return FamilySearchCollectionState The collection state.
 		 */
@@ -121,9 +121,9 @@
 		/**
 		 * Builds a new person state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
@@ -136,9 +136,9 @@
 		/**
 		 * Builds a new discussions state from the specified paramters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
@@ -151,9 +151,9 @@
 		/**
 		 * Builds a new discussion state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionState
@@ -166,9 +166,9 @@
 		/**
 		 * Builds a new user state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\UserState
@@ -181,9 +181,9 @@
 		/**
 		 * Builds a new user history state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\UserHistoryState
@@ -196,9 +196,9 @@
 		/**
 		 * Builds a new person merge state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
@@ -211,9 +211,9 @@
 		/**
 		 * Builds a new person match results state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMatchResultsState
@@ -226,9 +226,9 @@
 		/**
 		 * Builds a new source description state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState
@@ -241,9 +241,9 @@
 		/**
 		 * Builds a new person non-matches state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonNonMatchesState
@@ -256,9 +256,9 @@
 		/**
 		 * Builds a new place search results state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Rs\Client\PlaceSearchResultsState
@@ -271,9 +271,9 @@
 		/**
 		 * Builds a new place state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces
@@ -286,9 +286,9 @@
 		/**
 		 * Builds a new place description state from the specified parameters.
 		 *
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Rs\Client\PlaceDescriptionState
@@ -300,9 +300,9 @@
 
 		/**
 		 * Builds a new place descriptions state from the specified parameters.
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Rs\Client\PlaceDescriptionsState
@@ -314,9 +314,9 @@
 
 		/**
 		 * Builds a new place group state from the specified parameters.
-		 * @param \Guzzle\Http\Client           $client
-		 * @param \Guzzle\Http\Message\Request  $request
-		 * @param \Guzzle\Http\Message\Response $response
+		 * @param \GuzzleHttp\Client           $client
+		 * @param \GuzzleHttp\Psr7\Request  $request
+		 * @param \GuzzleHttp\Psr7\Response $response
 		 * @param string                        $accessToken The access token for this session
 		 *
 		 * @return \Gedcomx\Rs\Client\PlaceDescriptionsState

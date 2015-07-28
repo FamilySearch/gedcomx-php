@@ -22,9 +22,9 @@ use Gedcomx\Rs\Client\PersonsState;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PersonChildrenState exposes management functions for person children.
@@ -39,9 +39,9 @@ class PersonChildrenState extends PersonsState
      * Constructs a new person children state using the specified client, request, respons, access token, and state
      * factory.
      *
-     * @param \Guzzle\Http\Client             $client
-     * @param \Guzzle\Http\Message\Request    $request
-     * @param \Guzzle\Http\Message\Response   $response
+     * @param \GuzzleHttp\Client             $client
+     * @param \GuzzleHttp\Psr7\Request    $request
+     * @param \GuzzleHttp\Psr7\Response   $response
      * @param string                          $accessToken
      * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
      */
@@ -53,8 +53,8 @@ class PersonChildrenState extends PersonsState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\PersonChildrenState
      */

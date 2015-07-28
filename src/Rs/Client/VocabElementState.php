@@ -5,8 +5,8 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Rs\Client\Util\RdfCollection;
 use Gedcomx\Rs\Client\Util\RdfNode;
 use Gedcomx\Vocab\VocabElement;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use ML\JsonLD\JsonLD;
 
 /**
@@ -22,8 +22,8 @@ class VocabElementState extends GedcomxApplicationState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\VocabElementState
      */

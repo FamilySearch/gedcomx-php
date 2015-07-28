@@ -16,19 +16,19 @@
     use Gedcomx\Rs\Client\RelationshipState;
     use Gedcomx\Types\RelationshipType;
     use Gedcomx\Rs\Client\Util\HttpStatus;
-    use Guzzle\Http\Client;
+    use GuzzleHttp\Client;
     use Guzzle\Http\Message\EntityEnclosingRequest;
-    use Guzzle\Http\Message\Request;
-    use Guzzle\Http\Message\Response;
+    use GuzzleHttp\Psr7\Request;
+    use GuzzleHttp\Psr7\Response;
 
     class FamilyTreeCollectionState extends FamilySearchCollectionState
     {
         /**
          * Create a new FamilyTreeCollectionState object
          *
-         * @param \Guzzle\Http\Client                                                          $client
-         * @param \Guzzle\Http\Message\Request                                                 $request
-         * @param \Guzzle\Http\Message\Response                                                $response
+         * @param \GuzzleHttp\Client                                                          $client
+         * @param \GuzzleHttp\Psr7\Request                                                 $request
+         * @param \GuzzleHttp\Psr7\Response                                                $response
          * @param string                                                                       $accessToken
          * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory $stateFactory
          */
@@ -40,8 +40,8 @@
         /**
          * Clone the current FamilyTreeCollectionState object
          *
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
          */

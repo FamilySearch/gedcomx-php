@@ -19,8 +19,8 @@ use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\SourceDescriptionState;
 use Gedcomx\Source\SourceReference;
 use Guzzle\Http\Message\EntityEnclosingRequest;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class ChildAndParentsRelationshipState
@@ -36,8 +36,8 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
     /**
      * Clones the current instance of ChildAndParentsRelationshipState
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChildAndParentsRelationshipState
      */
@@ -231,7 +231,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
      * @param string              $method
      * @param \Gedcomx\Links\Link $link
      *
-     * @return \Guzzle\Http\Message\Request
+     * @return \GuzzleHttp\Psr7\Request
      */
     protected function createRequestForEmbeddedResource($method, Link $link)
     {

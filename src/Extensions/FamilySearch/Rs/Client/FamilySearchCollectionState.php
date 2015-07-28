@@ -12,9 +12,9 @@
 	use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 	use Gedcomx\Rs\Client\Options\StateTransitionOption;
 	use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
-	use Guzzle\Http\Client;
-	use Guzzle\Http\Message\Request;
-	use Guzzle\Http\Message\Response;
+	use GuzzleHttp\Client;
+	use GuzzleHttp\Psr7\Request;
+	use GuzzleHttp\Psr7\Response;
 
 	/**
 	 * The FamilySearchCollectionState is a collection of FamilySearch resources and exposes management of those resources.
@@ -28,9 +28,9 @@
 		/**
 		 * Constructs a new FamilySearch collection state using the specified client, request, response, access token, and state factory.
 		 *
-		 * @param \Guzzle\Http\Client                                                 $client
-		 * @param \Guzzle\Http\Message\Request                                        $request
-		 * @param \Guzzle\Http\Message\Response                                       $response
+		 * @param \GuzzleHttp\Client                                                 $client
+		 * @param \GuzzleHttp\Psr7\Request                                        $request
+		 * @param \GuzzleHttp\Psr7\Response                                       $response
 		 * @param string                                                              $accessToken
 		 * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory $stateFactory
 		 */

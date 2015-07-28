@@ -2,7 +2,7 @@
 
     namespace Gedcomx\Rs\Client\Options;
 
-    use Guzzle\Http\Message\Request;
+    use GuzzleHttp\Psr7\Request;
     use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 
     /**
@@ -62,7 +62,7 @@
         /**
          * This method adds the current parameter to the specified REST API request.
          *
-         * @param \Guzzle\Http\Message\Request $request
+         * @param \GuzzleHttp\Psr7\Request $request
          */
         public function apply(Request $request)
         {

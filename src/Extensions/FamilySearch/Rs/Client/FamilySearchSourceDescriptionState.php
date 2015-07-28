@@ -10,9 +10,9 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\SourceDescriptionState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Source\SourceDescription;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The FamilySearchSourceDescriptionState exposes management functions for a FamilySearch source description.
@@ -26,9 +26,9 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
     /**
      * Constructs a new FamilySearch source description state using the specified client, request, response, access token, and state factory.
      *
-     * @param \Guzzle\Http\Client             $client
-     * @param \Guzzle\Http\Message\Request    $request
-     * @param \Guzzle\Http\Message\Response   $response
+     * @param \GuzzleHttp\Client             $client
+     * @param \GuzzleHttp\Psr7\Request    $request
+     * @param \GuzzleHttp\Psr7\Response   $response
      * @param string                          $accessToken
      * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
      */
@@ -40,8 +40,8 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState
      */

@@ -11,11 +11,11 @@ use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Rs\Client\Util\HttpStatus;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Guzzle\Http\Exception\ClientErrorResponseException;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * This is the base class for all state instances.
@@ -71,13 +71,13 @@ abstract class GedcomxApplicationState
     /**
      * The last embedded request (from a previous call to GedcomxApplicationState embed()).
      *
-     * @var \Guzzle\Http\Message\Request
+     * @var \GuzzleHttp\Psr7\Request
      */
     private $lastEmbeddedRequest;
     /**
      * Gets or sets the last embedded response (from a previous call to GedcomxApplicationState embed()).
      *
-     * @var \Guzzle\Http\Message\Response
+     * @var \GuzzleHttp\Psr7\Response
      */
     private $lastEmbeddedResponse;
 
@@ -107,7 +107,7 @@ abstract class GedcomxApplicationState
      */
     protected function loadEntityConditionally()
     {
-        if (   ($this->request->getMethod() != Request::HEAD && $this->request->getMethod() != Request::OPTIONS)
+        if (   ($this->request->getMethod() != 'HEAD' && $this->request->getMethod() != 'OPTIONS')
             && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
             || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
         ) {
@@ -121,8 +121,8 @@ abstract class GedcomxApplicationState
     /**
      * Clonse the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return mixed
      */
@@ -145,7 +145,7 @@ abstract class GedcomxApplicationState
     /**
      * Invokes the specified REST API request and returns a state instance of the REST API response.
      *
-     * @param \Guzzle\Http\Message\Request $request
+     * @param \GuzzleHttp\Psr7\Request $request
      *
      * @return mixed
      */
@@ -216,7 +216,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the REST API request.
      *
-     * @return \Guzzle\Http\Message\Request
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function getRequest()
     {
@@ -226,7 +226,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the REST API response.
      *
-     * @return \Guzzle\Http\Message\Response
+     * @return \GuzzleHttp\Psr7\Response
      */
     public function getResponse()
     {
@@ -236,7 +236,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the last embedded request (from a previous call to GedcomxApplicationState embed()).
      *
-     * @return \Guzzle\Http\Message\Request
+     * @return \GuzzleHttp\Psr7\Request
      */
     public function getLastEmbeddedRequest()
     {
@@ -246,7 +246,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the last embedded response (from a previous call to GedcomxApplicationState embed()).
      *
-     * @return \Guzzle\Http\Message\Response
+     * @return \GuzzleHttp\Psr7\Response
      */
     public function getLastEmbeddedResponse()
     {
@@ -784,8 +784,8 @@ abstract class GedcomxApplicationState
     /**
      * Builds a pretty failure message from the specified response's warning headers, using the specified request for
      * additional information.
-     * @param \Guzzle\Http\Message\Request   $request   HTTP request object
-     * @param \Guzzle\Http\Message\Response  $response  HTTP response object
+     * @param \GuzzleHttp\Psr7\Request   $request   HTTP request object
+     * @param \GuzzleHttp\Psr7\Response  $response  HTTP response object
      * @return string
      */
     protected function buildFailureMessage( Request $request, Response $response ) {
@@ -940,7 +940,7 @@ abstract class GedcomxApplicationState
      * @param                     $method
      * @param \Gedcomx\Links\Link $link
      *
-     * @return \Guzzle\Http\Message\Request
+     * @return \GuzzleHttp\Psr7\Request
      */
     protected function createRequestForEmbeddedResource($method, Link $link) {
         return $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
@@ -1103,7 +1103,7 @@ abstract class GedcomxApplicationState
     /**
      * Applies the specified options before calling IFilterableRestClient.Handle() which applies any filters before executing the request.
      *
-     * @param \Guzzle\Http\Message\Request                     $request    the request to send.
+     * @param \GuzzleHttp\Psr7\Request                     $request    the request to send.
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... StateTransitionOptions to be applied before sending
      *
      * @throws Exception\GedcomxApplicationException

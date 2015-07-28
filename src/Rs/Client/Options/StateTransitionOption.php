@@ -2,7 +2,7 @@
 
 	namespace Gedcomx\Rs\Client\Options;
 
-	use Guzzle\Http\Message\Request;
+	use GuzzleHttp\Psr7\Request;
 
 	/**
 	 * Defines a method to manipulate and apply options to a REST API request before execution.

@@ -5,9 +5,9 @@
 
     use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
-    use Guzzle\Http\Client;
-    use Guzzle\Http\Message\Request;
-    use Guzzle\Http\Message\Response;
+    use GuzzleHttp\Client;
+    use GuzzleHttp\Psr7\Request;
+    use GuzzleHttp\Psr7\Response;
 
     /**
      * The state factory is responsible for instantiating state classes from REST API responses.
@@ -23,7 +23,7 @@
          *
          * @param null                $uri
          * @param string              $method The method.
-         * @param \Guzzle\Http\Client $client The client to use.
+         * @param \GuzzleHttp\Client $client The client to use.
          *
          * @return FamilyTreeCollectionState The collection state.
          */
@@ -38,17 +38,16 @@
             }
 
             /** @var Request $request */
-            $request = $client->createRequest($method, $uri);
-            $request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
+            $request = new Request($method, $uri, ["Accept" => FamilySearchPlatform::JSON_MEDIA_TYPE]);
             return new FamilyTreeCollectionState($client, $request, $client->send($request), null, $this);
         }
 
         /**
          * Builds a new child and parents relationship state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
@@ -61,9 +60,9 @@
         /**
          * Builds a new relationships state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\DiscussionsState
@@ -76,9 +75,9 @@
         /**
          * Builds a new person state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState
@@ -91,9 +90,9 @@
         /**
          * Builds a new relationship state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeRelationshipState
@@ -106,9 +105,9 @@
         /**
          * Builds a new person parents state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonParentsState
@@ -121,9 +120,9 @@
         /**
          * Builds a new person children state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonChildrenState
@@ -136,9 +135,9 @@
         /**
          * Builds a new change history state from the specified parameters.
          *
-         * @param \Guzzle\Http\Client           $client
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Client           $client
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          * @param string                        $accessToken The access token for this session
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\ChangeHistoryState

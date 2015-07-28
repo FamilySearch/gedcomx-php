@@ -3,7 +3,7 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers;
 
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * A helper class to set accept and content-type headers for REST API requests.

@@ -2,7 +2,7 @@
 
 	namespace Gedcomx\Rs\Client\Options;
 
-	use Guzzle\Http\Message\Request;
+	use GuzzleHttp\Psr7\Request;
 
 	/**
 	 * This is a helper class for managing headers in REST API requests.

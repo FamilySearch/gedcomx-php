@@ -10,9 +10,9 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PersonNonMatchesState exposes management functions for person non matches.
@@ -26,9 +26,9 @@ class PersonNonMatchesState extends PersonState
     /**
      * Constructs a new person non matches state using the specified client, request, response, access token, and state factory.
      *
-     * @param \Guzzle\Http\Client                                                          $client
-     * @param \Guzzle\Http\Message\Request                                                 $request
-     * @param \Guzzle\Http\Message\Response                                                $response
+     * @param \GuzzleHttp\Client                                                          $client
+     * @param \GuzzleHttp\Psr7\Request                                                 $request
+     * @param \GuzzleHttp\Psr7\Response                                                $response
      * @param string                                                                       $accessToken
      * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory $stateFactory
      */
@@ -40,8 +40,8 @@ class PersonNonMatchesState extends PersonState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState
      */
