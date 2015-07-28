@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Namespace Gedcomx | gedcomx-php</title>
+	<title>Class Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter | gedcomx-php</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?a2b5efb503881470385230f40f9bcc3c94d665e7">
@@ -27,9 +27,10 @@
 				</form>
 
 				<ul class="nav navbar-nav">
-					<li class="active">
-<span>Namespace</span>					</li>
 					<li>
+						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.html" title="Summary of Gedcomx\Extensions\FamilySearch\Rs\Client\Util"><span>Namespace</span></a>
+					</li>
+					<li class="active">
 <span>Class</span>					</li>
 
 
@@ -68,12 +69,12 @@
 						<a href="namespace-Gedcomx.Conclusion.html">
 							Conclusion						</a>
 							</li>
-					<li>
+					<li class="active">
 						<a href="namespace-Gedcomx.Extensions.html">
 							Extensions<span></span>
 						</a>
 							<ul>
-					<li>
+					<li class="active">
 						<a href="namespace-Gedcomx.Extensions.FamilySearch.html">
 							FamilySearch<span></span>
 						</a>
@@ -100,12 +101,12 @@
 							Users						</a>
 							</li>
 								</ul></li>
-					<li>
+					<li class="active">
 						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.html">
 							Rs<span></span>
 						</a>
 							<ul>
-					<li>
+					<li class="active">
 						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.html">
 							Client<span></span>
 						</a>
@@ -122,7 +123,7 @@
 						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Memories.html">
 							Memories						</a>
 							</li>
-					<li>
+					<li class="active">
 						<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.html">
 							Util						</a>
 							</li>
@@ -207,7 +208,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Gedcomx.Gedcomx.html">Gedcomx</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeEntry.html">ChangeEntry</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeHistoryPage.html">ChangeHistoryPage</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ExperimentsFilter.html">ExperimentsFilter</a></li>
+				<li class="active"><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html">LoggerFilter</a></li>
 			</ul>
 
 
@@ -222,74 +226,131 @@
 
 <div id="right">
 	<div id="rightInner">
-<div id="content" class="namespace">
-	<h1>Namespace Gedcomx</h1>
+<div id="content" class="class">
+	<h1>Class LoggerFilter</h1>
 
-	<div class="panel panel-default">
-        <div class="panel-heading"><h2>Namespaces summary</h2></div>
-		<table class="summary table table-bordered table-striped" id="namespaces">
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Agent.html">Gedcomx\Agent</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Atom.html">Gedcomx\Atom</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Common.html">Gedcomx\Common</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Conclusion.html">Gedcomx\Conclusion</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Extensions.html">Gedcomx\Extensions</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.GedcomxFile.html">Gedcomx\GedcomxFile</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Links.html">Gedcomx\Links</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Records.html">Gedcomx\Records</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Rs.html">Gedcomx\Rs</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Rt.html">Gedcomx\Rt</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Search.html">Gedcomx\Search</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Source.html">Gedcomx\Source</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Support.html">Gedcomx\Support</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Types.html">Gedcomx\Types</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Util.html">Gedcomx\Util</a></td>
-		</tr>
-		<tr>
-			<td class="name"><a href="namespace-Gedcomx.Vocab.html">Gedcomx\Vocab</a></td>
-		</tr>
-		</table>
+
+	<div class="description">
+	<p>This filter enables a logger to be notified of all HTTP requests sent
+and responses recieved from the FamilySearch API.</p>
+
+<p>Class LoggerFilter</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter</span></b>			
+			 implements 
+				<a href="class-Gedcomx.Util.Filter.html"><span>Gedcomx\Util\Filter</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Extensions.html">Extensions</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.html">FamilySearch</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.html">Client</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.html">Util</a><br>
+		<b>Package:</b> Gedcomx\Extensions\FamilySearch\Rs\Client\Util<br>
+
+			<b>Located at</b> <a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html#10-88" title="Go to source code">Extensions/FamilySearch/Rs/Client/Util/LoggerFilter.php</a>
+		<br>
 	</div>
 
 
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Classes summary</h2></div>
-	<table class="summary table table-bordered table-striped" id="classes">
-<tr>
-	<td class="name"><a href="class-Gedcomx.Gedcomx.html">Gedcomx</a></td>
-	<td><p>The GEDCOM X data formats define the serialization formats of the GEDCOM X conceptual model. The canonical documentation
-is provided by the formal specification documents:</p></td>
-</tr>
-	</table>
-</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html#25-33" title="Go to source code">__construct</a>( <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
+
+			<div class="description short">
+				<p>Constructs a new logger filter with the specified logger.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Constructs a new logger filter with the specified logger.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$logger</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="apply" id="_apply">
+
+			<td class="attributes"><code>
+				 public 
+				array|Guzzle\Http\Message\RequestInterface
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_apply">#</a>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html#35-83" title="Go to source code">apply</a>( <span>array|Guzzle\Http\Message\RequestInterface <var>$requests</var></span> )</code>
+
+			<div class="description short">
+				<p>This method enables the logger to watch the specified requests.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>This method enables the logger to watch the specified requests.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$requests</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						array|Guzzle\Http\Message\RequestInterface
+					</div>
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Gedcomx.Util.Filter.html#_apply">Gedcomx\Util\Filter::apply()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+
+
+
+
+
 
 
 
@@ -302,7 +363,7 @@ is provided by the formal specification documents:</p></td>
 		gedcomx-php API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
-<script src="resources/combined.js?bf539c3f5468a12cfe67929daadea74069c6e485"></script>
-<script src="elementlist.js?59e7dc6e3dc1cd0864ce8449c5669e54aaf4cbc5"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>
