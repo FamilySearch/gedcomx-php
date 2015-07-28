@@ -62,7 +62,7 @@
 
 			/** @var Request $request */
 			$request = $client->createRequest($method, $uri);
-			$request->setHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
+			$request->withHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
 
@@ -87,7 +87,7 @@
 
 			/** @var Request $request */
 			$request = $client->createRequest($method, $uri);
-			$request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+			$request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
 
 			return new FamilySearchPlaces($client, $request, $client->send($request), null, $this);
 		}
@@ -113,7 +113,7 @@
 
 			/** @var Request $request */
 			$request = $client->createRequest($method, $uri);
-			$request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+			$request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
 
 			return new FamilySearchMemories($client, $request, $client->send($request), null, $this);
 		}

@@ -78,7 +78,7 @@
 		public function apply(Request $request)
 		{
 			if ($this->replace) {
-				$request->setHeader($this->name, $this->value);
+				$request->withHeader($this->name, $this->value);
 			} else {
 				$request->addHeader($this->name, $this->value);
 			}

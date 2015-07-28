@@ -20,7 +20,7 @@ class FamilySearchRequest
      */
     public static function applyFamilySearchMediaType(Request &$request)
     {
-        $request->setHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', FamilySearchPlatform::JSON_MEDIA_TYPE);
+        $request->withHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
+        $request->withHeader('Content-Type', FamilySearchPlatform::JSON_MEDIA_TYPE);
     }
 }

@@ -154,10 +154,13 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     
     protected function createFamilySearchClient($options = array())
     {
+        $logger = new \Monolog\Logger('test');
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
         return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,
-            'redirectURI' => SandboxCredentials::REDIRECT_URI
+            'redirectURI' => SandboxCredentials::REDIRECT_URI,
+            'logger' => $logger
         )));
     }
     

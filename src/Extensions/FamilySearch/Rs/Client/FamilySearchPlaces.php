@@ -78,7 +78,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-        $request->setHeader("Accept", Gedcomx::LD_JSON_TYPE);
+        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
             'VocabElementListState',
@@ -112,7 +112,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-        $request->setHeader("Accept", Gedcomx::LD_JSON_TYPE);
+        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
             'VocabElementListState',
@@ -146,7 +146,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-        $request->setHeader("Accept", Gedcomx::LD_JSON_TYPE);
+        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
             'VocabElementState',
@@ -222,7 +222,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
         );
 
         $request = $this->createAuthenticatedFeedRequest("GET", $uri);
-        $request->setHeader("Accept", Gedcomx::ATOM_JSON_MEDIA_TYPE);
+        $request->withHeader("Accept", Gedcomx::ATOM_JSON_MEDIA_TYPE);
 
         return $this->stateFactory->createState(
             "PlaceSearchResultsState",

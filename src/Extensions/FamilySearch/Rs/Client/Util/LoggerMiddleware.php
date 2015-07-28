@@ -2,8 +2,8 @@
 
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\Util;
 
-use Psr7\Http\Message\RequestInterface;
-use Psr7\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\MessageInterface;
 
 /**
@@ -23,16 +23,17 @@ class LoggerMiddleware
     {
         return function(callable $handler) use ($logger) {
             return function(RequestInterface $request, array $options) use ($handler, $logger) {
-                $logger->info($request->getUri());
+                $logger->info($request->getMethod() . ' ' . $request->getUri());
                 $logger->debug(self::printHeaders($request));
                 
                 $promise = $handler($request, $options);
                 return $promise->then(function(ResponseInterface $response) use ($logger) {
+                    
                     // Log response headers
                     $logger->debug(self::printHeaders($response));
                     
                     // Log warning header
-                    if($e['response']->getHeader('warning')){
+                    if($response->getHeader('warning')){
                         $logger->warning($response->getHeaderLine('warning'));
                     }
                     

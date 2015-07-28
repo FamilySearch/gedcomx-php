@@ -44,11 +44,11 @@
          */
 		public function apply(Request $request) {
 			if ($this->etag !== null) {
-				$request->setHeader(HeaderParameter::IF_NONE_MATCH, $this->etag);
+				$request->withHeader(HeaderParameter::IF_NONE_MATCH, $this->etag);
 			}
 
 			if ($this->lastModified !==  null) {
-				$request->setHeader(HeaderParameter::IF_MODIFIED_SINCE, $this->lastModified);
+				$request->withHeader(HeaderParameter::IF_MODIFIED_SINCE, $this->lastModified);
 			}
 		}
 	}

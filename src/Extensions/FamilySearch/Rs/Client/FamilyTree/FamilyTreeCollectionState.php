@@ -430,7 +430,7 @@
 
             $request = $this->createAuthenticatedRequest(Request::PUT, $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
-            $request->setHeader("Location", $relationshipState->getSelfUri());
+            $request->withHeader("Location", $relationshipState->getSelfUri());
 
             return $this->stateFactory->createState(
                 'PersonState',

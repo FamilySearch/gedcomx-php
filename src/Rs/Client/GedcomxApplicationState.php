@@ -172,8 +172,9 @@ abstract class GedcomxApplicationState
         }
 
         //load link headers
-        $linkHeaders = $this->getLinkHeaders();
+        $linkHeaders = \GuzzleHttp\Psr7\parse_header($this->response->getHeader('Link'));
         foreach ($linkHeaders as $linkHeader) {
+            $linkHeader['href'] = $linkHeader[0];
             if (isset($linkHeader['rel'])) {
                 $link = new Link($linkHeader);
                 $links[$linkHeader['rel']] = $link;
@@ -196,7 +197,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets sets the main REST API client to use with all API calls.
      *
-     * @return \Gedcomx\Util\FilterableClient
+     * @return \GuzzleHttp\Client
      */
     public function getClient()
     {
@@ -399,7 +400,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the entity tag of the entity represented by this instance.
      *
-     * @return \Guzzle\Http\Message\Header|null
+     * @return array
      */
     public function getETag() {
         return $this->response->getHeader(HeaderParameter::ETAG);
@@ -408,7 +409,7 @@ abstract class GedcomxApplicationState
     /**
      * Gets the last modified date of the entity represented by this instance.
      *
-     * @return \Guzzle\Http\Message\Header|null
+     * @return array
      */
     public function getLastModified() {
         return $this->response->getHeader(HeaderParameter::LAST_MODIFIED);
@@ -442,7 +443,7 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::HEAD, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
@@ -459,7 +460,7 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::GET, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
@@ -476,7 +477,7 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::DELETE, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
@@ -493,7 +494,7 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::OPTIONS, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
@@ -512,11 +513,11 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::PUT, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         $contentType = $this->request->getHeader("Content-Type");
         if (isset($contentType)) {
-            $request->setHeader("Content-Type", $contentType);
+            $request->withHeader("Content-Type", $contentType);
         }
         $request->setBody($entity->toJson());
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
@@ -535,11 +536,11 @@ abstract class GedcomxApplicationState
         $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->setHeader("Accept", $accept);
+            $request->withHeader("Accept", $accept);
         }
         $contentType = $this->request->getHeader("Content-Type");
         if (isset($contentType)) {
-            $request->setHeader("Content-Type", $contentType);
+            $request->withHeader("Content-Type", $contentType);
         }
         $request->setBody($entity->toJson());
 
@@ -624,13 +625,10 @@ abstract class GedcomxApplicationState
             throw new GedcomxApplicationException("No OAuth2 token URI supplied for resource at {$here}");
         }
 
-        $request = $this->createRequest('POST', $href);
+        $request = $this->createRequest('POST', $href, ['Accept' => 'application/json'], $formData);
         /**
          * @var $request EntityEnclosingRequest
          */
-        $request->setHeader('Accept', 'application/json');
-        $request->setHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $request->addPostFields($formData);
         $response = $this->invoke($request);
 
         $statusCode = intval($response->getStatusCode());
@@ -741,22 +739,6 @@ abstract class GedcomxApplicationState
         return $this->authenticateViaOAuth2($formData);
     }
 
-    /**
-     * Gets the collection of "Link" headers found in the REST API response, if any; otherwise, returns an empty array.
-     *
-     * @return Link[] links if Link headers found
-     */
-    private function getLinkHeaders()
-    {
-        $headers = $this->response->getHeaders();
-        foreach( $headers as $h ){
-            if( $h->getName() == "Link" ){
-                return $h->getLinks();
-            }
-        }
-        return array();
-    }
-
 
     /**
      * Gets the warning headers from the current REST API response.
@@ -815,8 +797,8 @@ abstract class GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
-        $request->setHeader("Accept", $this->request->getHeader("Accept"));
-        $request->setHeader("Content-Type", $this->request->getHeader("Content-Type"));
+        $request->withHeader("Accept", $this->request->getHeader("Accept"));
+        $request->withHeader("Content-Type", $this->request->getHeader("Content-Type"));
         $class = get_class($this);
         return new $class(
             $this->client,
@@ -881,9 +863,12 @@ abstract class GedcomxApplicationState
      *
      * @return Request The request.
      */
-    protected function createRequest($method, $uri = null)
+    protected function createRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        return $this->client->createRequest($method, $uri);
+        if(is_array($formData)){
+            $body = http_build_query($formData, null, '&');
+        }
+        return new Request($method, $uri, $headers, $body);
     }
 
     /**
@@ -914,7 +899,7 @@ abstract class GedcomxApplicationState
     protected function createAuthenticatedFeedRequest($method, $uri = null)
     {
         $request = $this->createAuthenticatedRequest($method, $uri);
-        $request->setHeader('Accept', Gedcomx::ATOM_JSON_MEDIA_TYPE);
+        $request->withHeader('Accept', Gedcomx::ATOM_JSON_MEDIA_TYPE);
         return $request;
     }
 
@@ -929,8 +914,8 @@ abstract class GedcomxApplicationState
     protected function createAuthenticatedGedcomxRequest($method, $uri = null)
     {
         $request = $this->createAuthenticatedRequest($method, $uri);
-        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         return $request;
     }
 

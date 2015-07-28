@@ -4,7 +4,6 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Gedcomx\Util\FilterableClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -66,7 +65,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -90,7 +89,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new CollectionsState($client, $request, $client->send($request), null, $this);
     }
 
@@ -114,29 +113,18 @@ class StateFactory
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
     /**
      * Loads the default client for executing REST API requests.
      *
-     * @return \Gedcomx\Util\FilterableClient
+     * @return \GuzzleHttp\Client
      */
     protected function defaultClient()
     {
-        $opts = array(
-            "request.options" => array(
-                "exceptions" => false
-            )
-        );
-        $fiddlerDebug = false;
-        if ($fiddlerDebug) {
-            $opts['request.options']['proxy'] = "tcp://127.0.0.1:8888";
-            $opts['request.options']['verify'] = false;
-        }
-        $client = new FilterableClient('', $opts);
-        return $client;
+        return new Client('', ['http_errors' => false]);
     }
 
     /**
@@ -151,12 +139,12 @@ class StateFactory
     public function newPersonState($uri, Client $client = null, $method = "GET")
     {
         if (!$client) {
-            $client = new FilterableClient();
+            $client = $this->defaultClient();
         }
 
         /** @var Request $request */
         $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 

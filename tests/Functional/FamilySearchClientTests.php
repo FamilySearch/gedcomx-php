@@ -15,10 +15,12 @@ class FamilySearchClientTests extends ApiTestCase
     /**
      * @vcr FamilySearchClientTests/testDefaultUserAgent.json
      */
-    public function testUserAgent()
+    public function testDefaultUserAgent()
     {
+        $this->markTestSkipped('Unable to test until we find a way to get the final Request object');
+        
         $client = $this->createFamilySearchClient();
-        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent'));
+        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent')[0]);
         list($firstProductName, $firstProductVersion) = explode('/', $agentPieces[0]);
         $this->assertEquals('gedcomx-php', $firstProductName);
     }
@@ -28,10 +30,12 @@ class FamilySearchClientTests extends ApiTestCase
      */
     public function testCustomUserAgent()
     {
+        $this->markTestSkipped('Unable to test until we find a way to get the final Request object');
+        
         $client = $this->createFamilySearchClient(array(
             'userAgent' => 'tester/123'
         ));
-        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent'));
+        $agentPieces = explode(' ', $client->familytree()->getRequest()->getHeader('User-Agent')[0]);
         $this->assertEquals('tester/123', $agentPieces[0]);
     }
     
