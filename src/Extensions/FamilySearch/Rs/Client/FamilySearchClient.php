@@ -3,14 +3,17 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Gedcomx\Util\FilterableClient;
 use Gedcomx\Rs\Client\Rel as GedcomxRel;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
-
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\Middleware;
+use Psr7\Http\Message\RequestInterface;
+use Psr7\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
@@ -26,7 +29,7 @@ class FamilySearchClient implements LoggerAwareInterface{
     /**
      * Guzzle client object
      * 
-     * @var \Gedcomx\Util\FilterableClient
+     * @var \GuzzleHttp\Client;
      */
     private $client;
     
@@ -74,6 +77,11 @@ class FamilySearchClient implements LoggerAwareInterface{
     private $homeState;
     
     /**
+     * @var \GuzzleHttp\HandlerStack
+     */
+    private $stack;
+    
+    /**
      * Construct a FamilySearch Client.
      *
      * @param array $options A keyed array of configuration options for the client. Available options:
@@ -113,28 +121,36 @@ class FamilySearchClient implements LoggerAwareInterface{
                 break;
         }
         
-        // Create client
-        $this->client = new FilterableClient('', array(
-            "request.options" => array(
-                "exceptions" => false
-            )
-        ));
+        // Middleware
+        $this->stack = new HandlerStack();
+        $this->stack->setHandler(new CurlHandler());
+        
+        // Pending modifications
+        if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
+            $experiments = join(",", $options['pendingModifications']);
+            $this->stack->push(Middleware::mapRequest(function(RequestInterface $request){
+                return $request->withHeader('X-FS-Feature-Tag', $experiments);
+            }));
+        }
+        
+        if(isset($options['logger'])){
+            $this->setLogger($options['logger']);
+        }
         
         // Set user agent string
         $userAgent = 'gedcomx-php/1.1.1';
         if(isset($options['userAgent'])){
             $userAgent = $options['userAgent'] . ' ' . $userAgent;
         }
-        $this->client->setUserAgent($userAgent, true);
         
-        // Pending modifications
-        if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
-            $this->client->addFilter(new ExperimentsFilter($options['pendingModifications']));
-        }
-        
-        if(isset($options['logger'])){
-            $this->setLogger($options['logger']);
-        }
+        // Create client
+        $this->client = new Client([
+            'handler' => $this->stack,
+            'http_errors' => false,
+            'headers' => [
+                'User-Agent' => $userAgent
+            ]
+        ]);
         
         $this->stateFactory = new FamilyTreeStateFactory();
         
@@ -256,7 +272,7 @@ class FamilySearchClient implements LoggerAwareInterface{
      */
     public function setLogger(LoggerInterface $logger)
     {
-        $this->client->addFilter(new LoggerFilter($logger));
+        $this->stack->push(LoggerMiddleware::middleware($logger));
     }
     
     /**
