@@ -93,7 +93,8 @@ class FamilySearchClient implements LoggerAwareInterface{
      * * `environment` - `production`, `beta`, or `sandbox`; defaults to `sandbox`.
      * * `userAgent` - A string which will be prepended to the default user agent string.
      * * `pendingModifications` - An array of pending modifications that should be enabled.
-     * * `logger` - A Psr\Log\LoggerInterface. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
+     * * `logger` - A `Psr\Log\LoggerInterface`. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
+     * * `middleware` - An array of [Guzzle Middleware](http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware).
      */
     public function __construct($options = array())
     {
@@ -129,19 +130,27 @@ class FamilySearchClient implements LoggerAwareInterface{
         // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
             $experiments = join(",", $options['pendingModifications']);
-            $this->stack->push(Middleware::mapRequest(function(RequestInterface $request){
+            $this->stack->push(Middleware::mapRequest(function(RequestInterface $request) use($experiments) {
                 return $request->withHeader('X-FS-Feature-Tag', $experiments);
             }));
-        }
-        
-        if(isset($options['logger'])){
-            $this->setLogger($options['logger']);
         }
         
         // Set user agent string
         $userAgent = 'gedcomx-php/1.1.1';
         if(isset($options['userAgent'])){
             $userAgent = $options['userAgent'] . ' ' . $userAgent;
+        }
+        
+        // Custom middleware
+        if(is_array($options['middleware'])) {
+            foreach($options['middleware'] as $middleware){
+                $this->stack->push($middleware);
+            }
+        }
+        
+        // This goes last so that it sees the final request and response
+        if(isset($options['logger'])){
+            $this->setLogger($options['logger']);
         }
         
         // Create client
