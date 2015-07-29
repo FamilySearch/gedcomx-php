@@ -72,7 +72,7 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
             return null;
         }
 
-        $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedFeedRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'ChangeHistoryState',
             $this->client,
@@ -96,7 +96,7 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(

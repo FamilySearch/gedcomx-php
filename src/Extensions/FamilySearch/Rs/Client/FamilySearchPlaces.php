@@ -77,7 +77,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             array()
         );
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+        $request = $this->createAuthenticatedRequest('GET', $uri);
         $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
@@ -111,7 +111,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+        $request = $this->createAuthenticatedRequest('GET', $uri);
         $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
@@ -145,7 +145,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+        $request = $this->createAuthenticatedRequest('GET', $uri);
         $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
 
         return $this->stateFactory->createState(
@@ -179,7 +179,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+        $request = $this->createAuthenticatedRequest('GET', $uri);
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(

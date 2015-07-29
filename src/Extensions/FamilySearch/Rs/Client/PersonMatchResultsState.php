@@ -90,7 +90,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::OPTIONS, $link->getHref());
+        $request = $this->createAuthenticatedRequest('OPTIONS', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             "PersonMergeState",
@@ -116,7 +116,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             "PersonMergeState",
@@ -145,7 +145,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
         $person = new Person();
         $person->setId($entry->getId());
         $entity->addPerson($person);
-        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
         $request->setBody($entity->toJson());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(

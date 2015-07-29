@@ -150,7 +150,7 @@
 
             $entity = new FamilySearchPlatform();
             $entity->setChildAndParentsRelationships(array($rel));
-            $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+            $request = $this->createAuthenticatedRequest('POST', $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
             /** @var EntityEnclosingRequest $request */
             $request->setBody($entity->toJson());
@@ -182,7 +182,7 @@
 
             $entity = new FamilySearchPlatform();
             $entity->setChildAndParentsRelationships($chaps);
-            $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+            $request = $this->createAuthenticatedRequest('POST', $link->getHref());
             FamilySearchRequest::applyFamilySearchMediaType($request);
             /** @var EntityEnclosingRequest $request */
             $request->setBody($entity->toJson());
@@ -203,7 +203,7 @@
          */
         public function readDiscoveryDocument(StateTransitionOption $option = null)
         {
-            $request = $this->createAuthenticatedFeedRequest(Request::GET, $this->getSelfUri());
+            $request = $this->createAuthenticatedFeedRequest('GET', $this->getSelfUri());
 
             return $this->reconstruct($request,$this->passOptionsTo('invoke', array($request), func_get_args()));
         }
@@ -230,7 +230,7 @@
                 )
             );
 
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+            $request = $this->createAuthenticatedRequest('GET', $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
 
             return $this->stateFactory->createState(
@@ -264,7 +264,7 @@
                     "person" => $id
                 )
             );
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+            $request = $this->createAuthenticatedRequest('GET', $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
 
             return $this->stateFactory->createState(
@@ -337,7 +337,7 @@
                     "uid" => $treeUserId
                 )
             );
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
+            $request = $this->createAuthenticatedRequest('GET', $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
             $response = $this->passOptionsTo('invoke', array($request), func_get_args());
             if ($response->getStatusCode() == HttpStatus::NO_CONTENT) {
@@ -428,7 +428,7 @@
                     "uid" => $treeUserId)
             );
 
-            $request = $this->createAuthenticatedRequest(Request::PUT, $uri);
+            $request = $this->createAuthenticatedRequest('PUT', $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
             $request->withHeader("Location", $relationshipState->getSelfUri());
 
@@ -503,7 +503,7 @@
                 )
             );
 
-            $request = $this->createAuthenticatedRequest(Request::DELETE, $uri);
+            $request = $this->createAuthenticatedRequest('DELETE', $uri);
             FamilySearchRequest::applyFamilySearchMediaType($request);
 
             return $this->stateFactory->createState(

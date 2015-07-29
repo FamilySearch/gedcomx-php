@@ -49,7 +49,7 @@
 		 */
 		const RESET_CONTENT = 205;
 		/**
-		 * Equivalent to HTTP status 206. PARTIAL_CONTENT indicates that the response is a partial response as requested by a GET request that includes a byte range.
+		 * Equivalent to HTTP status 206. PARTIAL_CONTENT indicates that the response is a partial response as requested by a'GET' request that includes a byte range.
 		 */
 		const PARTIAL_CONTENT = 206;
 		/**
@@ -73,11 +73,11 @@
 		 */
 		const MOVED_PERMANENTLY = 301;
 		/**
-		 * Equivalent to HTTP status 302. FOUND (or REDIRECT) indicates that the requested information is located at the URI specified in the Location header. The default action when this status is received is to follow the Location header associated with the response. When the original request method was POST, the redirected request will use the GET method.
+		 * Equivalent to HTTP status 302. FOUND (or REDIRECT) indicates that the requested information is located at the URI specified in the Location header. The default action when this status is received is to follow the Location header associated with the response. When the original request method was POST, the redirected request will use the'GET' method.
 		 */
 		const FOUND = 302;
 		/**
-		 * Equivalent to HTTP status 303. SEE_OTHER (or REDIRECT_METHOD) automatically redirects the client to the URI specified in the Location header as the result of a POST. The request to the resource specified by the Location header will be made with a GET.
+		 * Equivalent to HTTP status 303. SEE_OTHER (or REDIRECT_METHOD) automatically redirects the client to the URI specified in the Location header as the result of a POST. The request to the resource specified by the Location header will be made with a'GET'.
 		 */
 		const SEE_OTHER = 303;
 		/**
@@ -117,7 +117,7 @@
 		 */
 		const NOT_FOUND = 404;
 		/**
-		 * Equivalent to HTTP status 405. METHOD_NOT_ALLOWED indicates that the request method (POST or GET) is not allowed on the requested resource.
+		 * Equivalent to HTTP status 405. METHOD_NOT_ALLOWED indicates that the request method (POST or'GET') is not allowed on the requested resource.
 		 */
 		const METHOD_NOT_ALLOWED = 405;
 		/**

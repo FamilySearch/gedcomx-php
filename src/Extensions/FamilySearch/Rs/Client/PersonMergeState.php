@@ -71,7 +71,7 @@ class PersonMergeState extends FamilySearchCollectionState{
         }
 
         $values = $header->toArray();
-        return  count($values) > 0 && strpos(strtoupper($values[0]), Request::POST) !== false;
+        return  count($values) > 0 && strpos(strtoupper($values[0]), 'POST') !== false;
     }
 
     /**
@@ -88,7 +88,7 @@ class PersonMergeState extends FamilySearchCollectionState{
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(
@@ -114,7 +114,7 @@ class PersonMergeState extends FamilySearchCollectionState{
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'PersonState',

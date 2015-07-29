@@ -132,7 +132,7 @@ class PersonSpousesState extends PersonsState
            return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -157,7 +157,7 @@ class PersonSpousesState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -183,7 +183,7 @@ class PersonSpousesState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -210,7 +210,7 @@ class PersonSpousesState extends PersonsState
             throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -242,7 +242,7 @@ class PersonSpousesState extends PersonsState
             throw new GedcomxApplicationException("Unable to remove spouse: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -267,7 +267,7 @@ class PersonSpousesState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -292,7 +292,7 @@ class PersonSpousesState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,

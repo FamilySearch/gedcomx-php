@@ -77,7 +77,7 @@ class SourceDescriptionsState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -99,7 +99,7 @@ class SourceDescriptionsState extends GedcomxApplicationState
     {
         $entity = new Gedcomx();
         $entity->addSourceDescription($source);
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri());
         $request->setBody($entity->toJson());
         return $this->stateFactory->createState(
             'SourceDescriptionState',

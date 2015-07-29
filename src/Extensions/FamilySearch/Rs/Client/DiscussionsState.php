@@ -80,7 +80,7 @@ class DiscussionsState extends GedcomxApplicationState {
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -102,7 +102,7 @@ class DiscussionsState extends GedcomxApplicationState {
         $entity = new FamilySearchPlatform();
         $entity->addDiscussion($discussion);
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
         $request->setBody($entity->toJson());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 

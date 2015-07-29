@@ -110,7 +110,7 @@
 				array('date' => $date)
 			);
 
-			$request = $this->createRequest(Request::GET, $uri);
+			$request = $this->createRequest('GET', $uri);
 			$response = $this->passOptionsTo('invoke', array($request), func_get_args());
 			$dateValue = new DateInfo();
 			$dateValue->setOriginal($date);
@@ -163,7 +163,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
 			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
@@ -189,7 +189,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
 			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
@@ -226,7 +226,7 @@
 				array("q" => $queryString)
 			);
 
-			$request = $this->createAuthenticatedFeedRequest(Request::GET, $uri);
+			$request = $this->createAuthenticatedFeedRequest('GET', $uri);
 
 			return $this->stateFactory->createState(
 				'PersonMatchResultsState',
@@ -251,7 +251,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
 			FamilySearchRequest::applyFamilySearchMediaType($request);
 
 			return $this->stateFactory->createState(
@@ -281,7 +281,7 @@
 
 			$entity = new FamilySearchPlatform();
 			$entity->addDiscussion($discussion);
-			$request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+			$request = $this->createAuthenticatedRequest('POST', $link->getHref());
 			FamilySearchRequest::applyFamilySearchMediaType($request);
 			$request->setBody($entity->toJson());
 
@@ -304,7 +304,7 @@
          */
 		protected function embed(Link $link, StateTransitionOption $option = null ){
 			if ($link->getHref() != null) {
-				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource('GET', $link);
 				$lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
 				if ($lastEmbeddedResponse->getStatusCode() == 200) {
 					$json = json_decode($lastEmbeddedResponse->getBody(),true);

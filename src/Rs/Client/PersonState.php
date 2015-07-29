@@ -388,7 +388,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -617,7 +617,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Note cannot be read: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -705,7 +705,7 @@ class PersonState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->addPerson($person);
         /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri() );
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri() );
         $request->setBody($gx->toJson());
         return $this->stateFactory->createState(
             "PersonState",
@@ -921,7 +921,7 @@ class PersonState extends GedcomxApplicationState
             $target = $conclusionsLink->getHref();
         }
         /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
         $request->setBody($gx->toJson());
         return $this->stateFactory->createState(
             "PersonState",
@@ -1065,7 +1065,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -1163,7 +1163,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -1263,7 +1263,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -1294,7 +1294,7 @@ class PersonState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
         /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
         $request->setBody($gx->toJson());
 
         return $this->stateFactory->createState(
@@ -1380,7 +1380,7 @@ class PersonState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
         /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
         $request->setBody($gx->toJson());
 
         return $this->stateFactory->createState(
@@ -1411,7 +1411,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -1437,7 +1437,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'RelationshipState',
@@ -1468,7 +1468,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $reference->getResource());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $reference->getResource());
 
         return $this->stateFactory->createState(
             'PersonState',
@@ -1493,7 +1493,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             "PersonParentsState",
@@ -1518,7 +1518,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             "PersonChildrenState",
@@ -1714,7 +1714,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonSpousesState',
             $this->client,
@@ -1757,7 +1757,7 @@ class PersonState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'SourceDescriptionState',
             $this->client,
@@ -1821,7 +1821,7 @@ class PersonState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,

@@ -216,7 +216,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -485,7 +485,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
@@ -583,7 +583,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
@@ -667,7 +667,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
@@ -751,7 +751,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
@@ -779,7 +779,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Note cannot be read: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -861,7 +861,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Note cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -885,7 +885,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedFeedRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'ChangeHistoryState',
             $this->client,
@@ -914,7 +914,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $child->getResource());
+        $request = $this->createAuthenticatedRequest('GET', $child->getResource());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -943,7 +943,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $father->getResource());
+        $request = $this->createAuthenticatedRequest('GET', $father->getResource());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -980,7 +980,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         $relationship->setFather($father);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
         /** @var EntityEnclosingRequest $request */
         $request->setBody($fsp->toJson());
         return $this->stateFactory->createState(
@@ -1006,7 +1006,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -1035,7 +1035,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $mother->getResource());
+        $request = $this->createAuthenticatedRequest('GET', $mother->getResource());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -1072,7 +1072,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         $relationship->setMother($mother);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
         /** @var EntityEnclosingRequest $request */
         $request->setBody($fsp->toJson());
         FamilySearchRequest::applyFamilySearchMediaType($request);
@@ -1099,7 +1099,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -1122,7 +1122,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -1151,7 +1151,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
 
         $gx = new FamilySearchPlatform();
         $gx->setChildAndParentsRelationships(array($relationship));
-        $request = $this->createAuthenticatedRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedRequest('POST', $target);
         FamilySearchRequest::applyFamilySearchMediaType($request);
         /** @var EntityEnclosingRequest $request */
         $request->setBody($gx->toJson());

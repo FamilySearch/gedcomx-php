@@ -58,7 +58,7 @@ class PersonNonMatchesState extends PersonState
      */
     protected function loadEntityConditionally()
     {
-        if ($this->request->getMethod() == Request::GET
+        if ($this->request->getMethod() =='GET'
             && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
             || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
         ) {
@@ -110,7 +110,7 @@ class PersonNonMatchesState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'PersonNonMatchesState',

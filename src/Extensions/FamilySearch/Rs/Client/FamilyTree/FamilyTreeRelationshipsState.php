@@ -89,7 +89,7 @@ class FamilyTreeRelationshipsState extends RelationshipsState {
         $entity = new FamilySearchPlatform();
         $entity->setChildAndParentsRelationships(array($chap));
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,

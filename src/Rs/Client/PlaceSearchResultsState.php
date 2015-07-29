@@ -71,7 +71,7 @@ class PlaceSearchResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'PlaceDescriptionState',

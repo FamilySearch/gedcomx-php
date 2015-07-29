@@ -60,7 +60,7 @@ class FamilyTreePersonState extends PersonState
      */
     protected function loadEntityConditionally()
     {
-        if ($this->request->getMethod() == Request::GET
+        if ($this->request->getMethod() =='GET'
             && ($this->response->getStatusCode() == HttpStatus::OK || $this->response->getStatusCode() == HttpStatus::GONE)
             || $this->response->getStatusCode() == HttpStatus::PRECONDITION_FAILED
         ) {
@@ -190,7 +190,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'SourceDescriptionsState',
@@ -215,7 +215,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
 
         return $this->passOptionsTo('invoke', array($request), func_get_args());
     }
@@ -312,7 +312,7 @@ class FamilyTreePersonState extends PersonState
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedRequest('POST', $target);
         $request->setBody($gx->toJson());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
@@ -351,7 +351,7 @@ class FamilyTreePersonState extends PersonState
             throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(
@@ -380,7 +380,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(
@@ -406,7 +406,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedFeedRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'ChangeHistoryState',
@@ -431,7 +431,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedFeedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedFeedRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'PersonMatchResultsState',
@@ -456,7 +456,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(
@@ -482,7 +482,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
 
         return $this->stateFactory->createState(
@@ -504,7 +504,7 @@ class FamilyTreePersonState extends PersonState
      */
     public function readMergeOptions(FamilyTreePersonState $candidate, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('transitionToPersonMerge', array(Request::OPTIONS, $candidate), func_get_args());
+        return $this->passOptionsTo('transitionToPersonMerge', array('OPTIONS', $candidate), func_get_args());
     }
 
     /**
@@ -517,7 +517,7 @@ class FamilyTreePersonState extends PersonState
      */
     public function readMergeAnalysis(FamilyTreePersonState $candidate, StateTransitionOption $option = null)
     {
-        return $this->passOptionsTo('transitionToPersonMerge', array(Request::GET, $candidate), func_get_args());
+        return $this->passOptionsTo('transitionToPersonMerge', array('GET', $candidate), func_get_args());
     }
 
     /**
@@ -599,7 +599,7 @@ class FamilyTreePersonState extends PersonState
 
         $entity = new Gedcomx();
         $entity->addPerson($person);
-        $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         /** @var EntityEnclosingRequest $request */
         $json = $entity->toJson();

@@ -112,7 +112,7 @@ class SourceDescriptionState extends GedcomxApplicationState
             $entity = $description;
         }
         /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri());
         $request->setBody($entity->toJson());
         return $this->stateFactory->createState(
             'SourceDescriptionState',
@@ -142,7 +142,7 @@ class SourceDescriptionState extends GedcomxApplicationState
                 $this->accessToken
             );
         } else {
-            $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+            $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
             return $this->stateFactory->createState(
                 'PersonsState',
                 $this->client,
@@ -172,7 +172,7 @@ class SourceDescriptionState extends GedcomxApplicationState
                 $this->accessToken
             );
         } else {
-            $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+            $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         }
         return $this->stateFactory->createState(
             'PersonsState',
@@ -214,7 +214,7 @@ class SourceDescriptionState extends GedcomxApplicationState
             $target = $link->getHref();
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
         $request->setBody($persona->toJson());
         return $this->stateFactory->createState(
             'PersonState',
@@ -238,7 +238,7 @@ class SourceDescriptionState extends GedcomxApplicationState
         if ($link == null || $link->getHref() == null) {
             return null;
         } else {
-            $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+            $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
             return $this->stateFactory->createState(
                 'SourceDescriptionState',
                 $this->client,
@@ -263,7 +263,7 @@ class SourceDescriptionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,

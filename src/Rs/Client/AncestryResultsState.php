@@ -116,7 +116,7 @@ class AncestryResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $personUri);
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $personUri);
 
         return $this->stateFactory->createState(
             "PersonState",

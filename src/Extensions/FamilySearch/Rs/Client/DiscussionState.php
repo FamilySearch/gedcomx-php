@@ -246,7 +246,7 @@ class DiscussionState extends GedcomxApplicationState
 
         $fsp = new FamilySearchPlatform();
         $fsp->setDiscussions(array($discussion));
-        $request = $this->createAuthenticatedRequest(Request::POST, $target);
+        $request = $this->createAuthenticatedRequest('POST', $target);
         FamilySearchRequest::applyFamilySearchMediaType($request);
         $request->setBody($fsp->toJson());
         return $this->stateFactory->createState(
@@ -275,7 +275,7 @@ class DiscussionState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Comment cannot be deleted: missing $link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         FamilySearchRequest::applyFamilySearchMediaType($request);
         return $this->stateFactory->createState(
             'DiscussionState',

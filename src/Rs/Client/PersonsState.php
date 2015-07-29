@@ -121,7 +121,7 @@ class PersonsState extends GedcomxApplicationState
            return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->getClient(),
@@ -149,7 +149,7 @@ class PersonsState extends GedcomxApplicationState
             $href = $this->getSelfUri();
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $href);
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $href);
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,

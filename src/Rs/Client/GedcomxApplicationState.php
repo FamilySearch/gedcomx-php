@@ -168,7 +168,7 @@ abstract class GedcomxApplicationState
         if (isset($myLocation)) {
             $links['self'] = new Link();
             $links['self']->setRel('self');
-            $links['self']->setHref($myLocation);
+            $links['self']->setHref($myLocation[0]);
         }
 
         //load link headers
@@ -440,7 +440,7 @@ abstract class GedcomxApplicationState
      */
     public function head(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::HEAD, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('HEAD', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -449,7 +449,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * Executes a GET verb request against the current REST API request and returns a state instance with the response.
+     * Executes a'GET' verb request against the current REST API request and returns a state instance with the response.
      *
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
@@ -457,7 +457,7 @@ abstract class GedcomxApplicationState
      */
     public function get(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::GET, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('GET', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -474,7 +474,7 @@ abstract class GedcomxApplicationState
      */
     public function delete(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::DELETE, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('DELETE', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -491,7 +491,7 @@ abstract class GedcomxApplicationState
      */
     public function options(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::OPTIONS, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('OPTIONS', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -510,7 +510,7 @@ abstract class GedcomxApplicationState
      */
     public function put($entity, StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::PUT, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('PUT', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -533,7 +533,7 @@ abstract class GedcomxApplicationState
      */
     public function post(Gedcomx $entity, StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest(Request::POST, $this->getSelfUri());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
             $request->withHeader("Accept", $accept);
@@ -858,8 +858,11 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * @param string       $method  The http method.
-     * @param string|array $uri     optional: string with an href, or an array with template info
+     * @param string $method  The HTTP method.
+     * @param string|array $uri optional: string with an href, or an array with template info
+     * @param array $headers optional: Associative array of HTTP headers
+     * @param array $formData optional: Array of form data
+     * @param string $body optional: body of the request
      *
      * @return Request The request.
      */
@@ -875,14 +878,18 @@ abstract class GedcomxApplicationState
     /**
      * Creates a request object (with authorization when present) for use with REST API requests.
      *
-     * @param string       $method  The http method.
-     * @param string|array $uri     optional: string with an href, or an array with template info
+     * @param string $method  The HTTP method.
+     * @param string|array $uri optional: string with an href, or an array with template info
+     * @param array $headers optional: Associative array of HTTP headers
+     * @param array $formData optional: Array of form data
+     * @param string $body optional: body of the request
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedRequest($method, $uri = null)
+    protected function createAuthenticatedRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        $request = $this->createRequest($method, $uri);
+        print_r($uri);
+        $request = $this->createRequest($method, $uri, $headers, $formData, $body);
         if (isset($this->accessToken)) {
             $request->withHeader('Authorization', "Bearer {$this->accessToken}");
         }
@@ -892,14 +899,17 @@ abstract class GedcomxApplicationState
     /**
      * Creates a request object that expects a "application/x-gedcomx-atom+json" response (with authorization when present) for use with REST API requests.
      *
-     * @param string       $method  The http method.
-     * @param string|array $uri     optional: string with an href, or an array with template info
+     * @param string $method  The HTTP method.
+     * @param string|array $uri optional: string with an href, or an array with template info
+     * @param array $headers optional: Associative array of HTTP headers
+     * @param array $formData optional: Array of form data
+     * @param string $body optional: body of the request
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedFeedRequest($method, $uri = null)
+    protected function createAuthenticatedFeedRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        $request = $this->createAuthenticatedRequest($method, $uri);
+        $request = $this->createAuthenticatedRequest($method, $uri, $headers, $formData, $body);
         $request->withHeader('Accept', Gedcomx::ATOM_JSON_MEDIA_TYPE);
         return $request;
     }
@@ -907,14 +917,17 @@ abstract class GedcomxApplicationState
     /**
      * Creates a request object that will send and expect "application/x-gedcomx-v1+json" data (with authorization when present) for use with REST API requests.
      *
-     * @param string       $method  The http method.
-     * @param string|array $uri    optional: string with an href, or an array with template info
+     * @param string $method  The HTTP method.
+     * @param string|array $uri optional: string with an href, or an array with template info
+     * @param array $headers optional: Associative array of HTTP headers
+     * @param array $formData optional: Array of form data
+     * @param string $body optional: body of the request
      *
      * @return Request The request.
      */
-    protected function createAuthenticatedGedcomxRequest($method, $uri = null)
+    protected function createAuthenticatedGedcomxRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        $request = $this->createAuthenticatedRequest($method, $uri);
+        $request = $this->createAuthenticatedRequest($method, $uri, $headers, $formData, $body);
         $request->withHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
         $request->withHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         return $request;
@@ -942,7 +955,7 @@ abstract class GedcomxApplicationState
      */
     protected function embed(Link $link, StateTransitionOption $option = null ){
         if ($link->getHref() != null) {
-            $this->lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+            $this->lastEmbeddedRequest = $this->createRequestForEmbeddedResource('GET', $link);
             $this->lastEmbeddedResponse = $this->passOptionsTo('invoke',array($this->lastEmbeddedRequest), func_get_args());
             if ($this->lastEmbeddedResponse->getStatusCode() == 200) {
                 $json = json_decode($this->lastEmbeddedResponse->getBody(),true);
@@ -1076,7 +1089,7 @@ abstract class GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $contributor->getResource());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $contributor->getResource());
         return $this->stateFactory->createState(
             'AgentState',
             $this->client,
@@ -1106,7 +1119,16 @@ abstract class GedcomxApplicationState
         }
         $response = null;
         try{
-            $response = $this->client->send($request, ['curl' => ['body_as_string' => true]]);
+            $actualUri = $request->getUri();
+            $response = $this->client->send($request, [
+                'curl' => ['body_as_string' => true],
+                'allow_redirects' => [
+                    'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {
+                        $actualUri = (string) $uri;
+                    }    
+                ]   
+            ]);
+            $response->effectiveUri = $actualUri;
         }
         catch( ClientErrorResponseException $e ){
             throw new GedcomxApplicationException( $this->buildFailureMessage($e->getRequest(), $e->getResponse()), $e->getResponse() );

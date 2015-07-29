@@ -131,7 +131,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $methodName = array_pop($method);
         $code = $stateObj->getStatus();
         $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
-        $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->getEffectiveUrl();
+        $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->effectiveUri;
         $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
         $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept");
         $message .= "\nRequest:" . (
