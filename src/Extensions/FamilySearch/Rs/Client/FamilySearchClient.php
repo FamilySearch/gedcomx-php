@@ -136,7 +136,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         }
         
         // Set user agent string
-        $userAgent = 'gedcomx-php/1.1.1';
+        $userAgent = 'gedcomx-php/1.1.1 ' . \GuzzleHttp\default_user_agent();
         if(isset($options['userAgent'])){
             $userAgent = $options['userAgent'] . ' ' . $userAgent;
         }

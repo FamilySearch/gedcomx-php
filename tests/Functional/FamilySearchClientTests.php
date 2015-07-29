@@ -155,7 +155,7 @@ class FamilySearchClientTests extends ApiTestCase
             'pendingModifications' => $modifications,
             'middleware' => [
                 Middleware::tap(function(RequestInterface $request, $options) use(&$featuresHeader) {
-                   $featuresHeader = $request->getHeader('X-FS-Feature-Tag'); 
+                   $featuresHeader = $request->getHeader('X-FS-Feature-Tag')[0]; 
                 })
             ]
         ]);
@@ -164,18 +164,13 @@ class FamilySearchClientTests extends ApiTestCase
         $responseState = $client->familytree()->addPerson($person);
         $this->queueForDelete($responseState);
         
-        print_r($featuresHeader);
-
         // Ensure a response came back
         $this->assertNotNull($responseState);
         $check = array();
         
-        return;
-        
-        $requestedFeatures = join(",", $check);
         // Ensure each requested feature was found in the request headers
         foreach ($features as $feature) {
-            $this->assertTrue(strpos($requestedFeatures, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
+            $this->assertTrue(strpos($featuresHeader, $feature->getName()) !== false, $feature->getName() . " was not found in the requested features.");
         }
     }
     
