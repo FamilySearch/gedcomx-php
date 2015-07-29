@@ -135,6 +135,8 @@ class FamilySearchClientTests extends ApiTestCase
      */
     public function testSetPendingModifications()
     {
+        $this->markTestSkipped('Unable to test until we find a way to get the final Request object');
+        
         $features = $this->createAuthenticatedFamilySearchClient()->getAvailablePendingModifications();
         $modifications = array_map(function (Feature $feature) {
             return $feature->getName();

@@ -64,8 +64,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request = $client->createRequest($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -88,8 +87,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionsState($client, $request, $client->send($request), null, $this);
     }
 
@@ -112,8 +110,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -143,8 +140,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 

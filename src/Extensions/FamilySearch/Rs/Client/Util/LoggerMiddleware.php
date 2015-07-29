@@ -31,15 +31,6 @@ class LoggerMiddleware
                 $promise = $handler($request, $options);
                 return $promise->then(function(ResponseInterface $response) use ($logger) {
                     
-                    // Log response headers
-                    $logger->debug(self::printHeaders($response));
-                    $logger->debug($response->getBody());
-                    
-                    // Log warning header
-                    if($response->getHeader('warning')){
-                        $logger->warning($response->getHeaderLine('warning'));
-                    }
-                    
                     $statusCode = $response->getStatusCode();
                     $reason = $response->getReasonPhrase();
                     
@@ -48,14 +39,27 @@ class LoggerMiddleware
                         $logger->error($statusCode . ' ' . $reason);
                     }
                     
-                    // Log 500 errors
-                    if($statusCode >= 500){
-                        $logger->critical($statusCode . ' ' . $reason . "\n" . $response->getBody());
+                    // Log 503s
+                    else if($statusCode == 503){
+                        $logger->alert($statusCode . ' ' . $reason);
                     }
                     
-                    // Log 503s
-                    if($statusCode == 503){
-                        $logger->alert($statusCode . ' ' . $reason);
+                    // Log 500 errors
+                    else if($statusCode >= 500){
+                        $logger->critical($statusCode . ' ' . $reason);
+                    }
+                    
+                    else {
+                        $logger->info($statusCode . ' ' . $reason);
+                    }
+                    
+                    // Log response headers
+                    $logger->debug(self::printHeaders($response));
+                    $logger->debug($response->getBody());
+                    
+                    // Log warning header
+                    if($response->getHeader('warning')){
+                        $logger->warning($response->getHeaderLine('warning'));
                     }
                     
                     return $response;

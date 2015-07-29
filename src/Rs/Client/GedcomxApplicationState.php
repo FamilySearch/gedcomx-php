@@ -12,9 +12,7 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\Util\EmbeddedLinkLoader;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use GuzzleHttp\Client;
-use Guzzle\Http\Exception\ClientErrorResponseException;
 use GuzzleHttp\Psr7\Request;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -281,7 +279,7 @@ abstract class GedcomxApplicationState
      */
     public function getUri()
     {
-        return $this->request->getUrl();
+        return $this->request->getUri();
     }
 
     /**
@@ -440,11 +438,12 @@ abstract class GedcomxApplicationState
      */
     public function head(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('HEAD', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
+        $request = $this->createAuthenticatedRequest('HEAD', $this->getSelfUri(), $headers);
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
@@ -457,11 +456,12 @@ abstract class GedcomxApplicationState
      */
     public function get(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('GET', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
+        $request = $this->createAuthenticatedRequest('GET', $this->getSelfUri(), $headers);
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
@@ -474,11 +474,12 @@ abstract class GedcomxApplicationState
      */
     public function delete(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('DELETE', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
+        $request = $this->createAuthenticatedRequest('DELETE', $this->getSelfUri(), $headers);
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
@@ -491,11 +492,12 @@ abstract class GedcomxApplicationState
      */
     public function options(StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('OPTIONS', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
+        $request = $this->createAuthenticatedRequest('OPTIONS', $this->getSelfUri(), $headers);
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
@@ -510,16 +512,16 @@ abstract class GedcomxApplicationState
      */
     public function put($entity, StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('PUT', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
         $contentType = $this->request->getHeader("Content-Type");
         if (isset($contentType)) {
-            $request->withHeader("Content-Type", $contentType);
+            $headers["Content-Type"] = $contentType;
         }
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedRequest('PUT', $this->getSelfUri(), $headers, null, $entity->toJson());
         return $this->reconstruct($request, $this->passOptionsTo('invoke',array($request),func_get_args()));
     }
 
@@ -533,20 +535,19 @@ abstract class GedcomxApplicationState
      */
     public function post(Gedcomx $entity, StateTransitionOption $option = null)
     {
-        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
+        $headers = [];
         $accept = $this->request->getHeader("Accept");
         if (isset($accept)) {
-            $request->withHeader("Accept", $accept);
+            $headers["Accept"] = $accept;
         }
         $contentType = $this->request->getHeader("Content-Type");
         if (isset($contentType)) {
-            $request->withHeader("Content-Type", $contentType);
+            $headers["Content-Type"] = $contentType;
         }
-        $request->setBody($entity->toJson());
-
-        if ($entity instanceof Gedcomx && !$request->getHeader("Content-Type")){
-            $request->withHeader("Content-Type", Gedcomx::JSON_MEDIA_TYPE);
+        if ($entity instanceof Gedcomx && !isset($headers["Content-Type"])){
+            $headers["Content-Type"] = Gedcomx::JSON_MEDIA_TYPE;
         }
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri(), $headers, null, $entity->toJson());
         return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
     }
 
@@ -626,9 +627,6 @@ abstract class GedcomxApplicationState
         }
 
         $request = $this->createRequest('POST', $href, ['Accept' => 'application/json'], $formData);
-        /**
-         * @var $request EntityEnclosingRequest
-         */
         $response = $this->invoke($request);
 
         $statusCode = intval($response->getStatusCode());
@@ -795,10 +793,12 @@ abstract class GedcomxApplicationState
         if ($link === null || $link->getHref() === null) {
             return null;
         }
-
+        
+        $headers = [
+            'Accept' => $this->request->getHeader("Accept"),
+            'Content-Type' => $this->request->getHeader("Content-Type")
+        ];
         $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
-        $request->withHeader("Accept", $this->request->getHeader("Accept"));
-        $request->withHeader("Content-Type", $this->request->getHeader("Content-Type"));
         $class = get_class($this);
         return new $class(
             $this->client,
@@ -888,11 +888,10 @@ abstract class GedcomxApplicationState
      */
     protected function createAuthenticatedRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        print_r($uri);
-        $request = $this->createRequest($method, $uri, $headers, $formData, $body);
         if (isset($this->accessToken)) {
-            $request->withHeader('Authorization', "Bearer {$this->accessToken}");
+            $headers['Authorization'] = "Bearer {$this->accessToken}";
         }
+        $request = $this->createRequest($method, $uri, $headers, $formData, $body);
         return $request;
     }
 
@@ -909,8 +908,8 @@ abstract class GedcomxApplicationState
      */
     protected function createAuthenticatedFeedRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
+        $headers['Accept'] = Gedcomx::ATOM_JSON_MEDIA_TYPE;
         $request = $this->createAuthenticatedRequest($method, $uri, $headers, $formData, $body);
-        $request->withHeader('Accept', Gedcomx::ATOM_JSON_MEDIA_TYPE);
         return $request;
     }
 
@@ -927,9 +926,9 @@ abstract class GedcomxApplicationState
      */
     protected function createAuthenticatedGedcomxRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
+        $headers['Accept'] = Gedcomx::JSON_MEDIA_TYPE;
+        $headers['Content-Type'] = Gedcomx::JSON_MEDIA_TYPE;
         $request = $this->createAuthenticatedRequest($method, $uri, $headers, $formData, $body);
-        $request->withHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
-        $request->withHeader('Content-Type', Gedcomx::JSON_MEDIA_TYPE);
         return $request;
     }
 
@@ -1118,22 +1117,16 @@ abstract class GedcomxApplicationState
             }
         }
         $response = null;
-        try{
-            $actualUri = $request->getUri();
-            $response = $this->client->send($request, [
-                'curl' => ['body_as_string' => true],
-                'allow_redirects' => [
-                    'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {
-                        $actualUri = (string) $uri;
-                    }    
-                ]   
-            ]);
-            $response->effectiveUri = $actualUri;
-        }
-        catch( ClientErrorResponseException $e ){
-            throw new GedcomxApplicationException( $this->buildFailureMessage($e->getRequest(), $e->getResponse()), $e->getResponse() );
-        }
-
+        $actualUri = $request->getUri();
+        $response = $this->client->send($request, [
+            'curl' => ['body_as_string' => true],
+            'allow_redirects' => [
+                'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {
+                    $actualUri = (string) $uri;
+                }    
+            ]   
+        ]);
+        $response->effectiveUri = $actualUri;
         return $response;
     }
 

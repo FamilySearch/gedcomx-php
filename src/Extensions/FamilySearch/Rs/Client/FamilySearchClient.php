@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -246,15 +247,14 @@ class FamilySearchClient implements LoggerAwareInterface{
      */
     public function getAvailablePendingModifications()
     {
-        $request = $this->client->createRequest(
-            "GET", 
-            $this->homeState->getCollection()->getLink('pending-modifications')->getHref()
-        );
-        $request->withHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
-        $response = $request->send($request);
+        $uri = $this->homeState->getCollection()->getLink('pending-modifications')->getHref();
+        $headers = ['Accept' => Gedcomx::JSON_APPLICATION_TYPE];
+        $request = new Request('GET', $uri, $headers);
+        $response = $this->client->send($request);
+        
 
         // Get each pending feature
-        $json = json_decode($response->getBody(true), true);
+        $json = json_decode($response->getBody(), true);
         $fsp = new FamilySearchPlatform($json);
         $features = array();
         foreach ($fsp->getFeatures() as $feature) {

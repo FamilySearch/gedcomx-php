@@ -144,7 +144,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $warnings = $stateObj->getHeader('warning');
         if (!empty($warnings)) {
             $message .= "Warnings:\n";
-            foreach ($warnings->toArray() as $msg) {
+            foreach ($warnings as $msg) {
                 $message .= $msg . "\n";
             }
         }
@@ -154,13 +154,15 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     
     protected function createFamilySearchClient($options = array())
     {
-        $logger = new \Monolog\Logger('test');
-        $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
+        if(!isset($options['logger'])){
+            $logger = new \Monolog\Logger('test');
+            $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
+            $options['logger'] = $logger;
+        }
         return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,
-            'redirectURI' => SandboxCredentials::REDIRECT_URI,
-            // 'logger' => $logger
+            'redirectURI' => SandboxCredentials::REDIRECT_URI
         )));
     }
     

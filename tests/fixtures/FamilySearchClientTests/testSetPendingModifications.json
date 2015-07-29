@@ -4,8 +4,9 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/collection",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1",
+            "Accept": "application\/x-fs-v1+json"
         }
     },
     "response": {
@@ -18,10 +19,10 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/app-meta",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 13 Jul 2015 17:24:08 GMT",
+            "Date": "Wed, 29 Jul 2015 16:08:57 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1",
+            "X-PROCESSING-TIME": "0",
             "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -38,8 +39,9 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1",
+            "Accept": "application\/x-fs-v1+json"
         }
     },
     "response": {
@@ -52,10 +54,10 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 13 Jul 2015 17:24:08 GMT",
+            "Date": "Wed, 29 Jul 2015 16:08:56 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "0",
+            "X-PROCESSING-TIME": "1",
             "Content-Length": "6107",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -72,10 +74,11 @@
         "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
         "headers": {
             "Host": "integration.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1",
             "Accept": "application\/json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded"
         },
         "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
@@ -93,7 +96,7 @@
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Mon, 13 Jul 2015 17:24:09 GMT",
+            "Date": "Wed, 29 Jul 2015 16:08:35 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -101,7 +104,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\"token\":\"USYS4CC3027DDD6FF13655AE19DDC90E1DBC_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS4CC3027DDD6FF13655AE19DDC90E1DBC_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS275FE9D1A70201CA502A3DE09761A336_idses-int01.a.fsglobal.net\",\"access_token\":\"USYS275FE9D1A70201CA502A3DE09761A336_idses-int01.a.fsglobal.net\",\"token_type\":\"family_search\"}"
     }
 },{
     "request": {
@@ -109,9 +112,13 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/pending-modifications",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1",
             "Accept": "application\/json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
     "response": {
         "status": {
@@ -122,12 +129,12 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/json",
-            "Date": "Mon, 13 Jul 2015 17:24:09 GMT",
+            "Date": "Wed, 29 Jul 2015 16:08:57 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "Warning": "199 FamilySearch Best Practice Violation",
             "X-PROCESSING-TIME": "1",
-            "transfer-encoding": "chunked",
+            "Content-Length": "1047",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -143,12 +150,13 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS4CC3027DDD6FF13655AE19DDC90E1DBC_idses-int02.a.fsglobal.net",
+            "X-FS-Feature-Tag": "",
+            "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "X-FS-Feature-Tag": "functest,remove-identity-v2-login,301-on-updates-to-merged-entities,source-ref-query-param-change"
+            "Authorization": "Bearer USYS275FE9D1A70201CA502A3DE09761A336_idses-int01.a.fsglobal.net"
         },
         "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Female\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"July 20, 1913\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Hermistonfurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"July 20, 1938\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"20 Jul 1913\",\"birthPlace\":\"Hermistonfurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Female\",\"lifespan\":\"20 Jul 1913 - 20 Jul 1938\",\"name\":\"Guadalupe Ankunding\"}}]}"
     },
@@ -161,53 +169,17 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 13 Jul 2015 17:24:12 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWHK-WQT>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWHK-WQT>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWHK-WQT>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT\/spouse-relationships>; rel=\"spouse-relationships\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT",
+            "Date": "Wed, 29 Jul 2015 16:09:01 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWHT-JF7>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWHT-JF7>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWHT-JF7>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7\/spouse-relationships>; rel=\"spouse-relationships\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHT-JF7",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "KWHK-WQT",
-            "X-PROCESSING-TIME": "3016",
-            "X-THROTTLE-MILLIS-LEFT": "1796990",
-            "X-THROTTLE-MILLIS-USED": "3010",
+            "X-ENTITY-ID": "KWHT-JF7",
+            "X-PROCESSING-TIME": "2781",
+            "X-THROTTLE-MILLIS-LEFT": "1790300",
+            "X-THROTTLE-MILLIS-USED": "9700",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
-        }
-    }
-},{
-    "request": {
-        "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHK-WQT",
-        "headers": {
-            "Host": "sandbox.familysearch.org",
-            "Expect": null,
-            "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS4CC3027DDD6FF13655AE19DDC90E1DBC_idses-int02.a.fsglobal.net",
-            "X-FS-Feature-Tag": "functest,remove-identity-v2-login,301-on-updates-to-merged-entities,source-ref-query-param-change",
-            "Content-Length": "0"
-        }
-    },
-    "response": {
-        "status": {
-            "http_version": "1.1",
-            "code": "204",
-            "message": "No Content"
-        },
-        "headers": {
-            "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWHK-WQT",
-            "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 13 Jul 2015 17:24:16 GMT",
-            "Server": "Apache-Coyote\/1.1",
-            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "2695",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",

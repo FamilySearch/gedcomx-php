@@ -61,8 +61,7 @@
 			}
 
 			/** @var Request $request */
-			$request = $client->createRequest($method, $uri);
-			$request->withHeader("Accept", FamilySearchPlatform::JSON_MEDIA_TYPE);
+			$request = $client->createRequest($method, $uri, ['Accept' => FamilySearchPlatform::JSON_MEDIA_TYPE]);
 			return new FamilySearchCollectionState($client, $request, $client->send($request), null, $this);
 		}
 
@@ -86,8 +85,7 @@
 			}
 
 			/** @var Request $request */
-			$request = $client->createRequest($method, $uri);
-			$request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+			$request = $client->createRequest($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
 
 			return new FamilySearchPlaces($client, $request, $client->send($request), null, $this);
 		}
@@ -112,8 +110,7 @@
 			}
 
 			/** @var Request $request */
-			$request = $client->createRequest($method, $uri);
-			$request->withHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
+			$request = $client->createRequest($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
 
 			return new FamilySearchMemories($client, $request, $client->send($request), null, $this);
 		}
