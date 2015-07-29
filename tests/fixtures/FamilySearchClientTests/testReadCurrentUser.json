@@ -19,10 +19,10 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/app-meta",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Wed, 29 Jul 2015 16:08:52 GMT",
+            "Date": "Wed, 29 Jul 2015 20:06:47 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1",
+            "X-PROCESSING-TIME": "0",
             "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -54,11 +54,11 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Wed, 29 Jul 2015 16:08:52 GMT",
+            "Date": "Wed, 29 Jul 2015 20:06:47 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
-            "Content-Length": "6107",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -96,7 +96,7 @@
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Wed, 29 Jul 2015 16:09:12 GMT",
+            "Date": "Wed, 29 Jul 2015 20:06:56 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -104,7 +104,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\"token\":\"USYS6E84585ACAF2278870FFEF6AC69AA58C_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS6E84585ACAF2278870FFEF6AC69AA58C_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS1FD59EFC23F9A4308ED507F670005F70_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS1FD59EFC23F9A4308ED507F670005F70_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
     }
 },{
     "request": {
@@ -114,10 +114,10 @@
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
             "User-Agent": "gedcomx-php\/1.1.1",
-            "Accept": null,
+            "Accept": "application\/x-fs-v1+json",
             "Expect": null,
-            "Content-Type": "application\/x-www-form-urlencoded",
-            "Authorization": "Bearer USYS6E84585ACAF2278870FFEF6AC69AA58C_idses-int02.a.fsglobal.net"
+            "Content-Type": "application\/x-fs-v1+json",
+            "Authorization": "Bearer USYS1FD59EFC23F9A4308ED507F670005F70_idses-int02.a.fsglobal.net"
         },
         "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
@@ -129,13 +129,12 @@
         },
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
-            "Content-Type": "application\/xml",
-            "Date": "Wed, 29 Jul 2015 16:08:54 GMT",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Wed, 29 Jul 2015 20:06:50 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "Warning": "199 FamilySearch Best Practice Violation",
-            "X-PROCESSING-TIME": "1154",
-            "Content-Length": "963",
+            "X-PROCESSING-TIME": "1300",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -143,6 +142,6 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<fs:familysearch xmlns=\"http:\/\/gedcomx.org\/v1\/\" xmlns:fs=\"http:\/\/familysearch.org\/v1\/\" xmlns:atom=\"http:\/\/www.w3.org\/2005\/Atom\">\n    <fs:user id=\"cis.user.MMMM-DT62\">\n        <link rel=\"self\" href=\"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\/>\n        <link rel=\"person\" href=\"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KW7G-28J\"\/>\n        <fs:birthDate>30 Dec 1977<\/fs:birthDate>\n        <fs:contactName>sdk tester<\/fs:contactName>\n        <fs:country>USA<\/fs:country>\n        <fs:displayName>SDK Tester<\/fs:displayName>\n        <fs:email>heatonra@familysearch.org<\/fs:email>\n        <fs:familyName>SDK<\/fs:familyName>\n        <fs:gender>MALE<\/fs:gender>\n        <fs:givenName>Tester<\/fs:givenName>\n        <fs:personId>KW7G-28J<\/fs:personId>\n        <fs:preferredLanguage>en<\/fs:preferredLanguage>\n        <fs:treeUserId>MM6M-8QJ<\/fs:treeUserId>\n    <\/fs:user>\n<\/fs:familysearch>\n"
+        "body": "{\n  \"users\" : [ {\n    \"id\" : \"cis.user.MMMM-DT62\",\n    \"links\" : {\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KW7G-28J\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      }\n    },\n    \"contactName\" : \"sdk tester\",\n    \"givenName\" : \"Tester\",\n    \"familyName\" : \"SDK\",\n    \"email\" : \"heatonra@familysearch.org\",\n    \"country\" : \"USA\",\n    \"gender\" : \"MALE\",\n    \"birthDate\" : \"30 Dec 1977\",\n    \"preferredLanguage\" : \"en\",\n    \"displayName\" : \"SDK Tester\",\n    \"personId\" : \"KW7G-28J\",\n    \"treeUserId\" : \"MM6M-8QJ\"\n  } ]\n}"
     }
 }]

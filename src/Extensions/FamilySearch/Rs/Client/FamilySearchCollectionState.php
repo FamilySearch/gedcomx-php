@@ -138,8 +138,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest("GET", $uri);
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest("GET", $uri, FamilySearchRequest::getMediaTypes());
 			return $this->stateFactory->createState(
 				"PersonState",
 				$this->client,
@@ -163,8 +162,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'UserState',
@@ -189,8 +187,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'UserHistoryState',
@@ -251,8 +248,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest('GET', $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'DiscussionsState',
@@ -281,9 +277,7 @@
 
 			$entity = new FamilySearchPlatform();
 			$entity->addDiscussion($discussion);
-			$request = $this->createAuthenticatedRequest('POST', $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
-			$request->setBody($entity->toJson());
+			$request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
 			return $this->stateFactory->createState(
 				'DiscussionState',

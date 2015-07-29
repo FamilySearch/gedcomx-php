@@ -7,6 +7,8 @@ use Gedcomx\Gedcomx;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
 
 /**
  * The state factory is responsible for instantiating state classes from REST API responses.
@@ -62,9 +64,9 @@ class StateFactory
         if ($uri == null) {
             $uri = $this->production ? self::PRODUCTION_URI : self::SANDBOX_URI;
         }
-
+        
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -87,7 +89,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionsState($client, $request, $client->send($request), null, $this);
     }
 
@@ -110,7 +112,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
         return new CollectionState($client, $request, $client->send($request), null, $this);
     }
 
@@ -121,7 +123,12 @@ class StateFactory
      */
     protected function defaultClient()
     {
-        return new Client('', ['http_errors' => false]);
+        $stack = new HandlerStack();
+        $stack->setHandler(new CurlHandler());
+        return new Client([
+            'handler' => $stack,
+            'http_errors' => false
+        ]);
     }
 
     /**
@@ -140,7 +147,7 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri, ["Accept" => Gedcomx::JSON_MEDIA_TYPE]);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
         return new PersonState($client, $request, $client->send($request), null, $this);
     }
 

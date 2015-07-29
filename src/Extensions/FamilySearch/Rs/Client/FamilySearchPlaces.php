@@ -77,9 +77,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             array()
         );
 
-        $request = $this->createAuthenticatedRequest('GET', $uri);
-        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
-
+        $request = $this->createAuthenticatedRequest('GET', $uri, ['Accept' => Gedcomx::LD_JSON_TYPE]);
         return $this->stateFactory->createState(
             'VocabElementListState',
             $this->client,
@@ -111,9 +109,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest('GET', $uri);
-        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
-
+        $request = $this->createAuthenticatedRequest('GET', $uri, ['Accept' => Gedcomx::LD_JSON_TYPE]);
         return $this->stateFactory->createState(
             'VocabElementListState',
             $this->client,
@@ -145,9 +141,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest('GET', $uri);
-        $request->withHeader("Accept", Gedcomx::LD_JSON_TYPE);
-
+        $request = $this->createAuthenticatedRequest('GET', $uri, ['Accept' => Gedcomx::LD_JSON_TYPE]);
         return $this->stateFactory->createState(
             'VocabElementState',
             $this->client,
@@ -179,9 +173,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest('GET', $uri);
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-
+        $request = $this->createAuthenticatedRequest('GET', $uri, ['Accept' => Gedcomx::LD_JSON_TYPE]);
         return $this->stateFactory->createState(
             'PlaceGroupState',
             $this->client,
@@ -221,9 +213,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedFeedRequest("GET", $uri);
-        $request->withHeader("Accept", Gedcomx::ATOM_JSON_MEDIA_TYPE);
-
+        $request = $this->createAuthenticatedFeedRequest("GET", $uri, ['Accept' => Gedcomx::ATOM_JSON_MEDIA_TYPE]);
         return $this->stateFactory->createState(
             "PlaceSearchResultsState",
             $this->client,

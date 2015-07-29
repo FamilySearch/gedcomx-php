@@ -628,7 +628,7 @@ abstract class GedcomxApplicationState
 
         $request = $this->createRequest('POST', $href, ['Accept' => 'application/json'], $formData);
         $response = $this->invoke($request);
-
+        
         $statusCode = intval($response->getStatusCode());
         if ($statusCode >= 200 && $statusCode < 300) {
             $tokens = json_decode($response->getBody(), true);
@@ -1116,7 +1116,6 @@ abstract class GedcomxApplicationState
                 $opt->apply($request);
             }
         }
-        $response = null;
         $actualUri = $request->getUri();
         $response = $this->client->send($request, [
             'curl' => ['body_as_string' => true],

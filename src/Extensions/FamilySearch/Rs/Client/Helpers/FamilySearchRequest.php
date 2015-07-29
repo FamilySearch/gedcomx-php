@@ -16,11 +16,13 @@ class FamilySearchRequest
     /**
      * Applies the FamilySearch specific JSON accept and content-type headers on the specified request.
      *
-     * @param Request $request
+     * @return array Accept and Content-Type headers
      */
-    public static function applyFamilySearchMediaType(Request &$request)
+    public static function getMediaTypes()
     {
-        $request->withHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
-        $request->withHeader('Content-Type', FamilySearchPlatform::JSON_MEDIA_TYPE);
+        return [
+            'Accept' => FamilySearchPlatform::JSON_MEDIA_TYPE,
+            'Content-Type' => FamilySearchPlatform::JSON_MEDIA_TYPE
+        ];
     }
 }

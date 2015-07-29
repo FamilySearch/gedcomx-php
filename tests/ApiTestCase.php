@@ -157,7 +157,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         if(!isset($options['logger'])){
             $logger = new \Monolog\Logger('test');
             $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
-            $options['logger'] = $logger;
+            // $options['logger'] = $logger;
         }
         return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
