@@ -172,7 +172,7 @@ abstract class GedcomxApplicationState
         //load link headers
         $linkHeaders = \GuzzleHttp\Psr7\parse_header($this->response->getHeader('Link'));
         foreach ($linkHeaders as $linkHeader) {
-            $linkHeader['href'] = $linkHeader[0];
+            $linkHeader['href'] = trim($linkHeader[0], '<>');
             if (isset($linkHeader['rel'])) {
                 $link = new Link($linkHeader);
                 $links[$linkHeader['rel']] = $link;
@@ -929,8 +929,12 @@ abstract class GedcomxApplicationState
      */
     protected function createAuthenticatedGedcomxRequest($method, $uri = null, $headers = array(), $formData = null, $body = null)
     {
-        $headers['Accept'] = Gedcomx::JSON_MEDIA_TYPE;
-        $headers['Content-Type'] = Gedcomx::JSON_MEDIA_TYPE;
+        if(!isset($headers['Accept'])){
+            $headers['Accept'] = Gedcomx::JSON_MEDIA_TYPE;
+        }
+        if(!isset($headers['Content-Type'])){
+            $headers['Content-Type'] = Gedcomx::JSON_MEDIA_TYPE;
+        }
         $request = $this->createAuthenticatedRequest($method, $uri, $headers, $formData, $body);
         return $request;
     }
@@ -960,7 +964,7 @@ abstract class GedcomxApplicationState
             $this->lastEmbeddedRequest = $this->createRequestForEmbeddedResource('GET', $link);
             $this->lastEmbeddedResponse = $this->passOptionsTo('invoke',array($this->lastEmbeddedRequest), func_get_args());
             if ($this->lastEmbeddedResponse->getStatusCode() == 200) {
-                $json = json_decode($this->lastEmbeddedResponse->getBody(),true);
+                $json = json_decode($this->lastEmbeddedResponse->getBody(), true);
                 $entityClass = get_class($this->entity);
                 $this->entity->embed(new $entityClass($json));
             }

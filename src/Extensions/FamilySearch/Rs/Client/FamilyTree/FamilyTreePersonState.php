@@ -312,7 +312,6 @@ class FamilyTreePersonState extends PersonState
 
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
-
         $request = $this->createAuthenticatedRequest('POST', $target, FamilySearchRequest::getMediaTypes(), null, $gx->toJson());
 
         return $this->stateFactory->createState(

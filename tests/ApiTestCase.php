@@ -13,8 +13,12 @@ use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Options\QueryParameter;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use Gedcomx\Tests\TestBuilder;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\Client;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\MessageFormatter;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -152,12 +156,25 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $message;
     }
     
+    protected function logger()
+    {
+        $logger = new \Monolog\Logger('test');
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
+        return $logger;
+    }
+    
+    protected function loggingClient()
+    {
+        $stack = new HandlerStack();
+        $stack->setHandler(new CurlHandler());
+        $stack->push(Middleware::log($this->logger(), new MessageFormatter(MessageFormatter::DEBUG)));
+        return new Client(['handler' => $stack]);
+    }
+    
     protected function createFamilySearchClient($options = array())
     {
         if(!isset($options['logger'])){
-            $logger = new \Monolog\Logger('test');
-            $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
-            // $options['logger'] = $logger;
+            // $options['logger'] = $this->logger();
         }
         return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
