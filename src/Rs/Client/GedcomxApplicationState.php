@@ -872,6 +872,9 @@ abstract class GedcomxApplicationState
             $body = http_build_query($formData, null, '&');
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
+        if(is_array($uri)){
+            $uri = \GuzzleHttp\uri_template($uri[0], $uri[1]);
+        }
         return new Request($method, $uri, $headers, $body);
     }
 
