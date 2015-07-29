@@ -78,11 +78,11 @@
 		public function apply(Request $request)
 		{
 			if ($this->etag !== null) {
-				$request->addHeader(HeaderParameter::IF_MATCH, $this->etag);
+				$request->withHeader(HeaderParameter::IF_MATCH, $this->etag);
 			}
 
 			if ($this->lastModified !== null) {
-				$request->addHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
+				$request->withHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
 			}
 		}
 

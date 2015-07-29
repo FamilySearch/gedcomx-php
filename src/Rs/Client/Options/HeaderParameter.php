@@ -80,7 +80,7 @@
 			if ($this->replace) {
 				$request->withHeader($this->name, $this->value);
 			} else {
-				$request->addHeader($this->name, $this->value);
+				$request->withHeader($this->name, $this->value);
 			}
 		}
 

@@ -545,7 +545,7 @@ abstract class GedcomxApplicationState
         $request->setBody($entity->toJson());
 
         if ($entity instanceof Gedcomx && !$request->getHeader("Content-Type")){
-            $request->addHeader("Content-Type", Gedcomx::JSON_MEDIA_TYPE);
+            $request->withHeader("Content-Type", Gedcomx::JSON_MEDIA_TYPE);
         }
         return $this->reconstruct($request, $this->passOptionsTo('invoke', array($request), func_get_args()));
     }
@@ -633,7 +633,7 @@ abstract class GedcomxApplicationState
 
         $statusCode = intval($response->getStatusCode());
         if ($statusCode >= 200 && $statusCode < 300) {
-            $tokens = $response->json();
+            $tokens = json_decode($response->getBody(), true);
             $accessToken = $tokens['access_token'];
 
             if (!isset($accessToken)) {
@@ -867,6 +867,7 @@ abstract class GedcomxApplicationState
     {
         if(is_array($formData)){
             $body = http_build_query($formData, null, '&');
+            $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
         return new Request($method, $uri, $headers, $body);
     }
@@ -883,7 +884,7 @@ abstract class GedcomxApplicationState
     {
         $request = $this->createRequest($method, $uri);
         if (isset($this->accessToken)) {
-            $request->addHeader('Authorization', "Bearer {$this->accessToken}");
+            $request->withHeader('Authorization', "Bearer {$this->accessToken}");
         }
         return $request;
     }
@@ -1105,7 +1106,7 @@ abstract class GedcomxApplicationState
         }
         $response = null;
         try{
-            $response = $this->client->send($request);
+            $response = $this->client->send($request, ['curl' => ['body_as_string' => true]]);
         }
         catch( ClientErrorResponseException $e ){
             throw new GedcomxApplicationException( $this->buildFailureMessage($e->getRequest(), $e->getResponse()), $e->getResponse() );

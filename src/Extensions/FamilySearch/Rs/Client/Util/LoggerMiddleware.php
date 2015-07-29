@@ -23,14 +23,17 @@ class LoggerMiddleware
     {
         return function(callable $handler) use ($logger) {
             return function(RequestInterface $request, array $options) use ($handler, $logger) {
+                
                 $logger->info($request->getMethod() . ' ' . $request->getUri());
                 $logger->debug(self::printHeaders($request));
+                $logger->debug($request->getBody());
                 
                 $promise = $handler($request, $options);
                 return $promise->then(function(ResponseInterface $response) use ($logger) {
                     
                     // Log response headers
                     $logger->debug(self::printHeaders($response));
+                    $logger->debug($response->getBody());
                     
                     // Log warning header
                     if($response->getHeader('warning')){

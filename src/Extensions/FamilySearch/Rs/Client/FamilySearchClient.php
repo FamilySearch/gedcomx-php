@@ -250,7 +250,7 @@ class FamilySearchClient implements LoggerAwareInterface{
             "GET", 
             $this->homeState->getCollection()->getLink('pending-modifications')->getHref()
         );
-        $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
+        $request->withHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
         $response = $request->send($request);
 
         // Get each pending feature

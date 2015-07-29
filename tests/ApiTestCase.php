@@ -160,7 +160,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,
             'redirectURI' => SandboxCredentials::REDIRECT_URI,
-            'logger' => $logger
+            // 'logger' => $logger
         )));
     }
     
