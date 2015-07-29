@@ -68,8 +68,7 @@ class PlaceDescriptionsState extends GedcomxApplicationState
     {
         $entity = new Gedcomx();
         $entity->addPlace($place);
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri());
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri(), [], null, $entity->toJson());
         return $this->stateFactory->createState(
             'PlaceDescriptionState',
             $this->client,

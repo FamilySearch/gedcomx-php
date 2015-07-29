@@ -87,8 +87,8 @@ class ChangeHistoryState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Unrestorable change: " . $change->getId());
         }
 
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes());
+
         return $this->stateFactory->createState(
             'ChangeHistoryState',
             $this->client,

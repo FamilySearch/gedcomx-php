@@ -17,6 +17,7 @@
          * An option for modifying a state transition.
          *
          * @param Request $request The request object the Option will modify
+         * @return Request New request object reflecting the changes
          */
 		public function apply(Request $request);
 

@@ -110,8 +110,7 @@ class PersonNonMatchesState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'PersonNonMatchesState',
             $this->client,

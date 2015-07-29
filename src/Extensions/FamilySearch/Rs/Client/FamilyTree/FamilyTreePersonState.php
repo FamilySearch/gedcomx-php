@@ -156,10 +156,11 @@ class FamilyTreePersonState extends PersonState
      */
     protected function createRequestForEmbeddedResource($method, Link $link)
     {
-        $request = $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
-        if ($link->getRel() == Rel::DISCUSSION_REFERENCES) {
-            FamilySearchRequest::applyFamilySearchMediaType($request);
+        $headers = array();
+        if($link->getRel() == Rel::DISCUSSION_REFERENCES){
+            $headers = FamilySearchRequest::getMediaTypes();
         }
+        $request = $this->createAuthenticatedGedcomxRequest($method, $link->getHref(), $headers);
 
         return $request;
     }
@@ -312,9 +313,7 @@ class FamilyTreePersonState extends PersonState
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
 
-        $request = $this->createAuthenticatedRequest('POST', $target);
-        $request->setBody($gx->toJson());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $target, FamilySearchRequest::getMediaTypes(), null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'PersonState',
@@ -351,8 +350,7 @@ class FamilyTreePersonState extends PersonState
             throw new GedcomxApplicationException("Discussion reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonState',
@@ -380,8 +378,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
@@ -456,8 +453,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonNonMatchesState',
@@ -482,8 +478,7 @@ class FamilyTreePersonState extends PersonState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonState',
@@ -557,8 +552,7 @@ class FamilyTreePersonState extends PersonState
             )
         );
 
-        $request = $this->createAuthenticatedRequest($method, $uri);
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest($method, $uri, FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonMergeState',
@@ -599,11 +593,7 @@ class FamilyTreePersonState extends PersonState
 
         $entity = new Gedcomx();
         $entity->addPerson($person);
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-        /** @var EntityEnclosingRequest $request */
-        $json = $entity->toJson();
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
         return $this->stateFactory->createState(
             'PersonNonMatchesState',

@@ -96,8 +96,7 @@ class FamilyTreeRelationshipState extends RelationshipState implements Preferred
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'RelationshipState',

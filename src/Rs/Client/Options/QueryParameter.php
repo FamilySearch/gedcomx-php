@@ -63,12 +63,15 @@
          * This method adds the current parameter to the specified REST API request.
          *
          * @param \GuzzleHttp\Psr7\Request $request
+         * @return Request
          */
         public function apply(Request $request)
         {
-            $query = $request->getQuery(false);
-            $query->setAggregator(new DuplicateAggregator());
-            $query->add( $this->name, $this->value );
+            $queryString = $request->getUri()->getQuery();
+            $queryParts = \GuzzleHttp\Psr7\parse_query($queryString);
+            $queryParts[$this->name] = $this->value;
+            $queryString = \GuzzleHttp\Psr7\build_query($queryParts);
+            return $request->withUri($request->getUri()->withQuery($queryString));
         }
 
         /**

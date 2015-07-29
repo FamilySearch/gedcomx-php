@@ -151,8 +151,7 @@ class CollectionState extends GedcomxApplicationState
             throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding records.", $this->getUri()));
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref());
-        $request->setBody($record->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $record->toJson());
         return $this->stateFactory->createState(
             "RecordState",
             $this->client,
@@ -375,9 +374,7 @@ class CollectionState extends GedcomxApplicationState
 
         $entity = new Gedcomx();
         $entity->addRelationship($relationship);
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref());
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $entity->toJson());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -535,8 +532,7 @@ class CollectionState extends GedcomxApplicationState
 
         $entity = new Gedcomx();
         $entity->addSourceDescription($source);
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref());
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $entity->toJson());
         return $this->stateFactory->createState(
             "SourceDescriptionState",
             $this->client,

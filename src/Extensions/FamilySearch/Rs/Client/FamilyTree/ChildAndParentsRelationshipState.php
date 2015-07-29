@@ -235,10 +235,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
      */
     protected function createRequestForEmbeddedResource($method, Link $link)
     {
-        $request = $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-
-        return $request;
+        return $this->createAuthenticatedGedcomxRequest($method, $link->getHref(), FamilySearchRequest::getMediaTypes());
     }
 
     /**
@@ -485,8 +482,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Conclusion cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -583,8 +579,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Source reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -667,8 +662,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Media reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -751,8 +745,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
             throw new GedcomxApplicationException("Evidence reference cannot be deleted: missing link.");
         }
 
-        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -980,9 +973,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         $relationship->setFather($father);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
-        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($fsp->toJson());
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri(), [], null, $fsp->toJson());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -1072,10 +1063,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
         $relationship->setMother($mother);
         $fsp = new FamilySearchPlatform();
         $fsp->addChildAndParentsRelationship($relationship);
-        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($fsp->toJson());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri(), FamilySearchRequest::getMediaTypes(), null, $fsp->toJson());
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',
             $this->client,
@@ -1151,10 +1139,7 @@ class ChildAndParentsRelationshipState extends FamilySearchCollectionState imple
 
         $gx = new FamilySearchPlatform();
         $gx->setChildAndParentsRelationships(array($relationship));
-        $request = $this->createAuthenticatedRequest('POST', $target);
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedRequest('POST', $target, FamilySearchRequest::getMediaTypes(), null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'ChildAndParentsRelationshipState',

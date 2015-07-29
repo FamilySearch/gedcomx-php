@@ -1116,7 +1116,7 @@ abstract class GedcomxApplicationState
         array_shift($options);
         if( $options !== null && !empty($options) ){
             foreach( $options as $opt ){
-                $opt->apply($request);
+                $request = $opt->apply($request);
             }
         }
         $actualUri = $request->getUri();

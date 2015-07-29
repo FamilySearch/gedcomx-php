@@ -63,8 +63,7 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'DiscussionState',
@@ -87,8 +86,7 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'FamilySearchSourceReferencesQueryState',
@@ -125,9 +123,7 @@ class FamilySearchSourceDescriptionState extends SourceDescriptionState
         $sd->setId($me->getId());
         $gx->setSourceDescriptions(array($sd));
 
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        $request->setBody($gx->toJson());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'SourceDescriptionState',

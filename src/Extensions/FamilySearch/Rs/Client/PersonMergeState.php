@@ -88,8 +88,7 @@ class PersonMergeState extends FamilySearchCollectionState{
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonMergeState',

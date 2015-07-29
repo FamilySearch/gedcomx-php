@@ -102,9 +102,7 @@ class DiscussionsState extends GedcomxApplicationState {
         $entity = new FamilySearchPlatform();
         $entity->addDiscussion($discussion);
 
-        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri());
-        $request->setBody($entity->toJson());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $this->getSelfUri(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
         return $this->stateFactory->createState(
             'DiscussionState',

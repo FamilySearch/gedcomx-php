@@ -139,10 +139,7 @@ class DiscussionState extends GedcomxApplicationState
      */
     protected function createRequestForEmbeddedResource($method, Link $link)
     {
-        $request = $this->createAuthenticatedGedcomxRequest($method, $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-
-        return $request;
+        return $this->createAuthenticatedGedcomxRequest($method, $link->getHref(), FamilySearchRequest::getMediaTypes());
     }
 
     /**
@@ -246,9 +243,7 @@ class DiscussionState extends GedcomxApplicationState
 
         $fsp = new FamilySearchPlatform();
         $fsp->setDiscussions(array($discussion));
-        $request = $this->createAuthenticatedRequest('POST', $target);
-        FamilySearchRequest::applyFamilySearchMediaType($request);
-        $request->setBody($fsp->toJson());
+        $request = $this->createAuthenticatedRequest('POST', $target, FamilySearchRequest::getMediaTypes(), null, $fsp->toJson());
         return $this->stateFactory->createState(
             'DiscussionState',
             $this->client,
@@ -275,8 +270,7 @@ class DiscussionState extends GedcomxApplicationState
             throw new GedcomxApplicationException("Comment cannot be deleted: missing $link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'DiscussionState',
             $this->client,

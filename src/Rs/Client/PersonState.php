@@ -704,9 +704,7 @@ class PersonState extends GedcomxApplicationState
 
         $gx = new Gedcomx();
         $gx->addPerson($person);
-        /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri() );
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $this->getSelfUri(), [], null, $gx->toJson());
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,
@@ -920,9 +918,7 @@ class PersonState extends GedcomxApplicationState
         if ($conclusionsLink != null && $conclusionsLink->getHref() != null) {
             $target = $conclusionsLink->getHref();
         }
-        /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target, [], null, $gx->toJson());
         return $this->stateFactory->createState(
             "PersonState",
             $this->client,
@@ -1033,9 +1029,7 @@ class PersonState extends GedcomxApplicationState
 
         $gedcom = new Gedcomx();
         $gedcom->setPersons(array($person));
-        /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest("POST", $target);
-        $request->setBody( $gedcom->toJson() );
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $target, [], null, $gedcom->toJson());
 
         return $this->stateFactory->createState(
             "PersonState",
@@ -1293,9 +1287,7 @@ class PersonState extends GedcomxApplicationState
 
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
-        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target, [], null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'PersonState',
@@ -1380,8 +1372,7 @@ class PersonState extends GedcomxApplicationState
         $gx = new Gedcomx();
         $gx->setPersons(array($person));
         /** @var EntityEnclosingRequest $request */
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target, [], null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'PersonState',

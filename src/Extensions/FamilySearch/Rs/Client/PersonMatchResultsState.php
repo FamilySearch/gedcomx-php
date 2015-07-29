@@ -90,8 +90,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('OPTIONS', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('OPTIONS', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             "PersonMergeState",
             $this->client,
@@ -116,8 +115,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             "PersonMergeState",
             $this->client,
@@ -145,9 +143,7 @@ class PersonMatchResultsState extends PersonSearchResultsState
         $person = new Person();
         $person->setId($entry->getId());
         $entity->addPerson($person);
-        $request = $this->createAuthenticatedRequest('POST', $link->getHref());
-        $request->setBody($entity->toJson());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
         return $this->stateFactory->createState(
             "PersonNonMatchesState",
             $this->client,
@@ -175,9 +171,9 @@ class PersonMatchResultsState extends PersonSearchResultsState
         $id->setValue($entry->getId());
         $person->setIdentifiers(array($id));
         $entity->setPersons(array($person));
-        $request = $this->createAuthenticatedGedcomxRequest("POST", $updateStatusUri);
-        $request->removeHeader("Accept");
-        $request->setBody($entity->toJson());
+        
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $updateStatusUri, [], null, $entity->toJson());
+        $request = $request->withoutHeader("Accept");
         return $this->stateFactory->createState(
             "PersonMatchResultsState",
             $this->client,

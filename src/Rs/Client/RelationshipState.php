@@ -626,9 +626,7 @@ class RelationshipState extends GedcomxApplicationState
 
         $gx = new Gedcomx();
         $gx->setRelationships(array($relationship));
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target, [], null, $gx->toJson());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -697,8 +695,7 @@ class RelationshipState extends GedcomxApplicationState
         $gx->setRelationships(array($relationship));
 
         /** @var $request EntityEnclosingRequest */
-        $request = $this->createAuthenticatedGedcomxRequest('POST', $target);
-        $request->setBody($gx->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $target, [], null, $gx->toJson());
 
         return $this->stateFactory->createState(
             'RelationshipState',
