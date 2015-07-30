@@ -68,7 +68,7 @@ class ChangeHistoryTests extends ApiTestCase
     public function testReadCoupleRelationshipChangeHistory()
     {
         $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
+        $this->collectionState($factory, null, 'GET', $this->loggingClient());
 
         /** @var FamilyTreePersonState $husband */
         $husband = $this->createPerson('male')->get();

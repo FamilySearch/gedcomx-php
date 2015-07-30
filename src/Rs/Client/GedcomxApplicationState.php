@@ -168,7 +168,7 @@ abstract class GedcomxApplicationState
         if (isset($myLocation[0])) {
             $links['self'] = new Link();
             $links['self']->setRel('self');
-            $links['self']->setHref($myLocation);
+            $links['self']->setHref($myLocation[0]);
         }
 
         //load link headers
@@ -875,7 +875,11 @@ abstract class GedcomxApplicationState
             $headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
         if(is_array($uri)){
-            $uri = \GuzzleHttp\uri_template($uri[0], $uri[1]);
+            if(!isset($uri[1])){
+                $uri = $uri[0];
+            } else {
+                $uri = \GuzzleHttp\uri_template($uri[0], $uri[1]);
+            }
         }
         return new Request($method, $uri, $headers, $body);
     }
