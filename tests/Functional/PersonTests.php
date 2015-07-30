@@ -370,7 +370,6 @@ class PersonTests extends ApiTestCase
         $person = $person->get();
         $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $defaultImage = new QueryParameter(true, "default","http://i.imgur.com/d9J0gYA.jpg");
-        /** @var \Guzzle\Http\Message\Response $response */
         $response = $person->readPortrait($defaultImage);
         $this->assertEquals(
             "http://i.imgur.com/d9J0gYA.jpg",
