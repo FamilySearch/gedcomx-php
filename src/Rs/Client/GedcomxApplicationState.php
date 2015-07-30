@@ -164,11 +164,11 @@ abstract class GedcomxApplicationState
         $links = array();
 
         //if there's a location, we'll consider it a "self" link.
-        $myLocation = $this->response->getHeader('Location');
+        $myLocation = $this->response->getHeader('Location')[0];
         if (isset($myLocation)) {
             $links['self'] = new Link();
             $links['self']->setRel('self');
-            $links['self']->setHref($myLocation[0]);
+            $links['self']->setHref($myLocation);
         }
 
         //load link headers
