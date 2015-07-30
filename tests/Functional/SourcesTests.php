@@ -28,7 +28,7 @@ use Gedcomx\Tests\SourceBuilder;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchSourceDescriptionState;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreePersonState;
 use Gedcomx\Source\SourceReference;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Request;
 use Gedcomx\Tests\TestBuilder;
 
 class SourcesTests extends ApiTestCase
@@ -324,15 +324,7 @@ class SourcesTests extends ApiTestCase
         $this->queueForDelete($sds);
 
         $person->addSourceReferenceState($sds);
-        $linkObj = $person->getLink(Rel::SOURCE_DESCRIPTIONS);
-        $this->assertNotNull($linkObj);
-        $link = $linkObj->getHref();
-        $this->assertNotEmpty($link);
-        $request = $client->createRequest(Request::GET, $link);
-        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
-        $request->setHeader('Authorization', "Bearer {$token}");
-        $response = $client->send($request);
-        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $state = $person->readSources();
         $this->queueForDelete($state);
 
         $this->assertNotNull($state->ifSuccessful());
@@ -447,15 +439,7 @@ class SourcesTests extends ApiTestCase
         $link2 = $relationship->getLink(Rel::SELF);
         $this->assertTrue($link1 != null || $link2 != null);
         $relation = $father->readChildAndParentsRelationship($relationship);
-        $linkObj = $relation->getLink(Rel::SOURCE_DESCRIPTIONS);
-        $this->assertNotNull($linkObj);
-        $link = $linkObj->getHref();
-        $this->assertNotEmpty($link);
-        $request = $client->createRequest(Request::GET, $link);
-        $request->setHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
-        $request->setHeader('Authorization', "Bearer {$token}");
-        $response = $client->send($request);
-        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $state = $relation->readSources();
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getStatus());
@@ -536,16 +520,7 @@ class SourcesTests extends ApiTestCase
         $this->assertNotEmpty($relations);
         $relationship = array_shift($relations);
         $relation = $husband->readRelationship($relationship);
-        $this->assertEquals(HttpStatus::OK, $relation->getStatus());
-        $linkObj = $relation->getLink(Rel::SOURCE_DESCRIPTIONS);
-        $this->assertNotNull($linkObj);
-        $link = $linkObj->getHref();
-        $this->assertNotEmpty($link);
-        $request = $client->createRequest(Request::GET, $link);
-        $request->setHeader('Accept', Gedcomx::JSON_MEDIA_TYPE);
-        $request->setHeader('Authorization', "Bearer {$token}");
-        $response = $client->send($request);
-        $state = new FamilySearchSourceDescriptionState($client, $request, $response, $token, $factory);
+        $state = $relation->readSources();
 
         $this->assertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::OK, $state->getStatus());

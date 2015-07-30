@@ -786,6 +786,30 @@ class RelationshipState extends GedcomxApplicationState
     }
 
     /**
+     * Read the list of sources associated with this relationship
+     *
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState|null
+     */
+    public function readSources(StateTransitionOption $option = null)
+    {
+        $link = $this->getLink(Rel::SOURCE_DESCRIPTIONS);
+        if ($link == null || $link->getHref() == null) {
+            return null;
+        }
+
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
+        return $this->stateFactory->createState(
+            'SourceDescriptionState',
+            $this->client,
+            $request,
+            $this->passOptionsTo('invoke', array($request), func_get_args()),
+            $this->accessToken
+        );
+    }
+
+    /**
      * Gets the rel name for the current state instance.
      * @return string
      */
