@@ -86,8 +86,7 @@ class UtilitiesTests extends ApiTestCase
         $response = $this->collectionState()->getClient()->send($request);
 
         $this->assertNotNull($response, "Response is null.");
-        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
-        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original.");
+        $this->assertNotEquals($uri, $response->effectiveUri, "Effective URL should not match original.");
     }
 
     /**
@@ -107,8 +106,7 @@ class UtilitiesTests extends ApiTestCase
         $response = $this->collectionState()->getClient()->send($request);
 
         $this->assertNotNull($response, "Response is null.");
-        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
-        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original.");
+        $this->assertNotEquals($uri, $response->effectiveUri, "Effective URL should not match original.");
     }
 
     /**
@@ -129,8 +127,7 @@ class UtilitiesTests extends ApiTestCase
         $response = $this->collectionState()->getClient()->send($request);
 
         $this->assertNotNull($response, "Response is empty.");
-        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
-        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URL should not match original request.");
+        $this->assertNotEquals($uri, $response->effectiveUri, "Effective URL should not match original request.");
     }
 
     /**
@@ -148,7 +145,6 @@ class UtilitiesTests extends ApiTestCase
         $response = $this->collectionState()->getClient()->send($request);
 
         $this->assertNotNull($response, "Response is empty.");
-        $this->assertEquals(1, $response->getRedirectCount(), "No apparent redirect.");
-        $this->assertNotEquals($uri, $response->getEffectiveUrl(), "Effective URLs should not match");
+        $this->assertNotEquals($uri, $response->effectiveUri, "Effective URLs should not match");
     }
 }
