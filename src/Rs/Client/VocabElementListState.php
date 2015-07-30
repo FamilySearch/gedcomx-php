@@ -41,7 +41,7 @@ class VocabElementListState extends GedcomxApplicationState
      */
     protected function loadEntity()
     {
-        $input = $this->getResponse()->getBody(true);
+        $input = (string) $this->getResponse()->getBody();
         $options = array("");
         $this->rdfCollection = new RdfCollection(JsonLD::toRdf($input, $options));
 
@@ -76,8 +76,8 @@ class VocabElementListState extends GedcomxApplicationState
     public function getVocabElementList()
     {
         /** @var \Gedcomx\Rs\Client\Util\RdfCollection $rootQuads */
-        $rootQuads = $this->rdfCollection->quadsMatchingSubject($this->request->getUrl());
-
+        $rootQuads = $this->rdfCollection->quadsMatchingSubject((string) $this->request->getUri());
+        
         $vocabElementList = new VocabElementList();
         $idQuad = $rootQuads->getPropertyQuad(VocabConstants::DC_NAMESPACE . "identifier");
         if ($idQuad != null) {

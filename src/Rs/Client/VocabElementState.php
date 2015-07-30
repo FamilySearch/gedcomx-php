@@ -39,7 +39,7 @@ class VocabElementState extends GedcomxApplicationState
      */
     protected function loadEntity()
     {
-        $input = $this->getResponse()->getBody(true);
+        $input = (string) $this->getResponse()->getBody(true);
         $options = array("");
         $this->rdfCollection = new RdfCollection(JsonLD::toRdf($input, $options));
 

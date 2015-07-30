@@ -771,7 +771,7 @@ abstract class GedcomxApplicationState
      * @return string
      */
     protected function buildFailureMessage( Request $request, Response $response ) {
-        $message = "Unsuccessful " . $request->getMethod() . " to " . $request->getUrl() . " (" . $response->getStatusCode() . ")";
+        $message = "Unsuccessful " . $request->getMethod() . " to " . $request->getUri() . " (" . $response->getStatusCode() . ")";
         $warnings = $this->getWarnings($response->getHeaders());
         foreach( $warnings as $w ) {
             $message .= "\nWarning: " . $w;

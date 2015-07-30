@@ -173,7 +173,7 @@ class FamilySearchPlaces extends FamilySearchCollectionState
             )
         );
 
-        $request = $this->createAuthenticatedRequest('GET', $uri, ['Accept' => Gedcomx::LD_JSON_TYPE]);
+        $request = $this->createAuthenticatedRequest('GET', $uri, FamilySearchRequest::getMediaTypes());
         return $this->stateFactory->createState(
             'PlaceGroupState',
             $this->client,
