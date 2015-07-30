@@ -797,10 +797,10 @@ abstract class GedcomxApplicationState
         }
         
         $headers = [
-            'Accept' => $this->request->getHeader("Accept"),
-            'Content-Type' => $this->request->getHeader("Content-Type")
+            'Accept' => count($this->request->getHeader("Accept")) > 0 ? $this->request->getHeader("Accept")[0] : null,
+            'Content-Type' => count($this->request->getHeader("Content-Type")) > 0 ? $this->request->getHeader("Content-Type")[0] : null
         ];
-        $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref());
+        $request = $this->createAuthenticatedRequest($this->request->getMethod(), $link->getHref(), $headers);
         $class = get_class($this);
         return new $class(
             $this->client,

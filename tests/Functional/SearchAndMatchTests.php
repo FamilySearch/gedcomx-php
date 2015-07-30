@@ -352,7 +352,7 @@ class SearchAndMatchTests extends ApiTestCase
 
         $searchResults = $this->collectionState()->searchForPersons("firsstName:Ruby");
 
-        $this->assertArrayHasKey( "warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
+        $this->assertArrayHasKey( "Warning", $searchResults->getHeaders(), "Warning headers should be returned with this request." );
     }
     
     private function waitForServerUpdates()
