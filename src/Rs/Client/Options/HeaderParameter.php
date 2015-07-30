@@ -74,13 +74,14 @@
 		 * This method adds the current header parameters to the REST API request.
 		 *
          * @param Request $request
+         * @return Request $request
          */
 		public function apply(Request $request)
 		{
 			if ($this->replace) {
-				$request->withHeader($this->name, $this->value);
+				return $request->withHeader($this->name, $this->value);
 			} else {
-				$request->withHeader($this->name, $this->value);
+				return $request->withAddedHeader($this->name, $this->value);
 			}
 		}
 
