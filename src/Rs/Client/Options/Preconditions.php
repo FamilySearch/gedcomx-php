@@ -74,16 +74,18 @@
 		 * were null and last modified was not.
 		 *
 		 * @param Request $request
+		 * @param Request $request
          */
 		public function apply(Request $request)
 		{
+			$newRequest = $request;
 			if ($this->etag !== null) {
-				$request->withHeader(HeaderParameter::IF_MATCH, $this->etag);
+				$newRequest = $request->withHeader(HeaderParameter::IF_MATCH, $this->etag);
 			}
-
 			if ($this->lastModified !== null) {
-				$request->withHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
+				$newRequest = $request->withHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
 			}
+			return $newRequest;
 		}
 
 	}

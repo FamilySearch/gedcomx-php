@@ -41,14 +41,17 @@
 		 * otherwise, a not-modified status is returned.
 		 *
 		 * @param Request $request
+		 * @param Request $request
          */
-		public function apply(Request $request) {
+		public function apply(Request $request)
+		{
+			$newRequest = $request;
 			if ($this->etag !== null) {
-				$request->withHeader(HeaderParameter::IF_NONE_MATCH, $this->etag);
+				$newRequest = $request->withHeader(HeaderParameter::IF_MATCH, $this->etag);
 			}
-
-			if ($this->lastModified !==  null) {
-				$request->withHeader(HeaderParameter::IF_MODIFIED_SINCE, $this->lastModified);
+			if ($this->lastModified !== null) {
+				$newRequest = $request->withHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
 			}
+			return $newRequest;
 		}
 	}

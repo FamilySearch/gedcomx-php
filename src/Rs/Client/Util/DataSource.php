@@ -2,8 +2,6 @@
 
 namespace Gedcomx\Rs\Client\Util;
 
-use Guzzle\Http\Message\PostFile;
-
 /**
  * A basic class for using various data sources with the artifacts and memories API.
  *
@@ -34,9 +32,9 @@ class DataSource
      *
      * @return string
      */
-    public function getPostFile()
+    public function getFile()
     {
-        return new PostFile('artifact',$this->filepath);
+        return $this->filepath;
     }
 
     /**

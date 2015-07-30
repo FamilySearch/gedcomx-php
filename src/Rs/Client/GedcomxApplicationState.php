@@ -1115,10 +1115,11 @@ abstract class GedcomxApplicationState
      * 
      * @param \GuzzleHttp\Client $client
      * @param \GuzzleHttp\Psr7\Request $request
+     * @param array $options
      * 
      * @return \GuzzleHttp\Psr7\Response $response
      */
-    public static function send(Client $client, Request $request){
+    public static function send(Client $client, Request $request, $options = array()){
         $actualUri = (string) $request->getUri();
         $response = $client->send($request, [
             'http_errors' => false,

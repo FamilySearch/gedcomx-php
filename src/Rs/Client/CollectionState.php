@@ -439,7 +439,7 @@ class CollectionState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-      * @return \Gedcomx\Rs\Client\SourceDescriptionState
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState
      */
     public function addArtifact(DataSource $artifact, SourceDescription $description = null, GedcomxApplicationState $state = null, StateTransitionOption $option = null)
     {
@@ -450,36 +450,57 @@ class CollectionState extends GedcomxApplicationState
         if ($link == null || $link->getHref() == null) {
             throw new GedcomxApplicationException(sprintf("Resource at %s doesn't support adding artifacts.", state.getUri()));
         }
-
-        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
-        $request = $state->createAuthenticatedGedcomxRequest('POST', $link->getHref());
+        $postData = [];
         if ($artifact->isFile()) {
-            $request->addPostFile($artifact->getPostFile());
+            $postData[] = [
+                'name' => 'artifact',
+                'contents' => fopen($artifact->getFile(), 'r')
+            ];
             if ($artifact->getTitle()) {
-                $request->setPostField('title', $artifact->getTitle());
+                $postData[] = [
+                    'name' => 'title',
+                    'contents' => $artifact->getTitle()
+                ];
             }
         } else {
             foreach ($artifact->getParameters() as $key => $value) {
-                $request->setPostField($key, $value);
+                $postData[] = [
+                    'name' => $key,
+                    'contents' => $value
+                ];
             }
         }
         if ($description != null) {
             if ($description->getTitles() != null) {
                 foreach ($description->getTitles() as $value) {
-                    $request->setPostField("title", $value->getValue());
+                    $postData[] = [
+                        'name' => 'title',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
             if ($description->getDescriptions() != null) {
                 foreach ($description->getDescriptions() as $value) {
-                    $request->setPostField("description", $value->getValue());
+                    $postData[] = [
+                        'name' => 'description',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
             if ($description->getCitations() != null) {
                 foreach ($description->getCitations() as $citation) {
-                    $request->setPostField("citation", $citation->getValue());
+                    $postData[] = [
+                        'name' => 'citation',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
         }
+        
+        $body = new \GuzzleHttp\Psr7\MultipartStream($postData);
+        $headers = ['Content-Type' => 'multipart/form-data; boundary='.$body->getBoundary()];
+        
+        $request = $state->createAuthenticatedGedcomxRequest('POST', $link->getHref(), $headers, null, $body);
 
         return $state->stateFactory->createState(
             'SourceDescriptionState',
