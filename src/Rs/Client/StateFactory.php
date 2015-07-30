@@ -67,7 +67,7 @@ class StateFactory
         
         /** @var Request $request */
         $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
-        return new CollectionState($client, $request, $client->send($request), null, $this);
+        return new CollectionState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
@@ -90,7 +90,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
-        return new CollectionsState($client, $request, $client->send($request), null, $this);
+        return new CollectionsState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
@@ -113,7 +113,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
-        return new CollectionState($client, $request, $client->send($request), null, $this);
+        return new CollectionState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
@@ -146,7 +146,7 @@ class StateFactory
 
         /** @var Request $request */
         $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
-        return new PersonState($client, $request, $client->send($request), null, $this);
+        return new PersonState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Rel as GedcomxRel;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
@@ -142,7 +143,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         }
         
         // Custom middleware
-        if(is_array($options['middleware'])) {
+        if(isset($options['middleware']) && is_array($options['middleware'])) {
             foreach($options['middleware'] as $middleware){
                 $this->stack->push($middleware);
             }
@@ -156,7 +157,6 @@ class FamilySearchClient implements LoggerAwareInterface{
         // Create client
         $this->client = new Client([
             'handler' => $this->stack,
-            'http_errors' => false,
             'headers' => [
                 'User-Agent' => $userAgent
             ]
@@ -259,7 +259,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         $uri = $this->homeState->getCollection()->getLink('pending-modifications')->getHref();
         $headers = ['Accept' => Gedcomx::JSON_APPLICATION_TYPE];
         $request = new Request('GET', $uri, $headers);
-        $response = $this->client->send($request);
+        $response = GedcomxApplicationState::send($this->client, $request);
         
 
         // Get each pending feature

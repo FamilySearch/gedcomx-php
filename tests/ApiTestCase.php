@@ -134,14 +134,15 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         $method = explode("\\",$methodName );
         $methodName = array_pop($method);
+        $request = $stateObj->getRequest();
         $code = $stateObj->getStatus();
         $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
-        $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->effectiveUri;
-        $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type")[0];
-        $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept")[0];
+        $message .= "\n" . $request->getMethod() . ": " . $stateObj->getResponse()->effectiveUri;
+        $message .= "\nContent-Type: " . count($request->getHeader("Content-Type")) > 0 ? $request->getHeader("Content-Type")[0] : '';
+        $message .= "\nAccept: " . count($request->getHeader("Accept")) > 0 ? $request->getHeader("Accept")[0] : '';
         $message .= "\nRequest:" . (
-            $stateObj->getRequest() instanceof Request ?
-                "\n".$stateObj->getRequest()->getBody() :
+            $request instanceof Request ?
+                "\n".$request->getBody() :
                 " n/a"
         );
         $message .= "\nResponse:\n" . $stateObj->getResponse()->getBody();

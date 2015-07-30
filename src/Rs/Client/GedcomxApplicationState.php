@@ -1129,8 +1129,23 @@ abstract class GedcomxApplicationState
                 $request = $opt->apply($request);
             }
         }
+        return self::send($this->client, $request);
+    }
+    
+    /**
+     * Sends a request via the given client. This centralizes options
+     * that all clients need such as disabling exceptions on errors
+     * and catching redirects.
+     * 
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * 
+     * @return \GuzzleHttp\Psr7\Response $response
+     */
+    public static function send(Client $client, Request $request){
         $actualUri = (string) $request->getUri();
-        $response = $this->client->send($request, [
+        $response = $client->send($request, [
+            'http_errors' => false,
             'curl' => ['body_as_string' => true],
             'allow_redirects' => [
                 'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {

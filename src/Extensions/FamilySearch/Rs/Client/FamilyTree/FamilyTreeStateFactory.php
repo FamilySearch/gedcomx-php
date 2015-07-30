@@ -3,6 +3,7 @@
 
     namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
+    use Gedcomx\Rs\Client\GedcomxApplicationState;
     use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
     use GuzzleHttp\Client;
@@ -39,7 +40,7 @@
 
             /** @var Request $request */
             $request = new Request($method, $uri, ["Accept" => FamilySearchPlatform::JSON_MEDIA_TYPE]);
-            return new FamilyTreeCollectionState($client, $request, $client->send($request), null, $this);
+            return new FamilyTreeCollectionState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
         }
 
         /**
