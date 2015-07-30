@@ -14,6 +14,8 @@ use Gedcomx\Rs\Client\Util\HttpStatus;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This is the base class for all state instances.
@@ -1106,9 +1108,9 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * Applies the specified options before calling IFilterableRestClient.Handle() which applies any filters before executing the request.
+     * Applies the specified options before before executing the request.
      *
-     * @param \GuzzleHttp\Psr7\Request                     $request    the request to send.
+     * @param \GuzzleHttp\Psr7\Request $request the request to send.
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,... StateTransitionOptions to be applied before sending
      *
      * @throws Exception\GedcomxApplicationException
@@ -1123,7 +1125,7 @@ abstract class GedcomxApplicationState
                 $request = $opt->apply($request);
             }
         }
-        $actualUri = $request->getUri();
+        $actualUri = (string) $request->getUri();
         $response = $this->client->send($request, [
             'curl' => ['body_as_string' => true],
             'allow_redirects' => [

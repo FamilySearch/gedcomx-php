@@ -19,6 +19,7 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Psr7\Request;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -136,10 +137,10 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $code = $stateObj->getStatus();
         $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
         $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->effectiveUri;
-        $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
-        $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept");
+        $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type")[0];
+        $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept")[0];
         $message .= "\nRequest:" . (
-            $stateObj->getRequest() instanceof EntityEnclosingRequest ?
+            $stateObj->getRequest() instanceof Request ?
                 "\n".$stateObj->getRequest()->getBody() :
                 " n/a"
         );
@@ -165,10 +166,9 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     
     protected function loggingClient()
     {
-        $stack = new HandlerStack();
-        $stack->setHandler(new CurlHandler());
+        $stack = HandlerStack::create(new CurlHandler());
         $stack->push(Middleware::log($this->logger(), new MessageFormatter(MessageFormatter::DEBUG)));
-        return new Client(['handler' => $stack]);
+        return new Client(['handler' => $stack, 'http_errors' => false]);
     }
     
     protected function createFamilySearchClient($options = array())

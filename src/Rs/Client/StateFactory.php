@@ -123,10 +123,8 @@ class StateFactory
      */
     protected function defaultClient()
     {
-        $stack = new HandlerStack();
-        $stack->setHandler(new CurlHandler());
         return new Client([
-            'handler' => $stack,
+            'handler' => HandlerStack::create(new CurlHandler()),
             'http_errors' => false
         ]);
     }
