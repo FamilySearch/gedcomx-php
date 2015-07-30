@@ -539,12 +539,12 @@ abstract class GedcomxApplicationState
     {
         $headers = [];
         $accept = $this->request->getHeader("Accept");
-        if (isset($accept)) {
-            $headers["Accept"] = $accept;
+        if (count($accept) > 0) {
+            $headers["Accept"] = $accept[0];
         }
         $contentType = $this->request->getHeader("Content-Type");
-        if (isset($contentType)) {
-            $headers["Content-Type"] = $contentType;
+        if (count($contentType) > 0) {
+            $headers["Content-Type"] = $contentType[0];
         }
         if ($entity instanceof Gedcomx && !isset($headers["Content-Type"])){
             $headers["Content-Type"] = Gedcomx::JSON_MEDIA_TYPE;
@@ -739,30 +739,6 @@ abstract class GedcomxApplicationState
         return $this->authenticateViaOAuth2($formData);
     }
 
-
-    /**
-     * Gets the warning headers from the current REST API response.
-     *
-     * @param array $headers optional: if not present current state object's headers
-     *                       will be used.
-     * @return string[] warning messages if Warning Headers are found
-     */
-    public function getWarnings( $headers = null )
-    {
-        if( $headers === null ){
-            $headers = $this->response->getHeaders();
-        }
-
-        $warnings = array();
-        foreach( $headers as $h ){
-            if( $h->getName() == "Warning" ){
-                $warnings = $h->toArray();
-            }
-        }
-
-        return $warnings;
-    }
-
     /**
      * Builds a pretty failure message from the specified response's warning headers, using the specified request for
      * additional information.
@@ -772,7 +748,7 @@ abstract class GedcomxApplicationState
      */
     protected function buildFailureMessage( Request $request, Response $response ) {
         $message = "Unsuccessful " . $request->getMethod() . " to " . $request->getUri() . " (" . $response->getStatusCode() . ")";
-        $warnings = $this->getWarnings($response->getHeaders());
+        $warnings = $response->getHeader('Warning');
         foreach( $warnings as $w ) {
             $message .= "\nWarning: " . $w;
         }
