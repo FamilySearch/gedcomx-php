@@ -3,7 +3,6 @@
     namespace Gedcomx\Rs\Client\Options;
 
     use GuzzleHttp\Psr7\Request;
-    use Guzzle\Http\QueryAggregator\DuplicateAggregator;
 
     /**
      * Represents a generic query string parameter to use in REST API requests.

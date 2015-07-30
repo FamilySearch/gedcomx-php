@@ -16,7 +16,6 @@ use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Types\RelationshipType;
 use GuzzleHttp\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use RuntimeException;

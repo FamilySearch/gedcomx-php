@@ -18,7 +18,6 @@ use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\SourceDescriptionState;
 use Gedcomx\Source\SourceReference;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 

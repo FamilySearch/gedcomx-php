@@ -12,7 +12,6 @@ use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceReference;
 use GuzzleHttp\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 

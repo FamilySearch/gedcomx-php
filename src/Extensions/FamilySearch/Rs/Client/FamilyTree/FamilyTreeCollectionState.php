@@ -17,7 +17,6 @@
     use Gedcomx\Types\RelationshipType;
     use Gedcomx\Rs\Client\Util\HttpStatus;
     use GuzzleHttp\Client;
-    use Guzzle\Http\Message\EntityEnclosingRequest;
     use GuzzleHttp\Psr7\Request;
     use GuzzleHttp\Psr7\Response;
 

@@ -19,7 +19,6 @@ use Gedcomx\Extensions\FamilySearch\Rs\Client\Rel;
 use Gedcomx\Rs\Client\SourceDescriptionsState;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use GuzzleHttp\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 

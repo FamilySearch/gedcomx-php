@@ -8,7 +8,6 @@ use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
 use Gedcomx\Source\SourceDescription;
 use GuzzleHttp\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use RuntimeException;
