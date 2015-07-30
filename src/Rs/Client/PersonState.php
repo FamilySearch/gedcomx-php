@@ -413,7 +413,6 @@ class PersonState extends GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
-        $request->setUrl($link->getHref());
         return $this->stateFactory->createState(
             "AncestryResultsState",
             $this->client,
@@ -438,7 +437,6 @@ class PersonState extends GedcomxApplicationState
         }
 
         $request = $this->createAuthenticatedGedcomxRequest("GET", $link->getHref());
-        $request->setUrl($link->getHref());
         return $this->stateFactory->createState(
             "DescendancyResultsState",
             $this->client,
