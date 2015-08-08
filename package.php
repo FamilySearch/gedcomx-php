@@ -38,7 +38,9 @@ $phar->setStub($stub);
 $depDirs = array(
     __DIR__ . '/vendor/guzzle/guzzle/src',
     __DIR__ . '/vendor/ml/iri/',
-    __DIR__ . '/vendor/ml/json-ld'
+    __DIR__ . '/vendor/ml/json-ld',
+    __DIR__ . '/vendor/symfony',
+    __DIR__ . '/vendor/psr/log'
 );
 foreach($depDirs as $dir){
     $phar->buildFromIterator(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS)), $dir);
