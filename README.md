@@ -82,7 +82,7 @@ The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependenc
 Documentation for the gedcomx-php SDK is provided in the following forms:
 
 * The [wiki](https://github.com/FamilySearch/gedcomx-php/wiki) provides instruction on how to use the gedcomx-php SDK in a production environment.
-* The [gedcomx-php SDK Doc](http://familysearch.github.io/gedcomx-php/docs/index.html) contains documentation for all the namespaces, classes, and methods contained in the gedcomx-php SDK.
+* The [gedcomx-php SDK Doc](http://familysearch.github.io/gedcomx-php/index.html) contains documentation for all the namespaces, classes, and methods contained in the gedcomx-php SDK.
 
 
 # Changelog
