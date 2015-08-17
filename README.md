@@ -24,26 +24,6 @@ The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.o
   
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
-#Installing the gedcomx-php SDK
-## Prerequisites
-
-Prior to installing the gedcomx-php SDK you must install the following components.
-
-* [PHP 5.4+](http://php.net/manual/en/install.php) (The language of this SDK)
-  * *You can install PHP using pre-built environments such as [WAMP Server](http://www.wampserver.com/) (Windows), [XAMPP](https://www.apachefriends.org/) (Windows), [MAMP](https://www.mamp.info/) (OS X), or [Vagrant](http://vagrantup.com/) (Any OS).*
-
-* [Git](http://git-scm.com/downloads) (Versioning system for coding)
-* [Composer](https://getcomposer.org/doc/00-intro.md) (PHP Packages Manager)
-
-**Note:** Mac developers might need to install the Xcode developer tools as part of this process.
-
-You can verify that each of the required components is installed by running the following commands one line at a time, at your command line or command prompt:
-```
-php -v
-composer --version
-git --version
-```
-
 ## Installation Steps
 
 The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally). 
