@@ -8,6 +8,8 @@ The SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki),
 
 You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action.
 
+##See [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation)
+
 The SDK includes the following features:
 -
 * **GEDCOM X Conceptual Model**
@@ -26,38 +28,6 @@ The SDK includes the following features:
   
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
-## Installation Steps
-
-The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally). 
-
-1.  To activate Composer, run the following command from the root of your project:
-
-    ```
-    composer require gedcomx/gedcomx-php
-    ```
-
-    Alternatively, you can add the following configuration to an existing composer.json file then run the `composer install` command from your command prompt.
-
-    ```json
-    {
-        "require": {
-        "gedcomx/gedcomx-php": "^1.1"
-        }
-    }
-    ```
-
-2. If you are not already using other Composer managed libraries, add the [Composer Autoloader](https://getcomposer.org/doc/01-basic-usage.md#autoloading) to your project.
-
-    ```php
-    require 'vendor/autoload.php';
-    ```
-
-3. Import desired classes by using the `use` operator:
-
-    ```php
-    use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
-    ```
-    **Note:** You must first instantiate a FamilySearch client with an access token before initiating any FamilySearch API access. See the [session setup code](https://github.com/FamilySearch/gedcomx-php-sample-app/blob/master/src/includes/setup.php).
 
 # Changelog
 
