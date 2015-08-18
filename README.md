@@ -1,11 +1,15 @@
-
+  
 
 #GedcomX - PHP  [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
 
-##See the wiki to Get Started!
+The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
 
-The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. The gedcomx-php SDK has the following features:
+The SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki), a [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project, and the [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
+You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action.
+
+The SDK includes the following features:
+-
 * **GEDCOM X Conceptual Model**
 
   Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
@@ -54,14 +58,6 @@ The gedcomx-php SDK uses [composer](https://getcomposer.org) to manage dependenc
     use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchClient;
     ```
     **Note:** You must first instantiate a FamilySearch client with an access token before initiating any FamilySearch API access. See the [session setup code](https://github.com/FamilySearch/gedcomx-php-sample-app/blob/master/src/includes/setup.php).
-
-# Documentation
-
-Documentation for the gedcomx-php SDK is provided in the following forms:
-
-* The [wiki](https://github.com/FamilySearch/gedcomx-php/wiki) provides instruction on how to use the gedcomx-php SDK in a production environment.
-* The [gedcomx-php SDK Doc](http://familysearch.github.io/gedcomx-php/index.html) contains documentation for all the namespaces, classes, and methods contained in the gedcomx-php SDK.
-
 
 # Changelog
 
