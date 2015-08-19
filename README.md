@@ -8,7 +8,8 @@ The SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki),
 
 You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action.
 
-##See [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation)
+##Installation
+To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the wiki page.
 
 The SDK includes the following features:
 -
