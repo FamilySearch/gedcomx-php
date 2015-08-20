@@ -4,14 +4,14 @@
 
 The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
 
-The SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki), a [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project, and the [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
+This SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki), a [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project, and the [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
 You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action.
 
 ##Installation
 To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the wiki page.
 
-The SDK includes the following features:
+##Features
 -
 * **GEDCOM X Conceptual Model**
 
@@ -30,7 +30,7 @@ The SDK includes the following features:
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
 
-# Changelog
+## Changelog
 
 * v1.2.0
   * Add a custom user agent string when using the FamilySearchClient.
