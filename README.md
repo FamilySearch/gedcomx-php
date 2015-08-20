@@ -12,7 +12,6 @@ You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to dem
 To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the wiki page.
 
 ##Features
--
 * **GEDCOM X Conceptual Model**
 
   Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
@@ -30,7 +29,7 @@ To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedc
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
 
-## Changelog
+##Changelog
 
 * v1.2.0
   * Add a custom user agent string when using the FamilySearchClient.
