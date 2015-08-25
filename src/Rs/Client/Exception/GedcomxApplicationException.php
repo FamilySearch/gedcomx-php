@@ -3,7 +3,7 @@
 
 namespace Gedcomx\Rs\Client\Exception;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Represents an exception within the FamilySearch GEDCOM X application.
@@ -38,7 +38,7 @@ class GedcomxApplicationException extends \Exception
     /**
      * Gets the response associated with the exception if applicable.
      *
-     * @return \Guzzle\Http\Message\Response
+     * @return \GuzzleHttp\Psr7\Response
      */
     public function getResponse()
     {

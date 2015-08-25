@@ -125,64 +125,6 @@ class MemoriesTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Delete_Person_Memory_Reference_usecase
-     */
-    public function testDeletePersonMemoryReference()
-    {
-        $filename = ArtifactBuilder::makeImage();
-        $artifact = new DataSource();
-        $artifact->setFile($filename);
-
-        $description = SourceBuilder::newSource();
-
-        $factory = new FamilyTreeStateFactory();
-        /** @var FamilySearchMemories $memories */
-        $memories = $factory->newMemoriesState();
-        $memories = $this->authorize($memories);
-        $this->assertNotEmpty($memories->getAccessToken());
-
-        /** @var \Gedcomx\Rs\Client\SourceDescriptionState $upload */
-        $upload = $memories->addArtifact($artifact, $description);
-        $this->queueForDelete($upload);
-        $this->assertEquals(HttpStatus::CREATED, $upload->getStatus());
-        $upload = $upload->get();
-        $this->assertEquals(HttpStatus::OK, $upload->getStatus());
-
-        $this->collectionState($factory);
-        /** @var FamilyTreePersonState $person */
-        $person = $this->createPerson('male');
-        $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
-        $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getStatus());
-
-        $persona = $upload->addPersonPersona(PersonBuilder::buildPerson('male'));
-        $this->queueForDelete($persona);
-        $this->assertEquals(HttpStatus::CREATED, $persona->getStatus());
-        $persona = $persona->get();
-        $this->assertEquals(HttpStatus::OK, $persona->getStatus());
-
-        $person->addPersonaPersonState($persona);
-        $person = $person->loadPersonaReferences();
-        $this->assertEquals(HttpStatus::OK, $person->getStatus());
-        $this->assertNotNull($person->getPerson());
-
-        $evidence = $person->getPerson()->getEvidence();
-        $this->assertNotEmpty($evidence);
-        $newState = $person->deleteEvidenceReference($evidence[0]);
-
-        $this->assertEquals(
-            HttpStatus::NO_CONTENT,
-            $newState->getStatus(),
-            $this->buildFailMessage(__METHOD__, $newState)
-        );
-
-        $person = $person->get();
-        $this->assertEquals(HttpStatus::OK, $person->getStatus());
-        $this->assertNotNull($person->getPerson());
-        $this->assertEmpty($person->getPerson()->getEvidence());
-    }
-
-    /**
      * @link https://familysearch.org/developers/docs/api/memories/Update_Memory_Persona_usecase
      */
     public function testCreateUpdateDeleteMemoryPersona()

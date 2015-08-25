@@ -12,9 +12,9 @@
 	use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 	use Gedcomx\Rs\Client\Options\StateTransitionOption;
 	use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
-	use Guzzle\Http\Client;
-	use Guzzle\Http\Message\Request;
-	use Guzzle\Http\Message\Response;
+	use GuzzleHttp\Client;
+	use GuzzleHttp\Psr7\Request;
+	use GuzzleHttp\Psr7\Response;
 
 	/**
 	 * The FamilySearchCollectionState is a collection of FamilySearch resources and exposes management of those resources.
@@ -28,9 +28,9 @@
 		/**
 		 * Constructs a new FamilySearch collection state using the specified client, request, response, access token, and state factory.
 		 *
-		 * @param \Guzzle\Http\Client                                                 $client
-		 * @param \Guzzle\Http\Message\Request                                        $request
-		 * @param \Guzzle\Http\Message\Response                                       $response
+		 * @param \GuzzleHttp\Client                                                 $client
+		 * @param \GuzzleHttp\Psr7\Request                                        $request
+		 * @param \GuzzleHttp\Psr7\Response                                       $response
 		 * @param string                                                              $accessToken
 		 * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory $stateFactory
 		 */
@@ -110,14 +110,14 @@
 				array('date' => $date)
 			);
 
-			$request = $this->createRequest(Request::GET, $uri);
+			$request = $this->createRequest('GET', $uri);
 			$response = $this->passOptionsTo('invoke', array($request), func_get_args());
 			$dateValue = new DateInfo();
 			$dateValue->setOriginal($date);
-			$dateValue->addNormalizedExtension(new TextValue(array('value' => $response->getBody(true))));
+			$dateValue->addNormalizedExtension(new TextValue(array('value' => $response->getBody())));
 			$headers = $response->getHeaders();
 			if ($headers != null && isset($headers["Location"])) {
-				$dateValue->setFormal($headers["Location"]);
+				$dateValue->setFormal($headers["Location"][0]);
 
 				return $dateValue;
 			}
@@ -138,8 +138,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest("GET", $uri);
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest("GET", $uri, FamilySearchRequest::getMediaTypes());
 			return $this->stateFactory->createState(
 				"PersonState",
 				$this->client,
@@ -163,8 +162,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'UserState',
@@ -189,8 +187,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'UserHistoryState',
@@ -226,7 +223,7 @@
 				array("q" => $queryString)
 			);
 
-			$request = $this->createAuthenticatedFeedRequest(Request::GET, $uri);
+			$request = $this->createAuthenticatedFeedRequest('GET', $uri);
 
 			return $this->stateFactory->createState(
 				'PersonMatchResultsState',
@@ -251,8 +248,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
 			return $this->stateFactory->createState(
 				'DiscussionsState',
@@ -281,9 +277,7 @@
 
 			$entity = new FamilySearchPlatform();
 			$entity->addDiscussion($discussion);
-			$request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
-			FamilySearchRequest::applyFamilySearchMediaType($request);
-			$request->setBody($entity->toJson());
+			$request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
 			return $this->stateFactory->createState(
 				'DiscussionState',
@@ -304,14 +298,14 @@
          */
 		protected function embed(Link $link, StateTransitionOption $option = null ){
 			if ($link->getHref() != null) {
-				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource(Request::GET, $link);
+				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource('GET', $link);
 				$lastEmbeddedResponse = $this->passOptionsTo('invoke',array($lastEmbeddedRequest), func_get_args());
 				if ($lastEmbeddedResponse->getStatusCode() == 200) {
 					$json = json_decode($lastEmbeddedResponse->getBody(),true);
 					$this->entity->embed(new FamilySearchPlatform($json));
 				}
 				else if (floor($lastEmbeddedResponse->getStatusCode()/100) == 5 ) {
-					throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse->getStatusCode(), $lastEmbeddedRequest->getUrl()), $lastEmbeddedResponse);
+					throw new GedcomxApplicationException(sprintf("Unable to load embedded resources: server says \"%s\" at %s.", $lastEmbeddedResponse->getStatusCode(), $lastEmbeddedRequest->getUri()), $lastEmbeddedResponse);
 				}
 				else {
 					//todo: log a warning? throw an error?

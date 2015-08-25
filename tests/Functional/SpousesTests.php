@@ -105,7 +105,7 @@ class SpousesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__, $family)
         );
 
-        $etagHeader = $family->getEtag()->toArray();
+        $etagHeader = $family->getETag();
         $noneMatch = new HeaderParameter(true, HeaderParameter::IF_NONE_MATCH, $etagHeader[0]);
         $eTag = new HeaderParameter(true, HeaderParameter::ETAG, $etagHeader[0]);
 

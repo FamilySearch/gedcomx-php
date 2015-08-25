@@ -8,9 +8,9 @@ use Gedcomx\Conclusion\Relationship;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use RuntimeException;
 
 /**
@@ -37,8 +37,8 @@ class PersonParentsState extends PersonsState
 
     /**
      * Clones the current state instance.
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\PersonParentsState
      */
@@ -133,7 +133,7 @@ class PersonParentsState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -161,7 +161,7 @@ class PersonParentsState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -189,7 +189,7 @@ class PersonParentsState extends PersonsState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -218,7 +218,7 @@ class PersonParentsState extends PersonsState
             throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -252,7 +252,7 @@ class PersonParentsState extends PersonsState
             throw new GedcomxApplicationException("Unable to remove relationship: missing link.");
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::DELETE, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('DELETE', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
