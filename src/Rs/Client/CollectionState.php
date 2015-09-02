@@ -15,10 +15,9 @@ use Gedcomx\Rs\Client\Util\DataSource;
 use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
 use Gedcomx\Source\SourceDescription;
 use Gedcomx\Types\RelationshipType;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use RuntimeException;
 
 /**
@@ -33,9 +32,9 @@ class CollectionState extends GedcomxApplicationState
     /**
      * Constructs a new collection state using the specified client, request, response, access token, and state factory.
      *
-     * @param \Guzzle\Http\Client             $client
-     * @param \Guzzle\Http\Message\Request    $request
-     * @param \Guzzle\Http\Message\Response   $response
+     * @param \GuzzleHttp\Client             $client
+     * @param \GuzzleHttp\Psr7\Request    $request
+     * @param \GuzzleHttp\Psr7\Response   $response
      * @param string                          $accessToken
      * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
      */
@@ -47,8 +46,8 @@ class CollectionState extends GedcomxApplicationState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\CollectionState
      */
@@ -124,7 +123,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             "RecordsState",
             $this->client,
@@ -151,8 +150,7 @@ class CollectionState extends GedcomxApplicationState
             throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding records.", $this->getUri()));
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
-        $request->setBody($record->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $record->toJson());
         return $this->stateFactory->createState(
             "RecordState",
             $this->client,
@@ -201,7 +199,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             "PersonsState",
             $this->client,
@@ -295,8 +293,7 @@ class CollectionState extends GedcomxApplicationState
             $entity = $person;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest("POST", $link->getHref());
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest("POST", $link->getHref(), array(), null, $entity->toJson());
         return $this->stateFactory->createState(
             'PersonState',
             $this->client,
@@ -324,7 +321,7 @@ class CollectionState extends GedcomxApplicationState
 
         $entity = new Gedcomx();
         $entity->setRelationships($relationships);
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipsState',
             $this->client,
@@ -348,7 +345,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'RelationshipsState',
             $this->client,
@@ -376,9 +373,7 @@ class CollectionState extends GedcomxApplicationState
 
         $entity = new Gedcomx();
         $entity->addRelationship($relationship);
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
-        /** @var EntityEnclosingRequest $request */
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $entity->toJson());
         return $this->stateFactory->createState(
             'RelationshipState',
             $this->client,
@@ -443,7 +438,7 @@ class CollectionState extends GedcomxApplicationState
      * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
      *
      * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-      * @return \Gedcomx\Rs\Client\SourceDescriptionState
+     * @return \Gedcomx\Rs\Client\SourceDescriptionState
      */
     public function addArtifact(DataSource $artifact, SourceDescription $description = null, GedcomxApplicationState $state = null, StateTransitionOption $option = null)
     {
@@ -454,36 +449,57 @@ class CollectionState extends GedcomxApplicationState
         if ($link == null || $link->getHref() == null) {
             throw new GedcomxApplicationException(sprintf("Resource at %s doesn't support adding artifacts.", state.getUri()));
         }
-
-        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
-        $request = $state->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        $postData = [];
         if ($artifact->isFile()) {
-            $request->addPostFile($artifact->getPostFile());
+            $postData[] = [
+                'name' => 'artifact',
+                'contents' => fopen($artifact->getFile(), 'r')
+            ];
             if ($artifact->getTitle()) {
-                $request->setPostField('title', $artifact->getTitle());
+                $postData[] = [
+                    'name' => 'title',
+                    'contents' => $artifact->getTitle()
+                ];
             }
         } else {
             foreach ($artifact->getParameters() as $key => $value) {
-                $request->setPostField($key, $value);
+                $postData[] = [
+                    'name' => $key,
+                    'contents' => $value
+                ];
             }
         }
         if ($description != null) {
             if ($description->getTitles() != null) {
                 foreach ($description->getTitles() as $value) {
-                    $request->setPostField("title", $value->getValue());
+                    $postData[] = [
+                        'name' => 'title',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
             if ($description->getDescriptions() != null) {
                 foreach ($description->getDescriptions() as $value) {
-                    $request->setPostField("description", $value->getValue());
+                    $postData[] = [
+                        'name' => 'description',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
             if ($description->getCitations() != null) {
                 foreach ($description->getCitations() as $citation) {
-                    $request->setPostField("citation", $citation->getValue());
+                    $postData[] = [
+                        'name' => 'citation',
+                        'contents' => $value->getValue()
+                    ];
                 }
             }
         }
+        
+        $body = new \GuzzleHttp\Psr7\MultipartStream($postData);
+        $headers = ['Content-Type' => 'multipart/form-data; boundary='.$body->getBoundary()];
+        
+        $request = $state->createAuthenticatedGedcomxRequest('POST', $link->getHref(), $headers, null, $body);
 
         return $state->stateFactory->createState(
             'SourceDescriptionState',
@@ -536,8 +552,7 @@ class CollectionState extends GedcomxApplicationState
 
         $entity = new Gedcomx();
         $entity->addSourceDescription($source);
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
-        $request->setBody($entity->toJson());
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), [], null, $entity->toJson());
         return $this->stateFactory->createState(
             "SourceDescriptionState",
             $this->client,
@@ -561,7 +576,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -585,7 +600,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'CollectionsState',
             $this->client,
@@ -610,11 +625,11 @@ class CollectionState extends GedcomxApplicationState
         if ($link == null || $link->getHref() == null) {
             throw new GedcomxApplicationException(sprintf("Collection at %s doesn't support adding subcollections.", $this->getUri()));
         }
-
-        $request = $this->createAuthenticatedGedcomxRequest(Request::POST, $link->getHref());
+        
         $entity = new Gedcomx();
         $entity->setCollections(array($collection));
-        $request->setBody($entity->toJson());
+
+        $request = $this->createAuthenticatedGedcomxRequest('POST', $link->getHref(), null, null, $entity->toJson());
         return $this->stateFactory->createState(
             'CollectionState',
             $this->client,
@@ -638,7 +653,7 @@ class CollectionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'SourceDescriptionsState',
             $this->client,

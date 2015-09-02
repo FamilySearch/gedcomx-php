@@ -3,7 +3,7 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Rs\Client\PlaceDescriptionState;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * The FamilySearchPlaceDescriptionState exposes management functions for a FamilySearch place description.
@@ -29,7 +29,7 @@ class FamilySearchPlaceDescriptionState extends PlaceDescriptionState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PlaceState',
             $this->client,

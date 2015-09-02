@@ -2,7 +2,7 @@
 
 	namespace Gedcomx\Rs\Client\Options;
 
-	use Guzzle\Http\Message\Request;
+	use GuzzleHttp\Psr7\Request;
 
 	/**
 	 * This is a helper class for managing headers in REST API requests.
@@ -74,13 +74,14 @@
 		 * This method adds the current header parameters to the REST API request.
 		 *
          * @param Request $request
+         * @return Request $request
          */
 		public function apply(Request $request)
 		{
 			if ($this->replace) {
-				$request->setHeader($this->name, $this->value);
+				return $request->withHeader($this->name, $this->value);
 			} else {
-				$request->addHeader($this->name, $this->value);
+				return $request->withAddedHeader($this->name, $this->value);
 			}
 		}
 

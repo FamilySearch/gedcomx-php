@@ -4,8 +4,9 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": "application\/x-fs-v1+json"
         }
     },
     "response": {
@@ -18,7 +19,7 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 21:53:00 GMT",
+            "Date": "Wed, 29 Jul 2015 22:34:48 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "0",
@@ -38,10 +39,11 @@
         "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
         "headers": {
             "Host": "integration.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded"
         },
         "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
@@ -59,7 +61,7 @@
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Mon, 29 Jun 2015 21:52:59 GMT",
+            "Date": "Wed, 29 Jul 2015 22:35:08 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -67,7 +69,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\"token\":\"USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net\",\"access_token\":\"USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
     }
 },{
     "request": {
@@ -75,11 +77,14 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/users\/current",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net",
-            "Content-Type": "application\/x-fs-v1+json"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-fs-v1+json",
+            "Authorization": "Bearer USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
     "response": {
         "status": {
@@ -90,11 +95,11 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 21:53:02 GMT",
+            "Date": "Wed, 29 Jul 2015 22:34:50 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1362",
-            "Content-Length": "627",
+            "X-PROCESSING-TIME": "1284",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -110,11 +115,12 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net",
-            "Content-Type": "application\/x-fs-v1+json"
+            "Expect": null,
+            "Content-Type": "application\/x-fs-v1+json",
+            "Authorization": "Bearer USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net"
         },
         "body": "{\"discussions\":[{\"title\":\"Est debitis ea distinctio sunt.\",\"details\":\"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"}}]}"
     },
@@ -127,12 +133,12 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 21:53:02 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR2",
+            "Date": "Wed, 29 Jul 2015 22:34:51 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MKTD",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "ds.disc.MMMM-MVR2",
-            "X-PROCESSING-TIME": "261",
+            "X-ENTITY-ID": "ds.disc.MMMM-MKTD",
+            "X-PROCESSING-TIME": "259",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -145,13 +151,17 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR2",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MKTD",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-fs-v1+json",
+            "Authorization": "Bearer USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"discussions\":[{\"title\":\"Est debitis ea distinctio sunt.\",\"details\":\"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"}}]}"
     },
     "response": {
         "status": {
@@ -161,13 +171,13 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MVR2",
+            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MKTD",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 21:53:03 GMT",
-            "Last-Modified": "Mon, 29 Jun 2015 21:53:02 GMT",
+            "Date": "Wed, 29 Jul 2015 22:34:51 GMT",
+            "Last-Modified": "Wed, 29 Jul 2015 22:34:52 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "252",
+            "X-PROCESSING-TIME": "245",
             "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -176,20 +186,22 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"discussions\" : [ {\n    \"id\" : \"ds.disc.MMMM-MVR2\",\n    \"links\" : {\n      \"discussion\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR2\"\n      },\n      \"comments\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR2\/comments\"\n      }\n    },\n    \"title\" : \"Est debitis ea distinctio sunt.\",\n    \"details\" : \"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\n    \"contributor\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n      \"resourceId\" : \"cis.user.MMMM-DT62\"\n    },\n    \"created\" : 1435614782998,\n    \"modified\" : 1435614782998,\n    \"numberOfComments\" : 0\n  } ]\n}"
+        "body": "{\n  \"discussions\" : [ {\n    \"id\" : \"ds.disc.MMMM-MKTD\",\n    \"links\" : {\n      \"discussion\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MKTD\"\n      },\n      \"comments\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MKTD\/comments\"\n      }\n    },\n    \"title\" : \"Est debitis ea distinctio sunt.\",\n    \"details\" : \"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\n    \"contributor\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n      \"resourceId\" : \"cis.user.MMMM-DT62\"\n    },\n    \"created\" : 1438209292520,\n    \"modified\" : 1438209292520,\n    \"numberOfComments\" : 0\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MVR2",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\/ds.disc.MMMM-MKTD",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYS2C31C5AD2DF4AFA6445831953783C78B_idses-int01.a.fsglobal.net",
-            "Content-Length": "0"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-fs-v1+json",
+            "Authorization": "Bearer USYS7D2C66C14C20EB932AE21CFAB0B6C38B_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"discussions\":[{\"title\":\"Est debitis ea distinctio sunt.\",\"details\":\"Quos numquam officiis quaerat nulla unde in perferendis odit est.\",\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"}}]}"
     },
     "response": {
         "status": {
@@ -199,12 +211,12 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MVR2",
+            "Content-Location": "\/discussions\/discussions\/ds.disc.MMMM-MKTD",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 21:53:03 GMT",
+            "Date": "Wed, 29 Jul 2015 22:34:52 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "293",
+            "X-PROCESSING-TIME": "287",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",

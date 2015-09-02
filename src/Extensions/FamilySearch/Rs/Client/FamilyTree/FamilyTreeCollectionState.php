@@ -16,19 +16,18 @@
     use Gedcomx\Rs\Client\RelationshipState;
     use Gedcomx\Types\RelationshipType;
     use Gedcomx\Rs\Client\Util\HttpStatus;
-    use Guzzle\Http\Client;
-    use Guzzle\Http\Message\EntityEnclosingRequest;
-    use Guzzle\Http\Message\Request;
-    use Guzzle\Http\Message\Response;
+    use GuzzleHttp\Client;
+    use GuzzleHttp\Psr7\Request;
+    use GuzzleHttp\Psr7\Response;
 
     class FamilyTreeCollectionState extends FamilySearchCollectionState
     {
         /**
          * Create a new FamilyTreeCollectionState object
          *
-         * @param \Guzzle\Http\Client                                                          $client
-         * @param \Guzzle\Http\Message\Request                                                 $request
-         * @param \Guzzle\Http\Message\Response                                                $response
+         * @param \GuzzleHttp\Client                                                          $client
+         * @param \GuzzleHttp\Psr7\Request                                                 $request
+         * @param \GuzzleHttp\Psr7\Response                                                $response
          * @param string                                                                       $accessToken
          * @param \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory $stateFactory
          */
@@ -40,8 +39,8 @@
         /**
          * Clone the current FamilyTreeCollectionState object
          *
-         * @param \Guzzle\Http\Message\Request  $request
-         * @param \Guzzle\Http\Message\Response $response
+         * @param \GuzzleHttp\Psr7\Request  $request
+         * @param \GuzzleHttp\Psr7\Response $response
          *
          * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeCollectionState
          */
@@ -150,10 +149,7 @@
 
             $entity = new FamilySearchPlatform();
             $entity->setChildAndParentsRelationships(array($rel));
-            $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
-            FamilySearchRequest::applyFamilySearchMediaType($request);
-            /** @var EntityEnclosingRequest $request */
-            $request->setBody($entity->toJson());
+            $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
             return $this->stateFactory->createState(
                 'ChildAndParentsRelationshipState',
@@ -182,10 +178,7 @@
 
             $entity = new FamilySearchPlatform();
             $entity->setChildAndParentsRelationships($chaps);
-            $request = $this->createAuthenticatedRequest(Request::POST, $link->getHref());
-            FamilySearchRequest::applyFamilySearchMediaType($request);
-            /** @var EntityEnclosingRequest $request */
-            $request->setBody($entity->toJson());
+            $request = $this->createAuthenticatedRequest('POST', $link->getHref(), FamilySearchRequest::getMediaTypes(), null, $entity->toJson());
 
             return $this->stateFactory->createState(
                 'RelationshipsState',
@@ -203,7 +196,7 @@
          */
         public function readDiscoveryDocument(StateTransitionOption $option = null)
         {
-            $request = $this->createAuthenticatedFeedRequest(Request::GET, $this->getSelfUri());
+            $request = $this->createAuthenticatedFeedRequest('GET', $this->getSelfUri());
 
             return $this->reconstruct($request,$this->passOptionsTo('invoke', array($request), func_get_args()));
         }
@@ -230,8 +223,7 @@
                 )
             );
 
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-            FamilySearchRequest::applyFamilySearchMediaType($request);
+            $request = $this->createAuthenticatedRequest('GET', $uri, FamilySearchRequest::getMediaTypes());
 
             return $this->stateFactory->createState(
                 'PersonState',
@@ -264,8 +256,7 @@
                     "person" => $id
                 )
             );
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-            FamilySearchRequest::applyFamilySearchMediaType($request);
+            $request = $this->createAuthenticatedRequest('GET', $uri, FamilySearchRequest::getMediaTypes());
 
             return $this->stateFactory->createState(
                 'PersonState',
@@ -337,8 +328,7 @@
                     "uid" => $treeUserId
                 )
             );
-            $request = $this->createAuthenticatedRequest(Request::GET, $uri);
-            FamilySearchRequest::applyFamilySearchMediaType($request);
+            $request = $this->createAuthenticatedRequest('GET', $uri, FamilySearchRequest::getMediaTypes());
             $response = $this->passOptionsTo('invoke', array($request), func_get_args());
             if ($response->getStatusCode() == HttpStatus::NO_CONTENT) {
                 return null;
@@ -428,10 +418,10 @@
                     "uid" => $treeUserId)
             );
 
-            $request = $this->createAuthenticatedRequest(Request::PUT, $uri);
-            FamilySearchRequest::applyFamilySearchMediaType($request);
-            $request->setHeader("Location", $relationshipState->getSelfUri());
-
+            $headers = FamilySearchRequest::getMediaTypes();
+            $headers['Location'] = $relationshipState->getSelfUri();
+            $request = $this->createAuthenticatedRequest('PUT', $uri, $headers);
+            
             return $this->stateFactory->createState(
                 'PersonState',
                 $this->client,
@@ -503,8 +493,7 @@
                 )
             );
 
-            $request = $this->createAuthenticatedRequest(Request::DELETE, $uri);
-            FamilySearchRequest::applyFamilySearchMediaType($request);
+            $request = $this->createAuthenticatedRequest('DELETE', $uri, FamilySearchRequest::getMediaTypes());
 
             return $this->stateFactory->createState(
                 'PersonState',
