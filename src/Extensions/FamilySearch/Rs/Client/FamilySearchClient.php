@@ -96,6 +96,7 @@ class FamilySearchClient implements LoggerAwareInterface{
      * * `pendingModifications` - An array of pending modifications that should be enabled.
      * * `logger` - A `Psr\Log\LoggerInterface`. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
      * * `middleware` - An array of [Guzzle Middleware](http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware).
+     * * `httpExceptions` - When `true`, the client will throw a `Gedcomx\Rs\Client\Exception\GedcomxApplicationException` when a 400 or 500 level HTTP response is received. 
      */
     public function __construct($options = array())
     {
@@ -127,6 +128,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         // Middleware
         $this->stack = new HandlerStack();
         $this->stack->setHandler(new CurlHandler());
+        $this->stack->push(Middleware::httpErrors());
         
         // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
@@ -154,13 +156,22 @@ class FamilySearchClient implements LoggerAwareInterface{
             $this->setLogger($options['logger']);
         }
         
-        // Create client
-        $this->client = new Client([
+        $clientOptions = [
             'handler' => $this->stack,
             'headers' => [
                 'User-Agent' => $userAgent
             ]
-        ]);
+        ];
+        
+        // Throw exceptions
+        if(isset($options['httpExceptions']) && $options['httpExceptions'] === true){
+            $clientOptions['http_errors'] = true;
+        } else {
+            $clientOptions['http_errors'] = false;
+        }
+        
+        // Create client
+        $this->client = new Client($clientOptions);
         
         $this->stateFactory = new FamilyTreeStateFactory();
         

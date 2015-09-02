@@ -1115,21 +1115,24 @@ abstract class GedcomxApplicationState
      * 
      * @param \GuzzleHttp\Client $client
      * @param \GuzzleHttp\Psr7\Request $request
-     * @param array $options
      * 
      * @return \GuzzleHttp\Psr7\Response $response
      */
-    public static function send(Client $client, Request $request, $options = array()){
+    public static function send(Client $client, Request $request){
         $actualUri = (string) $request->getUri();
-        $response = $client->send($request, [
-            'http_errors' => false,
-            'curl' => ['body_as_string' => true],
-            'allow_redirects' => [
-                'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {
-                    $actualUri = (string) $uri;
-                }    
-            ]   
-        ]);
+        try {
+            $response = $client->send($request, [
+                'curl' => ['body_as_string' => true],
+                'allow_redirects' => [
+                    'on_redirect' => function(RequestInterface $request, ResponseInterface $response, $uri) use (&$actualUri) {
+                        $actualUri = (string) $uri;
+                    }    
+                ]   
+            ]);
+        } catch(\GuzzleHttp\Exception\BadResponseException $e) {
+            $response = $e->getResponse();
+            throw new \Gedcomx\Rs\Client\Exception\GedcomxApplicationException($response->getReasonPhrase(), $response);
+        }
         $response->effectiveUri = $actualUri;
         return $response;
     }

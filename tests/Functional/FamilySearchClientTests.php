@@ -193,6 +193,36 @@ class FamilySearchClientTests extends ApiTestCase
         
         $this->assertTrue($handler->hasInfoThatContains('/platform/tree/persons'));
         $this->assertTrue($handler->hasErrorThatContains('405'));
+    }
+    
+    /**
+     * @vcr FamilySearchClientTests/testHttpErrors.json
+     */
+    public function testHttpErrors()
+    {
+        $client = $this->createFamilySearchClient();
+        $responseState = $client->familytree()->readCurrentUser();
         
+        $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
+        $this->assertEquals(
+            HttpStatus::UNAUTHORIZED,
+            $responseState->getStatus(),
+            $this->buildFailMessage(__METHOD__, $responseState)
+        );
+    }
+    
+    /**
+     * @vcr FamilySearchClientTests/testHttpExceptions.json
+     */
+    public function testHttpExceptions()
+    {
+        $this->setExpectedException('\Gedcomx\Rs\Client\Exception\GedcomxApplicationException');
+        
+        // Use an unauthenticated client so that we get a 401
+        // and can test whether an exception is properly thrown.
+        $client = $this->createFamilySearchClient([
+            'httpExceptions' => true
+        ]);
+        $client->familytree()->readCurrentUser();
     }
 }
