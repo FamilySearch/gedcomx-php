@@ -298,8 +298,7 @@
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.UserState.html">Gedcomx\Extensions\FamilySearch\Rs\Client\UserState</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeEntry.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeHistoryPage.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeHistoryPage</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ExperimentsFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerMiddleware.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformLocalReferenceResolver.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformLocalReferenceResolver</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformModelVisitorBase.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitorBase</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Tag.html">Gedcomx\Extensions\FamilySearch\Tag</a></li>
@@ -393,7 +392,6 @@
 				<li><a href="class-Gedcomx.Types.ResourceType.html">Gedcomx\Types\ResourceType</a></li>
 				<li><a href="class-Gedcomx.Util.Collection.html">Gedcomx\Util\Collection</a></li>
 				<li><a href="class-Gedcomx.Util.Duration.html">Gedcomx\Util\Duration</a></li>
-				<li><a href="class-Gedcomx.Util.FilterableClient.html">Gedcomx\Util\FilterableClient</a></li>
 				<li><a href="class-Gedcomx.Util.FormalDate.html">Gedcomx\Util\FormalDate</a></li>
 				<li><a href="class-Gedcomx.Util.JsonMapper.html">Gedcomx\Util\JsonMapper</a></li>
 				<li><a href="class-Gedcomx.Util.SimpleDate.html">Gedcomx\Util\SimpleDate</a></li>
@@ -419,7 +417,6 @@
 				<li><a href="class-Gedcomx.Rt.GedcomxModelVisitor.html">Gedcomx\Rt\GedcomxModelVisitor</a></li>
 				<li><a href="class-Gedcomx.Source.ReferencesSources.html">Gedcomx\Source\ReferencesSources</a></li>
 				<li><a href="class-Gedcomx.Support.HasJsonKey.html">Gedcomx\Support\HasJsonKey</a></li>
-				<li><a href="class-Gedcomx.Util.Filter.html">Gedcomx\Util\Filter</a></li>
 			</ul>
 
 
@@ -466,9 +463,9 @@
 </span><span id="22" class="l"><span class="php-keyword1">use</span> Gedcomx\Rs\Client\Options\StateTransitionOption;
 </span><span id="23" class="l"><span class="php-keyword1">use</span> Gedcomx\Rs\Client\Rel;
 </span><span id="24" class="l"><span class="php-keyword1">use</span> Gedcomx\Rs\Client\StateFactory;
-</span><span id="25" class="l"><span class="php-keyword1">use</span> Guzzle\Http\Client;
-</span><span id="26" class="l"><span class="php-keyword1">use</span> Guzzle\Http\Message\Request;
-</span><span id="27" class="l"><span class="php-keyword1">use</span> Guzzle\Http\Message\Response;
+</span><span id="25" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Client;
+</span><span id="26" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Psr7\Request;
+</span><span id="27" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Psr7\Response;
 </span><span id="28" class="l">
 </span><span id="29" class="l"><span class="php-comment">/**
 </span></span><span id="30" class="l"><span class="php-comment"> * The PersonChildrenState exposes management functions for person children.
@@ -483,9 +480,9 @@
 </span></span><span id="39" class="l"><span class="php-comment">     * Constructs a new person children state using the specified client, request, respons, access token, and state
 </span></span><span id="40" class="l"><span class="php-comment">     * factory.
 </span></span><span id="41" class="l"><span class="php-comment">     *
-</span></span><span id="42" class="l"><span class="php-comment">     * @param \Guzzle\Http\Client             $client
-</span></span><span id="43" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Request    $request
-</span></span><span id="44" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Response   $response
+</span></span><span id="42" class="l"><span class="php-comment">     * @param \GuzzleHttp\Client             $client
+</span></span><span id="43" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Request    $request
+</span></span><span id="44" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Response   $response
 </span></span><span id="45" class="l"><span class="php-comment">     * @param string                          $accessToken
 </span></span><span id="46" class="l"><span class="php-comment">     * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
 </span></span><span id="47" class="l"><span class="php-comment">     */</span>
@@ -497,8 +494,8 @@
 </span><span id="53" class="l">    <span class="php-comment">/**
 </span></span><span id="54" class="l"><span class="php-comment">     * Clones the current state instance.
 </span></span><span id="55" class="l"><span class="php-comment">     *
-</span></span><span id="56" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Request  $request
-</span></span><span id="57" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Response $response
+</span></span><span id="56" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Request  $request
+</span></span><span id="57" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Response $response
 </span></span><span id="58" class="l"><span class="php-comment">     *
 </span></span><span id="59" class="l"><span class="php-comment">     * @return \Gedcomx\Rs\Client\PersonChildrenState
 </span></span><span id="60" class="l"><span class="php-comment">     */</span>
@@ -591,7 +588,7 @@
 </span><span id="147" class="l">            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
 </span><span id="148" class="l">        }
 </span><span id="149" class="l">
-</span><span id="150" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(Request::GET, <span class="php-var">$link</span>-&gt;getHref());
+</span><span id="150" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(<span class="php-quote">'GET'</span>, <span class="php-var">$link</span>-&gt;getHref());
 </span><span id="151" class="l">
 </span><span id="152" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;stateFactory-&gt;createState(
 </span><span id="153" class="l">            <span class="php-quote">&quot;PersonState&quot;</span>,
@@ -620,7 +617,7 @@
 </span><span id="176" class="l">            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
 </span><span id="177" class="l">        }
 </span><span id="178" class="l">
-</span><span id="179" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(Request::GET, <span class="php-var">$link</span>-&gt;getHref());
+</span><span id="179" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(<span class="php-quote">'GET'</span>, <span class="php-var">$link</span>-&gt;getHref());
 </span><span id="180" class="l">
 </span><span id="181" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;stateFactory-&gt;createState(
 </span><span id="182" class="l">            <span class="php-quote">&quot;PersonState&quot;</span>,
@@ -649,7 +646,7 @@
 </span><span id="205" class="l">            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
 </span><span id="206" class="l">        }
 </span><span id="207" class="l">
-</span><span id="208" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(Request::GET, <span class="php-var">$link</span>-&gt;getHref());
+</span><span id="208" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(<span class="php-quote">'GET'</span>, <span class="php-var">$link</span>-&gt;getHref());
 </span><span id="209" class="l">
 </span><span id="210" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;stateFactory-&gt;createState(
 </span><span id="211" class="l">            <span class="php-quote">&quot;RelationshipState&quot;</span>,
@@ -679,7 +676,7 @@
 </span><span id="235" class="l">            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> GedcomxApplicationException(<span class="php-quote">&quot;Unable to remove relationship: missing link.&quot;</span>);
 </span><span id="236" class="l">        }
 </span><span id="237" class="l">
-</span><span id="238" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(Request::<span class="php-keyword2">DELETE</span>, <span class="php-var">$link</span>-&gt;getHref());
+</span><span id="238" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(<span class="php-quote">'DELETE'</span>, <span class="php-var">$link</span>-&gt;getHref());
 </span><span id="239" class="l">
 </span><span id="240" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;stateFactory-&gt;createState(
 </span><span id="241" class="l">            <span class="php-quote">&quot;RelationshipState&quot;</span>,
@@ -714,7 +711,7 @@
 </span><span id="270" class="l">            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> GedcomxApplicationException(<span class="php-quote">&quot;Unable to remove relationship: missing link.&quot;</span>);
 </span><span id="271" class="l">        }
 </span><span id="272" class="l">
-</span><span id="273" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(Request::<span class="php-keyword2">DELETE</span>, <span class="php-var">$link</span>-&gt;getHref());
+</span><span id="273" class="l">        <span class="php-var">$request</span> = <span class="php-var">$this</span>-&gt;createAuthenticatedGedcomxRequest(<span class="php-quote">'DELETE'</span>, <span class="php-var">$link</span>-&gt;getHref());
 </span><span id="274" class="l">
 </span><span id="275" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;stateFactory-&gt;createState(
 </span><span id="276" class="l">            <span class="php-quote">&quot;RelationshipState&quot;</span>,
@@ -734,6 +731,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?bf539c3f5468a12cfe67929daadea74069c6e485"></script>
-<script src="elementlist.js?59e7dc6e3dc1cd0864ce8449c5669e54aaf4cbc5"></script>
+<script src="elementlist.js?99a2e079162236faa9d4a683fa2cc240e45dd523"></script>
 </body>
 </html>

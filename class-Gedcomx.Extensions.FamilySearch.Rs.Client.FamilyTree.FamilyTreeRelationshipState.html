@@ -282,7 +282,7 @@
 		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Extensions.html">Extensions</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.html">FamilySearch</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.html">Client</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.html">FamilyTree</a><br>
 		<b>Package:</b> Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree<br>
 
-			<b>Located at</b> <a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#14-110" title="Go to source code">Extensions/FamilySearch/Rs/Client/FamilyTree/FamilyTreeRelationshipState.php</a>
+			<b>Located at</b> <a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#14-109" title="Go to source code">Extensions/FamilySearch/Rs/Client/FamilyTree/FamilyTreeRelationshipState.php</a>
 		<br>
 	</div>
 
@@ -302,7 +302,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#23-35" title="Go to source code">__construct</a>( <span>Guzzle\Http\Client <var>$client</var></span>, <span>Guzzle\Http\Message\Request <var>$request</var></span>, <span>Guzzle\Http\Message\Response <var>$response</var></span>, <span>string <var>$accessToken</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.StateFactory.html">Gedcomx\Rs\Client\StateFactory</a></code> <var>$stateFactory</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#23-35" title="Go to source code">__construct</a>( <span>GuzzleHttp\Client <var>$client</var></span>, <span>GuzzleHttp\Psr7\Request <var>$request</var></span>, <span>GuzzleHttp\Psr7\Response <var>$response</var></span>, <span>string <var>$accessToken</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.StateFactory.html">Gedcomx\Rs\Client\StateFactory</a></code> <var>$stateFactory</var></span> )</code>
 
 			<div class="description short">
 				<p>Constructs a new fmaily tree relationship state using the specified client, request, response, access token, and state factory.</p>
@@ -422,7 +422,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_restore">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#85-109" title="Go to source code">restore</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilyTree.FamilyTreeRelationshipState.html#85-108" title="Go to source code">restore</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Restore the current relationship (if it is currently deleted).</p>
@@ -484,6 +484,7 @@
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_loadNotes">loadNotes()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_loadSourceReferences">loadSourceReferences()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_readNote">readNote()</a></code>, 
+				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_readSources">readSources()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_updateEvidenceReference">updateEvidenceReference()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_updateEvidenceReferences">updateEvidenceReferences()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.RelationshipState.html#_updateFact">updateFact()</a></code>, 
@@ -525,7 +526,6 @@
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_getSelfUri">getSelfUri()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_getStatus">getStatus()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_getUri">getUri()</a></code>, 
-				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_getWarnings">getWarnings()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_hasClientError">hasClientError()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_hasError">hasError()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_hasServerError">hasServerError()</a></code>, 
@@ -540,7 +540,8 @@
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_put">put()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_readAttributableContributor">readAttributableContributor()</a></code>, 
 				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_readContributor">readContributor()</a></code>, 
-				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_readReferenceContributor">readReferenceContributor()</a></code>
+				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_readReferenceContributor">readReferenceContributor()</a></code>, 
+				<code><a href="class-Gedcomx.Rs.Client.GedcomxApplicationState.html#_send">send()</a></code>
 			</p>
 		</div>
 

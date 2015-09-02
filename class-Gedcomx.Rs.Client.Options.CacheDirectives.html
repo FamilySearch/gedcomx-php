@@ -264,7 +264,7 @@ but applies inverse logic.</p>
 		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Rs.Client.html">Client</a>\<a href="namespace-Gedcomx.Rs.Client.Options.html">Options</a><br>
 		<b>Package:</b> Gedcomx\Rs\Client\Options<br>
 
-			<b>Located at</b> <a href="source-class-Gedcomx.Rs.Client.Options.CacheDirectives.html#8-54" title="Go to source code">Rs/Client/Options/CacheDirectives.php</a>
+			<b>Located at</b> <a href="source-class-Gedcomx.Rs.Client.Options.CacheDirectives.html#8-57" title="Go to source code">Rs/Client/Options/CacheDirectives.php</a>
 		<br>
 	</div>
 
@@ -319,14 +319,14 @@ returned.</p>
 
 			<td class="attributes"><code>
 				 public 
-				
+				GuzzleHttp\Psr7\Request
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_apply">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.Options.CacheDirectives.html#36-53" title="Go to source code">apply</a>( <span>Guzzle\Http\Message\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.Options.CacheDirectives.html#36-56" title="Go to source code">apply</a>( <span>GuzzleHttp\Psr7\Request <var>$request</var></span>, <span>GuzzleHttp\Psr7\Request <var>$request</var>,…</span> )</code>
 
 			<div class="description short">
 				<p>Applies the ETag or last modified cache control headers to the specified REST API request. If the ETag
@@ -348,8 +348,14 @@ otherwise, a not-modified status is returned.</p>
 					<div class="list"><dl>
 						<dt><var>$request</var></dt>
 						<dd></dd>
+						<dt><var>$request</var>,…</dt>
+						<dd></dd>
 					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						GuzzleHttp\Psr7\Request<br>New request object reflecting the changes
+					</div>
 
 
 

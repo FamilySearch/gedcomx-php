@@ -298,8 +298,7 @@
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.UserState.html">Gedcomx\Extensions\FamilySearch\Rs\Client\UserState</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeEntry.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeHistoryPage.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeHistoryPage</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ExperimentsFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerMiddleware.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformLocalReferenceResolver.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformLocalReferenceResolver</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformModelVisitorBase.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitorBase</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Tag.html">Gedcomx\Extensions\FamilySearch\Tag</a></li>
@@ -393,7 +392,6 @@
 				<li><a href="class-Gedcomx.Types.ResourceType.html">Gedcomx\Types\ResourceType</a></li>
 				<li><a href="class-Gedcomx.Util.Collection.html">Gedcomx\Util\Collection</a></li>
 				<li><a href="class-Gedcomx.Util.Duration.html">Gedcomx\Util\Duration</a></li>
-				<li><a href="class-Gedcomx.Util.FilterableClient.html">Gedcomx\Util\FilterableClient</a></li>
 				<li><a href="class-Gedcomx.Util.FormalDate.html">Gedcomx\Util\FormalDate</a></li>
 				<li><a href="class-Gedcomx.Util.JsonMapper.html">Gedcomx\Util\JsonMapper</a></li>
 				<li><a href="class-Gedcomx.Util.SimpleDate.html">Gedcomx\Util\SimpleDate</a></li>
@@ -419,7 +417,6 @@
 				<li><a href="class-Gedcomx.Rt.GedcomxModelVisitor.html">Gedcomx\Rt\GedcomxModelVisitor</a></li>
 				<li><a href="class-Gedcomx.Source.ReferencesSources.html">Gedcomx\Source\ReferencesSources</a></li>
 				<li><a href="class-Gedcomx.Support.HasJsonKey.html">Gedcomx\Support\HasJsonKey</a></li>
-				<li><a href="class-Gedcomx.Util.Filter.html">Gedcomx\Util\Filter</a></li>
 			</ul>
 
 
@@ -493,7 +490,7 @@
 </span></span><span id="49" class="l"><span class="php-comment">         */</span>
 </span><span id="50" class="l">        <span class="php-keyword1">const</span> RESET_CONTENT = <span class="php-num">205</span>;
 </span><span id="51" class="l">        <span class="php-comment">/**
-</span></span><span id="52" class="l"><span class="php-comment">         * Equivalent to HTTP status 206. PARTIAL_CONTENT indicates that the response is a partial response as requested by a GET request that includes a byte range.
+</span></span><span id="52" class="l"><span class="php-comment">         * Equivalent to HTTP status 206. PARTIAL_CONTENT indicates that the response is a partial response as requested by a'GET' request that includes a byte range.
 </span></span><span id="53" class="l"><span class="php-comment">         */</span>
 </span><span id="54" class="l">        <span class="php-keyword1">const</span> PARTIAL_CONTENT = <span class="php-num">206</span>;
 </span><span id="55" class="l">        <span class="php-comment">/**
@@ -517,11 +514,11 @@
 </span></span><span id="73" class="l"><span class="php-comment">         */</span>
 </span><span id="74" class="l">        <span class="php-keyword1">const</span> MOVED_PERMANENTLY = <span class="php-num">301</span>;
 </span><span id="75" class="l">        <span class="php-comment">/**
-</span></span><span id="76" class="l"><span class="php-comment">         * Equivalent to HTTP status 302. FOUND (or REDIRECT) indicates that the requested information is located at the URI specified in the Location header. The default action when this status is received is to follow the Location header associated with the response. When the original request method was POST, the redirected request will use the GET method.
+</span></span><span id="76" class="l"><span class="php-comment">         * Equivalent to HTTP status 302. FOUND (or REDIRECT) indicates that the requested information is located at the URI specified in the Location header. The default action when this status is received is to follow the Location header associated with the response. When the original request method was POST, the redirected request will use the'GET' method.
 </span></span><span id="77" class="l"><span class="php-comment">         */</span>
 </span><span id="78" class="l">        <span class="php-keyword1">const</span> FOUND = <span class="php-num">302</span>;
 </span><span id="79" class="l">        <span class="php-comment">/**
-</span></span><span id="80" class="l"><span class="php-comment">         * Equivalent to HTTP status 303. SEE_OTHER (or REDIRECT_METHOD) automatically redirects the client to the URI specified in the Location header as the result of a POST. The request to the resource specified by the Location header will be made with a GET.
+</span></span><span id="80" class="l"><span class="php-comment">         * Equivalent to HTTP status 303. SEE_OTHER (or REDIRECT_METHOD) automatically redirects the client to the URI specified in the Location header as the result of a POST. The request to the resource specified by the Location header will be made with a'GET'.
 </span></span><span id="81" class="l"><span class="php-comment">         */</span>
 </span><span id="82" class="l">        <span class="php-keyword1">const</span> SEE_OTHER = <span class="php-num">303</span>;
 </span><span id="83" class="l">        <span class="php-comment">/**
@@ -561,7 +558,7 @@
 </span></span><span id="117" class="l"><span class="php-comment">         */</span>
 </span><span id="118" class="l">        <span class="php-keyword1">const</span> NOT_FOUND = <span class="php-num">404</span>;
 </span><span id="119" class="l">        <span class="php-comment">/**
-</span></span><span id="120" class="l"><span class="php-comment">         * Equivalent to HTTP status 405. METHOD_NOT_ALLOWED indicates that the request method (POST or GET) is not allowed on the requested resource.
+</span></span><span id="120" class="l"><span class="php-comment">         * Equivalent to HTTP status 405. METHOD_NOT_ALLOWED indicates that the request method (POST or'GET') is not allowed on the requested resource.
 </span></span><span id="121" class="l"><span class="php-comment">         */</span>
 </span><span id="122" class="l">        <span class="php-keyword1">const</span> METHOD_NOT_ALLOWED = <span class="php-num">405</span>;
 </span><span id="123" class="l">        <span class="php-comment">/**
@@ -770,6 +767,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?bf539c3f5468a12cfe67929daadea74069c6e485"></script>
-<script src="elementlist.js?59e7dc6e3dc1cd0864ce8449c5669e54aaf4cbc5"></script>
+<script src="elementlist.js?99a2e079162236faa9d4a683fa2cc240e45dd523"></script>
 </body>
 </html>

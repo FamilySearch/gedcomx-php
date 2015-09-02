@@ -298,8 +298,7 @@
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.UserState.html">Gedcomx\Extensions\FamilySearch\Rs\Client\UserState</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeEntry.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeEntry</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ChangeHistoryPage.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ChangeHistoryPage</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.ExperimentsFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter</a></li>
-				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerFilter.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter</a></li>
+				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rs.Client.Util.LoggerMiddleware.html">Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformLocalReferenceResolver.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformLocalReferenceResolver</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Rt.FamilySearchPlatformModelVisitorBase.html">Gedcomx\Extensions\FamilySearch\Rt\FamilySearchPlatformModelVisitorBase</a></li>
 				<li><a href="class-Gedcomx.Extensions.FamilySearch.Tag.html">Gedcomx\Extensions\FamilySearch\Tag</a></li>
@@ -393,7 +392,6 @@
 				<li><a href="class-Gedcomx.Types.ResourceType.html">Gedcomx\Types\ResourceType</a></li>
 				<li><a href="class-Gedcomx.Util.Collection.html">Gedcomx\Util\Collection</a></li>
 				<li><a href="class-Gedcomx.Util.Duration.html">Gedcomx\Util\Duration</a></li>
-				<li><a href="class-Gedcomx.Util.FilterableClient.html">Gedcomx\Util\FilterableClient</a></li>
 				<li><a href="class-Gedcomx.Util.FormalDate.html">Gedcomx\Util\FormalDate</a></li>
 				<li><a href="class-Gedcomx.Util.JsonMapper.html">Gedcomx\Util\JsonMapper</a></li>
 				<li><a href="class-Gedcomx.Util.SimpleDate.html">Gedcomx\Util\SimpleDate</a></li>
@@ -419,7 +417,6 @@
 				<li><a href="class-Gedcomx.Rt.GedcomxModelVisitor.html">Gedcomx\Rt\GedcomxModelVisitor</a></li>
 				<li><a href="class-Gedcomx.Source.ReferencesSources.html">Gedcomx\Source\ReferencesSources</a></li>
 				<li><a href="class-Gedcomx.Support.HasJsonKey.html">Gedcomx\Support\HasJsonKey</a></li>
-				<li><a href="class-Gedcomx.Util.Filter.html">Gedcomx\Util\Filter</a></li>
 			</ul>
 
 
@@ -446,8 +443,8 @@
 </span><span id="2" class="l">
 </span><span id="3" class="l"><span class="php-keyword1">namespace</span> Gedcomx\Extensions\FamilySearch\Rs\Client;
 </span><span id="4" class="l">
-</span><span id="5" class="l"><span class="php-keyword1">use</span> Guzzle\Http\Message\Request;
-</span><span id="6" class="l"><span class="php-keyword1">use</span> Guzzle\Http\Message\Response;
+</span><span id="5" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Psr7\Request;
+</span><span id="6" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Psr7\Response;
 </span><span id="7" class="l">
 </span><span id="8" class="l"><span class="php-comment">/**
 </span></span><span id="9" class="l"><span class="php-comment"> * The FamilySearchPlaceState exposes management functions for a FamilySearch place.
@@ -461,8 +458,8 @@
 </span><span id="17" class="l">    <span class="php-comment">/**
 </span></span><span id="18" class="l"><span class="php-comment">     * Clones the current state instance.
 </span></span><span id="19" class="l"><span class="php-comment">     *
-</span></span><span id="20" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Request  $request
-</span></span><span id="21" class="l"><span class="php-comment">     * @param \Guzzle\Http\Message\Response $response
+</span></span><span id="20" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Request  $request
+</span></span><span id="21" class="l"><span class="php-comment">     * @param \GuzzleHttp\Psr7\Response $response
 </span></span><span id="22" class="l"><span class="php-comment">     *
 </span></span><span id="23" class="l"><span class="php-comment">     * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaceState
 </span></span><span id="24" class="l"><span class="php-comment">     */</span>
@@ -516,6 +513,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?bf539c3f5468a12cfe67929daadea74069c6e485"></script>
-<script src="elementlist.js?59e7dc6e3dc1cd0864ce8449c5669e54aaf4cbc5"></script>
+<script src="elementlist.js?99a2e079162236faa9d4a683fa2cc240e45dd523"></script>
 </body>
 </html>
