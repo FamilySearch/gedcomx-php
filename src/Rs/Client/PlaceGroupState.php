@@ -3,8 +3,8 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PlaceGroupState exposes management functions for a place group.
@@ -14,8 +14,8 @@ class PlaceGroupState extends GedcomxApplicationState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\PlaceGroupState
      */

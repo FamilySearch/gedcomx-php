@@ -13,8 +13,13 @@ use Gedcomx\Rs\Client\PersonState;
 use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Rs\Client\Options\QueryParameter;
-use Guzzle\Http\Message\EntityEnclosingRequest;
 use Gedcomx\Tests\TestBuilder;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\Client;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Psr7\Request;
 
 abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -129,14 +134,15 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
     {
         $method = explode("\\",$methodName );
         $methodName = array_pop($method);
+        $request = $stateObj->getRequest();
         $code = $stateObj->getStatus();
         $message = $methodName . " failed. Returned " . $code . ":" . HttpStatus::getText($code);
-        $message .= "\n" . $stateObj->getRequest()->getMethod() . ": " . $stateObj->getResponse()->getEffectiveUrl();
-        $message .= "\nContent-Type: " . $stateObj->getRequest()->getHeader("Content-Type");
-        $message .= "\nAccept: " . $stateObj->getRequest()->getHeader("Accept");
+        $message .= "\n" . $request->getMethod() . ": " . $stateObj->getResponse()->effectiveUri;
+        $message .= "\nContent-Type: " . count($request->getHeader("Content-Type")) > 0 ? $request->getHeader("Content-Type")[0] : '';
+        $message .= "\nAccept: " . count($request->getHeader("Accept")) > 0 ? $request->getHeader("Accept")[0] : '';
         $message .= "\nRequest:" . (
-            $stateObj->getRequest() instanceof EntityEnclosingRequest ?
-                "\n".$stateObj->getRequest()->getBody() :
+            $request instanceof Request ?
+                "\n".$request->getBody() :
                 " n/a"
         );
         $message .= "\nResponse:\n" . $stateObj->getResponse()->getBody();
@@ -144,7 +150,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         $warnings = $stateObj->getHeader('warning');
         if (!empty($warnings)) {
             $message .= "Warnings:\n";
-            foreach ($warnings->toArray() as $msg) {
+            foreach ($warnings as $msg) {
                 $message .= $msg . "\n";
             }
         }
@@ -152,8 +158,25 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         return $message;
     }
     
+    protected function logger()
+    {
+        $logger = new \Monolog\Logger('test');
+        $logger->pushHandler(new \Monolog\Handler\StreamHandler('php://output'));
+        return $logger;
+    }
+    
+    protected function loggingClient()
+    {
+        $stack = HandlerStack::create(new CurlHandler());
+        $stack->push(Middleware::log($this->logger(), new MessageFormatter(MessageFormatter::DEBUG)));
+        return new Client(['handler' => $stack, 'http_errors' => false]);
+    }
+    
     protected function createFamilySearchClient($options = array())
     {
+        if(!isset($options['logger'])){
+            // $options['logger'] = $this->logger();
+        }
         return new FamilySearchClient(array_merge_recursive($options, array(
             'environment' => 'sandbox',
             'clientId' => SandboxCredentials::API_KEY,

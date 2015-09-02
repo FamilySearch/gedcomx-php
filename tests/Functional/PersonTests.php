@@ -356,7 +356,7 @@ class PersonTests extends ApiTestCase
         $this->assertEquals(HttpStatus::OK, $response->getStatusCode());
         $this->assertGreaterThan(0, $response->getRedirectCount());
     }
-
+    
     /**
      * @vcr PersonTests/testReadPortraitWithDefault.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Person_Portrait_With_Default_usecase
@@ -365,21 +365,16 @@ class PersonTests extends ApiTestCase
     {
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
-
         $person = $this->createPerson();
         $this->assertEquals(HttpStatus::CREATED, $person->getStatus());
         $person = $person->get();
         $this->assertEquals(HttpStatus::OK, $person->getStatus());
         $defaultImage = new QueryParameter(true, "default","http://i.imgur.com/d9J0gYA.jpg");
-
-        /** @var \Guzzle\Http\Message\Response $response */
         $response = $person->readPortrait($defaultImage);
-
-        $this->assertGreaterThan(0, $response->getRedirectCount(), "Redirect does not appear to have worked.");
         $this->assertEquals(
             "http://i.imgur.com/d9J0gYA.jpg",
-            $response->getEffectiveUrl(),
-            "Portrait default image URL incorrect: " . $response->getEffectiveUrl()
+            $response->effectiveUri,
+            "Portrait default image URL incorrect: " . $response->effectiveUri
         );
     }
 
@@ -1337,9 +1332,8 @@ class PersonTests extends ApiTestCase
     {
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
-
         $userState = $this->collectionState()->readCurrentUser();
-
+        
         // First create a relationship
 
         $father = $this->createPerson('male');
@@ -1399,13 +1393,13 @@ class PersonTests extends ApiTestCase
 
         $this->assertContains(
             'child-and-parents-relationship',
-            $preferred->getResponse()->getEffectiveUrl(),
+            $preferred->getResponse()->effectiveUri,
             $this->buildFailMessage(__METHOD__, $preferred)
         );
 
         //  Now clean up
 
-        $updated = $this->collectionState()->deletePreferredSpouseRelationship(
+        $updated = $this->collectionState()->deletePreferredParentRelationship(
             $userState->getUser()->getTreeUserId(),
             $child->getPerson()->getId()
         );
@@ -1489,7 +1483,7 @@ class PersonTests extends ApiTestCase
 
         $this->assertContains(
             'couple-relationship',
-            $preferred->getResponse()->getEffectiveUrl(),
+            $preferred->getResponse()->effectiveUri,
             $this->buildFailMessage(__METHOD__, $preferred)
         );
 

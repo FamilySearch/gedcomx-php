@@ -4,16 +4,16 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree;
 
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Rs\Client\PersonChildrenState;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 class FamilyTreePersonChildrenState extends PersonChildrenState
 {
     /**
      * Clone this instance of FamilyTreePersonChildrenState
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return FamilyTreePersonChildrenState
      */

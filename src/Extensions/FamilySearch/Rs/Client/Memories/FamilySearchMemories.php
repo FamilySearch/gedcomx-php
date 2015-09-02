@@ -3,8 +3,8 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\Memories;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchCollectionState;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The FamilySearchMemories is a collection of FamilySearch memories and exposes management of those memories.

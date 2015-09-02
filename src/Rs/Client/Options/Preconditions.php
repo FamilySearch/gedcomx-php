@@ -3,7 +3,7 @@
 	namespace Gedcomx\Rs\Client\Options;
 
 	use Gedcomx\Rs\Client\GedcomxApplicationState;
-	use Guzzle\Http\Message\Request;
+	use GuzzleHttp\Psr7\Request;
 
 	/**
 	 * A REST API request options helper providing precondition features. This is similar to the CacheDirectives class, but applies inverse logic.
@@ -74,16 +74,18 @@
 		 * were null and last modified was not.
 		 *
 		 * @param Request $request
+		 * @param Request $request
          */
 		public function apply(Request $request)
 		{
+			$newRequest = $request;
 			if ($this->etag !== null) {
-				$request->addHeader(HeaderParameter::IF_MATCH, $this->etag);
+				$newRequest = $request->withHeader(HeaderParameter::IF_MATCH, $this->etag);
 			}
-
 			if ($this->lastModified !== null) {
-				$request->addHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
+				$newRequest = $request->withHeader(HeaderParameter::IF_UNMODIFIED_SINCE, $this->lastModified);
 			}
+			return $newRequest;
 		}
 
 	}

@@ -287,7 +287,7 @@ class PedigreeTests extends ApiTestCase
         $this->assertEquals(1, count($state->getTree()->getRoot()->getChildren()));
         $this->assertNotNull($state->getTree()->getRoot()->Children[0]->getPerson());
         $this->assertEquals($father->getPerson()->getId(), $state->getTree()->getRoot()->getPerson()->getId());
-        $this->assertEquals($son->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
+        $this->assertEquals($son->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
     }
 
     /**
@@ -349,8 +349,8 @@ class PedigreeTests extends ApiTestCase
         $this->assertEquals(1, count($state->getTree()->getRoot()->getChildren()));
         $this->assertNotNull($state->getTree()->getRoot()->Children[0]->getPerson());
         $this->assertEquals($father->getPerson()->getId(), $state->getTree()->getRoot()->getPerson()->getId());
-        $this->assertEquals($mother->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->getSpouse()->getId());
-        $this->assertEquals($son->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
+        $this->assertEquals($mother->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->getSpouse()->getId());
+        $this->assertEquals($son->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
     }
 
     /**
@@ -393,7 +393,7 @@ class PedigreeTests extends ApiTestCase
         $r1 = $collection->addChildAndParentsRelationship($relationship);
         $this->queueForDelete($r1);
         $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
-        $state = $father->readDescendancy(new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")->__toString()));
+        $state = $father->readDescendancy(new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")[0]));
 
         $this->assertNotNull($state->IfSuccessful());
         $this->assertEquals((int)$state->getStatus(), 200);
@@ -405,8 +405,8 @@ class PedigreeTests extends ApiTestCase
         $this->assertEquals(1, count($state->getTree()->getRoot()->getChildren()));
         $this->assertNotNull($state->getTree()->getRoot()->Children[0]->getPerson());
         $this->assertEquals($father->getPerson()->getId(), $state->getTree()->getRoot()->getPerson()->getId());
-        $this->assertEquals($mother->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->getSpouse()->getId());
-        $this->assertEquals($son->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
+        $this->assertEquals($mother->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->getSpouse()->getId());
+        $this->assertEquals($son->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
     }
 
     /**
@@ -451,7 +451,7 @@ class PedigreeTests extends ApiTestCase
         $this->assertEquals(HttpStatus::CREATED, $r1->getStatus());
 
         $state = $father->readDescendancy(
-            new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")->__toString()),
+            new QueryParameter(true, "spouse", $mother->getHeader("X-ENTITY-ID")[0]),
             new QueryParameter(true, "personDetails", "true"),
             new QueryParameter(true, "marriageDetails", "true"));
 
@@ -469,7 +469,7 @@ class PedigreeTests extends ApiTestCase
         $this->assertEquals(1, count($state->getTree()->getRoot()->getChildren()));
         $this->assertNotNull($state->getTree()->getRoot()->Children[0]->getPerson());
         $this->assertEquals($father->getPerson()->getId(), $state->getTree()->getRoot()->getPerson()->getId());
-        $this->assertEquals($mother->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->getSpouse()->getId());
-        $this->assertEquals($son->getHeader("X-ENTITY-ID")->__toString(), $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
+        $this->assertEquals($mother->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->getSpouse()->getId());
+        $this->assertEquals($son->getHeader("X-ENTITY-ID")[0], $state->getTree()->getRoot()->Children[0]->getPerson()->getId());
     }
 }

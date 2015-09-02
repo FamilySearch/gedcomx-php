@@ -3,7 +3,7 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers;
 
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * A helper class to set accept and content-type headers for REST API requests.
@@ -16,11 +16,13 @@ class FamilySearchRequest
     /**
      * Applies the FamilySearch specific JSON accept and content-type headers on the specified request.
      *
-     * @param Request $request
+     * @return array Accept and Content-Type headers
      */
-    public static function applyFamilySearchMediaType(Request &$request)
+    public static function getMediaTypes()
     {
-        $request->setHeader('Accept', FamilySearchPlatform::JSON_MEDIA_TYPE);
-        $request->setHeader('Content-Type', FamilySearchPlatform::JSON_MEDIA_TYPE);
+        return [
+            'Accept' => FamilySearchPlatform::JSON_MEDIA_TYPE,
+            'Content-Type' => FamilySearchPlatform::JSON_MEDIA_TYPE
+        ];
     }
 }

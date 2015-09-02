@@ -9,10 +9,11 @@ use Gedcomx\Rs\Client\StateFactory;
 use Gedcomx\Rs\Client\Util\HttpStatus;
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Tests\SandboxCredentials;
-use Guzzle\Http\Message\Request;
+use GuzzleHttp\Psr7\Request;
 
 class AuthenticationTests extends ApiTestCase
 {
+    
     private $clientId = 'ABCD-EFGH-JKLM-NOPQ-RSTU-VWXY-0123-4567';
 
     /**
@@ -29,15 +30,15 @@ class AuthenticationTests extends ApiTestCase
                 SandboxCredentials::PASSWORD,
                 SandboxCredentials::API_KEY
             );
-
+        
         $link = $collectionState->getLink(Rel::OAUTH2_TOKEN);
-        $request = $collectionState->getClient()->createRequest(Request::DELETE, $link->getHref());
-        $request->setHeader('Accept', Gedcomx::JSON_APPLICATION_TYPE);
-        $request->setHeader('Authorization', "Bearer {$collectionState->getAccessToken()}");
-
-        $query = $request->getQuery();
-        $query->add('access_token', $collectionState->getAccessToken());
-        $response = $request->send();
+        $request = new Request('DELETE', $link->getHref(), [
+            'Accept' => Gedcomx::JSON_APPLICATION_TYPE,
+            'Authorization' => "Bearer {$collectionState->getAccessToken()}"
+        ]);
+        $request = $request->withUri($request->getUri()->withQuery('access_token=' . $collectionState->getAccessToken()));
+        
+        $response = $collectionState->getClient()->send($request);
 
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
@@ -55,16 +56,20 @@ class AuthenticationTests extends ApiTestCase
         $factory = new StateFactory();
         $collectionState = $factory->newCollectionState();
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
-        $request = $collectionState->getClient()->createRequest(Request::GET, $link->getHref());
-        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
-
-        $query = $request->getQuery();
-        $query->add('response_type', 'code');
-        $query->add('client_id', $this->clientId);
-        $query->add('redirect_uri', 'https://familysearch.org/developers/sandbox-oauth2-redirect');
+        
+        $request = new Request('GET', $link->getHref(), [
+            'Accept' => Gedcomx::HTML_TYPE
+        ]);
+        $request = $request->withUri($request->getUri()->withQuery(
+            \GuzzleHttp\Psr7\build_query([
+                'response_type' => 'code',
+                'client_id' => $this->clientId,
+                'redirect_uri' => 'https://familysearch.org/developers/sandbox-oauth2-redirect'
+            ])
+        ));
 
         $response = $collectionState->getClient()->send($request);
-        $doc = $response->getBody(true);
+        $doc = $response->getBody();
         $hasInput = strpos($doc,'id="userName"') !== false ? true : false;
         $this->assertTrue($hasInput);
     }
@@ -78,16 +83,20 @@ class AuthenticationTests extends ApiTestCase
         $factory = new StateFactory();
         $collectionState = $factory->newCollectionState();
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
-        $request = $collectionState->getClient()->createRequest(Request::GET, $link->getHref());
-        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
+        
+        $request = new Request('GET', $link->getHref(), [
+            'Accept' => Gedcomx::HTML_TYPE
+        ]);
+        $request = $request->withUri($request->getUri()->withQuery(
+            \GuzzleHttp\Psr7\build_query([
+                'response_type' => 'code',
+                'client_id' => $this->clientId,
+                'redirect_uri' => 'https://hrpufnstuf.org/witchiepoo'
+            ])
+        ));
 
-        $query = $request->getQuery();
-        $query->add('response_type', 'code');
-        $query->add('client_id', $this->clientId);
-        $query->add('redirect_uri', 'https://hrpufnstuf.org/witchiepoo');
-
-        $response = $request->send();
-        $doc = $response->getBody(true);
+        $response = $collectionState->getClient()->send($request);
+        $doc = $response->getBody();
         $hasInput = strpos($doc,'Oauth2 error') !== false ? true : false;
         $this->assertTrue($hasInput);
     }
@@ -107,19 +116,21 @@ class AuthenticationTests extends ApiTestCase
         $factory = new StateFactory();
         $collectionState = $factory->newCollectionState();
         $link = $collectionState->getLink(Rel::OAUTH2_AUTHORIZE);
-        /** @var \Guzzle\Http\Message\EntityEnclosingRequest $request */
-        $request = $collectionState->getClient()->createRequest(Request::POST, $link->getHref());
-        $request->setHeader('Accept', Gedcomx::HTML_TYPE);
-        $request->setHeader('Content-Type', Gedcomx::FORM_DATA_TYPE);
-
-        $formData = array(
+        
+        $headers =  [
+            'Accept' => Gedcomx::HTML_TYPE,
+            'Content-Type' => Gedcomx::FORM_DATA_TYPE
+        ];
+        $formData = [
             'response_type' => 'code',
             'client_id' => $this->clientId,
             'redirect_uri' => 'https://familysearch.org/developers/sandbox-oauth2-redirect'
-        );
-        $request->addPostFields($formData);
-        $response = $collectionState->getClient()->send($request);
-        $doc = $response->getBody(true);
+        ];
+        
+        $request = new Request('POST', $link->getHref(), $headers, http_build_query($formData, null, '&'));
+        
+        $response = $collectionState->getClient()->send($request, ['curl' => ['body_as_string' => true]]);
+        $doc = $response->getBody();
         $hasInput = strpos($doc,'id="userName"') !== false ? true : false;
         $this->assertTrue($hasInput);
     }

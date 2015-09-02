@@ -3,14 +3,19 @@
 namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Gedcomx\Util\FilterableClient;
 use Gedcomx\Rs\Client\Rel as GedcomxRel;
+use Gedcomx\Rs\Client\GedcomxApplicationState;
 use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ExperimentsFilter;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerFilter;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
-
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
@@ -26,7 +31,7 @@ class FamilySearchClient implements LoggerAwareInterface{
     /**
      * Guzzle client object
      * 
-     * @var \Gedcomx\Util\FilterableClient
+     * @var \GuzzleHttp\Client;
      */
     private $client;
     
@@ -74,6 +79,11 @@ class FamilySearchClient implements LoggerAwareInterface{
     private $homeState;
     
     /**
+     * @var \GuzzleHttp\HandlerStack
+     */
+    private $stack;
+    
+    /**
      * Construct a FamilySearch Client.
      *
      * @param array $options A keyed array of configuration options for the client. Available options:
@@ -84,7 +94,8 @@ class FamilySearchClient implements LoggerAwareInterface{
      * * `environment` - `production`, `beta`, or `sandbox`; defaults to `sandbox`.
      * * `userAgent` - A string which will be prepended to the default user agent string.
      * * `pendingModifications` - An array of pending modifications that should be enabled.
-     * * `logger` - A Psr\Log\LoggerInterface. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
+     * * `logger` - A `Psr\Log\LoggerInterface`. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
+     * * `middleware` - An array of [Guzzle Middleware](http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware).
      */
     public function __construct($options = array())
     {
@@ -113,28 +124,43 @@ class FamilySearchClient implements LoggerAwareInterface{
                 break;
         }
         
-        // Create client
-        $this->client = new FilterableClient('', array(
-            "request.options" => array(
-                "exceptions" => false
-            )
-        ));
-        
-        // Set user agent string
-        $userAgent = 'gedcomx-php/1.1.1';
-        if(isset($options['userAgent'])){
-            $userAgent = $options['userAgent'] . ' ' . $userAgent;
-        }
-        $this->client->setUserAgent($userAgent, true);
+        // Middleware
+        $this->stack = new HandlerStack();
+        $this->stack->setHandler(new CurlHandler());
         
         // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){
-            $this->client->addFilter(new ExperimentsFilter($options['pendingModifications']));
+            $experiments = join(",", $options['pendingModifications']);
+            $this->stack->push(Middleware::mapRequest(function(RequestInterface $request) use($experiments) {
+                return $request->withHeader('X-FS-Feature-Tag', $experiments);
+            }));
         }
         
+        // Set user agent string
+        $userAgent = 'gedcomx-php/1.1.1 ' . \GuzzleHttp\default_user_agent();
+        if(isset($options['userAgent'])){
+            $userAgent = $options['userAgent'] . ' ' . $userAgent;
+        }
+        
+        // Custom middleware
+        if(isset($options['middleware']) && is_array($options['middleware'])) {
+            foreach($options['middleware'] as $middleware){
+                $this->stack->push($middleware);
+            }
+        }
+        
+        // This goes last so that it sees the final request and response
         if(isset($options['logger'])){
             $this->setLogger($options['logger']);
         }
+        
+        // Create client
+        $this->client = new Client([
+            'handler' => $this->stack,
+            'headers' => [
+                'User-Agent' => $userAgent
+            ]
+        ]);
         
         $this->stateFactory = new FamilyTreeStateFactory();
         
@@ -230,15 +256,14 @@ class FamilySearchClient implements LoggerAwareInterface{
      */
     public function getAvailablePendingModifications()
     {
-        $request = $this->client->createRequest(
-            "GET", 
-            $this->homeState->getCollection()->getLink('pending-modifications')->getHref()
-        );
-        $request->addHeader("Accept", Gedcomx::JSON_APPLICATION_TYPE);
-        $response = $request->send($request);
+        $uri = $this->homeState->getCollection()->getLink('pending-modifications')->getHref();
+        $headers = ['Accept' => Gedcomx::JSON_APPLICATION_TYPE];
+        $request = new Request('GET', $uri, $headers);
+        $response = GedcomxApplicationState::send($this->client, $request);
+        
 
         // Get each pending feature
-        $json = json_decode($response->getBody(true), true);
+        $json = json_decode($response->getBody(), true);
         $fsp = new FamilySearchPlatform($json);
         $features = array();
         foreach ($fsp->getFeatures() as $feature) {
@@ -256,7 +281,7 @@ class FamilySearchClient implements LoggerAwareInterface{
      */
     public function setLogger(LoggerInterface $logger)
     {
-        $this->client->addFilter(new LoggerFilter($logger));
+        $this->stack->push(LoggerMiddleware::middleware($logger));
     }
     
     /**

@@ -5,8 +5,8 @@ namespace Gedcomx\Rs\Client;
 use Gedcomx\Conclusion\PlaceDescription;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PlaceDescriptionState exposes management functions for a place description.
@@ -16,8 +16,8 @@ class PlaceDescriptionState extends GedcomxApplicationState
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
      */
@@ -88,7 +88,7 @@ class PlaceDescriptionState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $link->getHref());
         return $this->stateFactory->createState(
             'PlaceDescriptionsState',
             $this->client,

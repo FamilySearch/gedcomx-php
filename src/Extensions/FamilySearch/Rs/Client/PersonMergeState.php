@@ -6,8 +6,8 @@ use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
 use Gedcomx\Rs\Client\Options\StateTransitionOption;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The PersonMergeState exposes management functions for a person merge.
@@ -20,8 +20,8 @@ class PersonMergeState extends FamilySearchCollectionState{
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState
      */
@@ -71,7 +71,7 @@ class PersonMergeState extends FamilySearchCollectionState{
         }
 
         $values = $header->toArray();
-        return  count($values) > 0 && strpos(strtoupper($values[0]), Request::POST) !== false;
+        return  count($values) > 0 && strpos(strtoupper($values[0]), 'POST') !== false;
     }
 
     /**
@@ -88,8 +88,7 @@ class PersonMergeState extends FamilySearchCollectionState{
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
-        FamilySearchRequest::applyFamilySearchMediaType($request);
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
 
         return $this->stateFactory->createState(
             'PersonMergeState',
@@ -114,7 +113,7 @@ class PersonMergeState extends FamilySearchCollectionState{
             return null;
         }
 
-        $request = $this->createAuthenticatedRequest(Request::GET, $link->getHref());
+        $request = $this->createAuthenticatedRequest('GET', $link->getHref());
 
         return $this->stateFactory->createState(
             'PersonState',

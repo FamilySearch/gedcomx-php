@@ -4,9 +4,9 @@ namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
 use Gedcomx\Rs\Client\Util\AncestryTree;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The AncestryResultsState exposes management functions for ancestry results.
@@ -19,9 +19,9 @@ class AncestryResultsState extends GedcomxApplicationState
 {
     /**
      * Constructs a new ancestry results state using the specified client, request, response, access token, and state factory.
-     * @param \Guzzle\Http\Client             $client
-     * @param \Guzzle\Http\Message\Request    $request
-     * @param \Guzzle\Http\Message\Response   $response
+     * @param \GuzzleHttp\Client             $client
+     * @param \GuzzleHttp\Psr7\Request    $request
+     * @param \GuzzleHttp\Psr7\Response   $response
      * @param string                          $accessToken
      * @param \Gedcomx\Rs\Client\StateFactory $stateFactory
      */
@@ -32,8 +32,8 @@ class AncestryResultsState extends GedcomxApplicationState
 
     /**
      * Clones the current state instance.
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
      */
@@ -116,7 +116,7 @@ class AncestryResultsState extends GedcomxApplicationState
             return null;
         }
 
-        $request = $this->createAuthenticatedGedcomxRequest(Request::GET, $personUri);
+        $request = $this->createAuthenticatedGedcomxRequest('GET', $personUri);
 
         return $this->stateFactory->createState(
             "PersonState",

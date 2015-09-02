@@ -4,10 +4,11 @@
 namespace Gedcomx\Rs\Client;
 
 use Gedcomx\Gedcomx;
-use Gedcomx\Util\FilterableClient;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\CurlHandler;
 
 /**
  * The state factory is responsible for instantiating state classes from REST API responses.
@@ -50,7 +51,7 @@ class StateFactory
      * Returns a new collection state by invoking the specified URI and method, using the specified client.
      *
      * @param string              $uri    Optional URI
-     * @param \Guzzle\Http\Client $client The client to use.
+     * @param \GuzzleHttp\Client $client The client to use.
      * @param string $method The method.
      *
      * @return CollectionState The collection state.
@@ -63,18 +64,17 @@ class StateFactory
         if ($uri == null) {
             $uri = $this->production ? self::PRODUCTION_URI : self::SANDBOX_URI;
         }
-
+        
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
-        return new CollectionState($client, $request, $client->send($request), null, $this);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
+        return new CollectionState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
      * Returns a new collections state by invoking the specified URI and method, using the specified client.
      *
      * @param string              $uri    Optional URI
-     * @param \Guzzle\Http\Client $client The client to use.
+     * @param \GuzzleHttp\Client $client The client to use.
      * @param string              $method The method.
      *
      * @return CollectionsState The collections state.
@@ -89,16 +89,15 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
-        return new CollectionsState($client, $request, $client->send($request), null, $this);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
+        return new CollectionsState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
      * Returns a new discovery state by invoking the specified URI and method, using the specified client.
      *
      * @param string              $uri    Optional URI
-     * @param \Guzzle\Http\Client $client The client to use.
+     * @param \GuzzleHttp\Client $client The client to use.
      * @param string              $method The method.
      *
      * @return CollectionState The collection state.
@@ -113,37 +112,28 @@ class StateFactory
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
-        return new CollectionState($client, $request, $client->send($request), null, $this);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
+        return new CollectionState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
      * Loads the default client for executing REST API requests.
      *
-     * @return \Gedcomx\Util\FilterableClient
+     * @return \GuzzleHttp\Client
      */
     protected function defaultClient()
     {
-        $opts = array(
-            "request.options" => array(
-                "exceptions" => false
-            )
-        );
-        $fiddlerDebug = false;
-        if ($fiddlerDebug) {
-            $opts['request.options']['proxy'] = "tcp://127.0.0.1:8888";
-            $opts['request.options']['verify'] = false;
-        }
-        $client = new FilterableClient('', $opts);
-        return $client;
+        return new Client([
+            'handler' => HandlerStack::create(new CurlHandler()),
+            'http_errors' => false
+        ]);
     }
 
     /**
      * Returns a new person state by invoking the specified URI and method, using the specified client.
      *
      * @param string $uri The URI to the person.
-     * @param \Guzzle\Http\Client $client The client to use.
+     * @param \GuzzleHttp\Client $client The client to use.
      * @param string $method The method.
      *
      * @return PersonState The person state.
@@ -151,22 +141,21 @@ class StateFactory
     public function newPersonState($uri, Client $client = null, $method = "GET")
     {
         if (!$client) {
-            $client = new FilterableClient();
+            $client = $this->defaultClient();
         }
 
         /** @var Request $request */
-        $request = $client->createRequest($method, $uri);
-        $request->setHeader("Accept", Gedcomx::JSON_MEDIA_TYPE);
-        return new PersonState($client, $request, $client->send($request), null, $this);
+        $request = new Request($method, $uri, ['Accept' => Gedcomx::JSON_MEDIA_TYPE]);
+        return new PersonState($client, $request, GedcomxApplicationState::send($client, $request), null, $this);
     }
 
     /**
      * Dynamically creates and returns a state instance for the specified class, if a state builder is defined.
      *
      * @param string $class The name of the state class to create
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return mixed
@@ -180,9 +169,9 @@ class StateFactory
     /**
      * Builds a new collection state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
@@ -195,9 +184,9 @@ class StateFactory
     /**
      * Builds a new collections state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
@@ -209,9 +198,9 @@ class StateFactory
     /**
      * Builds a new source descriptions state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client           $client
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client           $client
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string                        $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
@@ -224,9 +213,9 @@ class StateFactory
     /**
      * Builds a new source description state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\SourceDescriptionsState
@@ -239,9 +228,9 @@ class StateFactory
     /**
      * Builds a new persons state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonsState
@@ -254,9 +243,9 @@ class StateFactory
     /**
      * Builds a new person children state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonChildrenState
@@ -269,9 +258,9 @@ class StateFactory
     /**
      * Builds a new person state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonState
@@ -284,9 +273,9 @@ class StateFactory
     /**
      * Builds a new person parents state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonParentsState
@@ -299,9 +288,9 @@ class StateFactory
     /**
      * Builds a new person spouses state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonSpousesState
@@ -314,9 +303,9 @@ class StateFactory
     /**
      * Builds a new ancestry results state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
@@ -329,9 +318,9 @@ class StateFactory
     /**
      * Builds a new descendancy results state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\AncestryResultsState
@@ -344,9 +333,9 @@ class StateFactory
     /**
      * Builds a new person search results state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PersonSearchResultsState
@@ -359,9 +348,9 @@ class StateFactory
     /**
      * Builds a new record state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
@@ -374,9 +363,9 @@ class StateFactory
     /**
      * Builds a new relationship state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
@@ -389,9 +378,9 @@ class StateFactory
     /**
      * Builds a new agent state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
@@ -404,9 +393,9 @@ class StateFactory
     /**
      * Builds a new place search state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\RecordState
@@ -419,9 +408,9 @@ class StateFactory
     /**
      * Builds a new place description state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
@@ -434,9 +423,9 @@ class StateFactory
     /**
      * Builds a new vocab element list state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState
@@ -449,9 +438,9 @@ class StateFactory
     /**
      * Builds a new vocab element state from the specified client, request, response, and access token.
      *
-     * @param \Guzzle\Http\Client $client
-     * @param \Guzzle\Http\Message\Request $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Request $request
+     * @param \GuzzleHttp\Psr7\Response $response
      * @param string $accessToken The access token for this session
      *
      * @return \Gedcomx\Rs\Client\PlaceDescriptionState

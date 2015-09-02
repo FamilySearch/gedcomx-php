@@ -4,8 +4,9 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/sources",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Accept": "application\/x-fs-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9"
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": "application\/x-fs-v1+json"
         }
     },
     "response": {
@@ -18,7 +19,7 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/sources",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:00 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:51 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
@@ -38,10 +39,11 @@
         "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
         "headers": {
             "Host": "integration.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Content-Type": "application\/x-www-form-urlencoded; charset=utf-8"
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded"
         },
         "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
     },
@@ -59,7 +61,7 @@
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Mon, 29 Jun 2015 22:15:00 GMT",
+            "Date": "Thu, 30 Jul 2015 17:48:12 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -67,7 +69,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\"token\":\"USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net\",\"access_token\":\"USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
     }
 },{
     "request": {
@@ -75,11 +77,12 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Type": "application\/x-gedcomx-v1+json"
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
         },
         "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
@@ -92,12 +95,12 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:04 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCQ-BLR",
+            "Date": "Thu, 30 Jul 2015 17:47:54 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-K9C",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMCQ-BLR",
-            "X-PROCESSING-TIME": "3457",
+            "X-ENTITY-ID": "MMCW-K9C",
+            "X-PROCESSING-TIME": "3110",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -113,11 +116,14 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Type": "application\/x-gedcomx-v1+json"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
     "response": {
         "status": {
@@ -128,11 +134,11 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:04 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:55 GMT",
             "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/cis.user.MMMM-DT62\/collections",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "154",
+            "X-PROCESSING-TIME": "159",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -148,11 +154,14 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/cis.user.MMMM-DT62\/collections",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Type": "application\/x-gedcomx-v1+json"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
     "response": {
         "status": {
@@ -164,10 +173,10 @@
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
             "Content-Location": "\/sources\/cis.user.MMMM-DT62\/collections",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:05 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:55 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "320",
+            "X-PROCESSING-TIME": "317",
             "Content-Length": "6142",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -184,11 +193,14 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-2NN",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Type": "application\/x-gedcomx-v1+json"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
     "response": {
         "status": {
@@ -200,12 +212,12 @@
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
             "Content-Location": "\/sources\/collections\/MMMZ-2NN",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:06 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:56 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-ENTITY-ID": "MMMZ-2NN",
-            "X-PROCESSING-TIME": "371",
-            "Content-Length": "1050",
+            "X-PROCESSING-TIME": "379",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -221,11 +233,14 @@
         "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-2NN\/descriptions",
         "headers": {
             "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Type": "application\/x-gedcomx-v1+json"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
     "response": {
         "status": {
@@ -237,11 +252,11 @@
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
             "Content-Location": "\/sources\/collections\/MMMZ-2NN\/descriptions",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:06 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:57 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "318",
-            "Content-Length": "1397",
+            "X-PROCESSING-TIME": "326",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -254,15 +269,17 @@
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCQ-BLR",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-K9C",
         "headers": {
             "Host": "sandbox.familysearch.org",
-            "Expect": null,
+            "Accept-Encoding": null,
+            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
-            "User-Agent": "Guzzle\/3.9.3 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Authorization": "Bearer USYSBCD8B90B8D714BF102AEBE8C664DA36B_idses-int02.a.fsglobal.net",
-            "Content-Length": "0"
-        }
+            "Expect": null,
+            "Content-Type": "application\/x-gedcomx-v1+json",
+            "Authorization": "Bearer USYS68F205D1BC12F3473DE459E616656F92_idses-int02.a.fsglobal.net"
+        },
+        "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Officiis quaerat nulla unde in perferendis odit est amet et.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Illo est corrupti pariatur commodi deserunt in aut deserunt cum perspiciatis.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Est debitis ea distinctio sunt tempora quos.\"}],\"description\":[{\"value\":\"Sint nulla deserunt ea facilis odio voluptas voluptas. Sequi itaque autem sed ipsam. Quia quasi maxime repellat.\"}]}]}"
     },
     "response": {
         "status": {
@@ -272,12 +289,12 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/descriptions\/MMCQ-BLR",
+            "Content-Location": "\/sources\/descriptions\/MMCW-K9C",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Mon, 29 Jun 2015 22:15:08 GMT",
+            "Date": "Thu, 30 Jul 2015 17:47:57 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "766",
+            "X-PROCESSING-TIME": "814",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",

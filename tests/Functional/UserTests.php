@@ -29,7 +29,7 @@ class UserTests extends ApiTestCase
          * readPersonForCurrentUser will return a 303 redirect by default.
          * assert the URL on the person state is not the original request URL.
          */
-        $this->assertFalse(strpos($personState->getResponse()->getEffectiveUrl(), Rel::CURRENT_USER_PERSON));
+        $this->assertFalse(strpos($personState->getResponse()->effectiveUri, Rel::CURRENT_USER_PERSON));
         $this->assertNotNull($personState->getEntity(), "Person entity is null.");
         $this->assertNotEmpty($personState->getPerson(), "No person returned.");
     }

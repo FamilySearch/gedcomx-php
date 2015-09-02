@@ -4,8 +4,8 @@ namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Rs\Client\GedcomxApplicationState;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * The UserState exposes management functions for a user.
@@ -18,8 +18,8 @@ class UserState extends FamilySearchCollectionState{
     /**
      * Clones the current state instance.
      *
-     * @param \Guzzle\Http\Message\Request  $request
-     * @param \Guzzle\Http\Message\Response $response
+     * @param \GuzzleHttp\Psr7\Request  $request
+     * @param \GuzzleHttp\Psr7\Response $response
      *
      * @return \Gedcomx\Extensions\FamilySearch\Rs\Client\UserState
      */
