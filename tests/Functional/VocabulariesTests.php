@@ -17,6 +17,8 @@ class VocabulariesTests extends ApiTestCase
      */
     public function testReadVocabularyTermAlternateLanguage()
     {
+        $this->markTestSkipped('Too slow');
+        
         $lang = "fr";
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */

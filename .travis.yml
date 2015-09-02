@@ -6,10 +6,13 @@ php:
 install: composer install
 env:
   global:
-    secure: KCnHgwpoCxmVjIeUUbyaGjoFONPde9BDW42nhV+fuEhGDU3cS83aSkaOqLBbF4ohYlOb+65WbW2SK5ec/kRxEdTNGPWlwUkVSUXuhwut2hdyuR1I0eHc4o5YuxcOknbhNbquqSx6CkldQUgcxNgrBjqxpO9au1F+DfmCn4fS1Qw=
+    - COVERALLS_RUN_LOCALLY=1
+    - secure: KCnHgwpoCxmVjIeUUbyaGjoFONPde9BDW42nhV+fuEhGDU3cS83aSkaOqLBbF4ohYlOb+65WbW2SK5ec/kRxEdTNGPWlwUkVSUXuhwut2hdyuR1I0eHc4o5YuxcOknbhNbquqSx6CkldQUgcxNgrBjqxpO9au1F+DfmCn4fS1Qw=
+script: if [ "$TRAVIS_PHP_VERSION" == '5.6' ]; then phpunit --coverage-clover=build/logs/clover.xml; else phpunit; fi 
 after_success:
-  - if  [ $TRAVIS_PHP_VERSION = '5.6' ] && [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ]; then sh docs.sh; fi
+  - if [ "$TRAVIS_PHP_VERSION" == '5.6' ] && [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ]; then sh docs.sh; fi
+  - if [ "$TRAVIS_PHP_VERSION" == '5.6' ]; then php vendor/bin/coveralls -v; fi
 notifications:
   email:
     on_success: never
-    on_failure: always  
+    on_failure: always

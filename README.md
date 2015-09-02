@@ -1,6 +1,12 @@
   
 
-#GedcomX - PHP  [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php) [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
+#GedcomX - PHP  
+
+[![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
+[![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php)
+[![Coverage Status](https://coveralls.io/repos/FamilySearch/gedcomx-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/FamilySearch/gedcomx-php?branch=master)
+[![Code Climate](https://codeclimate.com/github/FamilySearch/gedcomx-php/badges/gpa.svg)](https://codeclimate.com/github/FamilySearch/gedcomx-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FamilySearch/gedcomx-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/FamilySearch/gedcomx-php/?branch=master)
 
 The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
 
