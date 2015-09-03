@@ -129,6 +129,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         $this->stack = new HandlerStack();
         $this->stack->setHandler(new CurlHandler());
         $this->stack->push(Middleware::httpErrors());
+        $this->stack->push(Middleware::redirect());
         
         // Pending modifications
         if(isset($options['pendingModifications']) && is_array($options['pendingModifications']) && count($options['pendingModifications']) > 0){

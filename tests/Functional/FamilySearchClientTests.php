@@ -116,6 +116,22 @@ class FamilySearchClientTests extends ApiTestCase
     }
     
     /**
+     * @vcr FamilySearchClientTests/testReadCurrentUserPerson.json
+     */
+    public function testReadCurrentUserPerson()
+    {
+        $client = $this->createAuthenticatedFamilySearchClient();
+        $responseState = $client->familytree()->readPersonForCurrentUser();
+        
+        $this->assertInstanceOf('Gedcomx\Rs\Client\GedcomxApplicationState', $responseState);
+        $this->assertEquals(
+            HttpStatus::OK,
+            $responseState->getStatus(),
+            $this->buildFailMessage(__METHOD__, $responseState)
+        );
+    }
+    
+    /**
      * @vcr FamilySearchClientTests/testGetOAuth2AuthorizationURI.json
      */
     public function testGetOAuth2AuthorizationURI()
