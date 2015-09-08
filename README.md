@@ -42,8 +42,8 @@ To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedc
 
 * v2.0.0
   * Upgrade to Guzzle 6 which makes PHP 5.5 the minimum supported version.
-  * `state->getRequest()` returns a `GuzzleHttp\Psr7\Request`
-  * `state->getResponse()` returns a `GuzzleHttp\Psr7\Response`
+  * `$state->getRequest()` returns a `GuzzleHttp\Psr7\Request`
+  * `$state->getResponse()` returns a `GuzzleHttp\Psr7\Response`
   * Add a new `httpExceptions` configuration parameter on `FamilySearchClient` that causes an exception to be thrown when a 4xx or 5xx response is received from the API.
 
 * v1.2.0
