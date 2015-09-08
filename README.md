@@ -37,6 +37,15 @@ To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedc
 
 ##Changelog
 
+* v2.0.1
+  * Fix `FamilySearchClient` so that it automatically follows redirects.
+
+* v2.0.0
+  * Upgrade to Guzzle 6 which makes PHP 5.5 the minimum supported version.
+  * `state->getRequest()` returns a `GuzzleHttp\Psr7\Request`
+  * `state->getResponse()` returns a `GuzzleHttp\Psr7\Response`
+  * Add a new `httpExceptions` configuration parameter on `FamilySearchClient` that causes an exception to be thrown when a 4xx or 5xx response is received from the API.
+
 * v1.2.0
   * Add a custom user agent string when using the FamilySearchClient.
   * Register a [PSR-3](http://www.php-fig.org/psr/psr-3/) logger when using the FamilySearchClient.
