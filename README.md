@@ -10,12 +10,13 @@
 
 The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
 
-This SDK includes a [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki), a [gedcomx-php-sample-app](https://github.com/FamilySearch/gedcomx-php-sample-app) Github project, and the [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
-
-You can [run the sample app](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action.
+This SDK includes the following components:
+* A [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki)
+* A sample app [Github project](https://github.com/FamilySearch/gedcomx-php-sample-app) and [running version]](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action. 
+* The [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
 ##Installation
-To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the wiki page.
+To install the SDK see [Installing the SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the tutorial.
 
 ##Features
 * **GEDCOM X Conceptual Model**
