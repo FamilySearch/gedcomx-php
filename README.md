@@ -16,7 +16,7 @@ This SDK includes the following components:
 * The [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
 ##Installation
-To install the SDK see [Install the gedcomx SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the tutorial.
+To install the SDK see [Install the gedcomx-php SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the tutorial.
 
 ##Features
 * **GEDCOM X Conceptual Model**
