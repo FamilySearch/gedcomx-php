@@ -16,7 +16,6 @@ See the wiki for the following:
 * The [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
 ##Installation
-To install the SDK see [Install the gedcomx-php SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the tutorial.
 
 ### Prerequisites
 
