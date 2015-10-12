@@ -18,7 +18,55 @@ See the wiki for the following:
 ##Installation
 To install the SDK see [Install the gedcomx-php SDK](https://github.com/FamilySearch/gedcomx-php/wiki/Installation) in the tutorial.
 
-##Features
+### Prerequisites
+
+Prior to installing the GedcomX PHP SDK you must install the following components.
+
+* [PHP 5.5+](http://php.net/manual/en/install.php) (The language of this SDK)
+  * *You can install PHP using pre-built environments such as [WAMP Server](http://www.wampserver.com/) (Windows), [XAMPP](https://www.apachefriends.org/) (Windows), [MAMP](https://www.mamp.info/en/) (OS X), or [Vagrant](http://vagrantup.com/) (Any OS).*
+
+* [Git](http://git-scm.com/downloads) (Versioning system for coding)
+* [Composer](https://getcomposer.org/doc/00-intro.md) (PHP Packages Manager)
+
+    **Notes to Mac Developers:** 
+  * Mac developers might need to install the Xcode developer tools as part of this process. 
+  * Mac developers may need to set the `date.timezone` in /etc/php.ini to avoid seeing errors. See [PHP time zones](http://php.net/manual/en/timezones.php) to locate your time zone. For example, 
+  ```
+    `date.timezone = "America/Denver"` 
+  ```
+
+You can verify that each of the required components is installed by running the following commands one line at a time, at your command line or command prompt:
+```
+php -v
+composer --version
+git --version
+```
+
+### Installation Steps
+
+**NOTE:** You only need to install the SDK one time for each PHP project you set up. 
+
+The GedcomX PHP SDK uses [composer](https://getcomposer.org) to manage dependencies. These instructions assume that you have installed [Composer globally](https://getcomposer.org/doc/00-intro.md#globally).
+
+Do **one** of the following steps to activate Composer and install the gedcomx-php SDK library:
+
+* Run the following command at a command prompt from the root of your project:
+
+    ```
+    composer require gedcomx/gedcomx-php
+    ```
+
+* Add the following configuration to your composer.json file then run the `composer install` command at your command prompt.
+
+    ```json
+    {
+        "require": {
+        "gedcomx/gedcomx-php": "^1.1"
+        }
+    }
+    ```
+
+##PHP SDK Features
 * **GEDCOM X Conceptual Model**
 
   Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
@@ -36,7 +84,7 @@ To install the SDK see [Install the gedcomx-php SDK](https://github.com/FamilySe
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
 
-##Changelog
+##PHP SDK Changelog
 
 * v2.0.1
   * Fix `FamilySearchClient` so that it automatically follows redirects.
