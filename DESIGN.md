@@ -11,6 +11,10 @@ FamilySearch API supports.
 
 Unit tests should be added.
 
+For authentication, tests use a client_id that is granted special permission to
+use the OAuth2 password flow so that we can authenticate programmatically. The
+client_id only functions in sandbox.
+
 Tests are recorded with [PHP-VCR](https://github.com/php-vcr/php-vcr), otherwise
 the tests would run for close to an hour. PHP-VCR matches requests from the SDK
 to a list of requests stored in JSON file. There is one JSON file for each test.
