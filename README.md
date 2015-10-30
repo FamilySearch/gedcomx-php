@@ -1,6 +1,4 @@
-  
-
-#GedcomX - PHP SDK  
+# GedcomX - PHP SDK  
 
 [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
 [![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php)
@@ -16,7 +14,7 @@ See the wiki for the following:
 * A sample app [Github project](https://github.com/FamilySearch/gedcomx-php-sample-app) and [running version](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action. 
 * The [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
 
-##Installation
+## Installation
 
 ### Prerequisites
 
@@ -66,7 +64,7 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
     }
     ```
 
-##PHP SDK Features
+## Features
 * **GEDCOM X Conceptual Model**
 
   Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
@@ -84,7 +82,10 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
   A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
 
 
-##PHP SDK Changelog
+## Changelog
+
+* v2.1.1
+  * Support throttling. Enable in `FamilySearchClient` by setting the `throttling` option to `true`.
 
 * v2.0.1
   * Fix `FamilySearchClient` so that it automatically follows redirects.
