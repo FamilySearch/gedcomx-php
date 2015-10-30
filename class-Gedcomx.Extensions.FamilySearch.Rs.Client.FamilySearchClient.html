@@ -270,7 +270,7 @@
 		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Extensions.html">Extensions</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.html">FamilySearch</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Extensions.FamilySearch.Rs.Client.html">Client</a><br>
 		<b>Package:</b> Gedcomx\Extensions\FamilySearch\Rs\Client<br>
 
-			<b>Located at</b> <a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#22-343" title="Go to source code">Extensions/FamilySearch/Rs/Client/FamilySearchClient.php</a>
+			<b>Located at</b> <a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#23-353" title="Go to source code">Extensions/FamilySearch/Rs/Client/FamilySearchClient.php</a>
 		<br>
 	</div>
 
@@ -290,7 +290,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#86-185" title="Go to source code">__construct</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#87-195" title="Go to source code">__construct</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 			<div class="description short">
 				<p>Construct a FamilySearch Client.</p>
@@ -315,6 +315,7 @@
 <li><code>logger</code> - A <code>Psr\Log\LoggerInterface</code>. A logger can also be registered via the <code>setLogger()</code> method but passing it in as an option during instantiation ensures that the logger will see all client events.</li>
 <li><code>middleware</code> - An array of <a href="http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware">Guzzle Middleware</a>.</li>
 <li><code>httpExceptions</code> - When <code>true</code>, the client will throw a <code>Gedcomx\Rs\Client\Exception\GedcomxApplicationException</code> when a 400 or 500 level HTTP response is received.</li>
+<li><code>throttling</code> - When <code>true</code>, the client will automatically handled throttled responses.</li>
 </ul></dd>
 					</dl></div>
 
@@ -336,7 +337,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_familytree">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#187-193" title="Go to source code">familytree</a>( )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#197-203" title="Go to source code">familytree</a>( )</code>
 
 			<div class="description short">
 				
@@ -369,7 +370,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_authenticateViaOAuth2Password">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#195-208" title="Go to source code">authenticateViaOAuth2Password</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#205-218" title="Go to source code">authenticateViaOAuth2Password</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
 
 			<div class="description short">
 				<p>Authenticate via the OAuth2 password flow</p>
@@ -409,7 +410,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_authenticateViaOAuth2AuthCode">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#210-222" title="Go to source code">authenticateViaOAuth2AuthCode</a>( <span>string <var>$code</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#220-232" title="Go to source code">authenticateViaOAuth2AuthCode</a>( <span>string <var>$code</var></span> )</code>
 
 			<div class="description short">
 				<p>Authenticate with an OAuth2 code</p>
@@ -447,7 +448,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOAuth2AuthorizationURI">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#224-241" title="Go to source code">getOAuth2AuthorizationURI</a>( )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#234-251" title="Go to source code">getOAuth2AuthorizationURI</a>( )</code>
 
 			<div class="description short">
 				<p>Get the URL that the user should be sent to in order to
@@ -482,7 +483,7 @@ begin the OAuth2 redirect flow.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAccessToken">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#243-251" title="Go to source code">getAccessToken</a>( )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#253-261" title="Go to source code">getAccessToken</a>( )</code>
 
 			<div class="description short">
 				<p>Get the access token for this session</p>
@@ -515,7 +516,7 @@ begin the OAuth2 redirect flow.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setAccessToken">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#253-262" title="Go to source code">setAccessToken</a>( <span> <var>$accessToken</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#263-272" title="Go to source code">setAccessToken</a>( <span> <var>$accessToken</var></span> )</code>
 
 			<div class="description short">
 				<p>Set the access token for this session</p>
@@ -548,7 +549,7 @@ begin the OAuth2 redirect flow.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getAvailablePendingModifications">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#264-286" title="Go to source code">getAvailablePendingModifications</a>( )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#274-296" title="Go to source code">getAvailablePendingModifications</a>( )</code>
 
 			<div class="description short">
 				<p>Get a list of valid pending modifications</p>
@@ -581,7 +582,7 @@ begin the OAuth2 redirect flow.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setLogger">#</a>
-			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#288-297" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html#298-307" title="Go to source code">setLogger</a>( <span>Psr\Log\LoggerInterface <var>$logger</var></span> )</code>
 
 			<div class="description short">
 				<p>Sets a logger instance on the object</p>
