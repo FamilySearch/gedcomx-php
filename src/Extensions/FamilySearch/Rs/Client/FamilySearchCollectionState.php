@@ -7,11 +7,12 @@
 	use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
 	use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 	use Gedcomx\Extensions\FamilySearch\Rs\Client\Helpers\FamilySearchRequest;
-    use Gedcomx\Links\Link;
-    use Gedcomx\Rs\Client\CollectionState;
+  use Gedcomx\Links\Link;
+  use Gedcomx\Rs\Client\CollectionState;
 	use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 	use Gedcomx\Rs\Client\Options\StateTransitionOption;
 	use Gedcomx\Rs\Client\Util\GedcomxPersonSearchQueryBuilder;
+	use Gedcomx\Rs\Client\Options\QueryParameter;
 	use GuzzleHttp\Client;
 	use GuzzleHttp\Psr7\Request;
 	use GuzzleHttp\Psr7\Response;
@@ -287,15 +288,35 @@
 				$this->accessToken
 			);
 		}
+		
+		/**
+		 * Adds processing time for the current user. Useful for testing throttling.
+		 * 
+		 * @param integer $time Additional time in milliseconds
+		 * @param StateTransitionOption $option,...
+		 * 
+		 * @return FamilySearchCollectionState
+		 */
+		public function addProcessingTime($time, StateTransitionOption $option = null){
+			$request = $this->createAuthenticatedRequest('GET', '/platform/throttled');
+			$request = (new QueryParameter(false, 'processingTime', $time))->apply($request);
+			return new FamilySearchCollectionState(
+				$this->client, 
+				$request, 
+				$this->passOptionsTo('invoke', array($request), func_get_args()), 
+				$this->accessToken, 
+				$this->stateFactory
+			);
+		}
 
-        /**
-		 * Executes the specified link and embeds the response in the current Gedcomx entity.
-		 *
-         * @param \Gedcomx\Links\Link                              $link
-         * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
-         *
-         * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-         */
+    /**
+	 * Executes the specified link and embeds the response in the current Gedcomx entity.
+	 *
+     * @param \Gedcomx\Links\Link                              $link
+     * @param \Gedcomx\Rs\Client\Options\StateTransitionOption $option,...
+     *
+     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
+     */
 		protected function embed(Link $link, StateTransitionOption $option = null ){
 			if ($link->getHref() != null) {
 				$lastEmbeddedRequest = $this->createRequestForEmbeddedResource('GET', $link);

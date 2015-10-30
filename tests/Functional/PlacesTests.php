@@ -32,7 +32,7 @@ class PlacesTests extends ApiTestCase
     {
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('442102', false, true);
+        $query->parentId('2746', false, true);
 
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
@@ -76,7 +76,7 @@ class PlacesTests extends ApiTestCase
     {
         $query = new GedcomxPlaceSearchQueryBuilder();
         $query->name("Paris");
-        $query->parentId('442102', false, true);
+        $query->parentId('2746', false, true);
 
         $factory = new FamilySearchStateFactory();
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchPlaces $collection */
