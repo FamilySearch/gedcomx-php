@@ -5,7 +5,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-fs-v1+json"
         }
     },
@@ -19,11 +19,11 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:42 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:12 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
-            "Content-Length": "6107",
+            "Content-Length": "6672",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -31,7 +31,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?skipDateNormalization,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"descendancy-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy{?spouse,personDetails,generations,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Descendancy\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
     }
 },{
     "request": {
@@ -40,12 +40,12 @@
         "headers": {
             "Host": "integration.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/json",
             "Expect": null,
             "Content-Type": "application\/x-www-form-urlencoded"
         },
-        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK"
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=a02j00000016dU8AAI"
     },
     "response": {
         "status": {
@@ -61,7 +61,7 @@
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Thu, 30 Jul 2015 19:33:04 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:13 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -69,7 +69,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\"token\":\"USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net\",\"access_token\":\"USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
     }
 },{
     "request": {
@@ -78,11 +78,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
         "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
     },
@@ -95,15 +95,15 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:45 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWHY-GR5>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWHY-GR5>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWHY-GR5>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/spouse-relationships>; rel=\"spouse-relationships\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5",
+            "Date": "Thu, 29 Oct 2015 21:25:21 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6YF>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6YF>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6YF>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/spouse-relationships>; rel=\"spouse-relationships\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "KWHY-GR5",
-            "X-PROCESSING-TIME": "2844",
-            "X-THROTTLE-MILLIS-LEFT": "1774142",
-            "X-THROTTLE-MILLIS-USED": "25858",
+            "X-ENTITY-ID": "KWCB-6YF",
+            "X-PROCESSING-TIME": "7417",
+            "X-THROTTLE-MILLIS-LEFT": "1628112",
+            "X-THROTTLE-MILLIS-USED": "171888",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
             "Connection": "Close",
@@ -117,15 +117,15 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
         "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
     },
@@ -138,15 +138,18 @@
         "headers": {
             "Allow": "OPTIONS, HEAD, GET, POST, DELETE",
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWHY-GR5",
+            "Content-Location": "\/tree\/persons\/KWCB-6YF",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:46 GMT",
-            "ETag": "\"b78e39ea95efacbdaefe612a6127f920b46636a8\"",
-            "Last-Modified": "Thu, 30 Jul 2015 19:32:46 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:23 GMT",
+            "ETag": "\"ee601159efd66b8cbdafe7ca28ed2a02268e02dc\"",
+            "Last-Modified": "Thu, 29 Oct 2015 21:25:19 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "242",
-            "Content-Length": "7185",
+            "X-PROCESSING-TIME": "677",
+            "X-THROTTLE-MILLIS-LEFT": "1627440",
+            "X-THROTTLE-MILLIS-USED": "172560",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
+            "Content-Length": "7756",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -154,7 +157,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"persons\" : [ {\n    \"id\" : \"KWHY-GR5\",\n    \"links\" : {\n      \"spouses\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/spouses\"\n      },\n      \"ancestry\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWHY-GR5\"\n      },\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\"\n      },\n      \"parents\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/parents\"\n      },\n      \"person-with-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWHY-GR5\"\n      },\n      \"descendancy\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWHY-GR5\"\n      },\n      \"discussion-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/discussion-references\"\n      },\n      \"merge\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/merges\/{dpid}{?filter,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml\",\n        \"allow\" : \"OPTIONS,GET,POST\",\n        \"title\" : \"Person Merge\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/changes\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/children\"\n      },\n      \"evidence-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/memory-references\"\n      },\n      \"spouse-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/spouse-relationships\"\n      },\n      \"child-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/child-relationships\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"portrait\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/portrait\"\n      },\n      \"parent-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/parent-relationships\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/memories\"\n      },\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/source-references\"\n      },\n      \"matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/matches\"\n      },\n      \"non-matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/not-a-match\"\n      },\n      \"portraits\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/portraits\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/sources\"\n      }\n    },\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWHY-GR5\" ]\n    },\n    \"living\" : false,\n    \"gender\" : {\n      \"id\" : \"V.777-7771\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/conclusions\/V.777-7771\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1438284766417\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Male\"\n    },\n    \"names\" : [ {\n      \"id\" : \"V.777-777N\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/conclusions\/V.777-777N\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1438284766417\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/BirthName\",\n      \"nameForms\" : [ {\n        \"fullText\" : \"Guadalupe Ankunding\",\n        \"parts\" : [ {\n          \"type\" : \"http:\/\/gedcomx.org\/Given\",\n          \"value\" : \"Guadalupe\"\n        }, {\n          \"type\" : \"http:\/\/gedcomx.org\/Surname\",\n          \"value\" : \"Ankunding\"\n        } ]\n      } ],\n      \"preferred\" : true\n    } ],\n    \"facts\" : [ {\n      \"id\" : \"V.777-7774\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/conclusions\/V.777-7774\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1438284766417\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Birth\",\n      \"date\" : {\n        \"original\" : \"November 12, 1860\"\n      },\n      \"place\" : {\n        \"original\" : \"Faefurt, California, United States\"\n      }\n    }, {\n      \"id\" : \"V.777-777P\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\/conclusions\/V.777-777P\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1438284766417\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Death\",\n      \"date\" : {\n        \"original\" : \"November 12, 1885\"\n      },\n      \"place\" : {\n        \"original\" : \"East Dejah, Texas, United States\"\n      }\n    } ],\n    \"display\" : {\n      \"name\" : \"Guadalupe Ankunding\",\n      \"gender\" : \"Male\",\n      \"lifespan\" : \"1860-1885\",\n      \"birthDate\" : \"November 12, 1860\",\n      \"birthPlace\" : \"Faefurt, California, United States\",\n      \"deathDate\" : \"November 12, 1885\",\n      \"deathPlace\" : \"East Dejah, Texas, United States\"\n    }\n  } ],\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-KWHY-GR5\",\n    \"citations\" : [ {\n      \"lang\" : \"en\",\n      \"value\" : \"\\\"Family Tree,\\\" database, <i>FamilySearch<\/i> (http:\/\/familysearch.org : modified 30 July 2015, 19:32), entry for Guadalupe Ankunding(PID https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWHY-GR5); contributed by various users.\"\n    } ],\n    \"about\" : \"#KWHY-GR5\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"Guadalupe Ankunding\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Person\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWHY-GR5\" ]\n    },\n    \"modified\" : 1438284766000\n  } ],\n  \"description\" : \"#SD-KWHY-GR5\"\n}"
+        "body": "{\n  \"persons\" : [ {\n    \"id\" : \"KWCB-6YF\",\n    \"links\" : {\n      \"spouses\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/spouses\"\n      },\n      \"ancestry\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6YF\"\n      },\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\"\n      },\n      \"parents\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/parents\"\n      },\n      \"person-with-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6YF\"\n      },\n      \"descendancy\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6YF\"\n      },\n      \"discussion-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/discussion-references\"\n      },\n      \"merge\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/merges\/{dpid}{?filter,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml\",\n        \"allow\" : \"OPTIONS,GET,POST\",\n        \"title\" : \"Person Merge\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/changes\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/children\"\n      },\n      \"evidence-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/memory-references\"\n      },\n      \"spouse-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/spouse-relationships\"\n      },\n      \"child-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/child-relationships\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"ordinance-reservations\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/reservations\"\n      },\n      \"portrait\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/portrait\"\n      },\n      \"parent-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/parent-relationships\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/memories\"\n      },\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/source-references\"\n      },\n      \"matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/matches\"\n      },\n      \"non-matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/not-a-match\"\n      },\n      \"portraits\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/portraits\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/sources\"\n      }\n    },\n    \"sortKey\" : \"0002400727\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6YF\" ]\n    },\n    \"living\" : false,\n    \"gender\" : {\n      \"id\" : \"V.777-7771\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/conclusions\/V.777-7771\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153919148\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Male\"\n    },\n    \"names\" : [ {\n      \"id\" : \"V.777-777N\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/conclusions\/V.777-777N\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153919148\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/BirthName\",\n      \"nameForms\" : [ {\n        \"fullText\" : \"Guadalupe Ankunding\",\n        \"parts\" : [ {\n          \"type\" : \"http:\/\/gedcomx.org\/Given\",\n          \"value\" : \"Guadalupe\"\n        }, {\n          \"type\" : \"http:\/\/gedcomx.org\/Surname\",\n          \"value\" : \"Ankunding\"\n        } ]\n      } ],\n      \"preferred\" : true\n    } ],\n    \"facts\" : [ {\n      \"id\" : \"V.777-7774\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/conclusions\/V.777-7774\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153919148\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Birth\",\n      \"date\" : {\n        \"original\" : \"November 12, 1860\",\n        \"formal\" : \"+1860-11-12\",\n        \"normalized\" : [ {\n          \"value\" : \"12 November 1860\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"Faefurt, California, United States\"\n      }\n    }, {\n      \"id\" : \"V.777-777P\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\/conclusions\/V.777-777P\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153919148\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Death\",\n      \"date\" : {\n        \"original\" : \"November 12, 1885\",\n        \"formal\" : \"+1885-11-12\",\n        \"normalized\" : [ {\n          \"value\" : \"12 November 1885\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"East Dejah, Texas, United States\"\n      }\n    } ],\n    \"display\" : {\n      \"name\" : \"Guadalupe Ankunding\",\n      \"gender\" : \"Male\",\n      \"lifespan\" : \"1860-1885\",\n      \"birthDate\" : \"12 November 1860\",\n      \"birthPlace\" : \"Faefurt, California, United States\",\n      \"deathDate\" : \"12 November 1885\",\n      \"deathPlace\" : \"East Dejah, Texas, United States\"\n    }\n  } ],\n  \"relationships\" : [ ],\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-KWCB-6YF\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/SD-KWCB-6YF\"\n      }\n    },\n    \"citations\" : [ {\n      \"lang\" : \"en\",\n      \"value\" : \"\\\"Family Tree,\\\" database, <i>FamilySearch<\/i> (http:\/\/familysearch.org : modified 29 October 2015, 21:25), entry for Guadalupe Ankunding(PID https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6YF); contributed by various users.\"\n    } ],\n    \"about\" : \"#KWCB-6YF\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"Guadalupe Ankunding\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Person\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6YF\" ]\n    },\n    \"modified\" : 1446153919000\n  } ],\n  \"description\" : \"#SD-KWCB-6YF\"\n}"
     }
 },{
     "request": {
@@ -163,11 +166,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
         "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Female\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Oliver Hane\",\"parts\":[{\"value\":\"Oliver\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Hane\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"December 13, 1825\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Denesikfurt, Montana, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"December 13, 1906\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Lethabury, New York, United States\"}}],\"display\":{\"birthDate\":\"13 Dec 1825\",\"birthPlace\":\"Denesikfurt, Montana, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Female\",\"lifespan\":\"13 Dec 1825 - 13 Dec 1906\",\"name\":\"Oliver Hane\"}}]}"
     },
@@ -180,13 +183,16 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:48 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWHY-GRR>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWHY-GRR>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWHY-GRR>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\/spouse-relationships>; rel=\"spouse-relationships\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR",
+            "Date": "Thu, 29 Oct 2015 21:25:25 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6YK>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6YK>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6YK>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\/spouse-relationships>; rel=\"spouse-relationships\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "KWHY-GRR",
-            "X-PROCESSING-TIME": "2201",
+            "X-ENTITY-ID": "KWCB-6YK",
+            "X-PROCESSING-TIME": "2186",
+            "X-THROTTLE-MILLIS-LEFT": "1625257",
+            "X-THROTTLE-MILLIS-USED": "174743",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -203,11 +209,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
         "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Female\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Oliver Hane\",\"parts\":[{\"value\":\"Oliver\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Hane\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"December 13, 1825\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Denesikfurt, Montana, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"December 13, 1906\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Lethabury, New York, United States\"}}],\"display\":{\"birthDate\":\"13 Dec 1825\",\"birthPlace\":\"Denesikfurt, Montana, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Female\",\"lifespan\":\"13 Dec 1825 - 13 Dec 1906\",\"name\":\"Oliver Hane\"}}]}"
     },
@@ -221,11 +227,11 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:48 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:26 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "155",
-            "Content-Length": "6107",
+            "X-PROCESSING-TIME": "157",
+            "Content-Length": "6672",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -233,7 +239,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?skipDateNormalization,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"descendancy-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy{?spouse,personDetails,generations,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Descendancy\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
     }
 },{
     "request": {
@@ -242,13 +248,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Couple\",\"person1\":{\"resourceId\":\"KWHY-GR5\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWHY-GR5\"},\"person2\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWHY-GRR\"}}]}"
+        "body": "{\"relationships\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Couple\",\"person1\":{\"resourceId\":\"KWCB-6YF\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6YF\"},\"person2\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6YK\"}}]}"
     },
     "response": {
         "status": {
@@ -258,13 +264,16 @@
         },
         "headers": {
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:50 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references>; rel=\"source-references\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY",
+            "Date": "Thu, 29 Oct 2015 21:25:32 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references>; rel=\"source-references\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MM9C-MYY",
-            "X-PROCESSING-TIME": "984",
+            "X-ENTITY-ID": "MM9J-RCR",
+            "X-PROCESSING-TIME": "4458",
+            "X-THROTTLE-MILLIS-LEFT": "1620805",
+            "X-THROTTLE-MILLIS-USED": "179195",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -277,17 +286,17 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Couple\",\"person1\":{\"resourceId\":\"KWHY-GR5\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWHY-GR5\"},\"person2\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWHY-GRR\"}}]}"
+        "body": "{\"relationships\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Couple\",\"person1\":{\"resourceId\":\"KWCB-6YF\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6YF\"},\"person2\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6YK\"}}]}"
     },
     "response": {
         "status": {
@@ -297,15 +306,18 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:51 GMT",
-            "ETag": "\"b089db5877d41370ef717b6b2967b4107bbe7091\"",
-            "Last-Modified": "Thu, 30 Jul 2015 19:32:51 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:33 GMT",
+            "ETag": "\"ae918d5d42d16e86c78fb94b009a9bfa8f534077\"",
+            "Last-Modified": "Thu, 29 Oct 2015 21:25:28 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "233",
-            "Content-Length": "1654",
+            "X-PROCESSING-TIME": "881",
+            "X-THROTTLE-MILLIS-LEFT": "1619928",
+            "X-THROTTLE-MILLIS-USED": "180072",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -313,7 +325,7 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9C-MYY\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\"\n      },\n      \"woman\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/sources\"\n      },\n      \"man\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\"\n      }\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/Couple\",\n    \"person1\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\",\n      \"resourceId\" : \"KWHY-GR5\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\",\n      \"resourceId\" : \"KWHY-GRR\"\n    }\n  } ]\n}"
+        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9J-RCR\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\"\n      },\n      \"woman\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/sources\"\n      },\n      \"man\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\"\n      }\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/Couple\",\n    \"person1\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\",\n      \"resourceId\" : \"KWCB-6YF\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\",\n      \"resourceId\" : \"KWCB-6YK\"\n    }\n  } ]\n}"
     }
 },{
     "request": {
@@ -322,11 +334,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
         "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Maxime repellat voluptas illo est corrupti pariatur commodi.\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Eum sunt vero repellat architecto temporibus ex ea.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"Sequi itaque autem sed ipsam aperiam quia.\"}],\"description\":[{\"value\":\"Aut deserunt cum perspiciatis commodi ipsa id. Odit voluptatem in sunt magni ipsum harum. Accusantium accusamus quo vel hic.\"}]}]}"
     },
@@ -339,12 +351,12 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:51 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-2JX",
+            "Date": "Thu, 29 Oct 2015 21:25:37 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJ1",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMCW-2JX",
-            "X-PROCESSING-TIME": "753",
+            "X-ENTITY-ID": "MMCC-JJ1",
+            "X-PROCESSING-TIME": "2718",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -357,17 +369,17 @@
 },{
     "request": {
         "method": "POST",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -377,14 +389,17 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR\/source-references",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:52 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references\/MMMS-ZZD",
+            "Date": "Thu, 29 Oct 2015 21:25:39 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references\/MMMS-XKH",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMS-ZZD",
-            "X-PROCESSING-TIME": "937",
+            "X-ENTITY-ID": "MMMS-XKH",
+            "X-PROCESSING-TIME": "1850",
+            "X-THROTTLE-MILLIS-LEFT": "1618081",
+            "X-THROTTLE-MILLIS-USED": "181919",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -397,17 +412,17 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -417,13 +432,16 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR\/source-references",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:54 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:41 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "235",
-            "transfer-encoding": "chunked",
+            "X-PROCESSING-TIME": "455",
+            "X-THROTTLE-MILLIS-LEFT": "1617631",
+            "X-THROTTLE-MILLIS-USED": "182369",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
+            "Content-Length": "973",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -431,22 +449,22 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9C-MYY\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"MMMS-ZZD\",\n      \"links\" : {\n        \"description\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-2JX\"\n        },\n        \"source-reference\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references\/MMMS-ZZD\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1438284774824,\n        \"changeMessage\" : \"Odit doloribus est qui mollitia.\"\n      },\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-2JX\"\n    } ]\n  } ]\n}"
+        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9J-RCR\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"MMMS-XKH\",\n      \"links\" : {\n        \"description\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJ1\"\n        },\n        \"source-reference\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references\/MMMS-XKH\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153939898,\n        \"changeMessage\" : \"Odit doloribus est qui mollitia.\"\n      },\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJ1\"\n    } ]\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references\/MMMS-ZZD",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references\/MMMS-XKH",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -456,12 +474,15 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR\/source-references",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:55 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:43 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "555",
+            "X-PROCESSING-TIME": "1156",
+            "X-THROTTLE-MILLIS-LEFT": "1616479",
+            "X-THROTTLE-MILLIS-USED": "183521",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -473,17 +494,17 @@
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -493,14 +514,17 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:55 GMT",
-            "ETag": "\"b089db5877d41370ef717b6b2967b4107bbe7091\"",
-            "Last-Modified": "Thu, 30 Jul 2015 19:32:51 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:44 GMT",
+            "ETag": "\"ae918d5d42d16e86c78fb94b009a9bfa8f534077\"",
+            "Last-Modified": "Thu, 29 Oct 2015 21:25:28 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "238",
+            "X-PROCESSING-TIME": "718",
+            "X-THROTTLE-MILLIS-LEFT": "1615766",
+            "X-THROTTLE-MILLIS-USED": "184234",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
@@ -509,22 +533,22 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9C-MYY\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\"\n      },\n      \"woman\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/sources\"\n      },\n      \"man\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\"\n      }\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/Couple\",\n    \"person1\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5\",\n      \"resourceId\" : \"KWHY-GR5\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR\",\n      \"resourceId\" : \"KWHY-GRR\"\n    }\n  } ]\n}"
+        "body": "{\n  \"relationships\" : [ {\n    \"id\" : \"MM9J-RCR\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\"\n      },\n      \"woman\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/sources\"\n      },\n      \"man\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\"\n      }\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/Couple\",\n    \"person1\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF\",\n      \"resourceId\" : \"KWCB-6YF\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK\",\n      \"resourceId\" : \"KWCB-6YK\"\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY\/source-references?_=6",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR\/source-references?_=6",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -534,12 +558,15 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY\/source-references",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR\/source-references",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:56 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:47 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "254",
+            "X-PROCESSING-TIME": "642",
+            "X-THROTTLE-MILLIS-LEFT": "1615129",
+            "X-THROTTLE-MILLIS-USED": "184871",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -551,17 +578,17 @@
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GR5",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YF",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -571,12 +598,15 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWHY-GR5",
+            "Content-Location": "\/tree\/persons\/KWCB-6YF",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:57 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:49 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1001",
+            "X-PROCESSING-TIME": "1616",
+            "X-THROTTLE-MILLIS-LEFT": "1613517",
+            "X-THROTTLE-MILLIS-USED": "186483",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -588,17 +618,17 @@
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWHY-GRR",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6YK",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -608,12 +638,15 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWHY-GRR",
+            "Content-Location": "\/tree\/persons\/KWCB-6YK",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:59 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:53 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "628",
+            "X-PROCESSING-TIME": "3771",
+            "X-THROTTLE-MILLIS-LEFT": "1609750",
+            "X-THROTTLE-MILLIS-USED": "190250",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -625,17 +658,17 @@
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9C-MYY",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/couple-relationships\/MM9J-RCR",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -645,14 +678,17 @@
         },
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/couple-relationships\/MM9C-MYY",
+            "Content-Location": "\/tree\/couple-relationships\/MM9J-RCR",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:32:59 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:56 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "Warning": "400 FamilySearch \"Unable to delete couple relationship MM9C-MYY\", 601 ct \"The couple relationship [fs-ft.ctcr.MM9C-MYY has been tombstoned\"",
-            "X-PROCESSING-TIME": "413",
-            "transfer-encoding": "chunked",
+            "Warning": "400 FamilySearch \"Unable to delete couple relationship MM9J-RCR\", 601 ct \"The couple relationship [fs-ft.ctcr.MM9J-RCR has been tombstoned\"",
+            "X-PROCESSING-TIME": "840",
+            "X-THROTTLE-MILLIS-LEFT": "1608914",
+            "X-THROTTLE-MILLIS-USED": "191086",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
+            "Content-Length": "15018",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -660,22 +696,22 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "{\n  \"errors\" : [ {\n    \"code\" : 410,\n    \"message\" : \"Unable to delete couple relationship MM9C-MYY\",\n    \"stacktrace\" : \"DELETE http:\/\/integration.familysearch.org\/ct\/couple\/MM9C-MYY returned a response status of 410 Gone:\\n<html><head><title>Error Status Report<\/title><style><!-- body, p, h1, h2, th, td { font-family: \\\"Palatino Linotype\\\", \\\"Book Antiqua\\\", Palatino, serif; font-weight: normal; } body, table, tr, th, td, pre { color: black; background-color: white; font-size: medium; } h1 { color: #467276; font-size: large; } h2 { color: #467276; font-size: small; } hr { background-color: #E8E8E5; color: #E8E8E5; border: 0 none; height: 1px; clear: both; } table { border: 0 none; } th { text-align: right; vertical-align: top; padding-right: 1em; font-weight: bold; } pre { font-family: Andale Mono, monospace; } --> <\/style><\/head><body><h1>Error Status Report<\/h1><hr\/> <table> <tr><th>status<\/th><td>410 Gone<\/td><\/tr><tr> <tr><th>code<\/th><td>410<\/td><\/tr><tr> <th>message<\/th><td>RelationshipTombstonedException: The couple relationship [fs-ft.ctcr.MM9C-MYY has been tombstoned<\/td><\/tr> <tr><th>description<\/th><td><pre>\\n\\norg.familysearch.fs.api.RelationshipTombstonedException: The couple relationship [fs-ft.ctcr.MM9C-MYY has been tombstoned\\n\\tat org.familysearch.ct.impl.relationship.CTCoupleRelationshipStore.read(CTCoupleRelationshipStore.java:126)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.readRelationship(FsCoupleRelationshipServiceImpl.java:99)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.delete(FsCoupleRelationshipServiceImpl.java:265)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.delete(FsCoupleRelationshipServiceImpl.java:259)\\n\\tat org.familysearch.ctrest.impl.CoupleRelationshipFsAdapterImpl.deleteCoupleRelationship(CoupleRelationshipFsAdapterImpl.java:155)\\n\\tat org.familysearch.ctrest.ws.api.CoupleRelationshipEndpoint.deleteCoupleRelationship(CoupleRelationshipEndpoint.java:225)\\n\\tat sun.reflect.GeneratedMethodAccessor394.invoke(Unknown Source)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:606)\\n\\tat com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$ResponseOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:205)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75)\\n\\tat com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:288)\\n\\tat com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)\\n\\tat com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108)\\n\\tat com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)\\n\\tat com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)\\n\\tat com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:416)\\n\\tat com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:537)\\n\\tat org.codehaus.enunciate.modules.jersey.EnunciateJerseyServletContainer.service(EnunciateJerseyServletContainer.java:250)\\n\\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:723)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PlaceCallLoggingFilter.doFilter(PlaceCallLoggingFilter.java:41)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter$1.run(JVMProtectorFilter.java:68)\\n\\tat org.familysearch.runner.JVMProtector.execute(JVMProtector.java:40)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter.doFilter(JVMProtectorFilter.java:63)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.RequestContextFilter.doFilter(RequestContextFilter.java:64)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ReadOnlyAccessFilter.doFilter(ReadOnlyAccessFilter.java:43)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.persistence.servlet.PersistenceFilter.doFilter(PersistenceFilter.java:87)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.CtContextFilter.doFilter(CtContextFilter.java:42)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter$1.run(FtContextFilter.java:133)\\n\\tat org.familysearch.components.api.identitymanagement.IdentityComponentFactory.doAs(IdentityComponentFactory.java:231)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestWithIdentity(FtContextFilter.java:127)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestAsContributor(FtContextFilter.java:369)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doFilter(FtContextFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleIdentity(IdentityContextFilter.java:197)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleSessionId(IdentityContextFilter.java:139)\\n\\tat org.familysearch.ciscas.integration.SessionFilterBase.doFilter(SessionFilterBase.java:77)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.doFilter(IdentityContextFilter.java:93)\\n\\tat org.familysearch.ctrest.aop.CtIdentityContextFilter.doFilter(CtIdentityContextFilter.java:30)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.TimingFilter.doFilter(TimingFilter.java:48)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.NoCacheFilter.doFilter(NoCacheFilter.java:24)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.LastModifiedDateFixerFilter.doFilter(LastModifiedDateFixerFilter.java:46)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ContextFilter.doFilter(ContextFilter.java:37)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:78)\\n [wrapped] org.familysearch.ctrest.aop.exceptionfilter.WebServiceExceptionWithHeaders: The couple relationship [fs-ft.ctcr.MM9C-MYY has been tombstoned\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.mapAndLogException(ExceptionFilter.java:115)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.populateHttpResponseFromException(ExceptionFilter.java:325)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PersistenceOptionsFilter.doFilter(PersistenceOptionsFilter.java:22)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.engage.foundation.services.HttpRequestContextFilter.doFilter(HttpRequestContextFilter.java:51)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.NoHttpErrorServletFilter.doFilter(NoHttpErrorServletFilter.java:24)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.MediaTypeServletFilter.doFilter(MediaTypeServletFilter.java:60)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.codehaus.enunciate.webapp.HTTPRequestContextFilter.doFilter(HTTPRequestContextFilter.java:36)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)\\n\\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)\\n\\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)\\n\\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)\\n\\tat org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:615)\\n\\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)\\n\\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)\\n\\tat org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:861)\\n\\tat org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:606)\\n\\tat org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\n\\n<\/pre><\/td><\/tr> <\/table> <hr\/><h2>Family Tree Web Service<\/h2><\/body><\/html>\"\n  } ]\n}"
+        "body": "{\n  \"errors\" : [ {\n    \"code\" : 410,\n    \"message\" : \"Unable to delete couple relationship MM9J-RCR\",\n    \"stacktrace\" : \"DELETE http:\/\/integration.familysearch.org\/ct\/couple\/MM9J-RCR returned a response status of 410 Gone:\\n<html><head><title>Error Status Report<\/title><style><!-- body, p, h1, h2, th, td { font-family: \\\"Palatino Linotype\\\", \\\"Book Antiqua\\\", Palatino, serif; font-weight: normal; } body, table, tr, th, td, pre { color: black; background-color: white; font-size: medium; } h1 { color: #467276; font-size: large; } h2 { color: #467276; font-size: small; } hr { background-color: #E8E8E5; color: #E8E8E5; border: 0 none; height: 1px; clear: both; } table { border: 0 none; } th { text-align: right; vertical-align: top; padding-right: 1em; font-weight: bold; } pre { font-family: Andale Mono, monospace; } --> <\/style><\/head><body><h1>Error Status Report<\/h1><hr\/> <table> <tr><th>status<\/th><td>410 Gone<\/td><\/tr><tr> <tr><th>code<\/th><td>410<\/td><\/tr><tr> <th>message<\/th><td>RelationshipTombstonedException: The couple relationship [fs-ft.ctcr.MM9J-RCR has been tombstoned<\/td><\/tr> <tr><th>description<\/th><td><pre>\\n\\norg.familysearch.fs.api.RelationshipTombstonedException: The couple relationship [fs-ft.ctcr.MM9J-RCR has been tombstoned\\n\\tat org.familysearch.ct.impl.relationship.CTCoupleRelationshipStore.read(CTCoupleRelationshipStore.java:126)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.readRelationship(FsCoupleRelationshipServiceImpl.java:99)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.delete(FsCoupleRelationshipServiceImpl.java:265)\\n\\tat org.familysearch.ct.impl.relationship.FsCoupleRelationshipServiceImpl.delete(FsCoupleRelationshipServiceImpl.java:259)\\n\\tat org.familysearch.ctrest.impl.CoupleRelationshipFsAdapterImpl.deleteCoupleRelationship(CoupleRelationshipFsAdapterImpl.java:155)\\n\\tat org.familysearch.ctrest.ws.api.CoupleRelationshipEndpoint.deleteCoupleRelationship(CoupleRelationshipEndpoint.java:225)\\n\\tat sun.reflect.GeneratedMethodAccessor707.invoke(Unknown Source)\\n\\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\\n\\tat java.lang.reflect.Method.invoke(Method.java:606)\\n\\tat com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$ResponseOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:205)\\n\\tat com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75)\\n\\tat com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:288)\\n\\tat com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)\\n\\tat com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108)\\n\\tat com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147)\\n\\tat com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1469)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1400)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1349)\\n\\tat com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1339)\\n\\tat com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:416)\\n\\tat com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:537)\\n\\tat org.codehaus.enunciate.modules.jersey.EnunciateJerseyServletContainer.service(EnunciateJerseyServletContainer.java:250)\\n\\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:723)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PlaceCallLoggingFilter.doFilter(PlaceCallLoggingFilter.java:41)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter$1.run(JVMProtectorFilter.java:68)\\n\\tat org.familysearch.runner.JVMProtector.execute(JVMProtector.java:40)\\n\\tat org.familysearch.runner.servlet.JVMProtectorFilter.doFilter(JVMProtectorFilter.java:63)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.RequestContextFilter.doFilter(RequestContextFilter.java:64)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ReadOnlyAccessFilter.doFilter(ReadOnlyAccessFilter.java:43)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.persistence.servlet.PersistenceFilter.doFilter(PersistenceFilter.java:87)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.CtContextFilter.doFilter(CtContextFilter.java:42)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter$1.run(FtContextFilter.java:133)\\n\\tat org.familysearch.components.api.identitymanagement.IdentityComponentFactory.doAs(IdentityComponentFactory.java:231)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestWithIdentity(FtContextFilter.java:127)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doRequestAsContributor(FtContextFilter.java:369)\\n\\tat org.familysearch.ctrest.aop.FtContextFilter.doFilter(FtContextFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleIdentity(IdentityContextFilter.java:197)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.handleSessionId(IdentityContextFilter.java:139)\\n\\tat org.familysearch.ciscas.integration.SessionFilterBase.doFilter(SessionFilterBase.java:77)\\n\\tat org.familysearch.ciscas.integration.IdentityContextFilter.doFilter(IdentityContextFilter.java:93)\\n\\tat org.familysearch.ctrest.aop.CtIdentityContextFilter.doFilter(CtIdentityContextFilter.java:30)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.TimingFilter.doFilter(TimingFilter.java:48)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.NoCacheFilter.doFilter(NoCacheFilter.java:24)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.LastModifiedDateFixerFilter.doFilter(LastModifiedDateFixerFilter.java:46)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.ContextFilter.doFilter(ContextFilter.java:37)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:78)\\n [wrapped] org.familysearch.ctrest.aop.exceptionfilter.WebServiceExceptionWithHeaders: The couple relationship [fs-ft.ctcr.MM9J-RCR has been tombstoned\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.mapAndLogException(ExceptionFilter.java:115)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.populateHttpResponseFromException(ExceptionFilter.java:325)\\n\\tat org.familysearch.ctrest.aop.exceptionfilter.ExceptionFilter.doFilter(ExceptionFilter.java:82)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ctrest.aop.PersistenceOptionsFilter.doFilter(PersistenceOptionsFilter.java:22)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.engage.foundation.services.HttpRequestContextFilter.doFilter(HttpRequestContextFilter.java:51)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:236)\\n\\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.NoHttpErrorServletFilter.doFilter(NoHttpErrorServletFilter.java:24)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.familysearch.ws.rt.servlet.MediaTypeServletFilter.doFilter(MediaTypeServletFilter.java:60)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.codehaus.enunciate.webapp.HTTPRequestContextFilter.doFilter(HTTPRequestContextFilter.java:36)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)\\n\\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)\\n\\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)\\n\\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)\\n\\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)\\n\\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)\\n\\tat org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:615)\\n\\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)\\n\\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)\\n\\tat org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:861)\\n\\tat org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:606)\\n\\tat org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:489)\\n\\tat java.lang.Thread.run(Thread.java:745)\\n\\n\\n<\/pre><\/td><\/tr> <\/table> <hr\/><h2>Family Tree Web Service<\/h2><\/body><\/html>\"\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCW-2JX",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJ1",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.0.2 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYSE31F1DD7C3C9A2B44E20D27236F874CC_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS6ECE153E9686AD6A24E8B00B5A5D6AEB_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"relationships\":[{\"id\":\"MM9C-MYY\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCW-2JX\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
+        "body": "{\"relationships\":[{\"id\":\"MM9J-RCR\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJ1\",\"attribution\":{\"changeMessage\":\"Odit doloribus est qui mollitia.\"}}]}]}"
     },
     "response": {
         "status": {
@@ -685,12 +721,12 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/descriptions\/MMCW-2JX",
+            "Content-Location": "\/sources\/descriptions\/MMCC-JJ1",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 30 Jul 2015 19:33:01 GMT",
+            "Date": "Thu, 29 Oct 2015 21:25:58 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "786",
+            "X-PROCESSING-TIME": "1644",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",

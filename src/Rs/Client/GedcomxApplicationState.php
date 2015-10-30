@@ -1120,6 +1120,7 @@ abstract class GedcomxApplicationState
      */
     public static function send(Client $client, Request $request){
         $actualUri = (string) $request->getUri();
+        
         try {
             $response = $client->send($request, [
                 'curl' => ['body_as_string' => true],
@@ -1129,12 +1130,21 @@ abstract class GedcomxApplicationState
                     }    
                 ]   
             ]);
-        } catch(\GuzzleHttp\Exception\BadResponseException $e) {
-            $response = $e->getResponse();
-            throw new \Gedcomx\Rs\Client\Exception\GedcomxApplicationException($response->getReasonPhrase(), $response);
+
+            $response->effectiveUri = $actualUri;
+            return $response;
+        } 
+        
+        // Exceptions are thrown if http_errors is set to true on the client.
+        catch(\GuzzleHttp\Exception\BadResponseException $e) {
+            $response = null;
+            $reason = 'Bas response.';
+            if($e->hasResponse()){
+                $response = $e->getResponse();
+                $reason = $response->getReasonPhrase();
+            }
+            throw new \Gedcomx\Rs\Client\Exception\GedcomxApplicationException($reason, $response);
         }
-        $response->effectiveUri = $actualUri;
-        return $response;
     }
 
 }

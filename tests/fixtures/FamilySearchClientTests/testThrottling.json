@@ -1,12 +1,47 @@
 [{
     "request": {
         "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/collection",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1 GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": "application\/x-fs-v1+json"
+        }
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Cache-Control": "no-transform, max-age=604800",
+            "Content-Location": "\/app-meta",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Thu, 29 Oct 2015 20:35:41 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "X-PROCESSING-TIME": "0",
+            "transfer-encoding": "chunked",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"FS\",\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch.org\"\n    } ]\n  } ],\n  \"collections\" : [ {\n    \"links\" : {\n      \"family-tree\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"source-box\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      },\n      \"subcollections\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\"\n      },\n      \"places\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      },\n      \"pending-modifications\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/pending-modifications\"\n      },\n      \"registration\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/pages\/registration\/registration.html\",\n        \"title\" : \"User Registration\"\n      },\n      \"lds-ordinances\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/ordinances\/ordinances\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/discussions\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ordinance-reservation\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/reservation\",\n        \"title\" : \"Reservation Endpoint\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"memories\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/memories\"\n      },\n      \"vocab\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      }\n    },\n    \"title\" : \"FamilySearch.org\"\n  } ],\n  \"description\" : \"#FS\"\n}"
+    }
+},{
+    "request": {
+        "method": "GET",
         "url": "https:\/\/sandbox.familysearch.org\/platform\/collections\/tree",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Accept": "application\/x-gedcomx-v1+json"
+            "User-Agent": "gedcomx-php\/1.1.1 GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": "application\/x-fs-v1+json"
         }
     },
     "response": {
@@ -18,12 +53,12 @@
         "headers": {
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
-            "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 20:32:41 GMT",
+            "Content-Type": "application\/x-fs-v1+json",
+            "Date": "Thu, 29 Oct 2015 20:35:42 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1",
-            "Content-Length": "6672",
+            "X-PROCESSING-TIME": "0",
+            "transfer-encoding": "chunked",
             "Connection": "Close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -35,14 +70,17 @@
     }
 },{
     "request": {
-        "method": "GET",
-        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization?response_type=code&client_id=ABCD-EFGH-JKLM-NOPQ-RSTU-VWXY-0123-4567&redirect_uri=https%3A%2F%2Fhrpufnstuf.org%2Fwitchiepoo",
+        "method": "POST",
+        "url": "https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token",
         "headers": {
             "Host": "integration.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
-            "Accept": "text\/html,application\/xhtml+xml,application\/xml;q=0.9,*\/*;q=0.8"
-        }
+            "User-Agent": "gedcomx-php\/1.1.1 GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": "application\/json",
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=a02j00000016dU8AAI"
     },
     "response": {
         "status": {
@@ -55,11 +93,10 @@
             "Pragma": "no-cache",
             "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
             "Cache-Control": "no-cache, no-store",
-            "Set-Cookie": "familysearch-sessionid=USYSAB98DA69683276EC44243D4CE5130F82_idses-int02.a.fsglobal.net; Path=\/",
-            "Content-Type": "text\/html;charset=UTF-8",
+            "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
-            "Content-Length": "2216",
-            "Date": "Thu, 29 Oct 2015 20:32:41 GMT",
+            "Content-Length": "185",
+            "Date": "Thu, 29 Oct 2015 20:35:42 GMT",
             "Connection": "close",
             "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
             "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
@@ -67,6 +104,85 @@
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Max-Age": "604800"
         },
-        "body": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!doctype html>\n<html class=\"locale-en\">\n<head>\n  <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\">\n  <title>FamilySearch: Oauth2 Request Error<\/title>\n  <meta name=\"pageID\" content=\"oauth2Failure\">\n\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\n  <!-- styles:css -->\n\n  <link rel=\"stylesheet\" href=\"\/cis-web\/css\/build\/sign-in.min-1e16451f.css\">\n\n  <!-- endinject -->\n\n  <link rel=\"shortcut icon\" href=\"..\/..\/images\/fs_logo_favicon.ico\">\n<\/head>\n<body id=\"page1\">\n  <div id=\"main\">\n    \n\n\n<header class=\"header\" layout horizontal center>\n  <h1 class=\"logo-container\">\n    <a class=\"logo\" href=\"URL not found in configuration\">FamilySearch<\/a>\n  <\/h1>\n  <span flex><\/span>\n  \n    <div class=\"account-wrapper\" layout horizontal center>\n      <a class=\"helplink\" href=\"https:\/\/familysearch.org\/ask\">Get help &dtrif;<\/a>\n      <a href=\"\" class=\"new_account btn\">Free Account<\/a>\n    <\/div>\n  \n  \n\n<\/header>\n\n    <article layout horizontal center-justified>\n      <div class=\"error-wrapper\">\n        <h1 class=\"error-label serif\">Invalid Oauth2 Request<\/h1>\n        <div class=\"error-body\">\n          \n            <h3>\n              <strong>Oauth2 error:<\/strong>\n            <\/h3>\n            <p class=\"error\">redirect URI not configured correctly<\/p>\n          \n        <\/div>\n      <\/div>\n    <\/article>\n    \n<footer id=\"page-footer\" layout horizontal center>\n  <div class=\"clearfix\" id=\"page-footer-nav\">\n    <div class=\"copyright_notice\">\n      <p>\n        <span class=\"privacy_usage\"><a href=\"URL not found in configuration\/terms\">Rights and Use Information <\/a>(Updated 2\/3\/2015) | <a href=\"URL not found in configuration\/privacy\">Privacy Policy<\/a> (Updated 3\/18\/2014)<\/span>\n        &copy; <fmt:formatDate value=\"\" pattern=\"yyyy\" \/> by Intellectual Reserve, Inc. All rights reserved.  <span class=\"service-by-link\">A service provided by <a href=\"http:\/\/mormon.org\">The Church of Jesus Christ of Latter-day Saints<\/a><\/span>\n      <\/p>\n    <\/div>\n  <\/div>\n  <span flex><\/span>\n  <span class=\"church-logo-container\">\n    <a title=\"A service provided by...\" href=\"http:\/\/mormon.org\" class=\"church-logo\"><\/a>\n  <\/span>\n<\/footer>\n\n  <\/div>\n<\/body>\n<\/html>\n"
+        "body": "{\"token\":\"USYS17225555F577430D1C87CB21DC4A17C7_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS17225555F577430D1C87CB21DC4A17C7_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/throttled?processingTime=1810000",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1 GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": null,
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded",
+            "Authorization": "Bearer USYS17225555F577430D1C87CB21DC4A17C7_idses-int02.a.fsglobal.net"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=a02j00000016dU8AAI"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "200",
+            "message": "OK"
+        },
+        "headers": {
+            "Content-Type": "application\/xml",
+            "Date": "Thu, 29 Oct 2015 20:35:43 GMT",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "Warning": "199 FamilySearch Best Practice Violation",
+            "X-PROCESSING-TIME": "173",
+            "X-THROTTLE-MILLIS-LEFT": "0",
+            "X-THROTTLE-MILLIS-USED": "1873574",
+            "X-THROTTLE-WINDOW-SIZE": "1800000",
+            "Content-Length": "0",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        }
+    }
+},{
+    "request": {
+        "method": "GET",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/throttled?processingTime=1",
+        "headers": {
+            "Host": "sandbox.familysearch.org",
+            "Accept-Encoding": null,
+            "User-Agent": "gedcomx-php\/1.1.1 GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "Accept": null,
+            "Expect": null,
+            "Content-Type": "application\/x-www-form-urlencoded",
+            "Authorization": "Bearer USYS17225555F577430D1C87CB21DC4A17C7_idses-int02.a.fsglobal.net"
+        },
+        "body": "grant_type=password&username=sdktester&password=1234sdkpass&client_id=a02j00000016dU8AAI"
+    },
+    "response": {
+        "status": {
+            "http_version": "1.1",
+            "code": "429",
+            "message": "Too Many Requests"
+        },
+        "headers": {
+            "Content-Type": "application\/x-fs-v1+xml",
+            "Date": "Thu, 29 Oct 2015 20:35:43 GMT",
+            "Retry-After": "1",
+            "Server": "Apache-Coyote\/1.1",
+            "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
+            "Warning": "199 FamilySearch Best Practice Violation",
+            "X-PROCESSING-TIME": "160",
+            "Content-Length": "266",
+            "Connection": "Close",
+            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
+            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
+            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Max-Age": "604800"
+        },
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<fs:familysearch xmlns=\"http:\/\/gedcomx.org\/v1\/\" xmlns:fs=\"http:\/\/familysearch.org\/v1\/\" xmlns:atom=\"http:\/\/www.w3.org\/2005\/Atom\">\n    <fs:error>\n        <fs:code>429<\/fs:code>\n    <\/fs:error>\n<\/fs:familysearch>\n"
     }
 }]

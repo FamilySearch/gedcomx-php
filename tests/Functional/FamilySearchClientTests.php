@@ -138,7 +138,7 @@ class FamilySearchClientTests extends ApiTestCase
     {
         $client = $this->createFamilySearchClient();
         $url = $client->getOAuth2AuthorizationURI();
-        $this->assertEquals('https://integration.familysearch.org/cis-web/oauth2/v3/authorization?response_type=code&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect&client_id=WCQY-7J1Q-GKVV-7DNM-SQ5M-9Q5H-JX3H-CMJK', $url);
+        $this->assertEquals('https://integration.familysearch.org/cis-web/oauth2/v3/authorization?response_type=code&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect&client_id=a02j00000016dU8AAI', $url);
     }
     
     /**
@@ -240,5 +240,27 @@ class FamilySearchClientTests extends ApiTestCase
             'httpExceptions' => true
         ]);
         $client->familytree()->readCurrentUser();
+    }
+    
+    /**
+     * @vcr FamilySearchClientTests/testThrottling.json
+     */
+    public function testThrottling()
+    {
+        $client = $this->createAuthenticatedFamilySearchClient([
+            'throttling' => true    
+        ]);
+        
+        // Add processing time such that we guarantee it will be throttled
+        $state = $client->familytree()->addProcessingTime('1810000');
+        
+        // Make sure we got a good response
+        $this->assertEquals(HttpStatus::OK, $state->getStatus());
+        
+        // Try another request to see if it's throttled.
+        $state = $client->familytree()->addProcessingTime('1');
+        
+        // Make sure we got a throttled response.
+        $this->assertTrue($state->getResponse()->hasHeader('X-FS-Throttled'));
     }
 }

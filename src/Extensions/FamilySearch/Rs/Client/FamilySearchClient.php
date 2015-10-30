@@ -9,6 +9,7 @@ use Gedcomx\Rs\Client\Exception\GedcomxApplicationException;
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\LoggerMiddleware;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\Util\ThrottlingMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
@@ -97,6 +98,7 @@ class FamilySearchClient implements LoggerAwareInterface{
      * * `logger` - A `Psr\Log\LoggerInterface`. A logger can also be registered via the `setLogger()` method but passing it in as an option during instantiation ensures that the logger will see all client events.
      * * `middleware` - An array of [Guzzle Middleware](http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware).
      * * `httpExceptions` - When `true`, the client will throw a `Gedcomx\Rs\Client\Exception\GedcomxApplicationException` when a 400 or 500 level HTTP response is received. 
+     * * `throttling` - When `true`, the client will automatically handled throttled responses.
      */
     public function __construct($options = array())
     {
@@ -107,23 +109,25 @@ class FamilySearchClient implements LoggerAwareInterface{
             $this->clientId = $options['clientId'];
         }
         
-        // Set the proper collectionsURI based on the environment.
+        // Set the proper homeURI based on the environment.
         // Default to sandbox.
         $environment = '';
+        $baseURI = '';
         if(isset($options['environment'])){
             $environment = $options['environment'];
         }
         switch($environment){
             case 'production':
-                $this->homeURI = 'https://familysearch.org/platform/collection';
+                $baseURI = 'https://familysearch.org';
                 break;
             case 'beta':
-                $this->homeURI = 'https://beta.familysearch.org/platform/collection';
+                $baseURI = 'https://beta.familysearch.org';
                 break;
             default:
-                $this->homeURI = 'https://sandbox.familysearch.org/platform/collection';
+                $baseURI = 'https://sandbox.familysearch.org';
                 break;
         }
+        $this->homeURI = $baseURI . '/platform/collection';
         
         // Middleware
         $this->stack = new HandlerStack();
@@ -137,6 +141,11 @@ class FamilySearchClient implements LoggerAwareInterface{
             $this->stack->push(Middleware::mapRequest(function(RequestInterface $request) use($experiments) {
                 return $request->withHeader('X-FS-Feature-Tag', $experiments);
             }));
+        }
+        
+        // Throttling
+        if(isset($options['throttling']) && $options['throttling'] === true){
+            $this->stack->push(ThrottlingMiddleware::middleware());
         }
         
         // Set user agent string
@@ -159,6 +168,7 @@ class FamilySearchClient implements LoggerAwareInterface{
         
         $clientOptions = [
             'handler' => $this->stack,
+            'base_uri' => $baseURI,
             'headers' => [
                 'User-Agent' => $userAgent
             ]
