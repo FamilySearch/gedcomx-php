@@ -83,59 +83,6 @@ class ParentsAndChildrenTests extends ApiTestCase
     }
 
     /**
-     * @link https://familysearch.org/developers/docs/api/tree/Create_Child-and-Parents_Relationship_Note_usecase
-     * @see NotesTests::testCreateChildAndParentsRelationshipNote
-     */
-
-    /**
-     * @vcr ParentsAndChildrenTests/testCreateCoupleRelationship.json
-     * @link https://familysearch.org/developers/docs/api/tree/Create_Couple_Relationship_usecase
-     */
-    public function testCreateCoupleRelationship()
-    {
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        $husband = $this->createPerson('male');
-        $this->assertEquals(
-            HttpStatus::CREATED,
-            $husband->getStatus(),
-            $this->buildFailMessage(__METHOD__.'(createHusband)', $husband)
-        );
-        $wife = $this->createPerson('female');
-        $this->assertEquals(
-            HttpStatus::CREATED,
-            $wife->getStatus(),
-            $this->buildFailMessage(__METHOD__.'(createHusband)', $wife)
-        );
-
-        $relation = $this->collectionState()->addSpouseRelationship($husband, $wife);
-        $this->assertEquals(
-            HttpStatus::CREATED,
-            $relation->getStatus(),
-            $this->buildFailMessage(__METHOD__.'(createHusband)', $relation)
-        );
-        $this->queueForDelete($relation);
-
-        /** @var FamilyTreeRelationshipState $relation */
-        $relation = $relation->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $relation->getStatus(),
-            $this->buildFailMessage(__METHOD__.'(createHusband)', $relation)
-        );
-        $this->assertNotNull($relation->getEntity(), "Relationship entity is null.");
-
-        /** @var Relationship $entity */
-        $entity = $relation->getRelationship();
-
-        $data_check =
-            $entity->getPerson1() instanceof ResourceReference &&
-            $entity->getPerson2() instanceof ResourceReference;
-        $this->assertTrue( $data_check );
-    }
-
-    /**
      * @vcr ParentsAndChildrenTests/testReadChildAndParentsRelationship.json
      * @link https://familysearch.org/developers/docs/api/tree/Read_Child-and-Parents_Relationship_usecase
      */
