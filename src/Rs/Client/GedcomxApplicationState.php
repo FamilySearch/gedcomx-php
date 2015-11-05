@@ -738,6 +738,26 @@ abstract class GedcomxApplicationState
 
         return $this->authenticateViaOAuth2($formData);
     }
+    
+    /**
+     * Invalidate the current access token and end the session.
+     * 
+     * @return GedcomxApplicationState $this
+     */
+    public function logout()
+    {
+        $link = $this->getLink('logout');
+        if ($link === null || $link->getHref() === null) {
+            return null;
+        }
+        
+        $request = $this->createRequest('GET', $link->getHref() . '?access_token=' . $this->accessToken);
+        $response = $this->invoke($request);
+        
+        $this->accessToken = null;
+        
+        return $this;
+    }
 
     /**
      * Builds a pretty failure message from the specified response's warning headers, using the specified request for

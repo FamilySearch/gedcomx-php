@@ -147,6 +147,20 @@ class AuthenticationTests extends ApiTestCase
         $factory->newCollectionState()
             ->authenticateViaOAuth2WithoutCredentials('0.0.0.0', 'ABCD-1234-EFGH-5678-IJKL-9012-MNOP');
     }
+    
+    /**
+     * @vcr Authentication/testLogout.json
+     *
+     */
+    public function testLogout()
+    {
+        $factory = new StateFactory();
+        $state = $this->collectionState($factory);
+        $this->authorize($state);
+        $this->assertNotEmpty($state->getAccessToken());
+        $state->logout();
+        $this->assertEmpty($state->getAccessToken());
+    }
 
     /**
      * testObtainAccessTokenWithAuthorizationCode
