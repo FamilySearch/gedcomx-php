@@ -84,6 +84,9 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
 ## Changelog
 
+* v2.2.0
+  * Add `logout()` method to application states.
+
 * v2.1.1
   * Support throttling. Enable in `FamilySearchClient` by setting the `throttling` option to `true`.
 
