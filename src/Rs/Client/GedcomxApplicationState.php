@@ -740,6 +740,31 @@ abstract class GedcomxApplicationState
     }
     
     /**
+     * Generate the secret required for authentication via client credentials.
+     * 
+     * @param mixed $key The key parameter of openssl_private_encrypt which is
+     * the same as documented for openssl_pkey_get_private. May be the
+     * text of a key file or a file reference.
+     * @timestamp mixed $timestamp The time in milliseconds. This parameter
+     * should only be used for testing. A current timestamp is generated when this
+     * parameter is not provided.
+     */
+    public function generateClientSecret($key, $timestamp = null)
+    {
+        if($timestamp === null)
+        {
+            // Generate a timestamp in milliseconds
+            // http://stackoverflow.com/a/11424665
+            $timestamp = round(microtime(true) * 1000);
+        }
+        
+        // Encrypt the timestamp
+        openssl_private_encrypt($timestamp, $secret, $key);
+        
+        return base64_encode($secret);
+    }
+    
+    /**
      * Invalidate the current access token and end the session.
      * 
      * @return GedcomxApplicationState $this

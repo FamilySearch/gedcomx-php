@@ -163,13 +163,6 @@ class AuthenticationTests extends ApiTestCase
     }
 
     /**
-     * testObtainAccessTokenWithAuthorizationCode
-     * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_with_Authorization_Code_usecase
-     *
-     * No test case. Auth code is generated in the process of logging in with a third party provider.
-     */
-
-    /**
      * @vcr Authentication/testObtainAccessTokenWithUsernameAndPassword.json
      * @link https://familysearch.org/developers/docs/api/authentication/Obtain_Access_Token_with_Username_and_Password_usecase
      */
@@ -193,12 +186,30 @@ class AuthenticationTests extends ApiTestCase
      */
     public function testObtainAccessTokenWithoutAuthenticating()
     {
-
         $factory = new StateFactory();
         $collectionState = $factory
             ->newCollectionState()
             ->authenticateViaOAuth2WithoutCredentials('0.0.0.0', $this->clientId);
 
+        $this->assertNotEmpty($collectionState->getAccessToken());
+    }
+    
+    /**
+     * @vcr Authentication/testAuthenticateViaOAuth2ClientCredentials.json
+     */
+    public function testAuthenticateViaOAuth2ClientCredentials()
+    {
+        $factory = new StateFactory();
+        $state = $factory->newCollectionState();
+        
+        // Load the key
+        if(getenv('FS_CLIENT_KEY') === false){
+            throw new \Exception('Client key not set in FS_CLIENT_KEY environment variable');
+        }
+        $key = getenv('FS_CLIENT_KEY');
+        
+        $state->authenticateViaOAuth2ClientCredentials('a0T3000000BkhenEAB', $state->generateClientSecret($key));
+        
         $this->assertNotEmpty($collectionState->getAccessToken());
     }
 }
