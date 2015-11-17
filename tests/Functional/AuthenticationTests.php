@@ -203,10 +203,10 @@ class AuthenticationTests extends ApiTestCase
         $state = $factory->newCollectionState();
         
         // Load the key
-        if(getenv('FS_CLIENT_KEY') === false){
-            throw new \Exception('Client key not set in FS_CLIENT_KEY environment variable');
+        if(getenv('FS_KEY_PASSWORD') === false){
+            throw new \Exception('Password for client key not set in FS_KEY_PASSWORD environment variable; unable to use key for authentication');
         }
-        $key = getenv('FS_CLIENT_KEY');
+        $key = openssl_pkey_get_private('file://key.pem', getenv('FS_KEY_PASSWORD'));
         
         $state->authenticateViaOAuth2ClientCredentials('a0T3000000BkhenEAB', $state->generateClientSecret($key, 1447773012436));
         
