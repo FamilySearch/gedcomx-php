@@ -333,7 +333,7 @@
 		<b>Namespace:</b> <a href="namespace-Gedcomx.html">Gedcomx</a>\<a href="namespace-Gedcomx.Rs.html">Rs</a>\<a href="namespace-Gedcomx.Rs.Client.html">Client</a><br>
 		<b>Package:</b> Gedcomx\Rs\Client<br>
 
-			<b>Located at</b> <a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#20-1170" title="Go to source code">Rs/Client/GedcomxApplicationState.php</a>
+			<b>Located at</b> <a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#20-1195" title="Go to source code">Rs/Client/GedcomxApplicationState.php</a>
 		<br>
 	</div>
 
@@ -1675,6 +1675,50 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="generateClientSecret" id="_generateClientSecret">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_generateClientSecret">#</a>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#742-765" title="Go to source code">generateClientSecret</a>( <span>mixed <var>$key</var></span>, <span> <var>$timestamp</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				<p>Generate the secret required for authentication via client credentials.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Generate the secret required for authentication via client credentials.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$key</var></dt>
+						<dd><p>The key parameter of openssl_private_encrypt which is
+the same as documented for openssl_pkey_get_private. May be the
+text of a key file or a file reference.</p></dd>
+						<dt><var>$timestamp</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+					<h4>Timestamp</h4>
+					<div class="list">
+							<p>mixed $timestamp The time in milliseconds. This parameter
+should only be used for testing. A current timestamp is generated when this
+parameter is not provided.</p><br>
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="logout" id="_logout">
 
 			<td class="attributes"><code>
@@ -1686,7 +1730,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_logout">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#742-760" title="Go to source code">logout</a>( )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#767-785" title="Go to source code">logout</a>( )</code>
 
 			<div class="description short">
 				<p>Invalidate the current access token and end the session.</p>
@@ -1719,7 +1763,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadAllEmbeddedResources">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#983-999" title="Go to source code">loadAllEmbeddedResources</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1008-1024" title="Go to source code">loadAllEmbeddedResources</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Load all external resources such as notes, media, and evidence. See
@@ -1759,7 +1803,7 @@ EmbeddedLinkLoader for a complete list.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_readContributor">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1050-1065" title="Go to source code">readContributor</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1075-1090" title="Go to source code">readContributor</a>( <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Reads the contributor for the current state instance.</p>
@@ -1797,7 +1841,7 @@ EmbeddedLinkLoader for a complete list.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_readAttributableContributor">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1067-1084" title="Go to source code">readAttributableContributor</a>( <span><code><a href="class-Gedcomx.Common.Attributable.html">Gedcomx\Common\Attributable</a></code> <var>$attributable</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1092-1109" title="Go to source code">readAttributableContributor</a>( <span><code><a href="class-Gedcomx.Common.Attributable.html">Gedcomx\Common\Attributable</a></code> <var>$attributable</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Reads the contributor for the specified attributable.</p>
@@ -1837,7 +1881,7 @@ EmbeddedLinkLoader for a complete list.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_readReferenceContributor">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1086-1108" title="Go to source code">readReferenceContributor</a>( <span><code><a href="class-Gedcomx.Common.ResourceReference.html">Gedcomx\Common\ResourceReference</a></code> <var>$contributor</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1111-1133" title="Go to source code">readReferenceContributor</a>( <span><code><a href="class-Gedcomx.Common.ResourceReference.html">Gedcomx\Common\ResourceReference</a></code> <var>$contributor</var></span>, <span><code><a href="class-Gedcomx.Rs.Client.Options.StateTransitionOption.html">Gedcomx\Rs\Client\Options\StateTransitionOption</a></code> <var>$option</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Reads the contributor for the specified resource reference.</p>
@@ -1877,7 +1921,7 @@ EmbeddedLinkLoader for a complete list.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_send">#</a>
-			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1131-1168" title="Go to source code">send</a>( <span>GuzzleHttp\Client <var>$client</var></span>, <span>GuzzleHttp\Psr7\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-Gedcomx.Rs.Client.GedcomxApplicationState.html#1156-1193" title="Go to source code">send</a>( <span>GuzzleHttp\Client <var>$client</var></span>, <span>GuzzleHttp\Psr7\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Sends a request via the given client. This centralizes options
