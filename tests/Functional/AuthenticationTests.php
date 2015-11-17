@@ -208,8 +208,8 @@ class AuthenticationTests extends ApiTestCase
         }
         $key = getenv('FS_CLIENT_KEY');
         
-        $state->authenticateViaOAuth2ClientCredentials('a0T3000000BkhenEAB', $state->generateClientSecret($key));
+        $state->authenticateViaOAuth2ClientCredentials('a0T3000000BkhenEAB', $state->generateClientSecret($key, 1447773012436));
         
-        $this->assertNotEmpty($collectionState->getAccessToken());
+        $this->assertNotEmpty($state->getAccessToken());
     }
 }
