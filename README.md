@@ -84,6 +84,9 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
 ## Changelog
 
+* v2.3.0
+  * Add the `generateClientSecret()` method to `GedcomxApplicationState`.
+
 * v2.2.0
   * Add `logout()` method to application states.
 
