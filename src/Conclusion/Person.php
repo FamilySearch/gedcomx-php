@@ -293,7 +293,7 @@ class Person extends Subject implements HasFacts, HasFields
         if ($this->private) {
             $a["private"] = $this->private;
         }
-        if ($this->living) {
+        if (isset($this->living)) {
             $a["living"] = $this->living;
         }
         if ($this->gender) {
