@@ -5,7 +5,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json"
         }
     },
@@ -19,19 +19,14 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/tree",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:20:51 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:16 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
-            "Content-Length": "6672",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"links\" : {\n    \"source-references-query\" : {\n      \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n      \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n      \"accept\" : \"*\/*\",\n      \"allow\" : \"GET\",\n      \"title\" : \"Source References Query\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?skipDateNormalization,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"descendancy-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy{?spouse,personDetails,generations,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Descendancy\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"current-user-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\/history\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSFT\",\n    \"about\" : \"#FSFT\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Family Tree\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"person\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}{?skipDateNormalization,relatives,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,POST,DELETE\",\n        \"title\" : \"Person\"\n      },\n      \"person-with-relationships\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships{?persons,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET,POST,DELETE\",\n        \"title\" : \"Person With Relationships\"\n      },\n      \"source-references-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references{?source,description,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Source References Query\"\n      },\n      \"descendancy-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy{?spouse,personDetails,generations,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Descendancy\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"person-matches-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/matches{?count,q,candidateId,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Matches Query\"\n      },\n      \"persons\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\"\n      },\n      \"person-search\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/search{?count,start,q,context,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Person Search\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/memories\/memories\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/discussions\/discussions\"\n      },\n      \"preferred-spouse-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-spouse-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Spouse Relationship\"\n      },\n      \"matches\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/matches{?count,status,includeNotAMatchDeclarations,confidence,collection,access_token}\",\n        \"type\" : \"application\/atom+xml,application\/json,application\/x-gedcomx-atom+json,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"GET,POST\",\n        \"title\" : \"Person Matches\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ancestry-query\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry{?spouse,personDetails,generations,descendants,marriageDetails,person,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Ancestry\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      },\n      \"relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/relationships\"\n      },\n      \"preferred-parent-relationship\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/users\/{uid}\/preferred-parent-relationships\/{pid}{?access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/x-gedcomx-v1+json,application\/x-gedcomx-v1+xml\",\n        \"allow\" : \"HEAD,GET,PUT,DELETE\",\n        \"title\" : \"Preferred Parent Relationship\"\n      },\n      \"current-user-person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/current-person\"\n      },\n      \"person-match-resolutions-query\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/match-resolutions\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  } ],\n  \"description\" : \"#SD-FSFT\"\n}"
     }
 },{
     "request": {
@@ -40,7 +35,7 @@
         "headers": {
             "Host": "integration.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/json",
             "Expect": null,
             "Content-Type": "application\/x-www-form-urlencoded"
@@ -55,21 +50,17 @@
         },
         "headers": {
             "Server": "Apache-Coyote\/1.1",
+            "Expires": "Tue, 03 Jul 2001 06:00:00 GMT",
+            "Last-Modified": "Wed Aug 24 20:03:16 GMT+00:00 2016",
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0",
             "Pragma": "no-cache",
-            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
-            "Cache-Control": "no-cache, no-store",
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Thu, 29 Oct 2015 21:20:51 GMT",
-            "Connection": "close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Date": "Wed, 24 Aug 2016 20:03:15 GMT",
+            "Connection": "close"
         },
-        "body": "{\"token\":\"USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net\",\"token_type\":\"family_search\",\"access_token\":\"USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net\"}"
     }
 },{
     "request": {
@@ -78,13 +69,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
+        "body": "{\"persons\":[{\"living\":false,\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
     },
     "response": {
         "status": {
@@ -95,39 +86,34 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:20:57 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6TC>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6TC>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6TC>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/spouse-relationships>; rel=\"spouse-relationships\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC",
+            "Date": "Wed, 24 Aug 2016 20:03:17 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=L5ZG-F95>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=L5ZG-F95>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=L5ZG-F95>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/spouse-relationships>; rel=\"spouse-relationships\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "KWCB-6TC",
-            "X-PROCESSING-TIME": "6645",
-            "X-THROTTLE-MILLIS-LEFT": "1776489",
-            "X-THROTTLE-MILLIS-USED": "23511",
+            "X-ENTITY-ID": "L5ZG-F95",
+            "X-PROCESSING-TIME": "264",
+            "X-THROTTLE-MILLIS-LEFT": "1773079",
+            "X-THROTTLE-MILLIS-USED": "26921",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
+        "body": "{\"persons\":[{\"living\":false,\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Male\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Guadalupe Ankunding\",\"parts\":[{\"value\":\"Guadalupe\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Ankunding\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"November 12, 1860\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"Faefurt, California, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"November 12, 1885\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"East Dejah, Texas, United States\"}}],\"display\":{\"birthDate\":\"12 Nov 1860\",\"birthPlace\":\"Faefurt, California, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Male\",\"lifespan\":\"12 Nov 1860 - 12 Nov 1885\",\"name\":\"Guadalupe Ankunding\"}}]}"
     },
     "response": {
         "status": {
@@ -138,26 +124,21 @@
         "headers": {
             "Allow": "OPTIONS, HEAD, GET, POST, DELETE",
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWCB-6TC",
+            "Content-Location": "\/tree\/persons\/L5ZG-F95",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:20:59 GMT",
-            "ETag": "\"fe40d9e4c8049ed475a7849989ab70400129a2cc\"",
-            "Last-Modified": "Thu, 29 Oct 2015 21:20:54 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:18 GMT",
+            "ETag": "\"136913617980510000\"",
+            "Last-Modified": "Wed, 24 Aug 2016 20:03:18 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "666",
-            "X-THROTTLE-MILLIS-LEFT": "1775827",
-            "X-THROTTLE-MILLIS-USED": "24173",
+            "X-PROCESSING-TIME": "170",
+            "X-THROTTLE-MILLIS-LEFT": "1772917",
+            "X-THROTTLE-MILLIS-USED": "27083",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Content-Length": "7756",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"persons\" : [ {\n    \"id\" : \"KWCB-6TC\",\n    \"links\" : {\n      \"spouses\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/spouses\"\n      },\n      \"ancestry\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6TC\"\n      },\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"parents\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/parents\"\n      },\n      \"person-with-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6TC\"\n      },\n      \"descendancy\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6TC\"\n      },\n      \"discussion-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/discussion-references\"\n      },\n      \"merge\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/merges\/{dpid}{?filter,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml\",\n        \"allow\" : \"OPTIONS,GET,POST\",\n        \"title\" : \"Person Merge\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/changes\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/children\"\n      },\n      \"evidence-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/memory-references\"\n      },\n      \"spouse-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/spouse-relationships\"\n      },\n      \"child-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/child-relationships\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"ordinance-reservations\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/reservations\"\n      },\n      \"portrait\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/portrait\"\n      },\n      \"parent-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/parent-relationships\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/memories\"\n      },\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/source-references\"\n      },\n      \"matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/matches\"\n      },\n      \"non-matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/not-a-match\"\n      },\n      \"portraits\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/portraits\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/sources\"\n      }\n    },\n    \"sortKey\" : \"0002400727\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6TC\" ]\n    },\n    \"living\" : false,\n    \"gender\" : {\n      \"id\" : \"V.777-7771\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/conclusions\/V.777-7771\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153654848\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Male\"\n    },\n    \"names\" : [ {\n      \"id\" : \"V.777-777N\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/conclusions\/V.777-777N\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153654848\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/BirthName\",\n      \"nameForms\" : [ {\n        \"fullText\" : \"Guadalupe Ankunding\",\n        \"parts\" : [ {\n          \"type\" : \"http:\/\/gedcomx.org\/Given\",\n          \"value\" : \"Guadalupe\"\n        }, {\n          \"type\" : \"http:\/\/gedcomx.org\/Surname\",\n          \"value\" : \"Ankunding\"\n        } ]\n      } ],\n      \"preferred\" : true\n    } ],\n    \"facts\" : [ {\n      \"id\" : \"V.777-7774\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/conclusions\/V.777-7774\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153654848\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Birth\",\n      \"date\" : {\n        \"original\" : \"November 12, 1860\",\n        \"formal\" : \"+1860-11-12\",\n        \"normalized\" : [ {\n          \"value\" : \"12 November 1860\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"Faefurt, California, United States\"\n      }\n    }, {\n      \"id\" : \"V.777-777P\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/conclusions\/V.777-777P\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153654848\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Death\",\n      \"date\" : {\n        \"original\" : \"November 12, 1885\",\n        \"formal\" : \"+1885-11-12\",\n        \"normalized\" : [ {\n          \"value\" : \"12 November 1885\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"East Dejah, Texas, United States\"\n      }\n    } ],\n    \"display\" : {\n      \"name\" : \"Guadalupe Ankunding\",\n      \"gender\" : \"Male\",\n      \"lifespan\" : \"1860-1885\",\n      \"birthDate\" : \"12 November 1860\",\n      \"birthPlace\" : \"Faefurt, California, United States\",\n      \"deathDate\" : \"12 November 1885\",\n      \"deathPlace\" : \"East Dejah, Texas, United States\"\n    }\n  } ],\n  \"relationships\" : [ ],\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-KWCB-6TC\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/SD-KWCB-6TC\"\n      }\n    },\n    \"citations\" : [ {\n      \"lang\" : \"en\",\n      \"value\" : \"\\\"Family Tree,\\\" database, <i>FamilySearch<\/i> (http:\/\/familysearch.org : modified 29 October 2015, 21:20), entry for Guadalupe Ankunding(PID https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6TC); contributed by various users.\"\n    } ],\n    \"about\" : \"#KWCB-6TC\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"Guadalupe Ankunding\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Person\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:KWCB-6TC\" ]\n    },\n    \"modified\" : 1446153654000\n  } ],\n  \"description\" : \"#SD-KWCB-6TC\"\n}"
+        "body": "{\n  \"persons\" : [ {\n    \"id\" : \"L5ZG-F95\",\n    \"links\" : {\n      \"spouses\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/spouses\"\n      },\n      \"ancestry\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=L5ZG-F95\"\n      },\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"parents\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/parents\"\n      },\n      \"person-with-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=L5ZG-F95\"\n      },\n      \"descendancy\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=L5ZG-F95\"\n      },\n      \"merge\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/{pid}\/merges\/{dpid}{?filter,access_token}\",\n        \"type\" : \"application\/json,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml,text\/html\",\n        \"accept\" : \"application\/x-fs-v1+json,application\/x-fs-v1+xml\",\n        \"allow\" : \"OPTIONS,GET,POST\",\n        \"title\" : \"Person Merge\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/changes\"\n      },\n      \"children\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/children\"\n      },\n      \"spouse-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/spouse-relationships\"\n      },\n      \"child-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/child-relationships\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"ordinance-reservations\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/reservations\"\n      },\n      \"portrait\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/portrait\"\n      },\n      \"parent-relationships\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/parent-relationships\"\n      },\n      \"artifacts\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/memories\"\n      },\n      \"matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/matches\"\n      },\n      \"ordinances\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/ordinances\"\n      },\n      \"non-matches\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/not-a-match\"\n      },\n      \"portraits\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/portraits\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/sources\"\n      }\n    },\n    \"sortKey\" : \"0000000000\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:L5ZG-F95\" ]\n    },\n    \"living\" : false,\n    \"gender\" : {\n      \"id\" : \"bec15b84-b3e3-4340-9cde-4fd29fe87070\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/conclusions\/bec15b84-b3e3-4340-9cde-4fd29fe87070\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472068998051\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Male\"\n    },\n    \"names\" : [ {\n      \"id\" : \"3edd15bf-af1a-4407-b248-cb9bac035029\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/conclusions\/3edd15bf-af1a-4407-b248-cb9bac035029\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472068998051\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/BirthName\",\n      \"nameForms\" : [ {\n        \"fullText\" : \"Guadalupe Ankunding\",\n        \"parts\" : [ {\n          \"type\" : \"http:\/\/gedcomx.org\/Given\",\n          \"value\" : \"Guadalupe\"\n        }, {\n          \"type\" : \"http:\/\/gedcomx.org\/Surname\",\n          \"value\" : \"Ankunding\"\n        } ]\n      } ],\n      \"preferred\" : true\n    } ],\n    \"facts\" : [ {\n      \"id\" : \"93bb989c-b668-4fcc-a42e-2ef5f52686a9\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/conclusions\/93bb989c-b668-4fcc-a42e-2ef5f52686a9\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472068998051\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Birth\",\n      \"date\" : {\n        \"original\" : \"November 12, 1860\",\n        \"formal\" : \"+1860-11-12\",\n        \"normalized\" : [ {\n          \"lang\" : \"en-US\",\n          \"value\" : \"12 November 1860\"\n        }, {\n          \"value\" : \"12 November 1860\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"Faefurt, California, United States\"\n      }\n    }, {\n      \"id\" : \"bc7262b7-f9f5-4aa2-adf9-1e3ca14bfe45\",\n      \"links\" : {\n        \"conclusion\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/conclusions\/bc7262b7-f9f5-4aa2-adf9-1e3ca14bfe45\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472068998051\n      },\n      \"type\" : \"http:\/\/gedcomx.org\/Death\",\n      \"date\" : {\n        \"original\" : \"November 12, 1885\",\n        \"formal\" : \"+1885-11-12\",\n        \"normalized\" : [ {\n          \"lang\" : \"en-US\",\n          \"value\" : \"12 November 1885\"\n        }, {\n          \"value\" : \"12 November 1885\"\n        } ]\n      },\n      \"place\" : {\n        \"original\" : \"East Dejah, Texas, United States\"\n      }\n    } ],\n    \"display\" : {\n      \"name\" : \"Guadalupe Ankunding\",\n      \"gender\" : \"Male\",\n      \"lifespan\" : \"1860-1885\",\n      \"birthDate\" : \"12 November 1860\",\n      \"birthPlace\" : \"Faefurt, California, United States\",\n      \"deathDate\" : \"12 November 1885\",\n      \"deathPlace\" : \"East Dejah, Texas, United States\",\n      \"ascendancyNumber\" : \"1\",\n      \"descendancyNumber\" : \"1\"\n    }\n  } ],\n  \"relationships\" : [ ],\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-L5ZG-F95\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/SD-L5ZG-F95\"\n      }\n    },\n    \"citations\" : [ {\n      \"lang\" : \"en\",\n      \"value\" : \"\\\"Family Tree,\\\" database, <i>FamilySearch<\/i> (http:\/\/familysearch.org : modified 24 August 2016, 20:03), entry for Guadalupe Ankunding(PID https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:L5ZG-F95); contributed by various users.\"\n    } ],\n    \"about\" : \"#L5ZG-F95\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"Guadalupe Ankunding\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Person\",\n    \"identifiers\" : {\n      \"http:\/\/gedcomx.org\/Persistent\" : [ \"https:\/\/sandbox.familysearch.org\/ark:\/61903\/4:1:L5ZG-F95\" ]\n    },\n    \"modified\" : 1472068998000,\n    \"version\" : \"136913617980510000\"\n  } ],\n  \"description\" : \"#SD-L5ZG-F95\"\n}"
     }
 },{
     "request": {
@@ -166,13 +147,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"persons\":[{\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Female\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Charlie Weber\",\"parts\":[{\"value\":\"Charlie\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Weber\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"September 13, 1925\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"New Roseport, Texas, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"September 13, 1984\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"New Oliver, Kansas, United States\"}}],\"display\":{\"birthDate\":\"13 Sep 1925\",\"birthPlace\":\"New Roseport, Texas, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Female\",\"lifespan\":\"13 Sep 1925 - 13 Sep 1984\",\"name\":\"Charlie Weber\"}}]}"
+        "body": "{\"persons\":[{\"living\":false,\"gender\":{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Female\"},\"names\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/BirthName\",\"preferred\":true,\"nameForms\":[{\"lang\":\"en\",\"fullText\":\"Charlie Weber\",\"parts\":[{\"value\":\"Charlie\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Given\"},{\"value\":\"Weber\",\"type\":\"http:\\\/\\\/gedcomx.org\\\/Surname\"}]}]}],\"facts\":[{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Birth\",\"date\":{\"original\":\"September 13, 1925\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"New Roseport, Texas, United States\"}},{\"type\":\"http:\\\/\\\/gedcomx.org\\\/Death\",\"date\":{\"original\":\"September 13, 1984\"},\"place\":{\"description\":\"possibly, maybe, don't know\",\"original\":\"New Oliver, Kansas, United States\"}}],\"display\":{\"birthDate\":\"13 Sep 1925\",\"birthPlace\":\"New Roseport, Texas, United States\",\"gender\":\"http:\\\/\\\/gedcomx.org\\\/Female\",\"lifespan\":\"13 Sep 1925 - 13 Sep 1984\",\"name\":\"Charlie Weber\"}}]}"
     },
     "response": {
         "status": {
@@ -183,23 +164,18 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:02 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=KWCB-6TZ>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=KWCB-6TZ>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=KWCB-6TZ>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\/spouse-relationships>; rel=\"spouse-relationships\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ",
+            "Date": "Wed, 24 Aug 2016 20:03:19 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/ancestry?person=L5ZG-XGK>; rel=\"ancestry\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/child-relationships>; rel=\"child-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/descendancy?person=L5ZG-XGK>; rel=\"descendancy\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/discussion-references>; rel=\"discussion-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/matches>; rel=\"matches\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/parent-relationships>; rel=\"parent-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons-with-relationships?person=L5ZG-XGK>; rel=\"person-with-relationships\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/source-references>; rel=\"source-references\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\/spouse-relationships>; rel=\"spouse-relationships\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "KWCB-6TZ",
-            "X-PROCESSING-TIME": "2000",
-            "X-THROTTLE-MILLIS-LEFT": "1773831",
-            "X-THROTTLE-MILLIS-USED": "26169",
+            "X-ENTITY-ID": "L5ZG-XGK",
+            "X-PROCESSING-TIME": "168",
+            "X-THROTTLE-MILLIS-LEFT": "1772752",
+            "X-THROTTLE-MILLIS-USED": "27248",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
@@ -209,13 +185,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"father\":{\"resourceId\":\"KWCB-6TC\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6TC\"},\"child\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6TZ\"}}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"father\":{\"resourceId\":\"L5ZG-F95\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/L5ZG-F95\"},\"child\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/L5ZG-XGK\"}}]}"
     },
     "response": {
         "status": {
@@ -225,39 +201,34 @@
         },
         "headers": {
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:04 GMT",
-            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references>; rel=\"source-references\"",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R",
+            "Date": "Wed, 24 Aug 2016 20:03:19 GMT",
+            "Link": "<https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/notes>; rel=\"notes\", <https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/source-references>; rel=\"source-references\"",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MM95-X3R",
-            "X-PROCESSING-TIME": "1760",
-            "X-THROTTLE-MILLIS-LEFT": "1772074",
-            "X-THROTTLE-MILLIS-USED": "27926",
+            "X-ENTITY-ID": "MYJL-P2B",
+            "X-PROCESSING-TIME": "169",
+            "X-THROTTLE-MILLIS-LEFT": "1772590",
+            "X-THROTTLE-MILLIS-USED": "27410",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"father\":{\"resourceId\":\"KWCB-6TC\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6TC\"},\"child\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/KWCB-6TZ\"}}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"father\":{\"resourceId\":\"L5ZG-F95\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/L5ZG-F95\"},\"child\":{\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/tree\\\/persons\\\/L5ZG-XGK\"}}]}"
     },
     "response": {
         "status": {
@@ -267,26 +238,21 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/child-and-parents-relationships\/MM95-X3R",
+            "Content-Location": "\/tree\/child-and-parents-relationships\/MYJL-P2B",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:04 GMT",
-            "ETag": "\"28061ff83beeb2896f97fed7a21488ddced79a10\"",
-            "Last-Modified": "Thu, 29 Oct 2015 21:21:03 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:20 GMT",
+            "ETag": "\"136913617997030000\"",
+            "Last-Modified": "Wed, 24 Aug 2016 20:03:19 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "316",
-            "X-THROTTLE-MILLIS-LEFT": "1771761",
-            "X-THROTTLE-MILLIS-USED": "28239",
+            "X-PROCESSING-TIME": "169",
+            "X-THROTTLE-MILLIS-LEFT": "1772424",
+            "X-THROTTLE-MILLIS-USED": "27576",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         },
-        "body": "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM95-X3R\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/sources\"\n      },\n      \"mother-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/father\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\",\n      \"resourceId\" : \"KWCB-6TC\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\",\n      \"resourceId\" : \"KWCB-6TZ\"\n    }\n  } ]\n}"
+        "body": "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MYJL-P2B\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/sources\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\",\n      \"resourceId\" : \"L5ZG-F95\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\",\n      \"resourceId\" : \"L5ZG-XGK\"\n    }\n  } ]\n}"
     }
 },{
     "request": {
@@ -295,11 +261,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
         "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Beware Vogons\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Twas brillig and the slithey toves did gire and gimble in the wabe.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"}]}]}"
     },
@@ -312,33 +278,28 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:07 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJL",
+            "Date": "Wed, 24 Aug 2016 20:03:21 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMCC-JJL",
-            "X-PROCESSING-TIME": "1778",
+            "X-ENTITY-ID": "MMZJ-PCM",
+            "X-PROCESSING-TIME": "833",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJL",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
         "body": "{\"sourceDescriptions\":[{\"notes\":[{\"text\":\"Beware Vogons\"}],\"attribution\":{\"contributor\":{\"resourceId\":\"MM6M-8QJ\",\"resource\":\"https:\\\/\\\/familysearch.org\\\/platform\\\/users\\\/agents\\\/MM6M-8QJ\"},\"changeMessage\":\"Twas brillig and the slithey toves did gire and gimble in the wabe.\"},\"citations\":[{\"value\":\"ISBN: 9780681403222\"}],\"titles\":[{\"value\":\"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"}]}]}"
     },
@@ -350,36 +311,31 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/descriptions\/MMCC-JJL",
+            "Content-Location": "\/sources\/descriptions\/MMZJ-PCM",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:09 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:22 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "525",
+            "X-PROCESSING-TIME": "391",
             "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         },
-        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"MMCC-JJL\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJL\"\n      },\n      \"source-references-query\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references?description=MMCC-JJL\"\n      }\n    },\n    \"lang\" : \"*\",\n    \"citations\" : [ {\n      \"value\" : \"ISBN: 9780681403222\"\n    } ],\n    \"titles\" : [ {\n      \"value\" : \"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"\n    } ],\n    \"notes\" : [ {\n      \"text\" : \"Beware Vogons\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"modified\" : 1446153667259,\n      \"changeMessage\" : \"Twas brillig and the slithey toves did gire and gimble in the wabe.\"\n    }\n  } ]\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"MMZJ-PCM\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM\"\n      },\n      \"source-references-query\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/source-references?description=MMZJ-PCM\"\n      }\n    },\n    \"lang\" : \"*\",\n    \"citations\" : [ {\n      \"value\" : \"ISBN: 9780681403222\"\n    } ],\n    \"titles\" : [ {\n      \"value\" : \"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"\n    } ],\n    \"notes\" : [ {\n      \"text\" : \"Beware Vogons\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"creator\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"modified\" : 1472069000351,\n      \"created\" : 1472069000351\n    },\n    \"resourceType\" : \"DEFAULT\"\n  } ]\n}"
     }
 },{
     "request": {
         "method": "POST",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -389,40 +345,34 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references",
+            "Content-Location": "\/tree\/child-and-parents-relationships\/MYJL-P2B",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:11 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references\/MMMS-XKQ",
+            "Date": "Wed, 24 Aug 2016 20:03:22 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/source-references\/b94ee051-2c1b-41a5-bd70-b0f186e0b97f",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMS-XKQ",
-            "X-PROCESSING-TIME": "1662",
-            "X-THROTTLE-MILLIS-LEFT": "1770103",
-            "X-THROTTLE-MILLIS-USED": "29897",
+            "X-PROCESSING-TIME": "168",
+            "X-THROTTLE-MILLIS-LEFT": "1772263",
+            "X-THROTTLE-MILLIS-USED": "27737",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\/child-relationships",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\/child-relationships",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -432,41 +382,36 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWCB-6TC\/child-relationships",
+            "Content-Location": "\/tree\/persons\/L5ZG-F95\/child-relationships",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:12 GMT",
-            "ETag": "\"f91c166c37fa0fc87b00e3a0508293fd76c48150\"",
-            "Last-Modified": "Thu, 29 Oct 2015 21:21:11 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:23 GMT",
+            "ETag": "\"136913618030420000\"",
+            "Last-Modified": "Wed, 24 Aug 2016 20:03:23 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1098",
-            "X-THROTTLE-MILLIS-LEFT": "1769011",
-            "X-THROTTLE-MILLIS-USED": "30989",
+            "X-PROCESSING-TIME": "167",
+            "X-THROTTLE-MILLIS-LEFT": "1772104",
+            "X-THROTTLE-MILLIS-USED": "27896",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Content-Length": "2949",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"links\" : {\n    \"person\" : {\n      \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n    }\n  },\n  \"persons\" : [ {\n    \"id\" : \"KWCB-6TC\",\n    \"links\" : {\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      }\n    }\n  } ],\n  \"relationships\" : [ {\n    \"id\" : \"FMM95-X3R\",\n    \"links\" : {\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\"\n      },\n      \"parent\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      }\n    },\n    \"identifiers\" : {\n      \"http:\/\/familysearch.org\/v1\/ChildAndParentsRelationship\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\"\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/ParentChild\",\n    \"person1\" : {\n      \"resource\" : \"#KWCB-6TC\",\n      \"resourceId\" : \"KWCB-6TC\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\",\n      \"resourceId\" : \"KWCB-6TZ\"\n    }\n  } ],\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM95-X3R\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/sources\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"#KWCB-6TC\",\n      \"resourceId\" : \"KWCB-6TC\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\",\n      \"resourceId\" : \"KWCB-6TZ\"\n    }\n  } ]\n}"
+        "body": "{\n  \"links\" : {\n    \"person\" : {\n      \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n    }\n  },\n  \"persons\" : [ {\n    \"id\" : \"L5ZG-F95\",\n    \"links\" : {\n      \"person\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      }\n    }\n  } ],\n  \"relationships\" : [ {\n    \"id\" : \"FMYJL-P2B\",\n    \"links\" : {\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\"\n      },\n      \"person1\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"person2\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\"\n      },\n      \"parent\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      }\n    },\n    \"identifiers\" : {\n      \"http:\/\/familysearch.org\/v1\/ChildAndParentsRelationship\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\"\n    },\n    \"type\" : \"http:\/\/gedcomx.org\/ParentChild\",\n    \"person1\" : {\n      \"resource\" : \"#L5ZG-F95\",\n      \"resourceId\" : \"L5ZG-F95\"\n    },\n    \"person2\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\",\n      \"resourceId\" : \"L5ZG-XGK\"\n    }\n  } ],\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MYJL-P2B\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/sources\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/father\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"b94ee051-2c1b-41a5-bd70-b0f186e0b97f\",\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472069003042\n      },\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM\"\n    } ],\n    \"father\" : {\n      \"resource\" : \"#L5ZG-F95\",\n      \"resourceId\" : \"L5ZG-F95\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\",\n      \"resourceId\" : \"L5ZG-XGK\"\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -476,41 +421,36 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/child-and-parents-relationships\/MM95-X3R",
+            "Content-Location": "\/tree\/child-and-parents-relationships\/MYJL-P2B",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:14 GMT",
-            "ETag": "\"28061ff83beeb2896f97fed7a21488ddced79a10\"",
-            "Last-Modified": "Thu, 29 Oct 2015 21:21:03 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:23 GMT",
+            "ETag": "\"136913618030420000\"",
+            "Last-Modified": "Wed, 24 Aug 2016 20:03:23 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "811",
-            "X-THROTTLE-MILLIS-LEFT": "1768203",
-            "X-THROTTLE-MILLIS-USED": "31797",
+            "X-PROCESSING-TIME": "171",
+            "X-THROTTLE-MILLIS-LEFT": "1771941",
+            "X-THROTTLE-MILLIS-USED": "28059",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Content-Length": "1752",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM95-X3R\",\n    \"links\" : {\n      \"source-references\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references\"\n      },\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/sources\"\n      },\n      \"mother-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/father\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/father\"\n      }\n    },\n    \"father\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC\",\n      \"resourceId\" : \"KWCB-6TC\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ\",\n      \"resourceId\" : \"KWCB-6TZ\"\n    }\n  } ]\n}"
+        "body": "{\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MYJL-P2B\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\"\n      },\n      \"child\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\"\n      },\n      \"change-history\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/changes\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"notes\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/notes\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/sources\"\n      },\n      \"father\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\"\n      },\n      \"father-role\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/father\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"b94ee051-2c1b-41a5-bd70-b0f186e0b97f\",\n      \"links\" : {\n        \"description\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM\"\n        },\n        \"source-reference\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/source-references\/b94ee051-2c1b-41a5-bd70-b0f186e0b97f\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472069003042\n      },\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM\"\n    } ],\n    \"father\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95\",\n      \"resourceId\" : \"L5ZG-F95\"\n    },\n    \"child\" : {\n      \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK\",\n      \"resourceId\" : \"L5ZG-XGK\"\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/sources",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/sources",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -520,39 +460,34 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/child-and-parents-relationships\/MM95-X3R\/sources",
+            "Content-Location": "\/tree\/child-and-parents-relationships\/MYJL-P2B\/sources",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:18 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:25 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "2418",
-            "X-THROTTLE-MILLIS-LEFT": "1765802",
-            "X-THROTTLE-MILLIS-USED": "34198",
+            "X-PROCESSING-TIME": "348",
+            "X-THROTTLE-MILLIS-LEFT": "1771599",
+            "X-THROTTLE-MILLIS-USED": "28401",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Content-Length": "1548",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"MMCC-JJL\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJL\"\n      }\n    },\n    \"lang\" : \"*\",\n    \"citations\" : [ {\n      \"value\" : \"ISBN: 9780681403222\"\n    } ],\n    \"titles\" : [ {\n      \"value\" : \"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"\n    } ],\n    \"notes\" : [ {\n      \"text\" : \"Beware Vogons\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"modified\" : 1446153667259,\n      \"changeMessage\" : \"Twas brillig and the slithey toves did gire and gimble in the wabe.\"\n    }\n  } ],\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MM95-X3R\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"MMMS-XKQ\",\n      \"links\" : {\n        \"source-reference\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R\/source-references\/MMMS-XKQ\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1446153671143\n      },\n      \"description\" : \"#MMCC-JJL\"\n    } ]\n  } ]\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"MMZJ-PCM\",\n    \"links\" : {\n      \"description\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM\"\n      }\n    },\n    \"lang\" : \"*\",\n    \"citations\" : [ {\n      \"value\" : \"ISBN: 9780681403222\"\n    } ],\n    \"titles\" : [ {\n      \"value\" : \"The More Than Complete Hitchhiker's Guide: Complete & Unabridged\"\n    } ],\n    \"notes\" : [ {\n      \"text\" : \"Beware Vogons\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"creator\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      },\n      \"modified\" : 1472069000351,\n      \"created\" : 1472069000351\n    },\n    \"resourceType\" : \"DEFAULT\"\n  } ],\n  \"childAndParentsRelationships\" : [ {\n    \"id\" : \"MYJL-P2B\",\n    \"links\" : {\n      \"relationship\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\"\n      }\n    },\n    \"sources\" : [ {\n      \"id\" : \"b94ee051-2c1b-41a5-bd70-b0f186e0b97f\",\n      \"links\" : {\n        \"source-reference\" : {\n          \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B\/source-references\/b94ee051-2c1b-41a5-bd70-b0f186e0b97f\"\n        }\n      },\n      \"attribution\" : {\n        \"contributor\" : {\n          \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/MM6M-8QJ\",\n          \"resourceId\" : \"MM6M-8QJ\"\n        },\n        \"modified\" : 1472069003042\n      },\n      \"description\" : \"#MMZJ-PCM\"\n    } ]\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TC",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-F95",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -562,37 +497,32 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWCB-6TC",
+            "Content-Location": "\/tree\/persons\/L5ZG-F95",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:24 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:25 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "3829",
-            "X-THROTTLE-MILLIS-LEFT": "1761975",
-            "X-THROTTLE-MILLIS-USED": "38025",
+            "X-PROCESSING-TIME": "166",
+            "X-THROTTLE-MILLIS-LEFT": "1771436",
+            "X-THROTTLE-MILLIS-USED": "28564",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/KWCB-6TZ",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/persons\/L5ZG-XGK",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -602,37 +532,32 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/persons\/KWCB-6TZ",
+            "Content-Location": "\/tree\/persons\/L5ZG-XGK",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:29 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:26 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "5156",
-            "X-THROTTLE-MILLIS-LEFT": "1756822",
-            "X-THROTTLE-MILLIS-USED": "43178",
+            "X-PROCESSING-TIME": "170",
+            "X-THROTTLE-MILLIS-LEFT": "1771273",
+            "X-THROTTLE-MILLIS-USED": "28727",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MM95-X3R",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/tree\/child-and-parents-relationships\/MYJL-P2B",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -642,39 +567,35 @@
         },
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/tree\/child-and-parents-relationships\/MM95-X3R",
+            "Content-Location": "\/tree\/child-and-parents-relationships\/MYJL-P2B",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:32 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:27 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "1402",
-            "X-THROTTLE-MILLIS-LEFT": "1755424",
-            "X-THROTTLE-MILLIS-USED": "44576",
+            "Warning": "400 FamilySearch \"Unable to  delete tf entity.\"",
+            "X-PROCESSING-TIME": "168",
+            "X-THROTTLE-MILLIS-LEFT": "1771108",
+            "X-THROTTLE-MILLIS-USED": "28892",
             "X-THROTTLE-WINDOW-SIZE": "1800000",
-            "Content-Length": "89",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"errors\" : [ {\n    \"code\" : 410,\n    \"label\" : \"Gone\",\n    \"message\" : \"Gone\"\n  } ]\n}"
+        "body": "{\n  \"errors\" : [ {\n    \"code\" : 410,\n    \"message\" : \"Unable to  delete tf entity.\",\n    \"stacktrace\" : \"DELETE http:\/\/tf.integ.us-east-1.dev.fslocal.org\/tf\/parentchild\/MYJL-P2B returned a response status of 410 Gone:\\n\"\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMCC-JJL",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\/MMZJ-PCM",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-fs-v1+json",
-            "Authorization": "Bearer USYS16F158950E4B55B897B81CD1F29CD45D_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYSAA20234F4E1F77CDC9D972952BF33D4B_idses-int01.a.fsglobal.net"
         },
-        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MM95-X3R\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMCC-JJL\"}]}]}"
+        "body": "{\"childAndParentsRelationships\":[{\"id\":\"MYJL-P2B\",\"sources\":[{\"description\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/descriptions\\\/MMZJ-PCM\"}]}]}"
     },
     "response": {
         "status": {
@@ -684,18 +605,13 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/descriptions\/MMCC-JJL",
+            "Content-Location": "\/sources\/descriptions\/MMZJ-PCM",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:21:35 GMT",
+            "Date": "Wed, 24 Aug 2016 20:03:28 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "2580",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "X-PROCESSING-TIME": "853",
+            "Connection": "Close"
         }
     }
 }]

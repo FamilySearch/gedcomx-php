@@ -3,6 +3,7 @@
 namespace Gedcomx\Tests\Functional;
 
 use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilySearchStateFactory;
+use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\Rs\Client\Options\HeaderParameter;
 use Gedcomx\Rs\Client\Rel;
 use Gedcomx\Rs\Client\StateFactory;
@@ -58,11 +59,11 @@ class UserTests extends ApiTestCase
      */
     public function testReadCurrentUserHistory()
     {
-        // $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
-
-        $factory = new FamilySearchStateFactory();
-        $this->collectionState($factory);
-        $historyState = $this->collectionState()->readCurrentUserHistory();
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+        $this->authorize($collection);
+        $collection = $collection->get();
+        $historyState = $collection->readCurrentUserHistory();
         $this->assertEquals(
             HttpStatus::OK,
             $historyState->getStatus(),
@@ -99,11 +100,13 @@ class UserTests extends ApiTestCase
      */
     public function testUpdateCurrentUserHistory()
     {
-        // $this->markTestSkipped('Skipping for now. Despite posting history and receiving a 200-OK response, the server does not subsequently return this data.');
+        $this->markTestSkipped('We need to write a method for this.');
 
-        $factory = new FamilySearchStateFactory();
-        $this->collectionState($factory);
-        $historyState = $this->collectionState()->readCurrentUserHistory();
+        $factory = new FamilyTreeStateFactory();
+        $collection = $this->collectionState($factory);
+        $this->authorize($collection);
+        $collection = $collection->get();
+        $historyState = $collection->readCurrentUserHistory();
         $stateTwo = $historyState->post($historyState->getEntity());
 
         $this->assertEquals(

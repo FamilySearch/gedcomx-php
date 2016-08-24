@@ -72,7 +72,7 @@ class PersonTests extends ApiTestCase
         $newState = $person->addFact($fact);
 
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $newState->getStatus(),
             $this->buildFailMessage(__METHOD__,$newState)
         );
@@ -92,7 +92,7 @@ class PersonTests extends ApiTestCase
         $newState = $person->addFact($fact);
 
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $newState->getStatus(),
             $this->buildFailMessage(__METHOD__,$newState)
         );
@@ -162,9 +162,8 @@ class PersonTests extends ApiTestCase
         $factory = new FamilyTreeStateFactory();
         $collection = $this->collectionState($factory);
 
-        $person = PersonBuilder::buildPerson('male');
-        $stateOne = $collection->addPerson($person)->get();
-        $stateTwo = $collection->addPerson($person)->get();
+        $stateOne = $collection->addPerson(PersonBuilder::buildPerson('male'))->get();
+        $stateTwo = $collection->addPerson(PersonBuilder::buildPerson('male'))->get();
         $this->queueForDelete($stateTwo, $stateOne);
 
         /** @var \Gedcomx\Extensions\FamilySearch\Rs\Client\PersonMergeState $analysis */
@@ -704,6 +703,7 @@ class PersonTests extends ApiTestCase
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
 
+        $person = $person->get();
         $person->loadDiscussionReferences();
 
         $found = false;
@@ -1047,7 +1047,7 @@ class PersonTests extends ApiTestCase
         $newState = $personState->addFact($fact);
 
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $newState->getStatus(),
             $this->buildFailMessage(__METHOD__, $newState)
         );
@@ -1065,7 +1065,8 @@ class PersonTests extends ApiTestCase
         /** @var FamilyTreePersonState $personState */
         $personState = $this->createPerson();
         $fact = FactBuilder::lifeSketch();
-        $personState = $personState->addFact($fact)->get();
+        $personState->addFact($fact);
+        $personState = $personState->get();
         $sketch = $personState->getPerson()->getFactsOfType(FactType::LIFE_SKETCH);
         if (is_array($sketch)) {
             $sketch = array_shift($sketch);
@@ -1168,7 +1169,7 @@ class PersonTests extends ApiTestCase
         $name = PersonBuilder::nickName();
         $newPersonState = $personState->addName($name);
 
-        $this->assertAttributeEquals(HttpStatus::NO_CONTENT, "statusCode", $newPersonState->getResponse() );
+        $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newPersonState->getResponse() );
         /** @var PersonState $newPersonState */
         $newPersonState = $personState->get();
 

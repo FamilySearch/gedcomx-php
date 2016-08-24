@@ -69,7 +69,7 @@ class SpousesTests extends ApiTestCase
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
         $family = $family->addFact($marriage);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(createSource)", $family)
         );
@@ -279,11 +279,11 @@ class SpousesTests extends ApiTestCase
         /** @var Fact $birth */
         $birth = $husband->getPerson()->getFactsOfType(FactType::BIRTH);
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
-        $family = $family->addFact($marriage);
+        $factState = $family->addFact($marriage);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
-            $family->getStatus(),
-            $this->buildFailMessage(__METHOD__."(createSource)", $family)
+            HttpStatus::CREATED,
+            $factState->getStatus(),
+            $this->buildFailMessage(__METHOD__."(createSource)", $factState)
         );
 
         //  Alter Marriage Fact
@@ -298,7 +298,7 @@ class SpousesTests extends ApiTestCase
                                         )));
         $family = $family->addFact($marriage);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $family->getStatus(),
             $this->buildFailMessage(__METHOD__."(addFact)", $family)
         );
@@ -379,11 +379,11 @@ class SpousesTests extends ApiTestCase
         /** @var Fact $birth */
         $birth = $husband->getPerson()->getFactsofType(FactType::BIRTH);
         $marriage = FactBuilder::marriage($birth->getDate()->getDateTime());
-        $family = $family->addFact($marriage);
+        $factState = $family->addFact($marriage);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
-            $family->getStatus(),
-            $this->buildFailMessage(__METHOD__."(createSource)", $family)
+            HttpStatus::CREATED,
+            $factState->getStatus(),
+            $this->buildFailMessage(__METHOD__."(createSource)", $factState)
         );
 
         /** @var RelationshipState $family */

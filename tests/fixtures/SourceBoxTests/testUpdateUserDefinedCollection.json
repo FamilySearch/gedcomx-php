@@ -5,7 +5,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-fs-v1+json"
         }
     },
@@ -19,17 +19,12 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/sources",
             "Content-Type": "application\/x-fs-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:40 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:50 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "0",
-            "Content-Length": "1319",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
         "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSUDS\",\n    \"about\" : \"#FSUDS\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch User-Defined Sources\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSUDS\",\n    \"links\" : {\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"subcollections\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/descriptions\"\n      }\n    },\n    \"title\" : \"FamilySearch User-Defined Sources\"\n  } ],\n  \"description\" : \"#SD-FSUDS\"\n}"
     }
@@ -40,7 +35,7 @@
         "headers": {
             "Host": "integration.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/json",
             "Expect": null,
             "Content-Type": "application\/x-www-form-urlencoded"
@@ -55,21 +50,17 @@
         },
         "headers": {
             "Server": "Apache-Coyote\/1.1",
+            "Expires": "Tue, 03 Jul 2001 06:00:00 GMT",
+            "Last-Modified": "Wed Aug 24 19:55:50 GMT+00:00 2016",
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0",
             "Pragma": "no-cache",
-            "Expires": "Thu, 01 Jan 1970 00:00:00 GMT",
-            "Cache-Control": "no-cache, no-store",
             "Content-Type": "application\/json;charset=ISO-8859-1",
             "Content-Language": "en-US",
             "Content-Length": "185",
-            "Date": "Thu, 29 Oct 2015 21:16:39 GMT",
-            "Connection": "close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Date": "Wed, 24 Aug 2016 19:55:49 GMT",
+            "Connection": "close"
         },
-        "body": "{\"token\":\"USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net\",\"access_token\":\"USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\"}"
+        "body": "{\"token\":\"USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net\",\"token_type\":\"family_search\",\"access_token\":\"USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net\"}"
     }
 },{
     "request": {
@@ -78,11 +69,11 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
         "body": "{\"collections\":[{\"title\":\"6aaa306df19cd7687811591aab9b906902d9cd57\"}]}"
     },
@@ -95,33 +86,28 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:42 GMT",
-            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC",
+            "Date": "Wed, 24 Aug 2016 19:55:51 GMT",
+            "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMZ-TYC",
-            "X-PROCESSING-TIME": "1282",
+            "X-ENTITY-ID": "MMM8-96R",
+            "X-PROCESSING-TIME": "523",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
         "body": "{\"collections\":[{\"title\":\"6aaa306df19cd7687811591aab9b906902d9cd57\"}]}"
     },
@@ -133,37 +119,32 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/collections\/MMMZ-TYC",
+            "Content-Location": "\/sources\/collections\/MMM8-96R",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:43 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:51 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMZ-TYC",
-            "X-PROCESSING-TIME": "1047",
-            "Content-Length": "1050",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "X-ENTITY-ID": "MMM8-96R",
+            "X-PROCESSING-TIME": "447",
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
-        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"6aaa306df19cd7687811591aab9b906902d9cd57\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMMZ-TYC\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\/descriptions\"\n      }\n    },\n    \"title\" : \"6aaa306df19cd7687811591aab9b906902d9cd57\",\n    \"size\" : 0,\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"6aaa306df19cd7687811591aab9b906902d9cd57\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMM8-96R\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\/descriptions\"\n      }\n    },\n    \"title\" : \"6aaa306df19cd7687811591aab9b906902d9cd57\",\n    \"size\" : 0,\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "POST",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"collections\":[{\"id\":\"MMMZ-TYC\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
+        "body": "{\"collections\":[{\"id\":\"MMM8-96R\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
     },
     "response": {
         "status": {
@@ -173,19 +154,14 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/collections\/MMMZ-TYC",
+            "Content-Location": "\/sources\/collections\/MMM8-96R",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:45 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:53 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMZ-TYC",
-            "X-PROCESSING-TIME": "1315",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "X-ENTITY-ID": "MMM8-96R",
+            "X-PROCESSING-TIME": "651",
+            "Connection": "Close"
         }
     }
 },{
@@ -195,13 +171,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"collections\":[{\"id\":\"MMMZ-TYC\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
+        "body": "{\"collections\":[{\"id\":\"MMM8-96R\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
     },
     "response": {
         "status": {
@@ -212,18 +188,13 @@
         "headers": {
             "Cache-Control": "no-cache, no-store, no-transform, must-revalidate, max-age=0",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:45 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:53 GMT",
             "Location": "https:\/\/sandbox.familysearch.org\/platform\/sources\/cis.user.MMMM-DT62\/collections",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "164",
+            "X-PROCESSING-TIME": "166",
             "Content-Length": "0",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         }
     }
 },{
@@ -233,13 +204,13 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"collections\":[{\"id\":\"MMMZ-TYC\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
+        "body": "{\"collections\":[{\"id\":\"MMM8-96R\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
     },
     "response": {
         "status": {
@@ -251,34 +222,29 @@
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
             "Content-Location": "\/sources\/cis.user.MMMM-DT62\/collections",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:47 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:54 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-PROCESSING-TIME": "617",
+            "X-PROCESSING-TIME": "315",
             "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         },
-        "body": "{\n  \"links\" : {\n    \"collection\" : {\n      \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  }, {\n    \"titles\" : [ {\n      \"value\" : \"ebf769f790399059d67383669cbfdeddd07831a8\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMMZ-Z1V\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-Z1V\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-Z1V\/descriptions\"\n      }\n    },\n    \"title\" : \"\",\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  }, {\n    \"id\" : \"MMMZ-TYC\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\/descriptions\"\n      }\n    },\n    \"title\" : \"ebf769f790399059d67383669cbfdeddd07831a8\",\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
+        "body": "{\n  \"links\" : {\n    \"collection\" : {\n      \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n    }\n  },\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  }, {\n    \"titles\" : [ {\n      \"value\" : \"ebf769f790399059d67383669cbfdeddd07831a8\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMMZ-Z1V\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-Z1V\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-Z1V\/descriptions\"\n      }\n    },\n    \"title\" : \"\",\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  }, {\n    \"id\" : \"MMM8-96R\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\/descriptions\"\n      }\n    },\n    \"title\" : \"ebf769f790399059d67383669cbfdeddd07831a8\",\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "GET",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC?_=35861862",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R?_=35861862",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"collections\":[{\"id\":\"MMMZ-TYC\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
+        "body": "{\"collections\":[{\"id\":\"MMM8-96R\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
     },
     "response": {
         "status": {
@@ -288,37 +254,32 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/collections\/MMMZ-TYC",
+            "Content-Location": "\/sources\/collections\/MMM8-96R",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:49 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:54 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMZ-TYC",
-            "X-PROCESSING-TIME": "1381",
-            "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "X-ENTITY-ID": "MMM8-96R",
+            "X-PROCESSING-TIME": "456",
+            "Content-Length": "1050",
+            "Connection": "Close"
         },
-        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"ebf769f790399059d67383669cbfdeddd07831a8\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMMZ-TYC\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC\/descriptions\"\n      }\n    },\n    \"title\" : \"ebf769f790399059d67383669cbfdeddd07831a8\",\n    \"size\" : 0,\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"titles\" : [ {\n      \"value\" : \"ebf769f790399059d67383669cbfdeddd07831a8\"\n    } ],\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"MMM8-96R\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\"\n      },\n      \"collection\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\"\n      },\n      \"source-descriptions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R\/descriptions\"\n      }\n    },\n    \"title\" : \"ebf769f790399059d67383669cbfdeddd07831a8\",\n    \"size\" : 0,\n    \"attribution\" : {\n      \"contributor\" : {\n        \"resource\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/agents\/cis.user.MMMM-DT62\",\n        \"resourceId\" : \"cis.user.MMMM-DT62\"\n      }\n    }\n  } ]\n}"
     }
 },{
     "request": {
         "method": "DELETE",
-        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMMZ-TYC",
+        "url": "https:\/\/sandbox.familysearch.org\/platform\/sources\/collections\/MMM8-96R",
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Expect": null,
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Authorization": "Bearer USYS934DE214D98A785CE241EC34020E1F3E_idses-int02.a.fsglobal.net"
+            "Authorization": "Bearer USYS5451FBCF1ED644953B555C40B06CF229_idses-int02.a.fsglobal.net"
         },
-        "body": "{\"collections\":[{\"id\":\"MMMZ-TYC\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMMZ-TYC\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
+        "body": "{\"collections\":[{\"id\":\"MMM8-96R\",\"links\":{\"self\":{\"rel\":\"self\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\"},\"collection\":{\"rel\":\"collection\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\"},\"source-descriptions\":{\"rel\":\"source-descriptions\",\"href\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/sources\\\/collections\\\/MMM8-96R\\\/descriptions\"}},\"title\":\"ebf769f790399059d67383669cbfdeddd07831a8\",\"attribution\":{\"contributor\":{\"resourceId\":\"cis.user.MMMM-DT62\",\"resource\":\"https:\\\/\\\/sandbox.familysearch.org\\\/platform\\\/users\\\/agents\\\/cis.user.MMMM-DT62\"}}}]}"
     },
     "response": {
         "status": {
@@ -328,19 +289,14 @@
         },
         "headers": {
             "Cache-Control": "no-transform, must-revalidate, max-age=0",
-            "Content-Location": "\/sources\/collections\/MMMZ-TYC",
+            "Content-Location": "\/sources\/collections\/MMM8-96R",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 21:16:52 GMT",
+            "Date": "Wed, 24 Aug 2016 19:55:56 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
-            "X-ENTITY-ID": "MMMZ-TYC",
-            "X-PROCESSING-TIME": "1514",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "X-ENTITY-ID": "MMM8-96R",
+            "X-PROCESSING-TIME": "525",
+            "Connection": "Close"
         }
     }
 }]

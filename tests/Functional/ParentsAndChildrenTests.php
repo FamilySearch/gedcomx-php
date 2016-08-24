@@ -67,19 +67,10 @@ class ParentsAndChildrenTests extends ApiTestCase
         $fact = FactBuilder::adoptiveParent();
         $factState = $relation->addFatherFact($fact);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
+            HttpStatus::CREATED,
             $factState->getStatus(),
             $this->buildFailMessage(__METHOD__, $factState)
         );
-        /** @var ChildAndParentsRelationshipState $factState */
-        $factState = $factState->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $factState->getStatus(),
-            $this->buildFailMessage(__METHOD__, $factState)
-        );
-        $this->assertNotNull($factState->getEntity(), "FactState entity is null");
-        $this->assertNotEmpty($factState->getRelationship()->getFatherFacts(), "FatherFacts missing from relationship.");
     }
 
     /**
@@ -194,29 +185,24 @@ class ParentsAndChildrenTests extends ApiTestCase
         $relation = $this->createRelationship();
 
         $fact = FactBuilder::adoptiveParent();
-        $relation = $relation->addFatherFact($fact);
+        $createFact = $relation->addFatherFact($fact);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
-            $relation->getStatus(),
+            HttpStatus::CREATED,
+            $createFact->getStatus(),
             $this->buildFailMessage(__METHOD__."(addFact)", $relation)
         );
 
         $relation = $relation->get();
-        $this->assertEquals(
-            HttpStatus::OK,
-            $relation->getStatus(),
-            $this->buildFailMessage(__METHOD__."(addFact)", $relation)
-        );
         /** @var Fact[] $facts */
         $facts = $relation->getRelationship()->getFatherFacts();
         $facts[0]->setDate(new DateInfo(array('original' => "January 1, 1901")));
 
         /** @var ChildAndParentsRelationshipState $factState */
-        $factState = $relation->updateFatherFact($facts[0]);
+        $updateFactState = $relation->updateFatherFact($facts[0]);
         $this->assertEquals(
             HttpStatus::NO_CONTENT,
-            $factState->getStatus(),
-            $this->buildFailMessage(__METHOD__."(updateFact)", $factState)
+            $updateFactState->getStatus(),
+            $this->buildFailMessage(__METHOD__."(updateFact)", $updateFactState)
         );
     }
 
@@ -276,11 +262,11 @@ class ParentsAndChildrenTests extends ApiTestCase
         $relation = $this->createRelationship();
 
         $fact = FactBuilder::adoptiveParent();
-        $relation = $relation->addFatherFact($fact);
+        $factState = $relation->addFatherFact($fact);
         $this->assertEquals(
-            HttpStatus::NO_CONTENT,
-            $relation->getStatus(),
-            $this->buildFailMessage(__METHOD__."(addFact)", $relation)
+            HttpStatus::CREATED,
+            $factState->getStatus(),
+            $this->buildFailMessage(__METHOD__."(addFact)", $factState)
         );
 
         $relation = $relation->get();

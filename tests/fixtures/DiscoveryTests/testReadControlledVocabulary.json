@@ -5,7 +5,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json"
         }
     },
@@ -19,19 +19,14 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/app-meta",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 20:33:47 GMT",
+            "Date": "Wed, 24 Aug 2016 16:05:41 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
             "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         },
-        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"FS\",\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch.org\"\n    } ]\n  } ],\n  \"collections\" : [ {\n    \"links\" : {\n      \"family-tree\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"source-box\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      },\n      \"subcollections\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\"\n      },\n      \"places\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      },\n      \"pending-modifications\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/pending-modifications\"\n      },\n      \"registration\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/pages\/registration\/registration.html\",\n        \"title\" : \"User Registration\"\n      },\n      \"lds-ordinances\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/ordinances\/ordinances\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/discussions\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ordinance-reservation\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/reservation\",\n        \"title\" : \"Reservation Endpoint\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"memories\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/memories\"\n      },\n      \"vocab\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      }\n    },\n    \"title\" : \"FamilySearch.org\"\n  } ],\n  \"description\" : \"#FS\"\n}"
+        "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"FS\",\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch.org\"\n    } ]\n  } ],\n  \"collections\" : [ {\n    \"links\" : {\n      \"family-tree\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      },\n      \"source-box\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      },\n      \"subcollections\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\"\n      },\n      \"places\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      },\n      \"pending-modifications\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/pending-modifications\"\n      },\n      \"registration\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/pages\/registration\/registration.html\",\n        \"title\" : \"User Registration\"\n      },\n      \"ordinance-reservations\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/reservations\"\n      },\n      \"discussions\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/discussions\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"ordinances\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/ordinances\"\n      },\n      \"current-user\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/users\/current\"\n      },\n      \"memories\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/memories\"\n      },\n      \"vocab\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      }\n    },\n    \"title\" : \"FamilySearch.org\"\n  } ],\n  \"description\" : \"#FS\"\n}"
     }
 },{
     "request": {
@@ -40,7 +35,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json",
             "Content-Type": "application\/x-gedcomx-v1+json"
         }
@@ -55,19 +50,14 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/app-meta",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 20:33:47 GMT",
+            "Date": "Wed, 24 Aug 2016 16:05:42 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
             "transfer-encoding": "chunked",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "Connection": "Close"
         },
-        "body": "{\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  }, {\n    \"id\" : \"FSHRA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/records\"\n      }\n    },\n    \"title\" : \"FamilySearch Historical Records Archive\"\n  }, {\n    \"id\" : \"FSUDS\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      }\n    },\n    \"title\" : \"FamilySearch User-Defined Sources\"\n  }, {\n    \"id\" : \"FSMEM\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/memories\"\n      }\n    },\n    \"title\" : \"FamilySearch Memories\"\n  }, {\n    \"id\" : \"FSDF\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/discussions\"\n      }\n    },\n    \"title\" : \"FamilySearch Discussions\"\n  }, {\n    \"id\" : \"FSPA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      }\n    },\n    \"title\" : \"FamilySearch Place Authority\"\n  }, {\n    \"id\" : \"FSDA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/dates\"\n      }\n    },\n    \"title\" : \"FamilySearch Date Authority\"\n  }, {\n    \"id\" : \"FSCV\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      }\n    },\n    \"title\" : \"FamilySearch Controlled Vocabulary\"\n  }, {\n    \"id\" : \"LDSO\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/ordinances\/ordinances\"\n      }\n    },\n    \"title\" : \"LDS Ordinances\"\n  } ]\n}"
+        "body": "{\n  \"collections\" : [ {\n    \"id\" : \"FSFT\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/tree\"\n      }\n    },\n    \"title\" : \"FamilySearch Family Tree\"\n  }, {\n    \"id\" : \"FSHRA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/records\"\n      }\n    },\n    \"title\" : \"FamilySearch Historical Records Archive\"\n  }, {\n    \"id\" : \"FSUDS\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/sources\"\n      }\n    },\n    \"title\" : \"FamilySearch User-Defined Sources\"\n  }, {\n    \"id\" : \"FSMEM\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/memories\"\n      }\n    },\n    \"title\" : \"FamilySearch Memories\"\n  }, {\n    \"id\" : \"FSDF\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/discussions\"\n      }\n    },\n    \"title\" : \"FamilySearch Discussions\"\n  }, {\n    \"id\" : \"FSPA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/places\"\n      }\n    },\n    \"title\" : \"FamilySearch Place Authority\"\n  }, {\n    \"id\" : \"FSDA\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/dates\"\n      }\n    },\n    \"title\" : \"FamilySearch Date Authority\"\n  }, {\n    \"id\" : \"FSCV\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      }\n    },\n    \"title\" : \"FamilySearch Controlled Vocabulary\"\n  }, {\n    \"id\" : \"LDSO\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/ordinances\"\n      }\n    },\n    \"title\" : \"LDS Ordinances\"\n  }, {\n    \"id\" : \"FSRES\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/reservations\"\n      }\n    },\n    \"title\" : \"FamilySearch Reservations\"\n  }, {\n    \"id\" : \"FSG\",\n    \"links\" : {\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/genealogies\"\n      }\n    },\n    \"title\" : \"FamilySearch Genealogies\"\n  } ]\n}"
     }
 },{
     "request": {
@@ -76,7 +66,7 @@
         "headers": {
             "Host": "sandbox.familysearch.org",
             "Accept-Encoding": null,
-            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.9",
+            "User-Agent": "GuzzleHttp\/6.1.0 curl\/7.35.0 PHP\/5.5.9-1ubuntu4.19",
             "Accept": "application\/x-gedcomx-v1+json"
         }
     },
@@ -90,17 +80,12 @@
             "Cache-Control": "no-transform, max-age=604800",
             "Content-Location": "\/collections\/vocab",
             "Content-Type": "application\/x-gedcomx-v1+json",
-            "Date": "Thu, 29 Oct 2015 20:33:47 GMT",
+            "Date": "Wed, 24 Aug 2016 16:05:43 GMT",
             "Server": "Apache-Coyote\/1.1",
             "Vary": "Accept, Accept-Language, Accept-Encoding, Expect, Accept-Encoding",
             "X-PROCESSING-TIME": "1",
-            "Content-Length": "1830",
-            "Connection": "Close",
-            "Access-Control-Allow-Methods": "OPTIONS, HEAD, GET, PUT, POST, DELETE",
-            "Access-Control-Allow-Headers": "accept, accept-charset, accept-encoding, accept-language, accept-datetime, authorization, connection, content-length, content-md5, content-type, date, expect, from, host, if-match, if-modified-since, if-none-match, if-range, if-unmodified-since, location, origin, range, referer, singularityjsheader, te, user-agent, warning, x-expect-override, x-reason, x-requested-with, x-fs-feature-tag",
-            "Access-Control-Expose-Headers": "location, link, warning, x-entity-id, content-location, x-processing-time, retry-after, x-fs-page-context, allow",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Max-Age": "604800"
+            "transfer-encoding": "chunked",
+            "Connection": "Close"
         },
         "body": "{\n  \"sourceDescriptions\" : [ {\n    \"id\" : \"SD-FSCV\",\n    \"about\" : \"#FSCV\",\n    \"componentOf\" : {\n      \"description\" : \"https:\/\/sandbox.familysearch.org\/platform\/collection\"\n    },\n    \"titles\" : [ {\n      \"value\" : \"FamilySearch Controlled Vocabulary\"\n    } ],\n    \"resourceType\" : \"http:\/\/gedcomx.org\/Collection\"\n  } ],\n  \"collections\" : [ {\n    \"id\" : \"FSCV\",\n    \"links\" : {\n      \"logout\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/logout\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/token\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/token\"\n      },\n      \"http:\/\/oauth.net\/core\/2.0\/endpoint\/authorize\" : {\n        \"href\" : \"https:\/\/integration.familysearch.org\/cis-web\/oauth2\/v3\/authorization\"\n      },\n      \"vocab-term\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/vocab\/terms\/{cvtid}{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Controlled Vocabulary Term\"\n      },\n      \"vocab-list\" : {\n        \"template\" : \"https:\/\/sandbox.familysearch.org\/platform\/vocab\/lists\/{cvlid}{?access_token}\",\n        \"type\" : \"application\/json,application\/ld+json,application\/rdf+xml,application\/x-fs-v1+json,application\/x-fs-v1+xml,application\/xml\",\n        \"accept\" : \"*\/*\",\n        \"allow\" : \"GET\",\n        \"title\" : \"Controlled Vocabulary List\"\n      },\n      \"self\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/collections\/vocab\"\n      },\n      \"vocab-lists\" : {\n        \"href\" : \"https:\/\/sandbox.familysearch.org\/platform\/vocab\/lists\/111909\"\n      }\n    },\n    \"title\" : \"FamilySearch Controlled Vocabulary\"\n  } ],\n  \"description\" : \"#SD-FSCV\"\n}"
     }

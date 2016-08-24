@@ -296,6 +296,7 @@ class NotesTests extends ApiTestCase
         $person->addNote(NoteBuilder::createNote());
         $notes = $person->loadNotes();
         $note = $notes->getNote();
+        $note->setText($note->getText() . ' updated');
         $state = $person->updateNote($note);
         $person->delete();
 

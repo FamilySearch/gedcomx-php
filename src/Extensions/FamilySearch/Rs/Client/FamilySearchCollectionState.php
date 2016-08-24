@@ -2,6 +2,7 @@
 
 	namespace Gedcomx\Extensions\FamilySearch\Rs\Client;
 
+	use Gedcomx\Gedcomx;
 	use Gedcomx\Common\TextValue;
 	use Gedcomx\Conclusion\DateInfo;
 	use Gedcomx\Extensions\FamilySearch\Platform\Discussions\Discussion;
@@ -188,7 +189,7 @@
 				return null;
 			}
 
-			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), FamilySearchRequest::getMediaTypes());
+			$request = $this->createAuthenticatedRequest('GET', $link->getHref(), array('Accept' => GedcomX::ATOM_JSON_MEDIA_TYPE));
 
 			return $this->stateFactory->createState(
 				'UserHistoryState',

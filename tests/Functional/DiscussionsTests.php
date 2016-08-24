@@ -118,6 +118,7 @@ class DiscussionsTests extends ApiTestCase
 
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $newState->getResponse(), $this->buildFailMessage(__METHOD__, $newState) );
 
+        $testSubject = $testSubject->get();
         $testSubject->loadDiscussionReferences();
 
         $found = false;

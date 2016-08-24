@@ -127,6 +127,7 @@ class SourcesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newState)
         );
 
+        $relation = $relation->get();
         $relation->loadSourceReferences();
         $this->assertNotEmpty($relation->getRelationship()->getSources());
     }
@@ -206,6 +207,7 @@ class SourcesTests extends ApiTestCase
             $sourceRef->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceRef)
         );
+        $relation = $relation->get();
         $relation->loadSourceReferences();
         $this->assertNotEmpty($relation->getRelationship()->getSources());
     }
@@ -480,6 +482,7 @@ class SourcesTests extends ApiTestCase
         $this->assertAttributeEquals(HttpStatus::CREATED, "statusCode", $updated->getResponse(), $this->buildFailMessage(__METHOD__."(addReference)", $updated));
 
         /* READ the source references back */
+        $relation = $relation->get();
         $relation->loadSourceReferences();
         $this->assertNotEmpty($relation->getRelationship()->getSources(), "loadForRead");
     }
@@ -644,6 +647,7 @@ class SourcesTests extends ApiTestCase
             $added->getStatus(),
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $added)
         );
+        $personState = $personState->get();
         $personState->loadSourceReferences();
 
         /** @var \Gedcomx\Conclusion\Person[] $persons */
@@ -717,6 +721,7 @@ class SourcesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $newState)
         );
 
+        $relation = $relation->get();
         $relation->loadSourceReferences();
         $this->assertNotEmpty($relation->getRelationship()->getSources());
 
@@ -728,8 +733,8 @@ class SourcesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $deleted)
         );
 
-        $relation = $relation->get();
-        $relation->loadSourceReferences($this->createCacheBreakerQueryParam());
+        $relation = $relation->get($this->createCacheBreakerQueryParam());
+        $relation->loadSourceReferences();
         $this->assertEmpty($relation->getRelationship()->getSources());
     }
 
@@ -792,6 +797,7 @@ class SourcesTests extends ApiTestCase
             $this->buildFailMessage(__METHOD__.':'.__LINE__, $sourceRef)
         );
 
+        $relationship = $relationship->get();
         $relationship->loadSourceReferences();
         $this->assertNotEmpty($relationship->getRelationship()->getSources());
 
@@ -799,8 +805,8 @@ class SourcesTests extends ApiTestCase
         $this->AssertNotNull($state->ifSuccessful());
         $this->assertEquals(HttpStatus::NO_CONTENT, $state->getStatus());
 
-        $relationship = $relationship->get();
-        $relationship->loadSourceReferences($this->createCacheBreakerQueryParam());
+        $relationship = $relationship->get($this->createCacheBreakerQueryParam());
+        $relationship->loadSourceReferences();
         $this->assertEmpty($relationship->getRelationship()->getSources());
     }
 

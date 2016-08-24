@@ -119,7 +119,7 @@ abstract class GedcomxApplicationState
     }
 
     /**
-     * Clonse the current state instance.
+     * Clones the current state instance.
      *
      * @param \GuzzleHttp\Psr7\Request  $request
      * @param \GuzzleHttp\Psr7\Response $response

@@ -247,6 +247,8 @@ class FamilySearchClientTests extends ApiTestCase
      */
     public function testThrottling()
     {
+        $this->markTestSkipped('Skipping because this takes at least 10 minutes.');
+        
         $client = $this->createAuthenticatedFamilySearchClient([
             'throttling' => true    
         ]);

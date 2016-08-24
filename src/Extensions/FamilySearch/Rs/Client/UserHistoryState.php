@@ -32,7 +32,7 @@ class UserHistoryState extends FamilySearchCollectionState {
     /**
      * Gets the main data element represented by this state instance.
      *
-     * @return \Gedcomx\Source\SourceDescription[]|null
+     * @return \Gedcomx\Atom\Feed|null
      */
     protected function getScope()
     {
@@ -42,13 +42,9 @@ class UserHistoryState extends FamilySearchCollectionState {
     /**
      * Gets the user history represented by this state instance.
      *
-     * @return \Gedcomx\Source\SourceDescription[]|null
+     * @return \Gedcomx\Atom\Feed|null
      */
     public function getUserHistory(){
-        if ($this->getEntity() != null && $this->getEntity()->getSourceDescriptions() != null) {
-            return $this->getEntity()->getSourceDescriptions();
-        }
-
-        return null;
+        return $this->getEntity();
     }
 }
