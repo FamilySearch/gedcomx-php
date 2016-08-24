@@ -58,6 +58,8 @@ class UtilitiesTests extends ApiTestCase
      */
     public function testRedirectToSourceLinker()
     {
+        $this->markTestSkipped("The inline JS in the HTML from the source linker breaks VCR's JSON parser");
+        
         $factory = new FamilyTreeStateFactory();
         $this->collectionState($factory);
 
