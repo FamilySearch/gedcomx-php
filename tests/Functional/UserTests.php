@@ -71,6 +71,32 @@ class UserTests extends ApiTestCase
         );
         $this->assertNotEmpty($historyState->getUserHistory());
     }
+    
+    /**
+     * @vcr UserTests/testReadCurrentUserArtifacts.json
+     * @link https://familysearch.org/developers/docs/api/memories/Read_Memories_for_a_User_usecase
+     */
+    public function testReadCurrentUserArtifacts()
+    {
+        $factory = new FamilySearchStateFactory();
+        $this->collectionState($factory);
+        $userState = $this->collectionState()->readCurrentUser();
+        $this->assertEquals(
+            HttpStatus::OK,
+            $userState->getStatus(),
+            $this->buildFailMessage(__METHOD__, $userState)
+        );
+        $this->assertNotEmpty($userState->getUser());
+        
+        $artifactsState = $userState->readArtifacts();
+        $this->assertEquals(
+          HttpStatus::OK,
+          $artifactsState->getStatus(),
+          $this->buildFailMessage(__METHOD__, $artifactsState)
+        );
+        
+        $this->assertNotEmpty($artifactsState->getEntity());
+    }
 
     /**
      * @vcr UserTests/testReadUser.json
