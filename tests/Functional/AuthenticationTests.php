@@ -199,15 +199,13 @@ class AuthenticationTests extends ApiTestCase
      */
     public function testAuthenticateViaOAuth2ClientCredentials()
     {
-        // $this->markTestSkipped('Client credentials not configured properly.');
+        if(getenv('FS_KEY_PASSWORD') === false){
+            $this->markTestSkipped('Client credentials not configured properly.');
+        }
         
         $factory = new StateFactory();
         $state = $factory->newCollectionState();
         
-        // Load the key
-        if(getenv('FS_KEY_PASSWORD') === false){
-            throw new \Exception('Password for client key not set in FS_KEY_PASSWORD environment variable; unable to use key for authentication');
-        }
         $key = openssl_pkey_get_private('file://key.pem', getenv('FS_KEY_PASSWORD'));
         
         $state->authenticateViaOAuth2ClientCredentials('a0T3000000BkhenEAB', $state->generateClientSecret($key, 1447773012436));
