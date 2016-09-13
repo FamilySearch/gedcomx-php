@@ -645,7 +645,7 @@
 </span></span><span id="203" class="l"><span class="php-comment">     */</span>
 </span><span id="204" class="l">    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> setKnownAttribute(\XMLReader <span class="php-var">$xml</span>)
 </span><span id="205" class="l">    {
-</span><span id="206" class="l">        <span class="php-keyword1">if</span> (parent::setKnownAttribute(\XMLReader::<span class="php-var">$xml</span>)) {
+</span><span id="206" class="l">        <span class="php-keyword1">if</span> (parent::setKnownAttribute(<span class="php-var">$xml</span>)) {
 </span><span id="207" class="l">            <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
 </span><span id="208" class="l">        } <span class="php-keyword1">else</span> {
 </span><span id="209" class="l">            <span class="php-keyword1">if</span> ((<span class="php-var">$xml</span>-&gt;localName == <span class="php-quote">'resourceId'</span>) &amp;&amp; (<span class="php-keyword1">empty</span>(<span class="php-var">$xml</span>-&gt;namespaceURI))) {
