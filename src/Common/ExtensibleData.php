@@ -264,6 +264,7 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
                 else if (!$this->setKnownChildElement($xml)) {
                     $n = $xml->localName;
                     $ns = $xml->namespaceURI;
+                    $elementIsEmpty = $xml->isEmptyElement;
                     $dom = new \DOMDocument();
                     $nodeFactory = $dom;
                     $dom->formatOutput = true;
@@ -273,34 +274,32 @@ class ExtensibleData implements SupportsExtensionElements, HasTransientPropertie
                     if ($xml->hasAttributes) {
                         $moreAttributes = $xml->moveToFirstAttribute();
                         while ($moreAttributes) {
-                            $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                            $e->setAttributeNS($ns, $xml->localName, $xml->value);
                             $moreAttributes = $xml->moveToNextAttribute();
                         }
                     }
                     $dom = $e;
-
-                    //create any child elements...
-                    while ($xml->read() && $xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n && $xml->namespaceURI != $ns) {
-                        if ($xml->nodeType == \XMLReader::ELEMENT) {
-                            $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
-                            $dom->appendChild($e);
-                            if ($xml->hasAttributes) {
-                                $moreAttributes = $xml->moveToFirstAttribute();
-                                while ($moreAttributes) {
-                                    $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
-                                    $moreAttributes = $xml->moveToNextAttribute();
+                    if (!$elementIsEmpty) {
+                        //create any child elements...
+                        while ($xml->read() && $xml->nodeType != \XMLReader::END_ELEMENT && $xml->localName != $n) {
+                            if ($xml->nodeType == \XMLReader::ELEMENT) {
+                                $e = $nodeFactory->createElementNS($xml->namespaceURI, $xml->localName);
+                                $dom->appendChild($e);
+                                if ($xml->hasAttributes) {
+                                    $moreAttributes = $xml->moveToFirstAttribute();
+                                    while ($moreAttributes) {
+                                        $e->setAttributeNS($xml->namespaceURI, $xml->localName, $xml->value);
+                                        $moreAttributes = $xml->moveToNextAttribute();
+                                    }
                                 }
+                            } else if ($xml->nodeType == \XMLReader::TEXT) {
+                                $dom->textContent = $xml->value;
+                            } else if ($xml->nodeType == \XMLReader::END_ELEMENT) {
+                                $dom = $dom->parentNode;
                             }
-                            $dom = $e;
-                        }
-                        else if ($xml->nodeType == \XMLReader::TEXT) {
-                            $dom->textContent = $xml->value;
-                        }
-                        else if ($xml->nodeType == \XMLReader::END_ELEMENT) {
-                            $dom = $dom->parentNode;
                         }
                     }
-                    array_push($this->extensionElements, $nodeFactory);
+                    array_push($this->extensionElements, $dom);
                 }
                 $xml->read(); //advance the reader.
             }

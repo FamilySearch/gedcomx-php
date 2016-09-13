@@ -203,7 +203,7 @@ class EvidenceReference extends HypermediaEnabledData
      */
     protected function setKnownAttribute(\XMLReader $xml)
     {
-        if (parent::setKnownAttribute(\XMLReader::$xml)) {
+        if (parent::setKnownAttribute($xml)) {
             return true;
         } else {
             if (($xml->localName == 'resourceId') && (empty($xml->namespaceURI))) {
