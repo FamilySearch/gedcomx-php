@@ -16,7 +16,7 @@ class GedcomxFileTests extends ApiTestCase
     
     public function testReadGedcomxFile()
     {
-        $gedcomx = new GedcomxFile($this->testRootDir.'sample.gedx');
+        $gedcomx = new GedcomxFile($this->testRootDir.'/files/sample.gedx');
 
         $this->assertEquals(
             'FamilySearch Platform API 0.1',
@@ -71,7 +71,7 @@ class GedcomxFileTests extends ApiTestCase
     {
         $resources = array();
 
-        $gedcomx = new GedcomxFile($this->testRootDir.'sample.gedx');
+        $gedcomx = new GedcomxFile($this->testRootDir.'/files/sample.gedx');
         $entries = $gedcomx->getEntries();
 
         foreach($entries as $entry){
