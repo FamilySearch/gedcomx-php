@@ -9,13 +9,12 @@
 
 namespace Gedcomx\Common;
 
-use Gedcomx\Rs\Client\SupportsExtensionElements;
 use Gedcomx\Util\JsonMapper;
 
 /**
  * A set of data that supports extension elements.
  */
-class ExtensibleData implements SupportsExtensionElements, HasTransientProperties
+class ExtensibleData
 {
 
     /**

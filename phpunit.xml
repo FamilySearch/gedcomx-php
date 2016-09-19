@@ -11,16 +11,10 @@
 
     <testsuites>
         <testsuite name="Gedcomx">
-            <directory suffix="Test.php">tests</directory>
             <directory suffix="Tests.php">tests/Functional</directory>
         </testsuite>
     </testsuites>
     
-   <listeners>
-        <listener class="PHPUnit_Util_Log_VCR" file="vendor/php-vcr/phpunit-testlistener-vcr/PHPUnit/Util/Log/VCR.php" />
-        <listener class="TestDurationListener" file="tests/TestDurationListener.php" />
-    </listeners>    
-
     <filter>
         <whitelist>
             <directory suffix=".php">./src</directory>

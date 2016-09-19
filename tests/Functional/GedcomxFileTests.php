@@ -2,8 +2,8 @@
 
 namespace Gedcomx\Functional;
 
+use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
-use Gedcomx\Extensions\FamilySearch\Rs\Client\FamilyTree\FamilyTreeStateFactory;
 use Gedcomx\GedcomxFile\DefaultXMLSerialization;
 use Gedcomx\GedcomxFile\GedcomxFile;
 use Gedcomx\GedcomxFile\GedcomxOutput;
@@ -16,7 +16,7 @@ class GedcomxFileTests extends ApiTestCase
     
     public function testReadGedcomxFile()
     {
-        $gedcomx = new GedcomxFile($this->testRootDir.'/files/sample.gedx');
+        $gedcomx = new GedcomxFile($this->filesDir . 'sample.gedx');
 
         $this->assertEquals(
             'FamilySearch Platform API 0.1',
@@ -25,32 +25,26 @@ class GedcomxFileTests extends ApiTestCase
         $this->assertEmpty($gedcomx->getWarnings(), "No warnings should have been generated.");
     }
 
-    /**
-     * @vcr GedcomxFileTests/testXMLSerialization.json
-     * @throws \Gedcomx\Rs\Client\Exception\GedcomxApplicationException
-     */
     public function testXMLSerialization()
     {
-        $people = XMLBuilder::XMLRelationshipData();
-
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        $father = $this->collectionState()->addPerson($people['father']);
-        $mother = $this->collectionState()->addPerson($people['mother']);
-        $child = $this->collectionState()->addPerson($people['child']);
-        $this->queueForDelete($father,$mother,$child);
-
-        $family = new ChildAndParentsRelationship();
-        $family->setChild($child->getResourceReference());
-        $family->setFather($father->getResourceReference());
-        $family->setMother($mother->getResourceReference());
-
-        $relationship = $this->collectionState()->addChildAndParentsRelationship($family)->get();
-        $this->queueForDelete($relationship);
+        $relationship = new ChildAndParentsRelationship(array(
+            'id' => 'MMMT-13L',
+            'father' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CH3',
+                'resourceId' => 'KWWB-CH3'
+            ),
+            'mother' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CHQ',
+                'resourceId' => 'KWWB-CHQ'
+            ),
+            'child' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CH7',
+                'resourceId' => 'KWWB-CH7'
+            )
+        ));
 
         $serializer = new DefaultXMLSerialization();
-        $xml = $serializer->serialize($relationship->getEntity());
+        $xml = $serializer->serialize($relationship);
 
         $outputFile = $this->tempDir . 'relationship.xml';
         $fileHandle = fopen($outputFile, 'w');
@@ -62,7 +56,7 @@ class GedcomxFileTests extends ApiTestCase
         $generated = new \DOMDocument();
         $generated->loadXML(file_get_contents($outputFile));
         $control = new \DOMDocument();
-        $control->loadXML(file_get_contents($this->testRootDir.'Functional/control.xml'));
+        $control->loadXML(file_get_contents($this->filesDir . 'cap-relationship-control.xml'));
 
         $this->assertEqualXMLStructure($generated->firstChild, $control->firstChild,'XML output does not match test file.');
     }
@@ -84,35 +78,32 @@ class GedcomxFileTests extends ApiTestCase
         $this->assertCount(4, $resources[0]->getPersons(), "Expecting four persons.");
     }
 
-    /**
-     * @vcr GedcomxFileTests/testCreateGedxFile.json
-     */
     public function testCreateGedxFile()
     {
-        $people = XMLBuilder::XMLRelationshipData();
-
-        $factory = new FamilyTreeStateFactory();
-        $this->collectionState($factory);
-
-        $father = $this->collectionState()->addPerson($people['father']);
-        $mother = $this->collectionState()->addPerson($people['mother']);
-        $child = $this->collectionState()->addPerson($people['child']);
-        $this->queueForDelete($father,$mother,$child);
-
-        $family = new ChildAndParentsRelationship();
-        $family->setChild($child->getResourceReference());
-        $family->setFather($father->getResourceReference());
-        $family->setMother($mother->getResourceReference());
-
-        $relationship = $this->collectionState()->addChildAndParentsRelationship($family)->get();
-        $this->queueForDelete($relationship);
+        $relationship = new ChildAndParentsRelationship(array(
+            'id' => 'MMMT-13L',
+            'father' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CH3',
+                'resourceId' => 'KWWB-CH3'
+            ),
+            'mother' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CHQ',
+                'resourceId' => 'KWWB-CHQ'
+            ),
+            'child' => array(
+                'resource' => 'https://sandbox.familysearch.org/platform/tree/persons/KWWB-CH7',
+                'resourceId' => 'KWWB-CH7'
+            )
+        ));
+        $fs = new FamilySearchPlatform();
+        $fs->addChildAndParentsRelationship($relationship);
 
         $image1 = ArtifactBuilder::makeImage();
         $image2 = ArtifactBuilder::makeImage();
 
         $testfile = $this->tempDir . "test.gedx";
         $writeIt = new GedcomxOutput();
-        $writeIt->addFamilySearchResource($relationship->getEntity());
+        $writeIt->addFamilySearchResource($fs);
         $writeIt->addFileResource($image1);
         $writeIt->addFileResource($image2);
         $writeIt->writeToFile($testfile);
