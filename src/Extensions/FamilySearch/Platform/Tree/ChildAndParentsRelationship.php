@@ -371,26 +371,4 @@ class ChildAndParentsRelationship extends Subject
             }
         }
     }
-
-    /**
-     * Merge facts from one relationship to the current object
-     *
-     * @param \Gedcomx\Common\ExtensibleData $relationship
-     */
-    public function embed(ExtensibleData $relationship)
-    {
-        if ($relationship->motherFacts != null) {
-            if ($this->motherFacts == null) {
-                $this->motherFacts = array();
-            }
-            $this->motherFacts = array_merge($this->motherFacts, $relationship->motherFacts);
-        }
-        if ($relationship->fatherFacts != null) {
-            if ($this->fatherFacts == null) {
-                $this->fatherFacts = array();
-            }
-            $this->fatherFacts = array_merge($this->fatherFacts, $relationship->fatherFacts);
-        }
-        parent::embed($relationship);
-    }
 }

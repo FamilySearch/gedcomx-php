@@ -534,44 +534,4 @@ class Person extends Subject implements HasFacts, HasFields
             $writer->endElement();
         }
     }
-
-    /**
-     * Embed the specified person into this one.
-     *
-     * @param ExtensibleData $person assumes \Gedcomx\Conclusion\Person or a subclass
-     */
-    public function embed(ExtensibleData $person) {
-        if( $this->private == null ){
-            $this->private = $person->isPrivate();
-        }
-        $this->living = $this->living == null ? $person->isLiving() : $this->living;
-        $this->principal = $this->principal == null ? $person->principal : $this->principal;
-        $this->gender = $this->gender == null ? $person->gender : $this->gender;
-        if ($this->displayExtension != null && $person->displayExtension != null) {
-            $this->displayExtension->embed($person->getDisplayExtension());
-        }
-        else if ($person->displayExtension != null) {
-            $this->displayExtension = $person->displayExtension;
-        }
-        if ($person->names != null) {
-            if( $this->names == null ){
-                $this->names = array();
-            }
-            $this->names = array_merge($this->names, $person->names);
-        }
-        if ($person->facts != null) {
-            if( $this->facts == null ){
-                $this->facts = array();
-            }
-            $this->facts = array_merge($this->facts, $person->facts);
-        }
-        if ($person->fields != null) {
-            if( $this->fields == null ){
-                $this->fields = array();
-            }
-            $this->fields = array_merge($this->fields, $person->facts);
-        }
-        parent::embed($person);
-
-    }
 }

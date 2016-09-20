@@ -477,34 +477,4 @@ class Discussion extends HypermediaEnabledData
             }
         }
     }
-
-    /**
-     * @param \Gedcomx\Common\ExtensibleData $discussion
-     */
-    public function embed(ExtensibleData $discussion)
-    {
-        $comments = $discussion->getComments();
-        if ($comments != null) {
-            foreach ($comments as $comment) {
-                $found = false;
-                if ($comment->getId() != null) {
-                    if ($this->getComments() != null) {
-                        foreach ($this->getComments() as $target) {
-                            if ($comment->getId() == $target->getId()) {
-                                $target->embed($comment);
-                                $found = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (!$found) {
-                    $this->addComment($comment);
-                }
-            }
-        }
-
-        parent::embed($discussion);
-    }
 }

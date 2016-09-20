@@ -344,49 +344,4 @@ class ExtensibleData
             $writer->writeAttribute('id', $this->id);
         }
     }
-
-    /**
-     * Merges given data with current object
-     *
-     * @param ExtensibleData $data
-     */
-    protected function embed(ExtensibleData $data) {
-        if ($data->extensionElements != null) {
-            $this->extensionElements = $this->extensionElements == null ? array() : $this->extensionElements;
-            $this->extensionElements = array_merge($this->extensionElements, $data->extensionElements);
-        }
-    }
-
-    /**
-     * Get the transient properties.
-     *
-     * @return the transient properties.
-     */
-    public function getTransientProperties()
-    {
-        return $this->transientProperties;
-    }
-
-    /**
-     * Get a transient (non-serialized) property.
-     *
-     * @param string name The name of the property.
-     *
-     * @return mixed The property.
-     */
-    public function getTransientProperty($name)
-    {
-        return isset($this->transientProperties[$name]) ? $this->transientProperties[$name] : null;
-    }
-
-    /**
-     * Set a transient (non-serialized) property.
-     *
-     * @param string name  the name of the property.
-     * @param mixed  value the property value.
-     */
-    public function setTransientProperty($name, $value)
-    {
-        $this->transientProperties[$name] = $value;
-    }
 }

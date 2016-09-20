@@ -324,34 +324,4 @@ class Subject extends Conclusion implements Attributable
         }
     }
 
-    /**
-     * Merges data from provided object with current object
-     *
-     * @param Subject|ExtensibleData $subject Assumes \Gedcomx\Conclusion\Subject or a subclass
-     */
-    protected function embed(ExtensibleData $subject) {
-        $this->extracted = $this->extracted == null ? $subject->extracted : $this->extracted;
-
-        if ($subject->identifiers != null) {
-            if( $this->identifiers == null ) {
-                $this->identifiers = array();
-            }
-            $this->identifiers = array_merge($this->identifiers, $subject->identifiers);
-        }
-        if ($subject->media != null) {
-            if( $this->media == null ) {
-                $this->media = array();
-            }
-            $this->media = array_merge($this->media, $subject->media);
-        }
-        if ($subject->evidence != null) {
-            if( $this->evidence == null ) {
-                $this->evidence = array();
-            }
-            $this->evidence = array_merge($this->evidence, $subject->evidence);
-        }
-
-        parent::embed($subject);
-    }
-
 }

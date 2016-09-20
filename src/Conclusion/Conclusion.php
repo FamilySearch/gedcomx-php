@@ -389,37 +389,4 @@ class Conclusion extends HypermediaEnabledData implements Attributable, Referenc
         }
     }
 
-    /**
-     * Merges data from provided object with current object
-     *
-     * @param ExtensibleData $conclusion
-     */
-    protected function embed(ExtensibleData $conclusion) {
-        if( $this->lang != null ){
-            $this->lang = $conclusion->lang;
-        }
-        if( $this->confidence != null ){
-            $this->confidence = $conclusion->confidence;
-        }
-        if( $this->attribution != null ){
-            $this->attribution = $conclusion->attribution;
-        }
-        if( $this->analysis != null ){
-            $this->analysis = $conclusion->analysis;
-        }
-        if ($conclusion->notes != null) {
-            if( $this->notes != null ){
-                $this->notes = array();
-            }
-            $this->notes = array_merge($this->notes, $conclusion->notes);
-        }
-        if ($conclusion->sources != null) {
-            if( $this->sources == null ){
-                $this->sources = array();
-            }
-            $this->sources = array_merge($this->sources, $conclusion->sources);
-        }
-        parent::embed($conclusion);
-    }
-
 }
