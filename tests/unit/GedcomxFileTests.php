@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedcomx\Functional;
+namespace Gedcomx\Unit;
 
 use Gedcomx\Extensions\FamilySearch\FamilySearchPlatform;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;

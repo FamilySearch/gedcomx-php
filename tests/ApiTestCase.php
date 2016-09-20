@@ -66,8 +66,13 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
             }
         }
     }
+    
+    protected function loadJson($filename)
+    {
+        return json_decode(file_get_contents($this->filesDir . $filename), true);
+    }
 
-    protected  function createPerson($gender = null)
+    protected function createPerson($gender = null)
     {
         $person = PersonBuilder::buildPerson($gender);
         $state = $this->collectionState()->addPerson($person);
