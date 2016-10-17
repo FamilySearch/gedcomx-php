@@ -5,12 +5,10 @@
 [![Coverage Status](https://coveralls.io/repos/FamilySearch/gedcomx-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/FamilySearch/gedcomx-php?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/5633c23236d0ab0016001f02/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5633c23236d0ab0016001f02)
 
-The gedcomx-php SDK is the PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
-
-See the wiki for the following:
-* A [tutorial](https://github.com/FamilySearch/gedcomx-php/wiki) to help you get started.
-* A sample app [Github project](https://github.com/FamilySearch/gedcomx-php-sample-app) and [running version](http://gedcomx-php-sample-app.herokuapp.com) to demonstrate basic functionality and usage of the gedcomx-php SDK in action. 
-* The [gedcomx-php SDK Documentation](http://familysearch.github.io/gedcomx-php/index.html).
+The PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
+The library only provides classes for serialization and deserialization of GEDCOM X
+data and FamilySearch extensions. See [gedcomx-php-client](https://github.com/FamilySearch/gedcomx-php-client)
+for the FamilySearch API PHP SDK.
 
 ## Installation
 
@@ -18,10 +16,7 @@ See the wiki for the following:
 
 Prior to installing the GedcomX PHP SDK you must install the following components.
 
-* [PHP 5.5+](http://php.net/manual/en/install.php) (The language of this SDK)
-  * *You can install PHP using pre-built environments such as [WAMP Server](http://www.wampserver.com/) (Windows), [XAMPP](https://www.apachefriends.org/) (Windows), [MAMP](https://www.mamp.info/en/) (OS X), or [Vagrant](http://vagrantup.com/) (Any OS).*
 
-* [Git](http://git-scm.com/downloads) (Versioning system for coding)
 * [Composer](https://getcomposer.org/doc/00-intro.md) (PHP Packages Manager)
 
     **Notes to Mac Developers:** 
@@ -63,6 +58,7 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
     ```
 
 ## Features
+
 * **GEDCOM X Conceptual Model**
 
   Implementaton of the [GEDCOM X Conceptual Model](https://github.com/FamilySearch/gedcomx/blob/master/specifications/conceptual-model-specification.md) in a rich set of PHP Classes with getter and setter methods. Take a look at a [visual graph](https://github.com/FamilySearch/gedcomx/blob/master/specifications/support/conceptual-model-graph.pdf) of the GEDCOM X Conceptual Model.
@@ -71,16 +67,10 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
   XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
 
-* **GEDCOM X RS Client**
-  
-  Functionality to interact with a [GEDCOM X RS](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md) compliant web service. GEDCOM X RS is a RESTful specification that defines a set of [application states](https://github.com/FamilySearch/gedcomx-rs/blob/master/specifications/rs-specification.md#4-application-states) for a genealogical data application. This allows you to read the state of a Person, Relationship, Source Description, or other state. Take a look as some [examples](https://github.com/FamilySearch/gedcomx-php/wiki/Accessing-a-GEDCOM-X-RS-API) of establishing a RESTful state.
-
-* **FamilySearch API Interface**
-  
-  A robust mechanism for interacting with the [FamilySearch API](https://familysearch.org/developers/docs/api/resources). The [FamilySearchClient](http://familysearch.github.io/gedcomx-php/class-Gedcomx.Extensions.FamilySearch.Rs.Client.FamilySearchClient.html) class makes it easy to set the configuration to the appropriate API environment (Sandbox, Beta, Production), authenticate using OAuth2, and interact with the FamilySearch Family Tree and other services.
-
-
 ## Changelog
+
+* v3.0.0
+  * Split out the API networking code into [gedcomx-php-client](https://github.com/FamilySearch/gedcomx-php-client)
 
 * v2.3.0
   * Add the `generateClientSecret()` method to `GedcomxApplicationState`.
