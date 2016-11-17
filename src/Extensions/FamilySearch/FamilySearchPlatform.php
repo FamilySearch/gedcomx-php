@@ -70,6 +70,11 @@ class FamilySearchPlatform extends Gedcomx
      * @var Feature[]
      */
     private $features;
+    
+    /**
+     * @var Error[]
+     */
+    private $errors;
 
     /**
      * Constructs a FamilySearchPlatform from a (parsed) JSON hash
@@ -282,6 +287,27 @@ class FamilySearchPlatform extends Gedcomx
     {
         $this->features = $features;
     }
+    
+    /**
+     * List of errors associated with an API response.
+     *
+     * @return Error[]
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * List of errors associated with an API response.
+     *
+     * @param Error[] $errors
+     */
+    public function setErrors($errors)
+    {
+        $this->errors = $errors;
+    }
+    
     /**
      * Returns the associative array for this FamilySearchPlatform
      *
@@ -331,6 +357,13 @@ class FamilySearchPlatform extends Gedcomx
                 $ab[$i] = $x->toArray();
             }
             $a['features'] = $ab;
+        }
+        if ($this->errors) {
+            $ab = array();
+            foreach ($this->errors as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['errors'] = $ab;
         }
         return $a;
     }
@@ -384,6 +417,13 @@ class FamilySearchPlatform extends Gedcomx
                 $this->features[$i] = new Feature($x);
             }
             unset($o['features']);
+        }
+        $this->errors = array();
+        if (isset($o['errors'])) {
+            foreach ($o['errors'] as $i => $x) {
+                $this->errors[$i] = new Feature($x);
+            }
+            unset($o['errors']);
         }
         parent::initFromArray($o);
     }
@@ -445,6 +485,14 @@ class FamilySearchPlatform extends Gedcomx
                 $this->features = array();
             }
             array_push($this->features, $child);
+            $happened = true;
+        }
+        else if (($xml->localName == 'error') && ($xml->namespaceURI == 'http://familysearch.org/v1/')) {
+            $child = new Error($xml);
+            if (!isset($this->errors)) {
+                $this->errors = array();
+            }
+            array_push($this->errors, $child);
             $happened = true;
         }
         return $happened;
@@ -527,6 +575,13 @@ class FamilySearchPlatform extends Gedcomx
         if ($this->features) {
             foreach ($this->features as $i => $x) {
                 $writer->startElementNs('fs', 'feature', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->errors) {
+            foreach ($this->errors as $i => $x) {
+                $writer->startElementNs('fs', 'error', null);
                 $x->writeXmlContents($writer);
                 $writer->endElement();
             }
