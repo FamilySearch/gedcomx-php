@@ -1,6 +1,6 @@
 <?php
 
-namespace GedcomX\Exensions\FamilySearch;
+namespace Gedcomx\Exensions\FamilySearch;
 
 /**
  * Representation of an OAuth2 token response.
