@@ -21,35 +21,35 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Psr7\Request;
 
-abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
+abstract class ApiTestCase extends \PHPUnit\Framework\TestCase
 {
-    
+
     /**
      * @var string
      */
     protected $testRootDir;
-    
+
     /**
      * @var string
      */
     protected $tempDir;
-    
+
     /**
      * @var string
      */
     protected $filesDir;
-    
+
     /**
      * @var \Faker\Generator
      */
     protected $faker;
-    
+
     /**
      * @var \Gedcomx\Rs\Client\CollectionState
      */
     private $collectionState;
-    
-    public function setUp()
+
+    protected function setUp(): void
     {
         TestBuilder::seed(1123546);
         $this->testRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . "tests" . DIRECTORY_SEPARATOR;
@@ -58,7 +58,7 @@ abstract class ApiTestCase extends \PHPUnit_Framework_TestCase
         ArtifactBuilder::setTempDir($this->tempDir);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         foreach (glob($this->tempDir . '*') as $file) {
             if ($file != '.gitignore') {
