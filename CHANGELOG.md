@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom VCS repository for php-coveralls fork (no longer needed)
 - Deprecated PHPUnit configuration options
 - PHPUnit 3.7 legacy class name references
+- `.travis.yml` is now obsolete (replaced by GitHub Actions)
 
 ### Security
 - ✅ **All security vulnerabilities resolved**: `composer audit` returns 0 vulnerabilities
@@ -69,10 +70,10 @@ Verified compatibility across multiple PHP versions:
 - ✅ PHP 8.4.20 - 6 tests, 23 assertions - PASSED
 - ✅ PHP 8.5.5 - 6 tests, 23 assertions - PASSED
 
-Note: PHP 7.4 and 8.0 are end-of-life and not tested directly, but compatibility is ensured through:
-- Composer dependency constraints (PHPUnit ^9.5 supports PHP 7.4+)
-- All dependencies declare PHP 7.4+ compatibility
-- No PHP 8.0+ specific syntax used in codebase
+**Automated CI Testing** (GitHub Actions):
+Continuous integration tests run automatically on PHP 7.4, 8.0, 8.1, 8.2, and 8.3 to prevent regressions.
+
+Note: PHP 7.4 and 8.0 are end-of-life. While CI tests these versions for compatibility verification, production use of PHP 8.1+ is recommended for security updates.
 
 ### Migration Guide
 
