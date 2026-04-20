@@ -73,6 +73,7 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
   * Add multi-version PHP testing (7.4, 8.0, 8.1, 8.2, 8.3)
   * Update CI/CD pipeline with automated testing and coverage reporting
   * Update README badges to reflect GitHub Actions status
+  * Added CHANGELOG.md for a more extensive overview on changes
 
 * v3.0.0
   * Split out the API networking code into [gedcomx-php-client](https://github.com/FamilySearch/gedcomx-php-client)
