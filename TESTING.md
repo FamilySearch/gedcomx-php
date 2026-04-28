@@ -62,42 +62,43 @@ vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 Current test coverage baseline established:
 
-- **Test Files**: 3 test suites
-- **Test Cases**: 6 tests, 12 assertions
+- **Test Files**: 17 test suites
+- **Test Cases**: 50+ tests covering core models and extensions
 - **Source Files**: 125 PHP files
 - **Core Models**: GEDCOM X conceptual model classes
 - **Extensions**: FamilySearch platform extensions
 
 ### Coverage Areas
 
-#### Well-Covered Components
+#### Well-Covered Components (as of v3.2.0)
 
 - GEDCOM X file format (.gedx) reading and writing
 - XML serialization and deserialization
-- Person model deserialization
-- Child and Parents relationship structures
+- Core conclusion models: Person, Gender, Fact, Name, Event, Relationship, Document, PlaceDescription
+- Agent models: Agent, Address
+- Source models: SourceDescription, SourceReference, SourceCitation
+- FamilySearch extensions: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship
 
-#### Areas Needing Expansion
+#### Areas for Future Expansion
 
-Additional test coverage should be added for:
+Additional test coverage could be added for:
 
-1. **GEDCOM X Core Models**
-   - Agent and Address models
-   - Conclusion types (Gender, Fact, Event, etc.)
-   - Source descriptions and citations
-   - Place descriptions and references
-   - Name forms and name parts
+1. **Remaining GEDCOM X Core Models**
+   - Subject and Identifier models
+   - OnlineAccount model
+   - Coverage and CitationField models
+   - Standalone DateInfo and PlaceReference tests
 
-2. **FamilySearch Extensions**
-   - User models
-   - Discussion and Comment models
-   - Discussion references
-   - Extended fact types
+2. **Additional FamilySearch Extensions**
+   - ChangeInfo, MatchInfo models
+   - Merge, MergeAnalysis, MergeConflict models
+   - ArtifactMetadata model
 
-3. **Serialization**
-   - JSON serialization (currently only XML is tested)
-   - Edge cases and malformed data handling
+3. **Serialization Edge Cases**
+   - JSON serialization for all models (currently only XML is comprehensively tested)
+   - Malformed data handling
    - Namespace handling for extensions
+   - Large file performance
 
 4. **Collections and Utilities**
    - Collection class operations
