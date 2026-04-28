@@ -62,39 +62,32 @@ vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 Current test coverage baseline established:
 
-- **Test Files**: 17 test suites
-- **Test Cases**: 50+ tests covering core models and extensions
-- **Source Files**: 125 PHP files
-- **Core Models**: GEDCOM X conceptual model classes
-- **Extensions**: FamilySearch platform extensions
+- **Test Files**: 28 test suites
+- **Test Cases**: 99 tests with 237 assertions
+- **Source Files**: 125+ PHP files
+- **Core Models**: Complete GEDCOM X conceptual model class coverage
+- **Extensions**: Comprehensive FamilySearch platform extension coverage
 
 ### Coverage Areas
 
 #### Well-Covered Components (as of v3.2.0)
 
-- GEDCOM X file format (.gedx) reading and writing
-- XML serialization and deserialization
-- Core conclusion models: Person, Gender, Fact, Name, Event, Relationship, Document, PlaceDescription
-- Agent models: Agent, Address
-- Source models: SourceDescription, SourceReference, SourceCitation
-- FamilySearch extensions: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship
+- **GEDCOM X file format**: .gedx reading and writing, XML serialization/deserialization
+- **Core conclusion models**: Person, Gender, Fact, Name, NameForm, NamePart, Event, EventRole, Relationship, Document, PlaceDescription, PlaceReference, DateInfo, Identifier
+- **Agent models**: Agent, Address, OnlineAccount
+- **Source models**: SourceDescription, SourceReference, SourceCitation, Coverage, CitationField
+- **FamilySearch extensions**: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship, ChangeInfo, MatchInfo, Merge, MergeAnalysis, MergeConflict, ArtifactMetadata
 
 #### Areas for Future Expansion
 
 Additional test coverage could be added for:
 
-1. **Remaining GEDCOM X Core Models**
-   - Subject and Identifier models
-   - OnlineAccount model
-   - Coverage and CitationField models
-   - Standalone DateInfo and PlaceReference tests
+1. **Abstract/Base Classes**
+   - Subject and Conclusion base classes
+   - HasFacts trait
+   - DisplayProperties models
 
-2. **Additional FamilySearch Extensions**
-   - ChangeInfo, MatchInfo models
-   - Merge, MergeAnalysis, MergeConflict models
-   - ArtifactMetadata model
-
-3. **Serialization Edge Cases**
+2. **Serialization Edge Cases**
    - JSON serialization for all models (currently only XML is comprehensively tested)
    - Malformed data handling
    - Namespace handling for extensions
@@ -133,10 +126,13 @@ tests/
 
 Test fixtures are located in `tests/files/`:
 
-- **person.json**: Sample person data in JSON format
-- **record.xml**: Sample GEDCOM X record with extensions
-- **sample.gedx**: Complete GEDCOM X archive file
-- **cap-relationship-control.xml**: Expected XML output for relationships
+- **Core model fixtures**: person.json, gender.json, fact.json, name.json, date-info.json, identifier.json, name-form.json, name-part.json, event.json, event-role.json, relationship.json, document.json, place-description.json, place-reference.json
+- **Agent fixtures**: agent.json, address.json, online-account.json
+- **Source fixtures**: source-description.json, source-citation.json, coverage.json, citation-field.json
+- **FamilySearch extension fixtures**: user.json, discussion.json, comment.json, change-info.json, match-info.json, merge.json
+- **XML fixtures**: record.xml, cap-relationship-control.xml
+- **Archive files**: sample.gedx
+- **Test images**: test-image.jpg (for GEDX file tests)
 
 ### Base Test Class
 
@@ -167,9 +163,9 @@ The SDK is automatically tested on:
 - ✅ Return type declarations for interface implementations (ArrayAccess, Countable, IteratorAggregate)
 - ✅ Modern PHPUnit assertions (removed deprecated `assertEqualXMLStructure`)
 
-**Known External Deprecations**:
+**External Dependencies**:
 
-The `intervention/image` package (used only in tests for artifact generation) shows PHP 8+ deprecation warnings. These are outside our control and do not affect the SDK functionality.
+Test fixtures are used instead of runtime image generation, eliminating external dependencies and ensuring consistent test behavior across all PHP versions.
 
 ## Continuous Integration
 

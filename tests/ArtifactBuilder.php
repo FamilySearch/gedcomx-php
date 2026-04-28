@@ -2,8 +2,6 @@
 
 namespace Gedcomx\Tests;
 
-use Intervention\Image\ImageManagerStatic as Image;
-
 class ArtifactBuilder extends TestBuilder
 {
     private static $tempDir;
@@ -33,40 +31,20 @@ class ArtifactBuilder extends TestBuilder
     }
 
     /**
-     * Generate randomized images for testing
+     * Generate test images by copying a fixture
      * @return string The generated filename
      */
     public static function makeImage()
     {
-        $height = $width = 5;
-        $scale = 100;
         $filename = self::$tempDir . 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".jpg";
+        $fixtureImage = __DIR__ . '/files/test-image.jpg';
 
-        $img = Image::canvas($width, $height, '#000');
-        for ($x = 0; $x < $width; $x++) {
-            for ($y = 0; $y < $height; $y++) {
-                $color = self::randomColor();
-                $img->pixel($color, $x, $y);
-            }
+        if (!file_exists($fixtureImage)) {
+            throw new \RuntimeException('Test image fixture not found: ' . $fixtureImage);
         }
-        $img->resize($width * $scale, $width * $scale);
-        $png = $img->encode('jpg');
-        $png->save($filename);
+
+        copy($fixtureImage, $filename);
 
         return $filename;
-    }
-
-    /**
-     * Generate random rgba color
-     * @return array
-     */
-    private static function randomColor()
-    {
-        return array(
-            mt_rand(0, 255),
-            mt_rand(0, 255),
-            mt_rand(0, 255),
-            1
-        );
     }
 }

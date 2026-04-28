@@ -93,12 +93,12 @@ The test suite passes without deprecation warnings on all supported PHP versions
 ### Test Coverage
 
 Current baseline:
-- 54 test cases with 147 assertions
-- Core models: Person, Gender, Fact, Name, Event, Relationship, Document, PlaceDescription
-- Agent models: Agent, Address
-- Source models: SourceDescription, SourceReference, SourceCitation
-- FamilySearch extensions: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship
-- File format: GEDCOM X file (.gedx) read/write, XML serialization/deserialization
+- 99 test cases with 237 assertions
+- **Core models**: Person, Gender, Fact, Name, NameForm, NamePart, Event, EventRole, Relationship, Document, PlaceDescription, PlaceReference, DateInfo, Identifier
+- **Agent models**: Agent, Address, OnlineAccount
+- **Source models**: SourceDescription, SourceReference, SourceCitation, Coverage, CitationField
+- **FamilySearch extensions**: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship, ChangeInfo, MatchInfo, Merge, MergeAnalysis, MergeConflict, ArtifactMetadata
+- **File format**: GEDCOM X file (.gedx) read/write, XML serialization/deserialization
 - See [TESTING.md](TESTING.md) for detailed coverage information and contributing guidelines
 
 For comprehensive testing documentation, see [TESTING.md](TESTING.md).
