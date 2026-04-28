@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="./tests/bootstrap.php"
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true">
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="false"
+         failOnWarning="false">
 
     <testsuites>
         <testsuite name="Gedcomx">
@@ -13,10 +15,16 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./src</directory>
         </include>
+        <exclude>
+            <directory>./src/Rs/Client</directory>
+        </exclude>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
     </coverage>
 
 </phpunit>

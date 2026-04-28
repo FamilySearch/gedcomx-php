@@ -53,12 +53,10 @@ class GedcomxFileTests extends ApiTestCase
 
         $this->assertFileExists($outputFile,'XML file not created.');
 
-        $generated = new \DOMDocument();
-        $generated->loadXML(file_get_contents($outputFile));
-        $control = new \DOMDocument();
-        $control->loadXML(file_get_contents($this->filesDir . 'cap-relationship-control.xml'));
+        $generatedXml = file_get_contents($outputFile);
+        $controlXml = file_get_contents($this->filesDir . 'cap-relationship-control.xml');
 
-        $this->assertEqualXMLStructure($generated->firstChild, $control->firstChild,'XML output does not match test file.');
+        $this->assertXmlStringEqualsXmlString($controlXml, $generatedXml, 'XML output does not match test file.');
     }
 
     public function testXMLDeserialization()

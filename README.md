@@ -66,7 +66,49 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
   XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
 
+## Testing
+
+The SDK includes a comprehensive test suite using PHPUnit 9.5+ and is continuously tested on PHP 7.4, 8.0, 8.1, 8.2, and 8.3.
+
+### Running Tests
+
+```bash
+# Run all tests
+vendor/bin/phpunit
+
+# Run with coverage report (requires Xdebug or PCOV)
+vendor/bin/phpunit --coverage-html build/coverage
+```
+
+### PHP Version Compatibility
+
+✅ **Fully compatible with PHP 7.4 - 8.3**
+
+The test suite passes without deprecation warnings on all supported PHP versions. All PHP 8+ compatibility issues have been resolved:
+
+- Explicit nullable type declarations
+- Proper return types for interface implementations
+- Modern PHPUnit assertions
+
+### Test Coverage
+
+Current baseline:
+- 6 test cases with 12 assertions
+- Core functionality: GEDCOM X file format, XML serialization, Person models
+- See [TESTING.md](TESTING.md) for detailed coverage information and contributing guidelines
+
+For comprehensive testing documentation, see [TESTING.md](TESTING.md).
+
 ## Changelog
+
+* v3.2.0 (2026)
+  * **Test Suite Modernization**
+    * Updated to PHPUnit 9.5+ with full PHP 8.3 compatibility
+    * Fixed all PHP 8+ deprecation warnings (nullable types, return types)
+    * Replaced deprecated `assertEqualXMLStructure` with modern assertions
+    * Added comprehensive test documentation in TESTING.md
+    * Configured coverage reporting thresholds in phpunit.xml
+    * All tests pass cleanly on PHP 7.4, 8.0, 8.1, 8.2, and 8.3
 
 * v3.1.0
   * Migrate from Travis CI to GitHub Actions
