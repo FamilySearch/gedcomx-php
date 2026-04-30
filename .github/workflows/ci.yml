@@ -27,8 +27,11 @@ jobs:
     - name: Install system dependencies
       run: |
         apt-get update
-        apt-get install -y git zip unzip libzip-dev
+        apt-get install -y git zip unzip libzip-dev \
+          libpng-dev libjpeg62-turbo-dev libfreetype6-dev
         docker-php-ext-install zip
+        docker-php-ext-configure gd --with-freetype --with-jpeg
+        docker-php-ext-install gd
 
     - name: Install Composer
       run: |
