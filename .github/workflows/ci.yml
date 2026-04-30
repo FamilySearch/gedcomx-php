@@ -28,8 +28,9 @@ jobs:
         apt-get install -y git unzip libzip-dev libxml2-dev
         docker-php-ext-install xml zip
         if [ "${{ matrix.php-version }}" = "8.3" ]; then
-          pecl install xdebug || echo "Warning: xdebug install failed, coverage may not work"
-          docker-php-ext-enable xdebug || true
+          pecl install xdebug
+          docker-php-ext-enable xdebug
+          php -m | grep xdebug || (echo "ERROR: Xdebug not enabled" && exit 1)
         fi
         php -v
         php -m
@@ -61,7 +62,12 @@ jobs:
 
     - name: Generate coverage report
       if: matrix.php-version == '8.3'
-      run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+      env:
+        XDEBUG_MODE: coverage
+      run: |
+        mkdir -p build/logs
+        vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+        ls -l build/logs/clover.xml
 
     - name: Upload coverage to Coveralls
       if: matrix.php-version == '8.3'
@@ -69,6 +75,11 @@ jobs:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        if [ ! -f build/logs/clover.xml ]; then
+          echo "ERROR: Coverage file build/logs/clover.xml was not generated"
+          echo "This likely means Xdebug is not properly installed or enabled"
+          exit 1
+        fi
         composer global require php-coveralls/php-coveralls
         export PATH="$(composer global config bin-dir --absolute):$PATH"
         php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v
