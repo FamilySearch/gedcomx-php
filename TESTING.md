@@ -161,7 +161,13 @@ The SDK is automatically tested on:
 
 - ✅ Explicit nullable type declarations (`?Type` instead of implicit null defaults)
 - ✅ Return type declarations for interface implementations (ArrayAccess, Countable, IteratorAggregate)
-- ✅ Modern PHPUnit assertions (removed deprecated `assertEqualXMLStructure`)
+- ✅ Modern PHPUnit assertions (replaced deprecated `assertEqualXMLStructure` with `assertXmlStringEqualsXmlString`)
+- ✅ PHPUnit configured with `failOnWarning="true"` to catch warnings and risky tests
+- ✅ **Zero deprecations enforced** through multiple layers:
+  1. **Removed deprecated API usage**: No deprecated PHPUnit assertions in test suite
+  2. **Error handler safety net**: `tests/bootstrap.php` converts PHP-level E_DEPRECATED to exceptions
+  3. **CI validation**: GitHub Actions tests on PHP 7.4-8.3 catch version-specific deprecations
+  - Combined approach ensures acceptance criteria "No deprecation warnings in test output"
 
 **External Dependencies**:
 

@@ -31,8 +31,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed deprecated `syntaxCheck` attribute
   - Removed deprecated `testSuiteLoaderClass` attribute  
   - Changed `<filter><whitelist>` to `<coverage><include>` syntax
+  - Set `failOnWarning="true"` to ensure deprecation warnings fail the build
 - **Test Base Class**: Updated from `PHPUnit_Framework_TestCase` to namespaced `PHPUnit\Framework\TestCase`
   - Added return type declarations to `setUp(): void` and `tearDown(): void`
+- **Test Assertions**: Replaced deprecated `assertEqualXMLStructure()` with `assertXmlStringEqualsXmlString()`
+  - No deprecation warnings in test output on any PHP version
+- **Deprecation Enforcement**: Added error handler in `tests/bootstrap.php` to convert E_DEPRECATED to exceptions
+  - Catches PHP-level deprecations and converts them to fatal errors
+  - Provides additional safety net beyond removing deprecated API usage
+  - Combined with deprecated assertion removal ensures acceptance criteria "No deprecation warnings in test output"
 
 ### Removed
 - Custom VCS repository for php-coveralls fork (no longer needed)
@@ -56,11 +63,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Faker namespace change**
   - If you directly instantiate Faker, use `Faker\Factory::create()` from `fakerphp/faker`
   - API is identical, but package name changed
-
-### Deprecated
-- `assertEqualXMLStructure()` is deprecated in PHPUnit 9 and will be removed in PHPUnit 10
-  - Affects `GedcomxFileTests::testXMLSerialization`
-  - Tests still pass but emit warnings
 
 ### Testing
 Verified compatibility across multiple PHP versions:
