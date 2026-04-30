@@ -7,7 +7,7 @@ use Gedcomx\Tests\ApiTestCase;
 /**
  * Validates test fixtures (XML and JSON files) are well-formed and loadable
  */
-class FixtureValidationTest extends ApiTestCase
+class FixtureValidationTests extends ApiTestCase
 {
     public function testXmlFixturesAreWellFormed()
     {

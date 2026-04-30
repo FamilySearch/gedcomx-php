@@ -64,15 +64,20 @@ vendor/bin/phpunit --coverage-text
 
 ### Coverage Baseline
 
-**Baseline established:** April 2026
+**Baseline established:** April 2026  
+**Test Count:** 64 tests, 142 assertions  
+**Status:** ✅ 100% passing on PHP 7.4-8.3
 
-The project maintains test coverage for:
+The project maintains comprehensive test coverage for:
 
-- ✅ GEDCOM X core models (Person, Relationship, Fact, Name, etc.)
-- ✅ FamilySearch extension models (ChildAndParentsRelationship, etc.)
-- ✅ XML serialization/deserialization
-- ✅ JSON serialization/deserialization
-- ✅ GEDCOMX file operations
+- ✅ **Core GEDCOM X models** (23 tests) - Person, Relationship, Fact, Name, Gender, Event, Document, PlaceDescription, etc.
+- ✅ **Source models** (8 tests) - SourceDescription, SourceCitation, SourceReference, CitationField
+- ✅ **Agent models** (7 tests) - Agent, Address, OnlineAccount
+- ✅ **FamilySearch extensions** (16 tests) - ChildAndParentsRelationship, Discussion, Comment, User, etc.
+- ✅ **File operations** (4 tests) - XML/JSON serialization, GEDCOMX archive operations
+- ✅ **Fixture validation** (6 tests) - XML/JSON well-formedness, round-trip testing
+
+**Detailed coverage breakdown:** See [TEST_COVERAGE.md](TEST_COVERAGE.md) for a complete list of tested models.
 
 **Where to find coverage reports:**
 
