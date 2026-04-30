@@ -15,18 +15,30 @@ jobs:
       matrix:
         php-version: ['7.4', '8.0', '8.1', '8.2', '8.3']
 
+    container:
+      image: php:${{ matrix.php-version }}-cli
+
     name: PHP ${{ matrix.php-version }} Tests
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: FamilySearch/setup-php@v1
-      with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, xml, ctype, json, zip
-        coverage: xdebug
+    - name: Install system dependencies
+      run: |
+        apt-get update
+        apt-get install -y git zip unzip libzip-dev
+        docker-php-ext-install zip
+
+    - name: Install Composer
+      run: |
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+    - name: Install Xdebug (for coverage)
+      if: matrix.php-version == '8.3'
+      run: |
+        pecl install xdebug
+        docker-php-ext-enable xdebug
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
