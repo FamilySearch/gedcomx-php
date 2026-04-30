@@ -70,5 +70,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         composer global require php-coveralls/php-coveralls
-        export PATH="/root/.composer/vendor/bin:$PATH"
+        export PATH="$(composer global config bin-dir --absolute):$PATH"
         php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v
