@@ -1,4 +1,9 @@
 <?php
+// Tillagd kommentar för teständring
+echo "Ändring gjord i FamilySearchPlatform.php";
+?>
+
+<?php
 /**
  *
  * 
