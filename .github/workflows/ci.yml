@@ -15,18 +15,33 @@ jobs:
       matrix:
         php-version: ['7.4', '8.0', '8.1', '8.2', '8.3']
 
+    container:
+      image: php:${{ matrix.php-version }}-cli
+
     name: PHP ${{ matrix.php-version }} Tests
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-        extensions: mbstring, xml, ctype, json
-        coverage: xdebug
+    - name: Install system dependencies
+      run: |
+        apt-get update
+        apt-get install -y git zip unzip libzip-dev \
+          libpng-dev libjpeg62-turbo-dev libfreetype6-dev
+        docker-php-ext-install zip
+        docker-php-ext-configure gd --with-freetype --with-jpeg
+        docker-php-ext-install gd
+
+    - name: Install Composer
+      run: |
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+    - name: Install Xdebug (for coverage)
+      if: matrix.php-version == '8.3'
+      run: |
+        pecl install xdebug
+        docker-php-ext-enable xdebug
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -51,10 +66,11 @@ jobs:
       run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
     - name: Upload coverage to Coveralls
-      if: matrix.php-version == '8.3'
+      if: matrix.php-version == '8.3' && github.event_name == 'push'
+      continue-on-error: true
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
         composer global require php-coveralls/php-coveralls
         export PATH="$HOME/.composer/vendor/bin:$PATH"
-        php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v
+        php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v || echo "Coverage upload failed, continuing..."

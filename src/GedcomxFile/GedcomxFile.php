@@ -54,7 +54,7 @@ class GedcomxFile
      *
      * @throws \Gedcomx\GedcomxFile\GedcomxFileException
      */
-    public function __construct($filepath, GedcomxEntryDeserializer $deserializer = null)
+    public function __construct($filepath, ?GedcomxEntryDeserializer $deserializer = null)
     {
         $this->deserializer = $deserializer;
         if( $this->deserializer == null){
