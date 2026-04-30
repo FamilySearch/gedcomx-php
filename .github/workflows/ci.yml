@@ -82,4 +82,9 @@ jobs:
         fi
         composer global require php-coveralls/php-coveralls
         export PATH="$(composer global config bin-dir --absolute):$PATH"
+
+        # Fix: allow git discovery across the Actions workspace mount boundary
+        cd "$GITHUB_WORKSPACE"
+        export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
         php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v
