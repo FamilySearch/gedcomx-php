@@ -1,8 +1,9 @@
 # GedcomX - PHP SDK  
 
 [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
-[![CI](https://github.com/FamilySearch/gedcomx-php/actions/workflows/ci.yml/badge.svg)](https://github.com/FamilySearch/gedcomx-php/actions/workflows/ci.yml)
+[![Build Status](https://travis-ci.org/FamilySearch/gedcomx-php.svg?branch=master)](https://travis-ci.org/FamilySearch/gedcomx-php)
 [![Coverage Status](https://coveralls.io/repos/FamilySearch/gedcomx-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/FamilySearch/gedcomx-php?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/5633c23236d0ab0016001f02/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5633c23236d0ab0016001f02)
 
 The PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
 The library only provides classes for serialization and deserialization of GEDCOM X
@@ -66,60 +67,7 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
   XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
 
-## Testing
-
-The SDK includes a comprehensive test suite using PHPUnit 9.5+ and is continuously tested on PHP 7.4, 8.0, 8.1, 8.2, and 8.3.
-
-### Running Tests
-
-```bash
-# Run all tests
-vendor/bin/phpunit
-
-# Run with coverage report (requires Xdebug or PCOV)
-vendor/bin/phpunit --coverage-html build/coverage
-```
-
-### PHP Version Compatibility
-
-✅ **Fully compatible with PHP 7.4 - 8.3**
-
-The test suite passes without deprecation warnings on all supported PHP versions. All PHP 8+ compatibility issues have been resolved:
-
-- Explicit nullable type declarations
-- Proper return types for interface implementations
-- Modern PHPUnit assertions
-
-### Test Coverage
-
-Current baseline:
-- 99 test cases with 237 assertions
-- **Core models**: Person, Gender, Fact, Name, NameForm, NamePart, Event, EventRole, Relationship, Document, PlaceDescription, PlaceReference, DateInfo, Identifier
-- **Agent models**: Agent, Address, OnlineAccount
-- **Source models**: SourceDescription, SourceReference, SourceCitation, Coverage, CitationField
-- **FamilySearch extensions**: User, Discussion, Comment, DiscussionReference, ChildAndParentsRelationship, ChangeInfo, MatchInfo, Merge, MergeAnalysis, MergeConflict, ArtifactMetadata
-- **File format**: GEDCOM X file (.gedx) read/write, XML serialization/deserialization
-- See [TESTING.md](TESTING.md) for detailed coverage information and contributing guidelines
-
-For comprehensive testing documentation, see [TESTING.md](TESTING.md).
-
 ## Changelog
-
-* v3.2.0 (2026)
-  * **Test Suite Modernization**
-    * Updated to PHPUnit 9.5+ with full PHP 8.3 compatibility
-    * Fixed all PHP 8+ deprecation warnings (nullable types, return types)
-    * Replaced deprecated `assertEqualXMLStructure` with modern assertions
-    * Added comprehensive test documentation in TESTING.md
-    * Configured coverage reporting thresholds in phpunit.xml
-    * All tests pass cleanly on PHP 7.4, 8.0, 8.1, 8.2, and 8.3
-
-* v3.1.0
-  * Migrate from Travis CI to GitHub Actions
-  * Add multi-version PHP testing (7.4, 8.0, 8.1, 8.2, 8.3)
-  * Update CI/CD pipeline with automated testing and coverage reporting
-  * Update README badges to reflect GitHub Actions status
-  * Added CHANGELOG.md for a more extensive overview on changes
 
 * v3.0.0
   * Split out the API networking code into [gedcomx-php-client](https://github.com/FamilySearch/gedcomx-php-client)
