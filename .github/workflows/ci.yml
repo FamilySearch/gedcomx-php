@@ -22,10 +22,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: FamilySearch/setup-php@v1
       with:
         php-version: ${{ matrix.php-version }}
-        extensions: mbstring, xml, ctype, json
+        extensions: mbstring, xml, ctype, json, zip
         coverage: xdebug
 
     - name: Validate composer.json and composer.lock
