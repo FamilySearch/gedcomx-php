@@ -2,8 +2,6 @@
 
 namespace Gedcomx\Tests;
 
-use Intervention\Image\ImageManagerStatic as Image;
-
 class ArtifactBuilder extends TestBuilder
 {
     private static $tempDir;
@@ -33,7 +31,7 @@ class ArtifactBuilder extends TestBuilder
     }
 
     /**
-     * Generate randomized images for testing
+     * Generate randomized images for testing using GD
      * @return string The generated filename
      */
     public static function makeImage()
@@ -42,16 +40,25 @@ class ArtifactBuilder extends TestBuilder
         $scale = 100;
         $filename = self::$tempDir . 'test_' . bin2hex(openssl_random_pseudo_bytes(8)) . ".jpg";
 
-        $img = Image::canvas($width, $height, '#000');
+        // Create image using GD
+        $img = imagecreatetruecolor($width, $height);
+
+        // Fill with random pixels
         for ($x = 0; $x < $width; $x++) {
             for ($y = 0; $y < $height; $y++) {
                 $color = self::randomColor();
-                $img->pixel($color, $x, $y);
+                $gdColor = imagecolorallocate($img, $color[0], $color[1], $color[2]);
+                imagesetpixel($img, $x, $y, $gdColor);
             }
         }
-        $img->resize($width * $scale, $width * $scale);
-        $png = $img->encode('jpg');
-        $png->save($filename);
+
+        // Scale up the image
+        $scaledImg = imagescale($img, $width * $scale, $height * $scale, IMG_NEAREST_NEIGHBOUR);
+
+        // Save as JPEG
+        imagejpeg($scaledImg, $filename, 85);
+
+        // No need to destroy in PHP 8.0+ (automatic cleanup)
 
         return $filename;
     }

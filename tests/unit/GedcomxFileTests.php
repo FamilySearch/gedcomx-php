@@ -58,7 +58,12 @@ class GedcomxFileTests extends ApiTestCase
         $control = new \DOMDocument();
         $control->loadXML(file_get_contents($this->filesDir . 'cap-relationship-control.xml'));
 
-        $this->assertEqualXMLStructure($generated->firstChild, $control->firstChild,'XML output does not match test file.');
+        // Use C14N (canonical XML) for comparison - works across PHP versions
+        $this->assertEquals(
+            $control->C14N(),
+            $generated->C14N(),
+            'XML output does not match test file.'
+        );
     }
 
     public function testXMLDeserialization()

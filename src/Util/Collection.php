@@ -121,7 +121,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
     }
@@ -140,7 +140,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      * <p>
      * The return value will be casted to boolean if non-boolean was returned.
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->items);
     }
@@ -156,7 +156,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return mixed Can return all value types.
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->items[$offset];
     }
@@ -175,7 +175,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if( $offset == null ){
             $this->items[] = $value;
@@ -195,7 +195,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
     }
@@ -209,7 +209,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate
      * <p>
      * The return value is cast to an integer.
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
