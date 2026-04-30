@@ -28,8 +28,8 @@ jobs:
         apt-get install -y git unzip libzip-dev libxml2-dev
         docker-php-ext-install xml zip
         if [ "${{ matrix.php-version }}" = "8.3" ]; then
-          pecl install xdebug
-          docker-php-ext-enable xdebug
+          pecl install xdebug || echo "Warning: xdebug install failed, coverage may not work"
+          docker-php-ext-enable xdebug || true
         fi
         php -v
         php -m
@@ -48,7 +48,7 @@ jobs:
       id: composer-cache
       uses: actions/cache@v4
       with:
-        path: vendor
+        path: /root/.composer/cache
         key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-${{ matrix.php-version }}-
@@ -67,7 +67,8 @@ jobs:
       if: matrix.php-version == '8.3'
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         composer global require php-coveralls/php-coveralls
-        export PATH="$HOME/.composer/vendor/bin:$PATH"
+        export PATH="/root/.composer/vendor/bin:$PATH"
         php-coveralls --coverage_clover=build/logs/clover.xml --json_path=build/logs/coveralls-upload.json -v
