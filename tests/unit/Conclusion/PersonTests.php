@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedcomx\Tests\Unit;
+namespace Gedcomx\Tests\Unit\Conclusion;
 
 use Gedcomx\Tests\ApiTestCase;
 use Gedcomx\Conclusion\Person;

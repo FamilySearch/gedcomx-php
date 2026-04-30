@@ -39,7 +39,7 @@ class GedcomxOutput
      *
      * @param \Gedcomx\GedcomxFile\GedcomxEntrySerializer $serializer
      */
-    public function __construct(GedcomxEntrySerializer $serializer = null )
+    public function __construct(?GedcomxEntrySerializer $serializer = null )
     {
         $this->serializer = $serializer;
         if ($this->serializer == null) {
@@ -100,7 +100,7 @@ class GedcomxOutput
      *
      * @return void
      */
-    public function addGedcomxResource(Gedcomx $resource, \DateTime $lastModified = null)
+    public function addGedcomxResource(Gedcomx $resource, ?\DateTime $lastModified = null)
     {
         $this->addResource(Gedcomx::XML_MEDIA_TYPE, $resource, $lastModified);
     }
@@ -113,7 +113,7 @@ class GedcomxOutput
      *
      * @return void
      */
-    public function addFamilySearchResource(FamilySearchPlatform $resource, \DateTime $lastModified = null)
+    public function addFamilySearchResource(FamilySearchPlatform $resource, ?\DateTime $lastModified = null)
     {
         $this->addResource(FamilySearchPlatform::XML_MEDIA_TYPE, $resource, $lastModified);
     }
@@ -125,7 +125,7 @@ class GedcomxOutput
      * @param string    $contentType
      * @param \DateTime $lastModified
      */
-    public function addFileResource($filename, $contentType = null, \DateTime $lastModified = null)
+    public function addFileResource($filename, ?string $contentType = null, ?\DateTime $lastModified = null)
     {
         if ($lastModified == null) {
             $lastModified = new \DateTime();
@@ -169,7 +169,7 @@ class GedcomxOutput
      * @param string    $resource
      * @param \DateTime $lastModified
      */
-    protected function addResource($contentType, $resource, \DateTime $lastModified = null)
+    protected function addResource($contentType, $resource, ?\DateTime $lastModified = null)
     {
         if($lastModified == null) {
             $lastModified = new \DateTime();
