@@ -64,7 +64,17 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
 * **GEDCOM X Serialization**
 
-  XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization). 
+  XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization).
+
+* **FamilyView for Family Groupings** ✨ NEW in v4.3.0
+
+  Display families with parents and children using the new `FamilyView` class. Perfect for family tree visualizations and pedigree charts.
+
+* **Multi-Calendar Support** ✨ NEW in v4.3.0
+
+  Represent dates in multiple calendar systems (Gregorian, Julian, Hebrew, Islamic, French Republican) with automatic alternate calendar date support.
+
+For detailed guides and examples, see [NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md). 
 
 ## Testing
 

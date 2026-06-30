@@ -5,6 +5,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.0] - 2026-06-30
+
+### Added
+- **FamilyView class** for representing family groupings with parents and children
+  - `FamilyView` class in `Gedcomx\Conclusion` namespace
+  - Support for parent1, parent2, and children (ResourceReference arrays)
+  - JSON and XML serialization/deserialization
+  - Single-parent family support
+  - See [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) for usage examples
+
+- **Multi-calendar support** for dates
+  - `CalendarType` enum with 5 calendar systems:
+    - GREGORIAN - Modern international calendar
+    - JULIAN - Pre-Gregorian European calendar
+    - HEBREW - Jewish religious calendar
+    - HIJRI - Islamic lunar calendar
+    - FRENCH_REPUBLICAN - French Revolutionary calendar
+  - `calendar` property on `DateInfo` class
+  - `alternateCalendarDates` property for representing dates in multiple calendars
+  - Support for nested DateInfo objects in alternate calendar arrays
+  - See [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) for calendar conversion examples
+
+- **Date confidence levels**
+  - `confidence` property on `DateInfo` class
+  - ConfidenceLevel enum (HIGH, MEDIUM, LOW) already existed, now integrated with DateInfo
+
+- **HasDateAndPlace interface**
+  - Interface for classes with both date and place properties
+  - Implemented by Fact and Event classes
+  - Ensures consistent API for temporal and geographic data
+
+- **Comprehensive test coverage**
+  - 50 new tests (34 model tests + 16 serialization tests)
+  - 183 new assertions
+  - JSON serialization/deserialization tests
+  - XML serialization/deserialization tests
+  - Integration tests with Person, Fact, and Event
+  - Edge case testing (null handling, empty arrays, nested objects)
+
+- **Documentation**
+  - [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) - Complete feature guide with examples
+  - [docs/QUICK_START.md](docs/QUICK_START.md) - Quick start guide for new features
+  - [SERIALIZATION_VERIFICATION.md](SERIALIZATION_VERIFICATION.md) - Serialization verification report
+  - [TEST_COVERAGE_SUMMARY.md](TEST_COVERAGE_SUMMARY.md) - Test coverage documentation
+
+### Changed
+- Updated `DateInfo` class with three new properties (backward compatible)
+- Updated README.md to highlight new features
+- Enhanced CHANGELOG.md with detailed feature descriptions
+
+### Technical Details
+- All new properties serialize correctly in JSON and XML formats
+- Full backward compatibility maintained - existing code continues to work
+- Zero breaking changes
+- 114 total tests passing (98 existing + 16 new)
+- 325 total assertions
+
+### Migration Notes
+- No code changes required for existing implementations
+- New properties are optional and default to null
+- See [docs/NEW_FEATURES_GUIDE.md#migration-guide](docs/NEW_FEATURES_GUIDE.md#migration-guide) for upgrade guidance
+
 ## [Unreleased]
 
 ### Added
