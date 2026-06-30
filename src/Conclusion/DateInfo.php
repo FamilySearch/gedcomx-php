@@ -50,6 +50,27 @@ class DateInfo extends ExtensibleData
     private $fields;
 
     /**
+     * The level of confidence for this date.
+     *
+     * @var string
+     */
+    private $confidence;
+
+    /**
+     * The calendar type for this date.
+     *
+     * @var string
+     */
+    private $calendar;
+
+    /**
+     * Alternate representations of this date in different calendar systems.
+     *
+     * @var DateInfo[]
+     */
+    private $alternateCalendarDates;
+
+    /**
      * Constructs a DateInfo from a (parsed) JSON hash
      *
      * @param mixed $o Either an array (JSON) or an XMLReader.
@@ -169,6 +190,66 @@ class DateInfo extends ExtensibleData
     }
 
     /**
+     * The level of confidence for this date.
+     *
+     * @return string
+     */
+    public function getConfidence()
+    {
+        return $this->confidence;
+    }
+
+    /**
+     * The level of confidence for this date.
+     *
+     * @param string $confidence
+     */
+    public function setConfidence($confidence)
+    {
+        $this->confidence = $confidence;
+    }
+
+    /**
+     * The calendar type for this date.
+     *
+     * @return string
+     */
+    public function getCalendar()
+    {
+        return $this->calendar;
+    }
+
+    /**
+     * The calendar type for this date.
+     *
+     * @param string $calendar
+     */
+    public function setCalendar($calendar)
+    {
+        $this->calendar = $calendar;
+    }
+
+    /**
+     * Alternate representations of this date in different calendar systems.
+     *
+     * @return DateInfo[]
+     */
+    public function getAlternateCalendarDates()
+    {
+        return $this->alternateCalendarDates;
+    }
+
+    /**
+     * Alternate representations of this date in different calendar systems.
+     *
+     * @param DateInfo[] $alternateCalendarDates
+     */
+    public function setAlternateCalendarDates($alternateCalendarDates)
+    {
+        $this->alternateCalendarDates = $alternateCalendarDates;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getDateTime()
@@ -203,6 +284,19 @@ class DateInfo extends ExtensibleData
             }
             $a['fields'] = $ab;
         }
+        if ($this->confidence) {
+            $a["confidence"] = $this->confidence;
+        }
+        if ($this->calendar) {
+            $a["calendar"] = $this->calendar;
+        }
+        if ($this->alternateCalendarDates) {
+            $ab = array();
+            foreach ($this->alternateCalendarDates as $i => $x) {
+                $ab[$i] = $x->toArray();
+            }
+            $a['alternateCalendarDates'] = $ab;
+        }
         return $a;
     }
 
@@ -235,6 +329,21 @@ class DateInfo extends ExtensibleData
                 $this->fields[$i] = new Field($x);
             }
             unset($o['fields']);
+        }
+        if (isset($o['confidence'])) {
+            $this->confidence = $o["confidence"];
+            unset($o['confidence']);
+        }
+        if (isset($o['calendar'])) {
+            $this->calendar = $o["calendar"];
+            unset($o['calendar']);
+        }
+        $this->alternateCalendarDates = array();
+        if (isset($o['alternateCalendarDates'])) {
+            foreach ($o['alternateCalendarDates'] as $i => $x) {
+                $this->alternateCalendarDates[$i] = new DateInfo($x);
+            }
+            unset($o['alternateCalendarDates']);
         }
         parent::initFromArray($o);
     }
@@ -288,6 +397,30 @@ class DateInfo extends ExtensibleData
             array_push($this->fields, $child);
             $happened = true;
         }
+        else if (($xml->localName == 'confidence') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->confidence = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'calendar') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = '';
+            while ($xml->read() && $xml->hasValue) {
+                $child = $child . $xml->value;
+            }
+            $this->calendar = $child;
+            $happened = true;
+        }
+        else if (($xml->localName == 'alternateCalendarDate') && ($xml->namespaceURI == 'http://gedcomx.org/v1/')) {
+            $child = new DateInfo($xml);
+            if (!isset($this->alternateCalendarDates)) {
+                $this->alternateCalendarDates = array();
+            }
+            array_push($this->alternateCalendarDates, $child);
+            $happened = true;
+        }
         return $happened;
     }
 
@@ -334,6 +467,23 @@ class DateInfo extends ExtensibleData
         if ($this->fields) {
             foreach ($this->fields as $i => $x) {
                 $writer->startElementNs('gx', 'field', null);
+                $x->writeXmlContents($writer);
+                $writer->endElement();
+            }
+        }
+        if ($this->confidence) {
+            $writer->startElementNs('gx', 'confidence', null);
+            $writer->text($this->confidence);
+            $writer->endElement();
+        }
+        if ($this->calendar) {
+            $writer->startElementNs('gx', 'calendar', null);
+            $writer->text($this->calendar);
+            $writer->endElement();
+        }
+        if ($this->alternateCalendarDates) {
+            foreach ($this->alternateCalendarDates as $i => $x) {
+                $writer->startElementNs('gx', 'alternateCalendarDate', null);
                 $x->writeXmlContents($writer);
                 $writer->endElement();
             }
