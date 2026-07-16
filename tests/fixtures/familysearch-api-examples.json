@@ -1,0 +1,168 @@
+{
+  "description": "Realistic FamilySearch API response examples for testing new extension classes",
+
+  "tree": {
+    "id": "TREE-12345",
+    "groupIds": ["GROUP-001", "GROUP-002", "GROUP-003"],
+    "name": "Smith Family Tree",
+    "description": "Collaborative research on the Smith family lineage from England to America",
+    "startingPersonId": "KWQS-BBQ",
+    "hidden": false,
+    "private": true,
+    "collectionId": "TREE-COLLECTION-1",
+    "ownerAccess": "http://familysearch.org/v1/AnyApps",
+    "groupAccess": "http://familysearch.org/v1/CompanyApps",
+    "allAccess": "http://familysearch.org/v1/None"
+  },
+
+  "group": {
+    "id": "GROUP-001",
+    "name": "Smith Family Researchers",
+    "description": "Group dedicated to researching the Smith family line",
+    "codeOfConduct": "Be respectful, collaborative, and cite your sources",
+    "treeIds": ["TREE-12345", "TREE-67890"],
+    "members": [
+      {
+        "groupId": "GROUP-001",
+        "cisId": "cis-user-12345",
+        "contactName": "John Smith",
+        "status": "active"
+      },
+      {
+        "groupId": "GROUP-001",
+        "cisId": "cis-user-67890",
+        "contactName": "Jane Doe",
+        "status": "active"
+      },
+      {
+        "groupId": "GROUP-001",
+        "cisId": "cis-user-11111",
+        "contactName": "Robert Johnson",
+        "status": "invited"
+      }
+    ]
+  },
+
+  "personInfo": {
+    "canUserEdit": true,
+    "visibleToAll": true,
+    "visibleToAllWhenUsingFamilySearchApps": true,
+    "treeId": "TREE-12345"
+  },
+
+  "searchInfo": {
+    "totalHits": 1543,
+    "closeHits": 127
+  },
+
+  "nameFormInfo": {
+    "order": "http://familysearch.org/v1/Eurotypic"
+  },
+
+  "nameFormInfoSinotypic": {
+    "order": "http://familysearch.org/v1/Sinotypic"
+  },
+
+  "additionalAttribution": {
+    "contributor": {
+      "resource": "https://familysearch.org/platform/users/cis-user-12345",
+      "resourceId": "cis-user-12345"
+    },
+    "modified": 1625097600000,
+    "changeMessage": "Added birth date from 1850 census record"
+  },
+
+  "treePersonReference": {
+    "treePerson": {
+      "resource": "https://familysearch.org/platform/tree/persons/KWQS-BBQ",
+      "resourceId": "KWQS-BBQ"
+    },
+    "tree": {
+      "resource": "https://familysearch.org/platform/tree/trees/TREE-12345",
+      "resourceId": "TREE-12345"
+    },
+    "attribution": {
+      "contributor": {
+        "resource": "https://familysearch.org/platform/users/cis-user-12345",
+        "resourceId": "cis-user-12345"
+      },
+      "modified": 1625097600000,
+      "changeMessage": "Linked from alternate tree for comparison"
+    }
+  },
+
+  "changeTypes": {
+    "personChanges": [
+      "http://familysearch.org/v1/CreatePerson",
+      "http://familysearch.org/v1/UpdatePerson",
+      "http://familysearch.org/v1/DeletePerson",
+      "http://familysearch.org/v1/RestorePerson",
+      "http://familysearch.org/v1/MergePerson",
+      "http://familysearch.org/v1/UnmergePerson"
+    ],
+    "factChanges": [
+      "http://familysearch.org/v1/AddBirth",
+      "http://familysearch.org/v1/UpdateBirth",
+      "http://familysearch.org/v1/DeleteBirth",
+      "http://familysearch.org/v1/AddDeath",
+      "http://familysearch.org/v1/UpdateDeath",
+      "http://familysearch.org/v1/DeleteDeath"
+    ],
+    "relationshipChanges": [
+      "http://familysearch.org/v1/CreateCoupleRelationship",
+      "http://familysearch.org/v1/DeleteCoupleRelationship",
+      "http://familysearch.org/v1/CreateChildAndParentsRelationship",
+      "http://familysearch.org/v1/DeleteChildAndParentsRelationship"
+    ]
+  },
+
+  "familySearchFactTypes": [
+    "http://familysearch.org/v1/Affiliation",
+    "http://familysearch.org/v1/LifeSketch",
+    "http://familysearch.org/v1/TribeName",
+    "http://familysearch.org/v1/TitleOfNobility"
+  ],
+
+  "familySearchIdentifierTypes": [
+    "http://familysearch.org/v1/ChildAndParentsRelationship",
+    "http://familysearch.org/v1/MemoryPerson",
+    "http://familysearch.org/v1/FamilyTreePerson"
+  ],
+
+  "relationshipRoles": [
+    "http://familysearch.org/v1/Parent1",
+    "http://familysearch.org/v1/Parent2",
+    "http://familysearch.org/v1/Child",
+    "http://familysearch.org/v1/Spouse1",
+    "http://familysearch.org/v1/Spouse2"
+  ],
+
+  "thirdPartyAccessLevels": {
+    "mostPermissive": "http://familysearch.org/v1/AnyApps",
+    "restricted": "http://familysearch.org/v1/CompanyApps",
+    "blocked": "http://familysearch.org/v1/None"
+  },
+
+  "matchCollections": [
+    "https://familysearch.org/platform/collections/tree",
+    "https://familysearch.org/platform/collections/records",
+    "https://familysearch.org/platform/collections/trees",
+    "https://familysearch.org/platform/collections/user_trees"
+  ],
+
+  "searchCollections": {
+    "tree": {
+      "uri": "https://familysearch.org/platform/collections/tree",
+      "id": "0"
+    },
+    "userTrees": {
+      "uri": "https://familysearch.org/platform/collections/user_trees",
+      "id": "10"
+    }
+  },
+
+  "sourceReferenceTagTypes": [
+    "http://gedcomx.org/Name",
+    "http://gedcomx.org/Gender"
+  ]
+}
