@@ -74,7 +74,7 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
   Represent dates in multiple calendar systems (Gregorian, Julian, Hebrew, Islamic, French Republican) with automatic alternate calendar date support.
 
-For detailed guides and examples, see [NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md). 
+For detailed guides and examples, see [FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md). 
 
 ## Testing
 

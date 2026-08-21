@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for parent1, parent2, and children (ResourceReference arrays)
   - JSON and XML serialization/deserialization
   - Single-parent family support
-  - See [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) for usage examples
+  - See [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) for usage examples
 
 - **Multi-calendar support** for dates
   - `CalendarType` enum with 5 calendar systems:
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `calendar` property on `DateInfo` class
   - `alternateCalendarDates` property for representing dates in multiple calendars
   - Support for nested DateInfo objects in alternate calendar arrays
-  - See [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) for calendar conversion examples
+  - See [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) for calendar conversion examples
 
 - **Date confidence levels**
   - `confidence` property on `DateInfo` class
@@ -45,9 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Edge case testing (null handling, empty arrays, nested objects)
 
 - **Documentation**
-  - [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) - Complete feature guide with examples
-  - [docs/QUICK_START.md](docs/QUICK_START.md) - Quick start guide for new features
-  - [docs/SERIALIZATION_VERIFICATION.md](docs/SERIALIZATION_VERIFICATION.md) - Serialization verification report
+  - [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) - Complete guide for FamilyView and multi-calendar support
   - [TEST_COVERAGE_SUMMARY.md](TEST_COVERAGE_SUMMARY.md) - Test coverage documentation
 
 ### Changed
@@ -65,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Migration Notes
 - No code changes required for existing implementations
 - New properties are optional and default to null
-- See [docs/NEW_FEATURES_GUIDE.md#migration-guide](docs/NEW_FEATURES_GUIDE.md#migration-guide) for upgrade guidance
+- See [docs/FAMILIES_AND_CALENDARS.md#migration-guide](docs/FAMILIES_AND_CALENDARS.md#migration-guide) for upgrade guidance
 
 ## [Unreleased]
 
