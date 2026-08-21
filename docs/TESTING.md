@@ -23,6 +23,10 @@ composer install
 ### Run All Tests
 
 ```bash
+# Using composer script
+composer test
+
+# Or directly via PHPUnit
 vendor/bin/phpunit
 ```
 
@@ -32,7 +36,7 @@ vendor/bin/phpunit
 vendor/bin/phpunit --testdox
 ```
 
-### Run Specific Test Suite
+### Run Specific Test File
 
 ```bash
 # Core model tests
@@ -40,6 +44,12 @@ vendor/bin/phpunit tests/unit/ConclusionModelsTests.php
 
 # FamilySearch extension tests
 vendor/bin/phpunit tests/unit/FamilySearchExtensionsTests.php
+
+# FamilySearch extension tests
+vendor/bin/phpunit tests/unit/NewFamilySearchExtensionsTests.php
+
+# Model updates tests (calendars, date info, family view)
+vendor/bin/phpunit tests/unit/ModelUpdatesTests.php
 
 # Fixture validation tests
 vendor/bin/phpunit tests/unit/FixtureValidationTests.php
@@ -52,38 +62,42 @@ vendor/bin/phpunit tests/unit/FixtureValidationTests.php
 Coverage report generation requires Xdebug or PCOV extension:
 
 ```bash
-# Generate HTML coverage report
+# Generate HTML coverage report (recommended)
+composer test:coverage
+
+# Or use PHPUnit directly
 vendor/bin/phpunit --coverage-html build/coverage
+
+# Generate text summary
+composer test:coverage-text
+# Or: vendor/bin/phpunit --coverage-text
 
 # Generate Clover XML for CI
 vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-# Generate text summary
-vendor/bin/phpunit --coverage-text
 ```
 
 ### Coverage Baseline
 
-**Baseline established:** April 2026  
-**Test Count:** 64 tests, 142 assertions  
+**Last Updated:** August 2026  
+**Test Count:** 160 tests, 572 assertions  
 **Status:** ✅ 100% passing on PHP 7.4-8.3
 
 The project maintains comprehensive test coverage for:
 
-- ✅ **Core GEDCOM X models** (23 tests) - Person, Relationship, Fact, Name, Gender, Event, Document, PlaceDescription, etc.
-- ✅ **Source models** (8 tests) - SourceDescription, SourceCitation, SourceReference, CitationField
-- ✅ **Agent models** (7 tests) - Agent, Address, OnlineAccount
-- ✅ **FamilySearch extensions** (16 tests) - ChildAndParentsRelationship, Discussion, Comment, User, etc.
+- ✅ **Core GEDCOM X models** (14 tests) - Person, Relationship, Fact, Name, Gender, Event, Document, etc.
+- ✅ **Additional conclusion models** (9 tests) - PlaceDescription, EventRole, Identifier, Subject
+- ✅ **Source models** (7 tests) - SourceDescription, SourceCitation, SourceReference
+- ✅ **Agent models** (6 tests) - Agent, Address, OnlineAccount
+- ✅ **FamilySearch extensions** (6 tests) - ChildAndParentsRelationship, FamilySearchPlatform
+- ✅ **New FamilySearch extensions** (38 tests) - Attribution, NameFormInfo, SearchInfo, PersonInfo, Group, Tree, TreePersonReference, constants
+- ✅ **Additional FamilySearch extensions** (10 tests) - Discussion, Comment, DiscussionReference, User
+- ✅ **Model updates** (33 tests) - Calendar support (Gregorian, Julian, Hebrew, French Republican, Hijri), DateInfo with confidence/calendars, FamilyView
 - ✅ **File operations** (4 tests) - XML/JSON serialization, GEDCOMX archive operations
+- ✅ **Serialization integration** (16 tests) - DateInfo and FamilyView JSON/XML round-trip testing
+- ✅ **Specification compliance** (7 tests) - Multi-calendar support, backward compatibility, edge cases
 - ✅ **Fixture validation** (6 tests) - XML/JSON well-formedness, round-trip testing
-
-**Detailed coverage breakdown:** See [TEST_COVERAGE.md](TEST_COVERAGE.md) for a complete list of tested models.
-
-**Where to find coverage reports:**
-
-- GitHub Actions CI: Coverage artifacts are uploaded on every push to `master` and for all pull requests
-- Coveralls.io: [![Coverage Status](https://coveralls.io/repos/FamilySearch/gedcomx-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/FamilySearch/gedcomx-php?branch=master)
-- CI runs coverage on PHP 8.3 only to optimize build time
+- ✅ **XML deserialization** (1 test)
+- ✅ **Person model** (1 test)
 
 ## Continuous Integration
 
@@ -114,16 +128,31 @@ The CI pipeline (`.github/workflows/ci.yml`) runs:
 
 ```
 tests/
-├── bootstrap.php              # Test bootstrap (converts deprecations to exceptions)
-├── files/                     # Test fixtures (XML, JSON, GEDX files)
-├── unit/                      # Unit tests
-│   ├── ConclusionModelsTests.php       # Core GEDCOM X model tests
-│   ├── FamilySearchExtensionsTests.php # FamilySearch extension tests
-│   ├── FixtureValidationTests.php      # Fixture validation tests
-│   ├── GedcomxFileTests.php            # GEDCOMX file operation tests
-│   ├── PersonTests.php                 # Person model tests
-│   └── XMLTests.php                    # XML deserialization tests
-└── tmp/                       # Temporary files (gitignored)
+├── ApiTestCase.php                    # Base test case class
+├── ArtifactBuilder.php                # Test data builder for artifacts
+├── PersonBuilder.php                  # Test data builder for persons
+├── TestBuilder.php                    # Base test builder class
+├── XMLBuilder.php                     # Test data builder for XML
+├── bootstrap.php                      # Test bootstrap (converts deprecations to exceptions)
+├── artifact.pdf                       # Test artifact file
+├── files/                             # Test fixtures (XML, JSON, GEDX files)
+├── fixtures/                          # Additional test fixtures
+├── unit/                              # Unit tests
+│   ├── AdditionalConclusionModelsTests.php       # PlaceDescription, EventRole, etc.
+│   ├── AdditionalFamilySearchExtensionsTests.php # Discussion, Comment, User
+│   ├── AgentModelsTests.php                      # Agent, Address, OnlineAccount
+│   ├── ConclusionModelsTests.php                 # Core GEDCOM X model tests
+│   ├── FamilySearchExtensionsTests.php           # ChildAndParentsRelationship, etc.
+│   ├── FixtureValidationTests.php                # Fixture validation tests
+│   ├── GedcomxFileTests.php                      # GEDCOMX file operation tests
+│   ├── ModelUpdatesTests.php                     # Calendar, DateInfo, FamilyView tests
+│   ├── NewFamilySearchExtensionsTests.php        # New FS extension classes
+│   ├── PersonTests.php                           # Person model tests
+│   ├── SerializationIntegrationTests.php         # JSON/XML serialization tests
+│   ├── SourceModelsTests.php                     # SourceDescription, etc.
+│   ├── SpecificationComplianceTests.php          # Compliance and edge case tests
+│   └── XMLTests.php                              # XML deserialization tests
+└── tmp/                               # Temporary files (gitignored)
 ```
 
 ### Test Fixtures
@@ -226,11 +255,11 @@ Ensure `tests/files/` directory exists with fixture files. Check paths in test a
 
 ## Best Practices
 
-1. **Run tests before committing**: `vendor/bin/phpunit`
+1. **Run tests before committing**: `composer test`
 2. **Test on multiple PHP versions** if making significant changes
-3. **Keep tests fast**: Current suite runs in < 1 second
+3. **Keep tests fast**: Current suite runs in ~0.08 seconds
 4. **Don't commit generated files**: `.phpunit.result.cache` and `build/` are gitignored
-5. **Update this document** when adding new test infrastructure
+5. **Update this document** when adding new test infrastructure or making significant test changes
 
 ## Questions or Issues?
 
