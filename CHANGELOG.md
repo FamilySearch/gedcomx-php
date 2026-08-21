@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation**
   - [docs/NEW_FEATURES_GUIDE.md](docs/NEW_FEATURES_GUIDE.md) - Complete feature guide with examples
   - [docs/QUICK_START.md](docs/QUICK_START.md) - Quick start guide for new features
-  - [SERIALIZATION_VERIFICATION.md](SERIALIZATION_VERIFICATION.md) - Serialization verification report
+  - [docs/SERIALIZATION_VERIFICATION.md](docs/SERIALIZATION_VERIFICATION.md) - Serialization verification report
   - [TEST_COVERAGE_SUMMARY.md](TEST_COVERAGE_SUMMARY.md) - Test coverage documentation
 
 ### Changed
