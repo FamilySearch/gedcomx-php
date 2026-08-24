@@ -232,4 +232,20 @@ class HypermediaEnabledData extends ExtensibleData implements SupportsLinks
         }
         return $links;
     }
+
+    /**
+     * Merge links from another object. Override in subclasses for specific behavior.
+     *
+     * @param HypermediaEnabledData $data
+     */
+    public function embed(HypermediaEnabledData $data)
+    {
+        // Merge links
+        $otherLinks = $data->getLinks();
+        if ($otherLinks !== null) {
+            foreach ($otherLinks as $link) {
+                $this->addLink($link);
+            }
+        }
+    }
 }

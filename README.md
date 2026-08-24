@@ -1,7 +1,7 @@
 # GedcomX - PHP SDK  
 
 [![Packagist](https://img.shields.io/packagist/v/gedcomx/gedcomx-php.svg)](https://packagist.org/packages/gedcomx/gedcomx-php)
-[![CI](https://github.com/FamilySearch/gedcomx-php/actions/workflows/ci.yml/badge.svg)](https://github.com/FamilySearch/gedcomx-php/actions/workflows/ci.yml)
+[![PHP Version](https://img.shields.io/badge/php-7.4%20%7C%208.0%20%7C%208.1%20%7C%208.2%20%7C%208.3-blue.svg)](https://github.com/FamilySearch/gedcomx-php)
 [![Coverage Status](https://coveralls.io/repos/FamilySearch/gedcomx-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/FamilySearch/gedcomx-php?branch=master)
 
 The PHP implementation of [GEDCOM X](http://www.gedcomx.org), including GEDCOM X extension projects. 
@@ -66,15 +66,27 @@ Do **one** of the following steps to activate Composer and install the gedcomx-p
 
   XML and JSON serialization and deserialization of GEDCOM X. For more information, see the [examples](https://github.com/FamilySearch/gedcomx-php/wiki/GEDCOM-X-Serialization).
 
-* **FamilyView for Family Groupings** ✨ NEW in v4.3.0
+* **FamilyView for Family Groupings**
 
   Display families with parents and children using the new `FamilyView` class. Perfect for family tree visualizations and pedigree charts.
 
-* **Multi-Calendar Support** ✨ NEW in v4.3.0
+* **Multi-Calendar Support**
 
   Represent dates in multiple calendar systems (Gregorian, Julian, Hebrew, Islamic, French Republican) with automatic alternate calendar date support.
 
-For detailed guides and examples, see [FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md). 
+* **FamilySearch Extensions**
+
+  Full support for FamilySearch-specific extensions including:
+  - **LDS Temple Ordinances** - Baptism, endowment, sealing, and other temple ordinances with reservations and participants
+  - **Places** - Enhanced geographic data, place descriptions, and feedback
+  - **Names** - Name search analysis and information
+  - **Records** - Historical record field information and metadata
+  - **Search** - Faceted search with hierarchical facets
+  - **Vocabularies** - Controlled vocabulary concepts, terms, and translations
+  - **Artifacts** - Digital artifact management, display states, and access permissions
+  - **Users** - Extended user agent information
+
+For detailed documentation and examples, see [FAMILYSEARCH_EXTENSIONS.md](docs/FAMILYSEARCH_EXTENSIONS.md). 
 
 ## Testing
 
