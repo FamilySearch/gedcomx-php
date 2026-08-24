@@ -2,8 +2,83 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [4.4.0] - 2026-08-24
+
+### Added
+- **Complete FamilySearch Extensions** - Added all missing extension packages from gedcomx-java repository
+  
+- **Ordinances Package** (16 classes)
+  - `Ordinance` - LDS temple ordinance with full lifecycle support
+  - `OrdinanceActions` - Available actions (reserve, unreserve, print, etc.)
+  - `OrdinanceParticipant` - Participant information with sex and living status
+  - `OrdinanceReservation` - Reservation details with assignee and claim information
+  - `OrdinanceRollup` - Aggregate ordinance statistics
+  - `OrdinanceSummary` - Summary of person's ordinance status
+  - Enums: `OrdinanceType`, `OrdinanceStatus`, `OrdinanceStatusReason`, `OrdinanceRoleType`, `OrdinanceSexType`, `OrdinanceRollupStatus`, `OrdinanceReservationAssigneeType`, `OrdinanceReservationClaimType`
+  - Full support for baptism, endowment, sealing, and other temple ordinances
+  
+- **Places Package** (4 classes)
+  - `PlaceDescriptionInfo` - Extended place information with geographic hierarchy
+  - `FeedbackInfo` - User feedback on place descriptions
+  - `PlaceAttribute` - Place attributes with qualifiers
+  - `FamilySearchPlaceType` - Enum for place type classifications
+  
+- **Names Package** (1 class)
+  - `NameSearchInfo` - Name search analysis with match scores and alternate spellings
+  
+- **Records Package** (3 classes)
+  - `FieldInfo` - Historical record field metadata
+  - `AlternateDate` - Alternate date representations
+  - `AlternatePlaceReference` - Alternate place references
+  
+- **Search Package** (1 class)
+  - `Facet` - Faceted search support with hierarchical facets
+  
+- **Vocabularies Package** (5 classes)
+  - `VocabConcept` - Controlled vocabulary concept
+  - `VocabConceptAttribute` - Concept attributes
+  - `VocabConcepts` - Collection of vocabulary concepts
+  - `VocabTerm` - Vocabulary term with language support
+  - `VocabTranslation` - Term translations across languages
+  
+- **Artifacts Package** (3 classes)
+  - `ArtifactDisplayState` - Display state for digital artifacts
+  - `ArtifactScreeningState` - Screening state and review status
+  - `ArtifactAccessPermission` - Access permission management
+  
+- **Users Package** (1 class)
+  - `AgentName` - Extended agent name with given/surname support
+
+### Changed
+- Updated `FamilySearchPlatformModelVisitor` and `FamilySearchPlatformModelVisitorBase` to support all new extension classes
+- Enhanced `HypermediaEnabledData` with additional link support
+- Added `alternateCalendarDates` support to `Date` class in conclusion models
+
+### Documentation
+- Created comprehensive [FAMILYSEARCH_EXTENSIONS.md](docs/FAMILYSEARCH_EXTENSIONS.md) covering all extension packages
+- Added detailed usage examples for ordinances, places, names, records, search, vocabularies, artifacts, and users
+- Moved documentation into `docs/` folder for better organization
+- Renamed and cleaned up existing documentation files
+
+### Testing
+- Added comprehensive test coverage for all new packages:
+  - `OrdinancesTests.php` (266 lines) - Full ordinance lifecycle testing
+  - `PlacesTests.php` (120 lines) - Place descriptions and feedback
+  - `NamesTests.php` (99 lines) - Name search functionality
+  - `RecordsTests.php` (166 lines) - Field info and alternate references
+  - `SearchTests.php` (182 lines) - Faceted search testing
+  - `VocabTests.php` (259 lines) - Vocabulary concepts and translations
+  - `ArtifactsEnumsTests.php` (143 lines) - Artifact states and permissions
+  - `UsersAgentNameTests.php` (158 lines) - Agent name handling
+- Created `composer test` script for easier test execution
+- All tests include JSON/XML serialization validation
+
+### Technical Details
+- Full parity with gedcomx-java FamilySearch extensions
+- All classes support JSON and XML serialization/deserialization
+- Backward compatible - no breaking changes to existing code
+- Added ~9,255 lines of production code across 35 new files
+- Added ~1,400 lines of test code
 
 ## [4.3.0] - 2026-06-30
 
@@ -13,7 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for parent1, parent2, and children (ResourceReference arrays)
   - JSON and XML serialization/deserialization
   - Single-parent family support
-  - See [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) for usage examples
 
 - **Multi-calendar support** for dates
   - `CalendarType` enum with 5 calendar systems:
@@ -25,7 +99,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `calendar` property on `DateInfo` class
   - `alternateCalendarDates` property for representing dates in multiple calendars
   - Support for nested DateInfo objects in alternate calendar arrays
-  - See [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) for calendar conversion examples
 
 - **Date confidence levels**
   - `confidence` property on `DateInfo` class
@@ -44,10 +117,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Integration tests with Person, Fact, and Event
   - Edge case testing (null handling, empty arrays, nested objects)
 
-- **Documentation**
-  - [docs/FAMILIES_AND_CALENDARS.md](docs/FAMILIES_AND_CALENDARS.md) - Complete guide for FamilyView and multi-calendar support
-  - [TEST_COVERAGE_SUMMARY.md](TEST_COVERAGE_SUMMARY.md) - Test coverage documentation
-
 ### Changed
 - Updated `DateInfo` class with three new properties (backward compatible)
 - Updated README.md to highlight new features
@@ -60,12 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 114 total tests passing (98 existing + 16 new)
 - 325 total assertions
 
-### Migration Notes
-- No code changes required for existing implementations
-- New properties are optional and default to null
-- See [docs/FAMILIES_AND_CALENDARS.md#migration-guide](docs/FAMILIES_AND_CALENDARS.md#migration-guide) for upgrade guidance
-
-## [Unreleased]
+## [4.1.0] - 2026-04-20
 
 ### Added
 - PHP version requirement: `>=7.4` now specified in composer.json
@@ -122,69 +186,82 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Affects `GedcomxFileTests::testXMLSerialization`
   - Tests still pass but emit warnings
 
-### Testing
-Verified compatibility across multiple PHP versions:
-- ✅ PHP 8.1.34 - 6 tests, 23 assertions - PASSED
-- ✅ PHP 8.2.30 - 6 tests, 23 assertions - PASSED
-- ✅ PHP 8.3.30 - 6 tests, 23 assertions - PASSED
-- ✅ PHP 8.4.20 - 6 tests, 23 assertions - PASSED
-- ✅ PHP 8.5.5 - 6 tests, 23 assertions - PASSED
+## [3.1.0]
 
-**Automated CI Testing** (GitHub Actions):
-Continuous integration tests run automatically on PHP 7.4, 8.0, 8.1, 8.2, and 8.3 to prevent regressions.
+### Changed
+- Migrate from Travis CI to GitHub Actions
+- Add multi-version PHP testing (7.4, 8.0, 8.1, 8.2, 8.3)
+- Update CI/CD pipeline with automated testing and coverage reporting
+- Update README badges to reflect GitHub Actions status
+- Added CHANGELOG.md for a more extensive overview on changes
 
-Note: PHP 7.4 and 8.0 are end-of-life. While CI tests these versions for compatibility verification, production use of PHP 8.1+ is recommended for security updates.
+## [3.0.0]
 
-### Migration Guide
+### Changed
+- **BREAKING**: Split out the API networking code into [gedcomx-php-client](https://github.com/FamilySearch/gedcomx-php-client)
+  - This library now focuses solely on serialization/deserialization
+  - API client functionality moved to separate package
 
-#### For Library Users
-If you're using gedcomx-php as a dependency:
+## [2.3.0]
 
-1. **Update your PHP version**:
-   ```bash
-   php --version  # Must be 7.4 or higher
-   ```
+### Added
+- Add the `generateClientSecret()` method to `GedcomxApplicationState`
 
-2. **Update the package**:
-   ```bash
-   composer update gedcomx/gedcomx-php
-   ```
+## [2.2.0]
 
-3. **No code changes required** - The API remains unchanged
+### Added
+- Add `logout()` method to application states
 
-#### For Contributors/Developers
+## [2.1.1]
 
-1. **Update PHP if needed**:
-   ```bash
-   php --version  # Recommended: 8.1+
-   ```
+### Added
+- Support throttling. Enable in `FamilySearchClient` by setting the `throttling` option to `true`
 
-2. **Install dependencies**:
-   ```bash
-   rm -rf vendor composer.lock
-   composer install
-   ```
+## [2.0.1]
 
-3. **Run tests**:
-   ```bash
-   vendor/bin/phpunit
-   ```
+### Fixed
+- Fix `FamilySearchClient` so that it automatically follows redirects
 
-4. **Update test classes if extending ApiTestCase**:
-   ```php
-   // Old (PHPUnit 3.7)
-   class MyTest extends \PHPUnit_Framework_TestCase {
-       public function setUp() { }
-   }
-   
-   // New (PHPUnit 9+)
-   class MyTest extends \PHPUnit\Framework\TestCase {
-       protected function setUp(): void { }
-   }
-   ```
+## [2.0.0]
 
-### Known Issues
-- PHP 8.1+ emits deprecation notices about return type declarations in `Gedcomx\Util\Collection`
-  - These are warnings, not errors
-  - Tests pass successfully
-  - Will be addressed in a future update
+### Changed
+- **BREAKING**: Upgrade to Guzzle 6 which makes PHP 5.5 the minimum supported version
+- `$state->getRequest()` returns a `GuzzleHttp\Psr7\Request`
+- `$state->getResponse()` returns a `GuzzleHttp\Psr7\Response`
+
+### Added
+- Add a new `httpExceptions` configuration parameter on `FamilySearchClient` that causes an exception to be thrown when a 4xx or 5xx response is received from the API
+
+## [1.2.0]
+
+### Added
+- Add a custom user agent string when using the FamilySearchClient
+- Register a [PSR-3](http://www.php-fig.org/psr/psr-3/) logger when using the FamilySearchClient
+- Add a `setAccessToken()` method to the FamilySearchClient class
+- Add `getPerson()` method to the PersonsState
+- Add `getStatus()` method to the FamilySearchClient class
+
+### Changed
+- Change PersonParentsState, PersonSpousesState, and PersonChildrenState to extend PersonsState
+
+## [1.1.1]
+
+### Fixed
+- Fix bugs in the FamilySearchClient class
+
+## [1.1.0]
+
+### Added
+- Introduce the FamilySearchClient
+- Improve runtime of automated tests with php-vcr
+
+### Changed
+- Fix automated tests
+
+### Removed
+- Remove apache/log4php dependency
+
+## [1.0.0]
+
+### Added
+- Initial stable build to enable Composer installation by version number
