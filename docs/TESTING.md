@@ -134,7 +134,6 @@ tests/
 ├── TestBuilder.php                    # Base test builder class
 ├── XMLBuilder.php                     # Test data builder for XML
 ├── bootstrap.php                      # Test bootstrap (converts deprecations to exceptions)
-├── artifact.pdf                       # Test artifact file
 ├── files/                             # Test fixtures (XML, JSON, GEDX files)
 ├── fixtures/                          # Additional test fixtures
 ├── unit/                              # Unit tests
