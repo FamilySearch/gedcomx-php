@@ -10,6 +10,9 @@ use Gedcomx\Extensions\FamilySearch\Platform\Tree\ChildAndParentsRelationship;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\Merge;
 use Gedcomx\Extensions\FamilySearch\Platform\Tree\MergeAnalysis;
 use Gedcomx\Extensions\FamilySearch\Platform\Users\User;
+use Gedcomx\Extensions\FamilySearch\Platform\Vocab\VocabConcept;
+use Gedcomx\Extensions\FamilySearch\Platform\Vocab\VocabTerm;
+use Gedcomx\Extensions\FamilySearch\Platform\Vocab\VocabTranslation;
 use Gedcomx\Gedcomx;
 use Gedcomx\Rt\GedcomxModelVisitorBase;
 
@@ -155,6 +158,21 @@ class FamilySearchPlatformModelVisitorBase extends GedcomxModelVisitorBase imple
     }
 
     public function visitUser(User $user)
+    {
+        //no-op.
+    }
+
+    public function visitVocabConcept(VocabConcept $vocabConcept)
+    {
+        //no-op.
+    }
+
+    public function visitVocabTerm(VocabTerm $vocabTerm)
+    {
+        //no-op.
+    }
+
+    public function visitVocabTranslation(VocabTranslation $vocabTranslation)
     {
         //no-op.
     }

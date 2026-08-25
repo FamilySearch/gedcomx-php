@@ -33,5 +33,10 @@
 		"psr-4": {
 			"Gedcomx\\Tests\\": "tests/"
 		}
+	},
+	"scripts": {
+		"test": "phpunit",
+		"test:coverage": "phpunit --coverage-html build/coverage",
+		"test:coverage-text": "phpunit --coverage-text"
 	}
 }
